@@ -1,0 +1,167 @@
+/* ==========================================================================
+   Helper Classes
+   ========================================================================== */
+
+/* decrease the font size for sub text */
+.sub {
+    font-size: 0.875em;
+}
+
+.light {
+  color: @gray-80;
+
+    h4,
+    h5,
+    h6 {
+        margin-bottom: .5em;
+        font-size: 1em;
+        .webfont-regular();
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+}
+
+.sub-light {
+    .webfont-regular();
+    color: @gray-80;
+
+    strong {
+        .webfont-demi();
+        color: @gray;
+    }
+
+    p {
+        font-size: 0.75em;
+    }
+
+    h5,
+    h6 {
+        margin-bottom: 0;
+        .webfont-regular();
+    }
+}
+
+/* use sans-serif typeface */
+.sans {
+    .webfont-regular();
+}
+
+/* helper class for demi bold version of web font */
+.demi {
+    .webfont-demi();
+}
+
+.serif {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* minimal bottom margin */
+.tight {
+  margin-bottom: 12px;
+}
+
+/* add a margin above an element */
+.bump {
+  margin-top: 1em;
+}
+
+.l-bump {
+  margin-top: 2em;
+}
+
+/* style for headers used as alerts */
+.alert-header {
+    .webfont-demi();
+    text-transform: uppercase;
+    font-size: 1em;
+
+    &:before {
+        .font-awesome;
+        content: "\f06a";
+    }
+}
+
+// tag styles
+.tags {
+  .reset
+}
+
+.tag {
+  display: inline-block;
+  margin: 0 1em 1em 0;
+  list-style: none;
+}
+
+.tag-link:link,
+.tag-link:visited {
+  display: block;
+  background: @gray-20;
+  color: @black;
+  border-bottom: none;
+  padding: 6px 10px;
+  .webfont-demi();
+}
+
+.tag-link:hover,
+.tag-link:active,
+.tag-link:focus {
+  background: @pacific-20;
+}
+
+// callout container
+.callout {
+  background: @gray-5;
+  border-top: 1px solid @gray-20;
+  padding: 20px;
+}
+
+// info containers have a thin border around them
+.info-container {
+    border: 1px solid @gray-10;
+    padding: 10px;
+}
+
+.placeholder {
+    background: @gray-20;
+    min-height: 200px;
+    line-height: 200px;
+    text-align: center;
+}
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* use group to contain floats */
+.group:before,
+.group:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.group {
+    *zoom: 1;
+}

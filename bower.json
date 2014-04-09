@@ -1,0 +1,33 @@
+{
+  "name": "owning-a-home",
+  "version": "0.0.1",
+  "dependencies": {
+    "font-awesome": "~3.2.1",
+    "html5shiv": "latest",
+    "jquery": "~1.10.1",
+    "normalize-css": "~2.1.2",
+    "cf-buttons": "git://github.com/cfpb/cf-buttons.git",
+    "cf-colors": "git://github.com/cfpb/cf-colors.git",
+    "cf-expandables": "git://github.com/cfpb/cf-expandables.git",
+    "cf-forms": "git://github.com/cfpb/cf-forms.git",
+    "cf-grid": "git://github.com/cfpb/cf-grid.git",
+    "cf-pagination": "git://github.com/cfpb/cf-pagination.git",
+    "cf-typography": "git://github.com/cfpb/cf-typography.git",
+    "cf-icons": "git://github.com/cfpb/cf-icons.git"
+  },
+  "exportsOverride": {
+    "cf-grid": {
+      "less": "src/ghost.less"
+    },
+    "cf-*": {
+      "css": "src/**/*.css",
+      "less": "src/**/*.less",
+      "fonts": "src/fonts/*.*",
+      "js": "src/**/*.js"
+    },
+    "font-awesome": {
+      "css": "css/*.css",
+      "fonts": "font/*.*"
+    }
+  }
+}
