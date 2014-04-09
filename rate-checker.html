@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+
+<!--
+    ===========
+    GLOBAL META
+    ===========
+-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+    ==================
+    PAGE-SPECIFIC META
+    ==================
+-->
+
+<title>Understanding loan types</title>
+<meta name="description" content="Loan Types Sheet Prototype">
+
+<!-- Explicit favicon link needed for testing. Remove for production. -->
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="dist/static/css/main.min.css">
+
+<!--[if lt IE 9]>
+    <script src="vendor/html5shiv/html5shiv.js"></script>
+    <script src="vendor/html5shiv/html5shiv-printshiv.js"></script>
+<![endif]-->
+
+    <script>
+        // Confirm availability of JS and remove no-js class from html
+        var docElement = document.documentElement;
+        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+    </script>
+
+</head>
+
+<body>
+
+<div class="wrap">
+  <div class="wrapper">
+    <div class="col-4">
+      <h1>Understanding loan types</h1>
+    </div>
+
+    <div class="col-8">
+      <p class="sans">The type of mortgage you choose has a big impact on how much you end up paying, both on a monthly basis and in the long term over the life of your loan. Knowing what type of loan is most appropriate for your situation prepares you for talking to lenders and getting the best deal.</p>
+    </div>
+  </div>
+
+    <p class="sans">A loan “type” is actually a combination of several different options:</p>
+
+    <div class="loan-type-equation group">
+        <ul class="loan-type-list">
+            <li><span class="loan-type">Loan <strong class="demi">term</strong></span></li>
+            <li><span class="loan-type">Interest <strong class="demi">rate</strong> structure</span></li>
+            <li><span class="loan-type">Loan <strong class="demi">program</strong></span></li>
+        </ul>
+        <div class="outcome">
+            <span class="symbol">=</span> Loan <strong class="demi">type</strong>
+        </div>
+    </div>
+
+    <section class="type-details">
+
+        <div class="expandable mega-expand">
+            <header class="expandable-header wrapper">
+                <div class="col-4">
+                    <h2 class="sans tight">Loan <strong class="demi">term</strong></h2>
+                    <p class="sub">30 years, 15 years, or other term</p>
+                </div>
+                <div class="col-7">
+                    <p class="tight">The term of your loan is how long it will take to repay the loan.</p>
+
+                    <p class="sub"><strong>This choice affects:</strong> Your monthly payment and how much interest you will pay over the life of the loan.</p>
+                </div>
+                <div class="col-1">
+                    <a href="" class="btn btn-link expandable-button">
+                    <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="expandable-content expandable-hidden wrapper">
+                <div class="light sans col-4">
+                    <h4>Shorter term:</h4>
+                    <ul>
+                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher monthly payments</li>
+                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower total cost</li>
+                    </ul>
+
+                    <h4 class="l-bump">Longer term:</h4>
+                    <ul>
+                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower monthly payments</li>
+                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher total cost</li>
+                    </ul>
+                </div>
+                <div class="expandable-main-content col-8">
+                  <h3>Compare your loan term options:</h3>
+                    <ul class="timeline term-timeline">
+                        <li><a href="#" data-term="10">
+                            <span class="loan-length">10</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                        <li><a href="#" data-term="15">
+                            <span class="loan-length">15</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                        <li><a href="#" data-term="20">
+                            <span class="loan-length">20</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                        <li><a href="#" data-term="25">
+                            <span class="loan-length">25</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                        <li><a href="#" data-term="30" class="current">
+                            <span class="loan-length">30</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                        <li><a href="#" data-term="40">
+                            <span class="loan-length">40</span>
+                            <span class="year">Year</span>
+                        </a></li>
+                    </ul>
+                  <div class="loan-calc sans">
+                    <ul class="loan-details">
+                        <li id="loan-amount" data-amount="200000">For a loan amount of<br>
+                          <input id="loan-amount-value" class="value" value="$200,000"></input>
+                        </li>
+                        <li id="rate-amount" class="bump" data-rate="5">And, an interest rate of<br>
+                          <input id="loan-interest-value" class="value" value="5%"></input>
+                        </li>
+                    </ul>
+                    <ul class="term-output">
+                        <li>
+                            Monthly Payment
+                            <span id="monthly-payment" class="loan-value">$1,073.64</span>
+                        </li>
+                        <li class="l-bump">
+                            Total interest
+                            <span id="total-interest" class="loan-value">$186,511.57</span>
+                        </li>
+                    </ul> <!-- /.term-output -->
+                  </div> <!-- /.loan-calc -->
+
+                    <h3 class="bump">Things to keep in mind:</h3>
+
+                    <p>There two reasons shorter terms can save you money:</p>
+
+                    <ol>
+                      <li>You are borrowing money and paying interest for a shorter amount of time.</li>
+                      <li>The interest rate is usually lower with a shorter term than with a longer term.</li>
+                    </ol>
+
+                    <p>In general, shorter terms will save you money overall, but have higher monthly payments. There is no problem with getting a standard 30 year term, but if you can afford the higher monthly payment, you should consider getting a shorter term. <a href="#">Learn more in this short video.</a></p>
+
+                </div> <!-- /.expandable-main-content -->
+            </div> <!-- /.expandable-content -->
+        </div>
+        <div class="expandable mega-expand">
+            <header class="expandable-header wrapper">
+                <div class="col-4">
+                    <h2 class="sans">Interest <strong class="demi">rate</strong> structure</h2>
+                    <p class="sub">Fixed rate or Adjustable rate mortgage</p>
+                </div>
+                <div class="col-7">
+                    <p class="tight">Interest rates come in two basic types: fixed and adjustable.</p>
+
+                    <p class="sub"><strong>This choice affects:</strong> Whether or not your monthly payment amount can change, the amount of your monthly payment, and how much interest you will pay over the life of the loan.</p>
+
+                </div>
+                <div class="col-1">
+                    <a href="" class="btn btn-link expandable-button">
+                        <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="expandable-content expandable-hidden wrapper">
+
+              <div class="expandable-leadin col-8 push-4">
+              <h3>What are my choices for interest rate structure?</h3>
+
+              <div class="expandable-main-content wrapper">
+
+                <div class="col-6 sans">
+                  <h4>Fixed rate</h4>
+
+                  <div class="light sans">
+                    <ul>
+                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower risk; No suprises</li>
+                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher interest rate</li>
+                      <li><i class="cf-icon cf-icon-error-round"></i> Rate and payments stay the same</li>
+                    </ul>
+                  </div>
+
+                  <div class="why">
+                    <h5>Why might you choose this?</h5>
+                    <ul class="sans sub">
+                      <li>Your rate stays the same throughout the entire life of the loan.</li>
+                      <li>You can calculate the exact amount of interest you will pay overall from day 1 of your loan.</li>
+                    </ul>
+                  </div>
+
+                  <div class="sub-light">
+                    <h6>Since 2008:</h6>
+                    <p class="serif tight">Chosen by <strong>85-90%</strong> of buyers</p>
+
+                    <h6>Historically:</h6>
+                    <p class="serif">Chosen by <strong>70-75%</strong> of buyers</p>
+                  </div>
+                </div>
+
+                <div class="col-6 sans">
+                  <h4>Adjustable rate</h4>
+
+                  <div class="light">
+                    <ul class="rate-list">
+                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher risk; Uncertainty</li>
+                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower interest rate to start</li>
+                      <li><i class="cf-icon cf-icon-error-round"></i> Rate and payments can increase over time</li>
+                    </ul>
+                  </div>
+
+                  <div class="why">
+                    <h5>Why might you choose this?</h5>
+                    <ul class="sans sub">
+                      <li>Your initial rate may be less than a fixed rate mortgage.</li>
+                      <li>After the fixed period, your rate will change not based on you, but on national data and a margin the lender adds.</li>
+                    </ul>
+                  </div>
+
+                  <div class="sub-light">
+                    <h6>Since 2008:</h6>
+                    <p class="serif tight">Chosen by <strong>15-20%</strong> of buyers</p>
+
+                    <h6>Historically:</h6>
+                    <p class="serif">Chosen by <strong>25-30%</strong> of buyers</p>
+                  </div>
+                </div>
+
+              </div> <!-- /.expandable-main-content -->
+
+              <div class="callout">
+                <h4>Understanding ARMs</h4>
+
+                <p>On your Good Faith Estimate (GFE) you will see two numbers:</p>
+
+                <p class="num-demo"><span class="label-1">5</span> / <span class="label-2">1</span> Adjustable Rate</p>
+
+                <ol class="comparison">
+                  <li>
+                    <p class="intro sans">How long your initial interest rate will stay fixed.</p>
+                    <p>Lenders can set this period to whatever they want, but the most common options are 3, 5, 7, or 10 years.</p>
+                  </li>
+                  <li>
+                    <p class="intro sans">How often your rate can change after the fixed period.</p>
+
+                    <p>Most lenders use this 1 year structure, but some offer other options. If your lender offers another option, make sure to read the terms and conditions.</p>
+                  </li>
+                </ol>
+
+                <h5>In this case, a 5/1 adjustable rate means:</h5>
+
+                <ul class="multi-comparison group">
+                  <li>Your initial rate would be fixed for 5 years. </li>
+                  <li>At each one of these yearly intervals you would recieve a new rate.</li>
+                  <li>Your rate will change yearly starting in the 6th year of your mortgage. </li>
+                  <li> Your new rate will be based on the market average, not your personal situation. Learn more </li>
+                </ul>
+              </div>
+
+            </div> <!-- /.group -->
+
+            </div> <!-- /.expandable-content -->
+        </div>
+        <div class="expandable mega-expand">
+            <header class="expandable-header wrapper">
+                <div class="col-4">
+                    <h2 class="sans">Loan <strong class="demi">program</strong></h2>
+                    <p class="sub">Conventional, FHA, or Special programs</p>
+                </div>
+                <div class="col-7">
+                    <p class="tight">Loan options are organized into broad categories based on the size of the loan and whether or not they are part of a government program.</p>
+
+                    <p class="sub"><strong>This choice affects:</strong> How much you will need for a down payment, the total cost of your loan (including interest and mortgage insurance), the house price range you can consider.</p>
+                </div>
+                <div class="col-1">
+                    <a href="" class="btn btn-link expandable-button">
+                        <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="expandable-content expandable-hidden wrapper">
+
+              <div class="push-wrap col-12">
+
+               <div class="expandable-push col-8 push-4">
+
+                <h3>What should you expect in a loan program?</h3>
+
+                <p>Many times the loan program is chosen for you based on the size of your loan, how much downpayment you plan to put down, and if you are a veteran. Ask lenders to give you multiple quotes so you can compare different options.</p>
+
+                <h4 class="subhead light"><em class="subhead-em">Quick links</em> — Do you qualify for any of these options?</h4>
+
+                <ul class="tags">
+                  <li class="tag"><a class="tag-link" href="#va">Veteran or Active Millitary</a></li>
+                  <li class="tag"><a class="tag-link" href="#usda">Live in a rural area</a></li>
+                  <li class="tag"><a class="tag-link" href="#fha">Have less than 20% downpayment</a></li>
+                </ul>
+
+                <section class="expandable-section sans">
+
+                  <section id="conventional" class="expandable-subsection wrapper">
+                  <div class="expandable-section-header col-4">
+                    <h4>Conventional loan</h4>
+                  </div> <!-- /.expandable-section-header -->
+                  <div class="expandable-section-content col-8">
+                    <p>Conventional loans generally have lower costs than FHA loans, but they require higher down payments and have stricter standards for approving loans.</p>
+
+                    <ul class="sub-light comparison">
+                      <li>
+                        <h6>Since 2008:</h6>
+                        <p>Chosen by 65-70% of buyers</p>
+                      </li>
+                      <li>
+                        <h6>Historically</h6>
+                        <p>Chosen by 85-90% of buyers</p>
+                      </li>
+                    </ul>
+
+                    <h5 class="expandable-subsection-title">Conforming</h5>
+                    <p>Loan amount must be less than $417k. If your down payment is less than 20%, you will typically need to pay for private mortgage insurance.</p>
+
+                    <h5 class="expandable-subsection-title">Agency Jumbo</h5>
+                    <p>For loans more than $417k. Only available in certain counties, the maximum loan amount varies by county.</p>
+
+                    <h5 class="expandable-subsection-title">Nonconforming Jumbo</h5>
+                    <p>For loan amounts greater than the Agency Jumbo limit, this is the only option. Eligibility rules may vary from lender to lender.  Good credit and high down payments are usually required.</p>
+
+                    <p class="light">While most conventional loans will fall into one of these three categories, lenders are not required to stick to these categories, so shop carefully.</p>
+                  </div> <!-- /.expandable-section-content -->
+                </section> <!-- /.expandable-subsection -->
+
+                  <section id="fha" class="expandable-subsection wrapper">
+                    <div class="expandable-section-header col-4">
+                      <h4>FHA loan</h4>
+                    </div> <!-- /.expandable-section-header -->
+                    <div class="expandable-section-content col-8">
+                      <p>The Federal Housing Administration (FHA) operates a mortgage program for borrowers with less cash for a downpayment or lower credit scores.  The FHA doesn’t lend the money directly — private lenders do — but it provides insurance to the lender in case the borrower defaults on the mortgage.</p>
+
+                      <p>FHA loans allow for down payments as low as 3.5%, but charge relatively high premiums for mortgage insurance.  </p>
+
+                      <ul class="sub-light comparison">
+                        <li>
+                          <h6>Since 2008:</h6>
+                          <p>Chosen by 65-70% of buyers</p>
+                        </li>
+                        <li>
+                          <h6>Historically</h6>
+                          <p>Chosen by 85-90% of buyers</p>
+                        </li>
+                      </ul>
+
+                    </div> <!-- /.expandable-section-content -->
+                </section> <!-- /.expandable-subsection -->
+
+                <section id="va" class="expandable-subsection wrapper">
+                  <div class="expandable-section-header col-4">
+                    <h4>VA loan</h4>
+                  </div> <!-- /.expandable-section-header -->
+                  <div class="expandable-section-content col-8">
+                    <p>VA loans are only available to veterans, surviving spouses, and active duty military members. If necessary, you can make zero down payment; it is also somewhat subsidized by the VA so will typically be cheaper than an FHA loan. </p>
+
+                  </div> <!-- /.expandable-section-content -->
+                </section> <!-- /.expandable-subsection -->
+
+                <section id="usda" class="expandable-subsection wrapper">
+                  <div class="expandable-section-header col-4">
+                    <h4>USDA loan</h4>
+                      <p class="sub-light">Also known as a Rural Development loan</p>
+                  </div> <!-- /.expandable-section-header -->
+                  <div class="expandable-section-content col-8">
+                    <p>USDA loans are only available in rural areas. Targeted to low/mod income folks.  I think the selling point vs FHA/convention is just that it can sometimes be quite hard to qualify for an FHA/conventional loan in deeply rural areas,  so this is an effort to expand access to credit in rural areas.</p>
+                  </div> <!-- /.expandable-section-content -->
+                </section> <!-- /.expandable-subsection -->
+
+                <section id="local" class="expandable-subsection wrapper">
+                  <div class="expandable-section-header col-4">
+                    <h4>State and local programs</h4>
+                  </div> <!-- /.expandable-section-header -->
+                  <div class="expandable-section-content col-8">
+                    <p>Targeted to low/mod income folks and first time homebuyers.  Many of these programs would work in conjunction with an FHA/conventional loan. Offered by state housing finance agencies, local nonprofits, etc. </p>
+                  </div> <!-- /.expandable-section-content -->
+                </section> <!-- /.expandable-subsection -->
+
+                </section> <!-- /.expandable-section -->
+
+
+              </div> <!-- /.expandable-push -->
+
+            </div> <!-- /.push-wrap -->
+            <section class="expandable-subsection wrapper">
+            <div class="col-4">
+              <h3>Understanding mortgage insurance</h3>
+            </div>
+
+            <div class="col-8 sans">
+              <p>Mortgage insurance is typically required if your downpayment is less than 20% of the appraised value of your home.  Mortgage insurance will increase the cost of your loan, so make sure to factor in this cost when comparing options.</p>
+
+              <p>Mortgage insurance — whether FHA or private — protects the lender in the event that you fall behind on your payments.  It does not protect you. Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time.</p>
+
+              <p>Want to know more about mortgage insurance? Learn more at Ask CFPB</p>
+            </div>
+          </section> <!-- /.expandable-subsection -->
+
+
+
+            </div> <!-- /.expandable-content -->
+        </div> <!-- /.expandable -->
+    </section> <!-- END .type-details -->
+
+
+</div><!-- END .wrapper -->
+
+
+<script src="dist/static/js/main.js"></script>
+
+</body>
+
+</html>
