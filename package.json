@@ -60,5 +60,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "accounting": "^0.3.2",
+    "financial": "0.0.4"
   }
 }
