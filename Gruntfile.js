@@ -67,6 +67,8 @@ module.exports = function(grunt) {
       main: {
         options: {
           paths: grunt.file.expand('src/vendor/**/'),
+          sourceMap: true,
+          sourceMapRootpath: '/'
         },
         files: {
           'src/static/css/main.css': ['src/static/css/main.less']
@@ -152,8 +154,7 @@ module.exports = function(grunt) {
     autoprefixer: {
       options: {
         // Options we might want to enable in the future.
-        diff: false,
-        map: false
+        diff: false
       },
       multiple_files: {
         // Prefix all CSS files found in `src/static/css` and overwrite.
@@ -262,10 +263,9 @@ module.exports = function(grunt) {
 
               // Don't bring over everything in static/
               '!static/**',
-              // Only include minified assets in css/ and js/
-              'static/css/*.min.css',
+              'static/css/*.css',
+              'static/js/*.js',
               'static/js/html5shiv-printshiv.js',
-              'static/js/*.min.js',
               'static/fonts/**',
 
               // Exclude all vendor files because a lot will get concatenated
@@ -360,7 +360,7 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= jasmine.options.specs %>'],
-        tasks: ['less', 'cssmin', 'browserify']
+        tasks: ['dist', 'compile']
       }
     }
   });
