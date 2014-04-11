@@ -39,3 +39,4 @@ Thumbs.db
 # Capital Framework #
 #####################
 src/vendor
+src/static/fonts
