@@ -33,8 +33,6 @@ $(document).ready(function() {
         // parseFloat to ingnore % signs
         loanRate = parseFloat($('#loan-interest-value').val());
 
-        console.log(loanRate);
-
     // convert a currency string to an integer
     loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,""));
 
