@@ -1,7 +1,7 @@
 var $ = require('jquery');
 module.exports = window.jQuery;
-var Payment = require('./payment-calc');
-var TotalInterest = require('./total-interest-calc');
+var Payment = require('./module/payment-calc');
+var TotalInterest = require('./module/total-interest-calc');
 
 $(document).ready(function() {
 
