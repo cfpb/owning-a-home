@@ -34,7 +34,7 @@ $(document).ready(function() {
         loanRate = parseFloat($('#loan-interest-value').val());
 
     // convert a currency string to an integer
-    loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,""));
+    loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
 
     // perform calculations
     var monthlyPayment = Payment(loanRate, termLength, loanAmt),
