@@ -3,8 +3,6 @@ module.exports = window.jQuery;
 var Payment = require('./payment-calc');
 var TotalInterest = require('./total-interest-calc');
 
-
-// This is a hot mess
 $(document).ready(function() {
 
   'use strict';
