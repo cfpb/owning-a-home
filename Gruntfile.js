@@ -47,15 +47,6 @@ module.exports = function(grunt) {
         src: ['src/vendor/fj-*/*.less', 'src/vendor/cf-*/*.less'],
         dest: 'src/vendor/cf-concat/cf.less',
       },
-      bodyScripts: {
-        src: [
-          'src/vendor/jquery/jquery.js',
-          'src/vendor/fj-*/*.js',
-          'src/vendor/cf-*/*.js',
-          'src/static/js/app.js'
-        ],
-        dest: 'src/static/js/main.js'
-      }
     },
 
     /**
@@ -166,7 +157,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/static/js/main.js': ['src/static/js/*.js', 'src/vendor/cf-expandables/cf-expandables.js'],
+          'src/static/js/main.js': ['src/static/js/app.js', 'src/static/js/module/*.js', 'src/vendor/cf-expandables/cf-expandables.js'],
         },
         options: {
           shim: {
@@ -397,8 +388,8 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('default', ['less', 'cssmin', 'browserify']);
-  grunt.registerTask('compile', ['less', 'string-replace:vendor', 'autoprefixer', 'concat:bodyScripts']);
-  grunt.registerTask('dist', ['cssmin', 'browserify', 'usebanner', 'clean:dist', 'copy:dist']);
+  grunt.registerTask('compile', ['less', 'browserify', 'string-replace:vendor', 'autoprefixer']);
+  grunt.registerTask('dist', ['cssmin', 'usebanner', 'clean:dist', 'copy:dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
 
 };
