@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "grunt": "latest",
-    "grunt-autoprefixer": "latest",
+    "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-requirejs": "~0.7.1",
     "grunt-bower-task": "~0.3.2",
@@ -43,7 +43,7 @@
     "grunt-contrib-jasmine": "~0.4.2",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-jst": "~0.5.1",
-    "grunt-contrib-less": "~0.6.0",
+    "grunt-contrib-less": "~0.11.0",
     "grunt-contrib-requirejs": "~0.4.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
@@ -60,5 +60,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "financial": "0.0.4",
+    "accounting": "~0.3.2"
   }
 }

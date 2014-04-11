@@ -5,7 +5,7 @@
     "font-awesome": "~3.2.1",
     "html5shiv": "latest",
     "jquery": "~1.10.1",
-    "normalize-css": "~2.1.2",
+    "normalize-css": "~3.0.1",
     "cf-buttons": "git://github.com/cfpb/cf-buttons.git",
     "cf-colors": "git://github.com/cfpb/cf-colors.git",
     "cf-expandables": "git://github.com/cfpb/cf-expandables.git",

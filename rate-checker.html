@@ -27,7 +27,7 @@
 
 <!-- Explicit favicon link needed for testing. Remove for production. -->
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-<link rel="stylesheet" href="dist/static/css/main.min.css">
+<link rel="stylesheet" href="dist/static/css/main.css">
 
 <!--[if lt IE 9]>
     <script src="vendor/html5shiv/html5shiv.js"></script>
@@ -44,7 +44,7 @@
 
 <body>
 
-<div class="wrap">
+<div class="wrap rate-checker">
 
   <div class="wrapper">
 
@@ -121,80 +121,79 @@
 
       <section class="credit-score wrapper">
 
-        <label for="range">Credit Score Range</label>
-        <input type="range" id="range" min="0" max="10" step="1" value="6">
-        <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
+        <div class="col-12">
+
+          <label for="range">Credit Score Range</label>
+          <input type="range" id="range" min="0" max="10" step="1" value="6">
+          <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
+
+        </div>
 
       </section>
 
       <section class="demographics wrapper">
 
-        <div class="col-6">
-          <label for="location">Location</label>
-          <select name="location" id="location">
-            <option value="CO">Colorado</option>
-            <option value="">other options...</option>
-          </select>
-        </div>
 
-        <div class="col-6">
-          Where do you want to buy a home?
-        </div>
 
-      </section>
+          <div class="col-6">
+            <label for="location">Location</label>
+            <select name="location" id="location">
+              <option value="CO">Colorado</option>
+              <option value="">other options...</option>
+            </select>
+          </div>
 
-      <section class="loan-type wrapper">
+          <div class="col-6">
+            Where do you want to buy a home?
+          </div>
 
-        <div class="col-6">
-          <label for="loan-type">Loan Type</label>
-          <select name="loan-type" id="loan-type">
-            <option value="30">30 Year Fixed</option>
-            <option value="">other options...</option>
-          </select>
-        </div>
 
-        <div class="col-6">
-          Loan types are made up of 3 parts. <a href="#">Learn more</a>
-        </div>
 
-      </section>
+          <div class="col-6">
+            <label for="loan-type">Loan Type</label>
+            <select name="loan-type" id="loan-type">
+              <option value="30">30 Year Fixed</option>
+              <option value="">other options...</option>
+            </select>
+          </div>
 
-      <section class="loan-type wrapper">
+          <div class="col-6">
+            Loan types are made up of 3 parts. <a href="#">Learn more</a>
+          </div>
 
-        <div class="col-6">
-          <label for="house-price">House Price</label>
-          <input type="number" placeholder="400,000" name="house-price" id="house-price">
-        </div>
 
-        <div class="col-6">
-          How much does your new home cost?
-        </div>
 
-      </section>
+          <div class="col-6">
+            <label for="house-price">House Price</label>
+            <input type="number" placeholder="400,000" name="house-price" id="house-price">
+          </div>
 
-      <section class="down-payment wrapper">
+          <div class="col-6">
+            How much does your new home cost?
+          </div>
 
-        <div class="col-6">
-          <label for="down-payment">Down Payment</label>
-          <input type="number" placeholder="20,000" name="down-payment" id="down-payment">
-        </div>
 
-        <div class="col-6">
-          How much do you have to put down on a home?
-        </div>
+          <div class="col-6">
+            <label for="down-payment">Down Payment</label>
+            <input type="number" placeholder="20,000" name="down-payment" id="down-payment">
+          </div>
 
-      </section>
+          <div class="col-6">
+            How much do you have to put down on a home?
+          </div>
 
-      <section class="loan-amount wrapper">
 
-        <div class="col-6">
-          <label for="loan-amount">Loan Amount</label>
-          <span class="result">$380,000</span>
-        </div>
 
-        <div class="col-6">
-          This is the resulting math form the above two inputs.
-        </div>
+          <div class="col-6">
+            <label for="loan-amount">Loan Amount</label>
+            <span class="result">$380,000</span>
+          </div>
+
+          <div class="col-6">
+            This is the resulting math form the above two inputs.
+          </div>
+
+
 
       </section>
 
