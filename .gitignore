@@ -40,3 +40,4 @@ Thumbs.db
 #####################
 src/vendor
 src/static/fonts
+src/dist/fonts
