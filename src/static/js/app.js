@@ -36,6 +36,9 @@ $(document).ready(function() {
     // convert a currency string to an integer
     loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
 
+    // convert the term length to months
+    termLength = termLength * 12;
+
     // perform calculations
     var monthlyPayment = Payment(loanRate, termLength, loanAmt),
         totalInterest = TotalInterest(loanRate, termLength, loanAmt, 1, termLength, 0);
@@ -47,3 +50,5 @@ $(document).ready(function() {
   };
 
 });
+
+//test
