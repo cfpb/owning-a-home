@@ -19,12 +19,6 @@ $(document).ready(function() {
     $(this).addClass('current');
 
     loanToggle();
-
-  });
-
-  // update values on keyup
-  $('.value').keyup(function(event) {
-    loanToggle();
   });
 
   var loanToggle = function() {
@@ -34,8 +28,6 @@ $(document).ready(function() {
         loanAmt = $('#loan-amount-value').val(),
         // parseFloat to ingnore % signs
         loanRate = parseFloat($('#loan-interest-value').val());
-
-        console.log(loanRate);
 
     // convert a currency string to an integer
     loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,""));
@@ -49,5 +41,8 @@ $(document).ready(function() {
     $('#total-interest').html(totalInterest);
 
   };
+
+  // update values on keyup
+  $('.value').keyup(loanToggle);
 
 });
