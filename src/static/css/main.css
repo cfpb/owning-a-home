@@ -172,7 +172,6 @@ figure {
  */
 hr {
   -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -279,8 +278,6 @@ input {
  */
 input[type="checkbox"],
 input[type="radio"] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* 1 */
   padding: 0;
@@ -391,8 +388,8 @@ th {
 }
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=3.2.1");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=3.2.1") format('embedded-opentype'), url("../fonts/fontawesome-webfont.woff?v=3.2.1") format('woff'), url("../fonts/fontawesome-webfont.ttf?v=3.2.1") format('truetype'), url("../fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1") format('svg');
+  src: url('../fonts/fontawesome-webfont.eot?v=3.2.1');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=3.2.1') format('truetype'), url('../fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -425,8 +422,8 @@ th {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=3.2.1");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=3.2.1") format('embedded-opentype'), url("../fonts/fontawesome-webfont.woff?v=3.2.1") format('woff'), url("../fonts/fontawesome-webfont.ttf?v=3.2.1") format('truetype'), url("../fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1") format('svg');
+  src: url('../font/fontawesome-webfont.eot?v=3.2.1');
+  src: url('../font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('../font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('../font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'), url('../font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -499,6 +496,8 @@ a [class*=" icon-"] {
 .icon-border {
   border: solid 1px #eeeeee;
   padding: .2em .25em .15em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 }
 .icon-2x {
@@ -506,6 +505,8 @@ a [class*=" icon-"] {
 }
 .icon-2x.icon-border {
   border-width: 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
   border-radius: 4px;
 }
 .icon-3x {
@@ -513,6 +514,8 @@ a [class*=" icon-"] {
 }
 .icon-3x.icon-border {
   border-width: 3px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .icon-4x {
@@ -520,6 +523,8 @@ a [class*=" icon-"] {
 }
 .icon-4x.icon-border {
   border-width: 4px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
   border-radius: 6px;
 }
 .icon-5x {
@@ -527,6 +532,8 @@ a [class*=" icon-"] {
 }
 .icon-5x.icon-border {
   border-width: 5px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 .pull-right {
@@ -665,6 +672,8 @@ a [class*=" icon-"] {
 /* Animated rotating icon */
 .icon-spin {
   display: inline-block;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
   -webkit-animation: spin 2s infinite linear;
   animation: spin 2s infinite linear;
 }
@@ -674,12 +683,28 @@ a .icon-spin {
   display: inline-block;
   text-decoration: none;
 }
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
   }
   100% {
     -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
   }
 }
 @-ms-keyframes spin {
@@ -692,43 +717,49 @@ a .icon-spin {
 }
 @keyframes spin {
   0% {
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
-    -ms-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 /* Icon rotations and mirroring */
 .icon-rotate-90:before {
   -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
   transform: rotate(90deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 }
 .icon-rotate-180:before {
   -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
   transform: rotate(180deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 }
 .icon-rotate-270:before {
   -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
   transform: rotate(270deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 .icon-flip-horizontal:before {
   -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 .icon-flip-vertical:before {
   -webkit-transform: scale(1, -1);
+  -moz-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 /* ensure rotation occurs inside anchor tags */
@@ -1890,8 +1921,6 @@ a .icon-flip-vertical:before {
 .btn:link,
 .btn:visited {
   display: inline-block;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0.64285714em 1em;
   border: 0;
@@ -1907,7 +1936,6 @@ a .icon-flip-vertical:before {
   line-height: normal;
   text-decoration: none;
   cursor: pointer;
-  -webkit-transition: .1s;
   transition: .1s;
   -webkit-appearance: none;
 }
@@ -2511,6 +2539,8 @@ textarea {
   font-size: 1em;
   background: #ffffff;
   border: 1px solid #75787b;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
   border-radius: 0;
   vertical-align: top;
   -webkit-appearance: none;
@@ -2591,8 +2621,8 @@ textarea + [class^="icon-"] {
 */
 @font-face {
   font-family: 'CFPB Minicons';
-  src: url("../fonts/cf-icons.eot");
-  src: url("../fonts/cf-icons.eot?#iefix") format('embedded-opentype'), url("../fonts/cf-icons.woff") format('woff'), url("../fonts/cf-icons.ttf") format('truetype'), url("../fonts/cf-icons.svg") format('svg');
+  src: url('../fonts/cf-icons.eot');
+  src: url('../fonts/cf-icons.eot?#iefix') format('embedded-opentype'), url('../fonts/cf-icons.woff') format('woff'), url('../fonts/cf-icons.ttf') format('truetype'), url('../fonts/cf-icons.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
