@@ -535,8 +535,6 @@ $(document).ready(function() {
   };
 
 });
-
-//test
 },{"./module/payment-calc":5,"./module/total-interest-calc":6,"jquery":"ugmTS4"}],4:[function(require,module,exports){
 var Money = require('accounting');
 
