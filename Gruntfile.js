@@ -313,23 +313,24 @@ module.exports = function(grunt) {
       all: ['src/static/js/main.js']
     },
 
-    /**
-     * Jasmine: https://github.com/gruntjs/grunt-contrib-jasmine
-     *
-     * Run jasmine specs headlessly through PhantomJS.
-     * jQuery and Jasmine jQuery is included for your pleasure: https://github.com/velesin/jasmine-jquery
-     */
-    jasmine: {
-      src: '<%= uglify.dist.src %>',
-      options: {
-        specs: 'specs/js/*.js',
-        vendor: [
-          'specs/js/vendor/*.js'
-        ],
-        helpers: [
-          'specs/js/helpers/*.js'
-        ]
+    // run the mocha tests
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/**/*.js']
       }
+    },
+
+    // start a simple http server
+    connect: {
+      server: {
+        options: {
+          port: 3000,
+          keepalive: true
+        }
+      },
     },
 
     /**
@@ -370,11 +371,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  // grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   // grunt.loadNpmTasks('grunt-contrib-htmlmin');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -387,6 +387,7 @@ module.exports = function(grunt) {
   // grunt.loadNpmTasks('grunt-saucelabs');
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   /**
    * Create custom task aliases and combinations
