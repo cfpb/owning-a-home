@@ -125,7 +125,7 @@
 
           <label for="range">Credit Score Range</label>
           <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
-          <div id="slider"></div>
+          <div id="slider" class="recalc"></div>
           <div id="slider-range"></div>
           <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
 
@@ -192,7 +192,7 @@
             <option value="Puerto Rico">Puerto Rico</option>
           </select>
         </div>
-        <div class="col-6">
+        <div class="col-6 help">
           Where do you want to buy a home?
         </div>
 
@@ -201,9 +201,12 @@
           <select name="loan-type" class="recalc" id="loan-type">
             <option value="30 Year Fixed">30 Year Fixed</option>
             <option value="15 Year Fixed">15 Year Fixed</option>
+            <option value="10/1 ARM">10/1 ARM</option>
+            <option value="7/1 ARM">7/1 ARM</option>
+            <option value="5/1 ARM">5/1 ARM</option>
           </select>
         </div>
-        <div class="col-6">
+        <div class="col-6 help">
           Loan types are made up of 3 parts. <a href="#">Learn more</a>
         </div>
 
@@ -211,7 +214,7 @@
           <label for="house-price">House Price</label>
           <input type="number" placeholder="400,000" name="house-price" class="recalc" id="house-price">
         </div>
-        <div class="col-6">
+        <div class="col-6 help">
           How much does your new home cost?
         </div>
 
@@ -219,7 +222,7 @@
           <label for="down-payment">Down Payment</label>
           <input type="number" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
         </div>
-        <div class="col-6">
+        <div class="col-6 help">
           How much do you have to put down on a home?
         </div>
 
@@ -227,7 +230,7 @@
           <label for="loan-amount">Loan Amount</label>
           <span id="loan-amount-result">$380,000</span>
         </div>
-        <div class="col-6">
+        <div class="col-6 help">
           This is the resulting math form the above two inputs.
         </div>
 
