@@ -8,7 +8,7 @@ var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 
-// This is a temporary function that generates fake data in 
+// This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
 var mock = function() {
   var data = {},
@@ -113,35 +113,37 @@ $(function() {
   };
 
   var data = getData();
-  
+
   // chart time
-  $('#chart').highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: ''
-    },
-    xAxis: {
-      title: {
-        text: 'Rates Available Today'
+  if ($('#chart').length > 0) {
+    $('#chart').highcharts({
+      chart: {
+        type: 'column'
       },
-      categories: data.labels
-    },
-    yAxis: {
       title: {
-        text: 'Number of Lenders'
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'Rates Available Today'
+        },
+        categories: data.labels
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Lenders'
+        }
+      },
+      series: [{
+        name: 'Number of Lenders',
+        data: data.vals,
+        showInLegend: false
+      }],
+      credits: {
+        text: ''
       }
-    },
-    series: [{
-      name: 'Number of Lenders',
-      data: data.vals,
-      showInLegend: false
-    }],
-    credits: {
-      text: ''
-    }
-  });
+    });
+  }
 
   // update the view
   var renderView = function() {
