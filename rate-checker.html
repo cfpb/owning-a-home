@@ -50,7 +50,7 @@
 
     <div class="result col-8">
 
-      <h1>In Colorado, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
+      <h1>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
 
       <section class="chart wrapper">
 
@@ -60,7 +60,7 @@
         </div>
 
         <div class="col-9">
-          <img src="http://placehold.it/400x300&text=this is a chart." alt="">
+          <div id="chart" class="chart-area"></div>
         </div>
 
       </section>
@@ -124,7 +124,9 @@
         <div class="col-12">
 
           <label for="range">Credit Score Range</label>
-          <input type="range" id="range" min="0" max="10" step="1" value="6">
+          <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
+          <div id="slider"></div>
+          <div id="slider-range"></div>
           <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
 
         </div>
@@ -133,51 +135,101 @@
 
       <section class="demographics wrapper">
 
-          <div class="col-6">
-            <label for="location">Location</label>
-            <select name="location" id="location">
-              <option value="CO">Colorado</option>
-              <option value="">other options...</option>
-            </select>
-          </div>
-          <div class="col-6">
-            Where do you want to buy a home?
-          </div>
+        <div class="col-6">
+          <label for="location">Location</label>
+          <select name="location" class="recalc" id="location">
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Connecticut">Connecticut</option>
+            <option value="Delaware">Delaware</option>
+            <option value="District of Columbia">District of Columbia</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Maine">Maine</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Montana">Montana</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New Hampshire">New Hampshire</option>
+            <option value="New Jersey">New Jersey</option>
+            <option value="New Mexico">New Mexico</option>
+            <option value="New York">New York</option>
+            <option value="North Carolina">North Carolina</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode Island">Rhode Island</option>
+            <option value="South Carolina">South Carolina</option>
+            <option value="South Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Washington">Washington</option>
+            <option value="West Virginia">West Virginia</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Wyoming">Wyoming</option>
+            <option value="Puerto Rico">Puerto Rico</option>
+          </select>
+        </div>
+        <div class="col-6">
+          Where do you want to buy a home?
+        </div>
 
-          <div class="col-6">
-            <label for="loan-type">Loan Type</label>
-            <select name="loan-type" id="loan-type">
-              <option value="30">30 Year Fixed</option>
-              <option value="">other options...</option>
-            </select>
-          </div>
-          <div class="col-6">
-            Loan types are made up of 3 parts. <a href="#">Learn more</a>
-          </div>
+        <div class="col-6">
+          <label for="loan-type">Loan Type</label>
+          <select name="loan-type" class="recalc" id="loan-type">
+            <option value="30 Year Fixed">30 Year Fixed</option>
+            <option value="15 Year Fixed">15 Year Fixed</option>
+          </select>
+        </div>
+        <div class="col-6">
+          Loan types are made up of 3 parts. <a href="#">Learn more</a>
+        </div>
 
-          <div class="col-6">
-            <label for="house-price">House Price</label>
-            <input type="number" placeholder="400,000" name="house-price" id="house-price">
-          </div>
-          <div class="col-6">
-            How much does your new home cost?
-          </div>
+        <div class="col-6">
+          <label for="house-price">House Price</label>
+          <input type="number" placeholder="400,000" name="house-price" class="recalc" id="house-price">
+        </div>
+        <div class="col-6">
+          How much does your new home cost?
+        </div>
 
-          <div class="col-6">
-            <label for="down-payment">Down Payment</label>
-            <input type="number" placeholder="20,000" name="down-payment" id="down-payment">
-          </div>
-          <div class="col-6">
-            How much do you have to put down on a home?
-          </div>
+        <div class="col-6">
+          <label for="down-payment">Down Payment</label>
+          <input type="number" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
+        </div>
+        <div class="col-6">
+          How much do you have to put down on a home?
+        </div>
 
-          <div class="col-6">
-            <label for="loan-amount">Loan Amount</label>
-            <span class="result">$380,000</span>
-          </div>
-          <div class="col-6">
-            This is the resulting math form the above two inputs.
-          </div>
+        <div class="col-6">
+          <label for="loan-amount">Loan Amount</label>
+          <span id="loan-amount-result">$380,000</span>
+        </div>
+        <div class="col-6">
+          This is the resulting math form the above two inputs.
+        </div>
 
       </section>
 
