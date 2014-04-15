@@ -61,6 +61,8 @@
   "keywords": [],
   "dependencies": {
     "financial": "0.0.4",
-    "accounting": "~0.3.2"
+    "accounting": "~0.3.2",
+    "debounce": "0.0.3",
+    "jquery-ui": "~1.10.5"
   }
 }
