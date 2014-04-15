@@ -71,7 +71,7 @@
     "loan-calc": "https://github.com/ascott1/loan-calc/tarball/master"
   },
   "testling": {
-    "files": "test/js/*.js",
+    "files": "test/js/compuled_tests.js",
     "browsers": [
       "ie/6..latest",
       "chrome/22..latest",
@@ -81,6 +81,7 @@
       "iphone/6",
       "ipad/6",
       "android-browser/latest"
-    ]
+    ],
+    "harness" : "mocha",
   }
 }
