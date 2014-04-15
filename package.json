@@ -71,11 +71,11 @@
     "loan-calc": "https://github.com/ascott1/loan-calc/tarball/master"
   },
   "testling": {
-    "files": "test/js/compuled_tests.js",
+    "files": "test/js/compiled_tests.js",
     "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
+      "ie/7..latest",
+      "chrome/25..latest",
+      "firefox/19..latest",
       "safari/latest",
       "opera/11.0..latest",
       "iphone/6",
