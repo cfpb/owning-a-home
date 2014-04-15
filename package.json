@@ -82,6 +82,6 @@
       "ipad/6",
       "android-browser/latest"
     ],
-    "harness" : "mocha",
+    "harness" : "mocha"
   }
 }
