@@ -51,6 +51,7 @@
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
     "grunt-docco": "~0.2.0",
+    "grunt-mocha-phantomjs": "^0.4.3",
     "grunt-mocha-test": "^0.10.2",
     "grunt-notify": "~0.2.4",
     "grunt-release": "latest",
