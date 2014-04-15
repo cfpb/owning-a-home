@@ -322,12 +322,22 @@ module.exports = function(grunt) {
     },
 
     // run the mocha tests
-    mochaTest: {
+    'mochaTest': {
       test: {
         options: {
           reporter: 'spec'
         },
         src: ['test/**/*.js']
+      }
+    },
+
+    'mocha_phantomjs': {
+      all: {
+        options: {
+          urls: [
+            'http://127.0.0.1:3000/test/index.html'
+          ]
+        }
       }
     },
 
@@ -396,6 +406,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
   /**
    * Create custom task aliases and combinations
