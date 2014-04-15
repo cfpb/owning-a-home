@@ -327,7 +327,7 @@ module.exports = function(grunt) {
         options: {
           reporter: 'spec'
         },
-        src: ['test/**/*.js']
+        src: ['test/js/*.js']
       }
     },
 
@@ -414,6 +414,7 @@ module.exports = function(grunt) {
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('compile', ['less', 'browserify', 'string-replace:vendor', 'autoprefixer']);
   grunt.registerTask('dist', ['cssmin', 'usebanner', 'clean:dist', 'copy:dist']);
+  grunt.registerTask('test', ['mochaTest', 'mocha_phantomjs']);
   grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
 

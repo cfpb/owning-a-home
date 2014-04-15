@@ -25,7 +25,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt jasmine"
+    "test": "grunt test"
   },
   "devDependencies": {
     "browserify": "~3.28.2",
@@ -71,7 +71,7 @@
     "loan-calc": "https://github.com/ascott1/loan-calc/tarball/master"
   },
   "testling": {
-    "files": "test/js/compiled_tests.js",
+    "files": "test/js/*.js",
     "browsers": [
       "ie/7..latest",
       "chrome/25..latest",
