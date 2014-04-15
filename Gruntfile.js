@@ -164,6 +164,10 @@ module.exports = function(grunt) {
             jquery: {
               path: 'src/vendor/jquery/jquery.js',
               exports: '$'
+            },
+            highcharts: {
+              path: 'src/vendor/highcharts-release/highcharts.js',
+              exports: 'highcharts'
             }
           }
         }
@@ -258,6 +262,7 @@ module.exports = function(grunt) {
               'static/js/*.js',
               'static/js/html5shiv-printshiv.js',
               'static/fonts/**',
+              'static/mock-data/**',
 
               // Exclude all vendor files because a lot will get concatenated
               '!vendor/**',
@@ -351,7 +356,7 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= jasmine.options.specs %>'],
-        tasks: ['dist', 'compile']
+        tasks: ['compile', 'dist']
       }
     }
   });
@@ -387,9 +392,9 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('default', ['less', 'cssmin', 'browserify']);
   grunt.registerTask('compile', ['less', 'browserify', 'string-replace:vendor', 'autoprefixer']);
   grunt.registerTask('dist', ['cssmin', 'usebanner', 'clean:dist', 'copy:dist']);
+  grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
 
 };
