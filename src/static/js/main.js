@@ -356,7 +356,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"qLD6Lo"}],3:[function(require,module,exports){
+},{"jquery":"ugmTS4"}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -530,7 +530,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":"qLD6Lo"}],4:[function(require,module,exports){
+},{"./widget":5,"jquery":"ugmTS4"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1213,7 +1213,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":"qLD6Lo"}],5:[function(require,module,exports){
+},{"./core":2,"./mouse":3,"./widget":5,"jquery":"ugmTS4"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1738,7 +1738,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"qLD6Lo"}],6:[function(require,module,exports){
+},{"jquery":"ugmTS4"}],6:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -2004,7 +2004,7 @@ $(function() {
   });
 
 });
-},{"./modules/format-usd":8,"./modules/payment-calc":9,"./modules/total-interest-calc":10,"./modules/unformat-usd":11,"debounce":1,"highcharts":"WjdicM","jquery":"qLD6Lo","jquery-ui/slider":4}],8:[function(require,module,exports){
+},{"./modules/format-usd":8,"./modules/payment-calc":9,"./modules/total-interest-calc":10,"./modules/unformat-usd":11,"debounce":1,"highcharts":"55mbNU","jquery":"ugmTS4","jquery-ui/slider":4}],8:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -2079,9 +2079,7 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
-},{}],"WjdicM":[function(require,module,exports){
+},{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
@@ -2389,7 +2387,11 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"qLD6Lo":[function(require,module,exports){
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('55mbNU');
+},{}],"jquery":[function(require,module,exports){
+module.exports=require('ugmTS4');
+},{}],"ugmTS4":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12187,6 +12189,4 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"jquery":[function(require,module,exports){
-module.exports=require('qLD6Lo');
 },{}]},{},[7,12])
