@@ -374,7 +374,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= jasmine.options.specs %>'],
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= mochaTest.test.src %>'],
         tasks: ['compile', 'dist']
       }
     }
@@ -386,7 +386,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-cfpb-internal');
+  // grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
