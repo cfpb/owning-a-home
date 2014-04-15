@@ -1820,7 +1820,7 @@ var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 
-// This is a temporary function that generates fake data in 
+// This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
 var mock = function() {
   var data = {},
@@ -1925,35 +1925,37 @@ $(function() {
   };
 
   var data = getData();
-  
+
   // chart time
-  $('#chart').highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: ''
-    },
-    xAxis: {
-      title: {
-        text: 'Rates Available Today'
+  if ($('#chart').length > 0) {
+    $('#chart').highcharts({
+      chart: {
+        type: 'column'
       },
-      categories: data.labels
-    },
-    yAxis: {
       title: {
-        text: 'Number of Lenders'
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'Rates Available Today'
+        },
+        categories: data.labels
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Lenders'
+        }
+      },
+      series: [{
+        name: 'Number of Lenders',
+        data: data.vals,
+        showInLegend: false
+      }],
+      credits: {
+        text: ''
       }
-    },
-    series: [{
-      name: 'Number of Lenders',
-      data: data.vals,
-      showInLegend: false
-    }],
-    credits: {
-      text: ''
-    }
-  });
+    });
+  }
 
   // update the view
   var renderView = function() {
@@ -2079,6 +2081,8 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('55mbNU');
 },{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -2387,10 +2391,6 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}],"jquery":[function(require,module,exports){
-module.exports=require('ugmTS4');
 },{}],"ugmTS4":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -12189,4 +12189,6 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"jquery":[function(require,module,exports){
+module.exports=require('ugmTS4');
 },{}]},{},[7,12])
