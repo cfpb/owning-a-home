@@ -3,7 +3,7 @@ module.exports = window.jQuery;
 var debounce = require('debounce');
 require('jquery-ui/slider');
 var payment = require('./modules/payment-calc');
-var totalInterest = require('./modules/total-interest-calc');
+var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
@@ -64,7 +64,7 @@ $(function() {
 
     // perform calculations
     var monthlyPayment = payment(loanRate, termLength, loanAmt),
-        interest = totalInterest(loanRate, termLength, loanAmt);
+        totalInterest = interest(loanRate, termLength, loanAmt);
 
     // add calculations to the dom
     $('#monthly-payment').html(monthlyPayment);
@@ -201,9 +201,9 @@ $(function() {
 
   var updateComparisons = function(ev) {
     var rate = ev ? $(ev.target).val() : 3,
-        interest = totalInterest(rate, $('#loan-type').val(), details.amount),
+        totalInterest = interest(rate, $('#loan-type').val(), details.amount),
         $selector = ev ? $(ev.target).parent().find('.new-cost') : $('.new-cost');
-    $selector.text(interest);
+    $selector.text(totalInterest);
     $('.loan-amount').text(details.amount);
     $('.loan-years').text(details.type);
   };
