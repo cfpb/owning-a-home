@@ -63,6 +63,7 @@
     "financial": "0.0.4",
     "accounting": "~0.3.2",
     "debounce": "0.0.3",
-    "jquery-ui": "~1.10.5"
+    "jquery-ui": "~1.10.5",
+    "loan-calc": "https://github.com/ascott1/loan-calc/tarball/master"
   }
 }

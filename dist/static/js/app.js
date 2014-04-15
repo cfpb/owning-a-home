@@ -2,10 +2,10 @@ var $ = require('jquery');
 module.exports = window.jQuery;
 var debounce = require('debounce');
 require('jquery-ui/slider');
-var payment = require('./payment-calc');
-var totalInterest = require('./total-interest-calc');
-var formatUSD = require('./format-usd');
-var unFormatUSD = require('./unformat-usd');
+var payment = require('./modules/payment-calc');
+var totalInterest = require('./modules/total-interest-calc');
+var formatUSD = require('./modules/format-usd');
+var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 
 // This is a temporary function that generates fake data in 
@@ -57,7 +57,10 @@ $(function() {
         loanRate = parseFloat($('#loan-interest-value').val());
 
     // convert a currency string to an integer
-    loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,""));
+    loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
+
+    // convert the term length to months
+    termLength = termLength * 12;
 
     // perform calculations
     var monthlyPayment = payment(loanRate, termLength, loanAmt),
@@ -85,20 +88,6 @@ $(function() {
 
   // update values on keyup
   $('.recalc').on('keyup', debounce(calcLoan, 500));
-
-  // jquery ui slider
-  $('#slider').slider({
-    range: true,
-    min: 300,
-    max: 850,
-    values: [ 600, 700 ],
-    create: function() {
-      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
-    },
-    slide: function( event, ui ) {
-      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
-    }
-  });
 
   // process the data from the API
   var getData = function() {
@@ -167,20 +156,39 @@ $(function() {
       rate: data.largest.label
     };
 
-    // update the fields scattered throughout the page
-    $('.location').text(model.location);
-    $('.rate').text(model.rate);
-    $('.loan-amount').text(model.amount);
+    $('#chart').addClass('loading');
 
-    // update the chart
-    var chart = $('#chart').highcharts();
-    chart.series[0].setData(data.vals);
-    $('#chart').removeClass('loading');
+    // this is a faux delay to emulate an AJAX request
+    setTimeout(function() {
+     // update the fields scattered throughout the page
+      $('.location').text(model.location);
+      $('.rate').text(model.rate);
+      $('.loan-amount').text(model.amount);
+
+      // update the chart
+      var chart = $('#chart').highcharts();
+      chart.series[0].setData(data.vals);
+      $('#chart').removeClass('loading');
+    }, 1000);
+
   };
 
-  $('.demographics').on('change', '.recalc', function() {
-    $('#chart').addClass('loading');
-    setTimeout(renderView, 1000);
+  // re-render when fields are changed
+  $('.demographics').on('change', '.recalc', renderView);
+
+  // jquery ui slider
+  $('#slider').slider({
+    range: true,
+    min: 300,
+    max: 850,
+    values: [ 600, 700 ],
+    create: function() {
+      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+    },
+    slide: function( event, ui ) {
+      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+    },
+    stop: renderView
   });
 
 });
