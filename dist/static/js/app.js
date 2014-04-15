@@ -3,7 +3,7 @@ module.exports = window.jQuery;
 var debounce = require('debounce');
 require('jquery-ui/slider');
 var payment = require('./modules/payment-calc');
-var totalInterest = require('./modules/total-interest-calc');
+var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
@@ -64,7 +64,7 @@ $(function() {
 
     // perform calculations
     var monthlyPayment = payment(loanRate, termLength, loanAmt),
-        totalInterest = totalInterest(loanRate, termLength, loanAmt, 1, termLength, 0);
+        totalInterest = interest(loanRate, termLength, loanAmt);
 
     // add calculations to the dom
     $('#monthly-payment').html(monthlyPayment);
