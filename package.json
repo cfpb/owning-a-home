@@ -58,7 +58,8 @@
     "grunt-saucelabs": "~4.0.4",
     "grunt-shell": "~0.3.0",
     "grunt-string-replace": "latest",
-    "grunt-template-jasmine-istanbul": "~0.2.5"
+    "grunt-template-jasmine-istanbul": "~0.2.5",
+    "mocha": "^1.18.2"
   },
   "keywords": [],
   "dependencies": {

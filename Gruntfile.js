@@ -171,6 +171,14 @@ module.exports = function(grunt) {
             }
           }
         }
+      },
+      tests: {
+        files: {
+          './test/compiled_tests.js': ['./test/js/*.js'],
+        },
+        options: {
+          debug: true
+        }
       }
     },
 
@@ -310,7 +318,7 @@ module.exports = function(grunt) {
           EventEmitter: true
         }
       },
-      all: ['src/static/js/main.js']
+      all: ['src/static/js/app.js', 'src/static/js/modules/**/*.js']
     },
 
     // run the mocha tests
