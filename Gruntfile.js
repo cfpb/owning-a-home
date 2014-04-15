@@ -214,7 +214,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: [ 'src/static/css/*.min.css', 'src/static/js/*.min.js' ]
+          src: [ 'dist/static/css/*.min.css', 'dist/static/js/*.min.js' ]
         }
       }
     },
@@ -413,7 +413,7 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('compile', ['less', 'browserify', 'string-replace:vendor', 'autoprefixer']);
-  grunt.registerTask('dist', ['cssmin', 'usebanner', 'clean:dist', 'copy:dist']);
+  grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
   grunt.registerTask('test', ['mochaTest', 'mocha_phantomjs']);
   grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
