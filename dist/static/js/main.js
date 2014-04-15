@@ -356,7 +356,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"ugmTS4"}],3:[function(require,module,exports){
+},{"jquery":"qLD6Lo"}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -530,7 +530,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":"ugmTS4"}],4:[function(require,module,exports){
+},{"./widget":5,"jquery":"qLD6Lo"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1213,7 +1213,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":"ugmTS4"}],5:[function(require,module,exports){
+},{"./core":2,"./mouse":3,"./widget":5,"jquery":"qLD6Lo"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1738,7 +1738,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"ugmTS4"}],6:[function(require,module,exports){
+},{"jquery":"qLD6Lo"}],6:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -1824,7 +1824,7 @@ var highcharts = require('highcharts');
 // the same format that our API will eventually return it.
 var mock = function() {
   var data = {},
-    i;
+      i;
 
   var getRand = function(min, max) {
     return Math.floor((Math.random() * (max - min + 1) + min) * 10) / 10;
@@ -1876,11 +1876,11 @@ $(function() {
 
     // perform calculations
     var monthlyPayment = payment(loanRate, termLength, loanAmt),
-        totalInterest = totalInterest(loanRate, termLength, loanAmt, 1, termLength, 0);
+        interest = totalInterest(loanRate, termLength, loanAmt);
 
     // add calculations to the dom
     $('#monthly-payment').html(monthlyPayment);
-    $('#total-interest').html(totalInterest);
+    $('#total-interest').html(interest);
 
   };
 
@@ -1906,6 +1906,7 @@ $(function() {
     var data = {
       labels: [],
       vals: [],
+      uniqueVals: [],
       largest: {
         label: 4,
         val: 0
@@ -1919,6 +1920,10 @@ $(function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+    });
+
+    data.uniqueVals = $.unique(data.vals).sort(function(a,b) {
+      return a - b;
     });
 
     return data;
@@ -1957,15 +1962,27 @@ $(function() {
     });
   }
 
-  // update the view
-  var renderView = function() {
+  // update the comparison dropdowns with new options
+  var updateComparisonOptions = function() {
+    $('.compare select').html('');
+    $.each(data.uniqueVals, function(i, rate) {
+      var option = '<option value="' + rate + '">' + rate + '%</option>';
+      $('.compare select').append(option);
+    });
+  };
+
+  // store the user's selections somewhere globally accessible
+  var details = {};
+
+  // update errythang
+  var renderView = function(delay) {
     data = getData();
 
-    var model = {
+    details = {
       location: $('#location').val(),
       type: $('#loan-type').val(),
-      price: $('#house-price').val(),
-      down: $('#down-payment').val(),
+      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
+      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
       amount: $('#loan-amount-result').text(),
       rate: data.largest.label
     };
@@ -1974,21 +1991,37 @@ $(function() {
 
     // this is a faux delay to emulate an AJAX request
     setTimeout(function() {
-     // update the fields scattered throughout the page
-      $('.location').text(model.location);
-      $('.rate').text(model.rate);
-      $('.loan-amount').text(model.amount);
+      // update the fields scattered throughout the page
+      $('.location').text(details.location);
+      $('.rate').text(details.rate);
+      $('.loan-amount').text(details.amount);
+
+      // update the comparisons section
+      updateComparisonOptions();
+      updateComparisons();
 
       // update the chart
       var chart = $('#chart').highcharts();
       chart.series[0].setData(data.vals);
       $('#chart').removeClass('loading');
-    }, 1000);
+    }, typeof delay !== 'number' ? 1000 : delay);
 
   };
 
   // re-render when fields are changed
   $('.demographics').on('change', '.recalc', renderView);
+
+  var updateComparisons = function(ev) {
+    var rate = ev ? $(ev.target).val() : 3,
+        interest = totalInterest(rate, $('#loan-type').val(), details.amount),
+        $selector = ev ? $(ev.target).parent().find('.new-cost') : $('.new-cost');
+    $selector.text(interest);
+    $('.loan-amount').text(details.amount);
+    $('.loan-years').text(details.type);
+  };
+
+  // update comparison info when new rate is selected
+  $('.compare').on('change', 'select', updateComparisons);
 
   // jquery ui slider
   $('#slider').slider({
@@ -2005,8 +2038,10 @@ $(function() {
     stop: renderView
   });
 
+  renderView(0);
+
 });
-},{"./modules/format-usd":8,"./modules/payment-calc":9,"./modules/total-interest-calc":10,"./modules/unformat-usd":11,"debounce":1,"highcharts":"55mbNU","jquery":"ugmTS4","jquery-ui/slider":4}],8:[function(require,module,exports){
+},{"./modules/format-usd":8,"./modules/payment-calc":9,"./modules/total-interest-calc":10,"./modules/unformat-usd":11,"debounce":1,"highcharts":"WjdicM","jquery":"qLD6Lo","jquery-ui/slider":4}],8:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -2036,14 +2071,16 @@ var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
 // calculate the total interest paid on a loan
-module.exports = function(loanRate, termLength, loanAmt) {
+var calcInterest = function(loanRate, termLength, loanAmt) {
   var totalInterest = LoanCalc.totalInterest({
     amount: loanAmt,
     rate: loanRate,
     termMonths: termLength
-});
+  });
   return formatUSD(totalInterest);
 };
+
+module.exports = calcInterest;
 },{"./format-usd":8,"loan-calc":6}],11:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
@@ -2082,8 +2119,8 @@ module.exports = unFormatUSD;
 
 }(jQuery));
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}],"55mbNU":[function(require,module,exports){
+module.exports=require('WjdicM');
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
@@ -2391,7 +2428,7 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"ugmTS4":[function(require,module,exports){
+},{}],"qLD6Lo":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12190,5 +12227,5 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('ugmTS4');
+module.exports=require('qLD6Lo');
 },{}]},{},[7,12])
