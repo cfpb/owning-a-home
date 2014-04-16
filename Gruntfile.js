@@ -214,7 +214,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: [ 'src/static/css/*.min.css', 'src/static/js/*.min.js' ]
+          src: [ 'dist/static/css/*.min.css', 'dist/static/js/*.min.js' ]
         }
       }
     },
@@ -374,7 +374,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= jasmine.options.specs %>'],
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= mochaTest.test.src %>'],
         tasks: ['compile', 'dist']
       }
     }
@@ -386,7 +386,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-cfpb-internal');
+  // grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -413,7 +413,7 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('compile', ['less', 'browserify', 'string-replace:vendor', 'autoprefixer']);
-  grunt.registerTask('dist', ['cssmin', 'usebanner', 'clean:dist', 'copy:dist']);
+  grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
   grunt.registerTask('test', ['mochaTest', 'mocha_phantomjs']);
   grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
