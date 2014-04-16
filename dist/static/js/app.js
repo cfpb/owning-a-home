@@ -1,5 +1,4 @@
 var $ = require('jquery');
-module.exports = window.jQuery;
 var debounce = require('debounce');
 require('jquery-ui/slider');
 var payment = require('./modules/payment-calc');
