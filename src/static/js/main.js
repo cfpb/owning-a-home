@@ -1880,7 +1880,7 @@ $(function() {
 
     // add calculations to the dom
     $('#monthly-payment').html(monthlyPayment);
-    $('#total-interest').html(interest);
+    $('#total-interest').html(totalInterest);
 
   };
 
@@ -2118,8 +2118,6 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
 },{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -2428,6 +2426,10 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('WjdicM');
+},{}],"jquery":[function(require,module,exports){
+module.exports=require('qLD6Lo');
 },{}],"qLD6Lo":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -12226,6 +12228,4 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"jquery":[function(require,module,exports){
-module.exports=require('qLD6Lo');
 },{}]},{},[7,12])
