@@ -68,7 +68,7 @@ $(function() {
 
     // add calculations to the dom
     $('#monthly-payment').html(monthlyPayment);
-    $('#total-interest').html(interest);
+    $('#total-interest').html(totalInterest);
 
   };
 
