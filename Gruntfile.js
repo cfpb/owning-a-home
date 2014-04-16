@@ -162,7 +162,7 @@ module.exports = function(grunt) {
         options: {
           shim: {
             jquery: {
-              path: 'src/vendor/jquery/jquery.js',
+              path: 'node_modules/jquery/dist/jquery.js',
               exports: '$'
             },
             highcharts: {
