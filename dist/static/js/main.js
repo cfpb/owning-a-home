@@ -1738,9 +1738,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
-},{}],"t1HCCC":[function(require,module,exports){
+},{"jquery":"t1HCCC"}],"t1HCCC":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12041,6 +12039,8 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"jquery":[function(require,module,exports){
+module.exports=require('t1HCCC');
 },{}],8:[function(require,module,exports){
 'use strict';
 
@@ -12126,7 +12126,7 @@ var highcharts = require('highcharts');
 // the same format that our API will eventually return it.
 var mock = function() {
   var data = {},
-    i;
+      i;
 
   var getRand = function(min, max) {
     return Math.floor((Math.random() * (max - min + 1) + min) * 10) / 10;
@@ -12208,6 +12208,7 @@ $(function() {
     var data = {
       labels: [],
       vals: [],
+      uniqueVals: [],
       largest: {
         label: 4,
         val: 0
@@ -12221,6 +12222,10 @@ $(function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+    });
+
+    data.uniqueVals = $.unique(data.vals).sort(function(a,b) {
+      return a - b;
     });
 
     return data;
@@ -12259,15 +12264,27 @@ $(function() {
     });
   }
 
-  // update the view
-  var renderView = function() {
+  // update the comparison dropdowns with new options
+  var updateComparisonOptions = function() {
+    $('.compare select').html('');
+    $.each(data.uniqueVals, function(i, rate) {
+      var option = '<option value="' + rate + '">' + rate + '%</option>';
+      $('.compare select').append(option);
+    });
+  };
+
+  // store the user's selections somewhere globally accessible
+  var details = {};
+
+  // update errythang
+  var renderView = function(delay) {
     data = getData();
 
-    var model = {
+    details = {
       location: $('#location').val(),
       type: $('#loan-type').val(),
-      price: $('#house-price').val(),
-      down: $('#down-payment').val(),
+      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
+      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
       amount: $('#loan-amount-result').text(),
       rate: data.largest.label
     };
@@ -12276,21 +12293,37 @@ $(function() {
 
     // this is a faux delay to emulate an AJAX request
     setTimeout(function() {
-     // update the fields scattered throughout the page
-      $('.location').text(model.location);
-      $('.rate').text(model.rate);
-      $('.loan-amount').text(model.amount);
+      // update the fields scattered throughout the page
+      $('.location').text(details.location);
+      $('.rate').text(details.rate);
+      $('.loan-amount').text(details.amount);
+
+      // update the comparisons section
+      updateComparisonOptions();
+      updateComparisons();
 
       // update the chart
       var chart = $('#chart').highcharts();
       chart.series[0].setData(data.vals);
       $('#chart').removeClass('loading');
-    }, 1000);
+    }, typeof delay !== 'number' ? 1000 : delay);
 
   };
 
   // re-render when fields are changed
   $('.demographics').on('change', '.recalc', renderView);
+
+  var updateComparisons = function(ev) {
+    var rate = ev ? $(ev.target).val() : 3,
+        totalInterest = interest(rate, $('#loan-type').val(), details.amount),
+        $selector = ev ? $(ev.target).parent().find('.new-cost') : $('.new-cost');
+    $selector.text(totalInterest);
+    $('.loan-amount').text(details.amount);
+    $('.loan-years').text(details.type);
+  };
+
+  // update comparison info when new rate is selected
+  $('.compare').on('change', 'select', updateComparisons);
 
   // jquery ui slider
   $('#slider').slider({
@@ -12306,6 +12339,8 @@ $(function() {
     },
     stop: renderView
   });
+
+  renderView(0);
 
 });
 },{"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
@@ -12338,14 +12373,16 @@ var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
 // calculate the total interest paid on a loan
-module.exports = function(loanRate, termLength, loanAmt) {
+var calcInterest = function(loanRate, termLength, loanAmt) {
   var totalInterest = LoanCalc.totalInterest({
     amount: loanAmt,
     rate: loanRate,
     termMonths: termLength
-});
+  });
   return formatUSD(totalInterest);
 };
+
+module.exports = calcInterest;
 },{"./format-usd":10,"loan-calc":8}],13:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
@@ -12383,8 +12420,6 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
 },{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -12693,4 +12728,6 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('55mbNU');
 },{}]},{},[9,14])

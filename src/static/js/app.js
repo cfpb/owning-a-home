@@ -11,7 +11,7 @@ var highcharts = require('highcharts');
 // the same format that our API will eventually return it.
 var mock = function() {
   var data = {},
-    i;
+      i;
 
   var getRand = function(min, max) {
     return Math.floor((Math.random() * (max - min + 1) + min) * 10) / 10;
@@ -93,6 +93,7 @@ $(function() {
     var data = {
       labels: [],
       vals: [],
+      uniqueVals: [],
       largest: {
         label: 4,
         val: 0
@@ -106,6 +107,10 @@ $(function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+    });
+
+    data.uniqueVals = $.unique(data.vals).sort(function(a,b) {
+      return a - b;
     });
 
     return data;
@@ -144,15 +149,27 @@ $(function() {
     });
   }
 
-  // update the view
-  var renderView = function() {
+  // update the comparison dropdowns with new options
+  var updateComparisonOptions = function() {
+    $('.compare select').html('');
+    $.each(data.uniqueVals, function(i, rate) {
+      var option = '<option value="' + rate + '">' + rate + '%</option>';
+      $('.compare select').append(option);
+    });
+  };
+
+  // store the user's selections somewhere globally accessible
+  var details = {};
+
+  // update errythang
+  var renderView = function(delay) {
     data = getData();
 
-    var model = {
+    details = {
       location: $('#location').val(),
       type: $('#loan-type').val(),
-      price: $('#house-price').val(),
-      down: $('#down-payment').val(),
+      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
+      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
       amount: $('#loan-amount-result').text(),
       rate: data.largest.label
     };
@@ -161,21 +178,37 @@ $(function() {
 
     // this is a faux delay to emulate an AJAX request
     setTimeout(function() {
-     // update the fields scattered throughout the page
-      $('.location').text(model.location);
-      $('.rate').text(model.rate);
-      $('.loan-amount').text(model.amount);
+      // update the fields scattered throughout the page
+      $('.location').text(details.location);
+      $('.rate').text(details.rate);
+      $('.loan-amount').text(details.amount);
+
+      // update the comparisons section
+      updateComparisonOptions();
+      updateComparisons();
 
       // update the chart
       var chart = $('#chart').highcharts();
       chart.series[0].setData(data.vals);
       $('#chart').removeClass('loading');
-    }, 1000);
+    }, typeof delay !== 'number' ? 1000 : delay);
 
   };
 
   // re-render when fields are changed
   $('.demographics').on('change', '.recalc', renderView);
+
+  var updateComparisons = function(ev) {
+    var rate = ev ? $(ev.target).val() : 3,
+        totalInterest = interest(rate, $('#loan-type').val(), details.amount),
+        $selector = ev ? $(ev.target).parent().find('.new-cost') : $('.new-cost');
+    $selector.text(totalInterest);
+    $('.loan-amount').text(details.amount);
+    $('.loan-years').text(details.type);
+  };
+
+  // update comparison info when new rate is selected
+  $('.compare').on('change', 'select', updateComparisons);
 
   // jquery ui slider
   $('#slider').slider({
@@ -191,5 +224,7 @@ $(function() {
     },
     stop: renderView
   });
+
+  renderView(0);
 
 });
