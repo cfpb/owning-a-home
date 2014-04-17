@@ -7,6 +7,6 @@ module.exports = function(loanRate, termLength, loanAmt) {
       amount: loanAmt,
       rate: loanRate,
       termMonths: termLength
-  });
+    });
   return formatUSD(monthlyPayment);
 };

@@ -12365,7 +12365,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
       amount: loanAmt,
       rate: loanRate,
       termMonths: termLength
-  });
+    });
   return formatUSD(monthlyPayment);
 };
 },{"./format-usd.js":10,"loan-calc":8}],12:[function(require,module,exports){
