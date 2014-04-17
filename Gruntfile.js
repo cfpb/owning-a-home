@@ -293,21 +293,33 @@ module.exports = function(grunt) {
      */
     jshint: {
       options: {
-        camelcase: false,
-        curly: true,
+        asi: false,
+        bitwise: true,
+        boss: true,
+        camelcase: true,
+        eqeqeq: true,
+        eqnull: true,
+        evil: true,
+        expr: true,
         forin: true,
         immed: true,
-        latedef: true,
+        indent: 2,
+        latedef: false,
+        maxcomplexity: 6,
+        maxdepth: 4,
+        maxparams: 4,
+        maxstatements: 300,
         newcap: true,
         noarg: true,
+        noempty: true,
+        nonew: true,
         quotmark: true,
-        sub: true,
-        boss: true,
-        strict: true,
-        evil: true,
-        eqnull: true,
+        strict: false,
+        trailing: true,
+        undef: true,
+        node: true,
         browser: true,
-        plusplus: false,
+        jquery: true,
         globals: {
           jQuery: true,
           $: true,
@@ -318,7 +330,12 @@ module.exports = function(grunt) {
           EventEmitter: true
         }
       },
-      all: ['src/static/js/app.js', 'src/static/js/modules/**/*.js']
+      files: [
+        'src/static/js/**/*',
+        'Gruntfile.js',
+        '!node_modules/**/*',
+        '!src/static/js/main.js'
+      ]
     },
 
     // run the mocha tests
