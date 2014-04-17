@@ -25,7 +25,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt mochaTest"
   },
   "devDependencies": {
     "browserify": "~3.28.2",
