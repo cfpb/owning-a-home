@@ -1,10 +1,7 @@
-language: bash
+language: node_js
+node_js:
+  - '0.10'
 
 before_script:
   - npm install -g grunt-cli
   - npm install
-
-script:
-    - bash test/test_artifacts.sh
-    - grunt mochaTest
-    - grunt test
