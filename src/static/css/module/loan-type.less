@@ -1,0 +1,177 @@
+/* ==========================================================================
+   "Understanding loan types" custom styles
+   ========================================================================== */
+
+
+/*
+    Loan type equation
+    --------------------------- */
+.loan-type-equation {
+    .webfont-regular();
+    font-size: 1.625em;
+    margin: 2em 0;
+}
+
+.symbol {
+    .webfont-demi();
+    color: @gray;
+}
+
+.loan-type-list {
+    padding: 0;
+    display: inline-block;
+
+    li {
+        display: inline;
+
+        &:before {
+            content: "+ ";
+            display: inline;
+            background: #fff;
+            .symbol;
+        }
+
+        &:first-child {
+            &:before {
+                content: "";
+                margin: 0;
+            }
+        }
+    }
+
+    .loan-type {
+        padding: 20px;
+        background: @gray-10;
+    }
+}
+
+.outcome {
+    display: inline-block;
+}
+
+
+/*
+    Payment/Interest Display
+    --------------------------- */
+
+.timeline {
+    margin: 1em 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        margin-right: 10px;
+
+        a,
+        a:link,
+        a:visited {
+            color: @black;
+            background: @gray-20;
+            padding: 10px;
+            border-bottom: none;
+        }
+
+        a:hover,
+        a:focus,
+        .current:link,
+        .current:visited {
+            color: @black;
+            background: @pacific-20;
+        }
+    }
+}
+
+.loan-calc {
+  margin-top: 2em;
+}
+
+.loan-details,
+.term-output {
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  margin-right: -4px; // remove space between inline block elements
+  display: inline-block;
+  font-size: 1.125em;
+  vertical-align: top;
+
+  li {
+    list-style: none;
+    margin-right: -4px; // remove space between inline block elements
+  }
+}
+
+// style inputs to look like regular text
+.value {
+  display: inline;
+  width: auto;
+  border: solid 1px @gray-50;
+  font-size: 18px;
+  padding: .4em .1em;
+  .webfont-demi();
+}
+
+.loan-value {
+  display: block;
+  .webfont-demi();
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/*
+    Custom content styles
+    --------------------------- */
+
+.why {
+  margin-top: 2em;
+
+  h5 {
+    margin-bottom: .5em;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+}
+
+// comparisons are often used to compare two list items side by side
+.comparison,
+.multi-comparison {
+  margin: 0;
+  padding: 0;
+}
+
+.comparison > li {
+  display: inline-block;
+  margin-right: -4px; // remove space between inline block elements
+  width: 50%;
+  vertical-align: top;
+}
+
+.multi-comparison > li {
+  float: left;
+  width: 50%;
+}
+
+
+/*
+    large ARM numbers
+    --------------------------- */
+
+.num-demo {
+  font-size: 45px;
+  text-align: center;
+  .webfont-regular();
+  margin-bottom: 20px;
+}
+
+
+/*
+    Custom table styles
+    --------------------------- */
+
+.type-details {
+    td {
+        min-width: 210px;
+    }
+}

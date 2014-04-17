@@ -1,0 +1,56 @@
+
+// custom styles for the MEGA expandables
+.mega-expand {
+    margin: 0;
+    background: #fff;
+    border-bottom: 1px solid @gray-80;
+
+    .expandable-header {
+        .webfont-regular();
+        padding: 40px 0 20px 0;
+    }
+
+    &:hover,
+    &:active {
+        background: #fff;
+    }
+
+    .expandable-content {
+      padding: 0;
+    }
+}
+
+.mega-expand:first-of-type {
+    border-top: 1px solid @gray-80;
+}
+
+.icon-plus-sign:before {
+    font-size: 18px;
+    color: @black; //this is likely to change
+    margin-top: 4px;
+}
+
+// Currently the cf-expandables component does not toggle the minus icon
+.open .icon-plus-sign:before {
+    content: "\f056";
+}
+
+.expandable-main-content {
+  border-top: 1px solid  @gray-20;
+  padding-top: 40px;
+}
+
+.expandable-subsection {
+  border-top: 1px solid  @gray-20;
+  padding: 1.375em 0;
+
+  .expandable-section-content {
+    font-size: .875em;
+  }
+}
+
+.expandable-subsection-title {
+  border-top: 1px solid  @gray-20;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
