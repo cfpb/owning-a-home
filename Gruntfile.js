@@ -305,7 +305,6 @@ module.exports = function(grunt) {
         immed: true,
         indent: 2,
         latedef: false,
-        maxcomplexity: 6,
         maxdepth: 4,
         maxparams: 4,
         maxstatements: 300,
@@ -332,7 +331,6 @@ module.exports = function(grunt) {
       },
       files: [
         'src/static/js/**/*',
-        'Gruntfile.js',
         '!node_modules/**/*',
         '!src/static/js/main.js'
       ]
