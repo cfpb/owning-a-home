@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+
+<!--
+    ===========
+    GLOBAL META
+    ===========
+-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+    ==================
+    PAGE-SPECIFIC META
+    ==================
+-->
+
+<title>Rate checker</title>
+<meta name="description" content="Rate Checker Prototype">
+
+<!-- Explicit favicon link needed for testing. Remove for production. -->
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="dist/static/css/main.css">
+
+<!--[if lt IE 9]>
+    <script src="dist/vendor/html5shiv/html5shiv.js"></script>
+    <script src="dist/vendor/html5shiv/html5shiv-printshiv.js"></script>
+<![endif]-->
+
+    <script>
+        // Confirm availability of JS and remove no-js class from html
+        var docElement = document.documentElement;
+        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+    </script>
+
+</head>
+
+<body>
+
+<div class="wrap rate-checker">
+
+  <div class="wrapper">
+
+    <div class="result col-8">
+
+      <h1>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
+
+      <section class="chart wrapper">
+
+        <div class="col-3">
+          <h3>How likely are you to get this rate?</h3>
+          <p>If you are offered a rate above <span class="rate">3.550%</span>, shop around to be sure you are getting the best rate.</p>
+        </div>
+
+        <div class="col-9">
+          <div id="chart" class="chart-area"></div>
+        </div>
+
+      </section>
+
+      <section class="compare wrapper">
+
+        <div class="col-3">
+          <h3>Compare interest rate costs</h3>
+        </div>
+
+        <div class="col-9">
+
+          <div class="wrapper">
+
+            <div class="col-6">
+              <label for="rate-compare-1">Rate</label>
+              <select name="rate-compare-1" id="rate-compare-1">
+                <option value="3">3%</option>
+                <option value="4">4%</option>
+                <option value="5">5%</option>
+                <option value="6">6%</option>
+                <option value="7">7%</option>
+              </select>
+              <div class="comparison">
+                Would cost you
+                <span class="new-cost">$150,000</span>
+                in interest on your loan of
+                <span class="loan-amount">$400,000</span>
+                over
+                <span class="loan-years">30</span>
+                years.
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label for="rate-compare-2">Rate</label>
+              <select name="rate-compare-2" id="rate-compare-2">
+                <option value="3">3%</option>
+                <option value="4">4%</option>
+                <option value="5">5%</option>
+                <option value="6">6%</option>
+                <option value="7">7%</option>
+              </select>
+              <div class="comparison">
+                Would cost you
+                <span class="new-cost">$150,000</span>
+                in interest on your loan of
+                <span class="loan-amount">$400,000</span>
+                over
+                <span class="loan-years">30</span>
+                years.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div><!-- END .result -->
+
+    <div class="calculator col-4">
+
+      <section class="credit-score wrapper">
+
+        <div class="col-12">
+
+          <label for="range">Credit Score Range</label>
+          <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
+          <div id="slider" class="recalc"></div>
+          <div id="slider-range"></div>
+          <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
+
+        </div>
+
+      </section>
+
+      <section class="demographics wrapper">
+
+        <div class="col-6">
+          <label for="location">Location</label>
+          <select name="location" class="recalc" id="location">
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Connecticut">Connecticut</option>
+            <option value="Delaware">Delaware</option>
+            <option value="District of Columbia">District of Columbia</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Maine">Maine</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Montana">Montana</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New Hampshire">New Hampshire</option>
+            <option value="New Jersey">New Jersey</option>
+            <option value="New Mexico">New Mexico</option>
+            <option value="New York">New York</option>
+            <option value="North Carolina">North Carolina</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode Island">Rhode Island</option>
+            <option value="South Carolina">South Carolina</option>
+            <option value="South Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Washington">Washington</option>
+            <option value="West Virginia">West Virginia</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Wyoming">Wyoming</option>
+            <option value="Puerto Rico">Puerto Rico</option>
+          </select>
+        </div>
+        <div class="col-6 help">
+          Where do you want to buy a home?
+        </div>
+
+        <div class="col-6">
+          <label for="loan-type">Loan Type</label>
+          <select name="loan-type" class="recalc" id="loan-type">
+            <option value="30">30 Year Fixed</option>
+            <option value="15">15 Year Fixed</option>
+            <option value="10">10/1 ARM</option>
+            <option value="7">7/1 ARM</option>
+            <option value="5">5/1 ARM</option>
+          </select>
+        </div>
+        <div class="col-6 help">
+          Loan types are made up of 3 parts. <a href="#">Learn more</a>
+        </div>
+
+        <div class="col-6">
+          <label for="house-price">House Price</label>
+          <input type="number" placeholder="400,000" name="house-price" class="recalc" id="house-price">
+        </div>
+        <div class="col-6 help">
+          How much does your new home cost?
+        </div>
+
+        <div class="col-6">
+          <label for="down-payment">Down Payment</label>
+          <input type="number" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
+        </div>
+        <div class="col-6 help">
+          How much do you have to put down on a home?
+        </div>
+
+        <div class="col-6">
+          <label for="loan-amount">Loan Amount</label>
+          <span id="loan-amount-result">$380,000</span>
+        </div>
+        <div class="col-6 help">
+          This is the resulting math form the above two inputs.
+        </div>
+
+      </section>
+
+    </div><!-- END .calculator -->
+
+  </div><!-- END .wrapper -->
+
+</div><!-- END .wrap -->
+
+
+<script src="dist/static/js/main.js"></script>
+
+</body>
+
+</html>
