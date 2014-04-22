@@ -1738,7 +1738,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"1y2kms"}],"1y2kms":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"jquery":[function(require,module,exports){
+module.exports=require('1y2kms');
+},{}],"1y2kms":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12039,8 +12041,6 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"jquery":[function(require,module,exports){
-module.exports=require('1y2kms');
 },{}],8:[function(require,module,exports){
 'use strict';
 
@@ -12224,9 +12224,7 @@ $(function() {
       }
     });
 
-    data.uniqueVals = $.unique(data.vals).sort(function(a,b) {
-      return a - b;
-    });
+    data.uniqueVals = $.unique(data.vals);
 
     return data;
   };
@@ -12266,8 +12264,11 @@ $(function() {
 
   // update the comparison dropdowns with new options
   var updateComparisonOptions = function() {
+    var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
+      return a - b;
+    });
     $('.compare select').html('');
-    $.each(data.uniqueVals, function(i, rate) {
+    $.each(uniqueVals, function(i, rate) {
       var option = '<option value="' + rate + '">' + rate + '%</option>';
       $('.compare select').append(option);
     });
@@ -12421,6 +12422,8 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('WjdicM');
 },{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -12729,6 +12732,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
 },{}]},{},[9,14])

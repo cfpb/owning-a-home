@@ -109,9 +109,7 @@ $(function() {
       }
     });
 
-    data.uniqueVals = $.unique(data.vals).sort(function(a,b) {
-      return a - b;
-    });
+    data.uniqueVals = $.unique(data.vals);
 
     return data;
   };
@@ -151,8 +149,11 @@ $(function() {
 
   // update the comparison dropdowns with new options
   var updateComparisonOptions = function() {
+    var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
+      return a - b;
+    });
     $('.compare select').html('');
-    $.each(data.uniqueVals, function(i, rate) {
+    $.each(uniqueVals, function(i, rate) {
       var option = '<option value="' + rate + '">' + rate + '%</option>';
       $('.compare select').append(option);
     });
