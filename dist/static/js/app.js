@@ -215,6 +215,7 @@ $(function() {
     range: true,
     min: 300,
     max: 850,
+    step: 10,
     values: [ 600, 700 ],
     create: function() {
       $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
