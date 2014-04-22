@@ -356,7 +356,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],3:[function(require,module,exports){
+},{"jquery":"1y2kms"}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -530,7 +530,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":"t1HCCC"}],4:[function(require,module,exports){
+},{"./widget":5,"jquery":"1y2kms"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1213,7 +1213,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":"t1HCCC"}],5:[function(require,module,exports){
+},{"./core":2,"./mouse":3,"./widget":5,"jquery":"1y2kms"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1738,7 +1738,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],"t1HCCC":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"1y2kms":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12040,7 +12040,7 @@ return jQuery;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
+module.exports=require('1y2kms');
 },{}],8:[function(require,module,exports){
 'use strict';
 
@@ -12330,6 +12330,7 @@ $(function() {
     range: true,
     min: 300,
     max: 850,
+    step: 10,
     values: [ 600, 700 ],
     create: function() {
       $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
@@ -12343,7 +12344,7 @@ $(function() {
   renderView(0);
 
 });
-},{"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
+},{"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":4}],10:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -12420,7 +12421,7 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
-},{}],"55mbNU":[function(require,module,exports){
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
@@ -12729,5 +12730,5 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
+module.exports=require('WjdicM');
 },{}]},{},[9,14])
