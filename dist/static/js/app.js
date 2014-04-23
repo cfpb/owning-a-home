@@ -1,12 +1,14 @@
 var $ = require('jquery');
 var debounce = require('debounce');
 require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 
+console.log('TEST');
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
 var mock = function() {
