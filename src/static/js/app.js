@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var debounce = require('debounce');
 require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
