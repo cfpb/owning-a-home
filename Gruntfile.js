@@ -157,7 +157,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'src/static/js/main.js': ['src/static/js/app.js', 'src/static/js/module/*.js', 'src/vendor/cf-expandables/cf-expandables.js'],
+          'src/static/js/main.js': ['src/static/js/app.js'],
         },
         options: {
           shim: {

@@ -1738,7 +1738,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],"t1HCCC":[function(require,module,exports){
+},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
+module.exports=require('t1HCCC');
+},{}],"t1HCCC":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12039,8 +12041,6 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
 },{}],8:[function(require,module,exports){
 'use strict';
 
@@ -12116,12 +12116,14 @@ exports.totalInterest = function(opts) {
 var $ = require('jquery');
 var debounce = require('debounce');
 require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 
+console.log('TEST');
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
 var mock = function() {
@@ -12345,7 +12347,7 @@ $(function() {
   renderView(0);
 
 });
-},{"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
+},{"../../vendor/cf-expandables/cf-expandables.js":14,"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -12422,6 +12424,8 @@ module.exports = unFormatUSD;
   });
 
 }(jQuery));
+},{}],"highcharts":[function(require,module,exports){
+module.exports=require('55mbNU');
 },{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
@@ -12730,6 +12734,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}]},{},[9,14])
+},{}]},{},[9])
