@@ -31,7 +31,6 @@ var mock = function() {
   return { data: data };
 };
 
-// This is a hot mess
 $(function() {
 
   'use strict';

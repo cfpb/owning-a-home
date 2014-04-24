@@ -3,11 +3,32 @@
 .mega-expand {
     //margin: 0;
     background: #fff;
-    border-bottom: 1px solid @gray-80;
 
     .expandable-header {
         .webfont-regular();
         padding: 40px 0 20px 0;
+    }
+
+    .expandable-mainhead {
+      background: @gray-10;
+      border-bottom: 1px solid @gray-20;
+      padding: 4px 0;
+    }
+
+    .expandable-subhead {
+      background: #fff;
+      padding-top: 20px;
+    }
+
+    .expandable-heading {
+      .webfont-regular();
+      font-size: 1.625em;
+      margin: 0;
+    }
+
+    .list-heading {
+      .webfont-demi();
+      font-size: 1em;
     }
 
     &:hover,
@@ -20,13 +41,12 @@
     }
 }
 
-.mega-expand:first-of-type {
-  border-top: 1px solid @gray-80;
-}
-
 .icon-plus-sign:before {
-  font-size: 18px;
-  margin-top: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 16px;
+  padding-top: 12px; // this is a hacky way to center the icon vertically but nothing else was working
 }
 
 // us cf-icons for the expandable icons
