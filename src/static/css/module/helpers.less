@@ -2,6 +2,12 @@
    Helper Classes
    ========================================================================== */
 
+/* lead paragrapgs are typically the first paragraph in a content area */
+.lead {
+  .webfont-regular();
+  font-size: 1.125em;
+}
+
 /* decrease the font size for sub text */
 .sub {
     font-size: 0.875em;
@@ -50,16 +56,21 @@
 
 /* use sans-serif typeface */
 .sans {
-    .webfont-regular();
+  .webfont-regular();
 }
 
 /* helper class for demi bold version of web font */
 .demi {
-    .webfont-demi();
+  .webfont-demi();
 }
 
 .serif {
   font-family: Georgia, "Times New Roman", serif;
+}
+
+/* capitalize text */
+.caps {
+  text-transform: uppercase;
 }
 
 /* minimal bottom margin */
@@ -74,6 +85,10 @@
 
 .l-bump {
   margin-top: 2em;
+}
+
+.list-heading {
+  margin-bottom: 10px;
 }
 
 /* style for headers used as alerts */
