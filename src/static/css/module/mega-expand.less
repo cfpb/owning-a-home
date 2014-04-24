@@ -21,18 +21,22 @@
 }
 
 .mega-expand:first-of-type {
-    border-top: 1px solid @gray-80;
+  border-top: 1px solid @gray-80;
 }
 
 .icon-plus-sign:before {
-    font-size: 18px;
-    color: @black; //this is likely to change
-    margin-top: 4px;
+  font-size: 18px;
+  margin-top: 4px;
 }
 
-// Currently the cf-expandables component does not toggle the minus icon
+// us cf-icons for the expandable icons
+.icon-plus-sign:before {
+  .cf-icon;
+  content: "\e109";
+}
 .open .icon-plus-sign:before {
-    content: "\f056";
+  .cf-icon;
+  content: "\e111";
 }
 
 .expandable-main-content {
