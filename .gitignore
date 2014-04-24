@@ -41,3 +41,7 @@ Thumbs.db
 src/vendor
 src/static/fonts
 dist/static/fonts/
+
+# IP #
+#####################
+dist/ip
