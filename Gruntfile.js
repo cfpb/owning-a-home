@@ -328,7 +328,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', '<%= mochaTest.test.src %>'],
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/*.js','<%= mochaTest.test.src %>'],
         tasks: ['compile', 'dist']
       }
     }
