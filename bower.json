@@ -2,7 +2,6 @@
   "name": "owning-a-home",
   "version": "0.0.1",
   "dependencies": {
-    "font-awesome": "~3.2.1",
     "html5shiv": "latest",
     "jquery": "~1.11.0",
     "normalize-css": "~3.0.1",
@@ -22,10 +21,6 @@
       "less": "src/**/*.less",
       "fonts": "src/fonts/*.*",
       "js": "src/**/*.js"
-    },
-    "font-awesome": {
-      "css": "css/*.css",
-      "fonts": "font/*.*"
     }
   }
 }
