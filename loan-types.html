@@ -49,9 +49,9 @@
   <nav class="secondary-nav col-3">
     <ul class="secondary-nav-list">
       <li><a href="#">Owning a Home</a></li>
-      <li><a href="#">Rate Checker</a></li>
+      <li><a href="rate-checker.html">Rate Checker</a></li>
       <li><a href="#">Loan Comparison</a></li>
-      <li class="current"><a href="#">Loan Types</a></li>
+      <li class="current"><a href="loan-types.html">Loan Types</a></li>
   </nav>
 
   <section class="main-content col-9">
@@ -110,78 +110,88 @@
             </header>
 
             <div class="expandable-content expandable-hidden wrapper" style="display: none;">
-                <div class="sans">
-                    <h4>Shorter term:</h4>
-                    <ul>
-                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher monthly payments</li>
-                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower total cost</li>
-                    </ul>
+                <div class="expandable-inner wrapper">
 
-                    <h4 class="l-bump">Longer term:</h4>
-                    <ul>
-                      <li><i class="cf-icon cf-icon-arrow-down"></i> Lower monthly payments</li>
-                      <li><i class="cf-icon cf-icon-arrow-up"></i> Higher total cost</li>
-                    </ul>
+                <div class="comparison">
+                  <h4 class="subheading">Shorter term:</h4>
+                  <ul>
+                    <li><i class="cf-icon cf-icon-arrow-up"></i> Higher monthly payments</li>
+                    <li><i class="cf-icon cf-icon-arrow-down"></i> Lower total cost</li>
+                  </ul>
                 </div>
 
-                  <h3>Compare your loan term options:</h3>
-                    <ul class="timeline term-timeline">
-                        <li><a href="#" data-term="10">
-                            <span class="loan-length">10</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                        <li><a href="#" data-term="15">
-                            <span class="loan-length">15</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                        <li><a href="#" data-term="20">
-                            <span class="loan-length">20</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                        <li><a href="#" data-term="25">
-                            <span class="loan-length">25</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                        <li><a href="#" data-term="30" class="current">
-                            <span class="loan-length">30</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                        <li><a href="#" data-term="40">
-                            <span class="loan-length">40</span>
-                            <span class="year">Year</span>
-                        </a></li>
-                    </ul>
+                <div class="comparison">
+                  <h4 class="subheading">Longer term:</h4>
+                  <ul>
+                    <li><i class="cf-icon cf-icon-arrow-down"></i> Lower monthly payments</li>
+                    <li><i class="cf-icon cf-icon-arrow-up"></i> Higher total cost</li>
+                  </ul>
+                </div>
+
+              </div> <!-- /.wrapper -->
+
                   <div class="loan-calc sans">
-                    <ul class="loan-details">
-                        <li id="loan-amount" data-amount="200000">For a loan amount of<br>
-                          <input id="loan-amount-value" class="value" value="$200,000"></input>
-                        </li>
-                        <li id="rate-amount" class="bump" data-rate="5">And, an interest rate of<br>
-                          <input id="loan-interest-value" class="value" value="5%"></input>
-                        </li>
+                    <p class="loan-details">
+                      For a loan amount of
+                      <input id="loan-amount-value" class="value" value="$200,000"></input>
+                      an interest rate of
+                      <input id="loan-interest-value" class="value" value="5%"></input>
+                      and a loan term of:
+                  </div> <!-- /.loan-calc -->
+
+                    <ul class="timeline term-timeline">
+                      <li><a href="#" data-term="10">
+                          <span class="loan-length">10</span>
+                          <span class="year">Year</span>
+                      </a></li>
+                      <li><a href="#" data-term="15">
+                          <span class="loan-length">15</span>
+                          <span class="year">Year</span>
+                      </a></li>
+                      <li><a href="#" data-term="20">
+                          <span class="loan-length">20</span>
+                          <span class="year">Year</span>
+                      </a></li>
+                      <li><a href="#" data-term="25">
+                          <span class="loan-length">25</span>
+                          <span class="year">Year</span>
+                      </a></li>
+                      <li><a href="#" data-term="30" class="current">
+                          <span class="loan-length">30</span>
+                          <span class="year">Year</span>
+                      </a></li>
+                      <li><a href="#" data-term="40">
+                          <span class="loan-length">40</span>
+                          <span class="year">Year</span>
+                      </a></li>
                     </ul>
                     <ul class="term-output">
                         <li>
-                            Monthly Payment
-                            <span id="monthly-payment" class="loan-value">$1,073.64</span>
+                          <span class="col-7">
+                            Your monthly principal and interest payment would be:
+                          </span>
+                          <span id="monthly-payment" class="col-5 loan-value">$1,073.64</span>
                         </li>
-                        <li class="l-bump">
-                            Total interest
-                            <span id="total-interest" class="loan-value">$186,511.57</span>
+                        <li>
+                          <span class="col-7">
+                            Your total interest cost would be:
+                          </span>
+                          <span id="total-interest" class="col-5 loan-value">$186,511.57</span>
                         </li>
                     </ul> <!-- /.term-output -->
-                  </div> <!-- /.loan-calc -->
 
-                    <h3 class="bump">Things to keep in mind:</h3>
+                    <p class="note">NOTE: This tool calculates principal and interest payments so you can see the impact of different loan terms. Your total monthly payment will typically be several hundred dollars higher due to taxes and insurance.</p>
 
-                    <p>There two reasons shorter terms can save you money:</p>
+                    <h3>What to know</h3>
+
+                    <p>Shorter terms will generally save you money overall, but have higher monthly payments. There two reasons shorter terms can save you money:  </p>
 
                     <ol>
                       <li>You are borrowing money and paying interest for a shorter amount of time.</li>
-                      <li>The interest rate is usually lower with a shorter term than with a longer term.</li>
+                      <li>The interest rate is usually lower — by as much as a full percentage point — with a shorter term than with a longer term.</li>
                     </ol>
 
-                    <p>In general, shorter terms will save you money overall, but have higher monthly payments. There is no problem with getting a standard 30 year term, but if you can afford the higher monthly payment, you should consider getting a shorter term. <a href="#">Learn more in this short video.</a></p>
+                    <p>Rates are different at different lenders, especially for less-common terms. Don’t rely on rules of thumb to make your decision. Always compare official loan offers (Good Faith Estimates) to make sure you’re getting the right deal for you.</p>
 
             </div> <!-- /.expandable-content -->
         </div>
