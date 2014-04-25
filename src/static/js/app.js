@@ -50,7 +50,7 @@ $(function() {
   var loanToggle = function() {
 
     // get loan values
-    var termLength = $('.current').data('term'),
+    var termLength = $('.term-timeline .current').data('term'),
         loanAmt = $('#loan-amount-value').val(),
         // parseFloat to ingnore % signs
         loanRate = parseFloat($('#loan-interest-value').val());
