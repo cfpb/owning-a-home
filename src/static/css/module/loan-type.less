@@ -155,7 +155,6 @@
 }
 
 .comparison {
-  .column(6);
   .webfont-regular();
   margin-bottom: 2.75em;
 
@@ -174,39 +173,84 @@
   .cf-icon-arrow-down {
     color: @green;
   }
+
+  .comparison-main {
+    margin-bottom: 40px;
+  }
+
+  .sub-comparison-header {
+    border-top: 2px solid @gray-20;
+    border-bottom: 1px solid @gray-20;
+    padding: 10px 12px;
+    height: 38px; // provide an explicit height for when right column headers are hidden
+  }
+
+  .sub-comparison-heading {
+    .reset;
+    color: @darkgray;
+    font-size: 0.75em;
+  }
+
+  .sub-comparison-content {
+    padding: 20px 12px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .callout {
+    p {
+      font-size: 0.875em;
+    }
+  }
+
 }
 
+/* loan-types comparisons require some special styles at larger screen sizes */
+@media (min-width: 720px) {
 
-/*.comparison > li {
-  display: inline-block;
-  margin-right: -4px;
-  vertical-align: top;
-}*/
+  .comparison {
+    .column(6);
+  }
 
-.multi-comparison > li {
-  float: left;
-  width: 50%;
+  // make sub comparisons line up nicely
+  .sub-comparison {
+    min-height: 260px;
+  }
+
+  // right column headings should be hidden on large screens
+  .secondary-sub-heading {
+    .visuallyhidden;
+  }
 }
 
+.date-heading {
+  .reset;
+  .webfont-regular();
+  font-size: .875em;
+}
 
 /*
-    large ARM numbers
-    --------------------------- */
+  ARM details
+  --------------------------- */
 
-.num-demo {
-  font-size: 45px;
-  text-align: center;
+.arm-heading {
   .webfont-regular();
   margin-bottom: 20px;
+  font-size: 1.375em;
 }
 
+.arm-content {
+  background: url('../img/arm-border.png') no-repeat;
+  padding-left: 52px;
+  .webfont-regular();
 
-/*
-    Custom table styles
-    --------------------------- */
+  p {
+    margin-bottom: .5em;
+  }
+}
 
-.type-details {
-    td {
-        min-width: 210px;
-    }
+.arm-adjustable {
+  margin-top: 48px;
 }
