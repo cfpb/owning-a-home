@@ -1,0 +1,54 @@
+nav {
+
+  ul {
+    .reset;
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.secondary-nav {
+  a {
+    .webfont-regular();
+    display: block;
+    padding: 10px;
+    transition: .4s;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    color: @pacific;
+    border-bottom: none;
+  }
+
+  li:hover,
+  a:focus,
+  li:active,
+  .current {
+    border-left: 4px solid @green;
+    background-color: transparent;
+    padding-left: 0;
+  }
+
+  .current a:link,
+  .current a:visited {
+    color: @black;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    /*border-top: 1px solid @gray-50;*/
+  }
+
+  li {
+    list-style: none;
+    font-size: 1.125em;
+    padding-left: 4px;
+
+  }
+
+}

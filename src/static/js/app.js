@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var debounce = require('debounce');
 require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
@@ -30,7 +31,6 @@ var mock = function() {
   return { data: data };
 };
 
-// This is a hot mess
 $(function() {
 
   'use strict';
@@ -50,7 +50,7 @@ $(function() {
   var loanToggle = function() {
 
     // get loan values
-    var termLength = $('.current').data('term'),
+    var termLength = $('.term-timeline .current').data('term'),
         loanAmt = $('#loan-amount-value').val(),
         // parseFloat to ingnore % signs
         loanRate = parseFloat($('#loan-interest-value').val());
