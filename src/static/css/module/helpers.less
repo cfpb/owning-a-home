@@ -8,6 +8,11 @@
   font-size: 1.125em;
 }
 
+/* mid-leads use a medium font weight over size */
+.mid-lead {
+  .webfont-medium();
+}
+
 /* decrease the font size for sub text */
 .sub {
     font-size: 0.875em;
@@ -65,6 +70,11 @@
   border-bottom: 1px solid @gray-20;
 }
 
+/* highlight the text */
+.highlight {
+  background-color: @green-tint;
+}
+
 /* use sans-serif typeface */
 .sans {
   .webfont-regular();
@@ -102,16 +112,13 @@
   margin-bottom: 10px;
 }
 
-/* style for headers used as alerts */
-.alert-header {
-    .webfont-demi();
-    text-transform: uppercase;
-    font-size: 1em;
+/* style alert (!) symbols */
+.alert-positive {
+  color: @green;
+}
 
-    &:before {
-        .cf-icon;
-        content: "\e102";
-    }
+.alert-negative {
+  color: @redorange;
 }
 
 // tag styles
@@ -145,6 +152,7 @@
 .callout {
   background: @gray-5;
   border-top: 1px solid @gray-20;
+  border-bottom: 1px solid @gray-20;
   padding: 20px;
 }
 
@@ -159,18 +167,6 @@
     min-height: 200px;
     line-height: 200px;
     text-align: center;
-}
-
-/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }
 
 /* use group to contain floats */

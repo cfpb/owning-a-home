@@ -209,6 +209,7 @@ module.exports = function(grunt) {
               'static/js/*.js',
               'static/js/html5shiv-printshiv.js',
               'static/fonts/**',
+              'static/img/**',
               'static/mock-data/**',
 
               // Exclude all vendor files because a lot will get concatenated
