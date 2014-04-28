@@ -69,7 +69,7 @@
     "debounce": "0.0.3",
     "jquery": "~1.11.0",
     "jquery-ui": "~1.10.5",
-    "loan-calc": "https://github.com/ascott1/loan-calc/tarball/master"
+    "loan-calc": "~0.2.1"
   },
   "testling": {
     "files": "test/js/*.js",

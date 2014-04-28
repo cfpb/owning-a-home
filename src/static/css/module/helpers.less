@@ -2,6 +2,17 @@
    Helper Classes
    ========================================================================== */
 
+/* lead paragrapgs are typically the first paragraph in a content area */
+.lead {
+  .webfont-regular();
+  font-size: 1.125em;
+}
+
+/* mid-leads use a medium font weight over size */
+.mid-lead {
+  .webfont-medium();
+}
+
 /* decrease the font size for sub text */
 .sub {
     font-size: 0.875em;
@@ -48,18 +59,39 @@
     }
 }
 
+/* notes are subtle call out boxes with top and bottom borders */
+.note {
+  .webfont-regular();
+  color: @darkgray;
+  font-size: 0.875em;
+  padding: 20px 10px;
+  margin: 1em 0;
+  border-top: 1px solid @gray-20;
+  border-bottom: 1px solid @gray-20;
+}
+
+/* highlight the text */
+.highlight {
+  background-color: @green-tint;
+}
+
 /* use sans-serif typeface */
 .sans {
-    .webfont-regular();
+  .webfont-regular();
 }
 
 /* helper class for demi bold version of web font */
 .demi {
-    .webfont-demi();
+  .webfont-demi();
 }
 
 .serif {
   font-family: Georgia, "Times New Roman", serif;
+}
+
+/* capitalize text */
+.caps {
+  text-transform: uppercase;
 }
 
 /* minimal bottom margin */
@@ -76,16 +108,17 @@
   margin-top: 2em;
 }
 
-/* style for headers used as alerts */
-.alert-header {
-    .webfont-demi();
-    text-transform: uppercase;
-    font-size: 1em;
+.list-heading {
+  margin-bottom: 10px;
+}
 
-    &:before {
-        .font-awesome;
-        content: "\f06a";
-    }
+/* style alert (!) symbols */
+.alert-positive {
+  color: @green;
+}
+
+.alert-negative {
+  color: @redorange;
 }
 
 // tag styles
@@ -119,6 +152,7 @@
 .callout {
   background: @gray-5;
   border-top: 1px solid @gray-20;
+  border-bottom: 1px solid @gray-20;
   padding: 20px;
 }
 
@@ -133,18 +167,6 @@
     min-height: 200px;
     line-height: 200px;
     text-align: center;
-}
-
-/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }
 
 /* use group to contain floats */
