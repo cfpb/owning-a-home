@@ -356,7 +356,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"1y2kms"}],3:[function(require,module,exports){
+},{"jquery":"t1HCCC"}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -530,7 +530,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":"1y2kms"}],4:[function(require,module,exports){
+},{"./widget":5,"jquery":"t1HCCC"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1213,7 +1213,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":"1y2kms"}],5:[function(require,module,exports){
+},{"./core":2,"./mouse":3,"./widget":5,"jquery":"t1HCCC"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1738,9 +1738,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"1y2kms"}],"jquery":[function(require,module,exports){
-module.exports=require('1y2kms');
-},{}],"1y2kms":[function(require,module,exports){
+},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
+module.exports=require('t1HCCC');
+},{}],"t1HCCC":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12116,6 +12116,7 @@ exports.totalInterest = function(opts) {
 var $ = require('jquery');
 var debounce = require('debounce');
 require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
@@ -12145,7 +12146,6 @@ var mock = function() {
   return { data: data };
 };
 
-// This is a hot mess
 $(function() {
 
   'use strict';
@@ -12165,7 +12165,7 @@ $(function() {
   var loanToggle = function() {
 
     // get loan values
-    var termLength = $('.current').data('term'),
+    var termLength = $('.term-timeline .current').data('term'),
         loanAmt = $('#loan-amount-value').val(),
         // parseFloat to ingnore % signs
         loanRate = parseFloat($('#loan-interest-value').val());
@@ -12345,7 +12345,7 @@ $(function() {
   renderView(0);
 
 });
-},{"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":4}],10:[function(require,module,exports){
+},{"../../vendor/cf-expandables/cf-expandables.js":14,"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -12423,8 +12423,8 @@ module.exports = unFormatUSD;
 
 }(jQuery));
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
-},{}],"WjdicM":[function(require,module,exports){
+module.exports=require('55mbNU');
+},{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
@@ -12732,4 +12732,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[9,14])
+},{}]},{},[9])

@@ -55,67 +55,80 @@
     --------------------------- */
 
 .timeline {
-    margin: 1em 0;
-    padding: 0;
+  .reset;
 
-    li {
-        display: inline-block;
-        margin-right: 10px;
+  li {
+    display: inline-block;
+    font-size: 1.125em;
+    border-right: 1px solid @gray-20;
+    width: 16.666666667%;
+    text-align: center;
+    margin-right: -4px; // remove space between inline block elements
+    .webfont-regular();
 
-        a,
-        a:link,
-        a:visited {
-            color: @black;
-            background: @gray-20;
-            padding: 10px;
-            border-bottom: none;
-        }
-
-        a:hover,
-        a:focus,
-        .current:link,
-        .current:visited {
-            color: @black;
-            background: @pacific-20;
-        }
+    a {
+      display: inline-block;
+      width: 100%;
+      background: @gray-10;
+      padding: 10px 0;
     }
+
+    a,
+    a:link,
+    a:visited {
+      color: @black;
+      border-bottom: 4px solid @green;
+    }
+
+    a:hover,
+    a:focus,
+    .current:link,
+    .current:visited {
+      color: @black;
+      border-bottom: 4px solid #AED690;
+    }
+  }
 }
 
 .loan-calc {
   margin-top: 2em;
+  padding: 1em .5em;
+  font-size: 0.875em;
+  background: @gray-10;
+  border-top: 1px solid @gray-20;
+  border-bottom: 1px solid @gray-20;
+
+  p {
+    .reset;
+  }
+
+  // style text inputs
+  .value {
+    display: inline-block;
+    max-width: 92px;
+    border: solid 1px @gray-50;
+    font-size: 14px;
+    padding: .4em .1em;
+    .webfont-demi();
+  }
+
 }
 
-.loan-details,
 .term-output {
-  margin: 0;
+  margin: 1.5em 0;
   padding: 0;
-  width: 50%;
-  margin-right: -4px; // remove space between inline block elements
-  display: inline-block;
-  font-size: 1.125em;
-  vertical-align: top;
+  .webfont-regular();
+  line-height: 2.5em;
 
   li {
     list-style: none;
-    margin-right: -4px; // remove space between inline block elements
   }
 }
 
-// style inputs to look like regular text
-.value {
-  display: inline;
-  width: auto;
-  border: solid 1px @gray-50;
-  font-size: 18px;
-  padding: .4em .1em;
-  .webfont-demi();
-}
 
 .loan-value {
-  display: block;
   .webfont-demi();
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 2.125em;
 }
 
 /*
@@ -141,37 +154,103 @@
   padding: 0;
 }
 
-.comparison > li {
-  display: inline-block;
-  margin-right: -4px; // remove space between inline block elements
-  width: 50%;
-  vertical-align: top;
+.comparison {
+  .webfont-regular();
+  margin-bottom: 2.75em;
+
+  ul {
+    .reset;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .cf-icon-arrow-up {
+    color: @redorange;
+  }
+
+  .cf-icon-arrow-down {
+    color: @green;
+  }
+
+  .comparison-main {
+    margin-bottom: 40px;
+  }
+
+  .sub-comparison-header {
+    border-top: 2px solid @gray-20;
+    border-bottom: 1px solid @gray-20;
+    padding: 10px 12px;
+    height: 38px; // provide an explicit height for when right column headers are hidden
+  }
+
+  .sub-comparison-heading {
+    .reset;
+    color: @darkgray;
+    font-size: 0.75em;
+  }
+
+  .sub-comparison-content {
+    padding: 20px 12px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .callout {
+    p {
+      font-size: 0.875em;
+    }
+  }
+
 }
 
-.multi-comparison > li {
-  float: left;
-  width: 50%;
+/* loan-types comparisons require some special styles at larger screen sizes */
+@media (min-width: 720px) {
+
+  .comparison {
+    .column(6);
+  }
+
+  // make sub comparisons line up nicely
+  .sub-comparison {
+    min-height: 260px;
+  }
+
+  // right column headings should be hidden on large screens
+  .secondary-sub-heading {
+    .visuallyhidden;
+  }
 }
 
+.date-heading {
+  .reset;
+  .webfont-regular();
+  font-size: .875em;
+}
 
 /*
-    large ARM numbers
-    --------------------------- */
+  ARM details
+  --------------------------- */
 
-.num-demo {
-  font-size: 45px;
-  text-align: center;
+.arm-heading {
   .webfont-regular();
   margin-bottom: 20px;
+  font-size: 1.375em;
 }
 
+.arm-content {
+  background: url('../img/arm-border.png') no-repeat;
+  padding-left: 52px;
+  .webfont-regular();
 
-/*
-    Custom table styles
-    --------------------------- */
+  p {
+    margin-bottom: .5em;
+  }
+}
 
-.type-details {
-    td {
-        min-width: 210px;
-    }
+.arm-adjustable {
+  margin-top: 48px;
 }
