@@ -69,7 +69,8 @@
     "debounce": "0.0.3",
     "jquery": "~1.11.0",
     "jquery-ui": "~1.10.5",
-    "loan-calc": "~0.2.1"
+    "loan-calc": "~0.2.1",
+    "foreach": "~2.0.4"
   },
   "testling": {
     "files": "test/js/*.js",
@@ -83,6 +84,6 @@
       "ipad/6",
       "android-browser/latest"
     ],
-    "harness" : "mocha"
+    "harness": "mocha"
   }
 }
