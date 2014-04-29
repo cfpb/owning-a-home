@@ -164,10 +164,15 @@
 // callout container
 .callout,
 .mega-callout {
+  .webfont-regular();
   background: @gray-5;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
   padding: 20px;
+
+  p {
+    font-size: 0.875em;
+  }
 }
 
 // pad mega-callouts on large screens
