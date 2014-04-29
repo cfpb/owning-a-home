@@ -57,24 +57,29 @@
 .timeline {
   .reset;
 
+
   li {
     display: inline-block;
     text-align: center;
     margin-right: -4px; // remove space between inline block elements
     .webfont-regular();
 
-    a {
-      display: inline-block;
-      width: 100%;
-      background: @gray-10;
-      padding: 10px 0;
-    }
+      strong {
+        .webfont-demi();
+      }
 
-    a,
-    a:link,
-    a:visited {
-      color: @black;
-    }
+      a {
+        display: inline-block;
+        width: 100%;
+        background: @gray-10;
+        padding: 10px 0;
+      }
+
+      a,
+      a:link,
+      a:visited {
+        color: @black;
+      }
 
   }
 }
@@ -191,11 +196,14 @@
   li {
     list-style: none;
   }
+
+  strong {
+    .webfont-demi();
+  }
 }
 
 
 .loan-value {
-  .webfont-demi();
   font-size: 2.125em;
 }
 
@@ -233,6 +241,10 @@
   li {
     list-style: none;
     margin-bottom: 1em;
+  }
+
+  strong {
+    .webfont-demi();
   }
 
   .cf-icon-arrow-up {
@@ -317,6 +329,10 @@
 
   p {
     margin-bottom: .5em;
+  }
+
+  strong {
+    .webfont-demi();
   }
 }
 
