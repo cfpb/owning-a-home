@@ -33,6 +33,30 @@ module.exports = function debounce(func, threshold, execAsap){
 };
 
 },{}],2:[function(require,module,exports){
+
+var hasOwn = Object.prototype.hasOwnProperty;
+var toString = Object.prototype.toString;
+
+module.exports = function forEach (obj, fn, ctx) {
+    if (toString.call(fn) !== '[object Function]') {
+        throw new TypeError('iterator must be a function');
+    }
+    var l = obj.length;
+    if (l === +l) {
+        for (var i = 0; i < l; i++) {
+            fn.call(ctx, obj[i], i, obj);
+        }
+    } else {
+        for (var k in obj) {
+            if (hasOwn.call(obj, k)) {
+                fn.call(ctx, obj[k], k, obj);
+            }
+        }
+    }
+};
+
+
+},{}],3:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -356,7 +380,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],3:[function(require,module,exports){
+},{"jquery":"1y2kms"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -530,7 +554,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":5,"jquery":"t1HCCC"}],4:[function(require,module,exports){
+},{"./widget":6,"jquery":"1y2kms"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1213,7 +1237,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":2,"./mouse":3,"./widget":5,"jquery":"t1HCCC"}],5:[function(require,module,exports){
+},{"./core":3,"./mouse":4,"./widget":6,"jquery":"1y2kms"}],6:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1738,9 +1762,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
-},{}],"t1HCCC":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"jquery":[function(require,module,exports){
+module.exports=require('1y2kms');
+},{}],"1y2kms":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12041,7 +12065,7 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -12112,16 +12136,17 @@ exports.totalInterest = function(opts) {
   // round the value to two decimal places
   return roundNum(rawInterest);
 };
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
-require('jquery-ui/slider');
-require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
+var loadDefaults = require('./modules/defaults');
+require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
@@ -12282,7 +12307,7 @@ $(function() {
     data = getData();
 
     details = {
-      location: $('#location').val(),
+      location: $('#location option:selected').text(),
       type: $('#loan-type').val(),
       price: $('#house-price').val() || $('#house-price').attr('placeholder'),
       down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
@@ -12341,11 +12366,35 @@ $(function() {
     },
     stop: renderView
   });
-
-  renderView(0);
+  
+  loadDefaults(function(){
+    renderView(0);
+  });
 
 });
-},{"../../vendor/cf-expandables/cf-expandables.js":14,"./modules/format-usd":10,"./modules/payment-calc":11,"./modules/total-interest-calc":12,"./modules/unformat-usd":13,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":4}],10:[function(require,module,exports){
+},{"../../vendor/cf-expandables/cf-expandables.js":17,"./modules/defaults":11,"./modules/format-usd":12,"./modules/payment-calc":14,"./modules/total-interest-calc":15,"./modules/unformat-usd":16,"debounce":1,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":5}],11:[function(require,module,exports){
+// Intelligent defaults
+var getState = require('./geolocation');
+
+var loadDefaults = function( cb ) {
+
+  // Get their state using the HTML5 gelocation API.
+  navigator.geolocation.getCurrentPosition( loadState, noLocation );
+
+  function loadState( pos ){
+    var state = getState( pos );
+    $('#location').val( state );
+    cb();
+  }
+
+  function noLocation() {
+    cb();
+  }
+
+};
+
+module.exports = loadDefaults;
+},{"./geolocation":13}],12:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function(num, opts) {
   var opts = opts || {},
@@ -12357,7 +12406,93 @@ var formatMoney = function(num, opts) {
 };
 
 module.exports = formatMoney;
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+var each = require('foreach');
+
+// From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
+var states = {
+  AK: [ 61.3850, -152.2683 ],
+  AL: [ 32.7990, -86.8073 ],
+  AR: [ 34.9513, -92.3809 ],
+  AS: [ 14.2417, -170.7197 ],
+  AZ: [ 33.7712, -111.3877 ],
+  CA: [ 36.1700, -119.7462 ],
+  CO: [ 39.0646, -105.3272 ],
+  CT: [ 41.5834, -72.7622 ],
+  DC: [ 38.8964, -77.0262 ],
+  DE: [ 39.3498, -75.5148 ],
+  FL: [ 27.8333, -81.7170 ],
+  GA: [ 32.9866, -83.6487 ],
+  HI: [ 21.1098, -157.5311 ],
+  IA: [ 42.0046, -93.2140 ],
+  ID: [ 44.2394, -114.5103 ],
+  IL: [ 40.3363, -89.0022 ],
+  IN: [ 39.8647, -86.2604 ],
+  KS: [ 38.5111, -96.8005 ],
+  KY: [ 37.6690, -84.6514 ],
+  LA: [ 31.1801, -91.8749 ],
+  MA: [ 42.2373, -71.5314 ],
+  MD: [ 39.0724, -76.7902 ],
+  ME: [ 44.6074, -69.3977 ],
+  MI: [ 43.3504, -84.5603 ],
+  MN: [ 45.7326, -93.9196 ],
+  MO: [ 38.4623, -92.3020 ],
+  MP: [ 14.8058, 145.5505 ],
+  MS: [ 32.7673, -89.6812 ],
+  MT: [ 46.9048, -110.3261 ],
+  NC: [ 35.6411, -79.8431 ],
+  ND: [ 47.5362, -99.7930 ],
+  NE: [ 41.1289, -98.2883 ],
+  NH: [ 43.4108, -71.5653 ],
+  NJ: [ 40.3140, -74.5089 ],
+  NM: [ 34.8375, -106.2371 ],
+  NV: [ 38.4199, -117.1219 ],
+  NY: [ 42.1497, -74.9384 ],
+  OH: [ 40.3736, -82.7755 ],
+  OK: [ 35.5376, -96.9247 ],
+  OR: [ 44.5672, -122.1269 ],
+  PA: [ 40.5773, -77.2640 ],
+  PR: [ 18.2766, -66.3350 ],
+  RI: [ 41.6772, -71.5101 ],
+  SC: [ 33.8191, -80.9066 ],
+  SD: [ 44.2853, -99.4632 ],
+  TN: [ 35.7449, -86.7489 ],
+  TX: [ 31.1060, -97.6475 ],
+  UT: [ 40.1135, -111.8535 ],
+  VA: [ 37.7680, -78.2057 ],
+  VI: [ 18.0001, -64.8199 ],
+  VT: [ 44.0407, -72.7093 ],
+  WA: [ 47.3917, -121.5708 ],
+  WI: [ 44.2563, -89.6385 ],
+  WV: [ 38.4680, -80.9696 ],
+  WY: [ 42.7475, -107.2085 ]
+};
+
+var getState = function( pos ) {
+
+  var loc = [ pos.coords.latitude, pos.coords.longitude ],
+      closestState = {
+        name: undefined,
+        proximity: 180
+      };
+
+  each( states, function( coords, state ){
+
+    var proximity = Math.abs( loc[0] - coords[0] ) + Math.abs( loc[1] - coords[1] );
+
+    if ( proximity < closestState.proximity ) {
+      closestState.name = state;
+      closestState.proximity = proximity;
+    }
+
+  });
+
+  return closestState.name;
+  
+};
+
+module.exports = getState;
+},{"foreach":2}],14:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
 
@@ -12370,7 +12505,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":10,"loan-calc":8}],12:[function(require,module,exports){
+},{"./format-usd.js":12,"loan-calc":9}],15:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -12385,13 +12520,13 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":10,"loan-calc":8}],13:[function(require,module,exports){
+},{"./format-usd":12,"loan-calc":9}],16:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
 };
 
 module.exports = unFormatUSD;
-},{}],14:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /**
  * cf-expandables
  * https://github.com/cfpb/cf-expandables
@@ -12423,8 +12558,8 @@ module.exports = unFormatUSD;
 
 }(jQuery));
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}],"55mbNU":[function(require,module,exports){
+module.exports=require('WjdicM');
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
@@ -12732,4 +12867,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[9])
+},{}]},{},[10])
