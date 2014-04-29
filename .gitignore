@@ -42,6 +42,10 @@ src/vendor
 src/static/fonts
 dist/static/fonts/
 
+# Built assets #
+################
+dist/*
+
 # IP #
-#####################
+######
 ip
