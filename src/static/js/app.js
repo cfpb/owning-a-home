@@ -6,6 +6,7 @@ var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 var loadDefaults = require('./modules/defaults');
+require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
 require('../../vendor/cf-expandables/cf-expandables.js');
 
@@ -117,37 +118,6 @@ $(function() {
 
   var data = getData();
 
-  // chart time
-  if ($('#chart').length > 0) {
-    $('#chart').highcharts({
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: ''
-      },
-      xAxis: {
-        title: {
-          text: 'Rates Available Today'
-        },
-        categories: data.labels
-      },
-      yAxis: {
-        title: {
-          text: 'Number of Lenders'
-        }
-      },
-      series: [{
-        name: 'Number of Lenders',
-        data: data.vals,
-        showInLegend: false
-      }],
-      credits: {
-        text: ''
-      }
-    });
-  }
-
   // update the comparison dropdowns with new options
   var updateComparisonOptions = function() {
     var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
@@ -229,9 +199,40 @@ $(function() {
   });
   
   if ($('.rate-checker').length > 0) {
+
+    $('#chart').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'Rates Available Today'
+        },
+        categories: data.labels
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Lenders'
+        }
+      },
+      series: [{
+        name: 'Number of Lenders',
+        data: data.vals,
+        showInLegend: false
+      }],
+      credits: {
+        text: ''
+      }
+    }).addClass('loading');
+
     loadDefaults(function(){
       renderView(0);
+      $('#chart').removeClass('loading');
     });
+
   }
 
 });
