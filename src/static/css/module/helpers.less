@@ -13,6 +13,13 @@
   .webfont-medium();
 }
 
+.up-lead {
+  .webfont-regular();
+  text-transform: uppercase;
+  color: @darkgray;
+  font-size: 0.875em;
+}
+
 /* decrease the font size for sub text */
 .sub {
     font-size: 0.875em;
@@ -112,12 +119,18 @@
   margin-bottom: 10px;
 }
 
+/* apply the standard-list class to remove margins and paddings to lists */
+.standard-list {
+  .reset;
+  margin-left: 20px;
+}
+
 /* style alert (!) symbols */
 .alert-positive {
   color: @green;
 }
 
-.alert-negative {
+.alert-warning{
   color: @redorange;
 }
 
@@ -149,11 +162,23 @@
 }
 
 // callout container
-.callout {
+.callout,
+.mega-callout {
   background: @gray-5;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
   padding: 20px;
+}
+
+// pad mega-callouts on large screens
+@media (min-width: 720px) {
+  .mega-callout {
+    padding: 20px 80px;
+  }
+}
+
+.icon-outdent {
+  margin-left: -1.2em;
 }
 
 // info containers have a thin border around them
