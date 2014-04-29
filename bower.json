@@ -13,7 +13,8 @@
     "cf-pagination": "git://github.com/cfpb/cf-pagination.git",
     "cf-typography": "git://github.com/cfpb/cf-typography.git",
     "cf-icons": "git://github.com/cfpb/cf-icons.git",
-    "highcharts-release": "~3.0.10"
+    "highcharts-release": "~3.0.10",
+    "chosen": "~1.1.0"
   },
   "exportsOverride": {
     "cf-*": {
