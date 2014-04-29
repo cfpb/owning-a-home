@@ -380,7 +380,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"1y2kms"}],4:[function(require,module,exports){
+},{"jquery":"t1HCCC"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -554,7 +554,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":6,"jquery":"1y2kms"}],5:[function(require,module,exports){
+},{"./widget":6,"jquery":"t1HCCC"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1237,7 +1237,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":3,"./mouse":4,"./widget":6,"jquery":"1y2kms"}],6:[function(require,module,exports){
+},{"./core":3,"./mouse":4,"./widget":6,"jquery":"t1HCCC"}],6:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1762,9 +1762,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"1y2kms"}],"jquery":[function(require,module,exports){
-module.exports=require('1y2kms');
-},{}],"1y2kms":[function(require,module,exports){
+},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
+module.exports=require('t1HCCC');
+},{}],"t1HCCC":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12372,7 +12372,7 @@ $(function() {
   });
 
 });
-},{"../../vendor/cf-expandables/cf-expandables.js":17,"./modules/defaults":11,"./modules/format-usd":12,"./modules/payment-calc":14,"./modules/total-interest-calc":15,"./modules/unformat-usd":16,"debounce":1,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":5}],11:[function(require,module,exports){
+},{"../../vendor/cf-expandables/cf-expandables.js":17,"./modules/defaults":11,"./modules/format-usd":12,"./modules/payment-calc":14,"./modules/total-interest-calc":15,"./modules/unformat-usd":16,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":5}],11:[function(require,module,exports){
 // Intelligent defaults
 var getState = require('./geolocation');
 
@@ -12468,7 +12468,7 @@ var states = {
   WY: [ 42.7475, -107.2085 ]
 };
 
-var getState = function( pos ) {
+var getClosestState = function( pos ) {
 
   var loc = [ pos.coords.latitude, pos.coords.longitude ],
       closestState = {
@@ -12491,7 +12491,7 @@ var getState = function( pos ) {
   
 };
 
-module.exports = getState;
+module.exports = getClosestState;
 },{"foreach":2}],14:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
@@ -12558,8 +12558,8 @@ module.exports = unFormatUSD;
 
 }(jQuery));
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
-},{}],"WjdicM":[function(require,module,exports){
+module.exports=require('55mbNU');
+},{}],"55mbNU":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*
