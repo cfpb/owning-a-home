@@ -228,8 +228,10 @@ $(function() {
     stop: renderView
   });
   
-  loadDefaults(function(){
-    renderView(0);
-  });
+  if ($('.rate-checker').length > 0) {
+    loadDefaults(function(){
+      renderView(0);
+    });
+  }
 
 });
