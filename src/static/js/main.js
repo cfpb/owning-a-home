@@ -12468,7 +12468,7 @@ var states = {
   WY: [ 42.7475, -107.2085 ]
 };
 
-var getClosestState = function( pos ) {
+var getState = function( pos ) {
 
   var loc = [ pos.coords.latitude, pos.coords.longitude ],
       closestState = {
@@ -12491,7 +12491,7 @@ var getClosestState = function( pos ) {
   
 };
 
-module.exports = getClosestState;
+module.exports = getState;
 },{"foreach":2}],14:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
