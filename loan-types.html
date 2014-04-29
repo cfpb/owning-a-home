@@ -32,6 +32,16 @@
 <!--[if lt IE 9]>
     <script src="dist/vendor/html5shiv/html5shiv.js"></script>
     <script src="dist/vendor/html5shiv/html5shiv-printshiv.js"></script>
+    <script>
+      var cfHead = document.getElementsByTagName('head')[0],
+        cfStyle = document.createElement('style');
+      cfStyle.type = 'text/css';
+      cfStyle.styleSheet.cssText = ':before,:after{content:none !important}';
+      cfHead.appendChild(cfStyle);
+      setTimeout(function(){
+        cfHead.removeChild(cfStyle);
+      }, 300);
+    </script>
 <![endif]-->
 
     <script>
@@ -45,6 +55,7 @@
 <body>
 
 <div class="wrap">
+  <div class="wrapper">
 
   <nav class="secondary-nav col-3">
     <ul class="secondary-nav-list">
@@ -82,10 +93,10 @@
         <div class="expandable mega-expand">
             <header class="expandable-header">
               <div class="expandable-mainhead">
-                <div class="col-10">
+                <div class="expandable-title">
                   <h2 class="expandable-heading">Loan term</h2>
                 </div>
-                <div class="col-2">
+                <div class="expandable-link">
                   <a href="" class="btn btn-link expandable-button">
                   <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
                     </a>
@@ -109,8 +120,8 @@
                 </div>
             </header>
 
-            <div class="expandable-content expandable-hidden wrapper" style="display: none;">
-                <div class="expandable-inner wrapper">
+            <div class="expandable-content expandable-hidden" style="display: none;">
+                <div class="expandable-inner">
 
                 <div class="comparison">
                   <h4 class="subheading">Shorter term:</h4>
@@ -128,16 +139,15 @@
                   </ul>
                 </div>
 
-              </div> <!-- /.wrapper -->
-
+              </div> <!-- /.expandable-inner -->
                   <div class="loan-calc sans">
                     <p class="loan-details">
                       For a loan amount of
                       <input id="loan-amount-value" class="value" value="$200,000"></input>
                       an interest rate of
                       <input id="loan-interest-value" class="value" value="5%"></input>
-                      and a loan term of:
-                  </div> <!-- /.loan-calc -->
+                      and a loan term of:</p>
+                  <!--</div> /.loan-calc -->
 
                     <ul class="timeline term-timeline">
                       <li><a href="#" data-term="10">
@@ -165,6 +175,7 @@
                           <span class="year">Year</span>
                       </a></li>
                     </ul>
+                  </div> <!-- /.loan-calc -->
                     <ul class="term-output">
                         <li>
                           <span class="col-7">
@@ -182,7 +193,7 @@
 
                     <p class="note">NOTE: This tool calculates principal and interest payments so you can see the impact of different loan terms. Your total monthly payment will typically be several hundred dollars higher due to taxes and insurance.</p>
 
-                    <h3>What to know</h3>
+                    <h3 class="section-heading">What to know</h3>
 
                     <p>Shorter terms will generally save you money overall, but have higher monthly payments. There two reasons shorter terms can save you money:  </p>
 
@@ -198,10 +209,10 @@
         <div class="expandable mega-expand">
             <header class="expandable-header">
               <div class="expandable-mainhead">
-                <div class="col-10">
+                <div class="expandable-title">
                   <h2 class="expandable-heading">Interest rate structure</h2>
                 </div>
-                <div class="col-2">
+                <div class="expandable-link">
                   <a href="" class="btn btn-link expandable-button">
                   <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
                     </a>
@@ -226,15 +237,15 @@
                 </div>
             </header>
 
-            <div class="expandable-content expandable-hidden wrapper" style="display: none;">
+            <div class="expandable-content expandable-hidden" style="display: none;">
 
               <h3>What are my choices for interest rate structure?</h3>
 
-              <div class="expandable-main-content wrapper">
+              <div class="expandable-main-content">
 
                 <div class="comparison">
                   <h4 class="subheading">Fixed rate</h4>
-                    <ul class="comparison-main">
+                    <ul class="comparison-main rate-comparison">
                       <li><i class="cf-icon cf-icon-arrow-down"></i> Lower risk; No suprises</li>
                       <li><i class="cf-icon cf-icon-arrow-up"></i> Higher interest rate</li>
                       <li><i class="cf-icon cf-icon-error-round alert-positive"></i> Rate and payments stay the same</li>
@@ -281,10 +292,10 @@
 
                 <div class="comparison">
                   <h4 class="subheading">Adjustable rate</h4>
-                    <ul class="comparison-main">
+                    <ul class="comparison-main rate-comparison">
                       <li><i class="cf-icon cf-icon-arrow-up"></i> Higher risk; Uncertainty</li>
                       <li><i class="cf-icon cf-icon-arrow-down"></i> Lower interest rate to start</li>
-                      <li><i class="cf-icon cf-icon-error-round alert-negative"></i> Rate and payments can increase over time</li>
+                      <li><i class="cf-icon cf-icon-error-round alert-warning"></i> Rate and payments can increase over time</li>
                     </ul>
 
                     <div class="sub-comparison">
@@ -328,7 +339,7 @@
 
               </div> <!-- /.expandable-main-content -->
 
-              <h3>Deciphering Adjustable Rate Mortgages (ARMs)</h3>
+              <h3 class="section-heading">Deciphering Adjustable Rate Mortgages (ARMs)</h3>
 
               <p>An Adjustable Rate Mortgage is made up of two periods. For the first period, your interest rate is fixed. At regular intervals throughout the second period, your rate changes based on the market.</p>
 
@@ -348,15 +359,30 @@
                   <p class="sub">The changes to your rate will be based on the market conditions. Learn more</p>
                 </div>
               </div> <!-- /.arm-content -->
+
+              <div class="mega-callout l-bump">
+                <h4 class="callout-heading"><i class="cf-icon cf-icon-error-round alert-warning icon-outdent"></i> What to watch out for</h4>
+
+                <h5 class="callout-mid-heading">ARMs can have other structures.</h5>
+                <p>If you’re considering a less common structure, make sure to carefully read the rules on when and how your rate and payment can adjust.</p>
+
+                <h5 class="callout-mid-heading">Most ARMs include caps on how much your rate can adjust.</h5>
+                <p>Make sure you understand how these caps work. In the past, some ARMs have also included a clause that says that the interest rate can only ever go up, not down. Make sure any loan you are considering does not have this clause!</p>
+
+                <h5 class="callout-mid-heading">ARMs marketed to people with lower credit scores tend to be riskier.</h5>
+                <p>If you have a credit score in the mid 600s or below you are more likely to be offered ARMs that contain risky features, such as higher rates, rates that adjust more frequently, and loan balances that can increase. Consult with multiple lenders and get a quote for an FHA loan as well, so you can compare all your options.</p>
+
+              </div> <!-- /.mega-callout -->
+
             </div> <!-- /.expandable-content -->
         </div>
         <div class="expandable mega-expand">
             <header class="expandable-header">
               <div class="expandable-mainhead">
-                <div class="col-10">
+                <div class="expandable-title">
                   <h2 class="expandable-heading">Loan program</h2>
                 </div>
-                <div class="col-2">
+                <div class="expandable-link">
                   <a href="" class="btn btn-link expandable-button">
                   <span class="expandable-text visuallyhidden">Show</span> <i class="icon-plus-sign"></i>
                     </a>
@@ -381,89 +407,110 @@
                 </div>
             </header>
 
-            <div class="expandable-content expandable-hidden wrapper" style="display: none;">
+            <div class="expandable-content expandable-hidden" style="display: none;">
 
-              <p>Program options in this section: Conventional, FHA, VA, USDA, State and local</p>
+              <p class="sans"><span class="up-lead">Program options in this section:</span> <a href="#conventional" id="conventional-link">Conventional,</a> <a href="#fha" id="fha-link">FHA,</a> <a href="#va" id="va-link">VA,</a> <a href="#usda" id="usda-link">USDA,</a> <a href="#local" id="local-link">State and local</a></p>
 
-              <h3>Standard Loan Programs</h3>
+              <section class="loan-programs sans">
 
-              <p>Each loan program is designed for different circumstances. Often, only one loan program will fit your target house price and down payment amount. If multiple options fit your situation, ask lenders to provide several quotes so you can see which program offers the best deal overall.</p>
+                <h3 class="section-heading">Standard Loan Programs</h3>
 
-              <h4 class="subheading">Conventional loan</h4>
+                <p>Each loan program is designed for different circumstances. Often, only one loan program will fit your target house price and down payment amount. If multiple options fit your situation, ask lenders to provide several quotes so you can see which program offers the best deal overall.</p>
 
-              <p>“Conventional” just means that the loan is not part of a specific government program. Conventional loans typically have lower costs than FHA loans but stricter standards for approval. There are several types of conventional loans:</p>
+                 <section class="loan-program" id="conventional">
+                  <h4 class="subheading">Conventional loan</h4>
 
-              <h5>Conforming</h5>
-              <ul>
-                <li>The loan amount must be less than $417k.</li>
-                <li>If your down payment is less than 20 percent, you will probably need to pay for private mortgage insurance.</li>
-              </ul>
+                  <p>“Conventional” just means that the loan is not part of a specific government program. Conventional loans typically have lower costs than FHA loans but stricter standards for approval. There are several types of conventional loans:</p>
 
-              <h5>Agency Jumbo</h5>
-              <ul>
-                <li>An extension of the conforming program for loan amounts higher than $417k.</li>
-                <li>Only available in certain counties.</li>
-                <li>The maximum loan amount varies by county.</li>
-              </ul>
+                  <div class="wrapper">
+                    <div class="col-4">
+                      <h5 class="h5">Conforming</h5>
+                      <ul class="standard-list loan-list">
+                        <li><strong>The loan amount must be less than $417k.</strong></li>
+                        <li>If your down payment is less than 20 percent, you will probably need to pay for private mortgage insurance.</li>
+                      </ul>
+                    </div>
 
-              <h5>Nonconforming Jumbo</h5>
-              <ul>
-                <li>For loan amounts greater than the Agency Jumbo limit, this is the only option.</li>
-                <li>Eligibility rules vary from lender to lender, but you usually must have good credit and a high down payment.</li>
-              </ul>
+                    <div class="col-4">
+                      <h5 class="h5">Agency Jumbo</h5>
+                      <ul class="standard-list loan-list">
+                        <li>An extension of the conforming program for <strong>loan amounts higher than $417k.</strong></li>
+                        <li>Only available in certain counties.</li>
+                        <li>The maximum loan amount varies by county.</li>
+                      </ul>
+                    </div>
 
-              <div class="callout">
-                <h5>Shop Carefully.</h5>
-                <p>Most conventional loans will fall into one of these three categories, but lenders are not required to stick to them. Shop carefully and ask lots of questions if you are considering a conventional mortgage that does not fit into one of these categories..</p>
+                    <div class="col-4">
+                      <h5 class="h5">Nonconforming Jumbo</h5>
+                      <ul class="standard-list loan-list">
+                        <li>For loan amounts greater than the Agency Jumbo limit, this is the only option.</li>
+                        <li>Eligibility rules vary from lender to lender, but you usually must have good credit and a high down payment.</li>
+                      </ul>
+                    </div>
+                  </div> <!-- /.wrapper -->
 
-                <h5>Alternative Mortgages.</h5>
-                <p>Alternative mortgages – especially those marketed to people with lower credit scores – are more likely to contain risky features and have high rates. An FHA loan might be a better option if you have a credit score in the mid 600s or below. Make sure to consult with multiple lenders and get quotes for FHA loans as well so you can compare costs. And never make a final decision before getting your official Good Faith Estimates.</p>
+                  <div class="mega-callout">
+                    <h5 class="callout-mid-heading"><i class="cf-icon cf-icon-error-round alert-warning icon-outdent"></i> Shop Carefully.</h5>
+                    <p>Most conventional loans will fall into one of these three categories, but lenders are not required to stick to them. Shop carefully and ask lots of questions if you are considering a conventional mortgage that does not fit into one of these categories..</p>
 
-                <h5>Mortgage Insurance.</h5>
-                <p>Pay attention to it!</p>
+                    <h5 class="callout-mid-heading">Alternative Mortgages.</h5>
+                    <p>Alternative mortgages – especially those marketed to people with lower credit scores – are more likely to contain risky features and have high rates. An FHA loan might be a better option if you have a credit score in the mid 600s or below. Make sure to consult with multiple lenders and get quotes for FHA loans as well so you can compare costs. And never make a final decision before getting your official Good Faith Estimates.</p>
 
-              </div> <!-- /.callout -->
+                    <h5>Mortgage Insurance.</h5>
+                    <p>Pay attention to it!</p>
 
-              <h4 class="subheading">FHA loan</h4>
+                  </div> <!-- /.callout -->
+                </section> <!-- /#conventional -->
 
-              <p>FHA loans are regulated and guaranteed by the Federal Housing Administration(FHA). The FHA doesn’t lend the money directly – private lenders do.</p>
+                <section class="loan-program" id="fha">
+                  <h4 class="subheading">FHA loan</h4>
 
-              <ul>
-                <li>Allow for down payments as low as 3.5%.</li>
-                <li>Allow lower credit scores than most conventional loans.</li>
-                <li>Charge relatively high premiums for mortgage insurance, which can make the loans more expensive overall. Have a maximum loan amount that varies by county. Learn your FHA loan limit </li>
-              </ul>
+                  <p>FHA loans are regulated and guaranteed by the Federal Housing Administration(FHA). The FHA doesn’t lend the money directly – private lenders do.</p>
 
-              <h3>Special Loan Progams</h3>
+                  <ul>
+                    <li>Allow for down payments as low as 3.5%.</li>
+                    <li>Allow lower credit scores than most conventional loans.</li>
+                    <li>Charge relatively high premiums for mortgage insurance, which can make the loans more expensive overall. Have a maximum loan amount that varies by county. Learn your FHA loan limit </li>
+                  </ul>
+                </section> <!-- /.#fha -->
+              </section> <!-- /.loan-programs -->
 
-              <p>You might be eligible for special loan programs. They are always worth considering, but they may or may not offer the best deal. Always compare official loan offers (Good Faith Estimates) before making a final decision.</p>
+                <section class="loan-programs special-programs sans">
+                  <h3>Special Loan Progams</h3>
 
-              <h4 class="subheading">VA loan</h4>
+                  <p>You might be eligible for special loan programs. They are always worth considering, but they may or may not offer the best deal. Always compare official loan offers (Good Faith Estimates) before making a final decision.</p>
 
-              <p>The Veterans Administration (VA) has a loan program for veterans, current servicemembers, and surviving spouses.  It is similar to the FHA program, but partially subsidized by the VA, so it can offer a better deal for those who qualify.</p>
 
-              <p>VA loans are available with low or even zero down payments, but may be more expensive than conventional loans. Veterans or servicemembers with significant savings and good credit should compare VA and conventional loans to see which offers the better deal.</p>
+                 <section class="loan-program" id="va">
+                  <h4 class="subheading">VA loan</h4>
 
-              <h4 class="subheading">USDA loan (Or Rural Development Loan)</h4>
+                  <p>The Veterans Administration (VA) has a loan program for veterans, current servicemembers, and surviving spouses.  It is similar to the FHA program, but partially subsidized by the VA, so it can offer a better deal for those who qualify.</p>
 
-              <p>The US Department of Agriculture offers a similar program to the FHA and VA, designed specifically for low- and moderate-income borrowers in rural areas.</p>
+                  <p>VA loans are available with low or even zero down payments, but may be more expensive than conventional loans. Veterans or servicemembers with significant savings and good credit should compare VA and conventional loans to see which offers the better deal.</p>
 
-              <p>USDA loans offer zero down payments and must be 30-year, fixed-rate loans.</p>
+                  <h4 class="subheading">USDA loan (Or Rural Development Loan)</h4>
 
-              <p>It can sometimes be difficult to qualify for a standard, 30-year fixed conventional loan in rural areas. USDA loans can be a good option for borrowers in this situation. </p>
+                  <p>The US Department of Agriculture offers a similar program to the FHA and VA, designed specifically for low- and moderate-income borrowers in rural areas.</p>
 
-              <h4 class="subheading">State and Local Programs</h4>
+                  <p>USDA loans offer zero down payments and must be 30-year, fixed-rate loans.</p>
 
-              <p>Many states, local governments, and local nonprofits offer various programs to help low- and moderate-income families buy their first home. Some programs may also be available to families who have previously owned a home.</p>
+                  <p>It can sometimes be difficult to qualify for a standard, 30-year fixed conventional loan in rural areas. USDA loans can be a good option for borrowers in this situation. </p>
+                </section> <!-- /.#va -->
 
-              <p>Programs include down payment assistance programs that work in combination with an FHA or conventional loan, as well as subsidized loan programs.</p>
+                <section class="loan-program" id="local">
+                  <h4 class="subheading">State and Local Programs</h4>
 
-              <p>If you think you might qualify, contact a local housing counselor to discuss your options. </p>
+                  <p>Many states, local governments, and local nonprofits offer various programs to help low- and moderate-income families buy their first home. Some programs may also be available to families who have previously owned a home.</p>
 
-              <div class="callout">
-                Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you. Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time.  Learn more
-              </div><!-- /.callout-->
+                  <p>Programs include down payment assistance programs that work in combination with an FHA or conventional loan, as well as subsidized loan programs.</p>
 
+                  <p>If you think you might qualify, contact a local housing counselor to discuss your options. </p>
+
+                  <div class="mega-callout">
+                    <p><i class="cf-icon cf-icon-error-round alert-warning icon-outdent"></i> Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you. Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time.  Learn more</p>
+                  </div><!-- /.callout-->
+                </section> <!-- /#local -->
+              </section> <!-- /.loan-programs -->
 
 
 
@@ -471,11 +518,11 @@
 
             </div> <!-- /.expandable-content -->
         </div> <!-- /.expandable -->
-    </section> <!-- END .type-details -->
+    </section> <!-- /.type-details -->
 
   </section> <!-- /.main-content -->
-
-</div><!-- END .wrapper -->
+  </div> <!-- /.wrapper -->
+</div><!--  /.wrap -->
 
 
 <script src="dist/static/js/main.js"></script>
