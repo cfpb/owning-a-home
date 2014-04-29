@@ -45,6 +45,7 @@ dist/static/fonts/
 # Built assets #
 ################
 dist/*
+src/static/js/main.js
 
 # IP #
 ######
