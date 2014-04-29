@@ -57,49 +57,116 @@
 .timeline {
   .reset;
 
+
   li {
     display: inline-block;
-    font-size: 1.125em;
-    border-right: 1px solid @gray-20;
-    width: 16.666666667%;
     text-align: center;
     margin-right: -4px; // remove space between inline block elements
     .webfont-regular();
 
-    a {
-      display: inline-block;
-      width: 100%;
-      background: @gray-10;
-      padding: 10px 0;
-    }
+      strong {
+        .webfont-demi();
+      }
 
-    a,
-    a:link,
-    a:visited {
-      color: @black;
-      border-bottom: 4px solid @green;
-    }
+      a {
+        display: inline-block;
+        width: 100%;
+        background: @gray-10;
+        padding: 10px 0;
+      }
 
-    a:hover,
-    a:focus,
-    .current:link,
-    .current:visited {
-      color: @black;
-      border-bottom: 4px solid #AED690;
+      a,
+      a:link,
+      a:visited {
+        color: @black;
+      }
+
+  }
+}
+
+
+/* loan term length selecters at large screen sizes */
+@media (min-width: 620px) {
+
+  .timeline{
+    li {
+      font-size: 1.125em;
+      border-right: 1px solid @gray-20;
+      width: 16.666666667%;
+      text-align: center;
+      margin-right: -4px; // remove space between inline block elements
+      .webfont-regular();
+
+      a {
+        background: @gray-10;
+      }
+
+      a,
+      a:link,
+      a:visited {
+        border-bottom: 4px solid @green;
+      }
+
+      a:hover,
+      a:focus,
+      .current:link,
+      .current:visited {
+        color: @black;
+        border-bottom: 4px solid #AED690;
+      }
+    }
+  }
+}
+
+/* loan term length selecters at small screen sizes */
+@media (max-width: 620px) {
+
+  .timeline{
+
+    li {
+      box-sizing: border-box;
+      border: solid transparent;
+      border-width: 0 15px;
+      margin-right: -0.25em;
+      vertical-align: top;
+      width: 33%;
+      margin-bottom: 1em;
+
+      a,
+      a:link,
+      a:visited {
+        background: #F7F7F7;
+        border: 1px solid @gray;
+        border-radius: 2px;
+      }
+
+      a:hover,
+      a:focus,
+      .current:link,
+      .current:visited {
+        color: @black;
+        border: 1px solid @gray;
+        background: @green-tint;
+      }
+
+      .year {
+        display: none;
+      }
+
     }
   }
 }
 
 .loan-calc {
   margin-top: 2em;
-  padding: 1em .5em;
-  font-size: 0.875em;
   background: @gray-10;
   border-top: 1px solid @gray-20;
-  border-bottom: 1px solid @gray-20;
 
-  p {
+
+  .loan-details {
     .reset;
+    font-size: 0.875em;
+    padding: 1em .5em;
   }
 
   // style text inputs
@@ -109,9 +176,16 @@
     border: solid 1px @gray-50;
     font-size: 14px;
     padding: .4em .1em;
+    margin: 0 .5em;
     .webfont-demi();
   }
 
+}
+
+@media (min-width: 620px) {
+  .loan-details {
+    border-bottom: 1px solid @gray-20;
+  }
 }
 
 .term-output {
@@ -123,11 +197,14 @@
   li {
     list-style: none;
   }
+
+  strong {
+    .webfont-demi();
+  }
 }
 
 
 .loan-value {
-  .webfont-demi();
   font-size: 2.125em;
 }
 
@@ -164,6 +241,11 @@
 
   li {
     list-style: none;
+    margin-bottom: 1em;
+  }
+
+  strong {
+    .webfont-demi();
   }
 
   .cf-icon-arrow-up {
@@ -176,6 +258,10 @@
 
   .comparison-main {
     margin-bottom: 40px;
+  }
+
+  .rate-comparison {
+    min-height: 140px;
   }
 
   .sub-comparison-header {
@@ -249,8 +335,30 @@
   p {
     margin-bottom: .5em;
   }
+
+  strong {
+    .webfont-demi();
+  }
 }
 
 .arm-adjustable {
   margin-top: 48px;
 }
+
+/*
+  loan programs
+  --------------------------- */
+.loan-program {
+  margin-top: 40px;
+}
+
+.special-programs {
+  margin-top: 80px;
+}
+
+.loan-list {
+  li {
+    margin-bottom: 1em;
+  }
+}
+
