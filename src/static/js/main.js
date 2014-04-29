@@ -380,7 +380,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],4:[function(require,module,exports){
+},{"jquery":"1y2kms"}],4:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -554,7 +554,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":6,"jquery":"t1HCCC"}],5:[function(require,module,exports){
+},{"./widget":6,"jquery":"1y2kms"}],5:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1237,7 +1237,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":3,"./mouse":4,"./widget":6,"jquery":"t1HCCC"}],6:[function(require,module,exports){
+},{"./core":3,"./mouse":4,"./widget":6,"jquery":"1y2kms"}],6:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1762,9 +1762,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"t1HCCC"}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
-},{}],"t1HCCC":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"jquery":[function(require,module,exports){
+module.exports=require('1y2kms');
+},{}],"1y2kms":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*!
@@ -12145,6 +12145,7 @@ var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
 var loadDefaults = require('./modules/defaults');
+require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
 require('../../vendor/cf-expandables/cf-expandables.js');
 
@@ -12256,37 +12257,6 @@ $(function() {
 
   var data = getData();
 
-  // chart time
-  if ($('#chart').length > 0) {
-    $('#chart').highcharts({
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: ''
-      },
-      xAxis: {
-        title: {
-          text: 'Rates Available Today'
-        },
-        categories: data.labels
-      },
-      yAxis: {
-        title: {
-          text: 'Number of Lenders'
-        }
-      },
-      series: [{
-        name: 'Number of Lenders',
-        data: data.vals,
-        showInLegend: false
-      }],
-      credits: {
-        text: ''
-      }
-    });
-  }
-
   // update the comparison dropdowns with new options
   var updateComparisonOptions = function() {
     var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
@@ -12368,29 +12338,73 @@ $(function() {
   });
   
   if ($('.rate-checker').length > 0) {
+
+    $('#chart').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'Rates Available Today'
+        },
+        categories: data.labels
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Lenders'
+        }
+      },
+      series: [{
+        name: 'Number of Lenders',
+        showInLegend: false
+      }],
+      credits: {
+        text: ''
+      }
+    }).addClass('loading');
+
     loadDefaults(function(){
       renderView(0);
+      $('#chart').removeClass('loading');
     });
+
   }
 
 });
-},{"../../vendor/cf-expandables/cf-expandables.js":17,"./modules/defaults":11,"./modules/format-usd":12,"./modules/payment-calc":14,"./modules/total-interest-calc":15,"./modules/unformat-usd":16,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":5}],11:[function(require,module,exports){
+},{"../../vendor/cf-expandables/cf-expandables.js":18,"./modules/defaults":11,"./modules/format-usd":12,"./modules/local-storage-polyfill":14,"./modules/payment-calc":15,"./modules/total-interest-calc":16,"./modules/unformat-usd":17,"debounce":1,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":5}],11:[function(require,module,exports){
 // Intelligent defaults
 var getState = require('./geolocation');
 
+var defaults = {
+  state: localStorage.getItem( 'state' )
+};
+
 var loadDefaults = function( cb ) {
+
+  if ( defaults.state ) {
+    setState();
+    return cb();
+  }
 
   // Get their state using the HTML5 gelocation API.
   navigator.geolocation.getCurrentPosition( loadState, noLocation );
 
   function loadState( pos ){
-    var state = getState( pos );
-    $('#location').val( state );
+    defaults.state = getState( pos );
+    localStorage.setItem( 'state', defaults.state );
+    setState();
     cb();
   }
 
   function noLocation() {
     cb();
+  }
+
+  function setState() {
+    $('#location').val( defaults.state );
   }
 
 };
@@ -12495,6 +12509,34 @@ var getClosestState = function( pos ) {
 
 module.exports = getClosestState;
 },{"foreach":2}],14:[function(require,module,exports){
+// From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
+if (!window.localStorage) {
+  window.localStorage = {
+    getItem: function (sKey) {
+      if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
+      return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+    },
+    key: function (nKeyId) {
+      return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
+    },
+    setItem: function (sKey, sValue) {
+      if(!sKey) { return; }
+      document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+      this.length = document.cookie.match(/\=/g).length;
+    },
+    length: 0,
+    removeItem: function (sKey) {
+      if (!sKey || !this.hasOwnProperty(sKey)) { return; }
+      document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      this.length--;
+    },
+    hasOwnProperty: function (sKey) {
+      return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+    }
+  };
+  window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
+}
+},{}],15:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
 
@@ -12507,7 +12549,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":12,"loan-calc":9}],15:[function(require,module,exports){
+},{"./format-usd.js":12,"loan-calc":9}],16:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -12522,13 +12564,13 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":12,"loan-calc":9}],16:[function(require,module,exports){
+},{"./format-usd":12,"loan-calc":9}],17:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
 };
 
 module.exports = unFormatUSD;
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * cf-expandables
  * https://github.com/cfpb/cf-expandables
@@ -12560,8 +12602,8 @@ module.exports = unFormatUSD;
 
 }(jQuery));
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}],"55mbNU":[function(require,module,exports){
+module.exports=require('WjdicM');
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 (function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
 /*

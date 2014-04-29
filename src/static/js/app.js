@@ -220,7 +220,6 @@ $(function() {
       },
       series: [{
         name: 'Number of Lenders',
-        data: data.vals,
         showInLegend: false
       }],
       credits: {
