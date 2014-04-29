@@ -1,12 +1,13 @@
 var $ = require('jquery');
 var debounce = require('debounce');
-require('jquery-ui/slider');
-require('../../vendor/cf-expandables/cf-expandables.js');
 var payment = require('./modules/payment-calc');
 var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
+var loadDefaults = require('./modules/defaults');
+require('jquery-ui/slider');
+require('../../vendor/cf-expandables/cf-expandables.js');
 
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
@@ -167,7 +168,7 @@ $(function() {
     data = getData();
 
     details = {
-      location: $('#location').val(),
+      location: $('#location option:selected').text(),
       type: $('#loan-type').val(),
       price: $('#house-price').val() || $('#house-price').attr('placeholder'),
       down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
@@ -226,7 +227,9 @@ $(function() {
     },
     stop: renderView
   });
-
-  renderView(0);
+  
+  loadDefaults(function(){
+    renderView(0);
+  });
 
 });
