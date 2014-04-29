@@ -12367,9 +12367,11 @@ $(function() {
     stop: renderView
   });
   
-  loadDefaults(function(){
-    renderView(0);
-  });
+  if ($('.rate-checker').length > 0) {
+    loadDefaults(function(){
+      renderView(0);
+    });
+  }
 
 });
 },{"../../vendor/cf-expandables/cf-expandables.js":17,"./modules/defaults":11,"./modules/format-usd":12,"./modules/payment-calc":14,"./modules/total-interest-calc":15,"./modules/unformat-usd":16,"debounce":1,"highcharts":"55mbNU","jquery":"t1HCCC","jquery-ui/slider":5}],11:[function(require,module,exports){
