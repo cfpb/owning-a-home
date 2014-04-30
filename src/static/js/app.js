@@ -5,7 +5,8 @@ var interest = require('./modules/total-interest-calc');
 var formatUSD = require('./modules/format-usd');
 var unFormatUSD = require('./modules/unformat-usd');
 var highcharts = require('highcharts');
-var loadDefaults = require('./modules/defaults');
+var defaults = require('./modules/defaults');
+require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
 require('../../vendor/cf-expandables/cf-expandables.js');
 
@@ -117,37 +118,6 @@ $(function() {
 
   var data = getData();
 
-  // chart time
-  if ($('#chart').length > 0) {
-    $('#chart').highcharts({
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: ''
-      },
-      xAxis: {
-        title: {
-          text: 'Rates Available Today'
-        },
-        categories: data.labels
-      },
-      yAxis: {
-        title: {
-          text: 'Number of Lenders'
-        }
-      },
-      series: [{
-        name: 'Number of Lenders',
-        data: data.vals,
-        showInLegend: false
-      }],
-      credits: {
-        text: ''
-      }
-    });
-  }
-
   // update the comparison dropdowns with new options
   var updateComparisonOptions = function() {
     var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
@@ -176,6 +146,10 @@ $(function() {
       rate: data.largest.label
     };
 
+    // Save the user's selections to local storage
+    defaults.save();
+
+    // Add a loading animation
     $('#chart').addClass('loading');
 
     // this is a faux delay to emulate an AJAX request
@@ -188,6 +162,11 @@ $(function() {
       // update the comparisons section
       updateComparisonOptions();
       updateComparisons();
+
+      // Calculate loan amount
+      calcLoan();
+
+      updateScoreRange();
 
       // update the chart
       var chart = $('#chart').highcharts();
@@ -212,6 +191,10 @@ $(function() {
   // update comparison info when new rate is selected
   $('.compare').on('change', 'select', updateComparisons);
 
+  var updateScoreRange = function() {
+    $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+  };
+
   // jquery ui slider
   $('#slider').slider({
     range: true,
@@ -220,18 +203,50 @@ $(function() {
     step: 10,
     values: [ 600, 700 ],
     create: function() {
-      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+      updateScoreRange();
     },
     slide: function( event, ui ) {
-      $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+      updateScoreRange();
+      defaults.save();
     },
     stop: renderView
   });
   
   if ($('.rate-checker').length > 0) {
-    loadDefaults(function(){
+
+    $('#chart').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'Rates Available Today'
+        },
+        categories: data.labels
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Lenders'
+        }
+      },
+      series: [{
+        name: 'Number of Lenders',
+        data: data.vals,
+        showInLegend: false
+      }],
+      credits: {
+        text: ''
+      }
+    }).addClass('loading');
+
+    defaults.load(function(){
       renderView(0);
+      $('#chart').removeClass('loading');
     });
+
   }
 
 });
