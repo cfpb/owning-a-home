@@ -8,7 +8,7 @@ var highcharts = require('highcharts');
 var defaults = require('./modules/defaults');
 require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
-require('../../vendor/cf-expandables/cf-expandables.js');
+require('../vendor/cf-expandables/cf-expandables.js');
 
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
@@ -211,7 +211,7 @@ $(function() {
     },
     stop: renderView
   });
-  
+
   if ($('.rate-checker').length > 0) {
 
     $('#chart').highcharts({
