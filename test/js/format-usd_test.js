@@ -1,4 +1,4 @@
-var formatUSD = require('../../src/static/js/modules/format-usd.js');
+var formatUSD = require('../../src/js/modules/format-usd.js');
 
 var chai = require('chai');
 var expect = chai.expect;

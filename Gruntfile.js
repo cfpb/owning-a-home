@@ -62,7 +62,7 @@ module.exports = function(grunt) {
           sourceMapRootpath: '/'
         },
         files: {
-          'src/static/css/main.css': ['src/static/css/main.less']
+          'src/css/main.css': ['src/css/main.less']
         }
       },
       ie8: {
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
           paths: ['src/static'],
         },
         files: {
-          'dist/static/css/ie8.css': ['src/static/css/ie/ie8.less']
+          'static/css/ie8.css': ['src/css/ie/ie8.less']
         }
       }
     },
@@ -87,16 +87,16 @@ module.exports = function(grunt) {
         diff: false
       },
       multiple_files: {
-        // Prefix all CSS files found in `src/static/css` and overwrite.
+        // Prefix all CSS files found in `src/css` and overwrite.
         expand: true,
-        src: 'src/static/css/*.css'
+        src: 'src/css/*.css'
       },
     },
 
     browserify: {
       dist: {
         files: {
-          'src/static/js/main.js': ['src/static/js/app.js'],
+          'src/js/main.js': ['src/js/app.js'],
         },
         options: {
           shim: {
@@ -153,7 +153,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: [ 'dist/static/css/*.min.css', 'dist/static/js/*.min.js' ]
+          src: [ 'static/css/*.min.css', 'static/js/*.min.js' ]
         }
       }
     },
@@ -169,7 +169,7 @@ module.exports = function(grunt) {
           //root: '/src/'
         },
         files: {
-          'dist/static/css/main.min.css': ['src/static/css/main.css'],
+          'static/css/main.min.css': ['src/css/main.css'],
         }
       }
     },
@@ -181,7 +181,7 @@ module.exports = function(grunt) {
      */
     clean: {
       bowerDir: ['bower_components'],
-      dist: ['dist/**/*', '!dist/.git/']
+      dist: ['static/**/*', '!dist/.git/']
     },
 
     /**
@@ -203,14 +203,14 @@ module.exports = function(grunt) {
 
               // Except...
 
-              // Don't bring over everything in static/
-              '!static/**',
-              'static/css/*.css',
-              'static/js/*.js',
-              'static/js/html5shiv-printshiv.js',
-              'static/fonts/**',
-              'static/img/**',
-              'static/mock-data/**',
+              // Don't bring over everything in src
+              '!src/**',
+              'src/css/*.css',
+              'src/js/*.js',
+              'src/js/html5shiv-printshiv.js',
+              'src/fonts/**',
+              'src/img/**',
+              'src/mock-data/**',
 
               // Exclude all vendor files because a lot will get concatenated
               '!vendor/**',
@@ -218,7 +218,7 @@ module.exports = function(grunt) {
               'vendor/html5shiv/html5shiv-printshiv.js'
 
             ],
-            dest: 'dist/'
+            dest: 'static/'
           }
         ]
       }
@@ -270,9 +270,9 @@ module.exports = function(grunt) {
         }
       },
       files: [
-        'src/static/js/**/*',
+        'src/js/**/*',
         '!node_modules/**/*',
-        '!src/static/js/main.js'
+        '!src/js/main.js'
       ]
     },
 
@@ -329,7 +329,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/*.js','<%= mochaTest.test.src %>'],
+        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js','<%= mochaTest.test.src %>'],
         tasks: ['compile', 'dist']
       }
     }
