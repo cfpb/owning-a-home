@@ -1,4 +1,4 @@
-var unformatUSD = require('../../src/static/js/modules/unformat-usd.js');
+var unformatUSD = require('../../src/js/modules/unformat-usd.js');
 
 var chai = require('chai');
 var expect = chai.expect;

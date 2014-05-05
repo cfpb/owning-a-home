@@ -39,13 +39,14 @@ Thumbs.db
 # Capital Framework #
 #####################
 src/vendor
-src/static/fonts
-dist/static/fonts/
+src/fonts
+static/fonts/
 
 # Built assets #
 ################
 dist/*
-src/static/js/main.js
+static/*
+src/js/main.js
 
 # IP #
 ######
