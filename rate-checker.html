@@ -1,62 +1,9 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+{% extends "base.html" %}
+{% set active_page = "rate-checker" %}
 
-<head>
+{% block content %}
 
-<!--
-    ===========
-    GLOBAL META
-    ===========
--->
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!--
-    ==================
-    PAGE-SPECIFIC META
-    ==================
--->
-
-<title>Rate checker</title>
-<meta name="description" content="Rate Checker Prototype">
-
-<!-- Explicit favicon link needed for testing. Remove for production. -->
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-<link rel="stylesheet" href="dist/static/css/main.css">
-
-<!--[if lt IE 9]>
-    <script src="dist/vendor/html5shiv/html5shiv.js"></script>
-    <script src="dist/vendor/html5shiv/html5shiv-printshiv.js"></script>
-    <script>
-      var cfHead = document.getElementsByTagName('head')[0],
-        cfStyle = document.createElement('style');
-      cfStyle.type = 'text/css';
-      cfStyle.styleSheet.cssText = ':before,:after{content:none !important}';
-      cfHead.appendChild(cfStyle);
-      setTimeout(function(){
-        cfHead.removeChild(cfStyle);
-      }, 300);
-    </script>
-<![endif]-->
-
-    <script>
-        // Confirm availability of JS and remove no-js class from html
-        var docElement = document.documentElement;
-        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
-    </script>
-
-</head>
-
-<body>
-
-<div class="wrap rate-checker">
-
-  <div class="wrapper">
+<div class="rate-checker">
 
     <div class="result col-8">
 
@@ -254,13 +201,7 @@
 
     </div><!-- END .calculator -->
 
-  </div><!-- END .wrapper -->
-
-</div><!-- END .wrap -->
+</div><!-- END .rate-checker -->
 
 
-<script src="dist/static/js/main.js"></script>
-
-</body>
-
-</html>
+{% endblock %}
