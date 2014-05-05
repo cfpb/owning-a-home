@@ -9,6 +9,7 @@ var defaults = require('./modules/defaults');
 require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
 require('../vendor/cf-expandables/cf-expandables.js');
+require('./modules/nemo');
 
 // This is a temporary function that generates fake data in
 // the same format that our API will eventually return it.
