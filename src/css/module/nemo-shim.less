@@ -2,8 +2,10 @@
 .toggle-menu {
   display: none;
   position: absolute;
-  right: 0;
-  top: 10px;
+  right: 10px;
+  top: 30px;
+  height: 40px;
+  width: 40px;
 }
 
 @media screen and (min-width: 865px) {
@@ -79,8 +81,14 @@
     position: relative;
     top: 0;
     right: 0;
-    width: auto;
-    text-align: left;
+    width: 100%;
+    text-align: center;
+  }
+
+  // remove us flag
+  .official-website {
+    padding-right: 0;
+    background: none;
   }
 
   // Reset the footer navs
@@ -91,6 +99,13 @@
       display: block;
       min-height: 0;
     }
+  }
+
+  .split-right {
+    position: static;
+    margin-right: 0;
+    margin-left: 10px;
+    text-align: right;
   }
 
 }
