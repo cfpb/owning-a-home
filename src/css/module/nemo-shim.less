@@ -1,0 +1,89 @@
+// Style our hamburger icon
+.toggle-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
+@media screen and (max-width: 1060px) {
+
+  // Shrink font size of menu if viewport isn't huge
+  #header nav {
+    font-size: 80%;
+  }
+
+}
+
+@media screen and (max-width: 865px) {
+
+  // The nav items are crazy ugly when bumped to two lines
+  // Aligning them to the left helps a little
+  #header nav ul li a {
+    text-align: left;
+  }
+
+}
+
+@media screen and (max-width: 660px) {
+
+  // Scale the logo a bit
+  #header h1 {
+    width: 75%;
+  }
+
+  // Show the menu icon
+  .toggle-menu {
+    display: block;
+  }
+
+  // Reset font size
+  #header nav {
+    font-size: 100%;
+  }
+
+  // Simplify subnav styles for mobiles
+  #subnav nav {
+    border: 0;
+    width: 100%;
+    ul {
+      margin: 0;
+      width: auto;
+    }
+  }
+
+  // Move the nav items into a vertical list
+  #header nav ul {
+    display: none;
+    &.vis {
+      display: block;
+    }
+    li {
+      display: block;
+      a {
+        text-align: center;
+      }
+    }
+  }
+
+  // Reset the phone number and search form positioning
+  p.lang,
+  #search_form {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: auto;
+    text-align: left;
+  }
+
+  // Reset the footer navs
+  #footer > div {
+    > a,
+    > nav {
+      width: auto;
+      display: block;
+      min-height: 0;
+    }
+  }
+
+}
