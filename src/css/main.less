@@ -7,10 +7,10 @@
 @import (less) "../../vendor/normalize-css/normalize.css";
 
 // @import web fonts
-@import (less) "module/font-face.less";
+@import "module/font-face.less";
 
 // @import combined CF component LESS
-@import (less) "../../vendor/cf-concat/cf.less";
+@import "../../vendor/cf-concat/cf.less";
 
 //* @import other modules
 @import "module/mixins.less";
@@ -23,6 +23,13 @@
 @import "module/hero.less";
 @import "module/nav.less";
 @import "module/helpers.less";
+
+// import CFPB nemo theme header and footer styles
+.nemo {
+  @import "module/nemo.less";
+  // and a shim to override some things
+  @import "module/nemo-shim.less";
+}
 
 // @import combined CF component LESS
 @import (less) "../../../node_modules/jquery-ui/themes/smoothness/jquery-ui.css";

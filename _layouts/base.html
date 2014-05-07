@@ -54,7 +54,9 @@
 
 <body>
 
-<div class="wrap">
+{% include "nemo_header.html" %}
+
+<div class="wrap content-area">
   <div class="wrapper">
 
   <!-- NAVIGATION -->
@@ -86,6 +88,9 @@
 
   </div> <!-- /.wrapper -->
 </div> <!-- /.wrap -->
+
+{% include "nemo_subnav.html" %}
+{% include "nemo_footer.html" %}
 
 
 <script src="static/js/main.js"></script>
