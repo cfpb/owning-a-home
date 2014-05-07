@@ -2,8 +2,20 @@
 .toggle-menu {
   display: none;
   position: absolute;
-  right: 0;
-  top: 10px;
+  left: 10px;
+  top: 20px;
+  font-size: 18px;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+@media screen and (min-width: 865px) {
+  .horizontal-list-item {
+    display: inline-block;
+    vertical-align: top;
+  }
 }
 
 @media screen and (max-width: 1060px) {
@@ -29,13 +41,28 @@
 
   // Scale the logo a bit
   #header h1 {
-    width: 75%;
+    margin-left: 60px;
   }
 
   // Show the menu icon
   .toggle-menu {
     display: block;
   }
+
+  #header {
+    .toggle-menu,
+    .toggle-menu:link,
+    .toggle-menu:visited {
+      color: #75787B;
+    }
+
+    .toggle-menu:hover,
+    .toggle-menu:active,
+    .toggle-menu:focus {
+        color: #75787B;
+        background: #E3E4E4;
+      }
+    }
 
   // Reset font size
   #header nav {
@@ -60,20 +87,24 @@
     }
     li {
       display: block;
-      a {
-        text-align: center;
-      }
     }
   }
 
   // Reset the phone number and search form positioning
   p.lang,
   #search_form {
+    display: none; // hide until we make a search toggle
     position: relative;
     top: 0;
     right: 0;
-    width: auto;
-    text-align: left;
+    width: 100%;
+    text-align: center;
+  }
+
+  // remove us flag
+  .official-website {
+    padding-right: 0;
+    background: none;
   }
 
   // Reset the footer navs
@@ -84,6 +115,13 @@
       display: block;
       min-height: 0;
     }
+  }
+
+  .split-right {
+    position: static;
+    margin-right: 0;
+    margin-left: 10px;
+    text-align: right;
   }
 
 }
