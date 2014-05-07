@@ -2,10 +2,13 @@
 .toggle-menu {
   display: none;
   position: absolute;
-  right: 10px;
-  top: 30px;
+  left: 10px;
+  top: 20px;
+  font-size: 18px;
   height: 40px;
   width: 40px;
+  line-height: 40px;
+  text-align: center;
 }
 
 @media screen and (min-width: 865px) {
@@ -38,13 +41,28 @@
 
   // Scale the logo a bit
   #header h1 {
-    width: 75%;
+    margin-left: 60px;
   }
 
   // Show the menu icon
   .toggle-menu {
     display: block;
   }
+
+  #header {
+    .toggle-menu,
+    .toggle-menu:link,
+    .toggle-menu:visited {
+      color: #75787B;
+    }
+
+    .toggle-menu:hover,
+    .toggle-menu:active,
+    .toggle-menu:focus {
+        color: #75787B;
+        background: #E3E4E4;
+      }
+    }
 
   // Reset font size
   #header nav {
@@ -69,15 +87,13 @@
     }
     li {
       display: block;
-      a {
-        text-align: center;
-      }
     }
   }
 
   // Reset the phone number and search form positioning
   p.lang,
   #search_form {
+    display: none; // hide until we make a search toggle
     position: relative;
     top: 0;
     right: 0;
