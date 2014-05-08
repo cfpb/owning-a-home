@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% set active_page = "loan-types" %}
+{% set subnav = True %}
 
 {% block content %}
 
-  <section class="main-content col-9">
+  <section class="main-content {% if subnav %}col-9{% endif %}">
 
   <h1>Understanding loan types</h1>
 
