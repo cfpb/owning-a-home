@@ -241,7 +241,8 @@ $(function() {
       }],
       credits: {
         text: ''
-      }
+      },
+      colors: ['#FFCE8D']
     }).addClass('loading');
 
     defaults.load(function(){

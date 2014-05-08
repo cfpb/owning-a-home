@@ -30,7 +30,7 @@
 
     <div class="col-8">
 
-      <h2>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h2>
+      <h2 class="rate-checker-heading">In <strong class="location">Alabama</strong>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h2>
 
       <section class="chart wrapper">
         <div id="chart" class="chart-area"></div>
@@ -100,11 +100,14 @@
 
         <div class="col-12">
 
+          <h4>Check your rate options</h4>
+
+          <p>To get the most accurate results, please enter your information into this form.</p>
+
           <label for="range">Credit Score Range</label>
           <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
           <div id="slider" class="recalc"></div>
           <div id="slider-range"></div>
-          <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
 
         </div>
 
@@ -169,9 +172,6 @@
             <option value="PR">Puerto Rico</option>
           </select>
         </div>
-        <div class="col-6 help">
-          Where do you want to buy a home?
-        </div>
 
         <div class="col-6">
           <label for="loan-type">Loan Type</label>
@@ -183,32 +183,23 @@
             <option value="5">5/1 ARM</option>
           </select>
         </div>
-        <div class="col-6 help">
-          Loan types are made up of 3 parts. <a href="#">Learn more</a>
-        </div>
+
 
         <div class="col-6">
           <label for="house-price">House Price</label>
           <input type="text" placeholder="250,000" name="house-price" class="recalc" id="house-price">
         </div>
-        <div class="col-6 help">
-          How much does your new home cost?
-        </div>
+
 
         <div class="col-6">
           <label for="down-payment">Down Payment</label>
           <input type="text" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
         </div>
-        <div class="col-6 help">
-          How much do you have to put down on a home?
-        </div>
+
 
         <div class="col-6">
           <label for="loan-amount">Loan Amount</label>
           <span id="loan-amount-result">$380,000</span>
-        </div>
-        <div class="col-6 help">
-          This is the resulting math form the above two inputs.
         </div>
 
       </section>
