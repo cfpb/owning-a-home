@@ -59,6 +59,7 @@
 <div class="wrap content-area">
   <div class="wrapper">
 
+{% if subnav %}
   <!-- NAVIGATION -->
   {% set navigation_bar = [
       ('index.html', 'index', 'Owning a Home'),
@@ -77,6 +78,7 @@
     </ul>
   </nav>
   <!-- /NAVIGATION -->
+{% endif %}
 
 
   <!-- PRIMARY CONTENT -->
