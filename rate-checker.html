@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "rate-checker" %}
-{% set subnav = true %}
+{% set subnav = false %}
 
 {% block title %}Owning a Home: Rate Checker{% endblock title %}
 
@@ -8,21 +8,32 @@
 
 <div class="rate-checker result {% if subnav %}col-9{% endif %}">
 
+  <section class="page-intro">
     <div class="col-8">
 
-      <h1>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
+      <h1>Do you know what rate to expect when shopping for a mortgage?</h1>
+
+      <p class="lead">Your credit score, loan type, house price, and down payment amount all affect the interest rate you can get. Type your information into this tool to see what current rates are for borrowers like you. Our data comes from actual lenders and is updated every day.</p>
+    </div>
+
+    <div class="col-4">
+      <img src="static/img/home-illustration.png" alt="Home illustration">
+
+      <h3 class="subhead">Why does your interest rate matter?</h3>
+
+      <p>Even a quarter of a percent lower interest rate will save you thousands of dollars over time.</p>
+
+      <p><a href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">More mortgage questions on</a> <a class="btn" href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">ask cfpb</a></p>
+    </div>
+
+  </section>
+
+    <div class="col-8">
+
+      <h2>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h2>
 
       <section class="chart wrapper">
-
-        <div class="col-3">
-          <h3>How likely are you to get this rate?</h3>
-          <p>If you are offered a rate above <span class="rate">3.550%</span>, shop around to be sure you are getting the best rate.</p>
-        </div>
-
-        <div class="col-9">
-          <div id="chart" class="chart-area"></div>
-        </div>
-
+        <div id="chart" class="chart-area"></div>
       </section>
 
       <section class="compare wrapper">
