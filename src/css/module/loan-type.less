@@ -6,47 +6,35 @@
 /*
     Loan type equation
     --------------------------- */
-.loan-type-equation {
-    .webfont-regular();
-    font-size: 1.625em;
-    margin: 2em 0;
-}
-
-.symbol {
-    .webfont-demi();
-    color: @gray;
-}
-
 .loan-type-list {
-    padding: 0;
+  padding-left: 30px; // match the negative outdent of the numbering
+  counter-reset: li;
+  list-style: none;
+  position: relative;
+
+  li {
     display: inline-block;
+    position: relative;
+    margin-right: 60px;
+    text-transform: uppercase;
+    font-size: 0.875em;
+  }
 
-    li {
-        display: inline;
-
-        &:before {
-            content: "+ ";
-            display: inline;
-            background: #fff;
-            .symbol;
-        }
-
-        &:first-child {
-            &:before {
-                content: "";
-                margin: 0;
-            }
-        }
-    }
-
-    .loan-type {
-        padding: 20px;
-        background: @gray-10;
-    }
 }
 
-.outcome {
-    display: inline-block;
+.loan-type-list > li:before {
+  content: counter(li);
+  counter-increment: li;
+  background: #2cb34a;
+  color: #fff;
+  font-size: 12px;
+  position: absolute;
+  text-align: center;
+  left: -30px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 20px;
 }
 
 
