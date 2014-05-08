@@ -8,6 +8,7 @@
     --------------------------- */
 .loan-type-list {
   padding-left: 30px; // match the negative outdent of the numbering
+  margin: 0;
   counter-reset: li;
   list-style: none;
   position: relative;
@@ -35,6 +36,17 @@
   width: 20px;
   line-height: 20px;
   border-radius: 20px;
+}
+
+@media (max-width: 840px) {
+  .loan-type-list {
+    li {
+      display: block;
+      margin-right: 0;
+      margin-bottom: 1em;
+      font-size: 0.875em;
+    }
+  }
 }
 
 
