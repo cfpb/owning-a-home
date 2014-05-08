@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% set active_page = "rate-checker" %}
+{% set subnav = True %}
 
 {% block content %}
 
-<div class="rate-checker">
+<div class="rate-checker result {% if subnav %}col-9{% endif %}">
 
-    <div class="result col-8">
+    <div class="col-8">
 
       <h1>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
 
