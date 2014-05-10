@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% set active_page = "loan-types" %}
-{% set subnav = True %}
+{% set subnav = true %}
+
+{% block title %}Owning a Home: Loan Types{% endblock title %}
 
 {% block content %}
 
@@ -10,22 +12,16 @@
 
   <p class="lead">The type of mortgage you choose has a big impact on how much you end up paying – how much you owe upfront, your monthly payment amount, and the total cost of your loan over time. Knowing what type of loan is most appropriate for your situation prepares you for talking to lenders and getting the best deal.</p>
 
-    <div class="hero">
-      <p>HERO (Coming soon) <br>
-        something about<br>
-        loan term + Interest Rate + Program = Type</p>
+    <div class="subsection-hero">
+      <div class="subsection-hero-wrap">
+        <p>A loan “type” is actually a combination of several different options:</p>
+        <ol class="loan-type-list">
+          <li>Loan term</li>
+          <li>Interest rate structure</li>
+          <li>Loan program</li>
+        </ol>
+      </div>
     </div>
-
-    <!--<div class="loan-type-equation group">
-        <ul class="loan-type-list">
-            <li><span class="loan-type">Loan <strong class="demi">term</strong></span></li>
-            <li><span class="loan-type">Interest <strong class="demi">rate</strong> structure</span></li>
-            <li><span class="loan-type">Loan <strong class="demi">program</strong></span></li>
-        </ul>
-        <div class="outcome">
-            <span class="symbol">=</span> Loan <strong class="demi">type</strong>
-        </div>
-    </div>-->
 
     <section class="type-details">
 
