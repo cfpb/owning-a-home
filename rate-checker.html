@@ -1,26 +1,39 @@
 {% extends "base.html" %}
 {% set active_page = "rate-checker" %}
-{% set subnav = True %}
+{% set subnav = false %}
+
+{% block title %}Owning a Home: Rate Checker{% endblock title %}
 
 {% block content %}
 
 <div class="rate-checker result {% if subnav %}col-9{% endif %}">
 
+  <section class="page-intro">
     <div class="col-8">
 
-      <h1>In <span class="location">Alabama</span>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h1>
+      <h1>Do you know what rate to expect when shopping for a mortgage?</h1>
+
+      <p class="lead">Your credit score, loan type, house price, and down payment amount all affect the interest rate you can get. Type your information into this tool to see what current rates are for borrowers like you. Our data comes from actual lenders and is updated every day.</p>
+    </div>
+
+    <div class="col-4">
+      <img src="static/img/home-illustration.png" alt="Home illustration">
+
+      <h3 class="subhead">Why does your interest rate matter?</h3>
+
+      <p>Even a quarter of a percent lower interest rate will save you thousands of dollars over time.</p>
+
+      <p><a href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">More mortgage questions on</a> <a class="btn" href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">ask cfpb</a></p>
+    </div>
+
+  </section>
+
+    <div class="col-8">
+
+      <h2 class="rate-checker-heading">In <strong class="location">Alabama</strong>, most lenders are offering rates at or below <strong class="rate">3.550%</strong>.</h2>
 
       <section class="chart wrapper">
-
-        <div class="col-3">
-          <h3>How likely are you to get this rate?</h3>
-          <p>If you are offered a rate above <span class="rate">3.550%</span>, shop around to be sure you are getting the best rate.</p>
-        </div>
-
-        <div class="col-9">
-          <div id="chart" class="chart-area"></div>
-        </div>
-
+        <div id="chart" class="chart-area"></div>
       </section>
 
       <section class="compare wrapper">
@@ -87,11 +100,14 @@
 
         <div class="col-12">
 
+          <h4>Check your rate options</h4>
+
+          <p>To get the most accurate results, please enter your information into this form.</p>
+
           <label for="range">Credit Score Range</label>
           <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
           <div id="slider" class="recalc"></div>
           <div id="slider-range"></div>
-          <aside>Most lenders use FICO scores. <a href="#">Learn more</a></aside>
 
         </div>
 
@@ -156,9 +172,6 @@
             <option value="PR">Puerto Rico</option>
           </select>
         </div>
-        <div class="col-6 help">
-          Where do you want to buy a home?
-        </div>
 
         <div class="col-6">
           <label for="loan-type">Loan Type</label>
@@ -170,32 +183,23 @@
             <option value="5">5/1 ARM</option>
           </select>
         </div>
-        <div class="col-6 help">
-          Loan types are made up of 3 parts. <a href="#">Learn more</a>
-        </div>
+
 
         <div class="col-6">
           <label for="house-price">House Price</label>
           <input type="text" placeholder="250,000" name="house-price" class="recalc" id="house-price">
         </div>
-        <div class="col-6 help">
-          How much does your new home cost?
-        </div>
+
 
         <div class="col-6">
           <label for="down-payment">Down Payment</label>
           <input type="text" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
         </div>
-        <div class="col-6 help">
-          How much do you have to put down on a home?
-        </div>
+
 
         <div class="col-6">
           <label for="loan-amount">Loan Amount</label>
           <span id="loan-amount-result">$380,000</span>
-        </div>
-        <div class="col-6 help">
-          This is the resulting math form the above two inputs.
         </div>
 
       </section>
