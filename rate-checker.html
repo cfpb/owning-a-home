@@ -96,13 +96,18 @@
 
     <div class="calculator col-4">
 
-      <section class="credit-score wrapper">
-
+      <section class="form-intro">
         <div class="col-12">
 
           <h4>Check your rate options</h4>
 
           <p>To get the most accurate results, please enter your information into this form.</p>
+
+        </div>
+      </section>
+
+        <section class="credit-score">
+          <div class="col-12">
 
           <label for="range">Credit Score Range</label>
           <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
@@ -110,12 +115,12 @@
           <div id="slider-range"></div>
 
         </div>
-
       </section>
 
-      <section class="demographics wrapper">
+      <section class="demographics">
 
-        <div class="col-6">
+        <div class="col-12">
+
           <label for="location">Location</label>
           <select name="location" class="recalc" id="location">
             <option value="AL">Alabama</option>
@@ -173,6 +178,9 @@
           </select>
         </div>
 
+        </section>
+
+        <section class="calc-loan-type wrapper">
         <div class="col-6">
           <label for="loan-type">Loan Type</label>
           <select name="loan-type" class="recalc" id="loan-type">
@@ -184,6 +192,9 @@
           </select>
         </div>
 
+      </section>
+
+      <section class="calc-loan-amt wrapper">
 
         <div class="col-6">
           <label for="house-price">House Price</label>
@@ -197,11 +208,17 @@
         </div>
 
 
-        <div class="col-6">
-          <label for="loan-amount">Loan Amount</label>
+        <div class="col-12 loan-amt-total">
+          <label class="inline" for="loan-amount">Loan Amount</label>
           <span id="loan-amount-result">$380,000</span>
         </div>
 
+      </section>
+
+      <section class="form-sub">
+        <div class="col-12">
+          <p>This tool assumes -0.25 to 0.25 points and a 60 day rate lock.</p>
+        </div>
       </section>
 
     </div><!-- END .calculator -->
