@@ -286,26 +286,6 @@ module.exports = function(grunt) {
       }
     },
 
-    'mocha_phantomjs': {
-      all: {
-        options: {
-          urls: [
-            'http://127.0.0.1:3000/test/index.html'
-          ]
-        }
-      }
-    },
-
-    // start a simple http server
-    connect: {
-      server: {
-        options: {
-          port: 3000,
-          keepalive: true
-        }
-      },
-    },
-
     /**
      * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
      *
@@ -344,7 +324,6 @@ module.exports = function(grunt) {
   // grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   // grunt.loadNpmTasks('grunt-contrib-htmlmin');
@@ -361,7 +340,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
   /**
    * Create custom task aliases and combinations
@@ -369,7 +347,7 @@ module.exports = function(grunt) {
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('compile', ['less', 'browserify', 'autoprefixer']);
   grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
-  grunt.registerTask('test', ['mochaTest', 'mocha_phantomjs']);
+  grunt.registerTask('test', ['mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
 
