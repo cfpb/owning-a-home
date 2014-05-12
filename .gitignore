@@ -47,6 +47,8 @@ static/fonts/
 dist/*
 static/*
 src/js/main.js
+src/css/main.css
+test/compiled_tests.js
 
 # IP #
 ######
