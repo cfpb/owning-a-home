@@ -99,6 +99,9 @@
     "Compare interest rate costs"
     --------------------------- */
 .compare {
+
+  margin-top: 20px;
+
     label {
         .visuallyhidden;
     }
@@ -106,3 +109,37 @@
         display: block;
     }
 }
+
+.rate-compare {
+  margin-bottom: 10px;
+}
+
+.new-cost {
+  .webfont-demi();
+  font-size: 1.375em;
+}
+
+.interest-cost-primary,
+.interest-cost-secondary {
+  padding: 0 10px 10px 10px;
+
+  h5 {
+    font-size: .75em;
+    text-transform: none;
+    .webfont-regular();
+    margin: 10px 0 ;
+  }
+}
+
+
+.interest-cost-secondary {
+  background: @gray-5;
+  border-top: 2px solid #FFCE8D;
+
+  .new-cost {
+    font-size: 1.75em;
+  }
+
+}
+
+
