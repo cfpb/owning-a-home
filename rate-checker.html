@@ -23,7 +23,7 @@
 
       <p>Even a quarter of a percent lower interest rate will save you thousands of dollars over time.</p>
 
-      <p><a href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">More mortgage questions on</a> <a class="btn" href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages">ask cfpb</a></p>
+      <p><a href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages" id="ask-mortgage-link">More mortgage questions on</a> <a class="btn" href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages" id="ask-mortgage-btn">ask cfpb</a></p>
     </div>
 
   </section>
@@ -38,57 +38,51 @@
 
       <section class="compare wrapper">
 
-        <div class="col-3">
-          <h3>Compare interest rate costs</h3>
-        </div>
-
-        <div class="col-9">
-
-          <div class="wrapper">
-
-            <div class="col-6">
+            <div class="col-4">
               <label for="rate-compare-1">Rate</label>
-              <select name="rate-compare-1" id="rate-compare-1">
+              <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
                 <option value="3">3%</option>
                 <option value="4">4%</option>
                 <option value="5">5%</option>
                 <option value="6">6%</option>
                 <option value="7">7%</option>
               </select>
-              <div>
-                Would cost you
+              <div class="interest-cost interest-cost-primary">
+                 <h5>Interest cost over <span class="loan-years">30</span> years</h5>
                 <span class="new-cost">$150,000</span>
-                in interest on your loan of
-                <span class="loan-amount">$400,000</span>
-                over
-                <span class="loan-years">30</span>
-                years.
+              </div>
+              <div class="interest-cost interest-cost-secondary">
+                <h5>Interest cost over <span class="loan-years">5</span> years</h5>
+                <span class="new-cost">$150,000</span>
               </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-4">
               <label for="rate-compare-2">Rate</label>
-              <select name="rate-compare-2" id="rate-compare-2">
+              <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
                 <option value="3">3%</option>
                 <option value="4">4%</option>
                 <option value="5">5%</option>
                 <option value="6">6%</option>
                 <option value="7">7%</option>
               </select>
-              <div>
-                Would cost you
+              <div class="interest-cost interest-cost-primary">
+                 <h5>Interest cost over <span class="loan-years">30</span> years</h5>
                 <span class="new-cost">$150,000</span>
-                in interest on your loan of
-                <span class="loan-amount">$400,000</span>
-                over
-                <span class="loan-years">30</span>
-                years.
+              </div>
+              <div class="interest-cost interest-cost-secondary">
+                <h5>Interest cost over <span class="loan-years">5</span> years</h5>
+                <span class="new-cost">$150,000</span>
               </div>
             </div>
 
-          </div>
+            <div class="col-4">
 
-        </div>
+              <h4>Large range information</h4>
+
+              <p>Some context about these specific rates, be it how likely you are to get them or for the higher rates, a recommendation to shop around. Mention how we are interpreting points. Link.</p>
+
+            </div>
 
       </section>
 
@@ -96,13 +90,18 @@
 
     <div class="calculator col-4">
 
-      <section class="credit-score wrapper">
-
+      <section class="form-intro">
         <div class="col-12">
 
           <h4>Check your rate options</h4>
 
           <p>To get the most accurate results, please enter your information into this form.</p>
+
+        </div>
+      </section>
+
+        <section class="credit-score">
+          <div class="col-12">
 
           <label for="range">Credit Score Range</label>
           <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
@@ -110,12 +109,12 @@
           <div id="slider-range"></div>
 
         </div>
-
       </section>
 
-      <section class="demographics wrapper">
+      <section class="demographics">
 
-        <div class="col-6">
+        <div class="col-12">
+
           <label for="location">Location</label>
           <select name="location" class="recalc" id="location">
             <option value="AL">Alabama</option>
@@ -173,6 +172,9 @@
           </select>
         </div>
 
+        </section>
+
+        <section class="calc-loan-type wrapper">
         <div class="col-6">
           <label for="loan-type">Loan Type</label>
           <select name="loan-type" class="recalc" id="loan-type">
@@ -184,6 +186,9 @@
           </select>
         </div>
 
+      </section>
+
+      <section class="calc-loan-amt wrapper">
 
         <div class="col-6">
           <label for="house-price">House Price</label>
@@ -197,11 +202,17 @@
         </div>
 
 
-        <div class="col-6">
-          <label for="loan-amount">Loan Amount</label>
+        <div class="col-12 loan-amt-total">
+          <label class="inline" for="loan-amount">Loan Amount</label>
           <span id="loan-amount-result">$380,000</span>
         </div>
 
+      </section>
+
+      <section class="form-sub">
+        <div class="col-12">
+          <p>This tool assumes -0.25 to 0.25 points and a 60 day rate lock.</p>
+        </div>
       </section>
 
     </div><!-- END .calculator -->

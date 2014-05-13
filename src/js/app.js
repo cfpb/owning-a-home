@@ -181,13 +181,14 @@ $(function() {
   // re-render when fields are changed
   $('.demographics').on('change', '.recalc', renderView);
 
-  var updateComparisons = function(ev) {
-    var rate = ev ? $(ev.target).val() : 3,
-        totalInterest = interest(rate, $('#loan-type').val(), details.amount),
-        $selector = ev ? $(ev.target).parent().find('.new-cost') : $('.new-cost');
-    $selector.text(totalInterest);
-    $('.loan-amount').text(details.amount);
-    $('.loan-years').text(details.type);
+  var updateComparisons = function() {
+    $('.interest-cost').each(function( index ) {
+      var rate =  $(this).siblings('.rate-compare').val(),
+          length = parseInt($(this).find('.loan-years').text(), 10),
+          totalInterest = interest(rate, length, details.amount),
+          $selector = $(this).find('.new-cost');
+      $selector.text(totalInterest);
+    });
   };
 
   // update comparison info when new rate is selected
