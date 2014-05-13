@@ -12,6 +12,12 @@
     --------------------------- */
 
 .calculator {
+   background: @gray-5;
+
+    p {
+      margin: 0;
+    }
+
     label {
       .webfont-medium();
       font-size: 0.875em;
@@ -19,17 +25,18 @@
       text-transform: none;
     }
 
-    .col-6 {
-        margin-bottom: 20px;
-    }
-
     .help {
         font-size: .9em;
     }
 
     section {
-        padding: 20px;
-        background: @gray-10;
+      margin: 0 10px;
+      padding: 20px 0;
+      border-top: 1px solid @gray-20;
+    }
+
+    section:first-child {
+      border-top: none;
     }
     input[type='number'] {
         -moz-appearance:textfield;
@@ -39,8 +46,27 @@
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
     }
+
+    .form-sub {
+      font-size: 0.714285714em;
+      .webfont-regular();
+      color: @darkgray;
+    }
 }
 
+.loan-amt-total {
+
+  padding-top: 20px;
+
+  label {
+    display: inline;
+  }
+
+  span {
+    .webfont-medium();
+    font-size: 0.875em;
+  }
+}
 
 /*
     Main section with output
@@ -73,6 +99,9 @@
     "Compare interest rate costs"
     --------------------------- */
 .compare {
+
+  margin-top: 20px;
+
     label {
         .visuallyhidden;
     }
@@ -80,3 +109,37 @@
         display: block;
     }
 }
+
+.rate-compare {
+  margin-bottom: 10px;
+}
+
+.new-cost {
+  .webfont-demi();
+  font-size: 1.375em;
+}
+
+.interest-cost-primary,
+.interest-cost-secondary {
+  padding: 0 10px 10px 10px;
+
+  h5 {
+    font-size: .75em;
+    text-transform: none;
+    .webfont-regular();
+    margin: 10px 0 ;
+  }
+}
+
+
+.interest-cost-secondary {
+  background: @gray-5;
+  border-top: 2px solid #FFCE8D;
+
+  .new-cost {
+    font-size: 1.75em;
+  }
+
+}
+
+
