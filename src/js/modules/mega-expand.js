@@ -9,7 +9,7 @@ var megaExpand = function(ev, $header){
   $container.toggleClass('open');
   $header.next('.expandable-content').slideToggle();
   $button.toggleClass('open');
-  $button.children('.expandable-text').text( $container.hasClass('open') ? 'Collapse' : 'Learn More' );
+  $header.find('.expandable-text').text( $container.hasClass('open') ? 'Collapse' : 'Learn More' );
 
 };
 
