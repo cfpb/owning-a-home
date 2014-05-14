@@ -3,7 +3,6 @@ var debounce = require('debounce');
 var payment = require('./payment-calc');
 var interest = require('./total-interest-calc');
 require('./local-storage-polyfill');
-require('jquery-ui/slider');
 require('./mega-expand');
 require('./nemo');
 require('./nemo-shim');
