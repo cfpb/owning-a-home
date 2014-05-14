@@ -2,8 +2,10 @@ var $ = require('jquery');
 var debounce = require('debounce');
 var formatUSD = require('./format-usd');
 var unFormatUSD = require('./unformat-usd');
+var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
 
