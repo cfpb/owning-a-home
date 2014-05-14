@@ -8,7 +8,7 @@ var highcharts = require('highcharts');
 var defaults = require('./modules/defaults');
 require('./modules/local-storage-polyfill');
 require('jquery-ui/slider');
-require('../vendor/cf-expandables/cf-expandables.js');
+require('./modules/mega-expand.js');
 require('./modules/nemo');
 require('./modules/nemo-shim');
 

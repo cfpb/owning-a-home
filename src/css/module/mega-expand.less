@@ -46,6 +46,10 @@
       border-top: 1px solid  @gray-20;
       padding-top: 40px;
     }
+
+    .expandable-text {
+      margin-right: 6px;
+    }
 }
 
 /* expandable header layout */
@@ -87,4 +91,36 @@
   border-top: 1px solid  @gray-20;
   padding-top: 20px;
   margin-bottom: 10px;
+}
+
+// internal collapse link
+
+.expand-close {
+  .webfont-regular();
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.expand-close:link,
+.expand-close:visited {
+  color: @pacific;
+}
+
+.expand-close:hover,
+.expand-close:active,
+.expand-close:focus {
+  text-decoration: underline;
+}
+
+// hide the learn more/collapse link below 1100px
+
+@media (max-width: 1100px) {
+  .mega-expand {
+    .expandable-text {
+      .visuallyhidden;
+    }
+
+  }
 }
