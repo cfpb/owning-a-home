@@ -1,7 +1,6 @@
 // required for browserify shimming
 var shims = require('./config/shim'),
-    sharedModules = Object.keys(shims).concat([
-]);
+    sharedModules = Object.keys(shims);
 
 module.exports = function(grunt) {
 
