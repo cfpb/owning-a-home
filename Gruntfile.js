@@ -1,3 +1,7 @@
+// required for browserify shimming
+var shims = require('./config/shim'),
+    sharedModules = Object.keys(shims);
+
 module.exports = function(grunt) {
 
   'use strict';
@@ -99,16 +103,8 @@ module.exports = function(grunt) {
           'src/js/main.js': ['src/js/app.js'],
         },
         options: {
-          shim: {
-            jquery: {
-              path: 'node_modules/jquery/dist/jquery.js',
-              exports: '$'
-            },
-            highcharts: {
-              path: 'src/vendor/highcharts-release/highcharts.js',
-              exports: 'highcharts'
-            }
-          }
+          transform: ['browserify-shim'],
+          require: sharedModules
         }
       },
       tests: {
