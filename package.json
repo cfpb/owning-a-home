@@ -28,14 +28,15 @@
     "test": "grunt mochaTest"
   },
   "devDependencies": {
-    "browserify": "~3.28.2",
+    "browserify": "3.44.2",
+    "browserify-shim": "3.4.1",
     "chai": "^1.9.1",
     "grunt": "latest",
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-requirejs": "~0.7.1",
     "grunt-bower-task": "~0.3.2",
-    "grunt-browserify": "~1.3.0",
+    "grunt-browserify": "2.0.3",
     "grunt-combine-media-queries": "~1.0.2",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-concat": "latest",
@@ -83,5 +84,10 @@
       "android-browser/latest"
     ],
     "harness": "mocha"
-  }
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js",
+    "highcharts": "./src/vendor/highcharts-release/highcharts.js"
+  },
+  "browserify-shim": "./config/shim.js"
 }
