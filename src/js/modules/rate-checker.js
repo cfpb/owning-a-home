@@ -198,7 +198,19 @@ if ($('.rate-checker').length > 0) {
     series: [{
       name: 'Number of Lenders',
       data: data.vals,
-      showInLegend: false
+      showInLegend: false,
+      dataLabels: {
+        enabled: true,
+        useHTML:true,
+        //format: '{x}',
+        crop: false,
+        overflow: 'none',
+        defer: true,
+        color: '#919395',
+        formatter:function(){
+          return '<div class="data-label">'+ this.x + '<br>|</div>';
+        }
+      }
     }],
     credits: {
       text: ''
