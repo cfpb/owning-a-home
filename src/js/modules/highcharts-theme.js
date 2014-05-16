@@ -1,5 +1,9 @@
 Highcharts.theme = {
   colors: ['#FFCE8D'],
+  style: {
+    fontFamily: '"Avenir Next", Arial, Helvetica, sans-serif',
+    fontSize: '13px'
+  },
   chart: {
     backgroundColor: ['#fff'],
   },
@@ -16,7 +20,7 @@ Highcharts.theme = {
       style: {
         color: '#BABBBD',
         fontSize: '10px',
-        fontFamily: 'Avenir Next, Arial, sans-serif'
+        fontFamily: '"Avenir Next", Arial, sans-serif'
       },
       rotation: 450
     },
@@ -30,7 +34,7 @@ Highcharts.theme = {
   xAxis: {
     labels: {
       style: {
-        color: '#BABBBD'
+        color: '#fff' // hide the labels
       }
     },
     minorTickInterval: null,
@@ -40,7 +44,7 @@ Highcharts.theme = {
         color: '#BABBBD',
         fontSize: '12px',
         ontWeight: 'medium',
-        fontFamily: 'Avenir Next, Arial, sans-serif'
+        fontFamily: '"Avenir Next", Arial, sans-serif'
       }
     }
   },
