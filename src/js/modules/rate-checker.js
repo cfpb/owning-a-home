@@ -5,6 +5,7 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
@@ -180,15 +181,20 @@ if ($('.rate-checker').length > 0) {
     },
     xAxis: {
       title: {
-        text: 'Rates Available Today'
+        text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
       },
       categories: data.labels
     },
-    yAxis: {
+    yAxis: [{
       title: {
-        text: 'Number of Lenders'
+        text: '',
       }
-    },
+    }, {
+      opposite: true,
+      title: {
+        text: '# OF LENDERS OFFERING RATE',
+      }
+    }],
     series: [{
       name: 'Number of Lenders',
       data: data.vals,
@@ -197,7 +203,11 @@ if ($('.rate-checker').length > 0) {
     credits: {
       text: ''
     },
-    colors: ['#FFCE8D']
+    tooltip:{
+      formatter:function(){
+        return this.key; // show only the percentage
+      }
+    },
   }).addClass('loading');
 
   defaults.load(function(){
