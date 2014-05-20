@@ -103,6 +103,7 @@ module.exports = function(grunt) {
           'src/js/main.js': ['src/js/app.js'],
         },
         options: {
+          watch: true,
           transform: ['browserify-shim'],
           require: sharedModules
         }
@@ -112,6 +113,7 @@ module.exports = function(grunt) {
           './test/compiled_tests.js': ['./test/js/*.js'],
         },
         options: {
+          watch: true,
           debug: true
         }
       }
