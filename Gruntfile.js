@@ -142,7 +142,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: [ 'static/css/*.min.css', 'static/js/*.min.js' ]
+          src: [ './dist/static/css/*.min.css', './dist/static/js/*.min.js' ]
         }
       }
     },
@@ -153,12 +153,20 @@ module.exports = function(grunt) {
      * Minify CSS and optionally rewrite asset paths.
      */
     cssmin: {
-      combine: {
+      build: {
         options: {
           //root: '/src/'
         },
         files: {
-          'static/css/main.min.css': ['src/css/main.css'],
+          './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
+        }
+      }
+    },
+
+    uglify: {
+      build: {
+        files: {
+          './dist/static/js/main.min.js': ['./dist/static/js/main.js']
         }
       }
     },
@@ -170,7 +178,7 @@ module.exports = function(grunt) {
      */
     clean: {
       bowerDir: ['bower_components'],
-      dist: ['static/**/*', '!dist/.git/']
+      dist: ['dist/**/*', '!dist/.git/']
     },
 
     /**
@@ -184,30 +192,18 @@ module.exports = function(grunt) {
         [
           {
             expand: true,
-            cwd: 'src/',
+            cwd: '.',
             src: [
 
-              // Bring over everything in src/
-              '**',
+              // move html & template files
+              '*.html',
+              '_layouts/**/*',
 
-              // Except...
-
-              // Don't bring over everything in src
-              '!src/**',
-              'src/css/*.css',
-              'src/js/*.js',
-              'src/js/html5shiv-printshiv.js',
-              'src/fonts/**',
-              'src/img/**',
-              'src/mock-data/**',
-
-              // Exclude all vendor files because a lot will get concatenated
-              '!vendor/**',
-              // Only include vendor files that we use independently
-              'vendor/html5shiv/html5shiv-printshiv.js'
+              // move static files
+              'static/**/*',
 
             ],
-            dest: 'static/'
+            dest: 'dist/'
           }
         ]
       }
@@ -339,9 +335,8 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer']);
-  grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
+  grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
-  //grunt.registerTask('test', ['jshint', 'jasmine']);
 
 };
