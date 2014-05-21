@@ -30,7 +30,7 @@ var getData = function() {
   var promise = $.get(config.rateCheckerAPI, {
     downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
     loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
-    loan_type: $('#loan-type').val() + ' year fixed',
+    loan_type: $('#loan-type').val() + ' year ' + $('#rate-structure').val(),
     maxfico: $('#slider').slider('value') + 20,
     minfico: $('#slider').slider('value'),
     price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
@@ -150,7 +150,7 @@ var updateScoreRange = function() {
   } else {
     $('#slider-range').text( '820+' );
   }
-  
+
 };
 
 // jquery ui slider
