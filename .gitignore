@@ -45,6 +45,7 @@ static/fonts/
 # Built assets #
 ################
 dist/*
+static/*
 test/compiled_tests.js
 
 # IP #
