@@ -5,34 +5,11 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
 
-// This is a temporary function that generates fake data in
-// the same format that our API will eventually return it.
-var mock = function() {
-  var data = {},
-      i;
-
-  var getRand = function(min, max) {
-    return Math.floor((Math.random() * (max - min + 1) + min) * 10) / 10;
-  };
-
-  var getRandInt = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
-
-  i = getRandInt(8, 12);
-
-  while(i--) {
-    data[getRand(4, 7)] = getRandInt(1, 16);
-  }
-
-  return { data: data };
-};
-
-// Rate checker
 var calcLoan = function() {
   var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
       down = $('#down-payment').val() || $('#down-payment').attr('placeholder'),
@@ -48,31 +25,22 @@ $('.recalc').on('keyup', debounce(calcLoan, 500));
 
 // process the data from the API
 var getData = function() {
-  var data = {
-    labels: [],
-    vals: [],
-    uniqueVals: [],
-    largest: {
-      label: 4,
-      val: 0
-    }
-  };
 
-  $.each(mock().data, function(key, val) {
-    data.labels.push(key + '%');
-    data.vals.push(val);
-    if (val > data.largest.val) {
-      data.largest.val = val;
-      data.largest.label = key + '%';
-    }
+  var promise = $.get('XXXXXXXXXXXXXXXXXXXX', {
+    downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
+    loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
+    loan_type: $('#loan-type').val() + ' year fixed',
+    maxfico: $('#slider').slider('values', 1),
+    minfico: $('#slider').slider('values', 0),
+    price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
+    state: $('#location option:selected').val()
   });
 
-  data.uniqueVals = $.unique(data.vals);
-
-  return data;
+  return promise;
+  
 };
 
-var data = getData();
+// var data = getData();
 
 // update the comparison dropdowns with new options
 var updateComparisonOptions = function() {
@@ -90,26 +58,50 @@ var updateComparisonOptions = function() {
 var details = {};
 
 // update errythang
-var renderView = function(delay) {
-  data = getData();
+var renderView = function() {
 
-  details = {
-    location: $('#location option:selected').text(),
-    type: $('#loan-type').val(),
-    price: $('#house-price').val() || $('#house-price').attr('placeholder'),
-    down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-    amount: $('#loan-amount-result').text(),
-    rate: data.largest.label
-  };
+  $.when( getData() ).then(function( results ){
 
-  // Save the user's selections to local storage
-  defaults.save();
+    console.log(results);
 
-  // Add a loading animation
-  $('#chart').addClass('loading');
+    data = {
+      labels: [],
+      vals: [],
+      uniqueVals: [],
+      largest: {
+        label: 4,
+        val: 0
+      }
+    };
+      
+    $.each(results.data, function(key, val) {
+      data.labels.push(key + '%');
+      data.vals.push(val);
+      if (val > data.largest.val) {
+        data.largest.val = val;
+        data.largest.label = key + '%';
+      }
+    });
 
-  // this is a faux delay to emulate an AJAX request
-  setTimeout(function() {
+    data.uniqueVals = $.unique( data.vals.slice(0) );
+
+    console.log(data.uniqueVals);
+
+    details = {
+      location: $('#location option:selected').text(),
+      type: $('#loan-type').val(),
+      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
+      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
+      amount: $('#loan-amount-result').text(),
+      // rate: data.largest.label
+    };
+
+    // Save the user's selections to local storage
+    defaults.save();
+
+    // Add a loading animation
+    $('#chart').addClass('loading');
+
     // update the fields scattered throughout the page
     $('.location').text(details.location);
     $('.rate').text(details.rate);
@@ -126,9 +118,11 @@ var renderView = function(delay) {
 
     // update the chart
     var chart = $('#chart').highcharts();
-    chart.series[0].setData(data.vals);
+    chart.xAxis[0].setCategories( data.labels );
+    chart.series[0].setData( data.vals );
     $('#chart').removeClass('loading');
-  }, typeof delay !== 'number' ? 1000 : delay);
+
+  });
 
 };
 
@@ -180,24 +174,45 @@ if ($('.rate-checker').length > 0) {
     },
     xAxis: {
       title: {
-        text: 'Rates Available Today'
+        text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
       },
-      categories: data.labels
+      categories: [ 1, 2, 3, 4, 5 ]
     },
-    yAxis: {
+    yAxis: [{
       title: {
-        text: 'Number of Lenders'
+        text: '',
       }
-    },
+    }, {
+      opposite: true,
+      title: {
+        text: '# OF LENDERS OFFERING RATE',
+      }
+    }],
     series: [{
       name: 'Number of Lenders',
-      data: data.vals,
-      showInLegend: false
+      data: [ 0, 0, 0, 0, 0 ],
+      showInLegend: false,
+      dataLabels: {
+        enabled: true,
+        useHTML: true,
+        //format: '{x}',
+        crop: false,
+        overflow: 'none',
+        defer: true,
+        color: '#919395',
+        formatter: function(){
+          return '<div class="data-label">'+ this.x + '<br>|</div>';
+        }
+      }
     }],
     credits: {
       text: ''
     },
-    colors: ['#FFCE8D']
+    tooltip:{
+      formatter: function(){
+        return this.key; // show only the percentage
+      }
+    },
   }).addClass('loading');
 
   defaults.load(function(){
