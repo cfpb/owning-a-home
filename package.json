@@ -55,8 +55,6 @@
   },
   "keywords": [],
   "dependencies": {
-    "financial": "0.0.4",
-    "accounting": "~0.3.2",
     "debounce": "0.0.3",
     "jquery": "~1.11.0",
     "jquery-ui": "~1.10.5",
