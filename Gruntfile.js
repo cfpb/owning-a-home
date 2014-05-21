@@ -66,16 +66,7 @@ module.exports = function(grunt) {
           sourceMapRootpath: '/'
         },
         files: {
-          'src/css/main.css': ['src/css/main.less']
-        }
-      },
-      ie8: {
-        options: {
-          banner: '<%= banner.cfpb %>',
-          paths: ['src/static'],
-        },
-        files: {
-          'static/css/ie8.css': ['src/css/ie/ie8.less']
+          './static/css/main.css': ['./src/css/main.less']
         }
       }
     },
@@ -93,14 +84,14 @@ module.exports = function(grunt) {
       multiple_files: {
         // Prefix all CSS files found in `src/css` and overwrite.
         expand: true,
-        src: 'src/css/*.css'
+        src: 'static/css/main.css'
       },
     },
 
     browserify: {
-      dist: {
+      build: {
         files: {
-          'src/js/main.js': ['src/js/app.js'],
+          'static/js/main.js': ['./src/js/**/*.js'],
         },
         options: {
           watch: true,
@@ -307,8 +298,19 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js','<%= mochaTest.test.src %>'],
-        tasks: ['compile', 'dist']
+        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js'],
+        tasks: ['compile']
+      }
+    },
+    newer: {
+      options: {
+        override: function(detail, include) {
+          if (detail.task === 'less') {
+            include(true);
+          } else {
+            include(false);
+          }
+        }
       }
     }
   });
@@ -338,14 +340,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-newer');
 
   /**
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('compile', ['less', 'browserify', 'autoprefixer']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer']);
   grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
-  grunt.registerTask('test', ['mochaTest']);
+  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
   //grunt.registerTask('test', ['jshint', 'jasmine']);
 

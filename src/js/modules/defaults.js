@@ -2,7 +2,7 @@
 var getState = require('./geolocation');
 
 var defaults = {
-  // This is a hideous temporary hack. Need to figure out what to 
+  // This is a hideous temporary hack. Need to figure out what to
   // do if they haven't selected a state.
   state: localStorage.getItem('state') === 'AL' ? false : localStorage.getItem('state'),
   score: localStorage.getItem('score') ? localStorage.getItem('score').split(',') : undefined,
