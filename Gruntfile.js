@@ -91,7 +91,7 @@ module.exports = function(grunt) {
     browserify: {
       build: {
         files: {
-          'static/js/main.js': ['./src/js/**/*.js'],
+          'static/js/main.js': ['./src/js/**/*.js', './config/*.js'],
         },
         options: {
           watch: true,
