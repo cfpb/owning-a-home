@@ -70,14 +70,30 @@
 #slider {
 
   height: 0;
-  border: 1px dashed #000;
+  background: transparent url(../img/slider-bg.png) scroll no-repeat center center;
+  background-size: 100%;
+  border: 0;
+  height: 20px;
+
+  .ui-slider-handle {
+    margin-top: 6px;
+    margin-left: -11px;
+    width: 22px;
+    background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
+    background-size: 100%;
+    border: 0;
+  }
 
   .ui-state-default,
   .ui-widget-content .ui-state-default,
   .ui-widget-header .ui-state-default {
-    background-image: url(../img/scrubber-handle.png);
+    
   }
 
+}
+
+#slider-range {
+  text-align: center;
 }
 
 /*

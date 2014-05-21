@@ -1,7 +1,8 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
 var config = {};
 
-config.rateCheckerAPI = 'http://oah.demo.cfpb.gov/api/rate-checker';
+config.rateCheckerAPI = 'https://oah.demo.cfpb.gov/api/rate-checker';
 
 module.exports = config;
 },{}],2:[function(require,module,exports){
@@ -12772,8 +12773,8 @@ var getData = function() {
     downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
     loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
     loan_type: $('#loan-type').val() + ' year fixed',
-    maxfico: $('#slider').slider('values', 1),
-    minfico: $('#slider').slider('values', 0),
+    maxfico: $('#slider').slider('value') + 20,
+    minfico: $('#slider').slider('value'),
     price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
     state: $('#location option:selected').val()
   });
@@ -12885,16 +12886,21 @@ var updateComparisons = function() {
 $('.compare').on('change', 'select', updateComparisons);
 
 var updateScoreRange = function() {
-  $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+  var val = $('#slider').slider('value');
+  if ( val < 820 ) {
+    $('#slider-range').text( val + ' - ' + (val + 20) );
+  } else {
+    $('#slider-range').text( '820+' );
+  }
+  
 };
 
 // jquery ui slider
 $('#slider').slider({
-  range: true,
-  min: 300,
+  min: 600,
   max: 850,
-  step: 10,
-  values: [ 600, 700 ],
+  step: 20,
+  value: 700,
   create: function() {
     updateScoreRange();
   },

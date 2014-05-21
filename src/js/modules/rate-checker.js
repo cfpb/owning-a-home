@@ -31,8 +31,8 @@ var getData = function() {
     downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
     loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
     loan_type: $('#loan-type').val() + ' year fixed',
-    maxfico: $('#slider').slider('values', 1),
-    minfico: $('#slider').slider('values', 0),
+    maxfico: $('#slider').slider('value') + 20,
+    minfico: $('#slider').slider('value'),
     price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
     state: $('#location option:selected').val()
   });
@@ -145,15 +145,20 @@ $('.compare').on('change', 'select', updateComparisons);
 
 var updateScoreRange = function() {
   var val = $('#slider').slider('value');
-  $('#slider-range').text( (val - 10) + ' - ' + (val + 10) );
+  if ( val < 820 ) {
+    $('#slider-range').text( val + ' - ' + (val + 20) );
+  } else {
+    $('#slider-range').text( '820+' );
+  }
+  
 };
 
 // jquery ui slider
 $('#slider').slider({
-  min: 300,
+  min: 600,
   max: 850,
-  step: 10,
-  value: 600,
+  step: 20,
+  value: 700,
   create: function() {
     updateScoreRange();
   },
