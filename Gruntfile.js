@@ -30,9 +30,9 @@ module.exports = function(grunt) {
           cleanTargetDir: true,
           layout: function(type, component) {
             if (type === 'img') {
-              return path.join('../static/img');
+              return path.join('../img');
             } else if (type === 'fonts') {
-              return path.join('../static/fonts');
+              return path.join('../fonts');
             } else {
               return path.join(component);
             }
@@ -206,6 +206,22 @@ module.exports = function(grunt) {
             dest: 'dist/'
           }
         ]
+      },
+      vendor: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+
+              // move shims to static directory
+              'src/vendor/html5shiv/html5shiv.js',
+
+            ],
+            dest: 'static/vendor/'
+          }
+        ]
       }
     },
 
@@ -333,7 +349,7 @@ module.exports = function(grunt) {
   /**
    * Create custom task aliases and combinations
    */
-  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
   grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
