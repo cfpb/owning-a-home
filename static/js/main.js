@@ -5,6 +5,7 @@ config.rateCheckerAPI = 'http://oah.fake.demo.domain/api/rate-checker';
 
 module.exports = config;
 },{}],2:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
 var config = {};
 
 config.rateCheckerAPI = '#';
