@@ -207,6 +207,22 @@ module.exports = function(grunt) {
           }
         ]
       },
+      img: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+
+              // move images to static directory
+              'src/img/**/*',
+
+            ],
+            dest: 'static/img/'
+          }
+        ]
+      },
       vendor: {
         files:
         [
@@ -350,7 +366,7 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
