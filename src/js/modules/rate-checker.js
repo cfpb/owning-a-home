@@ -9,6 +9,7 @@ require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
+var config = require('oah-config');
 
 var calcLoan = function() {
   var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
@@ -26,7 +27,7 @@ $('.recalc').on('keyup', debounce(calcLoan, 500));
 // process the data from the API
 var getData = function() {
 
-  var promise = $.get('XXXXXXXXXXXXXXXXXXXX', {
+  var promise = $.get(config.rateCheckerAPI, {
     downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
     loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
     loan_type: $('#loan-type').val() + ' year fixed',
@@ -37,7 +38,7 @@ var getData = function() {
   });
 
   return promise;
-  
+
 };
 
 // var data = getData();
@@ -73,7 +74,7 @@ var renderView = function() {
         val: 0
       }
     };
-      
+
     $.each(results.data, function(key, val) {
       data.labels.push(key + '%');
       data.vals.push(val);

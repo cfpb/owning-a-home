@@ -55,8 +55,6 @@
   },
   "keywords": [],
   "dependencies": {
-    "financial": "0.0.4",
-    "accounting": "~0.3.2",
     "debounce": "0.0.3",
     "jquery": "~1.11.0",
     "jquery-ui": "~1.10.5",
@@ -79,7 +77,8 @@
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js",
-    "highcharts": "./src/vendor/highcharts-release/highcharts.js"
+    "highcharts": "./src/vendor/highcharts-release/highcharts.js",
+    "oah-config": "./config/config.js"
   },
   "browserify-shim": "./config/shim.js"
 }
