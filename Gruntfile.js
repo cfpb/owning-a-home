@@ -103,6 +103,7 @@ module.exports = function(grunt) {
           'src/js/main.js': ['src/js/app.js'],
         },
         options: {
+          watch: true,
           transform: ['browserify-shim'],
           require: sharedModules
         }
@@ -112,6 +113,7 @@ module.exports = function(grunt) {
           './test/compiled_tests.js': ['./test/js/*.js'],
         },
         options: {
+          watch: true,
           debug: true
         }
       }
@@ -317,22 +319,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-bower-task');
-  // grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  // grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  // grunt.loadNpmTasks('grunt-docco');
-  // grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-release');
-  // grunt.loadNpmTasks('grunt-remove-logging');
-  // grunt.loadNpmTasks('grunt-shell');
-  // grunt.loadNpmTasks('grunt-saucelabs');
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
