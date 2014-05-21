@@ -144,16 +144,16 @@ var updateComparisons = function() {
 $('.compare').on('change', 'select', updateComparisons);
 
 var updateScoreRange = function() {
-  $('#slider-range').text($('#slider').slider('values', 0) + ' - ' + $('#slider').slider('values', 1 ));
+  var val = $('#slider').slider('value');
+  $('#slider-range').text( (val - 10) + ' - ' + (val + 10) );
 };
 
 // jquery ui slider
 $('#slider').slider({
-  range: true,
   min: 300,
   max: 850,
   step: 10,
-  values: [ 600, 700 ],
+  value: 600,
   create: function() {
     updateScoreRange();
   },
