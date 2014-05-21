@@ -1,4 +1,22 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var config = {};
+
+config.rateCheckerAPI = 'http://oah.fake.demo.domain/api/rate-checker';
+
+module.exports = config;
+},{}],2:[function(require,module,exports){
+var config = {};
+
+config.rateCheckerAPI = '#';
+
+module.exports = config;
+},{}],3:[function(require,module,exports){
+// config file used for adding external libraries that require browserify shimming
+module.exports = {
+  jquery: {exports: "jQuery"},
+  highcharts: {exports: "highcharts"}
+};
+},{}],4:[function(require,module,exports){
 /**
  * Debounces a function by the given threshold.
  *
@@ -32,7 +50,7 @@ module.exports = function debounce(func, threshold, execAsap){
   };
 };
 
-},{}],2:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 
 var hasOwn = Object.prototype.hasOwnProperty;
 var toString = Object.prototype.toString;
@@ -56,7 +74,7 @@ module.exports = function forEach (obj, fn, ctx) {
 };
 
 
-},{}],3:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -380,7 +398,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],4:[function(require,module,exports){
+},{"jquery":"HlZQrA"}],7:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -554,7 +572,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":6,"jquery":"HlZQrA"}],5:[function(require,module,exports){
+},{"./widget":9,"jquery":"HlZQrA"}],8:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1237,7 +1255,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":3,"./mouse":4,"./widget":6,"jquery":"HlZQrA"}],6:[function(require,module,exports){
+},{"./core":6,"./mouse":7,"./widget":9,"jquery":"HlZQrA"}],9:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -12065,7 +12083,7 @@ return jQuery;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
 module.exports=require('HlZQrA');
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -12136,7 +12154,7 @@ exports.totalInterest = function(opts) {
   // round the value to two decimal places
   return roundNum(rawInterest);
 };
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var $ = require('jquery');
 
 $(function() {
@@ -12147,7 +12165,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":15,"./modules/rate-checker":21,"jquery":"HlZQrA"}],11:[function(require,module,exports){
+},{"./modules/loan-types":18,"./modules/rate-checker":24,"jquery":"HlZQrA"}],14:[function(require,module,exports){
 // Intelligent defaults
 var getState = require('./geolocation');
 
@@ -12225,7 +12243,7 @@ var saveDefaults = function() {
 
 module.exports.load = loadDefaults;
 module.exports.save = saveDefaults;
-},{"./geolocation":13}],12:[function(require,module,exports){
+},{"./geolocation":16}],15:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -12241,7 +12259,7 @@ var formatMoney = function( num, opts ) {
 };
 
 module.exports = formatMoney;
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var each = require('foreach');
 
 // From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
@@ -12327,7 +12345,7 @@ var getClosestState = function( pos ) {
 };
 
 module.exports = getClosestState;
-},{"foreach":2}],14:[function(require,module,exports){
+},{"foreach":5}],17:[function(require,module,exports){
 var highcharts = require('highcharts');
 
 Highcharts.theme = {
@@ -12392,7 +12410,7 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-},{"highcharts":"DF2ktZ"}],15:[function(require,module,exports){
+},{"highcharts":"DF2ktZ"}],18:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
@@ -12440,7 +12458,7 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
-},{"./local-storage-polyfill":16,"./mega-expand":17,"./nemo":19,"./nemo-shim":18,"./payment-calc":20,"./total-interest-calc":22,"debounce":1,"jquery":"HlZQrA"}],16:[function(require,module,exports){
+},{"./local-storage-polyfill":19,"./mega-expand":20,"./nemo":22,"./nemo-shim":21,"./payment-calc":23,"./total-interest-calc":25,"debounce":4,"jquery":"HlZQrA"}],19:[function(require,module,exports){
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
 if (!window.localStorage) {
   window.localStorage = {
@@ -12468,7 +12486,7 @@ if (!window.localStorage) {
   };
   window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
 }
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 var megaExpand = function(ev, $header){
 
   var $container = $header.parent('.expandable'),
@@ -12494,7 +12512,7 @@ $('.expandable').on( 'click', '.expand-close', function(ev){
   var $header = $(this).parents('.expandable').find('.expandable-header');
   megaExpand(ev, $header);
 });
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 // To play nicer with nemo, add js class to body element
 var bodyTag = document.getElementsByTagName("body")[0];
 bodyTag.className += " js";
@@ -12502,7 +12520,7 @@ bodyTag.className += " js";
 $('.toggle-menu').on('click', function(){
     $('nav.main ul').toggleClass('vis');
 });
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var linkElement, hidemenu, dropdown, dropping;
 
 function escHandler(e) {
@@ -12706,7 +12724,7 @@ $(function(){
 
 /* END SEARCH BOX */
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
 
@@ -12719,7 +12737,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":12,"loan-calc":9}],21:[function(require,module,exports){
+},{"./format-usd.js":15,"loan-calc":12}],24:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var formatUSD = require('./format-usd');
@@ -12731,31 +12749,8 @@ require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
+var config = require('oah-config');
 
-// This is a temporary function that generates fake data in
-// the same format that our API will eventually return it.
-var mock = function() {
-  var data = {},
-      i;
-
-  var getRand = function(min, max) {
-    return Math.floor((Math.random() * (max - min + 1) + min) * 10) / 10;
-  };
-
-  var getRandInt = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
-
-  i = getRandInt(8, 12);
-
-  while(i--) {
-    data[getRand(4, 7)] = getRandInt(1, 16);
-  }
-
-  return { data: data };
-};
-
-// Rate checker
 var calcLoan = function() {
   var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
       down = $('#down-payment').val() || $('#down-payment').attr('placeholder'),
@@ -12771,31 +12766,22 @@ $('.recalc').on('keyup', debounce(calcLoan, 500));
 
 // process the data from the API
 var getData = function() {
-  var data = {
-    labels: [],
-    vals: [],
-    uniqueVals: [],
-    largest: {
-      label: 4,
-      val: 0
-    }
-  };
 
-  $.each(mock().data, function(key, val) {
-    data.labels.push(key + '%');
-    data.vals.push(val);
-    if (val > data.largest.val) {
-      data.largest.val = val;
-      data.largest.label = key + '%';
-    }
+  var promise = $.get(config.rateCheckerAPI, {
+    downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
+    loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
+    loan_type: $('#loan-type').val() + ' year fixed',
+    maxfico: $('#slider').slider('values', 1),
+    minfico: $('#slider').slider('values', 0),
+    price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
+    state: $('#location option:selected').val()
   });
 
-  data.uniqueVals = $.unique(data.vals);
+  return promise;
 
-  return data;
 };
 
-var data = getData();
+// var data = getData();
 
 // update the comparison dropdowns with new options
 var updateComparisonOptions = function() {
@@ -12813,26 +12799,50 @@ var updateComparisonOptions = function() {
 var details = {};
 
 // update errythang
-var renderView = function(delay) {
-  data = getData();
+var renderView = function() {
 
-  details = {
-    location: $('#location option:selected').text(),
-    type: $('#loan-type').val(),
-    price: $('#house-price').val() || $('#house-price').attr('placeholder'),
-    down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-    amount: $('#loan-amount-result').text(),
-    rate: data.largest.label
-  };
+  $.when( getData() ).then(function( results ){
 
-  // Save the user's selections to local storage
-  defaults.save();
+    console.log(results);
 
-  // Add a loading animation
-  $('#chart').addClass('loading');
+    data = {
+      labels: [],
+      vals: [],
+      uniqueVals: [],
+      largest: {
+        label: 4,
+        val: 0
+      }
+    };
 
-  // this is a faux delay to emulate an AJAX request
-  setTimeout(function() {
+    $.each(results.data, function(key, val) {
+      data.labels.push(key + '%');
+      data.vals.push(val);
+      if (val > data.largest.val) {
+        data.largest.val = val;
+        data.largest.label = key + '%';
+      }
+    });
+
+    data.uniqueVals = $.unique( data.vals.slice(0) );
+
+    console.log(data.uniqueVals);
+
+    details = {
+      location: $('#location option:selected').text(),
+      type: $('#loan-type').val(),
+      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
+      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
+      amount: $('#loan-amount-result').text(),
+      // rate: data.largest.label
+    };
+
+    // Save the user's selections to local storage
+    defaults.save();
+
+    // Add a loading animation
+    $('#chart').addClass('loading');
+
     // update the fields scattered throughout the page
     $('.location').text(details.location);
     $('.rate').text(details.rate);
@@ -12849,9 +12859,11 @@ var renderView = function(delay) {
 
     // update the chart
     var chart = $('#chart').highcharts();
-    chart.series[0].setData(data.vals);
+    chart.xAxis[0].setCategories( data.labels );
+    chart.series[0].setData( data.vals );
     $('#chart').removeClass('loading');
-  }, typeof delay !== 'number' ? 1000 : delay);
+
+  });
 
 };
 
@@ -12905,7 +12917,7 @@ if ($('.rate-checker').length > 0) {
       title: {
         text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
       },
-      categories: data.labels
+      categories: [ 1, 2, 3, 4, 5 ]
     },
     yAxis: [{
       title: {
@@ -12919,17 +12931,17 @@ if ($('.rate-checker').length > 0) {
     }],
     series: [{
       name: 'Number of Lenders',
-      data: data.vals,
+      data: [ 0, 0, 0, 0, 0 ],
       showInLegend: false,
       dataLabels: {
         enabled: true,
-        useHTML:true,
+        useHTML: true,
         //format: '{x}',
         crop: false,
         overflow: 'none',
         defer: true,
         color: '#919395',
-        formatter:function(){
+        formatter: function(){
           return '<div class="data-label">'+ this.x + '<br>|</div>';
         }
       }
@@ -12938,7 +12950,7 @@ if ($('.rate-checker').length > 0) {
       text: ''
     },
     tooltip:{
-      formatter:function(){
+      formatter: function(){
         return this.key; // show only the percentage
       }
     },
@@ -12950,7 +12962,7 @@ if ($('.rate-checker').length > 0) {
   });
 
 }
-},{"./defaults":11,"./format-usd":12,"./highcharts-theme":14,"./nemo":19,"./nemo-shim":18,"./total-interest-calc":22,"./unformat-usd":23,"debounce":1,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":5}],22:[function(require,module,exports){
+},{"./defaults":14,"./format-usd":15,"./highcharts-theme":17,"./nemo":22,"./nemo-shim":21,"./total-interest-calc":25,"./unformat-usd":26,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":8,"oah-config":1}],25:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -12965,7 +12977,7 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":12,"loan-calc":9}],23:[function(require,module,exports){
+},{"./format-usd":15,"loan-calc":12}],26:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
 };
@@ -13281,4 +13293,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
 module.exports=require('DF2ktZ');
-},{}]},{},[10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,1,2,3]);
