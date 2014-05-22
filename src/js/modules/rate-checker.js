@@ -68,7 +68,6 @@ var renderView = function() {
 
     data = {
       labels: [],
-      intLabels: [],
       vals: [],
       uniqueVals: [],
       totalVals: [],
@@ -79,13 +78,18 @@ var renderView = function() {
     };
 
     $.each(results.data, function(key, val) {
-      data.intLabels.push(+key);
       data.labels.push(key + '%');
       data.vals.push(val);
       if (val > data.largest.val) {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+
+      var tot = val;
+      for(var i = 0; i < tot; i++) {
+        data.totalVals.push(+key);
+      }
+
     });
 
     data.uniqueVals = $.unique( data.vals.slice(0) );
@@ -128,7 +132,7 @@ var renderView = function() {
     // display the median above the chart
     // needs to calculate the overal median
     var displayMedian = function() {
-      var loansMedian = median(data.intLabels);
+      var loansMedian = median(data.totalVals);
       $('#median-rate').text(loansMedian + '%');
     };
 
