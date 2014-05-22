@@ -12156,6 +12156,39 @@ exports.totalInterest = function(opts) {
   return roundNum(rawInterest);
 };
 },{}],13:[function(require,module,exports){
+(function () {
+  function median (values) {
+    if ( !Array.isArray(values) ) {
+      throw new TypeError('You need to pass an Array not ' + typeof values )
+    }
+
+
+    if ( values.length == 1 ) {
+      return values[0]
+    }
+
+    values.sort( function sortValues (a, b) {
+      return a - b
+    })
+
+    
+    var half = Math.floor(values.length / 2)
+
+    if ( values.length % 2 )
+      return values[half]
+    else
+      return ( values[half - 1] + values[half] ) / 2.0
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = median
+  } else {
+    window.median = median
+  }
+})()
+
+
+},{}],14:[function(require,module,exports){
 var $ = require('jquery');
 
 $(function() {
@@ -12166,7 +12199,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":18,"./modules/rate-checker":24,"jquery":"HlZQrA"}],14:[function(require,module,exports){
+},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"HlZQrA"}],15:[function(require,module,exports){
 // Intelligent defaults
 var getState = require('./geolocation');
 
@@ -12244,7 +12277,7 @@ var saveDefaults = function() {
 
 module.exports.load = loadDefaults;
 module.exports.save = saveDefaults;
-},{"./geolocation":16}],15:[function(require,module,exports){
+},{"./geolocation":17}],16:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -12260,7 +12293,7 @@ var formatMoney = function( num, opts ) {
 };
 
 module.exports = formatMoney;
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var each = require('foreach');
 
 // From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
@@ -12346,7 +12379,7 @@ var getClosestState = function( pos ) {
 };
 
 module.exports = getClosestState;
-},{"foreach":5}],17:[function(require,module,exports){
+},{"foreach":5}],18:[function(require,module,exports){
 var highcharts = require('highcharts');
 
 Highcharts.theme = {
@@ -12411,7 +12444,7 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-},{"highcharts":"DF2ktZ"}],18:[function(require,module,exports){
+},{"highcharts":"DF2ktZ"}],19:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
@@ -12459,7 +12492,7 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
-},{"./local-storage-polyfill":19,"./mega-expand":20,"./nemo":22,"./nemo-shim":21,"./payment-calc":23,"./total-interest-calc":25,"debounce":4,"jquery":"HlZQrA"}],19:[function(require,module,exports){
+},{"./local-storage-polyfill":20,"./mega-expand":21,"./nemo":23,"./nemo-shim":22,"./payment-calc":24,"./total-interest-calc":26,"debounce":4,"jquery":"HlZQrA"}],20:[function(require,module,exports){
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
 if (!window.localStorage) {
   window.localStorage = {
@@ -12487,7 +12520,7 @@ if (!window.localStorage) {
   };
   window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
 }
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var megaExpand = function(ev, $header){
 
   var $container = $header.parent('.expandable'),
@@ -12513,7 +12546,7 @@ $('.expandable').on( 'click', '.expand-close', function(ev){
   var $header = $(this).parents('.expandable').find('.expandable-header');
   megaExpand(ev, $header);
 });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 // To play nicer with nemo, add js class to body element
 var bodyTag = document.getElementsByTagName("body")[0];
 bodyTag.className += " js";
@@ -12521,7 +12554,7 @@ bodyTag.className += " js";
 $('.toggle-menu').on('click', function(){
     $('nav.main ul').toggleClass('vis');
 });
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var linkElement, hidemenu, dropdown, dropping;
 
 function escHandler(e) {
@@ -12725,7 +12758,7 @@ $(function(){
 
 /* END SEARCH BOX */
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
 
@@ -12738,7 +12771,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":15,"loan-calc":12}],24:[function(require,module,exports){
+},{"./format-usd.js":16,"loan-calc":12}],25:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var formatUSD = require('./format-usd');
@@ -12746,11 +12779,12 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+var median = require('median');
+var config = require('oah-config');
 require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
-var config = require('oah-config');
 
 var calcLoan = function() {
   var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
@@ -12808,8 +12842,10 @@ var renderView = function() {
 
     data = {
       labels: [],
+      intLabels: [],
       vals: [],
       uniqueVals: [],
+      totalVals: [],
       largest: {
         label: 4,
         val: 0
@@ -12817,6 +12853,7 @@ var renderView = function() {
     };
 
     $.each(results.data, function(key, val) {
+      data.intLabels.push(+key);
       data.labels.push(key + '%');
       data.vals.push(val);
       if (val > data.largest.val) {
@@ -12826,8 +12863,6 @@ var renderView = function() {
     });
 
     data.uniqueVals = $.unique( data.vals.slice(0) );
-
-    console.log(data.uniqueVals);
 
     details = {
       location: $('#location option:selected').text(),
@@ -12864,12 +12899,21 @@ var renderView = function() {
     chart.series[0].setData( data.vals );
     $('#chart').removeClass('loading');
 
+    // display the median above the chart
+    // needs to calculate the overal median
+    var displayMedian = function() {
+      var loansMedian = median(data.intLabels);
+      $('#median-rate').text(loansMedian + '%');
+    };
+
+    displayMedian();
+
   });
 
 };
 
 // re-render when fields are changed
-$('.demographics').on('change', '.recalc', renderView);
+$('.demographics, .calc-loan-amt').on('change', '.recalc', renderView);
 
 var updateComparisons = function() {
   $('.interest-cost').each(function( index ) {
@@ -12968,7 +13012,7 @@ if ($('.rate-checker').length > 0) {
   });
 
 }
-},{"./defaults":14,"./format-usd":15,"./highcharts-theme":17,"./nemo":22,"./nemo-shim":21,"./total-interest-calc":25,"./unformat-usd":26,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":8,"oah-config":1}],25:[function(require,module,exports){
+},{"./defaults":15,"./format-usd":16,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":8,"median":13,"oah-config":1}],26:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -12983,7 +13027,7 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":15,"loan-calc":12}],26:[function(require,module,exports){
+},{"./format-usd":16,"loan-calc":12}],27:[function(require,module,exports){
 var unFormatUSD = function(str) {
   return parseFloat(str.replace(/[,\$]/g, ''));
 };
@@ -13299,4 +13343,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
 module.exports=require('DF2ktZ');
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,1,2,3]);
+},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3]);

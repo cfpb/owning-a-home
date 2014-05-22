@@ -5,11 +5,12 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+var median = require('median');
+var config = require('oah-config');
 require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
-var config = require('oah-config');
 
 var calcLoan = function() {
   var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
@@ -67,8 +68,10 @@ var renderView = function() {
 
     data = {
       labels: [],
+      intLabels: [],
       vals: [],
       uniqueVals: [],
+      totalVals: [],
       largest: {
         label: 4,
         val: 0
@@ -76,6 +79,7 @@ var renderView = function() {
     };
 
     $.each(results.data, function(key, val) {
+      data.intLabels.push(+key);
       data.labels.push(key + '%');
       data.vals.push(val);
       if (val > data.largest.val) {
@@ -85,8 +89,6 @@ var renderView = function() {
     });
 
     data.uniqueVals = $.unique( data.vals.slice(0) );
-
-    console.log(data.uniqueVals);
 
     details = {
       location: $('#location option:selected').text(),
@@ -123,12 +125,21 @@ var renderView = function() {
     chart.series[0].setData( data.vals );
     $('#chart').removeClass('loading');
 
+    // display the median above the chart
+    // needs to calculate the overal median
+    var displayMedian = function() {
+      var loansMedian = median(data.intLabels);
+      $('#median-rate').text(loansMedian + '%');
+    };
+
+    displayMedian();
+
   });
 
 };
 
 // re-render when fields are changed
-$('.demographics').on('change', '.recalc', renderView);
+$('.demographics, .calc-loan-amt').on('change', '.recalc', renderView);
 
 var updateComparisons = function() {
   $('.interest-cost').each(function( index ) {
