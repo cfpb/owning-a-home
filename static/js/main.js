@@ -3,6 +3,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 var config = {};
 
 config.rateCheckerAPI = 'https://oah.demo.cfpb.gov/api/rate-checker';
+// config.rateCheckerAPI = 'static/mock-data.json';
 
 module.exports = config;
 },{}],2:[function(require,module,exports){
@@ -400,7 +401,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],7:[function(require,module,exports){
+},{"jquery":"1y2kms"}],7:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -574,7 +575,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":9,"jquery":"HlZQrA"}],8:[function(require,module,exports){
+},{"./widget":9,"jquery":"1y2kms"}],8:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1257,7 +1258,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":6,"./mouse":7,"./widget":9,"jquery":"HlZQrA"}],9:[function(require,module,exports){
+},{"./core":6,"./mouse":7,"./widget":9,"jquery":"1y2kms"}],9:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1782,7 +1783,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],"HlZQrA":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"1y2kms":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -12084,7 +12085,7 @@ return jQuery;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('HlZQrA');
+module.exports=require('1y2kms');
 },{}],12:[function(require,module,exports){
 'use strict';
 
@@ -12157,6 +12158,39 @@ exports.totalInterest = function(opts) {
   return roundNum(rawInterest);
 };
 },{}],13:[function(require,module,exports){
+(function () {
+  function median (values) {
+    if ( !Array.isArray(values) ) {
+      throw new TypeError('You need to pass an Array not ' + typeof values )
+    }
+
+
+    if ( values.length == 1 ) {
+      return values[0]
+    }
+
+    values.sort( function sortValues (a, b) {
+      return a - b
+    })
+
+    
+    var half = Math.floor(values.length / 2)
+
+    if ( values.length % 2 )
+      return values[half]
+    else
+      return ( values[half - 1] + values[half] ) / 2.0
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = median
+  } else {
+    window.median = median
+  }
+})()
+
+
+},{}],14:[function(require,module,exports){
 var $ = require('jquery');
 
 $(function() {
@@ -12167,7 +12201,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":18,"./modules/rate-checker":24,"jquery":"HlZQrA"}],14:[function(require,module,exports){
+},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"1y2kms"}],15:[function(require,module,exports){
 // Intelligent defaults
 var getState = require('./geolocation');
 
@@ -12245,7 +12279,7 @@ var saveDefaults = function() {
 
 module.exports.load = loadDefaults;
 module.exports.save = saveDefaults;
-},{"./geolocation":16}],15:[function(require,module,exports){
+},{"./geolocation":17}],16:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -12261,7 +12295,7 @@ var formatMoney = function( num, opts ) {
 };
 
 module.exports = formatMoney;
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var each = require('foreach');
 
 // From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
@@ -12347,7 +12381,7 @@ var getClosestState = function( pos ) {
 };
 
 module.exports = getClosestState;
-},{"foreach":5}],17:[function(require,module,exports){
+},{"foreach":5}],18:[function(require,module,exports){
 var highcharts = require('highcharts');
 
 Highcharts.theme = {
@@ -12412,7 +12446,7 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-},{"highcharts":"DF2ktZ"}],18:[function(require,module,exports){
+},{"highcharts":"WjdicM"}],19:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
@@ -12460,7 +12494,7 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
-},{"./local-storage-polyfill":19,"./mega-expand":20,"./nemo":22,"./nemo-shim":21,"./payment-calc":23,"./total-interest-calc":25,"debounce":4,"jquery":"HlZQrA"}],19:[function(require,module,exports){
+},{"./local-storage-polyfill":20,"./mega-expand":21,"./nemo":23,"./nemo-shim":22,"./payment-calc":24,"./total-interest-calc":26,"debounce":4,"jquery":"1y2kms"}],20:[function(require,module,exports){
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
 if (!window.localStorage) {
   window.localStorage = {
@@ -12488,7 +12522,7 @@ if (!window.localStorage) {
   };
   window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
 }
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var megaExpand = function(ev, $header){
 
   var $container = $header.parent('.expandable'),
@@ -12514,7 +12548,7 @@ $('.expandable').on( 'click', '.expand-close', function(ev){
   var $header = $(this).parents('.expandable').find('.expandable-header');
   megaExpand(ev, $header);
 });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 // To play nicer with nemo, add js class to body element
 var bodyTag = document.getElementsByTagName("body")[0];
 bodyTag.className += " js";
@@ -12522,7 +12556,7 @@ bodyTag.className += " js";
 $('.toggle-menu').on('click', function(){
     $('nav.main ul').toggleClass('vis');
 });
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var linkElement, hidemenu, dropdown, dropping;
 
 function escHandler(e) {
@@ -12726,7 +12760,7 @@ $(function(){
 
 /* END SEARCH BOX */
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 var loanCalc = require('loan-calc');
 var formatUSD = require('./format-usd.js');
 
@@ -12739,7 +12773,7 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":15,"loan-calc":12}],24:[function(require,module,exports){
+},{"./format-usd.js":16,"loan-calc":12}],25:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var formatUSD = require('./format-usd');
@@ -12747,70 +12781,112 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var defaults = require('./defaults');
+var median = require('median');
+var config = require('oah-config');
 require('./highcharts-theme');
 require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
-var config = require('oah-config');
 
-var calcLoan = function() {
-  var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
-      down = $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-      loan = unFormatUSD(cost) - unFormatUSD(down);
-
-  loan = loan > 0 ? loan : 0;
-
-  $('#loan-amount-result').text(formatUSD(loan, {decimalPlaces: 0}));
+// List all the parameters the user can change and set
+// their default values.
+var params = {
+  'credit-score': 700,
+  'down-payment': 20000,
+  'house-price': 450000,
+  'loan-amount': undefined,
+  'location': 'AL',
+  'loan-term': 30,
+  'rate-structure': 'adjustable',
+  'loan-type': 'conventional',
+  'arm-type': '5-1',
+  update: function() {
+    $.extend( params, getSelections() );
+  }
 };
 
-// update values on keyup
-$('.recalc').on('keyup', debounce(calcLoan, 500));
+// Set some properties for the histogram.
+var chart = {
+  $el: $('#chart'),
+  isInitialized: false,
+  startLoading: function() {
+    this.$el.addClass('loading');
+  },
+  stopLoading: function() {
+    this.$el.removeClass('loading');
+  }
+};
 
-// process the data from the API
+// Set some properties for the slider.
+var slider = {
+  $el: $('#credit-score'),
+  min: params['credit-score'],
+  max: params['credit-score'] + 20,
+  step: 20,
+  updateRange: function() {
+    var min = getSelection('credit-score'),
+        max = min + 20;
+    $('#slider-range').text( min + ' - ' + max );
+  }
+};
+
+/**
+ * Initialize the rate checker app.
+ * @param {null}
+ * @return {null}
+ */
+function init() {
+
+  // Only attempt to do things if we're on the rate checker page.
+  if ( $('.rate-checker').length > 0 ) {
+
+    renderSlider();
+    renderChart();
+    renderLoanAmount();
+    setSelections({ usePlaceholder: true });
+
+  }
+
+}
+
+/**
+ * Get data from the API.
+ * @param {null}
+ * @return {object} jQuery promise.
+ */
 var getData = function() {
 
-  var promise = $.get(config.rateCheckerAPI, {
-    downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
-    loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
-    loan_type: $('#loan-type').val() + ' year fixed',
-    maxfico: $('#slider').slider('value') + 20,
-    minfico: $('#slider').slider('value'),
-    price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
-    state: $('#location option:selected').val()
+  var promise = $.get( config.rateCheckerAPI, {
+    downpayment: params['down-payment'],
+    // loan_amount: params['loan-amount'],
+    // loan_type: params['loan-type'],
+    minfico: slider.min,
+    maxfico: slider.max,
+    state: params['location']
   });
 
   return promise;
 
 };
 
-// var data = getData();
+/**
+ * Render all applicable rate checker areas.
+ * @param {null}
+ * @return {null}
+ */
+var updateView = function() {
 
-// update the comparison dropdowns with new options
-var updateComparisonOptions = function() {
-  var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
-    return a - b;
-  });
-  $('.compare select').html('');
-  $.each(uniqueVals, function(i, rate) {
-    var option = '<option value="' + rate + '">' + rate + '%</option>';
-    $('.compare select').append(option);
-  });
-};
-
-// store the user's selections somewhere globally accessible
-var details = {};
-
-// update errythang
-var renderView = function() {
+  params.update();
+  chart.startLoading();
 
   $.when( getData() ).then(function( results ){
 
-    console.log(results);
-
-    data = {
+    var data = {
       labels: [],
+      intLabels: [],
+      uniqueLabels: [],
       vals: [],
-      uniqueVals: [],
+      totalVals: [],
       largest: {
         label: 4,
         val: 0
@@ -12818,158 +12894,271 @@ var renderView = function() {
     };
 
     $.each(results.data, function(key, val) {
+      data.intLabels.push(+key);
       data.labels.push(key + '%');
       data.vals.push(val);
-      if (val > data.largest.val) {
+      if ( val > data.largest.val ) {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
     });
 
-    data.uniqueVals = $.unique( data.vals.slice(0) );
+    data.uniqueLabels = $.unique( data.labels.slice(0) );
 
-    console.log(data.uniqueVals);
+    console.log(data);
 
-    details = {
-      location: $('#location option:selected').text(),
-      type: $('#loan-type').val(),
-      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
-      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-      amount: $('#loan-amount-result').text(),
-      // rate: data.largest.label
-    };
+    renderMedian( data );
+    renderChart( data );
+    updateComparisons( data );
+    renderInterestAmounts();
 
-    // Save the user's selections to local storage
-    defaults.save();
-
-    // Add a loading animation
-    $('#chart').addClass('loading');
-
-    // update the fields scattered throughout the page
-    $('.location').text(details.location);
-    $('.rate').text(details.rate);
-    $('.loan-amount').text(details.amount);
-
-    // update the comparisons section
-    updateComparisonOptions();
-    updateComparisons();
-
-    // Calculate loan amount
-    calcLoan();
-
-    updateScoreRange();
-
-    // update the chart
-    var chart = $('#chart').highcharts();
-    chart.xAxis[0].setCategories( data.labels );
-    chart.series[0].setData( data.vals );
-    $('#chart').removeClass('loading');
+    chart.stopLoading();
 
   });
 
 };
 
-// re-render when fields are changed
-$('.demographics').on('change', '.recalc', renderView);
+function renderMedian( data ) {
+  var loansMedian = median( data.intLabels );
+  $('#median-rate').text( loansMedian + '%' );
+}
 
-var updateComparisons = function() {
+function renderLoanAmount() {
+  var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
+  params['loan-amount'] = loan > 0 ? loan : 0;
+  $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
+}
+
+var updateComparisons = function( data ) {
+  // Update the options in the dropdowns.
+  var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
+    return a - b;
+  });
+  $('.compare select').html('');
+  $.each( uniqueLabels, function( i, rate ) {
+    var option = '<option value="' + rate + '">' + rate + '</option>';
+    $('.compare select').append(option);
+  });
+};
+
+function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
-    var rate =  $(this).siblings('.rate-compare').val(),
+    var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = interest(rate, length, details.amount),
-        $selector = $(this).find('.new-cost');
-    $selector.text(totalInterest);
+        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        $el = $(this).find('.new-cost');
+    $el.text( formatUSD(totalInterest) );
   });
-};
+}
 
-// update comparison info when new rate is selected
-$('.compare').on('change', 'select', updateComparisons);
-
-var updateScoreRange = function() {
-  var val = $('#slider').slider('value');
-  if ( val < 820 ) {
-    $('#slider-range').text( val + ' - ' + (val + 20) );
-  } else {
-    $('#slider-range').text( '820+' );
-  }
+/**
+ * Initialize the jQuery UI slider.
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderSlider( cb ) {
   
-};
-
-// jquery ui slider
-$('#slider').slider({
-  min: 600,
-  max: 850,
-  step: 20,
-  value: 700,
-  create: function() {
-    updateScoreRange();
-  },
-  slide: function( event, ui ) {
-    updateScoreRange();
-    defaults.save();
-  },
-  stop: renderView
-});
-
-if ($('.rate-checker').length > 0) {
-
-  $('#chart').highcharts({
-    chart: {
-      type: 'column'
+  $('#credit-score').slider({
+    value: params['credit-score'],
+    min: 600,
+    max: 820,
+    step: slider.step,
+    create: function() {
+      slider.updateRange();
     },
-    title: {
-      text: ''
+    slide: function( event, ui ) {
+      slider.updateRange();
     },
-    xAxis: {
-      title: {
-        text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
-      },
-      categories: [ 1, 2, 3, 4, 5 ]
-    },
-    yAxis: [{
-      title: {
-        text: '',
-      }
-    }, {
-      opposite: true,
-      title: {
-        text: '# OF LENDERS OFFERING RATE',
-      }
-    }],
-    series: [{
-      name: 'Number of Lenders',
-      data: [ 0, 0, 0, 0, 0 ],
-      showInLegend: false,
-      dataLabels: {
-        enabled: true,
-        useHTML: true,
-        //format: '{x}',
-        crop: false,
-        overflow: 'none',
-        defer: true,
-        color: '#919395',
-        formatter: function(){
-          return '<div class="data-label">'+ this.x + '<br>|</div>';
-        }
-      }
-    }],
-    credits: {
-      text: ''
-    },
-    tooltip:{
-      formatter: function(){
-        return this.key; // show only the percentage
-      }
-    },
-  }).addClass('loading');
-
-  defaults.load(function(){
-    renderView(0);
-    $('#chart').removeClass('loading');
+    stop: function() {
+      params.update();
+      updateView();
+    }
   });
+
+  if ( cb ) {
+    cb();
+  }
 
 }
-},{"./defaults":14,"./format-usd":15,"./highcharts-theme":17,"./nemo":22,"./nemo-shim":21,"./total-interest-calc":25,"./unformat-usd":26,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":8,"oah-config":1}],25:[function(require,module,exports){
+
+/**
+ * Render (or update) the Highcharts chart.
+ * @param {object} data Data processed from the API.
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderChart( data, cb ) {
+  
+  if ( chart.isInitialized ) {
+
+    var hc = chart.$el.highcharts();
+    hc.xAxis[0].setCategories( data.labels );
+    hc.series[0].setData( data.vals );
+
+  } else {
+
+    chart.$el.highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
+        },
+        categories: [ 1, 2, 3, 4, 5 ]
+      },
+      yAxis: [{
+        title: {
+          text: '',
+        }
+      }, {
+        opposite: true,
+        title: {
+          text: '# OF LENDERS OFFERING RATE',
+        }
+      }],
+      series: [{
+        name: 'Number of Lenders',
+        data: [ 0, 0, 0, 0, 0 ],
+        showInLegend: false,
+        dataLabels: {
+          enabled: true,
+          useHTML: true,
+          //format: '{x}',
+          crop: false,
+          overflow: 'none',
+          defer: true,
+          color: '#919395',
+          formatter: function(){
+            return '<div class="data-label">'+ this.x + '<br>|</div>';
+          }
+        }
+      }],
+      credits: {
+        text: ''
+      },
+      tooltip:{
+        formatter: function(){
+          return this.key; // show only the percentage
+        }
+      },
+    }, function(){
+
+      // After the chart is loaded
+      chart.isInitialized = true;
+
+    });
+
+  }
+
+  if ( cb ) {
+    cb();
+  }
+
+}
+
+/**
+ * Get value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to get. Usually the HTML element's id attribute.
+ * @return {object} Hash of element id and its value(s).
+ */
+function getSelection( param ) {
+
+  var $el = $( '#' + param ),
+      val;
+
+  switch ( param ) {
+    case 'credit-score':
+      val = $el.slider('value');
+      break;
+    case 'location':
+      val = $el.val();
+      break;
+    default:
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+  }
+
+  return val;
+
+}
+
+/**
+ * Get values of all HTML elements in the control panel.
+ * @param {null}
+ * @return {object} Key-value hash of element ids and values.
+ */
+function getSelections() {
+
+  var selections = {},
+      ids = [];
+
+  for ( var param in params ) {
+    selections[ param ] = getSelection( param );
+  }
+
+  return selections;
+  
+}
+
+/**
+ * Set value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @return {null}
+ */
+function setSelection( param, options ) {
+
+  var opts = options || {},
+      $el = $( '#' + param ),
+      val = params[ param ];
+
+  switch ( param ) {
+    case 'credit-score':
+      $el.slider( 'value', val );
+      break;
+    default:
+      if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
+        $el.attr( 'placeholder', val );
+      } else {
+        $el.val( val );
+      }
+  }
+
+}
+
+/**
+ * Set value(s) of all HTML elements in the control panel.
+ * @param {null}
+ * @return {null}
+ */
+function setSelections( options ) {
+
+  for ( var param in params ) {
+    setSelection( param, options );
+  }
+
+}
+
+// Recalculate everything when fields are changed.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
+$('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
+
+// Recalculate loan amount.
+function reCalcLoan() {
+  params['house-price'] = getSelection('house-price');
+  params['down-payment'] = getSelection('down-payment');
+  renderLoanAmount();
+}
+$('#house-price, #down-payment').on( 'change keyup', reCalcLoan );
+
+// Recalculate interest costs.
+$('.compare').on('change', 'select', renderInterestAmounts);
+
+// Do it!
+init();
+},{"./defaults":15,"./format-usd":16,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":8,"median":13,"oah-config":1}],26:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -12984,13 +13173,16 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":15,"loan-calc":12}],26:[function(require,module,exports){
-var unFormatUSD = function(str) {
-  return parseFloat(str.replace(/[,\$]/g, ''));
+},{"./format-usd":16,"loan-calc":12}],27:[function(require,module,exports){
+var unFormatUSD = function( str ) {
+  if ( typeof str === 'string' ) {
+    return parseFloat( str.replace(/[,\$]/g, '') );
+  }
+  return str;
 };
 
 module.exports = unFormatUSD;
-},{}],"DF2ktZ":[function(require,module,exports){
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
@@ -13299,5 +13491,5 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('DF2ktZ');
-},{}]},{},[13,14,15,16,17,18,19,20,21,22,23,24,25,26,1,2,3]);
+module.exports=require('WjdicM');
+},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3])
