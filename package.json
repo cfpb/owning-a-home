@@ -59,7 +59,8 @@
     "jquery": "~1.11.0",
     "jquery-ui": "~1.10.5",
     "loan-calc": "~0.2.1",
-    "foreach": "~2.0.4"
+    "foreach": "~2.0.4",
+    "median": "0.0.2"
   },
   "testling": {
     "files": "test/js/*.js",
