@@ -4,7 +4,7 @@ var formatUSD = require('./format-usd');
 var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
-var defaults = require('./defaults');
+var geolocation = require('./geolocation');
 var median = require('median');
 var config = require('oah-config');
 require('./highcharts-theme');
@@ -32,12 +32,15 @@ var params = {
 // Set some properties for the histogram.
 var chart = {
   $el: $('#chart'),
+  $wrapper: $('.chart'),
   isInitialized: false,
   startLoading: function() {
     this.$el.addClass('loading');
+    this.$el.removeClass('loaded');
   },
   stopLoading: function() {
     this.$el.removeClass('loading');
+    this.$el.addClass('loaded');
   }
 };
 
@@ -62,14 +65,24 @@ var slider = {
 function init() {
 
   // Only attempt to do things if we're on the rate checker page.
-  if ( $('.rate-checker').length > 0 ) {
-
-    renderSlider();
-    renderChart();
-    renderLoanAmount();
-    setSelections({ usePlaceholder: true });
-
+  if ( $('.rate-checker').length < 0 ) {
+    return;
   }
+
+  renderSlider();
+  renderChart();
+  renderLoanAmount();
+  setSelections({ usePlaceholder: true });
+
+  geolocation.getState({timeout: 2000}, function( state ){
+    // If a state is returned (meaning they allowed the browser
+    // to determine their location).
+    if ( state ) {
+      params.location = state;
+      setSelection('location');
+    }
+    updateView();
+  });
 
 }
 
@@ -82,7 +95,7 @@ var getData = function() {
 
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
-    // loan_amount: params['loan-amount'],
+    loan_amount: params['loan-amount'],
     // loan_type: params['loan-type'],
     minfico: slider.min,
     maxfico: slider.max,
@@ -216,14 +229,18 @@ function renderChart( data, cb ) {
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
+
+    chart.$wrapper.removeClass('geolocating');
     hc.xAxis[0].setCategories( data.labels );
     hc.series[0].setData( data.vals );
 
   } else {
 
+    chart.$wrapper.addClass('geolocating');
     chart.$el.highcharts({
       chart: {
-        type: 'column'
+        type: 'column',
+        animation: false
       },
       title: {
         text: ''
@@ -246,7 +263,7 @@ function renderChart( data, cb ) {
       }],
       series: [{
         name: 'Number of Lenders',
-        data: [ 0, 0, 0, 0, 0 ],
+        data: [ 1, 1, 1, 1, 1 ],
         showInLegend: false,
         dataLabels: {
           enabled: true,
@@ -270,10 +287,8 @@ function renderChart( data, cb ) {
         }
       },
     }, function(){
-
       // After the chart is loaded
       chart.isInitialized = true;
-
     });
 
   }
@@ -330,13 +345,14 @@ function getSelections() {
 /**
  * Set value(s) of an individual HTML element in the control panel.
  * @param {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @param {object} options Hash of options.
  * @return {null}
  */
 function setSelection( param, options ) {
 
   var opts = options || {},
       $el = $( '#' + param ),
-      val = params[ param ];
+      val = opts.value || params[ param ];
 
   switch ( param ) {
     case 'credit-score':

@@ -60,7 +60,8 @@
     "jquery-ui": "~1.10.5",
     "loan-calc": "~0.2.1",
     "foreach": "~2.0.4",
-    "median": "0.0.2"
+    "median": "0.0.2",
+    "fuzzy-state-search": "~0.1.0"
   },
   "testling": {
     "files": "test/js/*.js",
