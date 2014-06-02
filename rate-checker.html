@@ -41,11 +41,7 @@
             <div class="col-4">
               <label for="rate-compare-1">Rate</label>
               <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
-                <option value="3">3%</option>
-                <option value="4">4%</option>
-                <option value="5">5%</option>
-                <option value="6">6%</option>
-                <option value="7">7%</option>
+                <option value="1">1%</option>
               </select>
               <div class="interest-cost interest-cost-primary">
                  <h5>Interest cost over <span class="loan-years">30</span> years</h5>
@@ -60,11 +56,7 @@
             <div class="col-4">
               <label for="rate-compare-2">Rate</label>
               <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
-                <option value="3">3%</option>
-                <option value="4">4%</option>
-                <option value="5">5%</option>
-                <option value="6">6%</option>
-                <option value="7">7%</option>
+                <option value="1">1%</option>
               </select>
               <div class="interest-cost interest-cost-primary">
                  <h5>Interest cost over <span class="loan-years">30</span> years</h5>
@@ -104,8 +96,7 @@
           <div class="col-12">
 
           <label for="range">Credit Score Range</label>
-          <!-- <input type="range" id="range" min="0" max="10" step="1" value="6"> -->
-          <div id="slider" class="recalc"></div>
+          <div id="credit-score" class="recalc"></div>
           <div id="slider-range"></div>
 
         </div>
@@ -172,12 +163,30 @@
           </select>
         </div>
 
-        </section>
+      </section>
 
-        <section class="calc-loan-type wrapper">
+      <section class="calc-loan-details wrapper">
+        
+        <div class="col-6">
+          <label for="loan-term">Loan Term</label>
+          <select name="loan-term" class="recalc" id="loan-term">
+            <option value="30">30 Years</option>
+            <option value="15">15 Years</option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="loan-rate">Rate Structure</label>
+          <select name="loan-rate" class="recalc" id="loan-rate">
+            <option value="fixed">Fixed</option>
+            <option value="adjustable">Adjustable</option>
+          </select>
+        </div>
+
         <div class="col-6">
           <label for="loan-type">Loan Term</label>
           <select name="loan-type" class="recalc" id="loan-type">
+<<<<<<< HEAD
             <option value="30">30 Year</option>
             <option value="15">15 Year</option>
           </select>
@@ -187,6 +196,21 @@
           <label for="rate-structure">Rate Structure</label>
           <select name="rate-structure" class="recalc" id="rate-structure">
             <option value="fixed">Fixed</option>
+=======
+            <option value="conventional">Conventional</option>
+            <option value="fha">FHA</option>
+            <option value="va">VA</option>
+          </select>
+        </div>
+
+        <div class="col-6 hidden">
+          <label for="arm-type">ARM Type</label>
+          <select name="arm-type" class="recalc" id="arm-type">
+            <option value="3-1">3/1</option>
+            <option value="5-1">5/1</option>
+            <option value="7-1">7/1</option>
+            <option value="10-1">10/1</option>
+>>>>>>> 101b809a0b045d7603e9690a7c1ae0d26666d3a4
           </select>
         </div>
 
@@ -213,7 +237,7 @@
 
 
         <div class="col-12 loan-amt-total">
-          <label class="inline" for="loan-amount">Loan Amount</label>
+          <label class="inline" for="loan-amount">Loan Amount:</label>
           <span id="loan-amount-result">$380,000</span>
         </div>
 
