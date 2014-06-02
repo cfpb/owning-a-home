@@ -8,7 +8,7 @@ var geolocation = require('./geolocation');
 var median = require('median');
 var config = require('oah-config');
 require('./highcharts-theme');
-require('jquery-ui/slider');
+require('../../vendor/rangeslider.js/rangeslider.js');
 require('./nemo');
 require('./nemo-shim');
 
@@ -53,11 +53,7 @@ var slider = {
   update: function() {
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-  },
-  updateRange: function() {
-    var min = getSelection('credit-score'),
-        max = min + 20;
-    $('#slider-range').text( min + ' - ' + max );
+    $('#slider-range').text( this.min + ' - ' + this.max );
   }
 };
 
@@ -98,7 +94,6 @@ function init() {
 var getData = function() {
 
   params.update();
-  slider.update();
 
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
@@ -210,24 +205,25 @@ function renderInterestAmounts() {
 }
 
 /**
- * Initialize the jQuery UI slider.
+ * Initialize the range slider.
+ * http://andreruffert.github.io/rangeslider.js/
  * @param {function} cb Optional callback.
  * @return {null}
  */
 function renderSlider( cb ) {
-  
-  $('#credit-score').slider({
-    value: params['credit-score'],
-    min: 600,
-    max: 820,
-    step: slider.step,
-    create: function() {
-      slider.updateRange();
+
+  $('#credit-score').rangeslider({
+    polyfill: false,
+    rangeClass: 'rangeslider',
+    fillClass: 'rangeslider__fill',
+    handleClass: 'rangeslider__handle',
+    onInit: function() {
+      slider.update();
     },
-    slide: function( event, ui ) {
-      slider.updateRange();
+    onSlide: function(position, value) {
+      slider.update();
     },
-    stop: function() {
+    onSlideEnd: function(position, value) {
       params.update();
       updateView();
     }
@@ -331,9 +327,6 @@ function getSelection( param ) {
       val;
 
   switch ( param ) {
-    case 'credit-score':
-      val = $el.slider('value');
-      break;
     case 'location':
       val = $el.val();
       break;
@@ -377,7 +370,7 @@ function setSelection( param, options ) {
 
   switch ( param ) {
     case 'credit-score':
-      $el.slider( 'value', val );
+      $el.val( val ).change();
       break;
     default:
       if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
