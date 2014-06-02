@@ -51,13 +51,13 @@
     "grunt-release": "latest",
     "grunt-shell": "~0.3.0",
     "grunt-string-replace": "latest",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "debowerify": "~0.7.1"
   },
   "keywords": [],
   "dependencies": {
     "debounce": "0.0.3",
     "jquery": "~1.11.0",
-    "jquery-ui": "~1.10.5",
     "loan-calc": "~0.2.1",
     "foreach": "~2.0.4",
     "median": "0.0.2",
