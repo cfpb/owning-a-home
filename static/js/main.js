@@ -12782,6 +12782,10 @@ var slider = {
   min: params['credit-score'],
   max: params['credit-score'] + 20,
   step: 20,
+  update: function() {
+    this.min = getSelection('credit-score');
+    this.max = this.min + 20;
+  },
   updateRange: function() {
     var min = getSelection('credit-score'),
         max = min + 20;
@@ -12825,6 +12829,9 @@ function init() {
  */
 var getData = function() {
 
+  params.update();
+  slider.update();
+
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
     loan_amount: params['loan-amount'],
@@ -12845,7 +12852,6 @@ var getData = function() {
  */
 var updateView = function() {
 
-  params.update();
   chart.startLoading();
 
   $.when( getData() ).then(function( results ){
@@ -12874,9 +12880,7 @@ var updateView = function() {
 
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
-    console.log(data);
-
-    renderMedian( data );
+    updateLanguage( data );
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
@@ -12887,9 +12891,26 @@ var updateView = function() {
 
 };
 
-function renderMedian( data ) {
-  var loansMedian = median( data.intLabels );
-  $('#median-rate').text( loansMedian + '%' );
+/**
+ * Updates the sentence above the chart
+ * @param {string} data 
+ * @return {null}
+ */
+function updateLanguage( data ) {
+
+  function renderLocation() {
+    var state = $('#location option:selected').text();
+    $('.location').text( state );
+  }
+
+  function renderMedian( data ) {
+    var loansMedian = median( data.intLabels );
+    $('#median-rate').text( loansMedian + '%' );
+  }
+
+  renderLocation();
+  renderMedian( data );
+
 }
 
 function renderLoanAmount() {
@@ -12898,7 +12919,7 @@ function renderLoanAmount() {
   $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
 }
 
-var updateComparisons = function( data ) {
+function updateComparisons( data ) {
   // Update the options in the dropdowns.
   var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
     return a - b;
@@ -12908,7 +12929,7 @@ var updateComparisons = function( data ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
     $('.compare select').append(option);
   });
-};
+}
 
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
