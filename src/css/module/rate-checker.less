@@ -73,29 +73,33 @@
   }
 }
 
-#credit-score {
+/*
+    Range slider for credit score
+    --------------------------- */
 
-  height: 0;
+.rangeslider {
   background: transparent url(../img/slider-bg.png) scroll no-repeat center center;
   background-size: 100%;
-  border: 0;
+  display: block;
   height: 20px;
+  width: 100%;
+  position: relative;
+}
 
-  .ui-slider-handle {
-    margin-top: 6px;
-    margin-left: -11px;
-    width: 22px;
-    background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
-    background-size: 100%;
-    border: 0;
-  }
+.rangeslider__fill {
+  background: #00ff00;
+  position: absolute;
+  top: 0;
+}
 
-  .ui-state-default,
-  .ui-widget-content .ui-state-default,
-  .ui-widget-header .ui-state-default {
-    
-  }
-
+.rangeslider__handle {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
+  background-size: 100%;
+  border: 0;
 }
 
 #slider-range {
