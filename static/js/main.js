@@ -76,6 +76,92 @@ module.exports = function forEach (obj, fn, ctx) {
 
 
 },{}],6:[function(require,module,exports){
+var each = require('foreach');
+
+// From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
+var states = {
+  AK: [ 61.3850, -152.2683 ],
+  AL: [ 32.7990, -86.8073 ],
+  AR: [ 34.9513, -92.3809 ],
+  AS: [ 14.2417, -170.7197 ],
+  AZ: [ 33.7712, -111.3877 ],
+  CA: [ 36.1700, -119.7462 ],
+  CO: [ 39.0646, -105.3272 ],
+  CT: [ 41.5834, -72.7622 ],
+  DC: [ 38.8964, -77.0262 ],
+  DE: [ 39.3498, -75.5148 ],
+  FL: [ 27.8333, -81.7170 ],
+  GA: [ 32.9866, -83.6487 ],
+  HI: [ 21.1098, -157.5311 ],
+  IA: [ 42.0046, -93.2140 ],
+  ID: [ 44.2394, -114.5103 ],
+  IL: [ 40.3363, -89.0022 ],
+  IN: [ 39.8647, -86.2604 ],
+  KS: [ 38.5111, -96.8005 ],
+  KY: [ 37.6690, -84.6514 ],
+  LA: [ 31.1801, -91.8749 ],
+  MA: [ 42.2373, -71.5314 ],
+  MD: [ 39.0724, -76.7902 ],
+  ME: [ 44.6074, -69.3977 ],
+  MI: [ 43.3504, -84.5603 ],
+  MN: [ 45.7326, -93.9196 ],
+  MO: [ 38.4623, -92.3020 ],
+  MP: [ 14.8058, 145.5505 ],
+  MS: [ 32.7673, -89.6812 ],
+  MT: [ 46.9048, -110.3261 ],
+  NC: [ 35.6411, -79.8431 ],
+  ND: [ 47.5362, -99.7930 ],
+  NE: [ 41.1289, -98.2883 ],
+  NH: [ 43.4108, -71.5653 ],
+  NJ: [ 40.3140, -74.5089 ],
+  NM: [ 34.8375, -106.2371 ],
+  NV: [ 38.4199, -117.1219 ],
+  NY: [ 42.1497, -74.9384 ],
+  OH: [ 40.3736, -82.7755 ],
+  OK: [ 35.5376, -96.9247 ],
+  OR: [ 44.5672, -122.1269 ],
+  PA: [ 40.5773, -77.2640 ],
+  PR: [ 18.2766, -66.3350 ],
+  RI: [ 41.6772, -71.5101 ],
+  SC: [ 33.8191, -80.9066 ],
+  SD: [ 44.2853, -99.4632 ],
+  TN: [ 35.7449, -86.7489 ],
+  TX: [ 31.1060, -97.6475 ],
+  UT: [ 40.1135, -111.8535 ],
+  VA: [ 37.7680, -78.2057 ],
+  VI: [ 18.0001, -64.8199 ],
+  VT: [ 44.0407, -72.7093 ],
+  WA: [ 47.3917, -121.5708 ],
+  WI: [ 44.2563, -89.6385 ],
+  WV: [ 38.4680, -80.9696 ],
+  WY: [ 42.7475, -107.2085 ]
+};
+
+var getClosestState = function( pos ) {
+
+  var loc = [ pos.coords.latitude, pos.coords.longitude ],
+      closestState = {
+        name: undefined,
+        proximity: 180
+      };
+
+  each( states, function( coords, state ){
+
+    var proximity = Math.abs( loc[0] - coords[0] ) + Math.abs( loc[1] - coords[1] );
+
+    if ( proximity < closestState.proximity ) {
+      closestState.name = state;
+      closestState.proximity = proximity;
+    }
+
+  });
+
+  return closestState.name;
+  
+};
+
+module.exports = getClosestState;
+},{"foreach":5}],7:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -399,7 +485,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],7:[function(require,module,exports){
+},{"jquery":"HlZQrA"}],8:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -573,7 +659,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":9,"jquery":"HlZQrA"}],8:[function(require,module,exports){
+},{"./widget":10,"jquery":"HlZQrA"}],9:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1256,7 +1342,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":6,"./mouse":7,"./widget":9,"jquery":"HlZQrA"}],9:[function(require,module,exports){
+},{"./core":7,"./mouse":8,"./widget":10,"jquery":"HlZQrA"}],10:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -12084,7 +12170,7 @@ return jQuery;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
 module.exports=require('HlZQrA');
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -12155,7 +12241,7 @@ exports.totalInterest = function(opts) {
   // round the value to two decimal places
   return roundNum(rawInterest);
 };
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function () {
   function median (values) {
     if ( !Array.isArray(values) ) {
@@ -12188,7 +12274,7 @@ exports.totalInterest = function(opts) {
 })()
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var $ = require('jquery');
 
 $(function() {
@@ -12199,85 +12285,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"HlZQrA"}],15:[function(require,module,exports){
-// Intelligent defaults
-var getState = require('./geolocation');
-
-var defaults = {
-  // This is a hideous temporary hack. Need to figure out what to
-  // do if they haven't selected a state.
-  state: localStorage.getItem('state') === 'AL' ? false : localStorage.getItem('state'),
-  score: localStorage.getItem('score') ? localStorage.getItem('score').split(',') : undefined,
-  type: localStorage.getItem('type'),
-  price: localStorage.getItem('price'),
-  down: localStorage.getItem('down')
-};
-
-var setScore = function() {
-  $('#slider').slider( 'values', defaults.score );
-};
-
-var setState = function() {
-  $('#location').val( defaults.state );
-};
-
-var setType = function() {
-  $('#loan-type').val( defaults.type );
-};
-
-var setPrice = function() {
-  $('#house-price').val( defaults.price );
-};
-
-var setDownPayment = function() {
-  $('#down-payment').val( defaults.down );
-};
-
-var loadDefaults = function( cb ) {
-
-  // If defaults are in local storage, set them.
-  !defaults.score || setScore();
-  !defaults.type || setType();
-  !defaults.price || setPrice();
-  !defaults.down || setDownPayment();
-
-  // If a location default isn't set, geolocate the user.
-  if ( defaults.state ) {
-
-    setState();
-    cb();
-
-  } else {
-
-    var loadState = function( pos ){
-      defaults.state = getState( pos );
-      localStorage.setItem( 'state', defaults.state );
-      setState();
-      cb();
-    };
-
-    var noLocation = function() {
-      cb();
-    };
-
-    // Get their state using the HTML5 gelocation API.
-    navigator.geolocation.getCurrentPosition( loadState, noLocation );
-
-  }
-
-};
-
-var saveDefaults = function() {
-  localStorage.setItem( 'state', $('#location').val() );
-  localStorage.setItem( 'score', $('#slider').slider('values') );
-  localStorage.setItem( 'type', $('#loan-type').val() );
-  localStorage.setItem( 'price', $('#house-price').val() );
-  localStorage.setItem( 'down', $('#down-payment').val() );
-};
-
-module.exports.load = loadDefaults;
-module.exports.save = saveDefaults;
-},{"./geolocation":17}],16:[function(require,module,exports){
+},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"HlZQrA"}],16:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -12294,92 +12302,40 @@ var formatMoney = function( num, opts ) {
 
 module.exports = formatMoney;
 },{}],17:[function(require,module,exports){
-var each = require('foreach');
+var guessState = require('fuzzy-state-search');
 
-// From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
-var states = {
-  AK: [ 61.3850, -152.2683 ],
-  AL: [ 32.7990, -86.8073 ],
-  AR: [ 34.9513, -92.3809 ],
-  AS: [ 14.2417, -170.7197 ],
-  AZ: [ 33.7712, -111.3877 ],
-  CA: [ 36.1700, -119.7462 ],
-  CO: [ 39.0646, -105.3272 ],
-  CT: [ 41.5834, -72.7622 ],
-  DC: [ 38.8964, -77.0262 ],
-  DE: [ 39.3498, -75.5148 ],
-  FL: [ 27.8333, -81.7170 ],
-  GA: [ 32.9866, -83.6487 ],
-  HI: [ 21.1098, -157.5311 ],
-  IA: [ 42.0046, -93.2140 ],
-  ID: [ 44.2394, -114.5103 ],
-  IL: [ 40.3363, -89.0022 ],
-  IN: [ 39.8647, -86.2604 ],
-  KS: [ 38.5111, -96.8005 ],
-  KY: [ 37.6690, -84.6514 ],
-  LA: [ 31.1801, -91.8749 ],
-  MA: [ 42.2373, -71.5314 ],
-  MD: [ 39.0724, -76.7902 ],
-  ME: [ 44.6074, -69.3977 ],
-  MI: [ 43.3504, -84.5603 ],
-  MN: [ 45.7326, -93.9196 ],
-  MO: [ 38.4623, -92.3020 ],
-  MP: [ 14.8058, 145.5505 ],
-  MS: [ 32.7673, -89.6812 ],
-  MT: [ 46.9048, -110.3261 ],
-  NC: [ 35.6411, -79.8431 ],
-  ND: [ 47.5362, -99.7930 ],
-  NE: [ 41.1289, -98.2883 ],
-  NH: [ 43.4108, -71.5653 ],
-  NJ: [ 40.3140, -74.5089 ],
-  NM: [ 34.8375, -106.2371 ],
-  NV: [ 38.4199, -117.1219 ],
-  NY: [ 42.1497, -74.9384 ],
-  OH: [ 40.3736, -82.7755 ],
-  OK: [ 35.5376, -96.9247 ],
-  OR: [ 44.5672, -122.1269 ],
-  PA: [ 40.5773, -77.2640 ],
-  PR: [ 18.2766, -66.3350 ],
-  RI: [ 41.6772, -71.5101 ],
-  SC: [ 33.8191, -80.9066 ],
-  SD: [ 44.2853, -99.4632 ],
-  TN: [ 35.7449, -86.7489 ],
-  TX: [ 31.1060, -97.6475 ],
-  UT: [ 40.1135, -111.8535 ],
-  VA: [ 37.7680, -78.2057 ],
-  VI: [ 18.0001, -64.8199 ],
-  VT: [ 44.0407, -72.7093 ],
-  WA: [ 47.3917, -121.5708 ],
-  WI: [ 44.2563, -89.6385 ],
-  WV: [ 38.4680, -80.9696 ],
-  WY: [ 42.7475, -107.2085 ]
-};
+module.exports.getState = function ( options, callback ) {
 
-var getClosestState = function( pos ) {
+  var opts = options || {},
+      timeout = opts.timeout || 10000,
+      cb = typeof options === 'function' ? options : callback,
+      reallyIndecisive = true;
 
-  var loc = [ pos.coords.latitude, pos.coords.longitude ],
-      closestState = {
-        name: undefined,
-        proximity: 180
-      };
-
-  each( states, function( coords, state ){
-
-    var proximity = Math.abs( loc[0] - coords[0] ) + Math.abs( loc[1] - coords[1] );
-
-    if ( proximity < closestState.proximity ) {
-      closestState.name = state;
-      closestState.proximity = proximity;
+  function success( pos ){
+    var state = guessState( pos );
+    reallyIndecisive = false;
+    if ( cb ) {
+      cb( state );
     }
+  }
 
-  });
+  function fail() {
+    cb();
+  }
 
-  return closestState.name;
-  
+  // Get their state using the HTML5 gelocation API.
+  navigator.geolocation.getCurrentPosition( success, fail );
+
+  // For users who don't see the geolocate permission bar in their
+  // browser, fail after X milliseconds.
+  setTimeout(function(){
+    if ( reallyIndecisive ) {
+      fail();
+    }
+  }, timeout);
+
 };
-
-module.exports = getClosestState;
-},{"foreach":5}],18:[function(require,module,exports){
+},{"fuzzy-state-search":6}],18:[function(require,module,exports){
 var highcharts = require('highcharts');
 
 Highcharts.theme = {
@@ -12771,14 +12727,14 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":16,"loan-calc":12}],25:[function(require,module,exports){
+},{"./format-usd.js":16,"loan-calc":13}],25:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var formatUSD = require('./format-usd');
 var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
-var defaults = require('./defaults');
+var geolocation = require('./geolocation');
 var median = require('median');
 var config = require('oah-config');
 require('./highcharts-theme');
@@ -12786,64 +12742,117 @@ require('jquery-ui/slider');
 require('./nemo');
 require('./nemo-shim');
 
-var calcLoan = function() {
-  var cost = $('#house-price').val() || $('#house-price').attr('placeholder'),
-      down = $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-      loan = unFormatUSD(cost) - unFormatUSD(down);
-
-  loan = loan > 0 ? loan : 0;
-
-  $('#loan-amount-result').text(formatUSD(loan, {decimalPlaces: 0}));
+// List all the parameters the user can change and set
+// their default values.
+var params = {
+  'credit-score': 700,
+  'down-payment': 20000,
+  'house-price': 450000,
+  'loan-amount': undefined,
+  'location': 'AL',
+  'loan-term': 30,
+  'rate-structure': 'adjustable',
+  'loan-type': 'conventional',
+  'arm-type': '5-1',
+  update: function() {
+    $.extend( params, getSelections() );
+  }
 };
 
-// update values on keyup
-$('.recalc').on('keyup', debounce(calcLoan, 500));
+// Set some properties for the histogram.
+var chart = {
+  $el: $('#chart'),
+  $wrapper: $('.chart'),
+  isInitialized: false,
+  startLoading: function() {
+    this.$el.addClass('loading');
+    this.$el.removeClass('loaded');
+  },
+  stopLoading: function() {
+    this.$el.removeClass('loading');
+    this.$el.addClass('loaded');
+  }
+};
 
-// process the data from the API
+// Set some properties for the slider.
+var slider = {
+  $el: $('#credit-score'),
+  min: params['credit-score'],
+  max: params['credit-score'] + 20,
+  step: 20,
+  updateRange: function() {
+    var min = getSelection('credit-score'),
+        max = min + 20;
+    $('#slider-range').text( min + ' - ' + max );
+  }
+};
+
+/**
+ * Initialize the rate checker app.
+ * @param {null}
+ * @return {null}
+ */
+function init() {
+
+  // Only attempt to do things if we're on the rate checker page.
+  if ( $('.rate-checker').length < 0 ) {
+    return;
+  }
+
+  renderSlider();
+  renderChart();
+  renderLoanAmount();
+  setSelections({ usePlaceholder: true });
+
+  geolocation.getState({timeout: 2000}, function( state ){
+    // If a state is returned (meaning they allowed the browser
+    // to determine their location).
+    if ( state ) {
+      params.location = state;
+      setSelection('location');
+    }
+    updateView();
+  });
+
+}
+
+/**
+ * Get data from the API.
+ * @param {null}
+ * @return {object} jQuery promise.
+ */
 var getData = function() {
 
-  var promise = $.get(config.rateCheckerAPI, {
-    downpayment: unFormatUSD( $('#down-payment').val() || $('#down-payment').attr('placeholder') ),
-    loan_amount: unFormatUSD( $('#loan-amount-result').text() ),
-    loan_type: $('#loan-type').val() + ' year ' + $('#rate-structure').val(),
-    maxfico: $('#slider').slider('value') + 20,
-    minfico: $('#slider').slider('value'),
-    price: unFormatUSD( $('#house-price').val() || $('#house-price').attr('placeholder') ),
-    state: $('#location option:selected').val()
+  var promise = $.get( config.rateCheckerAPI, {
+    downpayment: params['down-payment'],
+    loan_amount: params['loan-amount'],
+    // loan_type: params['loan-type'],
+    minfico: slider.min,
+    maxfico: slider.max,
+    state: params['location']
   });
 
   return promise;
 
 };
 
-// var data = getData();
+/**
+ * Render all applicable rate checker areas.
+ * @param {null}
+ * @return {null}
+ */
+var updateView = function() {
 
-// update the comparison dropdowns with new options
-var updateComparisonOptions = function() {
-  var uniqueVals = $(data.uniqueVals).sort(function(a,b) {
-    return a - b;
-  });
-  $('.compare select').html('');
-  $.each(uniqueVals, function(i, rate) {
-    var option = '<option value="' + rate + '">' + rate + '%</option>';
-    $('.compare select').append(option);
-  });
-};
-
-// store the user's selections somewhere globally accessible
-var details = {};
-
-// update errythang
-var renderView = function() {
+  params.update();
+  chart.startLoading();
 
   $.when( getData() ).then(function( results ){
 
-    console.log(results);
-
-    data = {
+    var data = {
       labels: [],
+      intLabels: [],
+      uniqueLabels: [],
       vals: [],
-      uniqueVals: [],
       totalVals: [],
       largest: {
         label: 4,
@@ -12852,171 +12861,274 @@ var renderView = function() {
     };
 
     $.each(results.data, function(key, val) {
+      data.intLabels.push(+key);
       data.labels.push(key + '%');
       data.vals.push(val);
-      if (val > data.largest.val) {
+      if ( val > data.largest.val ) {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
-
-      var tot = val;
-      for(var i = 0; i < tot; i++) {
-        data.totalVals.push(+key);
-      }
-
     });
 
-    data.uniqueVals = $.unique( data.vals.slice(0) );
+    data.uniqueLabels = $.unique( data.labels.slice(0) );
 
-    details = {
-      location: $('#location option:selected').text(),
-      type: $('#loan-type').val(),
-      price: $('#house-price').val() || $('#house-price').attr('placeholder'),
-      down: $('#down-payment').val() || $('#down-payment').attr('placeholder'),
-      amount: $('#loan-amount-result').text(),
-      // rate: data.largest.label
-    };
+    console.log(data);
 
-    // Save the user's selections to local storage
-    defaults.save();
+    renderMedian( data );
+    renderChart( data );
+    updateComparisons( data );
+    renderInterestAmounts();
 
-    // Add a loading animation
-    $('#chart').addClass('loading');
-
-    // update the fields scattered throughout the page
-    $('.location').text(details.location);
-    $('.rate').text(details.rate);
-    $('.loan-amount').text(details.amount);
-
-    // update the comparisons section
-    updateComparisonOptions();
-    updateComparisons();
-
-    // Calculate loan amount
-    calcLoan();
-
-    updateScoreRange();
-
-    // update the chart
-    var chart = $('#chart').highcharts();
-    chart.xAxis[0].setCategories( data.labels );
-    chart.series[0].setData( data.vals );
-    $('#chart').removeClass('loading');
-
-    // display the median above the chart
-    // needs to calculate the overal median
-    var displayMedian = function() {
-      var loansMedian = median(data.totalVals);
-      $('#median-rate').text(loansMedian + '%');
-    };
-
-    displayMedian();
+    chart.stopLoading();
 
   });
 
 };
 
-// re-render when fields are changed
-$('.demographics, .calc-loan-amt').on('change', '.recalc', renderView);
+function renderMedian( data ) {
+  var loansMedian = median( data.intLabels );
+  $('#median-rate').text( loansMedian + '%' );
+}
 
-var updateComparisons = function() {
+function renderLoanAmount() {
+  var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
+  params['loan-amount'] = loan > 0 ? loan : 0;
+  $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
+}
+
+var updateComparisons = function( data ) {
+  // Update the options in the dropdowns.
+  var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
+    return a - b;
+  });
+  $('.compare select').html('');
+  $.each( uniqueLabels, function( i, rate ) {
+    var option = '<option value="' + rate + '">' + rate + '</option>';
+    $('.compare select').append(option);
+  });
+};
+
+function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
-    var rate =  $(this).siblings('.rate-compare').val(),
+    var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = interest(rate, length, details.amount),
-        $selector = $(this).find('.new-cost');
-    $selector.text(totalInterest);
+        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        $el = $(this).find('.new-cost');
+    $el.text( formatUSD(totalInterest) );
   });
-};
+}
 
-// update comparison info when new rate is selected
-$('.compare').on('change', 'select', updateComparisons);
+/**
+ * Initialize the jQuery UI slider.
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderSlider( cb ) {
+  
+  $('#credit-score').slider({
+    value: params['credit-score'],
+    min: 600,
+    max: 820,
+    step: slider.step,
+    create: function() {
+      slider.updateRange();
+    },
+    slide: function( event, ui ) {
+      slider.updateRange();
+    },
+    stop: function() {
+      params.update();
+      updateView();
+    }
+  });
 
-var updateScoreRange = function() {
-  var val = $('#slider').slider('value');
-  if ( val < 820 ) {
-    $('#slider-range').text( val + ' - ' + (val + 20) );
-  } else {
-    $('#slider-range').text( '820+' );
+  if ( cb ) {
+    cb();
   }
 
-};
+}
 
-// jquery ui slider
-$('#slider').slider({
-  min: 600,
-  max: 850,
-  step: 20,
-  value: 700,
-  create: function() {
-    updateScoreRange();
-  },
-  slide: function( event, ui ) {
-    updateScoreRange();
-    defaults.save();
-  },
-  stop: renderView
-});
+/**
+ * Render (or update) the Highcharts chart.
+ * @param {object} data Data processed from the API.
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderChart( data, cb ) {
+  
+  if ( chart.isInitialized ) {
 
-if ($('.rate-checker').length > 0) {
+    var hc = chart.$el.highcharts();
 
-  $('#chart').highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: ''
-    },
-    xAxis: {
-      title: {
-        text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
+    chart.$wrapper.removeClass('geolocating');
+    hc.xAxis[0].setCategories( data.labels );
+    hc.series[0].setData( data.vals );
+
+  } else {
+
+    chart.$wrapper.addClass('geolocating');
+    chart.$el.highcharts({
+      chart: {
+        type: 'column',
+        animation: false
       },
-      categories: [ 1, 2, 3, 4, 5 ]
-    },
-    yAxis: [{
       title: {
-        text: '',
-      }
-    }, {
-      opposite: true,
-      title: {
-        text: '# OF LENDERS OFFERING RATE',
-      }
-    }],
-    series: [{
-      name: 'Number of Lenders',
-      data: [ 0, 0, 0, 0, 0 ],
-      showInLegend: false,
-      dataLabels: {
-        enabled: true,
-        useHTML: true,
-        //format: '{x}',
-        crop: false,
-        overflow: 'none',
-        defer: true,
-        color: '#919395',
-        formatter: function(){
-          return '<div class="data-label">'+ this.x + '<br>|</div>';
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
+        },
+        categories: [ 1, 2, 3, 4, 5 ]
+      },
+      yAxis: [{
+        title: {
+          text: '',
         }
-      }
-    }],
-    credits: {
-      text: ''
-    },
-    tooltip:{
-      formatter: function(){
-        return this.key; // show only the percentage
-      }
-    },
-  }).addClass('loading');
+      }, {
+        opposite: true,
+        title: {
+          text: '# OF LENDERS OFFERING RATE',
+        }
+      }],
+      series: [{
+        name: 'Number of Lenders',
+        data: [ 1, 1, 1, 1, 1 ],
+        showInLegend: false,
+        dataLabels: {
+          enabled: true,
+          useHTML: true,
+          //format: '{x}',
+          crop: false,
+          overflow: 'none',
+          defer: true,
+          color: '#919395',
+          formatter: function(){
+            return '<div class="data-label">'+ this.x + '<br>|</div>';
+          }
+        }
+      }],
+      credits: {
+        text: ''
+      },
+      tooltip:{
+        formatter: function(){
+          return this.key; // show only the percentage
+        }
+      },
+    }, function(){
+      // After the chart is loaded
+      chart.isInitialized = true;
+    });
 
-  defaults.load(function(){
-    renderView(0);
-    $('#chart').removeClass('loading');
-  });
+  }
+
+  if ( cb ) {
+    cb();
+  }
 
 }
-},{"./defaults":15,"./format-usd":16,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":8,"median":13,"oah-config":1}],26:[function(require,module,exports){
+
+/**
+ * Get value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to get. Usually the HTML element's id attribute.
+ * @return {object} Hash of element id and its value(s).
+ */
+function getSelection( param ) {
+
+  var $el = $( '#' + param ),
+      val;
+
+  switch ( param ) {
+    case 'credit-score':
+      val = $el.slider('value');
+      break;
+    case 'location':
+      val = $el.val();
+      break;
+    default:
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+  }
+
+  return val;
+
+}
+
+/**
+ * Get values of all HTML elements in the control panel.
+ * @param {null}
+ * @return {object} Key-value hash of element ids and values.
+ */
+function getSelections() {
+
+  var selections = {},
+      ids = [];
+
+  for ( var param in params ) {
+    selections[ param ] = getSelection( param );
+  }
+
+  return selections;
+  
+}
+
+/**
+ * Set value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @param {object} options Hash of options.
+ * @return {null}
+ */
+function setSelection( param, options ) {
+
+  var opts = options || {},
+      $el = $( '#' + param ),
+      val = opts.value || params[ param ];
+
+  switch ( param ) {
+    case 'credit-score':
+      $el.slider( 'value', val );
+      break;
+    default:
+      if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
+        $el.attr( 'placeholder', val );
+      } else {
+        $el.val( val );
+      }
+  }
+
+}
+
+/**
+ * Set value(s) of all HTML elements in the control panel.
+ * @param {null}
+ * @return {null}
+ */
+function setSelections( options ) {
+
+  for ( var param in params ) {
+    setSelection( param, options );
+  }
+
+}
+
+// Recalculate everything when fields are changed.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
+$('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
+
+// Recalculate loan amount.
+function reCalcLoan() {
+  params['house-price'] = getSelection('house-price');
+  params['down-payment'] = getSelection('down-payment');
+  renderLoanAmount();
+}
+$('#house-price, #down-payment').on( 'change keyup', reCalcLoan );
+
+// Recalculate interest costs.
+$('.compare').on('change', 'select', renderInterestAmounts);
+
+// Do it!
+init();
+},{"./format-usd":16,"./geolocation":17,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":9,"median":14,"oah-config":1}],26:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -13031,9 +13143,12 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":16,"loan-calc":12}],27:[function(require,module,exports){
-var unFormatUSD = function(str) {
-  return parseFloat(str.replace(/[,\$]/g, ''));
+},{"./format-usd":16,"loan-calc":13}],27:[function(require,module,exports){
+var unFormatUSD = function( str ) {
+  if ( typeof str === 'string' ) {
+    return parseFloat( str.replace(/[,\$]/g, '') );
+  }
+  return str;
 };
 
 module.exports = unFormatUSD;
@@ -13347,4 +13462,4 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
 module.exports=require('DF2ktZ');
-},{}]},{},[14,15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3]);
+},{}]},{},[15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3]);
