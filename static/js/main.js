@@ -1,7 +1,9 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
 var config = {};
 
-config.rateCheckerAPI = 'http://oah.demo.cfpb.gov/api/rate-checker';
+config.rateCheckerAPI = 'https://oah.demo.cfpb.gov/api/rate-checker';
+// config.rateCheckerAPI = 'static/mock-data.json';
 
 module.exports = config;
 },{}],2:[function(require,module,exports){
@@ -485,7 +487,7 @@ $.extend( $.ui, {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],8:[function(require,module,exports){
+},{"jquery":"1y2kms"}],8:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./widget');
 
@@ -659,7 +661,7 @@ $.widget("ui.mouse", {
 
 })(jQuery);
 
-},{"./widget":10,"jquery":"HlZQrA"}],9:[function(require,module,exports){
+},{"./widget":10,"jquery":"1y2kms"}],9:[function(require,module,exports){
 var jQuery = require('jquery');
 require('./core');
 require('./mouse');
@@ -1342,7 +1344,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 }(jQuery));
 
-},{"./core":7,"./mouse":8,"./widget":10,"jquery":"HlZQrA"}],10:[function(require,module,exports){
+},{"./core":7,"./mouse":8,"./widget":10,"jquery":"1y2kms"}],10:[function(require,module,exports){
 var jQuery = require('jquery');
 
 /*!
@@ -1867,7 +1869,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 })( jQuery );
 
-},{"jquery":"HlZQrA"}],"HlZQrA":[function(require,module,exports){
+},{"jquery":"1y2kms"}],"1y2kms":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -12169,7 +12171,7 @@ return jQuery;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('HlZQrA');
+module.exports=require('1y2kms');
 },{}],13:[function(require,module,exports){
 'use strict';
 
@@ -12285,7 +12287,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"HlZQrA"}],16:[function(require,module,exports){
+},{"./modules/loan-types":19,"./modules/rate-checker":25,"jquery":"1y2kms"}],16:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -12400,7 +12402,7 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-},{"highcharts":"DF2ktZ"}],19:[function(require,module,exports){
+},{"highcharts":"WjdicM"}],19:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
@@ -12448,7 +12450,7 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
-},{"./local-storage-polyfill":20,"./mega-expand":21,"./nemo":23,"./nemo-shim":22,"./payment-calc":24,"./total-interest-calc":26,"debounce":4,"jquery":"HlZQrA"}],20:[function(require,module,exports){
+},{"./local-storage-polyfill":20,"./mega-expand":21,"./nemo":23,"./nemo-shim":22,"./payment-calc":24,"./total-interest-calc":26,"debounce":4,"jquery":"1y2kms"}],20:[function(require,module,exports){
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
 if (!window.localStorage) {
   window.localStorage = {
@@ -13128,7 +13130,7 @@ $('.compare').on('change', 'select', renderInterestAmounts);
 
 // Do it!
 init();
-},{"./format-usd":16,"./geolocation":17,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","jquery-ui/slider":9,"median":14,"oah-config":1}],26:[function(require,module,exports){
+},{"./format-usd":16,"./geolocation":17,"./highcharts-theme":18,"./nemo":23,"./nemo-shim":22,"./total-interest-calc":26,"./unformat-usd":27,"debounce":4,"highcharts":"WjdicM","jquery":"1y2kms","jquery-ui/slider":9,"median":14,"oah-config":1}],26:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -13152,7 +13154,7 @@ var unFormatUSD = function( str ) {
 };
 
 module.exports = unFormatUSD;
-},{}],"DF2ktZ":[function(require,module,exports){
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
@@ -13461,5 +13463,5 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('DF2ktZ');
-},{}]},{},[15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3]);
+module.exports=require('WjdicM');
+},{}]},{},[15,16,17,18,19,20,21,22,23,24,25,26,27,1,2,3])
