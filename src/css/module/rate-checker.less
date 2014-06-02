@@ -53,6 +53,12 @@
     }
 }
 
+.calc-loan-details {
+  .col-6 {
+    margin-bottom: 15px;
+  }
+}
+
 .loan-amt-total {
 
   padding-top: 20px;
@@ -67,7 +73,7 @@
   }
 }
 
-#slider {
+#credit-score {
 
   height: 0;
   background: transparent url(../img/slider-bg.png) scroll no-repeat center center;
@@ -121,15 +127,31 @@
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
 
-    .loading {
-        opacity: .3;
+  .loaded {
+    animation: fadein .5s;
+  }
+
+  .loading {
+    opacity: .3;
+  }
+
+  &.geolocating {
+    background: transparent url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif) scroll no-repeat center center;
+    #chart {
+      opacity: 0;
     }
+  }
 
 }
 
 .data-label {
   text-align: center;
   background-color: #fff;
+}
+
+@keyframes fadein {
+    from { opacity: .3; }
+    to { opacity: 1; }
 }
 
 /*
