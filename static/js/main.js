@@ -1,9 +1,7 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// rename example-config.js as config.js & add API url
 var config = {};
 
-config.rateCheckerAPI = 'https://oah.fake.demo.domain/api/rate-checker';
-// config.rateCheckerAPI = 'static/mock-data.json';
+config.rateCheckerAPI = 'http://oah.fake.demo.domain/api/rate-checker';
 
 module.exports = config;
 },{}],2:[function(require,module,exports){
@@ -163,7 +161,7 @@ var getClosestState = function( pos ) {
 };
 
 module.exports = getClosestState;
-},{"foreach":5}],"1y2kms":[function(require,module,exports){
+},{"foreach":5}],"HlZQrA":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -10465,7 +10463,7 @@ return jQuery;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('1y2kms');
+module.exports=require('HlZQrA');
 },{}],9:[function(require,module,exports){
 'use strict';
 
@@ -10581,7 +10579,7 @@ $(function() {
   require('./modules/rate-checker');
 
 });
-},{"./modules/loan-types":15,"./modules/rate-checker":21,"jquery":"1y2kms"}],12:[function(require,module,exports){
+},{"./modules/loan-types":15,"./modules/rate-checker":21,"jquery":"HlZQrA"}],12:[function(require,module,exports){
 // opts = {decimalPlaces: `number`}
 var formatMoney = function( num, opts ) {
 
@@ -10696,7 +10694,7 @@ Highcharts.theme = {
 
 // Apply the theme
 Highcharts.setOptions(Highcharts.theme);
-},{"highcharts":"WjdicM"}],15:[function(require,module,exports){
+},{"highcharts":"DF2ktZ"}],15:[function(require,module,exports){
 var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
@@ -10744,7 +10742,7 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
-},{"./local-storage-polyfill":16,"./mega-expand":17,"./nemo":19,"./nemo-shim":18,"./payment-calc":20,"./total-interest-calc":22,"debounce":4,"jquery":"1y2kms"}],16:[function(require,module,exports){
+},{"./local-storage-polyfill":16,"./mega-expand":17,"./nemo":19,"./nemo-shim":18,"./payment-calc":20,"./total-interest-calc":22,"debounce":4,"jquery":"HlZQrA"}],16:[function(require,module,exports){
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
 if (!window.localStorage) {
   window.localStorage = {
@@ -11182,7 +11180,7 @@ var updateView = function() {
 
 /**
  * Updates the sentence above the chart
- * @param {string} data 
+ * @param {string} data
  * @return {null}
  */
 function updateLanguage( data ) {
@@ -11224,7 +11222,7 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(totalInterest) );
   });
@@ -11268,7 +11266,7 @@ function renderSlider( cb ) {
  * @return {null}
  */
 function renderChart( data, cb ) {
-  
+
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
@@ -11379,7 +11377,7 @@ function getSelections() {
   }
 
   return selections;
-  
+
 }
 
 /**
@@ -11438,7 +11436,7 @@ $('.compare').on('change', 'select', renderInterestAmounts);
 
 // Do it!
 init();
-},{"../../vendor/rangeslider.js/rangeslider.js":26,"./format-usd":12,"./geolocation":13,"./highcharts-theme":14,"./nemo":19,"./nemo-shim":18,"./total-interest-calc":22,"./unformat-usd":23,"debounce":4,"highcharts":"WjdicM","jquery":"1y2kms","median":10,"oah-config":1}],22:[function(require,module,exports){
+},{"../../vendor/rangeslider.js/rangeslider.js":26,"./format-usd":12,"./geolocation":13,"./highcharts-theme":14,"./nemo":19,"./nemo-shim":18,"./total-interest-calc":22,"./unformat-usd":23,"debounce":4,"highcharts":"DF2ktZ","jquery":"HlZQrA","median":10,"oah-config":1}],22:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
 var formatUSD = require('./format-usd');
 
@@ -11462,7 +11460,7 @@ var unFormatUSD = function( str ) {
 };
 
 module.exports = unFormatUSD;
-},{}],"WjdicM":[function(require,module,exports){
+},{}],"DF2ktZ":[function(require,module,exports){
 (function (global){
 ;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
@@ -11771,7 +11769,7 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('WjdicM');
+module.exports=require('DF2ktZ');
 },{}],26:[function(require,module,exports){
 /*! rangeslider.js - v0.2.9 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 'use strict';
@@ -12077,4 +12075,4 @@ module.exports=require('WjdicM');
 
 }));
 
-},{"jquery":"1y2kms"}]},{},[11,12,13,14,15,16,17,18,19,20,21,22,23,1,2,3])
+},{"jquery":"HlZQrA"}]},{},[11,12,13,14,15,16,17,18,19,20,21,22,23,1,2,3]);
