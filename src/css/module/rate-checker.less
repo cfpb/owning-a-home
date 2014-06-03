@@ -6,7 +6,6 @@
     .webfont-regular();
 }
 
-
 /*
     Sidebar with all the user input
     --------------------------- */
@@ -54,6 +53,12 @@
     }
 }
 
+.calc-loan-details {
+  .col-6 {
+    margin-bottom: 15px;
+  }
+}
+
 .loan-amt-total {
 
   padding-top: 20px;
@@ -66,6 +71,39 @@
     .webfont-medium();
     font-size: 0.875em;
   }
+}
+
+/*
+    Range slider for credit score
+    --------------------------- */
+
+.rangeslider {
+  background: transparent url(../img/slider-bg.png) scroll no-repeat center center;
+  background-size: 100%;
+  display: block;
+  height: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.rangeslider__fill {
+  background: #00ff00;
+  position: absolute;
+  top: 0;
+}
+
+.rangeslider__handle {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
+  background-size: 100%;
+  border: 0;
+}
+
+#slider-range {
+  text-align: center;
 }
 
 /*
@@ -93,15 +131,31 @@
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
 
-    .loading {
-        opacity: .3;
+  .loaded {
+    animation: fadein .5s;
+  }
+
+  .loading {
+    opacity: .3;
+  }
+
+  &.geolocating {
+    background: transparent url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif) scroll no-repeat center center;
+    #chart {
+      opacity: 0;
     }
+  }
 
 }
 
 .data-label {
   text-align: center;
   background-color: #fff;
+}
+
+@keyframes fadein {
+    from { opacity: .3; }
+    to { opacity: 1; }
 }
 
 /*
@@ -150,6 +204,23 @@
     font-size: 1.75em;
   }
 
+}
+
+.dollar-input {
+  position: relative;
+
+  input {
+    padding-left: 20px;
+  }
+
+  .unit {
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 0.2em;
+    z-index: 9;
+    color: @gray;
+  }
 }
 
 
