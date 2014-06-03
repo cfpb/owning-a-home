@@ -1,6 +1,171 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"t1HCCC":[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
+var config = {};
+
+config.rateCheckerAPI = 'https://oah.demo.cfpb.gov/api/rate-checker';
+// config.rateCheckerAPI = 'static/mock-data.json';
+
+module.exports = config;
+},{}],2:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
+var config = {};
+
+config.rateCheckerAPI = '#';
+
+module.exports = config;
+},{}],3:[function(require,module,exports){
+// config file used for adding external libraries that require browserify shimming
+module.exports = {
+  jquery: {exports: "jQuery"},
+  highcharts: {exports: "highcharts"}
+};
+},{}],4:[function(require,module,exports){
+/**
+ * Debounces a function by the given threshold.
+ *
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ */
+
+module.exports = function debounce(func, threshold, execAsap){
+  var timeout;
+
+  return function debounced(){
+    var obj = this, args = arguments;
+
+    function delayed () {
+      if (!execAsap) {
+        func.apply(obj, args);
+      }
+      timeout = null;
+    }
+
+    if (timeout) {
+      clearTimeout(timeout);
+    } else if (execAsap) {
+      func.apply(obj, args);
+    }
+
+    timeout = setTimeout(delayed, threshold || 100);
+  };
+};
+
+},{}],5:[function(require,module,exports){
+
+var hasOwn = Object.prototype.hasOwnProperty;
+var toString = Object.prototype.toString;
+
+module.exports = function forEach (obj, fn, ctx) {
+    if (toString.call(fn) !== '[object Function]') {
+        throw new TypeError('iterator must be a function');
+    }
+    var l = obj.length;
+    if (l === +l) {
+        for (var i = 0; i < l; i++) {
+            fn.call(ctx, obj[i], i, obj);
+        }
+    } else {
+        for (var k in obj) {
+            if (hasOwn.call(obj, k)) {
+                fn.call(ctx, obj[k], k, obj);
+            }
+        }
+    }
+};
+
+
+},{}],6:[function(require,module,exports){
+var each = require('foreach');
+
+// From http://dev.maxmind.com/geoip/legacy/codes/state_latlon/
+var states = {
+  AK: [ 61.3850, -152.2683 ],
+  AL: [ 32.7990, -86.8073 ],
+  AR: [ 34.9513, -92.3809 ],
+  AS: [ 14.2417, -170.7197 ],
+  AZ: [ 33.7712, -111.3877 ],
+  CA: [ 36.1700, -119.7462 ],
+  CO: [ 39.0646, -105.3272 ],
+  CT: [ 41.5834, -72.7622 ],
+  DC: [ 38.8964, -77.0262 ],
+  DE: [ 39.3498, -75.5148 ],
+  FL: [ 27.8333, -81.7170 ],
+  GA: [ 32.9866, -83.6487 ],
+  HI: [ 21.1098, -157.5311 ],
+  IA: [ 42.0046, -93.2140 ],
+  ID: [ 44.2394, -114.5103 ],
+  IL: [ 40.3363, -89.0022 ],
+  IN: [ 39.8647, -86.2604 ],
+  KS: [ 38.5111, -96.8005 ],
+  KY: [ 37.6690, -84.6514 ],
+  LA: [ 31.1801, -91.8749 ],
+  MA: [ 42.2373, -71.5314 ],
+  MD: [ 39.0724, -76.7902 ],
+  ME: [ 44.6074, -69.3977 ],
+  MI: [ 43.3504, -84.5603 ],
+  MN: [ 45.7326, -93.9196 ],
+  MO: [ 38.4623, -92.3020 ],
+  MP: [ 14.8058, 145.5505 ],
+  MS: [ 32.7673, -89.6812 ],
+  MT: [ 46.9048, -110.3261 ],
+  NC: [ 35.6411, -79.8431 ],
+  ND: [ 47.5362, -99.7930 ],
+  NE: [ 41.1289, -98.2883 ],
+  NH: [ 43.4108, -71.5653 ],
+  NJ: [ 40.3140, -74.5089 ],
+  NM: [ 34.8375, -106.2371 ],
+  NV: [ 38.4199, -117.1219 ],
+  NY: [ 42.1497, -74.9384 ],
+  OH: [ 40.3736, -82.7755 ],
+  OK: [ 35.5376, -96.9247 ],
+  OR: [ 44.5672, -122.1269 ],
+  PA: [ 40.5773, -77.2640 ],
+  PR: [ 18.2766, -66.3350 ],
+  RI: [ 41.6772, -71.5101 ],
+  SC: [ 33.8191, -80.9066 ],
+  SD: [ 44.2853, -99.4632 ],
+  TN: [ 35.7449, -86.7489 ],
+  TX: [ 31.1060, -97.6475 ],
+  UT: [ 40.1135, -111.8535 ],
+  VA: [ 37.7680, -78.2057 ],
+  VI: [ 18.0001, -64.8199 ],
+  VT: [ 44.0407, -72.7093 ],
+  WA: [ 47.3917, -121.5708 ],
+  WI: [ 44.2563, -89.6385 ],
+  WV: [ 38.4680, -80.9696 ],
+  WY: [ 42.7475, -107.2085 ]
+};
+
+var getClosestState = function( pos ) {
+
+  var loc = [ pos.coords.latitude, pos.coords.longitude ],
+      closestState = {
+        name: undefined,
+        proximity: 180
+      };
+
+  each( states, function( coords, state ){
+
+    var proximity = Math.abs( loc[0] - coords[0] ) + Math.abs( loc[1] - coords[1] );
+
+    if ( proximity < closestState.proximity ) {
+      closestState.name = state;
+      closestState.proximity = proximity;
+    }
+
+  });
+
+  return closestState.name;
+  
+};
+
+module.exports = getClosestState;
+},{"foreach":5}],"1y2kms":[function(require,module,exports){
 (function (global){
-(function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
+;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
  * jQuery JavaScript Library v1.11.1-beta1
  * http://jquery.com/
@@ -10294,16 +10459,1012 @@ return jQuery;
 
 }));
 
-; browserify_shim__define__module__export__(typeof $ != "undefined" ? $ : window.$);
+; browserify_shim__define__module__export__(typeof jQuery != "undefined" ? jQuery : window.jQuery);
 
-}).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
+}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"jquery":[function(require,module,exports){
-module.exports=require('t1HCCC');
-},{}],"55mbNU":[function(require,module,exports){
+module.exports=require('1y2kms');
+},{}],9:[function(require,module,exports){
+'use strict';
+
+// calculate the raw monthly payment
+// pass the total amount of the loan, the APR, and the length of the loan in months
+var paymentCalc = function(loanAmt, loanRate, loanTerm) {
+
+  // monthly interest rate
+  var monthlyRate = (loanRate/100)/12;
+
+  // calculate the monthly payment
+  // MonthlyPayment = Principal * ( MonthlyInterest / (1 - (1 + MonthlyInterest)^ -Months))
+  return loanAmt * (monthlyRate / (1 - Math.pow(1 + monthlyRate, -(loanTerm))));
+};
+
+// round numbers to two decimal places
+var roundNum = function(num) {
+  return Math.round(num * 100) / 100;
+};
+
+var cleanOpts = function(opts) {
+  // clean up US currency formatted strings
+  if (isNaN(opts.amount)) {
+    opts.amount = parseFloat(opts.amount.replace(/[^0-9\.]+/g,''));
+  }
+
+  // throw errors for strings and unsupported numerical valuess
+  if (typeof opts.amount === 'undefined' || isNaN(parseFloat(opts.amount)) || opts.amount <= 0) {
+    throw new Error('Please specify a loan amount as a positive number');
+  }
+
+  if (typeof opts.rate === 'undefined' || isNaN(parseFloat(opts.rate)) || opts.rate < 0) {
+    throw new Error('Please specify a loan rate as a number');
+  }
+
+  if (typeof opts.termMonths === 'undefined' || isNaN(parseFloat(opts.termMonths)) || opts.termMonths <= 0) {
+    throw new Error('Please specify the length of the term as a positive number');
+  }
+
+  return {
+    amount: opts.amount,
+    rate: opts.rate,
+    termMonths: opts.termMonths || 360
+  };
+};
+
+// pass the amount of the loan, percentage rate, and length of the loan in months
+exports.paymentCalc = function(opts) {
+
+  opts = cleanOpts(opts);
+
+  // calculate monthly payment
+  var monthlyPayment = paymentCalc(opts.amount, opts.rate, opts.termMonths);
+
+  // round the payment to two decimal places
+  return roundNum(monthlyPayment);
+};
+
+exports.totalInterest = function(opts) {
+
+  opts = cleanOpts(opts);
+
+  // calculate the monthly payment
+  var monthlyPayment = paymentCalc(opts.amount, opts.rate, opts.termMonths);
+
+  // subtract the original loan amount from the total amount paid to get the raw interest paid
+  var rawInterest = (monthlyPayment * opts.termMonths) - opts.amount;
+
+  // round the value to two decimal places
+  return roundNum(rawInterest);
+};
+},{}],10:[function(require,module,exports){
+(function () {
+  function median (values) {
+    if ( !Array.isArray(values) ) {
+      throw new TypeError('You need to pass an Array not ' + typeof values )
+    }
+
+
+    if ( values.length == 1 ) {
+      return values[0]
+    }
+
+    values.sort( function sortValues (a, b) {
+      return a - b
+    })
+
+    
+    var half = Math.floor(values.length / 2)
+
+    if ( values.length % 2 )
+      return values[half]
+    else
+      return ( values[half - 1] + values[half] ) / 2.0
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = median
+  } else {
+    window.median = median
+  }
+})()
+
+
+},{}],11:[function(require,module,exports){
+var $ = require('jquery');
+
+$(function() {
+
+  'use strict';
+
+  require('./modules/loan-types');
+  require('./modules/rate-checker');
+
+});
+},{"./modules/loan-types":15,"./modules/rate-checker":21,"jquery":"1y2kms"}],12:[function(require,module,exports){
+// opts = {decimalPlaces: `number`}
+var formatMoney = function( num, opts ) {
+
+  opts = opts || {};
+
+  var decPlaces = isNaN( opts.decimalPlaces = Math.abs(opts.decimalPlaces) ) ? 2 : opts.decimalPlaces,
+      sign = num < 0 ? '-' : '',
+      i = parseInt( num = Math.abs(+num || 0).toFixed(decPlaces), 10 ) + '',
+      j = ( j = i.length ) > 3 ? j % 3 : 0;
+
+  return sign + '$' + ( j ? i.substr(0, j) + ',' : '' ) + i.substr( j ).replace( /(\d{3})(?=\d)/g, '$1,' ) + ( decPlaces ? '.' + Math.abs(num - i).toFixed(decPlaces).slice(2) : '');
+
+};
+
+module.exports = formatMoney;
+},{}],13:[function(require,module,exports){
+var guessState = require('fuzzy-state-search');
+
+module.exports.getState = function ( options, callback ) {
+
+  var opts = options || {},
+      timeout = opts.timeout || 10000,
+      cb = typeof options === 'function' ? options : callback,
+      reallyIndecisive = true;
+
+  function success( pos ){
+    var state = guessState( pos );
+    reallyIndecisive = false;
+    if ( cb ) {
+      cb( state );
+    }
+  }
+
+  function fail() {
+    cb();
+  }
+
+  // Get their state using the HTML5 gelocation API.
+  navigator.geolocation.getCurrentPosition( success, fail );
+
+  // For users who don't see the geolocate permission bar in their
+  // browser, fail after X milliseconds.
+  setTimeout(function(){
+    if ( reallyIndecisive ) {
+      fail();
+    }
+  }, timeout);
+
+};
+},{"fuzzy-state-search":6}],14:[function(require,module,exports){
+var highcharts = require('highcharts');
+
+Highcharts.theme = {
+  colors: ['#FFCE8D'],
+  style: {
+    fontFamily: '"Avenir Next", Arial, Helvetica, sans-serif',
+    fontSize: '13px'
+  },
+  chart: {
+    backgroundColor: ['#fff'],
+  },
+  yAxis: {
+    labels: {
+      style: {
+        color: '#BABBBD',
+      }
+    },
+    minorTickInterval: null,
+    gridLineColor: '#E3E4E5',
+    tickWidth: 0,
+    title: {
+      style: {
+        color: '#BABBBD',
+        fontSize: '10px',
+        fontFamily: '"Avenir Next", Arial, sans-serif'
+      },
+      rotation: 450
+    },
+    plotLines: [{
+      color: '#919395',
+      width: 1,
+      value: 0,
+      zIndex: 100000
+    }]
+  },
+  xAxis: {
+    labels: {
+      style: {
+        color: '#fff' // hide the labels
+      }
+    },
+    minorTickInterval: null,
+    tickWidth: 0,
+    title: {
+      style: {
+        color: '#BABBBD',
+        fontSize: '12px',
+        ontWeight: 'medium',
+        fontFamily: '"Avenir Next", Arial, sans-serif'
+      }
+    }
+  },
+  tooltip: {
+    backgroundColor: '#fff',
+    borderColor: '#BABBBD',
+    shadow: false,
+    style: {
+      color: 'black'
+    }
+  },
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
+},{"highcharts":"WjdicM"}],15:[function(require,module,exports){
+var $ = require('jquery');
+var debounce = require('debounce');
+var payment = require('./payment-calc');
+var interest = require('./total-interest-calc');
+require('./local-storage-polyfill');
+require('./mega-expand');
+require('./nemo');
+require('./nemo-shim');
+
+var $timelineLinks = $('.term-timeline a');
+
+// Toggles for the term amounts
+$timelineLinks.on( 'click', function(e) {
+  e.preventDefault();
+
+  $timelineLinks.removeClass('current');
+  $(this).addClass('current');
+
+  loanToggle();
+});
+
+var loanToggle = function() {
+
+  // get loan values
+  var termLength = $('.term-timeline .current').data('term'),
+      loanAmt = $('#loan-amount-value').val(),
+      // parseFloat to ingnore % signs
+      loanRate = parseFloat($('#loan-interest-value').val());
+
+  // convert a currency string to an integer
+  loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
+
+  // convert the term length to months
+  termLength = termLength * 12;
+
+  // perform calculations
+  var monthlyPayment = payment(loanRate, termLength, loanAmt),
+      totalInterest = interest(loanRate, termLength, loanAmt);
+
+  // add calculations to the dom
+  $('#monthly-payment').html(monthlyPayment);
+  $('#total-interest').html(totalInterest);
+
+};
+
+// update values on keyup
+$('.value').on('keyup', debounce(loanToggle, 500));
+},{"./local-storage-polyfill":16,"./mega-expand":17,"./nemo":19,"./nemo-shim":18,"./payment-calc":20,"./total-interest-calc":22,"debounce":4,"jquery":"1y2kms"}],16:[function(require,module,exports){
+// From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
+if (!window.localStorage) {
+  window.localStorage = {
+    getItem: function (sKey) {
+      if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
+      return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+    },
+    key: function (nKeyId) {
+      return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
+    },
+    setItem: function (sKey, sValue) {
+      if(!sKey) { return; }
+      document.cookie = escape(sKey) + "=" + escape(sValue) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+      this.length = document.cookie.match(/\=/g).length;
+    },
+    length: 0,
+    removeItem: function (sKey) {
+      if (!sKey || !this.hasOwnProperty(sKey)) { return; }
+      document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      this.length--;
+    },
+    hasOwnProperty: function (sKey) {
+      return (new RegExp("(?:^|;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+    }
+  };
+  window.localStorage.length = (document.cookie.match(/\=/g) || window.localStorage).length;
+}
+},{}],17:[function(require,module,exports){
+var megaExpand = function(ev, $header){
+
+  var $container = $header.parent('.expandable'),
+      $button = $header.children('.expandable-button');
+
+  ev.preventDefault();
+  ev.stopPropagation();
+
+  $container.toggleClass('open');
+  $header.next('.expandable-content').slideToggle();
+  $button.toggleClass('open');
+  $header.find('.expandable-text').text( $container.hasClass('open') ? 'Collapse' : 'Learn More' );
+
+};
+
+
+$('.expandable').on( 'click', '.expandable-header', function(ev){
+  var $header = $(this);
+  megaExpand(ev, $header);
+});
+
+$('.expandable').on( 'click', '.expand-close', function(ev){
+  var $header = $(this).parents('.expandable').find('.expandable-header');
+  megaExpand(ev, $header);
+});
+},{}],18:[function(require,module,exports){
+// To play nicer with nemo, add js class to body element
+var bodyTag = document.getElementsByTagName("body")[0];
+bodyTag.className += " js";
+
+$('.toggle-menu').on('click', function(){
+    $('nav.main ul').toggleClass('vis');
+});
+},{}],19:[function(require,module,exports){
+var linkElement, hidemenu, dropdown, dropping;
+
+function escHandler(e) {
+    if(e.keyCode == 27) {
+        window.clearTimeout(countdown);
+        var target = $("#interScreen p:first a").attr("href");
+        $("#interScreen").remove();
+        $('a[href="'+target+'"]').get(0).focus();
+        $("body").unbind("keydown",escHandler);
+        return false;
+    }
+    return true;
+}
+
+function dropMenu() {
+  dropping = 1;
+  $("#closeMenu").remove();
+  var menuItem = $(linkElement);
+  var target = menuItem.attr("href");
+  var position = menuItem.offset().left - 1;
+  $(target).css("left",position + "px");
+  var position = menuItem.offset().top + menuItem.outerHeight();
+  $(target).css("top",position + "px");
+  $(target).append("<a id='closeMenu' class='close' href='#'>close menu</a>");
+  $("a#closeMenu").click(function(e) {
+    e.preventDefault();
+    var myParent = $(this).parent().attr("id");
+    hideMenu();
+    $('a[href="#'+myParent+'"]').removeClass("active");
+    $('a[href="#'+myParent+'"]').get(0).focus();
+    $('a[href="#'+myParent+'"]').css("outline","none");
+  });
+  var height = $(target).show().height();
+  $(target).hide().css('height', 0);
+  $(target).show().animate({height: height}, 400, function() {
+    dropping = 0;
+  });
+  $(target+" a:first").get(0).focus();
+  $(target+" a:first").css("outline","none");
+  menuItem.addClass("active");
+  dropdown = 0;
+}
+
+function hideMenu() {
+    $(".active").removeClass("active");
+    $("#closeMenu").remove();
+    $("#subnav nav").slideUp();
+}
+
+/* trigger when page is ready */
+$(document).ready(function (){
+    $("#header nav a").mouseenter(function() {
+        window.clearTimeout(hidemenu);
+        var target = $(this).attr("href");
+        if (($(target).css("display") == "none") || (target == "/")) {
+            hideMenu();
+            linkElement = this;
+            dropdown = window.setTimeout(dropMenu, 500);
+        }
+        else {
+
+        }
+        return false;
+    }).mouseleave(function() {
+        hidemenu = window.setTimeout(hideMenu, 500);
+        window.clearTimeout(dropdown);
+        dropdown = 0;
+    }).click(function(e) {
+        if(dropping) {
+            return false;
+        }
+        var clicked = $(this);
+        var target = clicked.attr("href");
+        if(target == "/") {
+            return true;
+        }
+        if ( $(target).css("display") == "none") {
+            if(!dropdown && !dropping) {
+                hideMenu();
+                linkElement = this;
+                dropMenu();
+            }
+        }
+        else {
+            if(!dropping) {
+                hideMenu();
+            }
+        }
+        return false;
+    });
+    $("#subnav nav").mouseenter(function() {
+        window.clearTimeout(hidemenu);
+        window.clearTimeout(dropdown);
+        var hovering = "#" + $(this).attr("id");
+    }).mouseleave(function() {
+        var hovering = "";
+        hidemenu = window.setTimeout(hideMenu,500);
+    });
+    $(".inf input").keyup(function() {
+      if ($(this).val()) {
+        $(this).addClass("filled");
+      }
+      else {
+        $(this).removeClass("filled");
+      }
+    });
+    $(".inf textarea").keyup(function() {
+      if ($(this).val()) {
+        $(this).addClass("filled");
+      }
+      else {
+        $(this).removeClass("filled");
+      }
+    });
+    $(".signup").submit(function() {
+        var form = $(this);     form.children("fieldset").children("p:last-child").children("button").attr("disabled","disabled");
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: form.serialize(),
+            complete: function(req, status_msg) {
+                if(status_msg){
+                    form.children("fieldset").hide();
+                    var thanks;
+                    if(form.attr("data-thanks")) {
+                        thanks = form.attr("data-thanks");
+                    }
+                    else {
+                        thanks = "Thanks, weâ€™ll be in touch.";
+                    }
+                    form.append("<p>"+thanks+"</p>");
+                } else {
+                    form.children("fieldset").hide();
+                    form.append("<p>Something went wrong. Please try again later.</p>");
+                }
+            }
+        });
+        return false;
+    });
+    $("a > img").each(function() {
+        $(this).parent().addClass("noStyles");
+    });
+    $(".mini a").mouseup(function(){
+        var link = $(this).attr("href");
+        link = link.replace("http://","/");
+        link = link.replace("http://","/");
+        var tracker = "/v/topshare"+link;
+        _gaq.push(['_trackPageview',tracker]); });
+    $(".botshare a").mouseup(function(){
+        var link = $(this).attr("href");
+        link = link.replace("http://","/");
+        link = link.replace("http://","/");
+        var tracker = "/v/botshare"+link;
+        _gaq.push(['_trackPageview',tracker]);
+    });
+    $('iframe').each(function() {
+        var url = $(this).attr("src")
+        $(this).attr("src",url+"?wmode=transparent")
+    });
+    $('a[href$="pdf"]').each(function() {
+        $(this).addClass("pdf");
+    });
+});
+
+
+/* SEARCH BOX */
+$(function(){
+
+    // on page-load, determin the right placeholder color
+    var searchLabelNd = $('#search_form label');
+    if($('#search_form #query').val())
+        searchLabelNd.fadeOut(50);
+    else
+        searchLabelNd.fadeIn(50);
+
+
+    // placeholder text Behavior on focus and blur
+    $('#search_form #query').focus(function(){
+        if($(this).val())
+            searchLabelNd.fadeOut(50);
+        else
+            searchLabelNd.fadeIn(50);
+    });
+
+    $('#search_form #query').keyup(function(){
+        if($('#search_form #query').val())
+            searchLabelNd.fadeOut(50);
+        else
+            searchLabelNd.fadeIn(50);
+    });
+
+    $('#search_form #query').blur(function(){
+        if($(this).val() == ''){
+            searchLabelNd.fadeIn(50);
+        }else{
+            searchLabelNd.fadeOut(50);
+        }
+    });
+
+});
+
+/* END SEARCH BOX */
+
+},{}],20:[function(require,module,exports){
+var loanCalc = require('loan-calc');
+var formatUSD = require('./format-usd.js');
+
+// calculate the amount of a monthly payment
+module.exports = function(loanRate, termLength, loanAmt) {
+  var monthlyPayment = loanCalc.paymentCalc({
+      amount: loanAmt,
+      rate: loanRate,
+      termMonths: termLength
+    });
+  return formatUSD(monthlyPayment);
+};
+},{"./format-usd.js":12,"loan-calc":9}],21:[function(require,module,exports){
+var $ = require('jquery');
+var debounce = require('debounce');
+var formatUSD = require('./format-usd');
+var unFormatUSD = require('./unformat-usd');
+var interest = require('./total-interest-calc');
+var highcharts = require('highcharts');
+var geolocation = require('./geolocation');
+var median = require('median');
+var config = require('oah-config');
+require('./highcharts-theme');
+require('../../vendor/rangeslider.js/rangeslider.js');
+require('./nemo');
+require('./nemo-shim');
+
+// List all the parameters the user can change and set
+// their default values.
+var params = {
+  'credit-score': 700,
+  'down-payment': 20000,
+  'house-price': 450000,
+  'loan-amount': undefined,
+  'location': 'AL',
+  'loan-term': 30,
+  'rate-structure': 'adjustable',
+  'loan-type': 'conventional',
+  'arm-type': '5-1',
+  update: function() {
+    $.extend( params, getSelections() );
+  }
+};
+
+// Set some properties for the histogram.
+var chart = {
+  $el: $('#chart'),
+  $wrapper: $('.chart'),
+  isInitialized: false,
+  startLoading: function() {
+    this.$el.addClass('loading');
+    this.$el.removeClass('loaded');
+  },
+  stopLoading: function() {
+    this.$el.removeClass('loading');
+    this.$el.addClass('loaded');
+  }
+};
+
+// Set some properties for the slider.
+var slider = {
+  $el: $('#credit-score'),
+  min: params['credit-score'],
+  max: params['credit-score'] + 20,
+  step: 20,
+  update: function() {
+    this.min = getSelection('credit-score');
+    this.max = this.min + 20;
+    $('#slider-range').text( this.min + ' - ' + this.max );
+  }
+};
+
+/**
+ * Initialize the rate checker app.
+ * @param {null}
+ * @return {null}
+ */
+function init() {
+
+  // Only attempt to do things if we're on the rate checker page.
+  if ( $('.rate-checker').length < 0 ) {
+    return;
+  }
+
+  renderSlider();
+  renderChart();
+  renderLoanAmount();
+  setSelections({ usePlaceholder: true });
+
+  geolocation.getState({timeout: 2000}, function( state ){
+    // If a state is returned (meaning they allowed the browser
+    // to determine their location).
+    if ( state ) {
+      params.location = state;
+      setSelection('location');
+    }
+    updateView();
+  });
+
+}
+
+/**
+ * Get data from the API.
+ * @param {null}
+ * @return {object} jQuery promise.
+ */
+var getData = function() {
+
+  params.update();
+
+  var promise = $.get( config.rateCheckerAPI, {
+    downpayment: params['down-payment'],
+    loan_amount: params['loan-amount'],
+    // loan_type: params['loan-type'],
+    minfico: slider.min,
+    maxfico: slider.max,
+    state: params['location']
+  });
+
+  return promise;
+
+};
+
+/**
+ * Render all applicable rate checker areas.
+ * @param {null}
+ * @return {null}
+ */
+var updateView = function() {
+
+  chart.startLoading();
+
+  $.when( getData() ).then(function( results ){
+
+    var data = {
+      labels: [],
+      intLabels: [],
+      uniqueLabels: [],
+      vals: [],
+      totalVals: [],
+      largest: {
+        label: 4,
+        val: 0
+      }
+    };
+
+    $.each(results.data, function(key, val) {
+      data.intLabels.push(+key);
+      data.labels.push(key + '%');
+      data.vals.push(val);
+      if ( val > data.largest.val ) {
+        data.largest.val = val;
+        data.largest.label = key + '%';
+      }
+    });
+
+    data.uniqueLabels = $.unique( data.labels.slice(0) );
+
+    updateLanguage( data );
+    renderChart( data );
+    updateComparisons( data );
+    renderInterestAmounts();
+
+    chart.stopLoading();
+
+  });
+
+};
+
+/**
+ * Updates the sentence above the chart
+ * @param {string} data 
+ * @return {null}
+ */
+function updateLanguage( data ) {
+
+  function renderLocation() {
+    var state = $('#location option:selected').text();
+    $('.location').text( state );
+  }
+
+  function renderMedian( data ) {
+    var loansMedian = median( data.intLabels );
+    $('#median-rate').text( loansMedian + '%' );
+  }
+
+  renderLocation();
+  renderMedian( data );
+
+}
+
+function renderLoanAmount() {
+  var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
+  params['loan-amount'] = loan > 0 ? loan : 0;
+  $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
+}
+
+function updateComparisons( data ) {
+  // Update the options in the dropdowns.
+  var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
+    return a - b;
+  });
+  $('.compare select').html('');
+  $.each( uniqueLabels, function( i, rate ) {
+    var option = '<option value="' + rate + '">' + rate + '</option>';
+    $('.compare select').append(option);
+  });
+}
+
+function renderInterestAmounts() {
+  $('.interest-cost').each(function( index ) {
+    var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
+        length = parseInt($(this).find('.loan-years').text(), 10),
+        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        $el = $(this).find('.new-cost');
+    $el.text( formatUSD(totalInterest) );
+  });
+}
+
+/**
+ * Initialize the range slider.
+ * http://andreruffert.github.io/rangeslider.js/
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderSlider( cb ) {
+
+  $('#credit-score').rangeslider({
+    polyfill: false,
+    rangeClass: 'rangeslider',
+    fillClass: 'rangeslider__fill',
+    handleClass: 'rangeslider__handle',
+    onInit: function() {
+      slider.update();
+    },
+    onSlide: function(position, value) {
+      slider.update();
+    },
+    onSlideEnd: function(position, value) {
+      params.update();
+      updateView();
+    }
+  });
+
+  if ( cb ) {
+    cb();
+  }
+
+}
+
+/**
+ * Render (or update) the Highcharts chart.
+ * @param {object} data Data processed from the API.
+ * @param {function} cb Optional callback.
+ * @return {null}
+ */
+function renderChart( data, cb ) {
+  
+  if ( chart.isInitialized ) {
+
+    var hc = chart.$el.highcharts();
+
+    chart.$wrapper.removeClass('geolocating');
+    hc.xAxis[0].setCategories( data.labels );
+    hc.series[0].setData( data.vals );
+
+  } else {
+
+    chart.$wrapper.addClass('geolocating');
+    chart.$el.highcharts({
+      chart: {
+        type: 'column',
+        animation: false
+      },
+      title: {
+        text: ''
+      },
+      xAxis: {
+        title: {
+          text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
+        },
+        categories: [ 1, 2, 3, 4, 5 ]
+      },
+      yAxis: [{
+        title: {
+          text: '',
+        }
+      }, {
+        opposite: true,
+        title: {
+          text: '# OF LENDERS OFFERING RATE',
+        }
+      }],
+      series: [{
+        name: 'Number of Lenders',
+        data: [ 1, 1, 1, 1, 1 ],
+        showInLegend: false,
+        dataLabels: {
+          enabled: true,
+          useHTML: true,
+          //format: '{x}',
+          crop: false,
+          overflow: 'none',
+          defer: true,
+          color: '#919395',
+          formatter: function(){
+            return '<div class="data-label">'+ this.x + '<br>|</div>';
+          }
+        }
+      }],
+      credits: {
+        text: ''
+      },
+      tooltip:{
+        formatter: function(){
+          return this.key; // show only the percentage
+        }
+      },
+    }, function(){
+      // After the chart is loaded
+      chart.isInitialized = true;
+    });
+
+  }
+
+  if ( cb ) {
+    cb();
+  }
+
+}
+
+/**
+ * Get value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to get. Usually the HTML element's id attribute.
+ * @return {object} Hash of element id and its value(s).
+ */
+function getSelection( param ) {
+
+  var $el = $( '#' + param ),
+      val;
+
+  switch ( param ) {
+    case 'location':
+      val = $el.val();
+      break;
+    default:
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+  }
+
+  return val;
+
+}
+
+/**
+ * Get values of all HTML elements in the control panel.
+ * @param {null}
+ * @return {object} Key-value hash of element ids and values.
+ */
+function getSelections() {
+
+  var selections = {},
+      ids = [];
+
+  for ( var param in params ) {
+    selections[ param ] = getSelection( param );
+  }
+
+  return selections;
+  
+}
+
+/**
+ * Set value(s) of an individual HTML element in the control panel.
+ * @param {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @param {object} options Hash of options.
+ * @return {null}
+ */
+function setSelection( param, options ) {
+
+  var opts = options || {},
+      $el = $( '#' + param ),
+      val = opts.value || params[ param ];
+
+  switch ( param ) {
+    case 'credit-score':
+      $el.val( val ).change();
+      break;
+    default:
+      if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
+        $el.attr( 'placeholder', val );
+      } else {
+        $el.val( val );
+      }
+  }
+
+}
+
+/**
+ * Set value(s) of all HTML elements in the control panel.
+ * @param {null}
+ * @return {null}
+ */
+function setSelections( options ) {
+
+  for ( var param in params ) {
+    setSelection( param, options );
+  }
+
+}
+
+// Recalculate everything when fields are changed.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
+$('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
+
+// Recalculate loan amount.
+function reCalcLoan() {
+  params['house-price'] = getSelection('house-price');
+  params['down-payment'] = getSelection('down-payment');
+  renderLoanAmount();
+}
+$('#house-price, #down-payment').on( 'change keyup', reCalcLoan );
+
+// Recalculate interest costs.
+$('.compare').on('change', 'select', renderInterestAmounts);
+
+// Do it!
+init();
+},{"../../vendor/rangeslider.js/rangeslider.js":26,"./format-usd":12,"./geolocation":13,"./highcharts-theme":14,"./nemo":19,"./nemo-shim":18,"./total-interest-calc":22,"./unformat-usd":23,"debounce":4,"highcharts":"WjdicM","jquery":"1y2kms","median":10,"oah-config":1}],22:[function(require,module,exports){
+var LoanCalc = require('loan-calc');
+var formatUSD = require('./format-usd');
+
+// calculate the total interest paid on a loan
+var calcInterest = function(loanRate, termLength, loanAmt) {
+  var totalInterest = LoanCalc.totalInterest({
+    amount: loanAmt,
+    rate: loanRate,
+    termMonths: termLength
+  });
+  return formatUSD(totalInterest);
+};
+
+module.exports = calcInterest;
+},{"./format-usd":12,"loan-calc":9}],23:[function(require,module,exports){
+var unFormatUSD = function( str ) {
+  if ( typeof str === 'string' ) {
+    return parseFloat( str.replace(/[,\$]/g, '') );
+  }
+  return str;
+};
+
+module.exports = unFormatUSD;
+},{}],"WjdicM":[function(require,module,exports){
 (function (global){
-(function browserifyShim(module, exports, define, browserify_shim__define__module__export__) {
+;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
  Highcharts JS v3.0.10 (2014-03-10)
 
@@ -10606,9 +11767,314 @@ format:Ia,pathAnim:ub,getOptions:function(){return L},hasBidiBug:Ob,isTouchDevic
 
 ; browserify_shim__define__module__export__(typeof highcharts != "undefined" ? highcharts : window.highcharts);
 
-}).call(global, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
+}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"highcharts":[function(require,module,exports){
-module.exports=require('55mbNU');
-},{}]},{},[])
+module.exports=require('WjdicM');
+},{}],26:[function(require,module,exports){
+/*! rangeslider.js - v0.2.9 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+'use strict';
+
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    }
+    else if (typeof exports === 'object') {
+        // CommonJS
+        factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function($) {
+
+    /**
+     * Range feature detection
+     * @return {Boolean}
+     */
+    function supportsRange() {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'range');
+        return input.type !== 'text';
+    }
+
+    var pluginName = 'rangeslider',
+        pluginInstances = [],
+        inputrange = supportsRange(),
+        defaults = {
+            polyfill: true,
+            rangeClass: 'rangeslider',
+            fillClass: 'rangeslider__fill',
+            handleClass: 'rangeslider__handle',
+            startEvent: ['mousedown', 'touchstart', 'pointerdown'],
+            moveEvent: ['mousemove', 'touchmove', 'pointermove'],
+            endEvent: ['mouseup', 'touchend', 'pointerup']
+        };
+
+    /**
+     * Delays a function for the given number of milliseconds, and then calls
+     * it with the arguments supplied.
+     *
+     * @param  {Function} fn   [description]
+     * @param  {Number}   wait [description]
+     * @return {Function}
+     */
+    function delay(fn, wait) {
+        var args = Array.prototype.slice.call(arguments, 2);
+        return setTimeout(function(){ return fn.apply(null, args); }, wait);
+    }
+
+    /**
+     * Returns a debounced function that will make sure the given
+     * function is not triggered too much.
+     *
+     * @param  {Function} fn Function to debounce.
+     * @param  {Number}   debounceDuration OPTIONAL. The amount of time in milliseconds for which we will debounce the function. (defaults to 100ms)
+     * @return {Function}
+     */
+    function debounce(fn, debounceDuration) {
+        debounceDuration = debounceDuration || 100;
+        return function() {
+            if (!fn.debouncing) {
+                var args = Array.prototype.slice.apply(arguments);
+                fn.lastReturnVal = fn.apply(window, args);
+                fn.debouncing = true;
+            }
+            clearTimeout(fn.debounceTimeout);
+            fn.debounceTimeout = setTimeout(function(){
+                fn.debouncing = false;
+            }, debounceDuration);
+            return fn.lastReturnVal;
+        };
+    }
+
+    /**
+     * Plugin
+     * @param {String} element
+     * @param {Object} options
+     */
+    function Plugin(element, options) {
+        this.$window    = $(window);
+        this.$document  = $(document);
+        this.$element   = $(element);
+        this.options    = $.extend( {}, defaults, options );
+        this._defaults  = defaults;
+        this._name      = pluginName;
+        this.startEvent = this.options.startEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.moveEvent  = this.options.moveEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.endEvent   = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.polyfill   = this.options.polyfill;
+        this.onInit     = this.options.onInit;
+        this.onSlide    = this.options.onSlide;
+        this.onSlideEnd = this.options.onSlideEnd;
+
+        // Plugin should only be used as a polyfill
+        if (this.polyfill) {
+            // Input range support?
+            if (inputrange) { return false; }
+        }
+
+        this.identifier = 'js-' + pluginName + '-' +(+new Date());
+        this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
+        this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
+        this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
+        this.step       = parseFloat(this.$element[0].getAttribute('step') || 1);
+        this.$fill      = $('<div class="' + this.options.fillClass + '" />');
+        this.$handle    = $('<div class="' + this.options.handleClass + '" />');
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+
+        // visually hide the input
+        this.$element.css({
+            'position': 'absolute',
+            'width': '1px',
+            'height': '1px',
+            'overflow': 'hidden',
+            'opacity': '0'
+        });
+
+        // Store context
+        this.handleDown = $.proxy(this.handleDown, this);
+        this.handleMove = $.proxy(this.handleMove, this);
+        this.handleEnd  = $.proxy(this.handleEnd, this);
+
+        this.init();
+
+        // Attach Events
+        var _this = this;
+        this.$window.on('resize' + '.' + pluginName, debounce(function() {
+            // Simulate resizeEnd event.
+            delay(function() { _this.update(); }, 300);
+        }, 20));
+
+        this.$document.on(this.startEvent, '#' + this.identifier, this.handleDown);
+
+        // Listen to programmatic value changes
+        this.$element.on('change' + '.' + pluginName, function(e, data) {
+            if (data && data.origin === pluginName) {
+                return;
+            }
+
+            var value = e.target.value,
+                pos = _this.getPositionFromValue(value);
+            _this.setPosition(pos);
+        });
+    }
+
+    Plugin.prototype.init = function() {
+        this.update();
+
+        if (this.onInit && typeof this.onInit === 'function') {
+            this.onInit();
+        }
+    };
+
+    Plugin.prototype.update = function() {
+        this.handleWidth    = this.$handle[0].offsetWidth;
+        this.rangeWidth     = this.$range[0].offsetWidth;
+        this.maxHandleX     = this.rangeWidth - this.handleWidth;
+        this.grabX          = this.handleWidth / 2;
+        this.position       = this.getPositionFromValue(this.value);
+
+        this.setPosition(this.position);
+    };
+
+    Plugin.prototype.handleDown = function(e) {
+        e.preventDefault();
+        this.$document.on(this.moveEvent, this.handleMove);
+        this.$document.on(this.endEvent, this.handleEnd);
+
+        // If we click on the handle don't set the new position
+        if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+            return;
+        }
+
+        var posX = this.getRelativePosition(this.$range[0], e),
+            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$range[0]);
+
+        this.setPosition(posX - this.grabX);
+
+        if (posX >= handleX && posX < handleX + this.handleWidth) {
+            this.grabX = posX - handleX;
+        }
+    };
+
+    Plugin.prototype.handleMove = function(e) {
+        e.preventDefault();
+        var posX = this.getRelativePosition(this.$range[0], e);
+        this.setPosition(posX - this.grabX);
+    };
+
+    Plugin.prototype.handleEnd = function(e) {
+        e.preventDefault();
+        this.$document.off(this.moveEvent, this.handleMove);
+        this.$document.off(this.endEvent, this.handleEnd);
+
+        var posX = this.getRelativePosition(this.$range[0], e);
+        if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
+            this.onSlideEnd(posX - this.grabX, this.value);
+        }
+    };
+
+    Plugin.prototype.cap = function(pos, min, max) {
+        if (pos < min) { return min; }
+        if (pos > max) { return max; }
+        return pos;
+    };
+
+    Plugin.prototype.setPosition = function(pos) {
+        var value, left;
+
+        // Snapping steps
+        value = (this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX)) / this.step) * this.step;
+        left = this.getPositionFromValue(value);
+
+        // Update ui
+        this.$fill[0].style.width = (left + this.grabX)  + 'px';
+        this.$handle[0].style.left = left + 'px';
+        this.setValue(value);
+
+        // Update globals
+        this.position = left;
+        this.value = value;
+
+        if (this.onSlide && typeof this.onSlide === 'function') {
+            this.onSlide(left, value);
+        }
+    };
+
+    Plugin.prototype.getPositionFromNode = function(node) {
+        var i = 0;
+        while (node !== null) {
+            i += node.offsetLeft;
+            node = node.offsetParent;
+        }
+        return i;
+    };
+
+    Plugin.prototype.getRelativePosition = function(node, e) {
+        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - this.getPositionFromNode(node);
+    };
+
+    Plugin.prototype.getPositionFromValue = function(value) {
+        var percentage, pos;
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = percentage * this.maxHandleX;
+        return pos;
+    };
+
+    Plugin.prototype.getValueFromPosition = function(pos) {
+        var percentage, value;
+        percentage = ((pos) / (this.maxHandleX || 1));
+        value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
+        return Number((value).toFixed(2));
+    };
+
+    Plugin.prototype.setValue = function(value) {
+        this.$element.val(value).trigger('change', {origin: pluginName});
+    };
+
+    Plugin.prototype.destroy = function() {
+        this.$document.off(this.startEvent, '#' + this.identifier, this.handleDown);
+        this.$element
+            .off('.' + pluginName)
+            .removeAttr('style')
+            .removeData('plugin_' + pluginName);
+
+        // Remove the generated markup
+        if (this.$range && this.$range.length) {
+            this.$range[0].parentNode.removeChild(this.$range[0]);
+        }
+
+        // Remove global events if there isn't any instance anymore.
+        pluginInstances.splice(pluginInstances.indexOf(this.$element[0]),1);
+        if (!pluginInstances.length) {
+            this.$window.off('.' + pluginName);
+        }
+    };
+
+    // A really lightweight plugin wrapper around the constructor,
+    // preventing against multiple instantiations
+    $.fn[pluginName] = function(options) {
+        return this.each(function() {
+            var $this = $(this),
+                data  = $this.data('plugin_' + pluginName);
+
+            // Create a new instance.
+            if (!data) {
+                $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
+                pluginInstances.push(this);
+            }
+
+            // Make it possible to access methods from public.
+            // e.g `$element.rangeslider('method');`
+            if (typeof options === 'string') {
+                data[options]();
+            }
+        });
+    };
+
+}));
+
+},{"jquery":"1y2kms"}]},{},[11,12,13,14,15,16,17,18,19,20,21,22,23,1,2,3])

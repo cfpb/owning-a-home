@@ -14,7 +14,8 @@
     "cf-typography": "git://github.com/cfpb/cf-typography.git",
     "cf-icons": "git://github.com/cfpb/cf-icons.git",
     "highcharts-release": "~3.0.10",
-    "chosen": "~1.1.0"
+    "chosen": "~1.1.0",
+    "rangeslider.js": "~0.2.9"
   },
   "exportsOverride": {
     "cf-*": {

@@ -1,3 +1,5 @@
+var highcharts = require('highcharts');
+
 Highcharts.theme = {
   colors: ['#FFCE8D'],
   style: {
