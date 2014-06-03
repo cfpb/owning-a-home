@@ -8,7 +8,7 @@ var geolocation = require('./geolocation');
 var median = require('median');
 var config = require('oah-config');
 require('./highcharts-theme');
-require('jquery-ui/slider');
+require('../../vendor/rangeslider.js/rangeslider.js');
 require('./nemo');
 require('./nemo-shim');
 
@@ -50,10 +50,10 @@ var slider = {
   min: params['credit-score'],
   max: params['credit-score'] + 20,
   step: 20,
-  updateRange: function() {
-    var min = getSelection('credit-score'),
-        max = min + 20;
-    $('#slider-range').text( min + ' - ' + max );
+  update: function() {
+    this.min = getSelection('credit-score');
+    this.max = this.min + 20;
+    $('#slider-range').text( this.min + ' - ' + this.max );
   }
 };
 
@@ -93,6 +93,8 @@ function init() {
  */
 var getData = function() {
 
+  params.update();
+
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
     loan_amount: params['loan-amount'],
@@ -113,7 +115,6 @@ var getData = function() {
  */
 var updateView = function() {
 
-  params.update();
   chart.startLoading();
 
   $.when( getData() ).then(function( results ){
@@ -142,9 +143,7 @@ var updateView = function() {
 
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
-    console.log(data);
-
-    renderMedian( data );
+    updateLanguage( data );
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
@@ -155,9 +154,26 @@ var updateView = function() {
 
 };
 
-function renderMedian( data ) {
-  var loansMedian = median( data.intLabels );
-  $('#median-rate').text( loansMedian + '%' );
+/**
+ * Updates the sentence above the chart
+ * @param {string} data 
+ * @return {null}
+ */
+function updateLanguage( data ) {
+
+  function renderLocation() {
+    var state = $('#location option:selected').text();
+    $('.location').text( state );
+  }
+
+  function renderMedian( data ) {
+    var loansMedian = median( data.intLabels );
+    $('#median-rate').text( loansMedian + '%' );
+  }
+
+  renderLocation();
+  renderMedian( data );
+
 }
 
 function renderLoanAmount() {
@@ -166,7 +182,7 @@ function renderLoanAmount() {
   $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
 }
 
-var updateComparisons = function( data ) {
+function updateComparisons( data ) {
   // Update the options in the dropdowns.
   var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
     return a - b;
@@ -176,7 +192,7 @@ var updateComparisons = function( data ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
     $('.compare select').append(option);
   });
-};
+}
 
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
@@ -189,24 +205,25 @@ function renderInterestAmounts() {
 }
 
 /**
- * Initialize the jQuery UI slider.
+ * Initialize the range slider.
+ * http://andreruffert.github.io/rangeslider.js/
  * @param {function} cb Optional callback.
  * @return {null}
  */
 function renderSlider( cb ) {
-  
-  $('#credit-score').slider({
-    value: params['credit-score'],
-    min: 600,
-    max: 820,
-    step: slider.step,
-    create: function() {
-      slider.updateRange();
+
+  $('#credit-score').rangeslider({
+    polyfill: false,
+    rangeClass: 'rangeslider',
+    fillClass: 'rangeslider__fill',
+    handleClass: 'rangeslider__handle',
+    onInit: function() {
+      slider.update();
     },
-    slide: function( event, ui ) {
-      slider.updateRange();
+    onSlide: function(position, value) {
+      slider.update();
     },
-    stop: function() {
+    onSlideEnd: function(position, value) {
       params.update();
       updateView();
     }
@@ -310,9 +327,6 @@ function getSelection( param ) {
       val;
 
   switch ( param ) {
-    case 'credit-score':
-      val = $el.slider('value');
-      break;
     case 'location':
       val = $el.val();
       break;
@@ -356,7 +370,7 @@ function setSelection( param, options ) {
 
   switch ( param ) {
     case 'credit-score':
-      $el.slider( 'value', val );
+      $el.val( val ).change();
       break;
     default:
       if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
