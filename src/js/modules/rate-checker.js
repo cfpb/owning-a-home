@@ -156,7 +156,7 @@ var updateView = function() {
 
 /**
  * Updates the sentence above the chart
- * @param {string} data 
+ * @param {string} data
  * @return {null}
  */
 function updateLanguage( data ) {
@@ -198,7 +198,7 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(totalInterest) );
   });
@@ -242,7 +242,7 @@ function renderSlider( cb ) {
  * @return {null}
  */
 function renderChart( data, cb ) {
-  
+
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
@@ -353,7 +353,7 @@ function getSelections() {
   }
 
   return selections;
-  
+
 }
 
 /**
