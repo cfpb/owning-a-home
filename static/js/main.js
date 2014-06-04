@@ -11233,7 +11233,7 @@ function renderInterestAmounts() {
 function scoreWarning() {
   $('#slider-range').after(
     '<div class="result-alert credit-alert">' +
-      '<p>Many lenders do not accept borrowers with credit scores less than 620. ' +
+      '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
       'If your score is low, you may still have options. ' +
       '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
     '</div>'
@@ -11245,8 +11245,9 @@ function resultWarning() {
   $('#chart').addClass('chart-warning');
   $('.chart-area').append(
     '<div class="result-alert chart-alert">' +
-      '<p><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
-      '<p>Change your settings in the control panel</p>' +
+      '<p class="alert"><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
+      '<p class="point-right">Change your settings in the control panel</p>' +
+      '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
     '</div>'
   );
 }
@@ -11257,6 +11258,12 @@ function removeAlerts() {
     $('.result-alert').remove();
   }
 }
+
+$('.defaults-link').click(function(e){
+  setSelections({ usePlaceholder: true });
+  updateView();
+  return false;
+});
 
 /**
  * Initialize the range slider.
@@ -11280,6 +11287,7 @@ function renderSlider( cb ) {
     onSlideEnd: function(position, value) {
       params.update();
       if(params['credit-score'] < 620) {
+        removeAlerts();
         scoreWarning();
       } else {
         updateView();
