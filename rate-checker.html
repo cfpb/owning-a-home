@@ -9,9 +9,14 @@
 <div class="rate-checker result {% if subnav %}col-9{% endif %}">
 
   <section class="page-intro">
+
+    <div class="col-12 oah-title-tag">
+      <h1 class="oah-title">Owning a Home</h1>
+    </div>
+
     <div class="col-8">
 
-      <h1>Do you know what rate to expect when shopping for a mortgage?</h1>
+      <h2 class="page-title">Do you know what rate to expect when shopping for a mortgage?</h2>
 
       <p class="lead">Your credit score, loan type, home price, and down payment amount all affect the interest rate you can get. Type your information into this tool to see current rates for borrowers like you. Our data comes from actual lenders and is updated every day.</p>
 
@@ -19,11 +24,23 @@
 
     <div class="col-4">
 
-      <h3 class="subhead">Stay informed</h3>
+      <header class="beta-signup">
+        <h3 class="subhead tabbed-header">Stay informed</h3>
+      </header>
 
-      <p>We’re building tools to help you understand the mortgage process and compare options. Sign up for the Owning a Home beta group and you’ll be the first to know when we add more features.</p>
+        <p class="mid-lead">We’re building tools to help you understand the mortgage process and compare options.</p>
 
-    </div>
+        <p class="mid-lead">Sign up for our beta group and you'll be the first to know when we add more features.</p>
+
+        <form class="signup inline-signup" id="signup" action="https://public.govdelivery.com/service/process_ss.xml" method="GET" data-thanks="Thanks, we’ll be in touch!">
+          <input type="hidden" name="code" value="USCFPB_46">
+          <label for="email" class="visuallyhidden">Email address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address">
+          <button class="btn">Sign up</button>
+        </form>
+      </section> <!-- /.beta-signup-->
+
+    </div> <!-- /.col-4 -->
 
   </section>
 
