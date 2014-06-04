@@ -95,11 +95,18 @@
 .rangeslider__handle {
   display: inline-block;
   width: 22px;
-  height: 22px;
+  height: 21px;
   position: absolute;
-  background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
+  background: transparent url(../img/slider-handle.png) no-repeat 0 0;
   background-size: 100%;
   border: 0;
+
+  &.warning {
+    background: transparent url(../img/slider-handle.png) no-repeat 0 100%;
+    width: 22px;
+    height: 21px;
+    background-size: 100%;
+  }
 }
 
 #slider-range {
@@ -227,11 +234,13 @@
     Alerts and warnings
     --------------------------- */
 
-.chart-warning {
-  position: relative;;
+.chart {
+  .warning {
+    position: relative;;
 
-  .highcharts-container {
-    opacity: .3;
+    .highcharts-container {
+      opacity: .3;
+    }
   }
 }
 

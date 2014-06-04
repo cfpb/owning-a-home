@@ -143,11 +143,11 @@ var updateView = function() {
 
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
+    removeAlerts();
     updateLanguage( data );
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
-    removeAlerts();
 
     chart.stopLoading();
 
@@ -206,6 +206,7 @@ function renderInterestAmounts() {
 }
 
 function scoreWarning() {
+  $('.rangeslider__handle').addClass('warning');
   $('#slider-range').after(
     '<div class="result-alert credit-alert">' +
       '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
@@ -217,7 +218,7 @@ function scoreWarning() {
 }
 
 function resultWarning() {
-  $('#chart').addClass('chart-warning');
+  $('#chart').addClass('warning');
   $('.chart-area').append(
     '<div class="result-alert chart-alert">' +
       '<p class="alert"><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
@@ -229,7 +230,7 @@ function resultWarning() {
 
 function removeAlerts() {
   if ($('.result-alert')) {
-    $('#chart').removeClass('chart-warning');
+    $('#chart, .rangeslider__handle').removeClass('warning');
     $('.result-alert').remove();
   }
 }
