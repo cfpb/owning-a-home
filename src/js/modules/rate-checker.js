@@ -182,6 +182,35 @@ function renderLoanAmount() {
   $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
 }
 
+/**
+ * Update either the down payment % or $ amount depending on the input they've changed.
+ * @param {null}
+ * @return {null}
+ */
+function renderDownPayment() {
+
+  var $el = $( this ),
+      $price = $('#house-price'),
+      $percent = $('#percent-down'),
+      $down = $('#down-payment'),
+      val;
+
+  if ( !$el.val() ) {
+    return;
+  }
+
+  if ( $el.attr('id') === 'down-payment' ) {
+    val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
+    $percent.val( Math.round(val) );
+  } else {
+    val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
+    $down.val( val > 0 ? val : '' );
+  }
+
+}
+
+
+
 function updateComparisons( data ) {
   // Update the options in the dropdowns.
   var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
@@ -409,6 +438,9 @@ $('#house-price, #down-payment').on( 'change keyup', reCalcLoan );
 
 // Recalculate interest costs.
 $('.compare').on('change', 'select', renderInterestAmounts);
+
+// Down payment percent toggling
+$('.down-calc').on( 'keyup', renderDownPayment );
 
 // Do it!
 init();
