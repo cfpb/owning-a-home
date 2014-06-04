@@ -1,3 +1,4 @@
+// hero styles
 .hero {
   background: @gray-10;
   border-top: 1px solid #CFCFCD;
@@ -34,4 +35,45 @@
 .page-intro {
   padding-bottom: 36px;
   border-bottom: 1px solid @gray-20;
+}
+
+.page-title {
+  margin-top: 0;
+  margin-bottom: 0.47058824em;
+  font-size: 2.125em;
+  line-height: 1.29411765;
+}
+
+// OAH identifier
+
+.oah-title-tag {
+  margin: 20px 0 10px 0;
+}
+
+.oah-title {
+  font-size: 1em;
+  color: @gray-50;
+}
+
+.oah-title:before {
+  .cf-icon;
+  content: "\e528";
+  margin-right: 8px;
+}
+
+// beta user signup
+.beta-signup {
+  border-top: 2px solid @gray-20;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+// the tabbed header is 'STAY INFORMED' in the beta signup
+.tabbed-header {
+  position: absolute;
+  top: -2px;
+  margin-top: 0;
+  padding-top: 4px;
+  display: inline-block;
+  border-top: 2px solid @green;
 }
