@@ -213,11 +213,12 @@
 
 }
 
-.dollar-input {
+.dollar-input,
+.percent-input {
   position: relative;
 
   input {
-    padding-left: 20px;
+    padding-left: 15px;
   }
 
   .unit {
@@ -228,6 +229,36 @@
     z-index: 9;
     color: @gray;
   }
+}
+
+.percent-input {
+  input {
+    padding-left: 15%;
+  }
+  .unit {
+    left: auto;
+    right: 25%;
+  }
+}
+
+.down-payment {
+  border-width: 0;
+  .dollar-input {
+    width: 65%;
+    display: inline-block;
+  }
+  .percent-input {
+    width: 32%;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .flex-input {
+    .column(12);
+  }
+
 }
 
 /*
