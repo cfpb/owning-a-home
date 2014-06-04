@@ -1,4 +1,5 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// rename example-config.js as config.js & add API url
 var config = {};
 
 config.rateCheckerAPI = 'http://oah.fake.demo.domain/api/rate-checker';
@@ -11171,6 +11172,7 @@ var updateView = function() {
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
+    removeAlerts();
 
     chart.stopLoading();
 
@@ -11228,6 +11230,34 @@ function renderInterestAmounts() {
   });
 }
 
+function scoreWarning() {
+  $('#slider-range').after(
+    '<div class="result-alert credit-alert">' +
+      '<p>Many lenders do not accept borrowers with credit scores less than 620. ' +
+      'If your score is low, you may still have options. ' +
+      '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
+    '</div>'
+  );
+  resultWarning();
+}
+
+function resultWarning() {
+  $('#chart').addClass('chart-warning');
+  $('.chart-area').append(
+    '<div class="result-alert chart-alert">' +
+      '<p><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
+      '<p>Change your settings in the control panel</p>' +
+    '</div>'
+  );
+}
+
+function removeAlerts() {
+  if ($('.result-alert')) {
+    $('#chart').removeClass('chart-warning');
+    $('.result-alert').remove();
+  }
+}
+
 /**
  * Initialize the range slider.
  * http://andreruffert.github.io/rangeslider.js/
@@ -11249,7 +11279,11 @@ function renderSlider( cb ) {
     },
     onSlideEnd: function(position, value) {
       params.update();
-      updateView();
+      if(params['credit-score'] < 620) {
+        scoreWarning();
+      } else {
+        updateView();
+      }
     }
   });
 

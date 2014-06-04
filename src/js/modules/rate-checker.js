@@ -147,6 +147,7 @@ var updateView = function() {
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
+    removeAlerts();
 
     chart.stopLoading();
 
@@ -204,6 +205,34 @@ function renderInterestAmounts() {
   });
 }
 
+function scoreWarning() {
+  $('#slider-range').after(
+    '<div class="result-alert credit-alert">' +
+      '<p>Many lenders do not accept borrowers with credit scores less than 620. ' +
+      'If your score is low, you may still have options. ' +
+      '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
+    '</div>'
+  );
+  resultWarning();
+}
+
+function resultWarning() {
+  $('#chart').addClass('chart-warning');
+  $('.chart-area').append(
+    '<div class="result-alert chart-alert">' +
+      '<p><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
+      '<p>Change your settings in the control panel</p>' +
+    '</div>'
+  );
+}
+
+function removeAlerts() {
+  if ($('.result-alert')) {
+    $('#chart').removeClass('chart-warning');
+    $('.result-alert').remove();
+  }
+}
+
 /**
  * Initialize the range slider.
  * http://andreruffert.github.io/rangeslider.js/
@@ -225,7 +254,11 @@ function renderSlider( cb ) {
     },
     onSlideEnd: function(position, value) {
       params.update();
-      updateView();
+      if(params['credit-score'] < 620) {
+        scoreWarning();
+      } else {
+        updateView();
+      }
     }
   });
 
