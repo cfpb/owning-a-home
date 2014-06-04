@@ -168,8 +168,7 @@
       </section>
 
       <section class="calc-loan-details wrapper">
-
-        <div class="col-6">
+        <div class="col-6 flex-input">
           <label for="loan-term">Loan term</label>
           <select name="loan-term" class="recalc" id="loan-term">
             <option value="30">30 Years</option>
@@ -177,7 +176,7 @@
           </select>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 flex-input">
           <label for="loan-rate">Rate structure</label>
           <select name="loan-rate" class="recalc" id="loan-rate">
             <option value="fixed">Fixed</option>
@@ -185,7 +184,7 @@
           </select>
         </div>
 
-        <div class="col-6">
+        <div class="col-6 flex-input">
           <label for="loan-type">Loan type</label>
           <select name="loan-type" class="recalc" id="loan-type">
             <option value="conventional">Conventional</option>
@@ -194,7 +193,7 @@
           </select>
         </div>
 
-        <div class="col-6 hidden">
+        <div class="col-6 flex-input hidden">
           <label for="arm-type">ARM type</label>
           <select name="arm-type" class="recalc" id="arm-type">
             <option value="3-1">3/1</option>
@@ -208,7 +207,7 @@
 
       <section class="calc-loan-amt wrapper">
 
-        <div class="col-6">
+        <div class="col-5 flex-input">
           <label for="house-price">House price</label>
           <div class="dollar-input">
             <span class="unit">$</span>
@@ -217,11 +216,15 @@
         </div>
 
 
-        <div class="col-6">
+        <div class="col-7 flex-input down-payment">
           <label for="down-payment">Down payment</label>
+          <div class="percent-input">
+            <span class="unit">%</span>
+            <input type="text" placeholder="20" name="percent-down" class="recalc down-calc" id="percent-down">
+          </div>
           <div class="dollar-input">
             <span class="unit">$</span>
-            <input type="text" placeholder="20,000" name="down-payment" class="recalc" id="down-payment">
+            <input type="text" placeholder="20,000" name="down-payment" class="recalc down-calc" id="down-payment">
           </div>
         </div>
 
