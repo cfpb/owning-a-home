@@ -11213,9 +11213,9 @@ function renderLoanAmount() {
  * @param {null}
  * @return {null}
  */
-function renderDownPayment() {
+function renderDownPayment( el ) {
 
-  var $el = $( this ),
+  var $el = $( el ),
       $price = $('#house-price'),
       $percent = $('#percent-down'),
       $down = $('#down-payment'),
@@ -11230,12 +11230,10 @@ function renderDownPayment() {
     $percent.val( Math.round(val) );
   } else {
     val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
-    $down.val( val > 0 ? val : '' );
+    $down.val( val > 0 ? Math.round(val) : '' );
   }
 
 }
-
-
 
 function updateComparisons( data ) {
   // Update the options in the dropdowns.
@@ -11456,17 +11454,15 @@ $('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
 
 // Recalculate loan amount.
 function reCalcLoan() {
+  renderDownPayment( this );
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
 }
-$('#house-price, #down-payment').on( 'change keyup', reCalcLoan );
+$('#house-price, #percent-down, #down-payment').on( 'change keyup', reCalcLoan );
 
 // Recalculate interest costs.
 $('.compare').on('change', 'select', renderInterestAmounts);
-
-// Down payment percent toggling
-$('.down-calc').on( 'keyup', renderDownPayment );
 
 // Do it!
 init();
