@@ -5968,8 +5968,11 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 
 module.exports = calcInterest;
 },{"./format-usd":37,"loan-calc":36}],40:[function(require,module,exports){
-var unFormatUSD = function(str) {
-  return parseFloat(str.replace(/[,\$]/g, ''));
+var unFormatUSD = function( str ) {
+  if ( typeof str === 'string' ) {
+    return parseFloat( str.replace(/[,\$]/g, '') );
+  }
+  return str;
 };
 
 module.exports = unFormatUSD;
@@ -6020,6 +6023,7 @@ describe('Formats USD', function() {
   });
 
 });
+
 },{"../../src/js/modules/format-usd.js":37,"chai":4}],43:[function(require,module,exports){
 var payment = require('../../src/js/modules/payment-calc.js');
 
@@ -6027,11 +6031,103 @@ var chai = require('chai');
 var expect = chai.expect;
 
 describe('Payment calculation tests', function() {
-  it('correctly calculates a monthly payment', function() {
+  it('Positive test - correctly calculates a monthly payment on 20 year loan', function() {
     expect(payment(5, 240, 200000)).to.equal('$1,319.91');
   });
 
+  it('Positive test - correctly calculates a monthly payment on 30 year loan', function() {
+    expect(payment(5, 360, 200000)).to.equal('$1,073.64');
+  });
+  
+// -- LOAN RATE TESTS -- //
+ it('Negative test - passes *Decimal* Loan Rate', function() {
+    expect(payment(3.6, 240, 200000)).to.equal('$1,170.22');
+  });
+
+  // --- GH Issue 279 - https://fake.ghe.domain/OAH/OAH-notes/issues/279 --- //
+  // Should we allow ZERO as a valid loan rate? should we throw an exception?
+ it('Negative test - passes *Zero* Loan Rate', function() {
+    expect(payment(0, 240, 200000)).to.equal('$0.00');
+  });
+
+  // --- GH Issue 279 - https://fake.ghe.domain/OAH/OAH-notes/issues/279 --- //
+  // This test should catch the exception: Error: Please specify a loan rate as a number between 1 and 99
+  it('Negative test - passes *Out of range* Loan Rate argument', function() {
+    expect(payment( 999, 240, 500000)).to.equal('$416,250.00');
+  });
+
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan rate as a number
+  /* it('Negative test - passes a *Negative* Loan Rate', function() {
+    expect(payment(-5, 240, 200000)).to.equal('$1,319.91');
+  });
+  */
+  
+  // This test should catch the exception: Error: Please specify a loan rate as a number
+  /* it('Negative test - passes an *Invalid* Loan Rate', function() {
+    expect(payment('&', 240, 200000)).to.equal('$1,319.91');
+  });
+  */
+  
+// -- LOAN TERM TESTS -- //
+  it('Negative test - passes a *Decimal* Loan Term', function() {
+    expect(payment(5, 360.1, 200000)).to.equal('$1,073.51');
+  });
+  
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify the length of the loan term as a positive number  
+  /* it('Negative test - passes *ZERO* Loan Term', function() {
+    expect(payment(5, 0, 200000)).to.equal('$1,073.51');
+  });
+  */
+  
+  // This test should cause an exception: Error: Please specify a loan term as a number between 1 and 480
+  it('Negative test - passes *Out of range* Loan Term argument', function() {
+    expect(payment( 5, 600, 300000)).to.equal('$1,362.42');
+  });
+  
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify the length of the term as a positive number
+  /* it('Negative test - passes a *Negative* Loan Term', function() {
+    expect(payment(5, -240, 200000)).to.equal('$1,319.91');
+  });
+  */
+  
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify the length of the term as a positive number
+  /* it('Negative test - passes an *Invalid* Loan Term', function() {
+    expect(payment(7, '*', 200000)).to.equal('$1,319.91');
+  });
+  */
+  
+// -- LOAN AMOUNT TESTS -- //
+  it('Negative test - passes *Decimal* Loan Amount', function() {
+    expect(payment(3.6, 480, 200000.05)).to.equal('$786.82');
+  });
+
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan amount as a positive number
+  /* it('Negative test - passes *Zero* Loan Amount', function() {
+    expect(payment(3.6, 480, 0)).to.equal('$786.82');
+  });
+  */
+  
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan amount as a positive number
+  /* it('Negative test - passes *Negative* Loan Amount', function() {
+    expect(payment(3.6, 480, -180000)).to.equal('$786.82');
+  });
+  */
+  
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan amount as a positive number
+  /* it('Negative test - passes an *Invalid* Loan Amount', function() {
+    expect(payment(3.6, 480, '%')).to.equal('$786.82');
+  });
+  */
+  
 });
+
 },{"../../src/js/modules/payment-calc.js":38,"chai":4}],44:[function(require,module,exports){
 var payment = require('../../src/js/modules/total-interest-calc.js');
 
@@ -6039,11 +6135,33 @@ var chai = require('chai');
 var expect = chai.expect;
 
 describe('Calculates the total interest of a loan', function() {
-  it('correctly calculates a the total interest over the life of a loan', function() {
+  it('Positive test - correctly calculates a the total interest over the life of a 15 year loan', function() {
+    expect(payment(2.5, 180, 100000)).to.equal('$20,022.06');
+  });
+
+  it('Positive test - correctly calculates a the total interest over the life of a 20 year loan', function() {
     expect(payment(5, 240, 200000)).to.equal('$116,778.75');
   });
 
+  it('Positive test - correctly calculates a the total interest over the life of a 30 year loan', function() {
+    expect(payment(3.5, 360, 400000)).to.equal('$246,624.35');
+  });
+
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan rate as a number
+  /* it('Negative test - passes a *Negative* loan rate', function() {
+    expect(payment(-3.5, 360, 400000)).to.equal('$246,624.35');
+  });
+	*/
+
+  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
+  // This test should catch the exception: Error: Please specify a loan rate as a number
+ /* it('Negative test - passes an *Invalid* loan rate', function() {
+    expect(payment('*', 360, 400000)).to.equal('$246,624.35');
+  });
+  */
 });
+
 },{"../../src/js/modules/total-interest-calc.js":39,"chai":4}],45:[function(require,module,exports){
 var unformatUSD = require('../../src/js/modules/unformat-usd.js');
 
