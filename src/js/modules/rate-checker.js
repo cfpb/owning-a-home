@@ -141,6 +141,8 @@ var updateView = function() {
       }
     });
 
+
+
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
     removeAlerts();
@@ -150,6 +152,13 @@ var updateView = function() {
     renderInterestAmounts();
 
     chart.stopLoading();
+
+    console.log(data.vals.length);
+
+    // display an error message if less than 2 results are returned
+    if(data.vals.length < 2) {
+      resultWarning();
+    }
 
   });
 
