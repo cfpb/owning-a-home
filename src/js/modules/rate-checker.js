@@ -141,8 +141,11 @@ var updateView = function() {
       }
     });
 
+
+
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
+    removeAlerts();
     updateLanguage( data );
     renderChart( data );
     updateComparisons( data );
@@ -150,13 +153,20 @@ var updateView = function() {
 
     chart.stopLoading();
 
+    console.log(data.vals.length);
+
+    // display an error message if less than 2 results are returned
+    if(data.vals.length < 2) {
+      resultWarning();
+    }
+
   });
 
 };
 
 /**
  * Updates the sentence above the chart
- * @param {string} data 
+ * @param {string} data
  * @return {null}
  */
 function updateLanguage( data ) {
@@ -225,11 +235,47 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = unFormatUSD( interest(rate, params['loan-term'], params['loan-amount']) ) * length,
+        totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(totalInterest) );
   });
 }
+
+function scoreWarning() {
+  $('.rangeslider__handle').addClass('warning');
+  $('#slider-range').after(
+    '<div class="result-alert credit-alert">' +
+      '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
+      'If your score is low, you may still have options. ' +
+      '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
+    '</div>'
+  );
+  resultWarning();
+}
+
+function resultWarning() {
+  $('#chart').addClass('warning');
+  $('.chart-area').append(
+    '<div class="result-alert chart-alert">' +
+      '<p class="alert"><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
+      '<p class="point-right">Change your settings in the control panel</p>' +
+      '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
+    '</div>'
+  );
+}
+
+function removeAlerts() {
+  if ($('.result-alert')) {
+    $('#chart, .rangeslider__handle').removeClass('warning');
+    $('.result-alert').remove();
+  }
+}
+
+$('.defaults-link').click(function(e){
+  setSelections({ usePlaceholder: true });
+  updateView();
+  return false;
+});
 
 /**
  * Initialize the range slider.
@@ -252,7 +298,12 @@ function renderSlider( cb ) {
     },
     onSlideEnd: function(position, value) {
       params.update();
-      updateView();
+      if(params['credit-score'] < 620) {
+        removeAlerts();
+        scoreWarning();
+      } else {
+        updateView();
+      }
     }
   });
 
@@ -269,7 +320,7 @@ function renderSlider( cb ) {
  * @return {null}
  */
 function renderChart( data, cb ) {
-  
+
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
@@ -380,7 +431,7 @@ function getSelections() {
   }
 
   return selections;
-  
+
 }
 
 /**

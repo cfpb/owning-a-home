@@ -95,11 +95,18 @@
 .rangeslider__handle {
   display: inline-block;
   width: 22px;
-  height: 22px;
+  height: 21px;
   position: absolute;
-  background: transparent url(../img/slider-handle.png) scroll no-repeat top left;
+  background: transparent url(../img/slider-handle.png) no-repeat 0 0;
   background-size: 100%;
   border: 0;
+
+  &.warning {
+    background: transparent url(../img/slider-handle.png) no-repeat 0 100%;
+    width: 22px;
+    height: 21px;
+    background-size: 100%;
+  }
 }
 
 #slider-range {
@@ -253,3 +260,41 @@
   }
 
 }
+
+/*
+    Alerts and warnings
+    --------------------------- */
+
+.chart {
+  .warning {
+    position: relative;;
+
+    .highcharts-container {
+      opacity: .3;
+    }
+  }
+}
+
+.result-alert {
+  border: 1px solid @redorange-50;
+}
+
+.chart-alert {
+  position: absolute;
+  top: 30%;
+  background: #fff;
+  padding: 1em 2em 1em 3em;
+
+  .point-right {
+    font-size: 1.5em;
+  }
+}
+
+.credit-alert {
+  font-size: 0.875em;
+  padding: .714em .714em .714em 2.142em;
+  background: @gray-10;
+  color: @darkgray;
+  margin: 1em 0;
+}
+
