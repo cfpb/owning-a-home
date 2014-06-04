@@ -13,17 +13,16 @@
 
       <h1>Do you know what rate to expect when shopping for a mortgage?</h1>
 
-      <p class="lead">Your credit score, loan type, house price, and down payment amount all affect the interest rate you can get. Type your information into this tool to see what current rates are for borrowers like you. Our data comes from actual lenders and is updated every day.</p>
+      <p class="lead">Your credit score, loan type, home price, and down payment amount all affect the interest rate you can get. Type your information into this tool to see current rates for borrowers like you. Our data comes from actual lenders and is updated every day.</p>
+
     </div>
 
     <div class="col-4">
-      <img src="static/img/home-illustration.png" alt="Home illustration">
 
-      <h3 class="subhead">Why does your interest rate matter?</h3>
+      <h3 class="subhead">Stay informed</h3>
 
-      <p>Even a quarter of a percent lower interest rate will save you thousands of dollars over time.</p>
+      <p>We’re building tools to help you understand the mortgage process and compare options. Sign up for the Owning a Home beta group and you’ll be the first to know when we add more features.</p>
 
-      <p><a href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages" id="ask-mortgage-link">More mortgage questions on</a> <a class="btn" href="http://www.consumerfinance.gov/askcfpb/search?selected_facets=category_exact:mortgages" id="ask-mortgage-btn">ask cfpb</a></p>
     </div>
 
   </section>
@@ -70,9 +69,10 @@
 
             <div class="col-4">
 
-              <h4>Large range information</h4>
+              <h4>What does this mean for you?</h4>
 
-              <p>Some context about these specific rates, be it how likely you are to get them or for the higher rates, a recommendation to shop around. Mention how we are interpreting points. Link.</p>
+              <p>Rates are different based on your personal situation and the lender you go to. Shop around with multiple lenders to get the best rate you can for your situation.</p>
+              <p> When shopping for a rate, make sure to ask how many <a href="http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html">points</a> you’ll have to pay to get the rate. Points (also known as discount points) lower your interest rate, but increase your upfront <a href="http://www.consumerfinance.gov/askcfpb/139/what-are-closing-costs.html">closing costs</a>. The rates shown here come with between -0.5 and 0.5 points.</p>
 
             </div>
 
@@ -95,9 +95,11 @@
         <section class="credit-score">
           <div class="col-12">
 
-          <label for="range">Credit Score Range</label>
+          <label for="range">Credit score range</label>
           <input id="credit-score" type="range" min="600" max="840" step="20" value="700">
           <div id="slider-range"></div>
+
+          <p>Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html">Learn more</a></p>
 
         </div>
       </section>
@@ -168,7 +170,7 @@
       <section class="calc-loan-details wrapper">
         
         <div class="col-6 flex-input">
-          <label for="loan-term">Loan Term</label>
+          <label for="loan-term">Loan term</label>
           <select name="loan-term" class="recalc" id="loan-term">
             <option value="30">30 Years</option>
             <option value="15">15 Years</option>
@@ -176,7 +178,7 @@
         </div>
 
         <div class="col-6 flex-input">
-          <label for="loan-rate">Rate Structure</label>
+          <label for="loan-rate">Rate structure</label>
           <select name="loan-rate" class="recalc" id="loan-rate">
             <option value="fixed">Fixed</option>
             <option value="adjustable">Adjustable</option>
@@ -184,7 +186,7 @@
         </div>
 
         <div class="col-6 flex-input">
-          <label for="loan-type">Loan Type</label>
+          <label for="loan-type">Loan type</label>
           <select name="loan-type" class="recalc" id="loan-type">
             <option value="conventional">Conventional</option>
             <option value="fha">FHA</option>
@@ -193,7 +195,7 @@
         </div>
 
         <div class="col-6 flex-input hidden">
-          <label for="arm-type">ARM Type</label>
+          <label for="arm-type">ARM type</label>
           <select name="arm-type" class="recalc" id="arm-type">
             <option value="3-1">3/1</option>
             <option value="5-1">5/1</option>
@@ -207,7 +209,7 @@
       <section class="calc-loan-amt wrapper">
 
         <div class="col-5 flex-input">
-          <label for="house-price">House Price</label>
+          <label for="house-price">House price</label>
           <div class="dollar-input">
             <span class="unit">$</span>
             <input type="text" placeholder="250,000" name="house-price" class="recalc" id="house-price">
@@ -216,7 +218,7 @@
 
 
         <div class="col-7 flex-input down-payment">
-          <label for="down-payment">Down Payment</label>
+          <label for="down-payment">Down payment</label>
           <div class="percent-input">
             <span class="unit">%</span>
             <input type="text" placeholder="20" name="percent-down" class="recalc down-calc" id="percent-down">
@@ -229,7 +231,7 @@
 
 
         <div class="col-12 loan-amt-total">
-          <label class="inline" for="loan-amount">Loan Amount:</label>
+          <label class="inline" for="loan-amount">Loan amount:</label>
           <span id="loan-amount-result">$380,000</span>
         </div>
 
@@ -237,7 +239,7 @@
 
       <section class="form-sub">
         <div class="col-12">
-          <p>This tool assumes -0.25 to 0.25 points and a 60 day rate lock.</p>
+          <p>This tool assumes you want to purchase a single family house to be your primary residence. The rates quoted assume -0.5 to 0.5 <a href="http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html">discount points</a> and a 60 day <a href="http://www.consumerfinance.gov/askcfpb/143/whats-a-lock-in-or-a-rate-lock.html">rate lock</a>.</p>
         </div>
       </section>
 
