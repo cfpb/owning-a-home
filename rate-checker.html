@@ -120,7 +120,7 @@
           <input id="credit-score" type="range" min="600" max="840" step="20" value="700">
           <div id="slider-range"></div>
 
-          <p>Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html">Learn more</a></p>
+          <p class="form-sub">Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html">Learn more</a></p>
 
         </div>
       </section>
@@ -129,7 +129,7 @@
 
         <div class="col-12">
 
-          <label for="location">Location</label>
+          <label for="location">State</label>
           <div class="select-content">
             <select name="location" class="recalc" id="location">
               <option value="AL">Alabama</option>
@@ -190,51 +190,6 @@
 
       </section>
 
-      <section class="calc-loan-details wrapper">
-        <div class="col-6 flex-input">
-          <label for="loan-term">Loan term</label>
-          <div class="select-content">
-            <select name="loan-term" class="recalc" id="loan-term">
-              <option value="30">30 Years</option>
-              <option value="15">15 Years</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-6 flex-input">
-          <label for="loan-rate">Rate structure</label>
-          <div class="select-content">
-            <select name="loan-rate" class="recalc" id="loan-rate">
-              <option value="fixed">Fixed</option>
-              <option value="adjustable">Adjustable</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-6 flex-input">
-          <label for="loan-type">Loan type</label>
-          <div class="select-content">
-            <select name="loan-type" class="recalc" id="loan-type">
-              <option value="conventional">Conventional</option>
-              <option value="fha">FHA</option>
-              <option value="va">VA</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-6 flex-input hidden">
-          <label for="arm-type">ARM type</label>
-          <div class="select-content">
-            <select name="arm-type" class="recalc" id="arm-type">
-              <option value="3-1">3/1</option>
-              <option value="5-1">5/1</option>
-              <option value="7-1">7/1</option>
-              <option value="10-1">10/1</option>
-            </select>
-          </div>
-        </div>
-
-      </section>
 
       <section class="calc-loan-amt wrapper">
 
@@ -263,6 +218,53 @@
         <div class="col-12 loan-amt-total">
           <label class="inline" for="loan-amount">Loan amount:</label>
           <span id="loan-amount-result">$380,000</span>
+        </div>
+
+      </section>
+
+      <section class="calc-loan-details wrapper">
+
+        <div class="col-6 flex-input">
+          <label for="loan-rate">Rate structure</label>
+          <div class="select-content">
+            <select name="loan-rate" class="recalc" id="loan-rate">
+              <option value="fixed">Fixed</option>
+              <option value="adjustable">Adjustable</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-6 flex-input">
+          <label for="loan-term">Loan term</label>
+          <div class="select-content">
+            <select name="loan-term" class="recalc" id="loan-term">
+              <option value="30">30 Years</option>
+              <option value="15">15 Years</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6 flex-input">
+          <label for="loan-type">Loan type</label>
+          <div class="select-content">
+            <select name="loan-type" class="recalc" id="loan-type">
+              <option value="conventional">Conventional</option>
+              <option value="fha">FHA</option>
+              <option value="va">VA</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-6 flex-input hidden">
+          <label for="arm-type">ARM type</label>
+          <div class="select-content">
+            <select name="arm-type" class="recalc" id="arm-type">
+              <option value="3-1">3/1</option>
+              <option value="5-1">5/1</option>
+              <option value="7-1">7/1</option>
+              <option value="10-1">10/1</option>
+            </select>
+          </div>
         </div>
 
       </section>
