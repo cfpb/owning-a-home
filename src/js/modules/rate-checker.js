@@ -35,10 +35,12 @@ var chart = {
   $wrapper: $('.chart'),
   isInitialized: false,
   startLoading: function() {
+    removeAlerts();
     this.$el.addClass('loading');
     this.$el.removeClass('loaded');
   },
   stopLoading: function() {
+    this.$wrapper.removeClass('geolocating');
     this.$el.removeClass('loading');
     this.$el.addClass('loaded');
   }
@@ -119,6 +121,8 @@ var updateView = function() {
 
   $.when( getData() ).then(function( results ){
 
+    console.log(results);
+
     var data = {
       labels: [],
       intLabels: [],
@@ -141,7 +145,12 @@ var updateView = function() {
       }
     });
 
-
+    // display an error message if less than 2 results are returned
+    if( data.vals.length < 2 ) {
+      chart.stopLoading();
+      resultWarning();
+      return;
+    }
 
     data.uniqueLabels = $.unique( data.labels.slice(0) );
 
@@ -152,13 +161,6 @@ var updateView = function() {
     renderInterestAmounts();
 
     chart.stopLoading();
-
-    console.log(data.vals.length);
-
-    // display an error message if less than 2 results are returned
-    if(data.vals.length < 2) {
-      resultWarning();
-    }
 
   });
 
@@ -254,8 +256,7 @@ function scoreWarning() {
 }
 
 function resultWarning() {
-  $('#chart').addClass('warning');
-  $('.chart-area').append(
+  $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
       '<p class="alert"><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
       '<p class="point-right">Change your settings in the control panel</p>' +
