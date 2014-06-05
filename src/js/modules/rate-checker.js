@@ -17,7 +17,7 @@ require('./nemo-shim');
 var params = {
   'credit-score': 700,
   'down-payment': 20000,
-  'house-price': 450000,
+  'house-price': 200000,
   'loan-amount': undefined,
   'location': 'AL',
   'loan-term': 30,
