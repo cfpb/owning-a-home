@@ -121,8 +121,6 @@ var updateView = function() {
 
   $.when( getData() ).then(function( results ){
 
-    console.log(results);
-
     var data = {
       labels: [],
       intLabels: [],
