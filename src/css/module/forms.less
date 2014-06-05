@@ -12,10 +12,14 @@
 .select-content {
   overflow: hidden;
   position: relative;
-  background: #fff url('../img/select.png') no-repeat bottom right;
+  background: #fff url('../img/select.png') no-repeat right 0;
   border: solid 1px #d0d0ce;
   height: 32px;
   .webfont-medium();
+}
+
+.select-content:hover {
+  background: #fff url('../img/select.png') no-repeat right -32px;
 }
 
 select {
