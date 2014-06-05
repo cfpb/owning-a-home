@@ -233,7 +233,7 @@ function updateComparisons( data ) {
 
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
-    var rate =  $(this).siblings('.rate-compare').val().replace('%', ''),
+    var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
         totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
         $el = $(this).find('.new-cost');
