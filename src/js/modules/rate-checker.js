@@ -24,8 +24,8 @@ var params = {
   'location': 'AL',
   'rate-structure': 'fixed',
   'loan-term': 30,
-  'loan-type': 'conventional',
-  // 'arm-type': '5-1',
+  'loan-type': 'conf',
+  'arm-type': '3/1',
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -102,10 +102,12 @@ var getData = function() {
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
     loan_amount: params['loan-amount'],
-    // loan_type: params['loan-type'],
     minfico: slider.min,
     maxfico: slider.max,
-    state: params['location']
+    state: params['location'],
+    rate_structure: params['rate-structure'],
+    loan_term: params['loan-term'],
+    loan_type: params['loan-type']
   });
 
   return promise;
