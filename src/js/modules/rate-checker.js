@@ -250,7 +250,7 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = interest(rate, length * 12, params['loan-amount']),
+        totalInterest = interest(rate, 360, params['loan-amount']),
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
@@ -270,9 +270,11 @@ function checkARM() {
     dropdown('loan-term').disableOption('15');
     dropdown('loan-type').disableOption(['fha', 'va']);
     dropdown('arm-type').show();
+    $('#arm-warning').removeClass('hidden');
   } else {
     dropdown(['loan-term', 'loan-type']).enableOption();
     dropdown('arm-type').hide();
+    $('#arm-warning').addClass('hidden');
   }
 }
 
