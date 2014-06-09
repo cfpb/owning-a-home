@@ -127,7 +127,7 @@
               <div id="slider-range" class="range-text"></div>
             </div>
 
-          <p class="form-sub">Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html">Learn more</a></p>
+          <p class="form-sub">Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html" class="go-link">Learn more</a></p>
 
         </div>
       </section>
@@ -213,7 +213,7 @@
           <label for="down-payment">Down payment</label>
           <div class="percent-input">
             <span class="unit">%</span>
-            <input type="text" placeholder="20" name="percent-down" class="recalc down-calc" id="percent-down">
+            <input type="text" placeholder="20" name="percent-down" maxlength="2" class="recalc down-calc" id="percent-down">
           </div>
           <div class="dollar-input">
             <span class="unit">$</span>
@@ -274,6 +274,12 @@
           </div>
         </div>
 
+      </section>
+
+      <section class="form-sub hidden" id="arm-warning">
+        <div class="col-12">
+          <p>While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.</p>
+        </div>
       </section>
 
       <section class="form-sub">
