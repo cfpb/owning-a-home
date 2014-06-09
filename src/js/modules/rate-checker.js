@@ -55,9 +55,10 @@ var slider = {
   max: params['credit-score'] + 20,
   step: 20,
   update: function() {
+    var leftVal = $('.rangeslider__handle').css('left');
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-    $('#slider-range').text( this.min + ' - ' + this.max );
+    $('#slider-range').text( this.min + ' - ' + this.max ).css('left', leftVal);
   }
 };
 
