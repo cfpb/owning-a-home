@@ -253,8 +253,6 @@ function renderInterestAmounts() {
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
-
-    console.log(rate, length * 12, params['loan-amount']);
   });
 }
 
