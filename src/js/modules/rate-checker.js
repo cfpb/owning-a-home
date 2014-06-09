@@ -5,6 +5,7 @@ var unFormatUSD = require('./unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
+var dropdown = require('./dropdown-utils');
 var median = require('median');
 var config = require('oah-config');
 require('./highcharts-theme');
@@ -21,10 +22,10 @@ var params = {
   'house-price': 200000,
   'loan-amount': undefined,
   'location': 'AL',
+  'rate-structure': 'fixed',
   'loan-term': 30,
-  'rate-structure': 'adjustable',
-  'loan-type': 'conventional',
-  'arm-type': '5-1',
+  'loan-type': 'conf',
+  'arm-type': '3/1',
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -62,7 +63,7 @@ var slider = {
 
 /**
  * Initialize the rate checker app.
- * @param {null}
+ * @param  {null}
  * @return {null}
  */
 function init() {
@@ -91,7 +92,7 @@ function init() {
 
 /**
  * Get data from the API.
- * @param {null}
+ * @param  {null}
  * @return {object} jQuery promise.
  */
 var getData = function() {
@@ -101,10 +102,12 @@ var getData = function() {
   var promise = $.get( config.rateCheckerAPI, {
     downpayment: params['down-payment'],
     loan_amount: params['loan-amount'],
-    // loan_type: params['loan-type'],
     minfico: slider.min,
     maxfico: slider.max,
-    state: params['location']
+    state: params['location'],
+    rate_structure: params['rate-structure'],
+    loan_term: params['loan-term'],
+    loan_type: params['loan-type']
   });
 
   return promise;
@@ -113,7 +116,7 @@ var getData = function() {
 
 /**
  * Render all applicable rate checker areas.
- * @param {null}
+ * @param  {null}
  * @return {null}
  */
 var updateView = function() {
@@ -167,7 +170,7 @@ var updateView = function() {
 
 /**
  * Updates the sentence above the chart
- * @param {string} data
+ * @param  {string} data
  * @return {null}
  */
 function updateLanguage( data ) {
@@ -195,7 +198,7 @@ function renderLoanAmount() {
 
 /**
  * Update either the down payment % or $ amount depending on the input they've changed.
- * @param {null}
+ * @param  {null}
  * @return {null}
  */
 function renderDownPayment( el ) {
@@ -220,6 +223,11 @@ function renderDownPayment( el ) {
 
 }
 
+/**
+ * Update the values in the dropdowns in the comparison section
+ * @param  {object} data Data object created by the updateView method.
+ * @return {null}
+ */
 function updateComparisons( data ) {
   // Update the options in the dropdowns.
   var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
@@ -232,6 +240,11 @@ function updateComparisons( data ) {
   });
 }
 
+/**
+ * Calculate and display the interest rates in the comparison section.
+ * @param  {null}
+ * @return {null}
+ */
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
@@ -240,6 +253,25 @@ function renderInterestAmounts() {
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(totalInterest) );
   });
+}
+
+
+/**
+ * The dropdowns in the control panel need to change if they have
+ * an adjustable rate mortgage.
+ * @param  {null}
+ * @return {null}
+ */
+function checkARM() {
+  if ( getSelection('rate-structure') === 'adjustable' ) {
+    dropdown(['loan-term', 'loan-type']).reset();
+    dropdown('loan-term').disableOption('15');
+    dropdown('loan-type').disableOption(['fha', 'va']);
+    dropdown('arm-type').show();
+  } else {
+    dropdown(['loan-term', 'loan-type']).enableOption();
+    dropdown('arm-type').hide();
+  }
 }
 
 function scoreWarning() {
@@ -278,9 +310,8 @@ $('.defaults-link').click(function(e){
 });
 
 /**
- * Initialize the range slider.
- * http://andreruffert.github.io/rangeslider.js/
- * @param {function} cb Optional callback.
+ * Initialize the range slider. http://andreruffert.github.io/rangeslider.js/
+ * @param  {function} cb Optional callback.
  * @return {null}
  */
 function renderSlider( cb ) {
@@ -293,10 +324,10 @@ function renderSlider( cb ) {
     onInit: function() {
       slider.update();
     },
-    onSlide: function(position, value) {
+    onSlide: function( position, value ) {
       slider.update();
     },
-    onSlideEnd: function(position, value) {
+    onSlideEnd: function( position, value ) {
       params.update();
       if(params['credit-score'] < 620) {
         removeAlerts();
@@ -315,8 +346,8 @@ function renderSlider( cb ) {
 
 /**
  * Render (or update) the Highcharts chart.
- * @param {object} data Data processed from the API.
- * @param {function} cb Optional callback.
+ * @param  {object} data Data processed from the API.
+ * @param  {function} cb Optional callback.
  * @return {null}
  */
 function renderChart( data, cb ) {
@@ -396,7 +427,7 @@ function renderChart( data, cb ) {
 
 /**
  * Get value(s) of an individual HTML element in the control panel.
- * @param {string} param Name of parameter to get. Usually the HTML element's id attribute.
+ * @param  {string} param Name of parameter to get. Usually the HTML element's id attribute.
  * @return {object} Hash of element id and its value(s).
  */
 function getSelection( param ) {
@@ -406,6 +437,10 @@ function getSelection( param ) {
 
   switch ( param ) {
     case 'location':
+    case 'rate-structure':
+    case 'loan-term':
+    case 'loan-type':
+    case 'arm-type':
       val = $el.val();
       break;
     default:
@@ -418,7 +453,7 @@ function getSelection( param ) {
 
 /**
  * Get values of all HTML elements in the control panel.
- * @param {null}
+ * @param  {null}
  * @return {object} Key-value hash of element ids and values.
  */
 function getSelections() {
@@ -436,8 +471,8 @@ function getSelections() {
 
 /**
  * Set value(s) of an individual HTML element in the control panel.
- * @param {string} param Name of parameter to set. Usually the HTML element's id attribute.
- * @param {object} options Hash of options.
+ * @param  {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @param  {object} options Hash of options.
  * @return {null}
  */
 function setSelection( param, options ) {
@@ -462,7 +497,7 @@ function setSelection( param, options ) {
 
 /**
  * Set value(s) of all HTML elements in the control panel.
- * @param {null}
+ * @param  {null}
  * @return {null}
  */
 function setSelections( options ) {
@@ -488,6 +523,9 @@ $('#house-price, #percent-down, #down-payment').on( 'change keyup', reCalcLoan )
 
 // Recalculate interest costs.
 $('.compare').on('change', 'select', renderInterestAmounts);
+
+// Recalculate interest costs.
+$('#rate-structure').on( 'change', checkARM );
 
 // Do it!
 init();
