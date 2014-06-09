@@ -249,10 +249,12 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
-        roundedInterest = Math.round(totalInterest),
+        totalInterest = interest(rate, length * 12, params['loan-amount']),
+        roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
+
+    console.log(rate, length * 12, params['loan-amount']);
   });
 }
 
