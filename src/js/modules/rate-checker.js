@@ -55,9 +55,10 @@ var slider = {
   max: params['credit-score'] + 20,
   step: 20,
   update: function() {
+    var leftVal = $('.rangeslider__handle').css('left');
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-    $('#slider-range').text( this.min + ' - ' + this.max );
+    $('#slider-range').text( this.min + ' - ' + this.max ).css('left', leftVal);
   }
 };
 
@@ -249,9 +250,10 @@ function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = unFormatUSD( interest(rate, length * 12, params['loan-amount']) ),
+        totalInterest = interest(rate, length * 12, params['loan-amount']),
+        roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
-    $el.text( formatUSD(totalInterest) );
+    $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
   });
 }
 
