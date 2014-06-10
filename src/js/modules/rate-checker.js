@@ -280,6 +280,12 @@ function checkARM() {
   }
 }
 
+/**
+ * Low credit score warning display if user selects a
+ * score of 620 or below
+ * @param  {null}
+ * @return {null}
+ */
 function scoreWarning() {
   $('.rangeslider__handle').addClass('warning');
   $('#slider-range').after(
@@ -292,6 +298,11 @@ function scoreWarning() {
   resultWarning();
 }
 
+/**
+ * Overlays a warning/error message on the chart
+ * @param  {null}
+ * @return {null}
+ */
 function resultWarning() {
   $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
@@ -302,6 +313,12 @@ function resultWarning() {
   );
 }
 
+
+/**
+ * Remove alerts and warnings
+ * @param  {null}
+ * @return {null}
+ */
 function removeAlerts() {
   if ($('.result-alert')) {
     $('#chart, .rangeslider__handle').removeClass('warning');
