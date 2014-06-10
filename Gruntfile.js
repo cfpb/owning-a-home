@@ -233,6 +233,7 @@ module.exports = function(grunt) {
 
               // move shims to static directory
               'src/vendor/html5shiv/html5shiv.js',
+              'src/vendor/respond/respond.src.js',
 
             ],
             dest: 'static/vendor/'
