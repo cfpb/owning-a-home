@@ -30,9 +30,9 @@ module.exports = function(grunt) {
           cleanTargetDir: true,
           layout: function(type, component) {
             if (type === 'img') {
-              return path.join('../static/img');
+              return path.join('../img');
             } else if (type === 'fonts') {
-              return path.join('../static/fonts');
+              return path.join('../fonts');
             } else {
               return path.join(component);
             }
@@ -66,16 +66,7 @@ module.exports = function(grunt) {
           sourceMapRootpath: '/'
         },
         files: {
-          'src/css/main.css': ['src/css/main.less']
-        }
-      },
-      ie8: {
-        options: {
-          banner: '<%= banner.cfpb %>',
-          paths: ['src/static'],
-        },
-        files: {
-          'static/css/ie8.css': ['src/css/ie/ie8.less']
+          './static/css/main.css': ['./src/css/main.less']
         }
       }
     },
@@ -93,14 +84,14 @@ module.exports = function(grunt) {
       multiple_files: {
         // Prefix all CSS files found in `src/css` and overwrite.
         expand: true,
-        src: 'src/css/*.css'
+        src: 'static/css/main.css'
       },
     },
 
     browserify: {
-      dist: {
+      build: {
         files: {
-          'src/js/main.js': ['src/js/app.js'],
+          'static/js/main.js': ['./src/js/**/*.js', './config/*.js'],
         },
         options: {
           watch: true,
@@ -151,7 +142,7 @@ module.exports = function(grunt) {
           linebreak: true
         },
         files: {
-          src: [ 'static/css/*.min.css', 'static/js/*.min.js' ]
+          src: [ './dist/static/css/*.min.css', './dist/static/js/*.min.js' ]
         }
       }
     },
@@ -162,12 +153,20 @@ module.exports = function(grunt) {
      * Minify CSS and optionally rewrite asset paths.
      */
     cssmin: {
-      combine: {
+      build: {
         options: {
           //root: '/src/'
         },
         files: {
-          'static/css/main.min.css': ['src/css/main.css'],
+          './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
+        }
+      }
+    },
+
+    uglify: {
+      build: {
+        files: {
+          './dist/static/js/main.min.js': ['./dist/static/js/main.js']
         }
       }
     },
@@ -179,7 +178,7 @@ module.exports = function(grunt) {
      */
     clean: {
       bowerDir: ['bower_components'],
-      dist: ['static/**/*', '!dist/.git/']
+      dist: ['dist/**/*', '!dist/.git/']
     },
 
     /**
@@ -193,30 +192,50 @@ module.exports = function(grunt) {
         [
           {
             expand: true,
-            cwd: 'src/',
+            cwd: '.',
             src: [
 
-              // Bring over everything in src/
-              '**',
+              // move html & template files
+              '*.html',
+              '_layouts/**/*',
 
-              // Except...
-
-              // Don't bring over everything in src
-              '!src/**',
-              'src/css/*.css',
-              'src/js/*.js',
-              'src/js/html5shiv-printshiv.js',
-              'src/fonts/**',
-              'src/img/**',
-              'src/mock-data/**',
-
-              // Exclude all vendor files because a lot will get concatenated
-              '!vendor/**',
-              // Only include vendor files that we use independently
-              'vendor/html5shiv/html5shiv-printshiv.js'
+              // move static files
+              'static/**/*',
 
             ],
-            dest: 'static/'
+            dest: 'dist/'
+          }
+        ]
+      },
+      img: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+
+              // move images to static directory
+              'src/img/**/*',
+
+            ],
+            dest: 'static/img/'
+          }
+        ]
+      },
+      vendor: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+
+              // move shims to static directory
+              'src/vendor/html5shiv/html5shiv.js',
+
+            ],
+            dest: 'static/vendor/'
           }
         ]
       }
@@ -307,8 +326,19 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js','<%= mochaTest.test.src %>'],
-        tasks: ['compile', 'dist']
+        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js'],
+        tasks: ['compile']
+      }
+    },
+    newer: {
+      options: {
+        override: function(detail, include) {
+          if (detail.task === 'less') {
+            include(true);
+          } else {
+            include(false);
+          }
+        }
       }
     }
   });
@@ -319,34 +349,26 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-banner');
   grunt.loadNpmTasks('grunt-bower-task');
-  // grunt.loadNpmTasks('grunt-cfpb-internal');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  // grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  // grunt.loadNpmTasks('grunt-docco');
-  // grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-release');
-  // grunt.loadNpmTasks('grunt-remove-logging');
-  // grunt.loadNpmTasks('grunt-shell');
-  // grunt.loadNpmTasks('grunt-saucelabs');
-  grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-newer');
 
   /**
    * Create custom task aliases and combinations
    */
-  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('compile', ['less', 'browserify', 'autoprefixer']);
-  grunt.registerTask('dist', ['clean:dist', 'cssmin', 'copy:dist', 'usebanner']);
-  grunt.registerTask('test', ['mochaTest']);
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img']);
+  grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
+  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
-  //grunt.registerTask('test', ['jshint', 'jasmine']);
 
 };

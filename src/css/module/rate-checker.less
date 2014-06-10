@@ -6,7 +6,6 @@
     .webfont-regular();
 }
 
-
 /*
     Sidebar with all the user input
     --------------------------- */
@@ -52,6 +51,18 @@
       .webfont-regular();
       color: @darkgray;
     }
+
+    #arm-warning {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: -10px;
+    }
+}
+
+.calc-loan-details {
+  .col-6 {
+    margin-bottom: 15px;
+  }
 }
 
 .loan-amt-total {
@@ -63,9 +74,65 @@
   }
 
   span {
+    display: block;
     .webfont-medium();
     font-size: 0.875em;
   }
+}
+
+/*
+    Range slider for credit score
+    --------------------------- */
+
+.credit-score {
+  position: relative;
+}
+
+.range {
+  margin-bottom: 1.5em;
+}
+
+.range-text {
+  position: absolute;
+  display: block;
+  margin-left: -10px;
+  white-space: nowrap;
+}
+
+.rangeslider {
+  background: transparent url(../img/slider-bg.png) scroll no-repeat center center;
+  background-size: 100%;
+  display: block;
+  height: 20px;
+  width: 100%;
+  position: relative;
+}
+
+.rangeslider__fill {
+  background: #00ff00;
+  position: absolute;
+  top: 0;
+}
+
+.rangeslider__handle {
+  display: inline-block;
+  width: 22px;
+  height: 21px;
+  position: absolute;
+  background: transparent url(../img/slider-handle.png) no-repeat 0 0;
+  background-size: 100%;
+  border: 0;
+
+  &.warning {
+    background: transparent url(../img/slider-handle.png) no-repeat 0 100%;
+    width: 22px;
+    height: 21px;
+    background-size: 100%;
+  }
+}
+
+#slider-range {
+  text-align: center;
 }
 
 /*
@@ -93,9 +160,20 @@
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
 
-    .loading {
-        opacity: .3;
+  .loaded {
+    animation: fadein .5s;
+  }
+
+  .loading {
+    opacity: .3;
+  }
+
+  &.geolocating {
+    background: transparent url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif) scroll no-repeat center center;
+    #chart {
+      opacity: 0;
     }
+  }
 
 }
 
@@ -104,13 +182,17 @@
   background-color: #fff;
 }
 
+@keyframes fadein {
+    from { opacity: .3; }
+    to { opacity: 1; }
+}
+
 /*
     "Compare interest rate costs"
     --------------------------- */
 .compare {
 
   margin-top: 30px;
-  margin-left: 20px;
 
     label {
         .visuallyhidden;
@@ -152,4 +234,163 @@
 
 }
 
+.dollar-input,
+.percent-input {
+  position: relative;
+
+  input {
+    padding-left: 15px;
+    border: solid 1px #d0d0ce;
+  }
+
+  .unit {
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 0.2em;
+    z-index: 9;
+    color: @gray;
+  }
+}
+
+.percent-input {
+  input {
+    padding-left: 15%;
+  }
+  .unit {
+    left: auto;
+    right: 25%;
+  }
+}
+
+.down-payment {
+  border-width: 0;
+  .dollar-input {
+    width: 65%;
+    display: inline-block;
+  }
+  .percent-input {
+    width: 32%;
+    display: inline-block;
+  }
+
+  input {
+    border: solid 1px #d0d0ce;
+  }
+}
+
+@media (max-width: 1000px) {
+
+  .flex-input {
+    .column(12);
+  }
+
+}
+
+/*
+    "Next steps"
+    --------------------------- */
+
+.next-steps {
+  margin-top: 5em;
+  margin-bottom: 3.625em;
+
+  .tabs {
+    margin-top: 2em;
+  }
+}
+
+.next-steps-list {
+  .reset;
+}
+
+.next-steps-heading {
+  font-size: 1.375em;
+  .webfont-regular();
+  margin-bottom: 1em;
+}
+
+
+.next-steps-list {
+  padding-left: 30px; // match the negative outdent of the numbering
+  margin: 0;
+  counter-reset: li;
+  list-style: none;
+  position: relative;
+
+  li {
+    display: inline-block;
+    position: relative;
+  }
+
+}
+
+.next-steps-list > li:before {
+  content: counter(li);
+  counter-increment: li;
+  background: @green-midtone;
+  color: @black;
+  font-size: 12px;
+  .webfont-demi();
+  position: absolute;
+  text-align: center;
+  left: -30px;
+  top: 4px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 20px;
+}
+
+/*
+    about
+    --------------------------- */
+
+    .about {
+      border-top: 1px solid @gray-20;
+      margin-top: 3.5em;
+    }
+
+    .feedback {
+      background: @gray-10;
+      padding: 24px 15px 40px 15px;
+    }
+
+/*
+    Alerts and warnings
+    --------------------------- */
+
+.chart {
+  .warning {
+    position: relative;;
+
+    .highcharts-container {
+      opacity: .3;
+    }
+  }
+}
+
+.result-alert {
+  border: 1px solid @redorange-50;
+}
+
+.chart-alert {
+  position: absolute;
+  top: 30%;
+  background: #fff;
+  padding: 1em 2em 1em 3em;
+  .webfont-regular();
+
+  .point-right {
+    font-size: 1.5em;
+  }
+}
+
+.credit-alert {
+  font-size: 0.875em;
+  padding: .714em .714em .714em 2.142em;
+  background: @gray-10;
+  color: @darkgray;
+  margin: 2.5em 0 1em 0;
+}
 
