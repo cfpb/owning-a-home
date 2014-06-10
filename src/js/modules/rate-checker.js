@@ -7,6 +7,7 @@ var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
 var median = require('median');
+var amortize = require('./amortize.js');
 var config = require('oah-config');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
@@ -249,8 +250,9 @@ function updateComparisons( data ) {
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
-        length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = interest(rate, 360, params['loan-amount']),
+        length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
+        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: 360, amortizeTerm: length}),
+        totalInterest = amortizedVal['interest'],
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
@@ -278,6 +280,12 @@ function checkARM() {
   }
 }
 
+/**
+ * Low credit score warning display if user selects a
+ * score of 620 or below
+ * @param  {null}
+ * @return {null}
+ */
 function scoreWarning() {
   $('.rangeslider__handle').addClass('warning');
   $('#slider-range').after(
@@ -290,6 +298,11 @@ function scoreWarning() {
   resultWarning();
 }
 
+/**
+ * Overlays a warning/error message on the chart
+ * @param  {null}
+ * @return {null}
+ */
 function resultWarning() {
   $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
@@ -300,6 +313,12 @@ function resultWarning() {
   );
 }
 
+
+/**
+ * Remove alerts and warnings
+ * @param  {null}
+ * @return {null}
+ */
 function removeAlerts() {
   if ($('.result-alert')) {
     $('#chart, .rangeslider__handle').removeClass('warning');
