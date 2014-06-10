@@ -195,10 +195,31 @@ object {
   margin-left: -1.2em;
 }
 
+.alert:before {
+  .cf-icon;
+  content: "\e103";
+  color:  @redorange;
+  text-indent: -1.2em;
+  margin-right: .2em;
+}
+
+.point-right:after {
+  .cf-icon;
+  content: "\e011";
+  margin-left: 10px;
+}
+
 // info containers have a thin border around them
 .info-container {
     border: 1px solid @gray-10;
     padding: 10px;
+}
+
+// alert containers have a background color but no border
+.alert-container {
+  background: @gray-5;
+  padding: 20px;
+  .webfont-regular();
 }
 
 .placeholder {

@@ -1,0 +1,63 @@
+.tabs,
+.tab-list {
+  .reset;
+}
+
+.tabs {
+  margin-top: 2em;
+  border-top: 4px solid @green-midtone;
+
+
+  a {
+    padding: 28px 20px;
+    .webfont-regular();
+    font-size: 1.375em;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    border-bottom: 1px solid @gray-20;
+    background: @gray-5;
+    color: @gray;
+  }
+
+  .active a,
+  .active a:link,
+  .active a:visited {
+    border-bottom: 1px solid @green-midtone;
+    background: #fff;
+    color: @black;
+  }
+
+  li:first-child {
+    a {
+      border-right: 1px solid @gray-20;
+    }
+  }
+}
+
+.tab-list {
+  list-style: none;
+}
+
+.next-steps {
+  .tab-list {
+    .column( 6 );
+  }
+}
+
+.tab-content {
+  margin-top: 3.125em;
+}
+
+// hide tabbed content when js is enabled
+.js {
+  .tab-content {
+    display: none;
+  }
+
+  & .default {
+    display: block;
+  }
+}

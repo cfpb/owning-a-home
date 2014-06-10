@@ -44,8 +44,35 @@
   margin-top: 32px;
 }
 
-/* lists */
+/* Lists
+--------------------------- */
 
 ul > li {
   list-style: disc;
+}
+
+// wrap tabbed headings in a tabbed header
+.tabbed-header {
+  border-top: 2px solid @gray-20;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+// a tabbed heading has a green highlight above it
+.tabbed-heading {
+  position: absolute;
+  top: -2px;
+  margin-top: 0;
+  padding-top: 4px;
+  display: inline-block;
+  border-top: 2px solid @green;
+}
+
+/* Links
+--------------------------- */
+
+.go-link:after {
+  .cf-icon;
+  content: "\e002";
+  margin-left: 4px;
 }
