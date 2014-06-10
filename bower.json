@@ -15,7 +15,8 @@
     "cf-icons": "git://github.com/cfpb/cf-icons.git",
     "highcharts-release": "~3.0.10",
     "chosen": "~1.1.0",
-    "rangeslider.js": "~0.2.9"
+    "rangeslider.js": "~0.2.9",
+    "respond": "1.4.2"
   },
   "exportsOverride": {
     "cf-*": {
