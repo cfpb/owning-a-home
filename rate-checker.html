@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="rate-checker result {% if subnav %}col-9{% endif %}">
+<div class="rate-checker result {% if subnav %}col-9{% endif %}" role="main">
 
   <section class="page-intro">
 
@@ -213,7 +213,7 @@
           <label for="down-payment">Down payment</label>
           <div class="percent-input">
             <span class="unit">%</span>
-            <input type="text" placeholder="20" name="percent-down" maxlength="2" class="recalc down-calc" id="percent-down">
+            <input type="text" placeholder="10" name="percent-down" maxlength="2" class="recalc down-calc" id="percent-down">
           </div>
           <div class="dollar-input">
             <span class="unit">$</span>
