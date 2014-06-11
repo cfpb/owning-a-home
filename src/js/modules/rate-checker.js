@@ -147,6 +147,10 @@ var updateView = function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+
+      for(var i = 0; i < val; i++) {
+        data.totalVals.push(+key);
+      }
     });
 
     // display an error message if less than 2 results are returned
@@ -183,7 +187,7 @@ function updateLanguage( data ) {
   }
 
   function renderMedian( data ) {
-    var loansMedian = median( data.intLabels );
+    var loansMedian = median( data.totalVals );
     $('#median-rate').text( loansMedian + '%' );
   }
 
