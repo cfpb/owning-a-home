@@ -7,7 +7,7 @@ var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
 var median = require('median');
-var amortize = require('./amortize.js');
+var amortize = require('amortize');
 var config = require('oah-config');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
