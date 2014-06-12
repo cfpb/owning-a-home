@@ -7,6 +7,7 @@ var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
 var median = require('median');
+var amortize = require('amortize');
 var config = require('oah-config');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
@@ -143,6 +144,10 @@ var updateView = function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+
+      for(var i = 0; i < val; i++) {
+        data.totalVals.push(+key);
+      }
     });
 
     // display an error message if less than 2 results are returned
@@ -179,7 +184,7 @@ function updateLanguage( data ) {
   }
 
   function renderMedian( data ) {
-    var loansMedian = median( data.intLabels );
+    var loansMedian = median( data.totalVals );
     $('#median-rate').text( loansMedian + '%' );
   }
 
@@ -248,8 +253,9 @@ function updateComparisons( data ) {
 function renderInterestAmounts() {
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
-        length = parseInt($(this).find('.loan-years').text(), 10),
-        totalInterest = interest(rate, 360, params['loan-amount']),
+        length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
+        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: 360, amortizeTerm: length}),
+        totalInterest = amortizedVal['interest'],
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
@@ -277,7 +283,9 @@ function checkARM() {
 }
 
 /**
- * Display a warning if the user selects a low credit score.
+ * Low credit score warning display if user selects a
+ * score of 620 or below
+ * @param  {null}
  * @return {null}
  */
 function scoreWarning() {
@@ -293,7 +301,8 @@ function scoreWarning() {
 }
 
 /**
- * Display a warning if we have no results to display.
+ * Overlays a warning/error message on the chart
+ * @param  {null}
  * @return {null}
  */
 function resultWarning() {
@@ -306,8 +315,10 @@ function resultWarning() {
   );
 }
 
+
 /**
- * Clear all warnings and alerts.
+ * Remove alerts and warnings
+ * @param  {null}
  * @return {null}
  */
 function removeAlerts() {
