@@ -251,6 +251,7 @@ function updateComparisons( data ) {
  * @return {null}
  */
 function renderInterestAmounts() {
+  var shortTermVal = [];
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
@@ -259,7 +260,32 @@ function renderInterestAmounts() {
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
+    // add short term rates, interest, and term to the shortTermVal array
+    if (length < 180) {
+      shortTermVal.push({rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12});
+    }
   });
+  renderInterestSummary(shortTermVal);
+}
+
+/**
+ * Calculate and display the plain language loan comparison summary.
+ * @param  {array} intVals array with two objects containing rate, interest accrued, and term
+ * @return {null}
+ */
+function renderInterestSummary(intVals) {
+  var sortedRates,
+      diff;
+
+  sortedRates = intVals.sort(function( a, b ) {
+    return a.rate - b.rate;
+  });
+
+  diff = formatUSD(sortedRates[1].interest - sortedRates[0].interest, {decimalPlaces: 0});
+  $('#comparison-term').text(sortedRates[0].term);
+  $('#rate-diff').text(diff);
+  $('#higher-rate').text(sortedRates[1].rate + '%');
+  $('#lower-rate').text(sortedRates[0].rate + '%');
 }
 
 
