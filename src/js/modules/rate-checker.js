@@ -99,7 +99,7 @@ var getData = function() {
   params.update();
 
   var promise = $.get( config.rateCheckerAPI, {
-    downpayment: params['down-payment'],
+    price: params['house-price'],
     loan_amount: params['loan-amount'],
     minfico: slider.min,
     maxfico: slider.max,
