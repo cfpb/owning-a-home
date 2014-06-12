@@ -49,7 +49,7 @@ var chart = {
   }
 };
 
-// Set some properties for the slider.
+// Set some properties for the credit score slider.
 var slider = {
   $el: $('#credit-score'),
   min: params['credit-score'],
@@ -65,7 +65,6 @@ var slider = {
 
 /**
  * Initialize the rate checker app.
- * @param  {null}
  * @return {null}
  */
 function init() {
@@ -94,7 +93,6 @@ function init() {
 
 /**
  * Get data from the API.
- * @param  {null}
  * @return {object} jQuery promise.
  */
 var getData = function() {
@@ -102,7 +100,7 @@ var getData = function() {
   params.update();
 
   var promise = $.get( config.rateCheckerAPI, {
-    downpayment: params['down-payment'],
+    price: params['house-price'],
     loan_amount: params['loan-amount'],
     minfico: slider.min,
     maxfico: slider.max,
@@ -118,7 +116,6 @@ var getData = function() {
 
 /**
  * Render all applicable rate checker areas.
- * @param  {null}
  * @return {null}
  */
 var updateView = function() {
@@ -196,6 +193,10 @@ function updateLanguage( data ) {
 
 }
 
+/**
+ * Calculate and render the loan amount.
+ * @return {null}
+ */
 function renderLoanAmount() {
   var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
   params['loan-amount'] = loan > 0 ? loan : 0;
@@ -204,7 +205,6 @@ function renderLoanAmount() {
 
 /**
  * Update either the down payment % or $ amount depending on the input they've changed.
- * @param  {null}
  * @return {null}
  */
 function renderDownPayment( el ) {
@@ -248,7 +248,6 @@ function updateComparisons( data ) {
 
 /**
  * Calculate and display the interest rates in the comparison section.
- * @param  {null}
  * @return {null}
  */
 function renderInterestAmounts() {
@@ -267,7 +266,6 @@ function renderInterestAmounts() {
 /**
  * The dropdowns in the control panel need to change if they have
  * an adjustable rate mortgage.
- * @param  {null}
  * @return {null}
  */
 function checkARM() {
@@ -330,6 +328,10 @@ function removeAlerts() {
   }
 }
 
+/**
+ * Have the reset button clear selections.
+ * @return {null}
+ */
 $('.defaults-link').click(function(e){
   setSelections({ usePlaceholder: true });
   updateView();
@@ -480,7 +482,6 @@ function getSelection( param ) {
 
 /**
  * Get values of all HTML elements in the control panel.
- * @param  {null}
  * @return {object} Key-value hash of element ids and values.
  */
 function getSelections() {
@@ -524,7 +525,6 @@ function setSelection( param, options ) {
 
 /**
  * Set value(s) of all HTML elements in the control panel.
- * @param  {null}
  * @return {null}
  */
 function setSelections( options ) {
