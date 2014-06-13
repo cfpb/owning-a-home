@@ -304,10 +304,14 @@ function checkARM() {
     dropdown('loan-type').disableOption(['fha', 'va']);
     dropdown('arm-type').show();
     $('#arm-warning').removeClass('hidden');
+    $('.interest-cost-primary').addClass('hidden');
+    $('#arm-info').removeClass('hidden');
   } else {
     dropdown(['loan-term', 'loan-type']).enableOption();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
+    $('#arm-info').addClass('hidden');
+    $('.interest-cost-primary').removeClass('hidden');
   }
 }
 
