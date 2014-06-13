@@ -245,6 +245,8 @@ function updateComparisons( data ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
     $('.compare select').append(option);
   });
+  // In the second comparison dropdown, select the last (largest) rate.
+  $('#rate-compare-2').val( uniqueLabels[uniqueLabels.length - 1] );
 }
 
 /**
