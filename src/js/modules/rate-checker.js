@@ -189,9 +189,18 @@ function updateLanguage( data ) {
     $('#median-rate').text( loansMedian + '%' );
   }
 
+  function updateTerm() {
+    // change from 5 years to x if an ARM
+    if ( getSelection('rate-structure') === 'arm' ) {
+      var armVal = getSelection('arm-type');
+      var term = armVal.match(/[^-]*/i)[0];
+      $('.loan-years').text(term).fadeIn();
+    }
+  }
+
   renderLocation();
   renderMedian( data );
-
+  updateTerm(data);
 }
 
 /**
