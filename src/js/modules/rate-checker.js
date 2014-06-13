@@ -26,7 +26,7 @@ var params = {
   'rate-structure': 'fixed',
   'loan-term': 30,
   'loan-type': 'conf',
-  'arm-type': '3/1',
+  'arm-type': '3-1',
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -107,7 +107,8 @@ var getData = function() {
     state: params['location'],
     rate_structure: params['rate-structure'],
     loan_term: params['loan-term'],
-    loan_type: params['loan-type']
+    loan_type: params['loan-type'],
+    arm_type: params['arm-type']
   });
 
   return promise;
@@ -269,7 +270,7 @@ function renderInterestAmounts() {
  * @return {null}
  */
 function checkARM() {
-  if ( getSelection('rate-structure') === 'adjustable' ) {
+  if ( getSelection('rate-structure') === 'arm' ) {
     dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disableOption('15');
     dropdown('loan-type').disableOption(['fha', 'va']);
