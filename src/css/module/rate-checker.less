@@ -223,10 +223,16 @@
   }
 }
 
+.rate-compare {
+  position: relative;
+}
 
 .interest-cost-secondary {
   background: @gray-5;
   border-top: 2px solid #FFCE8D;
+  position: absolute; // absolutely positioning these for the ARM alert
+  top: 130px;
+  width: 100%;
 
   .new-cost {
     font-size: 1.75em;
@@ -291,6 +297,19 @@
   margin-bottom: 1.5em;
 
   p:last-child {
+    margin: 0;
+  }
+}
+
+.arm-info-comparison {
+  .webfont-regular();
+  padding: 2em 0;
+  font-size: 0.75em;
+  display: block;
+  position: absolute;
+  width: 200%;
+
+  p {
     margin: 0;
   }
 }
