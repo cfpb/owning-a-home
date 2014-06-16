@@ -484,8 +484,14 @@ function renderChart( data, cb ) {
       tooltip:{
         useHTML: true,
         formatter: function(){
-          return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
+          if (this.y === 1) {
+            return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
+                  ' lender is offering <br> rates at <strong>' + this.key + '</strong>.</div>';
+          } else {
+            return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
                   ' lenders are offering <br> rates at <strong>' + this.key + '</strong>.</div>';
+          }
+
         }
       },
     }, function(){
