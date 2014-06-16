@@ -469,7 +469,6 @@ function renderChart( data, cb ) {
         dataLabels: {
           enabled: true,
           useHTML: true,
-          //format: '{x}',
           crop: false,
           overflow: 'none',
           defer: true,
@@ -483,8 +482,10 @@ function renderChart( data, cb ) {
         text: ''
       },
       tooltip:{
+        useHTML: true,
         formatter: function(){
-          return this.key; // show only the percentage
+          return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
+                  ' lenders are offering <br> rates at <strong>' + this.key + '</strong>.</div>';
         }
       },
     }, function(){
