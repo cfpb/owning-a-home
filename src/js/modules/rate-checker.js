@@ -195,6 +195,9 @@ function updateLanguage( data ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
       $('.loan-years').text(term).fadeIn();
+    } else {
+      $('.interest-cost-primary .loan-years').text( 30 ).fadeIn();
+      $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
     }
   }
 
