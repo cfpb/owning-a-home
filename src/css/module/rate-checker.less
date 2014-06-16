@@ -12,6 +12,7 @@
 
 .calculator {
    background: @gray-5;
+   .webfont-regular();
 
     p {
       margin: 0;
@@ -76,7 +77,7 @@
   span {
     display: block;
     .webfont-medium();
-    font-size: 0.875em;
+    margin-top: 10px;
   }
 }
 
@@ -200,6 +201,8 @@
     "Compare interest rate costs"
     --------------------------- */
 .compare {
+
+  .webfont-regular();
 
   margin-top: 30px;
 
@@ -341,6 +344,10 @@
   .tabs {
     margin-top: 2em;
   }
+
+  > p {
+    margin-bottom: 55px;
+  }
 }
 
 .next-steps-list {
@@ -391,7 +398,7 @@
 
     .about {
       border-top: 1px solid @gray-20;
-      margin-top: 3.5em;
+      margin-top: 6em;
     }
 
     .feedback {
