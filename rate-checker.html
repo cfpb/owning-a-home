@@ -118,17 +118,11 @@
     <div class="calculator col-4">
 
       <section class="form-intro">
-        <div class="col-12">
-
           <h4>Check your rate options</h4>
-
           <p>To get the most accurate results, please tell us about your situation.</p>
-
-        </div>
       </section>
 
         <section class="credit-score">
-          <div class="col-12">
             <div class="range">
               <label for="range">Credit score range</label>
               <input id="credit-score" type="range" min="600" max="840" step="20" value="700">
@@ -136,14 +130,12 @@
             </div>
 
           <p class="form-sub">Your credit score has a big impact on the rate you’ll receive. <a href="http://www.consumerfinance.gov/askcfpb/319/how-does-my-credit-score-affect-my-ability-to-get-a-mortgage-loan.html" class="go-link">Learn more</a></p>
-
-        </div>
       </section>
 
       <section class="demographics">
 
         <div class="col-12">
-
+          <div class="wrapper">
           <label for="location">State</label>
           <div class="select-content">
             <select name="location" class="recalc" id="location">
@@ -201,23 +193,26 @@
               <option value="PR">Puerto Rico</option>
             </select>
           </div>
+          </div>
         </div>
 
       </section>
 
 
-      <section class="calc-loan-amt wrapper">
-
+      <section class="calc-loan-amt">
         <div class="col-5 flex-input">
+          <div class="wrapper-first">
           <label for="house-price">House price</label>
           <div class="dollar-input">
             <span class="unit">$</span>
             <input type="text" placeholder="250,000" name="house-price" class="recalc" id="house-price">
           </div>
+          </div>
         </div>
 
 
         <div class="col-7 flex-input down-payment">
+          <div class="wrapper-last">
           <label for="down-payment">Down payment</label>
           <div class="percent-input">
             <span class="unit">%</span>
@@ -227,12 +222,15 @@
             <span class="unit">$</span>
             <input type="text" placeholder="20,000" name="down-payment" class="recalc down-calc" id="down-payment">
           </div>
+          </div>
         </div>
 
 
         <div class="col-12 loan-amt-total">
+          <div class="wrapper">
           <label class="inline" for="loan-amount">Loan amount</label>
           <span id="loan-amount-result">$380,000</span>
+          </div>
         </div>
 
       </section>
@@ -240,16 +238,19 @@
       <section class="calc-loan-details wrapper">
 
         <div class="col-6 flex-input">
+          <div class="wrapper-first">
           <label for="rate-structure">Rate structure</label>
           <div class="select-content">
             <select name="rate-structure" class="recalc" id="rate-structure">
               <option value="fixed">Fixed</option>
               <option value="arm">Adjustable</option>
             </select>
+            </div>
           </div>
         </div>
 
         <div class="col-6 flex-input">
+          <div class="wrapper-last">
           <label for="loan-term">Loan term</label>
           <div class="select-content">
             <select name="loan-term" class="recalc" id="loan-term">
@@ -257,9 +258,11 @@
               <option value="15">15 Years</option>
             </select>
           </div>
+          </div>
         </div>
 
         <div class="col-6 flex-input">
+          <div class="wrapper-first">
           <label for="loan-type">Loan type</label>
           <div class="select-content">
             <select name="loan-type" class="recalc" id="loan-type">
@@ -268,9 +271,11 @@
               <option value="va">VA</option>
             </select>
           </div>
+          </div>
         </div>
 
         <div class="col-6 flex-input hidden">
+          <div class="wrapper-last">
           <label for="arm-type">ARM type</label>
           <div class="select-content">
             <select name="arm-type" class="recalc" id="arm-type">
@@ -280,20 +285,17 @@
               <option value="10-1">10/1</option>
             </select>
           </div>
+          </div>
         </div>
 
       </section>
 
       <section class="form-sub hidden" id="arm-warning">
-        <div class="col-12">
           <p>While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.</p>
-        </div>
       </section>
 
       <section class="form-sub">
-        <div class="col-12">
           <p>This tool assumes you want to purchase a single family house to be your primary residence. The rates quoted assume -0.5 to 0.5 <a href="http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html">discount points</a> and a 60-day <a href="http://www.consumerfinance.gov/askcfpb/143/whats-a-lock-in-or-a-rate-lock.html">rate lock</a>.</p>
-        </div>
       </section>
 
     </div><!-- END .calculator -->
