@@ -195,6 +195,9 @@ function updateLanguage( data ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
       $('.loan-years').text(term).fadeIn();
+    } else {
+      $('.interest-cost-primary .loan-years').text( 30 ).fadeIn();
+      $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
     }
   }
 
@@ -286,6 +289,7 @@ function renderInterestAmounts() {
  * @return {null}
  */
 function renderInterestSummary(intVals) {
+
   var sortedRates,
       diff;
 
@@ -293,10 +297,10 @@ function renderInterestSummary(intVals) {
     return a.rate - b.rate;
   });
 
-  diff = formatUSD(sortedRates[1].interest - sortedRates[0].interest, {decimalPlaces: 0});
+  diff = formatUSD(sortedRates[sortedRates.length - 1].interest - sortedRates[0].interest, {decimalPlaces: 0});
   $('#comparison-term').text(sortedRates[0].term);
   $('#rate-diff').text(diff);
-  $('#higher-rate').text(sortedRates[1].rate + '%');
+  $('#higher-rate').text(sortedRates[sortedRates.length - 1].rate + '%');
   $('#lower-rate').text(sortedRates[0].rate + '%');
 }
 
