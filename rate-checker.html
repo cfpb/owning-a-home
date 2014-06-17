@@ -49,12 +49,22 @@
       <h2 class="rate-checker-heading">In <strong class="location">Alabama</strong>, most lenders are offering rates at or below <strong class="rate" id="median-rate">3.550%</strong>.</h2>
 
       <section class="chart wrapper">
-        <div id="chart" class="chart-area"></div>
+        <figure class="data-enabled loading">
+          <div id="chart" class="chart-area"></div>
+          <figcaption class="chart-caption">
+            <div class="caption-title col-8">
+              Rates available to a borrower like you
+            </div>
+            <div class="rc-data-link col-4">
+              <a href="#about">About our data source</a>
+            </div>
+          </figcaption>
+        </figure>
       </section>
 
       <section class="compare wrapper">
 
-            <div class="rate-compare loading col-3">
+            <div class="rate-compare data-enabled loading col-3">
               <label for="rate-compare-1">Rate</label>
               <div class="select-content">
                 <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
@@ -74,7 +84,7 @@
               </div>
             </div>
 
-            <div class="rate-compare loading col-3">
+            <div class="rate-compare data-enabled loading col-3">
               <label for="rate-compare-2">Rate</label>
               <div class="select-content">
                 <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
@@ -369,7 +379,7 @@
       </div>
     </div> <!-- /.alert-container -->
 
-    <section class="about">
+    <section id="about" class="about">
 
       <div class="about-data col-8">
         <h3 class="subhead">About our data source</h3>
