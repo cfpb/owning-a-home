@@ -329,7 +329,6 @@ function checkARM() {
   if ( getSelection('rate-structure') === 'arm' ) {
     if ( getSelection('loan-term') !== '30' ) {
       dropdown('loan-term').enableHighlight();
-      console.log(1);
     }
     if ( getSelection('loan-type') !== 'conf' ) {
       dropdown('loan-type').enableHighlight();
