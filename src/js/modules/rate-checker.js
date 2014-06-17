@@ -320,7 +320,6 @@ function renderInterestSummary(intVals) {
   $('#lower-rate').text(sortedRates[0].rate + '%');
 }
 
-
 /**
  * The dropdowns in the control panel need to change if they have
  * an adjustable rate mortgage.
@@ -328,6 +327,13 @@ function renderInterestSummary(intVals) {
  */
 function checkARM() {
   if ( getSelection('rate-structure') === 'arm' ) {
+    if ( getSelection('loan-term') !== '30' ) {
+      dropdown('loan-term').enableHighlight();
+      console.log(1);
+    }
+    if ( getSelection('loan-type') !== 'conf' ) {
+      dropdown('loan-type').enableHighlight();
+    }
     dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disableOption('15');
     dropdown('loan-type').disableOption(['fha', 'va']);
@@ -336,6 +342,7 @@ function checkARM() {
     $('.interest-cost-primary').addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
+    dropdown(['loan-term', 'loan-type']).disableHighlight();
     dropdown(['loan-term', 'loan-type']).enableOption();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');

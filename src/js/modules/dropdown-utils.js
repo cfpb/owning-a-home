@@ -83,11 +83,35 @@ var utils = function( id ) {
     return $el;
   }
 
+  /**
+   * Give a dropdown a yellow border to highlight it.
+   * @return {jQuery object} The element(s) that were manipulated.
+   */
+  function enableHighlight() {
+    $el.each(function() {
+      $( this ).parent().addClass('highlight-dropdown');
+    });
+    return $el;
+  }
+
+  /**
+   * Remove a dropdown's highlight.
+   * @return {jQuery object} The element(s) that were manipulated.
+   */
+  function disableHighlight() {
+    $el.each(function() {
+      $( this ).parent().removeClass('highlight-dropdown');
+    });
+    return $el;
+  }
+
   return {
     disableOption: disable,
     enableOption: enable,
     hide: hide,
     show: show,
+    enableHighlight: enableHighlight,
+    disableHighlight: disableHighlight,
     reset: reset
   };
 
