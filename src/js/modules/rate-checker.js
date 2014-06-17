@@ -64,6 +64,9 @@ var slider = {
   }
 };
 
+// Keep the latest AJAX request accessible so we can terminate it if need be.
+var request;
+
 /**
  * Initialize the rate checker app.
  * @return {null}
@@ -124,7 +127,16 @@ var updateView = function() {
 
   chart.startLoading();
 
-  $.when( getData() ).then(function( results ){
+  // Abort the previous request.
+  if ( typeof request === 'object' ) {
+    request.abort();
+  }
+
+  // And start a new one.
+  request = getData();
+
+  // If it succeeds, update the DOM.
+  request.done(function( results ){
 
     var data = {
       labels: [],
@@ -167,8 +179,11 @@ var updateView = function() {
     updateComparisons( data );
     renderInterestAmounts();
 
-    chart.stopLoading();
+  });
 
+  // Whether the request succeeds or fails, stop the loading animation.
+  request.then(function(){
+    chart.stopLoading();
   });
 
 };
