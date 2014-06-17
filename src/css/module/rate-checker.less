@@ -179,11 +179,43 @@
     }
   }
 
+  figure {
+    .reset;
+  }
+
 }
 
 .data-label {
   text-align: center;
   background-color: #fff;
+}
+
+.chart-caption {
+  font-size: 0.75em;
+  //margin-top: -6px; // accomodate for extra space added by highcharts
+  padding: 0 1em 1em 1em;
+}
+
+.caption-title {
+  .webfont-demi();
+  text-transform: uppercase;
+  color: @gray-80;
+  letter-spacing: 1px;
+}
+
+.rc-data-link {
+  text-align: right;
+  .webfont-medium();
+
+  a {
+    border-bottom-width: 1px;
+  }
+}
+
+@media (max-width: 720px) {
+  .rc-data-link {
+    display: none;
+  }
 }
 
 .chart-tooltip {
