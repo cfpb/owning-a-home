@@ -281,11 +281,12 @@ function updateComparisons( data ) {
  * @return {null}
  */
 function renderInterestAmounts() {
-  var shortTermVal = [];
+  var shortTermVal = [],
+      fullTerm = +(getSelection('loan-term')) * 12;
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
-        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: 360, amortizeTerm: length}),
+        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: fullTerm, amortizeTerm: length}),
         totalInterest = amortizedVal['interest'],
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
