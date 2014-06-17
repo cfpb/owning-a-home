@@ -7,7 +7,9 @@ Highcharts.theme = {
     fontSize: '13px'
   },
   chart: {
-    backgroundColor: ['#fff'],
+    backgroundColor: ['none'],
+    marginLeft: 25,
+    marginRight: 25,
   },
   yAxis: {
     labels: {
@@ -35,9 +37,7 @@ Highcharts.theme = {
   },
   xAxis: {
     labels: {
-      style: {
-        color: '#fff' // hide the labels
-      }
+      enabled: false
     },
     minorTickInterval: null,
     tickWidth: 0,

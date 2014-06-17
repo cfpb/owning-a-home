@@ -35,18 +35,16 @@ var params = {
 // Set some properties for the histogram.
 var chart = {
   $el: $('#chart'),
-  $compare: $('.rate-compare'),
   $wrapper: $('.chart'),
+  $load: $('.data-enabled'),
   isInitialized: false,
   startLoading: function() {
     removeAlerts();
-    this.$el.addClass('loading').removeClass('loaded');
-    this.$compare.addClass('loading').removeClass('loaded');
+    this.$load.addClass('loading').removeClass('loaded');
   },
   stopLoading: function() {
     this.$wrapper.removeClass('geolocating');
-    this.$el.removeClass('loading').addClass('loaded');
-    this.$compare.removeClass('loading').addClass('loaded');
+    this.$load.removeClass('loading').addClass('loaded');
   }
 };
 
@@ -464,9 +462,6 @@ function renderChart( data, cb ) {
         text: ''
       },
       xAxis: {
-        title: {
-          text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
-        },
         categories: [ 1, 2, 3, 4, 5 ]
       },
       yAxis: [{
