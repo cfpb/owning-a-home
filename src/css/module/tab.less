@@ -5,8 +5,6 @@
 
 .tabs {
   margin-top: 2em;
-  border-top: 4px solid @green-midtone;
-
 
   a {
     padding: 28px 20px;
@@ -18,14 +16,26 @@
   a:link,
   a:visited {
     border-bottom: 1px solid @gray-20;
+    border-top: 4px solid @gray-20;
     background: @gray-5;
     color: @gray;
   }
 
+  a:hover,
+  a:active,
+  a:focus {
+    color: @black;
+    background: #fff;
+  }
+
   .active a,
   .active a:link,
-  .active a:visited {
-    border-bottom: 1px solid @green-midtone;
+  .active a:visited,
+  .active a:hover,
+  .active a:active,
+  .active a:focus {
+    border-bottom: none;
+    border-top: 4px solid @green-midtone;
     background: #fff;
     color: @black;
   }
