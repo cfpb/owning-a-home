@@ -35,17 +35,18 @@ var params = {
 // Set some properties for the histogram.
 var chart = {
   $el: $('#chart'),
+  $compare: $('.rate-compare'),
   $wrapper: $('.chart'),
   isInitialized: false,
   startLoading: function() {
     removeAlerts();
-    this.$el.addClass('loading');
-    this.$el.removeClass('loaded');
+    this.$el.addClass('loading').removeClass('loaded');
+    this.$compare.addClass('loading').removeClass('loaded');
   },
   stopLoading: function() {
     this.$wrapper.removeClass('geolocating');
-    this.$el.removeClass('loading');
-    this.$el.addClass('loaded');
+    this.$el.removeClass('loading').addClass('loaded');
+    this.$compare.removeClass('loading').addClass('loaded');
   }
 };
 
