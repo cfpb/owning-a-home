@@ -356,7 +356,7 @@ function resultWarning() {
   $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
       '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
-      '<p class="point-right">Change your settings in the control panel</p>' +
+      '<p class="point-right">Change your settings</p>' +
       '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
     '</div>'
   );
