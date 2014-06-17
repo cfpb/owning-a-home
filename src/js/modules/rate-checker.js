@@ -63,7 +63,7 @@ var slider = {
   }
 };
 
-// Keep track the last AJAX request accessible so we can terminate it if need be.
+// Keep the latest AJAX request accessible so we can terminate it if need be.
 var request;
 
 /**
