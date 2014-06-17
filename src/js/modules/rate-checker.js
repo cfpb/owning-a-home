@@ -56,12 +56,15 @@ var slider = {
   max: params['credit-score'] + 20,
   step: 20,
   update: function() {
-    var leftVal = $('.rangeslider__handle').css('left');
+    var leftVal = +$('.rangeslider__handle').css('left').replace( 'px', '' );
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-    $('#slider-range').text( this.min + ' - ' + this.max ).css('left', leftVal);
+    $('#slider-range').text( this.min + ' - ' + this.max ).css( 'left', leftVal - 9 + 'px' );
   }
 };
+
+// Keep the latest AJAX request accessible so we can terminate it if need be.
+var request;
 
 /**
  * Initialize the rate checker app.
@@ -123,7 +126,16 @@ var updateView = function() {
 
   chart.startLoading();
 
-  $.when( getData() ).then(function( results ){
+  // Abort the previous request.
+  if ( typeof request === 'object' ) {
+    request.abort();
+  }
+
+  // And start a new one.
+  request = getData();
+
+  // If it succeeds, update the DOM.
+  request.done(function( results ){
 
     var data = {
       labels: [],
@@ -166,8 +178,11 @@ var updateView = function() {
     updateComparisons( data );
     renderInterestAmounts();
 
-    chart.stopLoading();
+  });
 
+  // Whether the request succeeds or fails, stop the loading animation.
+  request.then(function(){
+    chart.stopLoading();
   });
 
 };
@@ -196,7 +211,8 @@ function updateLanguage( data ) {
       var term = armVal.match(/[^-]*/i)[0];
       $('.loan-years').text(term).fadeIn();
     } else {
-      $('.interest-cost-primary .loan-years').text( 30 ).fadeIn();
+      var termVal = getSelection('loan-term');
+      $('.interest-cost-primary .loan-years').text(termVal).fadeIn();
       $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
     }
   }
@@ -355,7 +371,7 @@ function resultWarning() {
   $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
       '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
-      '<p class="point-right">Change your settings in the control panel</p>' +
+      '<p class="point-right">Change your settings</p>' +
       '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
     '</div>'
   );
