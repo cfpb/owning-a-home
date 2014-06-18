@@ -8,7 +8,7 @@ Highcharts.theme = {
   },
   chart: {
     backgroundColor: ['none'],
-    marginLeft: 25,
+    marginLeft: 30,
     marginRight: 25,
   },
   yAxis: {
