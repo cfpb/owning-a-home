@@ -71,8 +71,20 @@ ul > li {
 /* Links
 --------------------------- */
 
+.go-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
 .go-link:after {
   .cf-icon;
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
   content: "\e002";
-  margin-left: 4px;
+  border-bottom: none;
 }
