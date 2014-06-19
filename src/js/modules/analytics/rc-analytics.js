@@ -24,36 +24,76 @@ $(document).ready(function() {
 
   // state select
   $('#location').on('change', function() {
-    var state = $(this).val();
-    try{track('OAH rate tool', 'Select state', state);}
+    var value = $(this).val();
+    try{track('OAH rate tool', 'Select state', value);}
     catch( error ) {}
   });
 
   // house price
   $('#house-price').keyup(function() {
-    var price = $(this).val();
+    var value = $(this).val();
     delay(function(){
-      try{track('OAH rate tool', 'House price', price);}
+      try{track('OAH rate tool', 'House price', value);}
       catch( error ) {}
     }, 900 );
   });
 
   // down payment percentage
   $('#percent-down').keyup(function() {
-    var price = $(this).val();
+    var value = $(this).val();
     delay(function(){
-      try{track('OAH rate tool', 'House price', price);}
+      try{track('OAH rate tool', 'House price', value);}
       catch( error ) {}
     }, 900 );
   });
 
   // down payment $
   $('#down-payment').keyup(function() {
-    var price = $(this).val();
+    var value = $(this).val();
     delay(function(){
-      try{track('OAH rate tool', 'House price', price);}
+      try{track('OAH rate tool', 'House price', value);}
       catch( error ) {}
     }, 900 );
+  });
+
+  // rate structure
+  $('#rate-structure').on('change', function() {
+    var value = $(this).val();
+    try{track('OAH rate tool', 'Rate structure', value);}
+    catch( error ) {}
+  });
+
+  // loan term
+  $('#loan-term').on('change', function() {
+    var value = $(this).val();
+    try{track('OAH rate tool', 'Loan term', value);}
+    catch( error ) {}
+  });
+
+  // loan type
+  $('#loan-type').on('change', function() {
+    var value = $(this).val();
+    try{track('OAH rate tool', 'Loan type', value);}
+    catch( error ) {}
+  });
+
+  // arm type
+  $('#arm-type').on('change', function() {
+    var value = $(this).val();
+    try{track('OAH rate tool', 'ARM type', value);}
+    catch( error ) {}
+  });
+
+  // discount points link
+  $('#ask-discount-points').on('click', function() {
+    try{track('OAH rate tool', 'Internal link ', '/askcfpb/136/what-are-discount-points-or-points.html');}
+    catch( error ) {}
+  });
+
+  // discount points link
+  $('#ask-rate-lock').on('click', function() {
+    try{track('OAH rate tool', 'Internal link ', '/askcfpb/143/whats-a-lock-in-or-a-rate-lock.html');}
+    catch( error ) {}
   });
 
 });
