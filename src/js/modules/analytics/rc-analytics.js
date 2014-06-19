@@ -1,20 +1,5 @@
-// Add in Google Analytics tracking check wrapper
-// http://ejohn.org/blog/fixing-google-analytics-for-ghostery/
-var track = function(category, name, value) {
-  if (window._gaq) {
-    window._gaq.push(['_trackEvent', category, name, value]);
-  }
-}; // End Google Analytics tracking check
-
-// delay helper
-// http://stackoverflow.com/questions/1909441/jquery-keyup-delay
-var delay = (function(){
-  var timer = 0;
-  return function(callback, ms){
-    clearTimeout (timer);
-    timer = setTimeout(callback, ms);
-  };
-})();
+var track = require('./track');
+var delay = require('./delay');
 
 $(document).ready(function() {
 
