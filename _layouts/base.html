@@ -48,6 +48,12 @@
         // Confirm availability of JS and remove no-js class from html
         var docElement = document.documentElement;
         docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+
+        // H5BP's Asynchronous Google Analytics snippet.
+        var _gaq=[['_setAccount','UA-20466645-3'],['_setDomainName', '.consumerfinance.gov'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
 
 </head>
@@ -96,7 +102,6 @@
 
 
 <script src="static/js/main.js"></script>
-
 </body>
 
 </html>

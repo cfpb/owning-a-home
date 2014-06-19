@@ -12,6 +12,7 @@ var config = require('oah-config');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
+require('./analytics/rc-analytics');
 require('./nemo');
 require('./nemo-shim');
 

@@ -327,7 +327,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js'],
+        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/**/*.js'],
         tasks: ['compile']
       }
     },
