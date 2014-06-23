@@ -367,6 +367,11 @@ function scoreWarning() {
     '</div>'
   );
   resultWarning();
+  // analytics code for when this event fires
+  if (window._gaq) {
+    try{_gaq.push(['_trackEvent', 'OAH rate tool', 'Pop up', 'Fired']);}
+    catch( error ) {}
+  }
 }
 
 /**
@@ -379,7 +384,7 @@ function resultWarning() {
     '<div class="result-alert chart-alert">' +
       '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
       '<p class="point-right">Change your settings</p>' +
-      '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
+      '<p><a id ="reload-link" class="defaults-link" href="">Or, revert to our default values</a>' +
     '</div>'
   );
 }
@@ -465,6 +470,19 @@ function renderChart( data, cb ) {
       chart: {
         type: 'column',
         animation: false
+      },
+      plotOptions: {
+        series: {
+          events: {
+            // analytics tracking for chart mouseovers
+            mouseOver: function(event) {
+              if (window._gaq) {
+                try{_gaq.push(['_trackEvent', 'OAH rate tool', 'Roll over', 'fired ']);}
+                catch( error ) {}
+              }
+            }
+          }
+        }
       },
       title: {
         text: ''
