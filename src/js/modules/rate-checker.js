@@ -200,7 +200,7 @@ function updateLanguage( data ) {
   }
 
   function renderMedian( data ) {
-    var loansMedian = median( data.totalVals );
+    var loansMedian = median( data.totalVals ).toFixed(3);
     $('#median-rate').text( loansMedian + '%' );
   }
 
