@@ -38,6 +38,7 @@ var chart = {
   $el: $('#chart'),
   $wrapper: $('.chart'),
   $load: $('.data-enabled'),
+  $summary: $('#rc-summary'),
   isInitialized: false,
   startLoading: function() {
     removeAlerts();
@@ -46,6 +47,9 @@ var chart = {
   stopLoading: function() {
     this.$wrapper.removeClass('geolocating');
     this.$load.removeClass('loading').addClass('loaded');
+    if(this.$summary.hasClass('clear')) {
+      this.$summary.removeClass('clear');
+    }
   }
 };
 

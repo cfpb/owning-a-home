@@ -19,6 +19,14 @@ object {
   opacity: .3;
 }
 
+.clear {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  /* IE 7 */
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
 /* lead paragrapgs are typically the first paragraph in a content area */
 .lead {
   .webfont-regular();
