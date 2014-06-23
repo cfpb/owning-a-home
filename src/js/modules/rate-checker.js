@@ -527,13 +527,15 @@ function renderChart( data, cb ) {
         useHTML: true,
         formatter: function(){
           if (this.y === 1) {
-            return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
-                  ' lender is offering <br> rates at <strong>' + this.key + '</strong>.</div>';
+            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
+                  ' <span class="text">lender is offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
           } else {
-            return  '<div class="chart-tooltip"><strong>' + this.y + '</strong>' +
-                  ' lenders are offering <br> rates at <strong>' + this.key + '</strong>.</div>';
+            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
+                  ' <span class="text"> lenders are offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
           }
-
+        },
+        positioner: function(boxWidth, boxHeight, point) {
+          return {x:point.plotX - 54, y:point.plotY - 66};
         }
       },
     }, function(){

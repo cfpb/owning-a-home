@@ -223,16 +223,26 @@
   }
 }
 
-.highcharts-tooltip span {
+.highcharts-tooltip > span {
   z-index: 9999;
+  background-color: #fff;
+  color: @darkgray;
+  border: 2px solid @gold-50;
+  padding: 4px 10px 4px 8px;
+  margin: 0 2px;
 }
 
 .chart-tooltip {
-  background-color: #fff;
-  color: @darkgray;
-  border: 2px solid @green;
-  padding: 4px;
-  margin: 0 2px;
+  .lenders {
+    .webfont-demi();
+    display: inline-block;
+    font-size: 3em;
+    width: 20%;
+  }
+  .text {
+    display: inline-block;
+    width: 80%;
+  }
 }
 
 @keyframes fadein {
