@@ -12,6 +12,10 @@ object {
 }
 
 .loading {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  /* IE 7 */
+  filter: alpha(opacity=30);
   opacity: .3;
 }
 
