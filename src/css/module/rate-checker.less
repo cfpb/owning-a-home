@@ -300,6 +300,7 @@
   top: 110px;
   width: 100%;
 
+
   .new-cost {
     font-size: 1.75em;
   }
@@ -351,25 +352,11 @@
   }
 }
 
-@media (max-width: 1000px) {
-
-  .flex-input {
-    .column(12);
-  }
-
-}
-
 .interest-summary {
   margin-bottom: 1.5em;
 
   p:last-child {
     margin: 0;
-  }
-}
-
-@media (min-width: 1000px) {
-  .interest-summary {
-    margin-top: -4.5em;
   }
 }
 
@@ -383,6 +370,32 @@
 
   p {
     margin: 0;
+  }
+}
+@media (max-width: 720px) {
+  .interest-cost-secondary {
+    position: static;
+  }
+
+}
+
+@media (max-width: 1000px) {
+  .flex-input {
+    .column(12);
+  }
+
+  .new-cost {
+    font-size: 1em;
+  }
+
+  .interest-cost-secondary .new-cost {
+      font-size: 1.25em;
+    }
+}
+
+@media (min-width: 1000px) {
+  .interest-summary {
+    margin-top: -4.5em;
   }
 }
 
