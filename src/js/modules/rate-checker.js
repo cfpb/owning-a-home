@@ -486,6 +486,13 @@ function renderChart( data, cb ) {
               }
             }
           }
+        },
+        column: {
+          states: {
+            hover: {
+              color: '#ffecd1'
+            }
+          }
         }
       },
       title: {
