@@ -115,12 +115,13 @@ def before_all(context):
 
         driver = webdriver.Chrome(chromedriver_path)
 
-    context.base = Base(logger, base_url, driver, -1, delay_secs)
-    context.home = Home(logger, base_url, driver, -1, delay_secs)
-    context.loan_comparison = Loan_Comparison(logger,
+    context.base = Base(logger, directory, base_url, driver, -1, delay_secs)
+    context.home = Home(logger, directory, base_url, driver, -1, delay_secs)
+    context.loan_comparison = Loan_Comparison(logger, directory,
                                               base_url, driver, -1, delay_secs)
-    context.loan_types = Loan_Types(logger, base_url, driver, -1, delay_secs)
-    context.rate_checker = Rate_Checker(logger, base_url,
+    context.loan_types = Loan_Types(logger, directory,
+                                    base_url, driver, -1, delay_secs)
+    context.rate_checker = Rate_Checker(logger, directory, base_url,
                                         driver, -1, delay_secs)
 
     if config.has_option('browser_testing', 'take_screenshots'):

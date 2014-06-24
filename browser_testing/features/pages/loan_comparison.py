@@ -1,9 +1,13 @@
 
 from selenium.common.exceptions import NoSuchElementException
-from pages.base import *
 from selenium import webdriver
 
-class LoanComparison(Base):      
+from pages.base import Base
 
-    def __init__(self, logger, base_url=r'http://localhost/', driver=None, driver_wait=-1, delay_secs=0):
-        super(LoanComparison, self).__init__(logger, base_url, driver, driver_wait, delay_secs)
+
+class Loan_Comparison(Base):
+
+    def __init__(self, logger, directory, base_url=r'http://localhost/',
+                 driver=None, driver_wait=-1, delay_secs=0):
+        super(Loan_Comparison, self).__init__(logger, directory, base_url,
+                                              driver, driver_wait, delay_secs)

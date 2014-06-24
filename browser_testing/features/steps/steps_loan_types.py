@@ -1,7 +1,5 @@
 from behave import given, when, then
-from hamcrest import *
-from pages.base import *
-from pages.loan_types import *
+from hamcrest.core import assert_that
 
-__author__ = 'CFPBLabs'
-
+from pages.base import Base
+from pages.loan_types import Loan_Types
