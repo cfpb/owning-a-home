@@ -7,6 +7,26 @@ object {
   max-width: 100%;
 }
 
+.loaded {
+  animation: fadein .5s;
+}
+
+.loading {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  /* IE 7 */
+  filter: alpha(opacity=30);
+  opacity: .3;
+}
+
+.clear {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  /* IE 7 */
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
 /* lead paragrapgs are typically the first paragraph in a content area */
 .lead {
   .webfont-regular();
@@ -85,6 +105,11 @@ object {
 /* highlight the text */
 .highlight {
   background-color: @green-tint;
+}
+
+.highlight-container {
+  background-color: @gold-20;
+  padding: 10px;
 }
 
 /* use sans-serif typeface */
@@ -220,6 +245,10 @@ object {
   background: @gray-5;
   padding: 20px;
   .webfont-regular();
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .placeholder {
@@ -227,6 +256,11 @@ object {
     min-height: 200px;
     line-height: 200px;
     text-align: center;
+}
+
+.highlight-dropdown {
+  border-color: @gold;
+  border-width: 2px;
 }
 
 /* use group to contain floats */

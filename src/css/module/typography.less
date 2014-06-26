@@ -44,16 +44,9 @@
   margin-top: 32px;
 }
 
-/* Lists
---------------------------- */
-
-ul > li {
-  list-style: disc;
-}
-
 // wrap tabbed headings in a tabbed header
 .tabbed-header {
-  border-top: 2px solid @gray-20;
+  border-top: 1px solid @gray-50;
   position: relative;
   margin-bottom: 40px;
 }
@@ -63,16 +56,35 @@ ul > li {
   position: absolute;
   top: -2px;
   margin-top: 0;
-  padding-top: 4px;
+  padding-top: 6px;
   display: inline-block;
-  border-top: 2px solid @green;
+  border-top: 4px solid @green;
+}
+
+/* Lists
+--------------------------- */
+
+ul > li {
+  list-style: disc;
 }
 
 /* Links
 --------------------------- */
 
+.go-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
 .go-link:after {
   .cf-icon;
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
   content: "\e002";
-  margin-left: 4px;
+  border-bottom: none;
 }

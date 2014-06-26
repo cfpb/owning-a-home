@@ -7,7 +7,9 @@ Highcharts.theme = {
     fontSize: '13px'
   },
   chart: {
-    backgroundColor: ['#fff'],
+    backgroundColor: ['none'],
+    marginLeft: 30,
+    marginRight: 25,
   },
   yAxis: {
     labels: {
@@ -30,14 +32,12 @@ Highcharts.theme = {
       color: '#919395',
       width: 1,
       value: 0,
-      zIndex: 100000
+      zIndex: 100
     }]
   },
   xAxis: {
     labels: {
-      style: {
-        color: '#fff' // hide the labels
-      }
+      enabled: false
     },
     minorTickInterval: null,
     tickWidth: 0,
@@ -45,18 +45,15 @@ Highcharts.theme = {
       style: {
         color: '#BABBBD',
         fontSize: '12px',
-        ontWeight: 'medium',
+        fontWeight: 'medium',
         fontFamily: '"Avenir Next", Arial, sans-serif'
       }
     }
   },
   tooltip: {
-    backgroundColor: '#fff',
-    borderColor: '#BABBBD',
-    shadow: false,
-    style: {
-      color: 'black'
-    }
+    backgroundColor: 'transparent',
+    borderColor: 'none',
+    shadow: false
   },
 };
 

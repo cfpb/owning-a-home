@@ -60,23 +60,17 @@ usage: sheer [-h] [--debug] {inspect,index,serve} ...
 sheer: error: too few arguments
 ```
 
-## Running owning-a-home
+## Configuration
 
-Clone this repo, `cd` to it, and run:
+Currently owning-a-home's Rate Checker is powered by an API that returns mortgage rate data. To configure owning-a-home you will need to point to an API url in `config/config.js`. To do this:
 
-```
-$ sheer index . 
-```
+In the config folder, copy the `example-config.js` file and rename it `config.js`
 
-This loads all of the *content* into elasticsearch
+Change line 3 to point to an appropriate API url:
 
-To look at the resulting site, run:
-
-```
-$ sheer serve .
-```
-
-And browse to http://localhost:7000
+```javascript
+config.rateCheckerAPI = 'YOUR API URL HERE';
+``` 
 
 ## Working with the front-end
 
@@ -111,11 +105,20 @@ $ grunt vendor
 
 ### Developing
 
-We use [Grunt](http://gruntjs.com/) to compile and compress our Less and JavaScript files. The easiest way to do that is to run the `watch` task. This will watch for changes and run grunt whenever you save a file:
+To work on the app you will need sheer running as well as the `grunt watch` task. This will require 3 tabs in terminal
 
-```
+```bash
+# use the sheer virtualenv and start sheer
+workon sheer
+sheer serve
+
+# open a new tab in terminal with Command + T and type the following:
 grunt watch
+
+# open a third tab in terminal for your git commands
 ```
+
+To view the site browse to: <http://localhost:7000>
 
 ## Contributions
 We welcome contributions, in both code and design form, with the understanding that you are contributing to a project that is in the public domain, and anything you contribute to this project will also be released into the public domain. See our [CONTRIBUTING file](https://github.com/cfpb/owning-a-home/blob/master/CONTRIBUTING.md) for more details.

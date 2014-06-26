@@ -233,6 +233,7 @@ module.exports = function(grunt) {
 
               // move shims to static directory
               'src/vendor/html5shiv/html5shiv.js',
+              'src/vendor/respond/respond.src.js',
 
             ],
             dest: 'static/vendor/'
@@ -326,7 +327,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/*.js'],
+        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/**/*.js'],
         tasks: ['compile']
       }
     },
