@@ -12,6 +12,7 @@
 
 .calculator {
    background: @gray-5;
+   .webfont-regular();
 
     p {
       margin: 0;
@@ -29,9 +30,14 @@
     }
 
     section {
-      margin: 0 10px;
-      padding: 20px 0;
+      margin: 0 15px;
+      padding: 30px 0;
       border-top: 1px solid @gray-20;
+    }
+
+
+    .calc-footer {
+      padding: 15px 0; // the bottom <section> has less padding
     }
 
     section:first-child {
@@ -60,7 +66,7 @@
 }
 
 .calc-loan-details {
-  .col-6 {
+  .upper {
     margin-bottom: 15px;
   }
 }
@@ -76,7 +82,7 @@
   span {
     display: block;
     .webfont-medium();
-    font-size: 0.875em;
+    margin-top: 10px;
   }
 }
 
@@ -86,6 +92,16 @@
 
 .credit-score {
   position: relative;
+
+  .labels {
+    line-height: 0;
+    margin: 15px 0 8px;
+    font-size: .625em;
+  }
+
+  .max {
+    float: right;
+  }
 }
 
 .range {
@@ -97,6 +113,7 @@
   display: block;
   margin-left: -10px;
   white-space: nowrap;
+  font-size: .875em;
 }
 
 .rangeslider {
@@ -160,14 +177,6 @@
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
 
-  .loaded {
-    animation: fadein .5s;
-  }
-
-  .loading {
-    opacity: .3;
-  }
-
   &.geolocating {
     background: transparent url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif) scroll no-repeat center center;
     #chart {
@@ -175,11 +184,65 @@
     }
   }
 
+  figure {
+    .reset;
+  }
+
 }
 
 .data-label {
   text-align: center;
   background-color: #fff;
+}
+
+.chart-caption {
+  font-size: 0.75em;
+  //margin-top: -6px; // accomodate for extra space added by highcharts
+  padding: 0 1em 1em 1em;
+}
+
+.caption-title {
+  .webfont-demi();
+  text-transform: uppercase;
+  color: @gray-80;
+  letter-spacing: 1px;
+}
+
+.rc-data-link {
+  text-align: right;
+  .webfont-medium();
+
+  a {
+    border-bottom-width: 1px;
+  }
+}
+
+@media (max-width: 720px) {
+  .rc-data-link {
+    display: none;
+  }
+}
+
+.highcharts-tooltip > span {
+  z-index: 9999;
+  background-color: #fff;
+  color: @darkgray;
+  border: 2px solid @gold-50;
+  padding: 4px 10px 4px 8px;
+  margin: 0 2px;
+}
+
+.chart-tooltip {
+  .lenders {
+    .webfont-demi();
+    display: inline-block;
+    font-size: 3em;
+    width: 20%;
+  }
+  .text {
+    display: inline-block;
+    width: 80%;
+  }
 }
 
 @keyframes fadein {
@@ -191,6 +254,8 @@
     "Compare interest rate costs"
     --------------------------- */
 .compare {
+
+  .webfont-regular();
 
   margin-top: 30px;
 
@@ -216,17 +281,25 @@
   padding: 0 10px 10px 10px;
 
   h5 {
-    font-size: .75em;
+    font-size: .625em;
     text-transform: none;
     .webfont-regular();
-    margin: 10px 0 ;
+    margin: 10px 0;
+    letter-spacing: 0;
   }
 }
 
+.rate-compare {
+  position: relative;
+}
 
 .interest-cost-secondary {
   background: @gray-5;
   border-top: 2px solid #FFCE8D;
+  position: absolute; // absolutely positioning these for the ARM alert
+  top: 110px;
+  width: 100%;
+
 
   .new-cost {
     font-size: 1.75em;
@@ -279,12 +352,51 @@
   }
 }
 
-@media (max-width: 1000px) {
+.interest-summary {
+  margin-bottom: 1.5em;
 
+  p:last-child {
+    margin: 0;
+  }
+}
+
+.arm-info-comparison {
+  .webfont-regular();
+  padding: 2em 0;
+  font-size: 0.75em;
+  display: block;
+  position: absolute;
+  width: 200%;
+
+  p {
+    margin: 0;
+  }
+}
+@media (max-width: 720px) {
+  .interest-cost-secondary {
+    position: static;
+  }
+
+}
+
+@media (max-width: 1000px) {
   .flex-input {
     .column(12);
   }
 
+  .new-cost {
+    font-size: 1em;
+  }
+
+  .interest-cost-secondary .new-cost {
+      font-size: 1.25em;
+    }
+}
+
+@media (min-width: 1000px) {
+  .interest-summary {
+    margin-top: -4.5em;
+  }
 }
 
 /*
@@ -298,6 +410,10 @@
   .tabs {
     margin-top: 2em;
   }
+
+  > p {
+    margin-bottom: 55px;
+  }
 }
 
 .next-steps-list {
@@ -305,7 +421,7 @@
 }
 
 .next-steps-heading {
-  font-size: 1.375em;
+  font-size: 1.125em;
   .webfont-regular();
   margin-bottom: 1em;
 }
@@ -335,7 +451,7 @@
   position: absolute;
   text-align: center;
   left: -30px;
-  top: 4px;
+  top: 1px;
   height: 20px;
   width: 20px;
   line-height: 20px;
@@ -348,12 +464,12 @@
 
     .about {
       border-top: 1px solid @gray-20;
-      margin-top: 3.5em;
+      margin-top: 6em;
     }
 
     .feedback {
       background: @gray-10;
-      padding: 24px 15px 40px 15px;
+      padding: 24px 15px 80px 15px;
     }
 
 /*
@@ -387,10 +503,22 @@
 }
 
 .credit-alert {
-  font-size: 0.875em;
+  font-size: 0.75em;
   padding: .714em .714em .714em 2.142em;
   background: @gray-10;
   color: @darkgray;
   margin: 2.5em 0 1em 0;
+}
+
+.arm-warning-text {
+  padding-left: 1.2em;
+}
+
+.arm-warning-text:before {
+  .cf-icon;
+  content: "\e103";
+  color:  @gold;
+  text-indent: -1.2em;
+  margin-right: .2em;
 }
 

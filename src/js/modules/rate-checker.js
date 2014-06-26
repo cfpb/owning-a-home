@@ -7,11 +7,12 @@ var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
 var median = require('median');
-var amortize = require('./amortize.js');
+var amortize = require('amortize');
 var config = require('oah-config');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
+require('./analytics/rc-analytics');
 require('./nemo');
 require('./nemo-shim');
 
@@ -19,14 +20,14 @@ require('./nemo-shim');
 // their default values.
 var params = {
   'credit-score': 700,
-  'down-payment': 20000,
-  'house-price': 200000,
+  'down-payment': '20,000',
+  'house-price': '200,000',
   'loan-amount': undefined,
   'location': 'AL',
   'rate-structure': 'fixed',
   'loan-term': 30,
   'loan-type': 'conf',
-  'arm-type': '3/1',
+  'arm-type': '3-1',
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -36,36 +37,41 @@ var params = {
 var chart = {
   $el: $('#chart'),
   $wrapper: $('.chart'),
+  $load: $('.data-enabled'),
+  $summary: $('#rc-summary'),
   isInitialized: false,
   startLoading: function() {
     removeAlerts();
-    this.$el.addClass('loading');
-    this.$el.removeClass('loaded');
+    this.$load.addClass('loading').removeClass('loaded');
   },
   stopLoading: function() {
     this.$wrapper.removeClass('geolocating');
-    this.$el.removeClass('loading');
-    this.$el.addClass('loaded');
+    this.$load.removeClass('loading').addClass('loaded');
+    if(this.$summary.hasClass('clear')) {
+      this.$summary.removeClass('clear');
+    }
   }
 };
 
-// Set some properties for the slider.
+// Set some properties for the credit score slider.
 var slider = {
   $el: $('#credit-score'),
   min: params['credit-score'],
   max: params['credit-score'] + 20,
   step: 20,
   update: function() {
-    var leftVal = $('.rangeslider__handle').css('left');
+    var leftVal = +$('.rangeslider__handle').css('left').replace( 'px', '' );
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-    $('#slider-range').text( this.min + ' - ' + this.max ).css('left', leftVal);
+    $('#slider-range').text( this.min + ' - ' + this.max ).css( 'left', leftVal - 9 + 'px' );
   }
 };
 
+// Keep the latest AJAX request accessible so we can terminate it if need be.
+var request;
+
 /**
  * Initialize the rate checker app.
- * @param  {null}
  * @return {null}
  */
 function init() {
@@ -94,7 +100,6 @@ function init() {
 
 /**
  * Get data from the API.
- * @param  {null}
  * @return {object} jQuery promise.
  */
 var getData = function() {
@@ -102,14 +107,15 @@ var getData = function() {
   params.update();
 
   var promise = $.get( config.rateCheckerAPI, {
-    downpayment: params['down-payment'],
+    price: params['house-price'],
     loan_amount: params['loan-amount'],
     minfico: slider.min,
     maxfico: slider.max,
     state: params['location'],
     rate_structure: params['rate-structure'],
     loan_term: params['loan-term'],
-    loan_type: params['loan-type']
+    loan_type: params['loan-type'],
+    arm_type: params['arm-type']
   });
 
   return promise;
@@ -118,14 +124,22 @@ var getData = function() {
 
 /**
  * Render all applicable rate checker areas.
- * @param  {null}
  * @return {null}
  */
 var updateView = function() {
 
   chart.startLoading();
 
-  $.when( getData() ).then(function( results ){
+  // Abort the previous request.
+  if ( typeof request === 'object' ) {
+    request.abort();
+  }
+
+  // And start a new one.
+  request = getData();
+
+  // If it succeeds, update the DOM.
+  request.done(function( results ){
 
     var data = {
       labels: [],
@@ -147,6 +161,10 @@ var updateView = function() {
         data.largest.val = val;
         data.largest.label = key + '%';
       }
+
+      for(var i = 0; i < val; i++) {
+        data.totalVals.push(+key);
+      }
     });
 
     // display an error message if less than 2 results are returned
@@ -164,8 +182,11 @@ var updateView = function() {
     updateComparisons( data );
     renderInterestAmounts();
 
-    chart.stopLoading();
+  });
 
+  // Whether the request succeeds or fails, stop the loading animation.
+  request.then(function(){
+    chart.stopLoading();
   });
 
 };
@@ -183,15 +204,32 @@ function updateLanguage( data ) {
   }
 
   function renderMedian( data ) {
-    var loansMedian = median( data.intLabels );
+    var loansMedian = median( data.totalVals ).toFixed(3);
     $('#median-rate').text( loansMedian + '%' );
+  }
+
+  function updateTerm() {
+    // change from 5 years to x if an ARM
+    if ( getSelection('rate-structure') === 'arm' ) {
+      var armVal = getSelection('arm-type');
+      var term = armVal.match(/[^-]*/i)[0];
+      $('.loan-years').text(term).fadeIn();
+    } else {
+      var termVal = getSelection('loan-term');
+      $('.interest-cost-primary .loan-years').text(termVal).fadeIn();
+      $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
+    }
   }
 
   renderLocation();
   renderMedian( data );
-
+  updateTerm(data);
 }
 
+/**
+ * Calculate and render the loan amount.
+ * @return {null}
+ */
 function renderLoanAmount() {
   var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
   params['loan-amount'] = loan > 0 ? loan : 0;
@@ -200,7 +238,6 @@ function renderLoanAmount() {
 
 /**
  * Update either the down payment % or $ amount depending on the input they've changed.
- * @param  {null}
  * @return {null}
  */
 function renderDownPayment( el ) {
@@ -240,43 +277,81 @@ function updateComparisons( data ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
     $('.compare select').append(option);
   });
+  // In the second comparison dropdown, select the last (largest) rate.
+  $('#rate-compare-2').val( uniqueLabels[uniqueLabels.length - 1] );
 }
 
 /**
  * Calculate and display the interest rates in the comparison section.
- * @param  {null}
  * @return {null}
  */
 function renderInterestAmounts() {
+  var shortTermVal = [],
+      fullTerm = +(getSelection('loan-term')) * 12;
   $('.interest-cost').each(function( index ) {
     var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
         length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
-        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: 360, amortizeTerm: length}),
+        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: fullTerm, amortizeTerm: length}),
         totalInterest = amortizedVal['interest'],
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
+    // add short term rates, interest, and term to the shortTermVal array
+    if (length < 180) {
+      shortTermVal.push({rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12});
+    }
   });
+  renderInterestSummary(shortTermVal);
 }
 
+/**
+ * Calculate and display the plain language loan comparison summary.
+ * @param  {array} intVals array with two objects containing rate, interest accrued, and term
+ * @return {null}
+ */
+function renderInterestSummary(intVals) {
+
+  var sortedRates,
+      diff;
+
+  sortedRates = intVals.sort(function( a, b ) {
+    return a.rate - b.rate;
+  });
+
+  diff = formatUSD(sortedRates[sortedRates.length - 1].interest - sortedRates[0].interest, {decimalPlaces: 0});
+  $('#comparison-term').text(sortedRates[0].term);
+  $('#rate-diff').text(diff);
+  $('#higher-rate').text(sortedRates[sortedRates.length - 1].rate + '%');
+  $('#lower-rate').text(sortedRates[0].rate + '%');
+}
 
 /**
  * The dropdowns in the control panel need to change if they have
  * an adjustable rate mortgage.
- * @param  {null}
  * @return {null}
  */
 function checkARM() {
-  if ( getSelection('rate-structure') === 'adjustable' ) {
+  if ( getSelection('rate-structure') === 'arm' ) {
+    if ( getSelection('loan-term') !== '30' ) {
+      dropdown('loan-term').enableHighlight();
+    }
+    if ( getSelection('loan-type') !== 'conf' ) {
+      dropdown('loan-type').enableHighlight();
+    }
     dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disableOption('15');
     dropdown('loan-type').disableOption(['fha', 'va']);
     dropdown('arm-type').show();
     $('#arm-warning').removeClass('hidden');
+    $('.interest-cost-primary').addClass('hidden');
+    $('#arm-info').removeClass('hidden');
   } else {
+    dropdown(['loan-term', 'loan-type']).disableHighlight();
     dropdown(['loan-term', 'loan-type']).enableOption();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
+    $('#arm-info').addClass('hidden');
+    $('.interest-cost-primary').removeClass('hidden');
   }
 }
 
@@ -291,11 +366,16 @@ function scoreWarning() {
   $('#slider-range').after(
     '<div class="result-alert credit-alert">' +
       '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
-      'If your score is low, you may still have options. ' +
+      'Even if your score is low, you may still have options. ' +
       '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
     '</div>'
   );
   resultWarning();
+  // analytics code for when this event fires
+  if (window._gaq) {
+    try{_gaq.push(['_trackEvent', 'OAH rate tool', 'Pop up', 'Fired']);}
+    catch( error ) {}
+  }
 }
 
 /**
@@ -306,9 +386,9 @@ function scoreWarning() {
 function resultWarning() {
   $('#chart').addClass('warning').append(
     '<div class="result-alert chart-alert">' +
-      '<p class="alert"><strong>We\'re sorry</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
-      '<p class="point-right">Change your settings in the control panel</p>' +
-      '<p><a class="defaults-link" href="">Or, revert to our default values</a>' +
+      '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
+      '<p class="point-right">Change your settings</p>' +
+      '<p><a id ="reload-link" class="defaults-link" href="">Or, revert to our default values</a>' +
     '</div>'
   );
 }
@@ -326,6 +406,10 @@ function removeAlerts() {
   }
 }
 
+/**
+ * Have the reset button clear selections.
+ * @return {null}
+ */
 $('.defaults-link').click(function(e){
   setSelections({ usePlaceholder: true });
   updateView();
@@ -391,13 +475,30 @@ function renderChart( data, cb ) {
         type: 'column',
         animation: false
       },
+      plotOptions: {
+        series: {
+          events: {
+            // analytics tracking for chart mouseovers
+            mouseOver: function(event) {
+              if (window._gaq) {
+                try{_gaq.push(['_trackEvent', 'OAH rate tool', 'Roll over', 'fired ']);}
+                catch( error ) {}
+              }
+            }
+          }
+        },
+        column: {
+          states: {
+            hover: {
+              color: '#ffecd1'
+            }
+          }
+        }
+      },
       title: {
         text: ''
       },
       xAxis: {
-        title: {
-          text: 'RATES AVAILABLE TO A BORROWER LIKE YOU'
-        },
         categories: [ 1, 2, 3, 4, 5 ]
       },
       yAxis: [{
@@ -417,7 +518,6 @@ function renderChart( data, cb ) {
         dataLabels: {
           enabled: true,
           useHTML: true,
-          //format: '{x}',
           crop: false,
           overflow: 'none',
           defer: true,
@@ -431,8 +531,18 @@ function renderChart( data, cb ) {
         text: ''
       },
       tooltip:{
+        useHTML: true,
         formatter: function(){
-          return this.key; // show only the percentage
+          if (this.y === 1) {
+            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
+                  ' <span class="text">lender is offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
+          } else {
+            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
+                  ' <span class="text"> lenders are offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
+          }
+        },
+        positioner: function(boxWidth, boxHeight, point) {
+          return {x:point.plotX - 54, y:point.plotY - 66};
         }
       },
     }, function(){
@@ -476,7 +586,6 @@ function getSelection( param ) {
 
 /**
  * Get values of all HTML elements in the control panel.
- * @param  {null}
  * @return {object} Key-value hash of element ids and values.
  */
 function getSelections() {
@@ -520,7 +629,6 @@ function setSelection( param, options ) {
 
 /**
  * Set value(s) of all HTML elements in the control panel.
- * @param  {null}
  * @return {null}
  */
 function setSelections( options ) {
