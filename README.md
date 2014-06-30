@@ -72,7 +72,7 @@ Change line 3 to point to an appropriate API url:
 config.rateCheckerAPI = 'YOUR API URL HERE';
 ``` 
 
-## Working with the front-end
+## Working with the front end
 
 The owning-a-home front-end currently uses the following:
 
@@ -82,30 +82,26 @@ The owning-a-home front-end currently uses the following:
 - node/CommonJS style modules (compiled with [Browserify](http://browserify.org/))
 - [Bower](http://bower.io/) & [npm](https://www.npmjs.org/) for package management
 
-### Installing Dependencies
+### Installing Dependencies (one time)
 
-Install [node.js](http://nodejs.org/) however you'd like. (we use [homebrew](http://brew.sh/)):
-
-```
-$ brew install node
-```
-
-Install [Grunt](http://gruntjs.com/), a JavaScript task runner:
+1. Install [node.js](http://nodejs.org/) however you'd like.
+2. Install [Grunt](http://gruntjs.com/), a JavaScript task runner:
 
 ```
 $ npm install -g grunt-cli
 ```
 
-Install the dependencies with npm and the custom `grunt vendor` task:
+## Developing
+
+Each time you fetch from upstream, install the dependencies with npm and the custom `grunt vendor` task:
 
 ```
 $ npm install
 $ grunt vendor
+$ grunt
 ```
 
-### Developing
-
-To work on the app you will need sheer running as well as the `grunt watch` task. This will require 3 tabs in terminal
+To work on the app you will need sheer running as well as the `grunt watch` task.
 
 ```bash
 # use the sheer virtualenv and start sheer
