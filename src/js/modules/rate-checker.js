@@ -178,6 +178,7 @@ var updateView = function() {
 
     removeAlerts();
     updateLanguage( data );
+    renderAccessibleData( data );
     renderChart( data );
     updateComparisons( data );
     renderInterestAmounts();
@@ -449,6 +450,28 @@ function renderSlider( cb ) {
     cb();
   }
 
+}
+
+/**
+ * Render chart data in an accessible format.
+ * @param  {object} data Data processed from the API.
+ * @return {null}
+ */
+
+function renderAccessibleData( data ) {
+  var $tableHead = $('#accessible-data .table-head');
+  var $tableBody = $('#accessible-data .table-body');
+
+  $tableHead.empty();
+  $tableBody.empty();
+
+  $.each(data.labels, function( index, value ) {
+    $tableHead.append('<th>' + value + '</th>');
+  });
+
+  $.each(data.vals, function( index, value ) {
+    $tableBody.append('<td>' + value + '</td>');
+  });
 }
 
 /**
