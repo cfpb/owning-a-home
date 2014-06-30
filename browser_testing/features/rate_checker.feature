@@ -4,29 +4,29 @@ Feature: verify the Rate Checker tool works according to requirements
   So that I can make informed choices when shopping for a mortgage loan
   
 @smoke_testing @rc
-Scenario: First time visitor should see Alabama by default since location tracking has not been enabled
+Scenario: First time visitor should see District of Columbia by default since location tracking has NOT been enabled
   Given I navigate to the "Rate Checker" page
-  Then I should see the lender rate offered to "Alabama" residents
+  Then I should see the lender rate offered to "District of Columbia" residents
 
-@smoke_testing @rc   
+@smoke_testing @rc1
 Scenario: The default credit range score should be displayed as 700 - 720
   Given I navigate to the "Rate Checker" page
   Then I should see the default Credit Score Range displayed as "700 - 720"
  
-@smoke_testing @rc  
-Scenario: The Location dropdown list is set to Alabama by default
+@smoke_testing @rc
+Scenario: The Location dropdown list is set to District of Columbia by default
   Given I navigate to the "Rate Checker" page
-  Then I should see "Alabama" as the selected location 
-
-@smoke_testing @rc  
-Scenario: The Loan Term dropdown list is set to 30 Years by default
-  Given I navigate to the "Rate Checker" page
-  Then I should see "30 Years" as the selected Loan Term
+  Then I should see "District of Columbia" as the selected location 
 
 @smoke_testing @rc  
 Scenario: The Rate Structure dropdown list is set to Fixed by default
   Given I navigate to the "Rate Checker" page
   Then I should see "Fixed" as the selected Rate Structure
+
+@smoke_testing @rc  
+Scenario: The Loan Term dropdown list is set to 30 Years by default
+  Given I navigate to the "Rate Checker" page
+  Then I should see "30 Years" as the selected Loan Term
 
 @smoke_testing @rc  
 Scenario: The Loan Type dropdown list is set to Conventional by default
@@ -44,23 +44,40 @@ Scenario: The Down Payment amount field shows $20,000 as placeholder
   Then I should see $"20,000" as the default Down Payment amount
 
 @smoke_testing @rc  
-Scenario: The Down Payment percentage field shows 20% as placeholder
+Scenario: The Down Payment percentage field shows 10% as placeholder
   Given I navigate to the "Rate Checker" page
   Then I should see "10" as the default Down Payment percentage
 
-@smoke_testing @rc  
+@smoke_testing @rc
+Scenario: The default loan amount is displayed as $180,000
+  Given I navigate to the "Rate Checker" page
+  Then I should see "$180,000" displayed as Loan Amount
+
+@smoke_testing @rc1 
+Scenario: Move slider to the left to verify the credit score range decreases
+  Given I navigate to the "Rate Checker" page
+  When I move the credit score slider to the "left"
+  Then I should see the credit score range "decrease"
+
+@smoke_testing @rc1
 Scenario: Move slider to the right to verify the credit score range increases
   Given I navigate to the "Rate Checker" page
   When I move the credit score slider to the "right"
   Then I should see the credit score range "increase"
 
-@smoke_testing @rc   
-Scenario: Move slider to the right to verify the credit score range increases
+@smoke_testing @rc2
+Scenario: Move slider to the lowest range to verify the correct alerts are displayed
   Given I navigate to the "Rate Checker" page
-  When I move the credit score slider to the "left"
-  Then I should see the credit score range "decrease"
+  When I move the credit score slider to the "lowest" range
+  Then I should see the credit score slider handle turns red
 
-@smoke_testing @rc  
+@smoke_testing @rc2
+Scenario: Move slider to the lowest range to verify the correct alerts are displayed
+  Given I navigate to the "Rate Checker" page
+  When I move the credit score slider to the "lowest" range
+  Then I should see an alert for borowers with less than 620 score
+
+@smoke_testing @rc
 Scenario Outline: Selecting a different state should update the Rate Checker chart with the state selected
   Given I navigate to the "Rate Checker" page
   When I select "<state_name>" from the Location dropdown list
@@ -113,3 +130,18 @@ Examples:
   | 150,000       | 6000                | 4                      |
   | 780,000       | 70200               | 9                      |
   | 1,250,000     | 237500              | 19                     |
+
+@smoke_testing @rc
+Scenario: When Adjustable Rate Structure is selected the ARM Type selection becomes available
+  Given I navigate to the "Rate Checker" page
+  When I select "Adjustable" Rate Structure
+  Then I should see "3/1" as the selected ARM Type
+
+@rc
+Scenario: Test all dropdown lists in the Rate Checker page
+  Given I navigate to the "Rate Checker" page
+  When I select "Adjustable" Rate Structure
+    And I select "7/1" ARM Type
+    And I select "Fixed" Rate Structure
+    And I select "15 Years" Loan Term
+    And I select "FHA" Loan Type

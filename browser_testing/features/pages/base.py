@@ -13,7 +13,7 @@ import sys
 import time
 
 # DEFAULT VALUES
-default_driver_wait = 5
+default_driver_wait = 20
 
 
 class Base(object):
@@ -25,13 +25,11 @@ class Base(object):
         if driver_wait == -1:
             self.driver_wait = default_driver_wait
 
-        self.system_login = ''
-        self.logger = logger
-        self.utils = Utils(delay_secs)
         self.base_url = base_url
         self.driver = driver
         self.chain = ActionChains(self.driver)
         self.logger = logger
+        self.utils = Utils(delay_secs)
         self.results_folder = results_folder
 
     def get_page_title(self):
@@ -50,18 +48,14 @@ class Base(object):
             self.logger.info("Getting %s" % full_url)
             self.driver.get(full_url)
         except Exception:
-            print "!!!!!!!!! Unexpected error running %s:" % full_url,
-            sys.exc_info()[0]
-            print "Currently at %s" % self.driver.current_url
+            self.logger.info("Unexpected error running: %s" % full_url)
+            self.logger.info("Exception type: %s" % sys.exc_info()[0])
+            self.logger.info("Currently at: %s" % (self.driver.current_url))
             self.get_screenshot(full_url)
             raise
 
-    def click_tab(self, tab_xpath):
-        element = self.driver.find_element_by_xpath(tab_xpath)
-        element.click()
-
-    def get_screenshot(self, filename=''):
-        if filename == '':
+    def get_screenshot(self, filename=None):
+        if filename == None:
             filename = self.driver.current_url
 
         filename = "%s" % (filename.replace('/', '_'))

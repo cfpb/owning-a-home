@@ -10,9 +10,10 @@ from selenium import webdriver
 from pages.screenshot import Screenshot
 from pages.base import Base
 from pages.home import Home
-from pages.loan_comparison import Loan_Comparison
-from pages.loan_types import Loan_Types
-from pages.rate_checker import Rate_Checker
+from pages.loan_comparison import LoanComparison
+from pages.loan_types import LoanTypes
+from pages.navigation import Navigation
+from pages.rate_checker import RateChecker
 
 
 try:
@@ -22,60 +23,14 @@ except ImportError:
 
 
 def before_all(context):
+    setup_config(context)
+    setup_logger(context)
 
-    # create logger
-    logger = logging.getLogger('OAH_browser_tests')
-    logger.setLevel(logging.INFO)
-    # create console handler and set level to debug
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
-    # create formatter
-    formatter = logging.Formatter(
-        '[%(name)s] %(asctime)s - %(levelname)s - %(message)s')
-    # add formatter to ch
-    ch.setFormatter(formatter)
-    # add ch to logger
-    logger.addHandler(ch)
-    context.logger = logger
-
-    config = ConfigParser.ConfigParser()
-    config.readfp(open('features/environment.cfg'))
-
-    if config.has_option('general', 'testing_output'):
-        directory = config.get('general', 'testing_output')
-    else:
-        directory = 'test-results'
-
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
-    if config.has_option('browser_testing', 'delay'):
-        delay_secs = config.getint('browser_testing', 'delay')
-    else:
-        delay_secs = 5
-
-    if config.has_option('browser_testing', 'base_url'):
-        base_url = config.get('browser_testing', 'base_url')
-    else:
-        base_url = 'http://localhost'
-
-    if config.has_option('browser_testing', 'force_logout'):
-        context.force_logout = config.get('browser_testing', 'force_logout')
-    else:
-        context.force_logout = True
-
-    if config.has_option('browser_testing', 'browser'):
-        browser = config.get('browser_testing', 'browser')
-    else:
-        browser = 'Chrome'
-
-    context.browser = browser
-
-    if browser == 'Phantom':
+    if context.browser == 'Phantom':
         driver = webdriver.PhantomJS()
 
-    elif browser == 'Sauce':
-        logger.info("Using Sauce Labs")
+    elif context.browser == 'Sauce':
+        context.logger.info("Using Sauce Labs")
         desired_capabilities = {
             'name': os.getenv('SELENIUM_NAME',
                               'OAH browser tests ') + str(datetime.now()),
@@ -92,7 +47,7 @@ def before_all(context):
             'tunnel-identifier': os.getenv('SELENIUM_TUNNEL'),
         }
 
-        logger.info("Running Sauce with capabilities: %s" %
+        context.logger.info("Running Sauce with capabilities: %s" %
                     desired_capabilities)
 
         sauce_config = {"username": os.getenv('SAUCE_USER'),
@@ -106,31 +61,19 @@ def before_all(context):
         )
 
     else:
+        driver = webdriver.Chrome(context.chromedriver_path)
 
-        if config.has_option('chrome_driver', 'chromedriver_path'):
-            chromedriver_path = config.get('chrome_driver',
-                                           'chromedriver_path')
-        else:
-            chromedriver_path = ''
-
-        driver = webdriver.Chrome(chromedriver_path)
-
-    context.base = Base(logger, directory, base_url, driver, -1, delay_secs)
-    context.home = Home(logger, directory, base_url, driver, -1, delay_secs)
-    context.loan_comparison = Loan_Comparison(logger, directory,
-                                              base_url, driver, -1, delay_secs)
-    context.loan_types = Loan_Types(logger, directory,
-                                    base_url, driver, -1, delay_secs)
-    context.rate_checker = Rate_Checker(logger, directory, base_url,
-                                        driver, -1, delay_secs)
-
-    if config.has_option('browser_testing', 'take_screenshots'):
-        take_screenshots = config.getboolean('browser_testing',
-                                             'take_screenshots')
-    else:
-        take_screenshots = False
-
-    context.screenshot = Screenshot(context.base, take_screenshots)
+    context.base = Base(context.logger, context.directory, context.base_url, driver, -1, context.delay_secs)
+    context.home = Home(context.logger, context.directory, context.base_url, driver, -1, context.delay_secs)
+    context.loan_comparison = LoanComparison(context.logger, context.directory,
+                                              context.base_url, driver, -1, context.delay_secs)
+    context.loan_types = LoanTypes(context.logger, context.directory,
+                                    context.base_url, driver, -1, context.delay_secs)
+    context.rate_checker = RateChecker(context.logger, context.directory, context.base_url,
+                                        driver, -1, context.delay_secs)
+    context.navigation = Navigation(context.logger, context.directory, context.base_url,
+                                        driver, -1, context.delay_secs)
+    context.screenshot = Screenshot(context.base, context.take_screenshots)
 
 
 def before_feature(context, feature):
@@ -155,7 +98,7 @@ def before_scenario(context, scenario):
 
 
 def after_scenario(context, scenario):
-    context.logger.info('finished scenario %s with row %s' %
+    context.logger.info('Finished scenario %s with row %s' %
                         (scenario, scenario._row))
 
 
@@ -184,3 +127,66 @@ def after_all(context):
         result = connection.getresponse()
         context.logger.info(result.read())
         context.logger.info("Sauce update status: %s" % result.status)
+
+
+def setup_logger(context):
+    # create logger
+    logger = logging.getLogger('OAH_browser_tests: ')
+    logger.setLevel(context.log_level)
+
+    # create console handler and set level to debug
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+
+    # create formatter
+    formatter = logging.Formatter(
+        '[%(name)s] %(asctime)s - %(levelname)s - %(message)s')
+    
+    # add formatter to ch
+    ch.setFormatter(formatter)
+    
+    # add ch to logger
+    logger.addHandler(ch)
+    context.logger = logger
+
+def setup_config(context):
+    config = ConfigParser.ConfigParser()
+    config.readfp(open('features/environment.cfg'))
+
+    if config.has_option('logging', 'log_level'):
+        context.log_level = int(config.get('logging', 'log_level'))
+
+    if config.has_option('general', 'testing_output'):
+        context.directory = config.get('general', 'testing_output')
+    else:
+        context.directory = 'test-results'
+
+    if not os.path.exists(context.directory):
+        os.makedirs(context.directory)
+
+    if config.has_option('browser_testing', 'delay'):
+        context.delay_secs = config.getint('browser_testing', 'delay')
+    else:
+        context.delay_secs = 5
+
+    if config.has_option('browser_testing', 'base_url'):
+        context.base_url = config.get('browser_testing', 'base_url')
+    else:
+        context.base_url = 'http://localhost'
+
+    if config.has_option('browser_testing', 'browser'):
+        context.browser = config.get('browser_testing', 'browser')
+    else:
+        context.browser = 'Chrome'
+
+    if config.has_option('chrome_driver', 'chromedriver_path'):
+        context.chromedriver_path = config.get('chrome_driver',
+                                           'chromedriver_path')
+    else:
+        context.chromedriver_path = ''
+
+    if config.has_option('browser_testing', 'take_screenshots'):
+        context.take_screenshots = config.getboolean('browser_testing',
+                                             'take_screenshots')
+    else:
+        take_screenshots = False

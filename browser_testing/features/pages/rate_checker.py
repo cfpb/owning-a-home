@@ -1,68 +1,95 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from pages.base import Base
 
-# ELEMENT ID'S
+# ELEMENT ID'S FOR TEXTBOXES
 DOWN_PAYMENT_AMOUNT_TBOX = "down-payment"  # DOWN PAYMENT AMOUNT TEXTBOX
 DOWN_PAYMENT_PERCENT_TBOX = "percent-down"  # DOWN PAYMENT PERCENTAGE TEXTBOX
 HOUSE_PRICE_TBOX = "house-price"  # HOUSE PRICE TEXTBOX
-LOAN_TYPE_DDL = "loan-type"  # LOAN TYPE DROPDOWN LIST
-RATE_STRUCTURE_DDL = "rate-structure"  # RATE STRUCTURE DROPDOWN LIST
+
+# ELEMENT ID'S FOR DROP DOWN LISTS
+ARM_TYPE_DDL = "arm-type"  # ARM TYPE DROPDOWN LIST
 LOAN_TERM_DDL = "loan-term"  # LOAN TERM DROPDOWN LIST
+LOAN_TYPE_DDL = "loan-type"  # LOAN TYPE DROPDOWN LIST
 LOCATION_DDL = "location"  # LOCATION DROPDOWN LIST
+RATE_STRUCTURE_DDL = "rate-structure"  # RATE STRUCTURE DROPDOWN LIST
+
+# ELEMENT ID'S FOR LABELS
 LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
+# This label displays range as 700 - 720
+SLIDER_RANGE_LABEL = "slider-range"
 
 # XPATH LOCATORS
 RATE_LOCATION = "//h2/*[@class ='location']"
-SLIDER = "//div[contains(@class, 'slider') and contains(@id, 'slider')]"
-# This label displays range as 700 - 720
-SLIDER_RANGE = "//div[@id = 'slider-range']"
+SLIDER_HANDLE = "//div[contains(@class, 'rangeslider__handle')]"
+SLIDER = "//div[@class = 'rangeslider']"
+RANGE_ALERT = "//div[@class='result-alert credit-alert']/p"
 
 
-class Rate_Checker(Base):
+class RateChecker(Base):
 
     def __init__(self, logger, directory, base_url=r'http://localhost/',
                  driver=None, driver_wait=-1, delay_secs=0):
-        super(Rate_Checker, self).__init__(logger, directory, base_url,
+        super(RateChecker, self).__init__(logger, directory, base_url,
                                            driver, driver_wait, delay_secs)
+        self.logger = logger
+
+    # ALERTS
+    def get_warning_button(self):
+        element = self.driver.find_element_by_xpath(SLIDER_HANDLE)
+        return element.get_attribute("class")
+
+    def get_range_alert(self):
+        element = self.driver.find_element_by_xpath(RANGE_ALERT)
+        return element.text
 
     # CHART AREA
     def get_chart_location(self):
+        # This label is invisible on page load
+        # So we wait for the element to become visble before extracting the text
+        WebDriverWait(self.driver, self.driver_wait).until(EC.visibility_of_element_located((By.XPATH, RATE_LOCATION)))
         element = self.driver.find_element_by_xpath(RATE_LOCATION)
         return element.text
 
     # CREDIT SCORE RANGE
     def get_credit_score_range(self):
-        element = self.driver.find_element_by_xpath(SLIDER_RANGE)
-        # The Credit Score Range is displayed as "720 - 740"
-        # so we are only going to return the first 3 characters
-        score_range = element.text[:3]
-        # Return the score range as Int to perform
-        # greater than/less than operations
-        return int(score_range)
-
-    def get_credit_score_text(self):
-        element = self.driver.find_element_by_xpath(SLIDER_RANGE)
+        element = self.driver.find_element_by_id(SLIDER_RANGE_LABEL)
         # Return the entire text of the credit score range
         return element.text
 
     def set_credit_score_range(self, slider_direction):
-        element = self.driver.find_element_by_xpath(SLIDER)
+        # Get the pixel width of the slider control
+        slider_element = self.driver.find_element_by_xpath(SLIDER)
+        slider_width = int(slider_element.get_attribute("scrollWidth"))
+
+        element = self.driver.find_element_by_xpath(SLIDER_HANDLE)
         actions = ActionChains(self.driver)
 
+        # Move the slider 1/4 of the total width to the right
         if(slider_direction == "right"):
-            actions.drag_and_drop_by_offset(element, 100, 0)
+            actions.drag_and_drop_by_offset(element, (slider_width/4), 0)
+        # Move the slider 1/4 of the total width to the left
         elif(slider_direction == "left"):
-            actions.drag_and_drop_by_offset(element, -100, 0)
+            actions.drag_and_drop_by_offset(element, (slider_width/-4), 0)
+        # Move the slider 1/2 of the total width to the left
+        elif(slider_direction == "lowest"):
+            actions.drag_and_drop_by_offset(element, (slider_width/-2), 0)
 
         actions.perform()
 
     # LOCATION
     def get_selected_location(self):
-        # First Get the selected Index from the Location dropdown list
+        # Wait for the Geolocator to display the location above the chart
+        WebDriverWait(self.driver, self.driver_wait).until(EC.visibility_of_element_located((By.XPATH, RATE_LOCATION)))
+        
+        # Get the selected Index from the Location dropdown list
         element = Select(self.driver.find_element_by_id(LOCATION_DDL))
         option = element.first_selected_option
 
@@ -139,6 +166,10 @@ class Rate_Checker(Base):
         # Then Get the corresponding text from the selected Index
         return option.get_attribute('text')
 
+    def set_rate_structure(self, rate_selection):
+        element = Select(self.driver.find_element_by_id(RATE_STRUCTURE_DDL))
+        element.select_by_visible_text(rate_selection)
+
     # LOAN TERM
     def get_selected_loan_term(self):
         # First Get the selected Index from the Loan Term dropdown list
@@ -148,6 +179,10 @@ class Rate_Checker(Base):
         # Then Get the corresponding text from the selected Index
         return option.get_attribute('text')
 
+    def set_loan_term(self, number_of_years):
+        element = Select(self.driver.find_element_by_id(LOAN_TERM_DDL))
+        element.select_by_visible_text(number_of_years)
+
     # LOAN TYPE
     def get_selected_loan_type(self):
         # First Get the selected Index from the Loan Type dropdown list
@@ -156,3 +191,20 @@ class Rate_Checker(Base):
 
         # Then Get the corresponding text from the selected Index
         return option.get_attribute('text')
+
+    def set_loan_type(self, loan_type):
+        element = Select(self.driver.find_element_by_id(LOAN_TYPE_DDL))
+        element.select_by_visible_text(loan_type)
+
+    # ARM TYPE
+    def get_selected_arm_type(self):
+        # First Get the selected Index from the Loan Type dropdown list
+        element = Select(self.driver.find_element_by_id(ARM_TYPE_DDL))
+        option = element.first_selected_option
+
+        # Then Get the corresponding text from the selected Index
+        return option.get_attribute('text')
+
+    def set_arm_type(self, arm_type):
+        element = Select(self.driver.find_element_by_id(ARM_TYPE_DDL))
+        element.select_by_visible_text(arm_type)

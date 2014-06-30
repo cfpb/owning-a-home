@@ -31,8 +31,8 @@ class Utils(object):
         return url
 
     def urls_match(self, url1, url2):
-        return
-        self.strip_trailing_slash(url1) == self.strip_trailing_slash(url2)
+        return (self.strip_trailing_slash(url1) ==
+                self.strip_trailing_slash(url2))
 
     def build_login(self, user_nickname):
         # ToDo: retrieve login by 'nickname'
