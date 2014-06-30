@@ -7,7 +7,7 @@ Highcharts.theme = {
     fontSize: '13px'
   },
   chart: {
-    backgroundColor: ['none'],
+    backgroundColor: '#FFFFFF',
     marginLeft: 30,
     marginRight: 25,
   },
