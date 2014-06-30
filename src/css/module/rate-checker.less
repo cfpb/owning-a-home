@@ -7,6 +7,28 @@
 }
 
 /*
+    layout
+    --------------------------- */
+
+.calculator {
+  .column( 4 );
+  .push(8);
+}
+
+.rc-results {
+  .column( 8 );
+  .pull(4);
+}
+
+@media (max-width: 720px) {
+  .calculator,
+  .rc-results {
+    .column( 12 );
+    .push( 0 );
+  }
+}
+
+/*
     Sidebar with all the user input
     --------------------------- */
 
