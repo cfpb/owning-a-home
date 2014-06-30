@@ -4,8 +4,8 @@ $('.tab-link').click(function( e ) {
       $tabContent = $('.tab-content'),
       current = $(this).attr('href');
 
-  $tabs.removeClass('active');
-  $tabLi.addClass('active');
+  $tabs.removeClass('active-tab');
+  $tabLi.addClass('active-tab');
 
   $tabContent.hide();
   $(current).show();
