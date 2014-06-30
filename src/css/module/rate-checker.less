@@ -148,6 +148,25 @@
   }
 }
 
+@media
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .rangeslider__handle {
+    width: 22px;
+    height: 21px;
+    background: transparent url(../img/slider-handle@2x.png) no-repeat 0 0;
+    background-size: 100%;
+    border: 0;
+
+    &.warning {
+      background: transparent url(../img/slider-handle@2x.png) no-repeat 0 100%;
+      width: 22px;
+      height: 21px;
+      background-size: 100%;
+    }
+  }
+}
+
 #slider-range {
   text-align: center;
 }
