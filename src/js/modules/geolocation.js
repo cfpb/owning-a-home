@@ -2,6 +2,12 @@ var guessState = require('fuzzy-state-search');
 
 module.exports.getState = function ( options, callback ) {
 
+  if (!window.navigator.geolocation) {
+    return closestState = {
+      name: 'AL'
+    };
+  }
+
   var opts = options || {},
       timeout = opts.timeout || 10000,
       cb = typeof options === 'function' ? options : callback,

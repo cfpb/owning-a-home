@@ -7,6 +7,28 @@
 }
 
 /*
+    layout
+    --------------------------- */
+
+.calculator {
+  .column( 4 );
+  .push(8);
+}
+
+.rc-results {
+  .column( 8 );
+  .pull(4);
+}
+
+@media (max-width: 720px) {
+  .calculator,
+  .rc-results {
+    .column( 12 );
+    .push( 0 );
+  }
+}
+
+/*
     Sidebar with all the user input
     --------------------------- */
 
@@ -145,6 +167,25 @@
     width: 22px;
     height: 21px;
     background-size: 100%;
+  }
+}
+
+@media
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .rangeslider__handle {
+    width: 22px;
+    height: 21px;
+    background: transparent url(../img/slider-handle@2x.png) no-repeat 0 0;
+    background-size: 100%;
+    border: 0;
+
+    &.warning {
+      background: transparent url(../img/slider-handle@2x.png) no-repeat 0 100%;
+      width: 22px;
+      height: 21px;
+      background-size: 100%;
+    }
   }
 }
 
@@ -349,6 +390,12 @@
 
   input {
     border: solid 1px #d0d0ce;
+  }
+}
+
+@media (max-width: 1000px) {
+  .down-payment {
+    margin-top: 20px;
   }
 }
 
