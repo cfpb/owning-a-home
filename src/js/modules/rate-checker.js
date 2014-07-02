@@ -344,7 +344,7 @@ function checkARM() {
     dropdown('loan-type').disableOption(['fha', 'va']);
     dropdown('arm-type').show();
     $('#arm-warning').removeClass('hidden');
-    $('.interest-cost-primary').addClass('hidden');
+    $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
     dropdown(['loan-term', 'loan-type']).disableHighlight();
@@ -352,7 +352,7 @@ function checkARM() {
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
-    $('.interest-cost-primary').removeClass('hidden');
+    $('.interest-cost-primary').children().removeClass('hidden');
   }
 }
 

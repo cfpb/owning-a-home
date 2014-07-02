@@ -266,19 +266,22 @@
 
       <section class="compare wrapper">
 
-            <div class="rate-compare data-enabled loading col-3">
+        <div class="rate-selects col-6">
+          <div class="wrapper">
+
+            <div class="rate-compare-container data-enabled loading">
               <label for="rate-compare-1">Rate</label>
               <div class="select-content">
                 <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
                   <option value="1">1%</option>
                 </select>
               </div>
+              <div id="arm-info" class="arm-info-comparison hidden" aria-live="alert">
+                <p>With the adjustable-rate mortgage you've chosen, the rate is only fixed for the first <span class="loan-years">5</span> years. Your interest costs in the future could change.</p>
+              </div>
               <div class="interest-cost interest-cost-primary">
                  <h5>Interest cost over <span class="loan-years">30</span> years</h5>
                 <span class="new-cost">$150,000</span>
-              </div>
-              <div id="arm-info" class="arm-info-comparison hidden" aria-live="alert">
-                <p>With the adjustable-rate mortgage you've chosen, the rate is only fixed for the first <span class="loan-years">5</span> years. Your interest costs in the future could change.</p>
               </div>
               <div class="interest-cost interest-cost-secondary">
                 <h5>Interest cost over <span class="loan-years">5</span> years</h5>
@@ -286,7 +289,7 @@
               </div>
             </div>
 
-            <div class="rate-compare data-enabled loading col-3">
+            <div class="rate-compare-container data-enabled loading">
               <label for="rate-compare-2">Rate</label>
               <div class="select-content">
                 <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
@@ -303,6 +306,17 @@
               </div>
             </div>
 
+            <div class="interest-summary highlight-container data-enabled loading" id="rc-comparison-summary">
+              <p>Over the first <span id="comparison-term">5</span> years, an interest rate of <span id="higher-rate">1%</span> costs <strong id="rate-diff">$0</strong> more than an interest rate of <span id="lower-rate">1%</span>.</p>
+            </div>
+
+            <p class="sub">Interest is only one of many costs associated with getting a mortgage. <a id="go-ask-cost" class="go-link" href="http://www.consumerfinance.gov/askcfpb/153/what-costs-will-i-have-to-pay-as-part-of-taking-out-a-mortgage-loan.html">Learn more</a></p>
+
+            <p class="sub"><strong><a id="ask-more-mortgages" class="go-link" href="http://www.consumerfinance.gov/askcfpb/search/?selected_facets=category_exact:mortgages">More mortgage questions on Ask CFPB</a></strong></p>
+          </div>
+
+          </div>
+
             <div class="col-6">
 
               <h4>What does this mean for you?</h4>
@@ -312,16 +326,6 @@
 
             </div>
 
-        <div class="sans col-6">
-
-          <div class="interest-summary highlight-container data-enabled loading" id="rc-comparison-summary">
-            <p>Over the first <span id="comparison-term">5</span> years, an interest rate of <span id="higher-rate">1%</span> costs <strong id="rate-diff">$0</strong> more than an interest rate of <span id="lower-rate">1%</span>.
-          </div>
-
-          <p class="sub">Interest is only one of many costs associated with getting a mortgage. <a id="go-ask-cost" class="go-link" href="http://www.consumerfinance.gov/askcfpb/153/what-costs-will-i-have-to-pay-as-part-of-taking-out-a-mortgage-loan.html">Learn more</a></p>
-
-          <p class="sub"><strong><a id="ask-more-mortgages" class="go-link" href="http://www.consumerfinance.gov/askcfpb/search/?selected_facets=category_exact:mortgages">More mortgage questions on Ask CFPB</a></strong></p>
-        </div>
 
       </section>
 
