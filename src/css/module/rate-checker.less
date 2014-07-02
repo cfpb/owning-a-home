@@ -308,10 +308,6 @@
     }
 }
 
-.rate-compare {
-  margin-bottom: 10px;
-}
-
 .new-cost {
   .webfont-demi();
   font-size: 1.375em;
@@ -320,6 +316,7 @@
 .interest-cost-primary,
 .interest-cost-secondary {
   padding: 0 10px 10px 10px;
+  min-height: 70px;
 
   h5 {
     font-size: .625em;
@@ -330,14 +327,15 @@
   }
 }
 
-.rate-compare {
+.rate-compare-container {
+  .column( 6 );
   position: relative;
+  margin-bottom: 10px;
 }
 
 .interest-cost-secondary {
   background: @gray-5;
   border-top: 2px solid #FFCE8D;
-  position: absolute; // absolutely positioning these for the ARM alert
   top: 110px;
   width: 100%;
 
@@ -400,7 +398,7 @@
 }
 
 .interest-summary {
-  margin-bottom: 1.5em;
+  margin: 1em 0 1.5em 0;
 
   p:last-child {
     margin: 0;
@@ -409,7 +407,7 @@
 
 .arm-info-comparison {
   .webfont-regular();
-  padding: 2em 0;
+  padding: 1em 0;
   font-size: 0.75em;
   display: block;
   position: absolute;
@@ -438,12 +436,6 @@
   .interest-cost-secondary .new-cost {
       font-size: 1.25em;
     }
-}
-
-@media (min-width: 1000px) {
-  .interest-summary {
-    margin-top: -4.5em;
-  }
 }
 
 /*

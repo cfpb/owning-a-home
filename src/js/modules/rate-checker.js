@@ -344,7 +344,7 @@ function checkARM() {
     dropdown('loan-type').disableOption(['fha', 'va']);
     dropdown('arm-type').show();
     $('#arm-warning').removeClass('hidden');
-    $('.interest-cost-primary').addClass('hidden');
+    $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
     dropdown(['loan-term', 'loan-type']).disableHighlight();
@@ -352,7 +352,7 @@ function checkARM() {
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
-    $('.interest-cost-primary').removeClass('hidden');
+    $('.interest-cost-primary').children().removeClass('hidden');
   }
 }
 
@@ -365,7 +365,7 @@ function checkARM() {
 function scoreWarning() {
   $('.rangeslider__handle').addClass('warning');
   $('#slider-range').after(
-    '<div class="result-alert credit-alert">' +
+    '<div class="result-alert credit-alert" role="alert">' +
       '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
       'Even if your score is low, you may still have options. ' +
       '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
@@ -386,7 +386,7 @@ function scoreWarning() {
  */
 function resultWarning() {
   $('#chart').addClass('warning').append(
-    '<div class="result-alert chart-alert">' +
+    '<div class="result-alert chart-alert" role="alert">' +
       '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
       '<p class="point-right">Change your settings</p>' +
       '<p><a id ="reload-link" class="defaults-link" href="">Or, revert to our default values</a>' +
