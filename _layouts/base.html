@@ -69,7 +69,7 @@
   })(window,document,'script','dataLayer','GTM-KMMLRS');</script>
 <!-- End Google Tag Manager -->
 
-
+<a class="visuallyhidden" href="#primary-content">Skip to content</a>
 {% include "nemo_header.html" %}
 
 <div class="wrap content-area">
@@ -98,9 +98,11 @@
 
 
   <!-- PRIMARY CONTENT -->
-  {% block content %}
-    This will be replaced in templates that extend this, and override "content".
-  {% endblock %}
+  <div id="#primary-content">
+    {% block content %}
+      This will be replaced in templates that extend this, and override "content".
+    {% endblock %}
+  </div>
   <!-- /PRIMARY CONTENT -->
 
 
