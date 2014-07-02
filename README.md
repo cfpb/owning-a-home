@@ -10,7 +10,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 ## Requirements
 
-- [Sheer](https://github.com/rosskarchner/sheer)
+- [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
 - [Grunt](http://gruntjs.com/)
@@ -18,7 +18,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 ## Getting up and running with sheer
 
-[Sheer](https://github.com/rosskarchner/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool."
+[Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool."
 
 To get started with Sheer:
 
