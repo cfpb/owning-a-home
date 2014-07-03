@@ -34,6 +34,10 @@ select {
   font-size: 0.75em;
   color: @black;
   height: 32px;
+  &[disabled] {
+    color: @gray-20;
+    font-style: italic;
+  }
 }
 
 input {

@@ -16,6 +16,16 @@ require('./analytics/rc-analytics');
 require('./nemo');
 require('./nemo-shim');
 
+// Load our handlebar templates.
+var template = {
+  county: require('../templates/county-option.hbs'),
+  sliderLabel: require('../templates/slider-range-label.hbs'),
+  creditAlert: require('../templates/credit-alert.hbs'),
+  resultAlert: require('../templates/result-alert.hbs'),
+  chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
+  chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
+};
+
 // List all the parameters the user can change and set
 // their default values.
 var params = {
@@ -63,7 +73,7 @@ var slider = {
     var leftVal = +$('.rangeslider__handle').css('left').replace( 'px', '' );
     this.min = getSelection('credit-score');
     this.max = this.min + 20;
-    $('#slider-range').text( this.min + ' - ' + this.max ).css( 'left', leftVal - 9 + 'px' );
+    $('#slider-range').text( template.sliderLabel(this) ).css( 'left', leftVal - 9 + 'px' );
   }
 };
 
@@ -234,6 +244,21 @@ function updateLanguage( data ) {
 }
 
 /**
+ * Store the loan amount and down payment and check if it's a jumbo loan.
+ * @return {null}
+ */
+function processLoanAmount( el ) {
+
+  // debounce(renderDownPayment( el ), 200);
+  renderDownPayment( el );
+  params['house-price'] = getSelection('house-price');
+  params['down-payment'] = getSelection('down-payment');
+  renderLoanAmount();
+  checkForJumbo();
+
+}
+
+/**
  * Calculate and render the loan amount.
  * @return {null}
  */
@@ -244,12 +269,92 @@ function renderLoanAmount() {
 }
 
 /**
+ * Check the loan amount and initiate the jumbo loan interactions if need be.
+ * @return {null}
+ */
+function checkForJumbo() {
+
+  var amount = params['loan-amount'],
+      request;
+
+  // If it's less than the $417,000 limit, we cool bro.
+  if ( amount <= 417000 ) {
+    dropdown('county').hide();
+    return;
+  }
+
+  // If the state hasn't changed, we also cool. No need to get new counties.
+  if ( $('#county').data('state') === params['location'] ) {
+    dropdown('county').hideHighlight();
+    return;
+  }
+
+  // Otherwise, let's show the counties dropdown.
+  dropdown('county').show()
+                    .showLoadingAnimation();
+
+  loadCounties();
+
+}
+
+/**
+ * Request a list of counties and bring them into the DOM.
+ * @return {null}
+ */
+function loadCounties() {
+
+  // And request 'em.
+  request = getCounties();
+
+  request.done(function( resp ) {
+
+    // If they haven't yet selected a state highlight the field.
+    if ( !$('#county').data('state') ) {
+      dropdown('county').showHighlight();
+    }
+
+    // Empty the current counties and cache the current state so we 
+    // can monitor if it changes.
+    $('#county').html('')
+                .data( 'state', params['location'] );
+
+    // Inject each county into the DOM.
+    $.each(resp.data, function( i, countyData ) {
+      var countyOption = template.county( countyData );
+      $('#county').append( countyOption );
+    });
+
+    // Don't select any options by default.
+    $('#county').prop( 'selectedIndex', -1 );
+
+  });
+
+  // Hide loading animation regardless of whether or not we're successful.
+  request.then(function() {
+    dropdown('county').hideLoadingAnimation();
+  });
+
+}
+
+/**
+ * Get a list of counties from the API for the selected state.
+ * @return {object} jQuery promise.
+ */
+function getCounties() {
+
+  return $.get( config.countyAPI, {
+    state: params['location']
+  });
+
+}
+
+/**
  * Update either the down payment % or $ amount depending on the input they've changed.
  * @return {null}
  */
-function renderDownPayment( el ) {
+function renderDownPayment( event ) {
 
-  var $el = $( el ),
+  var $el = $( event.target ),
       $price = $('#house-price'),
       $percent = $('#percent-down'),
       $down = $('#down-payment'),
@@ -282,7 +387,7 @@ function updateComparisons( data ) {
   $('.compare select').html('');
   $.each( uniqueLabels, function( i, rate ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
-    $('.compare select').append(option);
+    $('.compare select').append( option );
   });
   // In the second comparison dropdown, select the last (largest) rate.
   $('#rate-compare-2').val( uniqueLabels[uniqueLabels.length - 1] );
@@ -340,21 +445,20 @@ function renderInterestSummary(intVals) {
 function checkARM() {
   if ( getSelection('rate-structure') === 'arm' ) {
     if ( getSelection('loan-term') !== '30' ) {
-      dropdown('loan-term').enableHighlight();
+      dropdown('loan-term').showHighlight();
     }
     if ( getSelection('loan-type') !== 'conf' ) {
-      dropdown('loan-type').enableHighlight();
+      dropdown('loan-type').showHighlight();
     }
     dropdown(['loan-term', 'loan-type']).reset();
-    dropdown('loan-term').disableOption('15');
-    dropdown('loan-type').disableOption(['fha', 'va']);
+    dropdown('loan-term').disable('15');
+    dropdown('loan-type').disable(['fha', 'va']);
     dropdown('arm-type').show();
     $('#arm-warning').removeClass('hidden');
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
-    dropdown(['loan-term', 'loan-type']).disableHighlight();
-    dropdown(['loan-term', 'loan-type']).enableOption();
+    dropdown(['loan-term', 'loan-type']).hideHighlight().enable();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
@@ -370,13 +474,7 @@ function checkARM() {
  */
 function scoreWarning() {
   $('.rangeslider__handle').addClass('warning');
-  $('#slider-range').after(
-    '<div class="result-alert credit-alert" role="alert">' +
-      '<p class="alert">Many lenders do not accept borrowers with credit scores less than 620. ' +
-      'Even if your score is low, you may still have options. ' +
-      '<a href="http://www.consumerfinance.gov/mortgagehelp/">Contact a housing counselor</a> to learn more.</p>' +
-    '</div>'
-  );
+  $('#slider-range').after( template.creditAlert );
   resultWarning();
   // analytics code for when this event fires
   if (window._gaq) {
@@ -391,13 +489,7 @@ function scoreWarning() {
  * @return {null}
  */
 function resultWarning() {
-  $('#chart').addClass('warning').append(
-    '<div class="result-alert chart-alert" role="alert">' +
-      '<p class="alert"><strong>We\'re sorry!</strong> Based on the infomation you entered, we don\'t have enough data to display results.</p>' +
-      '<p class="point-right">Change your settings</p>' +
-      '<p><a id ="reload-link" class="defaults-link" href="">Or, revert to our default values</a>' +
-    '</div>'
-  );
+  $('#chart').addClass('warning').append( template.resultAlert );
 }
 
 
@@ -563,15 +655,16 @@ function renderChart( data, cb ) {
         useHTML: true,
         formatter: function(){
           if (this.y === 1) {
-            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
-                  ' <span class="text">lender is offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
+            return template.chartTooltipSingle( this );
           } else {
-            return  '<div class="chart-tooltip"><strong class="lenders">' + this.y + '</strong>' +
-                  ' <span class="text"> lenders are offering <br> rates at <strong>' + this.key + '</strong>.</text></div>';
+            return template.chartTooltipMultiple( this );
           }
         },
         positioner: function(boxWidth, boxHeight, point) {
-          return {x:point.plotX - 54, y:point.plotY - 66};
+          return {
+            x: point.plotX - 54,
+            y: point.plotY - 66
+          };
         }
       },
     }, function(){
@@ -672,18 +765,11 @@ function setSelections( options ) {
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 $('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
 
-// Recalculate loan amount.
-function reCalcLoan (el) {
-  debounce(renderDownPayment( el ), 200);
-  params['house-price'] = getSelection('house-price');
-  params['down-payment'] = getSelection('down-payment');
-  renderLoanAmount();
-}
+// Check if it's a jumbo loan if they change the loan amount or state.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
-// call reCalcLoan when the house price is changed
-$('#house-price').on( 'change keyup', function(){
-  reCalcLoan(this);
-});
+// Recalculate loan amount.
+$('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
 
 // save the dp-constant value when the user interacts with
 // down payment or down payment percentages
@@ -693,7 +779,7 @@ $('#percent-down, #down-payment').on( 'change keyup', function(){
 });
 
 // Recalculate interest costs.
-$('.compare').on('change', 'select', renderInterestAmounts);
+$('.compare').on(' change', 'select', renderInterestAmounts );
 
 // Recalculate interest costs.
 $('#rate-structure').on( 'change', checkARM );

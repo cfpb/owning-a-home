@@ -7,7 +7,7 @@ var utils = function( id ) {
 
   var $el;
 
-  if (!id) {
+  if ( !id ) {
     throw new Error('You must specify the id of a dropdown.');
   }
 
@@ -16,10 +16,14 @@ var utils = function( id ) {
       ? $( '#' + id.join(', #') )
       : $el = $( '#' + id );
 
-  // If optionVal is provided as an array, turn it into a string
-  // of attribute selectors. Otherwise, just create a single attribute
-  // selector. If no val is provided, return an asterisk to select 
-  // all elements.
+  /**
+   * If optionVal is provided as an array, turn it into a string
+   *  of attribute selectors. Otherwise, just create a single attribute
+   *  selector. If no val is provided, return an asterisk to select 
+   *  all elements.
+   * @param  {string|array} optionVal Option(s) in the dropdown to modify.
+   * @return {string}       Selector string of values.
+   */
   function parseVals( optionVal ) {
     return optionVal instanceof Array
            ? '[value=' + optionVal.join('],[value=') + ']'
@@ -29,89 +33,127 @@ var utils = function( id ) {
   /**
    * Disable a select element's option(s).
    * @param  {string | array} optionVal The value(s) of the options
-   * that you'd like to disable. Can be a string or an array.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * that you'd like to disable. Can be a string or an array. If no
+   * option(s) are specified, the entire dropdown is disabled.
+   * @return {object} this
    */
   function disable( optionVal ) {
-    return $el.find('option')
-              .filter( parseVals(optionVal) )
-              .attr( 'disabled', 'disabled' );
+    if ( !optionVal ) {
+      $el.attr('disabled', 'disabled');
+    }
+    $el.find('option')
+       .filter( parseVals(optionVal) )
+       .attr( 'disabled', 'disabled' );
+    return this;
   }
 
   /**
    * Enable a select element's option(s).
    * @param  {string | array} optionVal The value(s) of the options
-   * that you'd like to enable. Can be a string or an array.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * that you'd like to enable. Can be a string or an array. If no
+   * option(s) are specified, the entire dropdown is enabled.
+   * @return {object} this
    */
   function enable( optionVal ) {
-    return $el.find('option')
-              .filter( parseVals(optionVal) )
-              .removeAttr('disabled');
+    if ( !optionVal ) {
+      $el.removeAttr('disabled');
+    }
+    $el.find('option')
+       .filter( parseVals(optionVal) )
+       .removeAttr('disabled');
+    return this;
   }
 
   /**
    * Resets the select's element to its first option.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * @return {object} this
    */
   function reset() {
     $el.each(function() {
       $( this )[0].selectedIndex = 0;
     });
-    return $el;
-  }
-
-  /**
-   * Hide a dropdown.
-   * @return {jQuery object} The element(s) that were manipulated.
-   */
-  function hide() {
-    $el.each(function() {
-      $( this ).parents('.col-6').addClass('hidden');
-    });
-    return $el;
+    return this;
   }
 
   /**
    * Show a dropdown.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * @return {object} this
    */
   function show() {
     $el.each(function() {
-      $( this ).parents('.col-6').removeClass('hidden');
+      var $container = $( '.' + $( this ).attr('id') );
+      $container.removeClass('hidden');
     });
-    return $el;
+    return this;
+  }
+
+  /**
+   * Hide a dropdown.
+   * @return {object} this
+   */
+  function hide() {
+    $el.each(function() {
+      var $container = $( '.' + $( this ).attr('id') );
+      $container.addClass('hidden');
+    });
+    return this;
+  }
+
+  /**
+   * Show a loading animation.
+   * @return {object} this
+   */
+  function showLoading() {
+    $el.each(function() {
+      var $container = $( '.' + $( this ).attr('id') );
+      $container.addClass('loading');
+    });
+    return this;
+  }
+
+  /**
+   * Hide the loading animation.
+   * @return {object} this
+   */
+  function hideLoading() {
+    $el.each(function() {
+      var $container = $( '.' + $( this ).attr('id') );
+      $container.removeClass('loading');
+    });
+    return this;
   }
 
   /**
    * Give a dropdown a yellow border to highlight it.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * @return {object} this
    */
-  function enableHighlight() {
+  function showHighlight() {
     $el.each(function() {
       $( this ).parent().addClass('highlight-dropdown');
     });
-    return $el;
+    return this;
   }
 
   /**
    * Remove a dropdown's highlight.
-   * @return {jQuery object} The element(s) that were manipulated.
+   * @return {object} this
    */
-  function disableHighlight() {
+  function hideHighlight() {
     $el.each(function() {
       $( this ).parent().removeClass('highlight-dropdown');
     });
-    return $el;
+    return this;
   }
 
   return {
-    disableOption: disable,
-    enableOption: enable,
-    hide: hide,
+    disable: disable,
+    enable: enable,
     show: show,
-    enableHighlight: enableHighlight,
-    disableHighlight: disableHighlight,
+    hide: hide,
+    showLoadingAnimation: showLoading,
+    hideLoadingAnimation: hideLoading,
+    showHighlight: showHighlight,
+    hideHighlight: hideHighlight,
     reset: reset
   };
 
