@@ -67,8 +67,14 @@ var slider = {
   }
 };
 
-// Keep the latest AJAX request accessible so we can terminate it if need be.
-var request;
+// options object
+// dp-constant: track the down payment interactions
+// request: Keep the latest AJAX request accessible so we can terminate it if need be.
+var options = {
+  'dp-constant': null,
+  'request': ''
+};
+
 
 /**
  * Initialize the rate checker app.
@@ -131,15 +137,15 @@ var updateView = function() {
   chart.startLoading();
 
   // Abort the previous request.
-  if ( typeof request === 'object' ) {
-    request.abort();
+  if ( typeof options['request'] === 'object' ) {
+    options['request'].abort();
   }
 
   // And start a new one.
-  request = getData();
+  options['request'] = getData();
 
   // If it succeeds, update the DOM.
-  request.done(function( results ){
+  options['request'].done(function( results ){
 
     var data = {
       labels: [],
@@ -186,7 +192,7 @@ var updateView = function() {
   });
 
   // Whether the request succeeds or fails, stop the loading animation.
-  request.then(function(){
+  options['request'].then(function(){
     chart.stopLoading();
   });
 
@@ -253,7 +259,7 @@ function renderDownPayment( el ) {
     return;
   }
 
-  if ( $el.attr('id') === 'down-payment' ) {
+  if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
     val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
     $percent.val( Math.round(val) );
   } else {
@@ -667,13 +673,24 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 $('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
 
 // Recalculate loan amount.
-function reCalcLoan() {
-  renderDownPayment( this );
+function reCalcLoan (el) {
+  debounce(renderDownPayment( el ), 200);
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
 }
-$('#house-price, #percent-down, #down-payment').on( 'change keyup', reCalcLoan );
+
+// call reCalcLoan when the house price is changed
+$('#house-price').on( 'change keyup', function(){
+  reCalcLoan(this);
+});
+
+// save the dp-constant value when the user interacts with
+// down payment or down payment percentages
+$('#percent-down, #down-payment').on( 'change keyup', function(){
+  options['dp-constant'] = $(this).attr('name');
+  reCalcLoan(this);
+});
 
 // Recalculate interest costs.
 $('.compare').on('change', 'select', renderInterestAmounts);
