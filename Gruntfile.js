@@ -95,7 +95,7 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          transform: ['browserify-shim'],
+          transform: ['browserify-shim', 'hbsfy'],
           require: sharedModules
         }
       },
