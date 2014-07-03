@@ -6,9 +6,13 @@ from selenium import webdriver
 from pages.base import Base
 
 
-class Home(Base):
+class Navigation(Base):
 
     def __init__(self, logger, directory, base_url=r'http://localhost/',
                  driver=None, driver_wait=10, delay_secs=0):
-        super(Home, self).__init__(logger, directory, base_url,
-                                   driver, driver_wait, delay_secs)
+        super(Navigation, self).__init__(logger, directory, base_url,
+                                         driver, driver_wait, delay_secs)
+
+    def click_tab(self, tab_xpath):
+        element = self.driver.find_element_by_xpath(tab_xpath)
+        element.click()
