@@ -6,4 +6,3 @@ Feature: verify the Home page works according to requirements
 @smoke_testing @orlando 
 Scenario: First time visitor should see landing page by default
   Given I navigate to the "Owning a Home" page
-
