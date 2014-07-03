@@ -1,6 +1,7 @@
-
+environment.cfg
 # Compiled source #
 ###################
+*.pyc
 *.com
 *.class
 *.dll
@@ -26,6 +27,7 @@
 *.log
 *.sql
 *.sqlite
+test-results/
 
 # OS generated files #
 ######################
