@@ -8,7 +8,7 @@ Scenario: First time visitor should see District of Columbia by default since lo
   Given I navigate to the "Rate Checker" page
   Then I should see the lender rate offered to "District of Columbia" residents
 
-@smoke_testing @rc1
+@smoke_testing @rc
 Scenario: The default credit range score should be displayed as 700 - 720
   Given I navigate to the "Rate Checker" page
   Then I should see the default Credit Score Range displayed as "700 - 720"
@@ -53,13 +53,13 @@ Scenario: The default loan amount is displayed as $180,000
   Given I navigate to the "Rate Checker" page
   Then I should see "$180,000" displayed as Loan Amount
 
-@smoke_testing @rc1 
+@smoke_testing @rc
 Scenario: Move slider to the left to verify the credit score range decreases
   Given I navigate to the "Rate Checker" page
   When I move the credit score slider to the "left"
   Then I should see the credit score range "decrease"
 
-@smoke_testing @rc1
+@smoke_testing @rc
 Scenario: Move slider to the right to verify the credit score range increases
   Given I navigate to the "Rate Checker" page
   When I move the credit score slider to the "right"

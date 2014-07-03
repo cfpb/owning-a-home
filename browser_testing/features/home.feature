@@ -4,6 +4,6 @@ I want to navigate the home page
 So that I can find the information I'm looking for
 
 
-@smoke_testing @orlando
+@smoke_testing
 Scenario: First time visitor should see landing page by default
     Given I navigate to the "Owning a Home" page
