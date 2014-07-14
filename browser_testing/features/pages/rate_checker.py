@@ -67,29 +67,30 @@ class RateChecker(Base):
         return element.text
 
     def set_credit_score_range(self, slider_direction):
+        actions = ActionChains(self.driver)
         # Get the pixel width of the slider control
         slider_element = self.driver.find_element_by_xpath(SLIDER)
         slider_width = int(slider_element.get_attribute("scrollWidth"))
+        
+        self.logger.info("width: %s" % slider_width)
 
         element = self.driver.find_element_by_xpath(SLIDER_HANDLE)
-        actions = ActionChains(self.driver)
 
         # Move the slider 1/4 of the total width to the right
         if(slider_direction == "right"):
-            actions.drag_and_drop_by_offset(element, (slider_width/4), 0)
+            xOffset =  (slider_width/4)   
         # Move the slider 1/4 of the total width to the left
         elif(slider_direction == "left"):
-            actions.drag_and_drop_by_offset(element, (slider_width/-4), 0)
+            xOffset =  (slider_width/-4)
         # Move the slider 1/2 of the total width to the left
         elif(slider_direction == "lowest"):
-            actions.click_and_hold(element)
-            actions.drag_and_drop_by_offset(element, (slider_width/-2), 0)
-            self.logger.info("width: %s" % slider_width)
-
+            xOffset =  (slider_width/-2)
+        
+        actions.drag_and_drop_by_offset(element, xOffset, 0)
         actions.perform()
 
     # LOCATION
-    def get_selected_location(self):
+    def get_location(self):
         # Wait for the Geolocator to display the location above the chart
         WebDriverWait(self.driver, self.driver_wait)\
             .until(EC.visibility_of_element_located((By.XPATH, RATE_LOCATION)))
@@ -106,55 +107,52 @@ class RateChecker(Base):
         select.select_by_visible_text(state_name)
 
     # HOUSE PRICE
-    def get_default_house_price(self):
-        # Get the place holder attribute from the House Price textbox
+    def get_house_price(self):
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
-        house_price = element.get_attribute("placeholder")
-        return house_price
+        
+        # If the textbox is empty then return the placeholder amount
+        if (element.get_attribute("value") == ''):
+            return element.get_attribute("placeholder")
+        else:
+            # Return the value attribute from the House Price textbox
+            return element.get_attribute("value")
 
     def set_house_price(self, house_price):
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
         element.clear()  # Clear any existing text
         element.send_keys(house_price)
-        element.send_keys(Keys.TAB)
 
     # DOWN PAYMENT PERCENT
-    def get_default_down_payment_percent(self):
-        # Get the place holder attribute
-        # from the Down Payment Percentage textbox
-        element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
-        down_payment_amount = element.get_attribute("placeholder")
-        return down_payment_amount
-
     def get_down_payment_percent(self):
-        # Get the value attribute from the Down Payment Percentage textbox
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
-        down_payment_percentage = element.get_attribute("value")
-        return down_payment_percentage
+        
+        # If the textbox is empty then return the placeholder amount
+        if (element.get_attribute("value") == ''):
+            return element.get_attribute("placeholder")
+        else:
+            # Return the value attribute from the Down Payment percent % textbox
+            return element.get_attribute("value")
 
     def set_down_payment_percent(self, down_payment):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
+        element.clear() # Clear any existing text
         element.send_keys(down_payment)
-        element.send_keys(Keys.TAB)
 
     # DOWN PAYMENT AMOUNT
-    def get_default_down_payment_amount(self):
-        # Get the place holder attribute from the Down Payment Amount textbox
-        element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
-        down_payment_amount = element.get_attribute("placeholder")
-        return down_payment_amount
-
     def get_down_payment_amount(self):
-        # Get the value attribute from the Down Payment Amount textbox
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
-        down_payment_amount = element.get_attribute("value")
-        return down_payment_amount
+        
+        # If the textbox is empty then return the placeholder amount
+        if (element.get_attribute("value") == ''):
+            return element.get_attribute("placeholder")
+        else:
+            # Return the value attribute from the Down Payment textbox
+            return element.get_attribute("value")
 
-    def set_down_payment(self, down_payment):
+    def set_down_payment_amount(self, down_payment):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
         element.clear()  # Clear any existing text
-        element.send_keys(down_payment)
-        element.send_keys(Keys.TAB)
+        element.send_keys(down_payment) 
 
     # LOAN AMOUNT
     def get_loan_amount(self):
@@ -163,7 +161,7 @@ class RateChecker(Base):
         return element.text
 
     # RATE STRUCTURE
-    def get_selected_rate_structure(self):
+    def get_rate_structure(self):
         # First Get the selected Index from the Location dropdown list
         element = Select(self.driver.find_element_by_id(RATE_STRUCTURE_DDL))
         option = element.first_selected_option
@@ -176,7 +174,7 @@ class RateChecker(Base):
         element.select_by_visible_text(rate_selection)
 
     # LOAN TERM
-    def get_selected_loan_term(self):
+    def get_loan_term(self):
         # First Get the selected Index from the Loan Term dropdown list
         element = Select(self.driver.find_element_by_id(LOAN_TERM_DDL))
         option = element.first_selected_option
@@ -189,7 +187,7 @@ class RateChecker(Base):
         element.select_by_visible_text(number_of_years)
 
     # LOAN TYPE
-    def get_selected_loan_type(self):
+    def get_loan_type(self):
         # First Get the selected Index from the Loan Type dropdown list
         element = Select(self.driver.find_element_by_id(LOAN_TYPE_DDL))
         option = element.first_selected_option
@@ -202,7 +200,7 @@ class RateChecker(Base):
         element.select_by_visible_text(loan_type)
 
     # ARM TYPE
-    def get_selected_arm_type(self):
+    def get_arm_type(self):
         # First Get the selected Index from the Loan Type dropdown list
         element = Select(self.driver.find_element_by_id(ARM_TYPE_DDL))
         option = element.first_selected_option
@@ -214,6 +212,11 @@ class RateChecker(Base):
         element = Select(self.driver.find_element_by_id(ARM_TYPE_DDL))
         element.select_by_visible_text(arm_type)
 
+    # TABS AND LINKS
     def get_active_tab_text(self):
         element = self.driver.find_element_by_css_selector(".active-tab a")
         return element.text
+
+    def click_link_by_text(self, link_name):
+        element = self.driver.find_element_by_link_text(link_name)
+        element.click()
