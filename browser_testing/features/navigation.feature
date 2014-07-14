@@ -6,12 +6,12 @@ Feature: verify the navigation tabs works according to requirements
 @smoke_testing 
 Scenario Outline: Clicking on a link should display the corresponding page
   Given I navigate to the Demo OAH page
-  When I click on the "<link_name>"
+  When I click on the "<link_name>" link
   Then I should see "<link_name>" displayed in the page title
 
 Examples:
   | link_name      		|
   | Owning a Home   	|
   | Loan Comparison		|
-  | Loan Types 			|
-  | Rate Checker 		|
+  | Loan Types 			  |
+  | Rate Checker 		  |
