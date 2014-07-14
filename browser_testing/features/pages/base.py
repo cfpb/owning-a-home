@@ -1,4 +1,5 @@
 from pprint import pprint
+from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
@@ -32,16 +33,6 @@ class Base(object):
         self.utils = Utils(delay_secs)
         self.results_folder = results_folder
 
-    def get_page_title(self):
-        return (self.driver.title)
-
-    def close_browser(self):
-        self.utils.zzz(1)
-        self.driver.quit()
-
-    def sleep(self, time):
-        self.utils.zzz(float(time))
-
     def go(self, relative_url=''):
         full_url = self.utils.build_url(self.base_url, relative_url)
         try:
@@ -54,6 +45,13 @@ class Base(object):
             self.get_screenshot(full_url)
             raise
 
+    def close_browser(self):
+        self.utils.zzz(1)
+        self.driver.quit()
+
+    def sleep(self, time):
+        self.utils.zzz(float(time))
+
     def get_screenshot(self, filename=None):
         if filename is None:
             filename = self.driver.current_url
@@ -62,3 +60,9 @@ class Base(object):
         full_path = '%s/%s.%s' % (self.results_folder, filename, 'png')
         self.logger.info("Saving screenshot to %s" % full_path)
         self.driver.save_screenshot(full_path)
+
+    def get_page_title(self):
+        return (self.driver.title)
+
+    def get_current_url(self):
+        return (self.driver.current_url)
