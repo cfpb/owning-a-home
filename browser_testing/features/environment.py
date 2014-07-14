@@ -86,9 +86,9 @@ def before_feature(context, feature):
     context.logger.info('STARTING FEATURE %s' % feature)
     if context.browser == "Sauce":
         context.logger.info("Link to job: https://saucelabs.com/jobs/%s" %
-                            context.website.driver.session_id)
+                            context.base.driver.session_id)
         context.logger.info("SauceOnDemandSessionID=%s job-name=%s" %
-                            (context.website.driver.session_id, feature.name))
+                            (context.base.driver.session_id, feature.name))
 
 
 def before_scenario(context, scenario):
@@ -126,7 +126,7 @@ def after_all(context):
         connection = httplib.HTTPConnection("saucelabs.com")
         connection.request('PUT', '/rest/v1/%s/jobs/%s' %
                            (context.sauce_config['username'],
-                            context.website.driver.session_id),
+                            context.base.driver.session_id),
                            body_content,
                            headers={"Authorization": "Basic %s" %
                                     base64string})
@@ -196,4 +196,4 @@ def setup_config(context):
         context.take_screenshots = config.getboolean('browser_testing',
                                                      'take_screenshots')
     else:
-        take_screenshots = False
+        context.take_screenshots = False
