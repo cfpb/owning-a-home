@@ -33,8 +33,8 @@ var utils = function( id ) {
   /**
    * Disable a select element's option(s).
    * @param  {string | array} optionVal The value(s) of the options
-   * that you'd like to disable. Can be a string or an array. If no
-   * option(s) are specified, the entire dropdown is disabled.
+   *  that you'd like to disable. Can be a string or an array. If no
+   *  option(s) are specified, the entire dropdown is disabled.
    * @return {object} this
    */
   function disable( optionVal ) {
@@ -62,6 +62,50 @@ var utils = function( id ) {
        .filter( parseVals(optionVal) )
        .removeAttr('disabled');
     return this;
+  }
+
+
+  function addOption( values ) {
+    var opts = values || {},
+        label = opts.label || '',
+        value = opts.value || '';
+
+    $el.each(function() {
+      var option;
+
+      // If the option already exists, abort.
+      if ( $el.children('option[value=' + value + ']').length > 0 ) {
+        return;
+      }
+
+      option = document.createElement('option');
+      option.value = value;
+      option.innerHTML = label;
+      $( this ).append( option );
+    });
+
+    if ( opts.select ) {
+      $el.val( value );
+    }
+
+    return this;
+  }
+
+
+  function removeOption( value ) {
+    if ( !value ) {
+      throw new Error("You must provide the value of the option you'd like to remove.");
+    }
+    $el.find( 'option[value=' + value + ']' ).remove();
+    return this;
+  }
+
+
+  function hasOption( value ) {
+    if ( !value ) {
+      throw new Error("You must provide the value of the option you'd like to check for.");
+    }
+    return $el.children('option[value=' + value + ']').length > 0;
   }
 
   /**
@@ -150,6 +194,9 @@ var utils = function( id ) {
     enable: enable,
     show: show,
     hide: hide,
+    addOption: addOption,
+    removeOption: removeOption,
+    hasOption: hasOption,
     showLoadingAnimation: showLoading,
     hideLoadingAnimation: hideLoading,
     showHighlight: showHighlight,

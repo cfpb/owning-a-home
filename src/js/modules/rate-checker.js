@@ -240,7 +240,7 @@ function updateLanguage( data ) {
 
   renderLocation();
   renderMedian( data );
-  updateTerm(data);
+  updateTerm( data );
 }
 
 /**
@@ -262,6 +262,7 @@ function processLoanAmount() {
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
   checkForJumbo();
+  processCounties();
 
 }
 
@@ -287,19 +288,20 @@ function checkForJumbo() {
   // If it's less than the $417,000 limit, we cool bro.
   if ( amount <= 417000 ) {
     dropdown('county').hide();
+    dropdown('loan-type').removeOption('jumbo');
     return;
   }
 
-  // If the state hasn't changed, we also cool. No need to get new counties.
+  // Show the county dropdown if we're over $417,000.
+  dropdown('county').show();
+
+  // If the state hasn't changed, we also cool. No need to load new counties.
   if ( $('#county').data('state') === params['location'] ) {
     dropdown('county').hideHighlight();
     return;
   }
 
-  // Otherwise, let's show the counties dropdown.
-  dropdown('county').show()
-                    .showLoadingAnimation();
-
+  // Let's load us some counties.
   loadCounties();
 
 }
@@ -340,6 +342,64 @@ function loadCounties() {
   request.then(function() {
     dropdown('county').hideLoadingAnimation();
   });
+
+}
+
+function processCounties() {
+
+  var $counties = $('#county'),
+      $county = $('#county').find(':selected'),
+      $loan = dropdown('loan-type'),
+      gse,
+      fha,
+      va;
+
+  // If the county field is hidden or they haven't selected a county, abort.
+  if ( !$counties.is(':visible') || !$counties.val() ) {
+    return;
+  }
+
+  // Grab the GSE, FHA and VA limits from the selected county.
+  gse = parseInt( $county.data('gse'), 10 );
+  fha = parseInt( $county.data('fha'), 10 );
+  va = parseInt( $county.data('va'), 10 );
+
+  if ( params['loan-type'] === 'fha' && params['loan-amount'] < fha ) {
+    $loan.addOption({
+      label: 'FHA-HB',
+      value: 'fha-hb',
+      select: true
+    });
+    return;
+  }
+
+  if ( params['loan-type'] === 'fha' && params['loan-amount'] > fha && params['loan-amount'] <= 417000 ) {
+    $loan.addOption({
+      label: 'FHA-HB',
+      value: 'fha-hb',
+      select: true
+    });
+    return;
+  }
+
+  // If the loan amount is equal to or less than the max GSE loan amount.
+  if ( params['loan-amount'] <= gse ) {
+    $loan.addOption({
+      label: 'Conforming Jumbo',
+      value: 'agency',
+      select: true
+    });
+    return;
+  }
+
+  // If the loan amount is above the max GSE loan amount for conforming jumbo.
+  if ( params['loan-amount'] > gse ) {
+    $loan.addOption({
+      label: 'Jumbo',
+      value: 'jumbo',
+      select: true
+    });
+  }
 
 }
 
@@ -773,10 +833,13 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 $('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
 
 // Check if it's a jumbo loan if they change the loan amount or state.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
+$('.demographics, .calc-loan-amt, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
 // Recalculate loan amount.
 $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
+
+// Recalculate loan amount.
+$('#county').on( 'change', processCounties );
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
