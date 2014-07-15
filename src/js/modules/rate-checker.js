@@ -770,7 +770,7 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 $('.calc-loan-amt .recalc').on( 'keyup', function(){
   var inputVal = $(this).val();
   if (!numCheck(inputVal)) {
-    var updatedVal = inputVal.toString().replace(/[^0-9]+/g,'');
+    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
     $(this).val(updatedVal);
   }
   debounce(updateView(this), 900);
