@@ -9,6 +9,7 @@ var dropdown = require('./dropdown-utils');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
+var numCheck = require('./num-check');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -313,7 +314,7 @@ function loadCounties() {
       dropdown('county').showHighlight();
     }
 
-    // Empty the current counties and cache the current state so we 
+    // Empty the current counties and cache the current state so we
     // can monitor if it changes.
     $('#county').html('')
                 .data( 'state', params['location'] );
@@ -763,7 +764,17 @@ function setSelections( options ) {
 
 // Recalculate everything when fields are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
-$('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
+
+// check if input value is a number
+// if not, replace the character with an empty string
+$('.calc-loan-amt .recalc').on( 'keyup', function(){
+  var inputVal = $(this).val();
+  if (!numCheck(inputVal)) {
+    var updatedVal = inputVal.toString().replace(/[^0-9]+/g,'');
+    $(this).val(updatedVal);
+  }
+  debounce(updateView(this), 900);
+});
 
 // Check if it's a jumbo loan if they change the loan amount or state.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
