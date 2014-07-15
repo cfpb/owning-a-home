@@ -5,7 +5,7 @@
  */
 module.exports = function(val) {
 
-  var numReg = new RegExp('^\\$?[0-9,]+(\\.[0-9]+)?$');
+  var numReg = new RegExp('^\\$?[0-9\\.,]+([0-9]+%)?$');
 
   if (numReg.test(val)) {
     return true;
