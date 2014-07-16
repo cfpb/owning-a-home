@@ -6,6 +6,7 @@ var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
+var jumbo = require('./jumbo-mortgage');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
@@ -282,17 +283,20 @@ function renderLoanAmount() {
  */
 function checkForJumbo() {
 
-  var amount = params['loan-amount'],
+  var loan = jumbo({
+        loanType: params['loan-type'],
+        loanAmount: params['loan-amount']
+      }),
       request;
 
-  // If it's less than the $417,000 limit, we cool bro.
-  if ( amount <= 417000 ) {
+  // If we don't need to request a county, hide the county dropdown and jumbo options.
+  if ( !loan.needCounty ) {
     dropdown('county').hide();
-    dropdown('loan-type').removeOption('jumbo');
+    dropdown('loan-type').removeOption(['jumbo', 'agency', 'fha-hb', 'va-hb']);
     return;
   }
 
-  // Show the county dropdown if we're over $417,000.
+  // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -350,55 +354,54 @@ function processCounties() {
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
-      gse,
-      fha,
-      va;
+      loan;
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
     return;
   }
 
-  // Grab the GSE, FHA and VA limits from the selected county.
-  gse = parseInt( $county.data('gse'), 10 );
-  fha = parseInt( $county.data('fha'), 10 );
-  va = parseInt( $county.data('va'), 10 );
+  loan = jumbo({
+    loanType: params['loan-type'],
+    loanAmount: params['loan-amount'],
+    gseCountyLimit: parseInt( $county.data('gse'), 10 ),
+    fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
+    vaCountyLimit: parseInt( $county.data('va'), 10 )
+  });
 
-  if ( params['loan-type'] === 'fha' && params['loan-amount'] < fha ) {
-    $loan.addOption({
-      label: 'FHA-HB',
-      value: 'fha-hb',
-      select: true
-    });
-    return;
-  }
+  if ( loan.success && loan.isJumbo ) {
 
-  if ( params['loan-type'] === 'fha' && params['loan-amount'] > fha && params['loan-amount'] <= 417000 ) {
-    $loan.addOption({
-      label: 'FHA-HB',
-      value: 'fha-hb',
-      select: true
-    });
-    return;
-  }
+    switch ( loan.type ) {
+      case 'agency':
+        $loan.addOption({
+          label: 'Conforming Jumbo',
+          value: 'agency',
+          select: true
+        });
+        break;
+      case 'jumbo':
+        $loan.addOption({
+          label: 'Jumbo',
+          value: 'jumbo',
+          select: true
+        });
+        break;
+      case 'fha-hb':
+        $loan.addOption({
+          label: 'FHA-HB',
+          value: 'fha-hb',
+          select: true
+        });
+        break;
+      case 'va-hb':
+        $loan.addOption({
+          label: 'VA-HB',
+          value: 'va-hb',
+          select: true
+        });
+        break;
+    }
 
-  // If the loan amount is equal to or less than the max GSE loan amount.
-  if ( params['loan-amount'] <= gse ) {
-    $loan.addOption({
-      label: 'Conforming Jumbo',
-      value: 'agency',
-      select: true
-    });
-    return;
-  }
-
-  // If the loan amount is above the max GSE loan amount for conforming jumbo.
-  if ( params['loan-amount'] > gse ) {
-    $loan.addOption({
-      label: 'Jumbo',
-      value: 'jumbo',
-      select: true
-    });
   }
 
 }
