@@ -213,6 +213,11 @@
     Middle section with chart
     --------------------------- */
 
+// this is shameful, but this is needed to force highcharts to display overflowing tooltips
+.highcharts-container {
+  overflow: visible !important;
+}
+
 .chart {
 
   margin: 20px 20px 20px 0;
@@ -240,7 +245,6 @@
 
 .chart-caption {
   font-size: 0.75em;
-  //margin-top: -6px; // accomodate for extra space added by highcharts
   padding: 0 1em 1em 1em;
 }
 
@@ -276,6 +280,7 @@
 }
 
 .chart-tooltip {
+  z-index: 9999;
   .lenders {
     .webfont-demi();
     display: inline-block;
