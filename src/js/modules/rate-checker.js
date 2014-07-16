@@ -9,7 +9,7 @@ var dropdown = require('./dropdown-utils');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
-var numCheck = require('./num-check');
+var isNum = require('./num-check');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -769,7 +769,7 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 // if not, replace the character with an empty string
 $('.calc-loan-amt .recalc').on( 'keyup', function(){
   var inputVal = $(this).val();
-  if (!numCheck(inputVal)) {
+  if (!isNum(inputVal)) {
     var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
     $(this).val(updatedVal);
   }
