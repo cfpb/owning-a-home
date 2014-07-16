@@ -91,12 +91,20 @@ var utils = function( id ) {
     return this;
   }
 
-
-  function removeOption( value ) {
-    if ( !value ) {
+  /**
+   * Remove an option from a dropdown.
+   * @param  {string | array} optionVal The value(s) of the options
+   *  that you'd like to remove. Can be a string or an array. If no
+   *  option(s) are specified, all options are removed.
+   * @return {object} this
+   */
+  function removeOption( optionVal ) {
+    if ( !optionVal ) {
       throw new Error("You must provide the value of the option you'd like to remove.");
     }
-    $el.find( 'option[value=' + value + ']' ).remove();
+    $el.find('option')
+       .filter( parseVals(optionVal) )
+       .remove();
     return this;
   }
 
