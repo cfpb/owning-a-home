@@ -9,6 +9,7 @@ var dropdown = require('./dropdown-utils');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
+var isNum = require('./num-check');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -247,10 +248,17 @@ function updateLanguage( data ) {
  * Store the loan amount and down payment and check if it's a jumbo loan.
  * @return {null}
  */
-function processLoanAmount( el ) {
+function processLoanAmount() {
 
-  // debounce(renderDownPayment( el ), 200);
-  renderDownPayment( el );
+  var name = $( this ).attr('name');
+
+  // Save the dp-constant value when the user interacts with
+  // down payment or down payment percentages.
+  if ( name === 'down-payment' || name === 'percent-down' ) {
+    options['dp-constant'] = name;
+  }
+
+  renderDownPayment.apply( this );
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
@@ -363,9 +371,9 @@ function checkIfZero($price, $percent, $down) {
  * Update either the down payment % or $ amount depending on the input they've changed.
  * @return {null}
  */
-function renderDownPayment( event ) {
+function renderDownPayment() {
 
-  var $el = $( event.target ),
+  var $el = $( this ),
       $price = $('#house-price'),
       $percent = $('#percent-down'),
       $down = $('#down-payment'),
@@ -777,20 +785,23 @@ function setSelections( options ) {
 
 // Recalculate everything when fields are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
-$('.calc-loan-amt').on( 'keyup', '.recalc', debounce(updateView, 900) );
+
+// check if input value is a number
+// if not, replace the character with an empty string
+$('.calc-loan-amt .recalc').on( 'keyup', function(){
+  var inputVal = $(this).val();
+  if (!isNum(inputVal)) {
+    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
+    $(this).val(updatedVal);
+  }
+  debounce(updateView(this), 900);
+});
 
 // Check if it's a jumbo loan if they change the loan amount or state.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
 // Recalculate loan amount.
 $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
-
-// save the dp-constant value when the user interacts with
-// down payment or down payment percentages
-$('#percent-down, #down-payment').on( 'change keyup', function(){
-  options['dp-constant'] = $(this).attr('name');
-  reCalcLoan(this);
-});
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
