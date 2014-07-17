@@ -23,6 +23,7 @@ var template = {
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
+  dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
   chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
 };
@@ -188,6 +189,14 @@ var updateView = function() {
     if( data.vals.length < 2 ) {
       chart.stopLoading();
       resultWarning();
+      return;
+    }
+
+    // display an error message if the downpayment is greater than the house price
+    if(+params['house-price'] < +params['down-payment']) {
+      chart.stopLoading();
+      resultWarning();
+      $('.calc-loan-amt').append( template.dpWarning );
       return;
     }
 
@@ -524,6 +533,7 @@ function removeAlerts() {
   if ($('.result-alert')) {
     $('#chart, .rangeslider__handle').removeClass('warning');
     $('.result-alert').remove();
+    $('.downpayment-warning').remove();
   }
 }
 
