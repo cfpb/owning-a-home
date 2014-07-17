@@ -313,7 +313,7 @@ function loadCounties() {
       dropdown('county').showHighlight();
     }
 
-    // Empty the current counties and cache the current state so we 
+    // Empty the current counties and cache the current state so we
     // can monitor if it changes.
     $('#county').html('')
                 .data( 'state', params['location'] );
@@ -349,6 +349,17 @@ function getCounties() {
 }
 
 /**
+ * Check if the house price entered is 0
+ * @return {null}
+ */
+function checkIfZero($price, $percent, $down) {
+  if (params['house-price'] === '0' || +params['house-price'] === 0) {
+    $percent.val('0');
+    $down.val('0');
+  }
+}
+
+/**
  * Update either the down payment % or $ amount depending on the input they've changed.
  * @return {null}
  */
@@ -364,12 +375,15 @@ function renderDownPayment( event ) {
     return;
   }
 
+  checkIfZero($price, $percent, $down);
+
   if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
     val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
     $percent.val( Math.round(val) );
   } else {
     val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
     $down.val( val > 0 ? Math.round(val) : '' );
+    $percent.val(Math.round(+$down.val() / +$price.val() * 100) || '');
   }
 
 }
