@@ -196,7 +196,7 @@ var updateView = function() {
     if(+params['house-price'] < +params['down-payment']) {
       chart.stopLoading();
       resultWarning();
-      $('.calc-loan-amt').append( template.dpWarning );
+      downPaymentWarning();
       return;
     }
 
@@ -373,6 +373,9 @@ function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     $percent.val('0');
     $down.val('0');
+    chart.stopLoading();
+    downPaymentWarning();
+    return;
   }
 }
 
@@ -521,6 +524,10 @@ function scoreWarning() {
  */
 function resultWarning() {
   $('#chart').addClass('warning').append( template.resultAlert );
+}
+
+function downPaymentWarning() {
+  $('.calc-loan-amt').append( template.dpWarning );
 }
 
 
