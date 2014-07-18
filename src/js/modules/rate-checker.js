@@ -846,6 +846,18 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(){
   debounce(updateView(this), 900);
 });
 
+// Prevent non-numeric characters from being entered
+$('.calc-loan-amt .recalc').on( 'keydown', function( event ){
+  var key = event.which,
+      allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
+
+  // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
+  // stop everything.
+  if ( allowedKeys.indexOf(key) === -1 || (event.shiftKey && key !== 9) ) {
+    event.preventDefault();
+  }
+});
+
 // Check if it's a jumbo loan if they change the loan amount or state.
 $('.demographics, .calc-loan-amt, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
