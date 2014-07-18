@@ -372,11 +372,13 @@ function getCounties() {
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     removeAlerts();
-    $percent.val('0');
+    $percent.val('0').attr('placeholder', '');
     $down.val('0');
     chart.stopLoading();
     downPaymentWarning();
     return;
+  } else if ($percent.attr('placeholder') === '') {
+    $percent.attr('placeholder', '10');
   }
 }
 
