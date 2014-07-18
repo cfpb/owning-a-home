@@ -371,6 +371,7 @@ function getCounties() {
  */
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
+    removeAlerts();
     $percent.val('0');
     $down.val('0');
     chart.stopLoading();
@@ -527,7 +528,7 @@ function resultWarning() {
 }
 
 function downPaymentWarning() {
-  $('.calc-loan-amt').append( template.dpWarning );
+  $('#loan-amt-inputs').append( template.dpWarning );
 }
 
 
@@ -540,7 +541,7 @@ function removeAlerts() {
   if ($('.result-alert')) {
     $('#chart, .rangeslider__handle').removeClass('warning');
     $('.result-alert').remove();
-    $('.downpayment-warning').remove();
+    $('#dp-alert').remove();
   }
 }
 
