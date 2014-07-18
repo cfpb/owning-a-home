@@ -1,6 +1,5 @@
-__author__ = 'CFPBLabs'
-
 import time
+
 
 class Utils(object):
 
@@ -18,7 +17,6 @@ class Utils(object):
             time.sleep(self.default_delay_secs)
             self.time_spent_sleeping += self.default_delay_secs
 
-
     def build_url(self, base_url, relative_url=''):
         if relative_url == '':
             return base_url.strip()
@@ -33,7 +31,8 @@ class Utils(object):
         return url
 
     def urls_match(self, url1, url2):
-        return self.strip_trailing_slash(url1) == self.strip_trailing_slash(url2)
+        return (self.strip_trailing_slash(url1) ==
+                self.strip_trailing_slash(url2))
 
     def build_login(self, user_nickname):
         # ToDo: retrieve login by 'nickname'
