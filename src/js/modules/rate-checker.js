@@ -23,6 +23,7 @@ var template = {
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
+  dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
   chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
 };
@@ -188,6 +189,14 @@ var updateView = function() {
     if( data.vals.length < 2 ) {
       chart.stopLoading();
       resultWarning();
+      return;
+    }
+
+    // display an error message if the downpayment is greater than the house price
+    if(+params['house-price'] < +params['down-payment']) {
+      chart.stopLoading();
+      resultWarning();
+      downPaymentWarning();
       return;
     }
 
@@ -357,6 +366,23 @@ function getCounties() {
 }
 
 /**
+ * Check if the house price entered is 0
+ * @return {null}
+ */
+function checkIfZero($price, $percent, $down) {
+  if (params['house-price'] === '0' || +params['house-price'] === 0) {
+    removeAlerts();
+    $percent.val('0').attr('placeholder', '');
+    $down.val('0');
+    chart.stopLoading();
+    downPaymentWarning();
+    return;
+  } else if ($percent.attr('placeholder') === '') {
+    $percent.attr('placeholder', '10');
+  }
+}
+
+/**
  * Update either the down payment % or $ amount depending on the input they've changed.
  * @return {null}
  */
@@ -372,12 +398,15 @@ function renderDownPayment() {
     return;
   }
 
+  checkIfZero($price, $percent, $down);
+
   if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
     val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
     $percent.val( Math.round(val) );
   } else {
     val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
     $down.val( val > 0 ? Math.round(val) : '' );
+    $percent.val(Math.round(+$down.val() / +$price.val() * 100) || '');
   }
 
 }
@@ -500,6 +529,10 @@ function resultWarning() {
   $('#chart').addClass('warning').append( template.resultAlert );
 }
 
+function downPaymentWarning() {
+  $('#loan-amt-inputs').append( template.dpWarning );
+}
+
 
 /**
  * Remove alerts and warnings
@@ -510,6 +543,7 @@ function removeAlerts() {
   if ($('.result-alert')) {
     $('#chart, .rangeslider__handle').removeClass('warning');
     $('.result-alert').remove();
+    $('#dp-alert').remove();
   }
 }
 
