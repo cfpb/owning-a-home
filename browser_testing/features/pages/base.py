@@ -44,6 +44,10 @@ class Base(object):
             self.logger.info("Currently at: %s" % (self.driver.current_url))
             self.get_screenshot(full_url)
             raise
+    def wait(self, driver_wait=-1):
+        if driver_wait == -1:
+            driver_wait = default_driver_wait
+        return WebDriverWait(self.driver, driver_wait)
 
     def close_browser(self):
         self.utils.zzz(1)

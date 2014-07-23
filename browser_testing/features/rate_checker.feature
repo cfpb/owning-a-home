@@ -153,8 +153,8 @@ Scenario Outline: Calculate down payment amount
 
 Examples:
   | house_price   | down_payment_percent   | down_payment_amount |
-  | 100,000       | 20                     | 20000               |
   | 250,000       | 17                     | 42500               |
+  | 100,000       | 20                     | 20000               |
   | 780,000       | 9                      | 70200               |
   | 1,250,000     | 15                     | 187500              |
 
@@ -223,14 +223,40 @@ Scenario Outline: Modify Down Payment percent then modify the House Price
 
 Examples:
   | house_price   | initial_percent   | modified_dp_amount | modified_house_price | modified_percent  | 
-  | 100,000       | 10                | 35000              | 175000               | 20                |
-  | 250,000       | 12                | 36000              | 225000               | 16                |
+  | 100000        | 10                | 35000              | 175000               | 20                |
+  | 250000        | 12                | 36000              | 225000               | 16                |
 
 @smoke_testing @rc
 Scenario: Select the ARM Type
   Given I navigate to the "Rate Checker" page
   When I select "Adjustable" Rate Structure
   Then I should see "3/1" as the selected ARM Type
+
+@smoke_testing @rc
+Scenario Outline: Select 30 and 15 year Fixed Rate loans
+  Given I navigate to the "Rate Checker" page
+  When I select "Fixed" Rate Structure
+    And I select "<total_number> Years" Loan Term
+  Then I should see "District of Columbia" as the selected location
+    And I should see the "Primary" Interest cost over <total_number> years
+    And I should see the "Secondary" Interest cost over <total_number> years
+
+Examples:
+  | total_number |
+  | 30           |
+  | 15           |
+
+@smoke_testing @rc1
+Scenario Outline: Attempt to enter invalid characters as House Price
+  Given I navigate to the "Rate Checker" page
+  When I enter $"<invalid_characters>" as House Price amount
+  Then I should see $"<hp_amount>" as the House price
+
+
+Examples:
+  | invalid_characters  | hp_amount | 
+  | zzzz                | 200,000   |
+  | 1@@2                | 12        |
 
 @rc
 Scenario: Test all dropdown lists in the Rate Checker page
