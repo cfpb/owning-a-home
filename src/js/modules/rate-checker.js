@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var debounce = require('debounce');
-var formatUSD = require('./format-usd');
-var unFormatUSD = require('./unformat-usd');
+var formatUSD = require('format-usd');
+var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
@@ -9,7 +9,7 @@ var dropdown = require('./dropdown-utils');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
-var isNum = require('./num-check');
+var isNum = require('is-money-usd');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -631,6 +631,10 @@ function renderChart( data, cb ) {
     hc.series[0].setData( data.vals );
 
   } else {
+
+    if ( chart.$el.length < 1 ) {
+      return;
+    }
 
     chart.$wrapper.addClass('geolocating');
     chart.$el.highcharts({
