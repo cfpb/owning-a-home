@@ -3,22 +3,22 @@ function getJumboLoanType( opts ) {
   opts = opts || {};
 
   var amount = opts.loanAmount || 0,
-      type = opts.loanType || undefined,
+      type = opts.loanType,
       limits = {};
 
   // Each loan type has a standard limit and may optionally have a lower
   // one based on the relevant county.
   limits.gse = {
     default: 417000,
-    county: opts.gseCountyLimit || undefined
+    county: opts.gseCountyLimit
   };
   limits.fha = {
     default: 271050,
-    county: opts.fhaCountyLimit || undefined
+    county: opts.fhaCountyLimit
   };
   limits.va = {
     default: 417000,
-    county: opts.vaCountyLimit || undefined
+    county: opts.vaCountyLimit
   };
 
   switch ( type ) {
