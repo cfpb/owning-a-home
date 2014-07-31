@@ -1,5 +1,5 @@
 var loanCalc = require('loan-calc');
-var formatUSD = require('./format-usd.js');
+var formatUSD = require('format-usd');
 
 // calculate the amount of a monthly payment
 module.exports = function(loanRate, termLength, loanAmt) {
