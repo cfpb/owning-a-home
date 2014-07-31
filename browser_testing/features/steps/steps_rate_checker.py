@@ -10,7 +10,8 @@ from pages.screenshot import Screenshot
 
 # DEFAULT VALUES
 DEFAULT_CREDIT_SCORE = 700  # the default range is 700 - 720
-RANGE_ALERT_TEXT = "Many lenders do not accept borrowers with credit scores less than 620"
+RANGE_ALERT_TEXT = ("Many lenders do not accept borrowers "
+                    "with credit scores less than 620")
 
 
 # CHART AREA
@@ -23,8 +24,9 @@ def step(context, state_name):
     try:
         assert_that(actual_text, equal_to('Alabama'))
     # Verify that displayed location matches the expected state
-    except:
+    except AssertionError:
         assert_that(actual_text, equal_to(state_name))
+
 
 # CREDIT SCORE RANGE
 @When(u'I move the credit score slider to the "{slider_direction}" range')
@@ -32,6 +34,7 @@ def step(context, state_name):
 def step(context, slider_direction):
     context.base.sleep(2)
     context.rate_checker.set_credit_score_range(slider_direction)
+
 
 @then(u'I should see the Credit Score Range displayed as "{score}"')
 def step(context, score):
@@ -50,11 +53,13 @@ def step(context, range_operation):
     elif (range_operation == "decrease"):
         assert_that(currentRange, less_than(DEFAULT_CREDIT_SCORE))
 
+
 # ALERTS
 @then(u'I should see an alert for borowers with less than 620 score')
 def step(context):
     actual_text = context.rate_checker.get_range_alert()
     assert_that(actual_text, contains_string(RANGE_ALERT_TEXT))
+
 
 @then(u'I should see the credit score slider handle turns red')
 def step(context):
@@ -62,6 +67,7 @@ def step(context):
     # Then the button has turned red
     actual_text = context.rate_checker.get_warning_button()
     assert_that(actual_text, contains_string("warning"))
+
 
 # STATE
 @when(u'I select "{state_name}" from the Location dropdown list')
@@ -79,6 +85,7 @@ def step(context, state_name):
         assert_that(current_Selection, equal_to('Alabama'))
     except:
         assert_that(current_Selection, equal_to(state_name))
+
 
 # HOUSE PRICE
 @when(u'I enter $"{house_price}" as House Price amount')
@@ -156,6 +163,7 @@ def step(context, number_of_years):
 def step(context, loan_type):
     context.rate_checker.set_loan_type(loan_type)
 
+
 @then(u'I should see "{loan_type}" as the selected Loan Type')
 def step(context, loan_type):
     current_Selection = context.rate_checker.get_loan_type()
@@ -173,11 +181,13 @@ def step(context, arm_type):
     current_Selection = context.rate_checker.get_arm_type()
     assert_that(current_Selection, equal_to(arm_type))
 
+
 # TABS AND LINKS
 @then(u'I should see the "{tab_text}" tab selected')
 def step(context, tab_text):
     actual_text = context.rate_checker.get_active_tab_text()
     assert_that(actual_text, equal_to(tab_text))
+
 
 @when(u'I click on the "{link_name}" link in the Rate Checker page')
 @when(u'I click on the "{link_name}" tab in the Rate Checker page')
@@ -185,12 +195,13 @@ def step(context, link_name):
     # Click the requested link
     context.rate_checker.click_link_by_text(link_name)
 
+
 # INTEREST COST LABEL
-@Then(u'I should see the "{selection}" Interest cost over {total_number} years')
-def step(context, selection, total_number):
+@Then(u'I should see the "{selection}" Interest cost over {total_years} years')
+def step(context, selection, total_years):
     if selection == "Primary":
         actual_text = context.rate_checker.get_interest_rate(0)
     if selection == "Secondary":
         actual_text = context.rate_checker.get_interest_rate(1)
-            
-    assert_that(actual_text, equal_to(total_number))
+
+    assert_that(actual_text, equal_to(total_years))
