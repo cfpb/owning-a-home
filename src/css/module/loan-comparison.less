@@ -67,9 +67,30 @@
   .webfont-demi();
 }
 
+.small-input {
+  display: inline-block;
+  width: 20%;
+}
+
+.mid-input {
+  display: inline-block;
+  width: 75%;
+}
+
 @media (max-width: 600px) {
   .input-subsection {
-    padding: 1.5em 0;
+    padding: 0.625em 0 1.5em 0;
     border-bottom: 1px solid @gray-20;
+  }
+}
+
+
+/*
+  Loan Comparison Results
+  --------------------------- */
+
+@media (max-width: 600px) {
+  .result-heading {
+    display: none;
   }
 }

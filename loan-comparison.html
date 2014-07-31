@@ -137,8 +137,13 @@
 
             <div class="input-content">
               <label for="percent-down-input">Down payment</label>
-              <input type="text" placeholder="15%" name="percent-down-input" id="percent-down-input" class="recalc">
-              <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc">
+              <div class="percent-input small-input">
+                <span class="unit">%</span>
+                <input type="text" placeholder="15" maxlength="2" name="percent-down-input" id="percent-down-input" class="recalc">
+              </div>
+              <div class="mid-input">
+                <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc">
+              </div>
             </div> <!-- ./input-content-->
           </div> <!-- /.input-subsection -->
 
