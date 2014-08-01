@@ -41,9 +41,7 @@
     padding: 1em 0;
 
     h4 {
-      font-size: 0.75em;
-      .webfont-demi();
-      text-transform: uppercase;
+      .allcaps-demi;
     }
   }
 }
@@ -62,9 +60,8 @@
   }
 }
 
-.lc-amount-label {
-  font-size: 0.75em;
-  .webfont-demi();
+.lc-subhead {
+  .allcaps-demi;
 }
 
 .small-input {
@@ -88,6 +85,22 @@
 /*
   Loan Comparison Results
   --------------------------- */
+
+.results-section {
+  margin-top: 60px;
+}
+
+.results-section-heading {
+  .webfont-medium();
+  font-size: 1.125em;
+  background-color: @gray-10;
+  padding: 12px 10px;
+}
+
+.lc-primary-result {
+  font-size: 1.375em;
+  .webfont-regular();
+}
 
 @media (max-width: 600px) {
   .result-heading {
