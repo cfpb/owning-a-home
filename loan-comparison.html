@@ -56,7 +56,8 @@
       <div class="lc-inputs">
         <a href="#" class="lc-save-link lc-toggle first-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
         <div class="input-subsection">
-          <label for="location">State</label>
+          <label for="location" class="label-float">State</label>
+          <div class="input-wrap"> <!-- use with columns with floated labels -->
             <div class="select-content">
               <select name="location" class="recalc" id="location">
                 <option value="AL">Alabama</option>
@@ -112,87 +113,109 @@
                 <option value="WY">Wyoming</option>
               </select>
             </div> <!-- /.select-content -->
+          </div> <!-- /.input-wrap -->
 
-            <label for="credit-score-select">Credit Score</label>
-            <div class="select-content">
-              <select name="credit-score-select" class="recalc" id="credit-score-select">
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-                <option value="720-740">720-740</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="credit-score-select" class="label-float">Credit Score</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="credit-score-select" class="recalc" id="credit-score-select">
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                  <option value="720-740">720-740</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div> <!-- /.input-wrap -->
           </div> <!-- /.input-subsection -->
 
           <div class="input-subsection">
             <div class="calc-content">
-              <h5 class="lc-subhead">Loan amount</h5>
-              <span>$240,000</span>
+              <h5 class="lc-subhead label-float">Loan amount</h5>
+              <div class="input-wrap"> <!-- use with columns with floated labels -->
+                <span>$240,000</span>
+              </div> <!-- /.input-wrap -->
             </div> <!-- ./calc-content-->
 
             <div class="input-content">
-              <label for="house-price-input">House price</label>
-              <input type="text" placeholder="280,000" name="house-price-input" id="house-price-input" class="recalc">
+              <label for="house-price-input" class="label-float">House price</label>
+              <div class="input-wrap"> <!-- use with columns with floated labels -->
+                <input type="text" placeholder="280,000" name="house-price-input" id="house-price-input" class="recalc">
+              </div> <!-- /.input-wrap -->
             </div> <!-- ./input-content-->
 
             <div class="input-content">
-              <label for="percent-down-input">Down payment</label>
-              <div class="percent-input small-input">
-                <span class="unit">%</span>
-                <input type="text" placeholder="15" maxlength="2" name="percent-down-input" id="percent-down-input" class="recalc">
-              </div>
-              <div class="mid-input">
-                <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc">
-              </div>
+              <label for="percent-down-input" class="label-float">Down payment <span class="visuallyhidden">Percentage</span></label>
+              <div class="input-wrap"> <!-- use with columns with floated labels -->
+                <div class="percent-input small-input">
+                  <span class="unit">%</span>
+                  <input type="text" placeholder="15" maxlength="2" name="percent-down-input" id="percent-down-input" class="recalc">
+                </div>
+                <label for="down-payment-input" class="visuallyhidden">Down payment amount</label>
+                <div class="mid-input">
+                  <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc">
+                </div>
+              </div><!-- /.input-wrap -->
             </div> <!-- ./input-content-->
           </div> <!-- /.input-subsection -->
 
           <div class="input-subsection">
             <div class="calc-content">
-              <h5 class="lc-subhead">Loan option</h5>
-              <span>30-year fixed conventional</span>
+              <h5 class="lc-subhead label-float">Loan option</h5>
+               <div class="input-wrap"> <!-- use with columns with floated labels -->
+                <span>30-year fixed conventional</span>
+              </div> <!-- /.input-wrap -->
             </div> <!-- ./calc-content-->
 
-            <label for="rate-structure-select">Rate structure</label>
-            <div class="select-content">
-              <select name="rate-structure-select" class="recalc" id="rate-structure-select">
-                <option value="fixed">Fixed</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="rate-structure-select" class="label-float">Rate structure</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="rate-structure-select" class="recalc" id="rate-structure-select">
+                  <option value="fixed">Fixed</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div><!-- /.input-wrap -->
 
-            <label for="loan-term-select">Loan term</label>
-            <div class="select-content">
-              <select name="loan-term-select" class="recalc" id="loan-term-select">
-                <option value="30">30 years</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="loan-term-select" class="label-float">Loan term</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="loan-term-select" class="recalc" id="loan-term-select">
+                  <option value="30">30 years</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div><!-- /.input-wrap -->
 
-            <label for="loan-type-select">Loan type</label>
-            <div class="select-content">
-              <select name="loan-type-select" class="recalc" id="loan-type-select">
-                <option value="conf">Conventional</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="loan-type-select" class="label-float">Loan type</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="loan-type-select" class="recalc" id="loan-type-select">
+                  <option value="conf">Conventional</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div><!-- /.input-wrap -->
           </div> <!-- /.input-subsection -->
 
           <div class="input-subsection">
-            <label for="arm-type-select">ARM type</label>
-            <div class="select-content">
-              <select name="arm-type-select" class="recalc" id="arm-type-select">
-                <option value="5/1">5/1</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="arm-type-select" class="label-float">ARM type</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="arm-type-select" class="recalc" id="arm-type-select">
+                  <option value="5/1">5/1</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div><!-- /.input-wrap -->
 
-            <label for="interest-rate-select">Interest rate</label>
-            <div class="select-content">
-              <select name="interest-rate-select" class="recalc" id="interest-rate-select">
-                <option value="4">4%</option>
-              </select>
-            </div> <!-- /.select-content -->
+            <label for="interest-rate-select" class="label-float">Interest rate</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="interest-rate-select" class="recalc" id="interest-rate-select">
+                  <option value="4">4%</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div><!-- /.input-wrap -->
           </div> <!-- /.input-subsection -->
           <a href="#" class="lc-save-link lc-toggle second-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
       </div> <!-- /.lc-inputs -->

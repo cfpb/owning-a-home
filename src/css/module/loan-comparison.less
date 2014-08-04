@@ -75,9 +75,36 @@
   background: @gray-10;
   .wrapper;
   .webfont-regular();
+}
 
+/* labels and inputs are full width on small screens */
+@media (min-width: 600px) {
+
+  .lc-inputs {
+    padding-bottom: 28px;
+  }
+
+  .input-subsection {
+    .wrapper;
+    padding-top: 28px;
+  }
+
+  .label-float {
+    .column(4);
+    text-align: right;
+  }
+
+  .input-wrap {
+    .column(8);
+  }
+}
+
+@media (max-width: 600px) {
+
+.lc-inputs {
   label {
-    margin-top: 0.875em;
+      margin-top: 0.875em;
+    }
   }
 }
 
@@ -113,6 +140,7 @@
 }
 
 .lc-save-link {
+  display: none; // hide on desktop
   margin: 0 -15px; // negative margin accomodates for grid padding
 
   &.first-save {
@@ -136,7 +164,9 @@
     }
   }
 
-
+  .lc-save-link {
+    display: block; //
+  }
   .input-subsection {
     padding: 0.625em 0 1.5em 0;
     border-bottom: 1px solid @gray-20;
