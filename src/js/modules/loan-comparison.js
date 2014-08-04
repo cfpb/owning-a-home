@@ -67,11 +67,14 @@ function updateComparisons() {
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
 
-  console.log(loan);
+  console.log(formatUSD(loan['monthly-payment']));
+  console.log(formatUSD(loan['overall-cost']));
 
 }
 
-$('.comparisons').on( 'change keyup', '.recalc', debounce(updateComparisons, 500) );
+Object.observe( loan, updateComparisons );
+
+// $('.comparisons').on( 'change keyup', '.recalc', debounce(updateComparisons, 500) );
 
 // toggle the inputs on mobile
 $('.lc-toggle').click(function(e) {
