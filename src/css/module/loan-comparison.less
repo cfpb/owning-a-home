@@ -7,9 +7,13 @@
   .webfont-regular();
 }
 
-.comparison-column {
-  .column( 4 );
+.comparison-column-1 {
+  .column( 6 );
 }
+.comparison-column {
+  .column( 3 );
+}
+
 /*
   Mobile overview section
   --------------------------- */
@@ -26,6 +30,7 @@
 
 @media (max-width: 600px) {
 
+  .comparison-column-1,
   .comparison-column {
     .column( 12 ); // this will have to change when we have two loans
   }
@@ -74,7 +79,35 @@
   width: 75%;
 }
 
+.lc-toggle {
+  display: block;
+  background: #fff;
+  font-size: 0.875em;
+  text-align: center;
+  border-top: 1px dotted @pacific;
+  border-bottom: 1px dotted @pacific;
+  padding: 8px 0;
+
+  .cf-icon {
+    font-size: 1.125em;
+  }
+}
+
+.lc-save-link {
+  margin: 0 -15px; // negative margin accomodates for grid padding
+}
+
 @media (max-width: 600px) {
+
+  .lc-inputs {
+    display: none;
+
+    &.input-open {
+      display: block;
+    }
+  }
+
+
   .input-subsection {
     padding: 0.625em 0 1.5em 0;
     border-bottom: 1px solid @gray-20;
