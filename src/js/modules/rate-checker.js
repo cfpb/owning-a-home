@@ -810,7 +810,7 @@ function setSelections( options ) {
 // This is a temporary hack to only attach the below event handlers when we're on
 // the rate checker page. Eventually we will externalize shared event handlers like
 // all the loan calculation stuff.
-if ( $('.rate-checker').length > 0 ) {
+if ( $('.rate-checker[role=main]').length > 0 ) {
 
   // Recalculate everything when fields are changed.
   $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
