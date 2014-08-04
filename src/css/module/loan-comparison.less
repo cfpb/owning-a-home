@@ -178,15 +178,24 @@
   Loan Comparison Results
   --------------------------- */
 
-.results-section {
+.comparison-results {
   margin-top: 60px;
 }
 
+.result-heading {
+  color: @gray;
+  .push(3);
+}
+
+.results-section {
+  margin-bottom: 60px;
+}
+
 .results-section-heading {
+  .reset;
   .webfont-medium();
   font-size: 1.125em;
   background-color: @gray-10;
-  padding: 12px 10px;
 }
 
 .lc-primary-result {
@@ -194,8 +203,30 @@
   .webfont-regular();
 }
 
+@media (min-width: 600px) {
+  .results-section {
+    background-color: @gray-10;
+    padding: 12px 0;
+  }
+
+  .results-section-heading,
+  .lc-result {
+    .column(3);
+  }
+
+  .results-section-heading {
+    font-size: 1.375em;
+  }
+
+}
+
 @media (max-width: 600px) {
   .result-heading {
     display: none;
+  }
+
+  .results-section-heading {
+    padding: 12px 10px;
+
   }
 }
