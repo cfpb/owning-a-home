@@ -23,7 +23,7 @@ function getLoanInfo() {
     return isMoney( val ) ? unFormatUSD( val ) : 0;
   }
 
-  return {
+  var vals = {
     location: $('#location').val(),
     creditScore: $('#credit-score-select').val(),
     amountBorrowed: _sanitizeMoney( $('#house-price-input').val() - $('#down-payment-input').val() ),
@@ -33,6 +33,8 @@ function getLoanInfo() {
     armType: $('#arm-type-select').val(),
     rate: $('#interest-rate-select').val()
   };
+
+  return vals;
 
 }
 
@@ -67,4 +69,5 @@ function calcCosts( opts ) {
 
 }
 
-$('.comparisons').on( 'change', '.recalc', updateComparisons );
+$('.comparisons').on( 'change keyup', '.recalc', debounce(updateComparisons, 500) );
+
