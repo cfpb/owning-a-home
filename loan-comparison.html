@@ -55,7 +55,7 @@
         <div class="input-subsection">
           <label for="location">State</label>
             <div class="select-content">
-              <select name="location" class="recalc" id="location">
+              <select name="location" class="recalc" id="location" cf-objectify="location">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
@@ -112,7 +112,7 @@
 
             <label for="credit-score-select">Credit Score</label>
             <div class="select-content">
-              <select name="credit-score-select" class="recalc" id="credit-score-select">
+              <select name="credit-score-select" class="recalc" id="credit-score-select" cf-objectify="credit-score">
                 <option value="720-740">720-740</option>
                 <option value="720-740">720-740</option>
                 <option value="720-740">720-740</option>
@@ -133,17 +133,17 @@
 
             <div class="input-content">
               <label for="house-price-input">House price</label>
-              <input type="text" placeholder="280,000" name="house-price-input" id="house-price-input" class="recalc">
+              <input type="text" placeholder="280,000" name="house-price-input" id="house-price-input" class="recalc" cf-objectify="house-price">
             </div> <!-- ./input-content-->
 
             <div class="input-content">
               <label for="percent-down-input">Down payment</label>
               <div class="percent-input small-input">
                 <span class="unit">%</span>
-                <input type="text" placeholder="15" maxlength="2" name="percent-down-input" id="percent-down-input" class="recalc">
+                <input type="text" placeholder="15" maxlength="2" name="percent-down-input" id="percent-down-input" class="recalc" cf-objectify="percent-down">
               </div>
               <div class="mid-input">
-                <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc">
+                <input type="text" placeholder="$40,000" name="down-payment-input" id="down-payment-input" class="recalc" cf-objectify="down-payment">
               </div>
             </div> <!-- ./input-content-->
           </div> <!-- /.input-subsection -->
@@ -156,21 +156,21 @@
 
             <label for="rate-structure-select">Rate structure</label>
             <div class="select-content">
-              <select name="rate-structure-select" class="recalc" id="rate-structure-select">
+              <select name="rate-structure-select" class="recalc" id="rate-structure-select" cf-objectify="rate-structure">
                 <option value="fixed">Fixed</option>
               </select>
             </div> <!-- /.select-content -->
 
             <label for="loan-term-select">Loan term</label>
             <div class="select-content">
-              <select name="loan-term-select" class="recalc" id="loan-term-select">
+              <select name="loan-term-select" class="recalc" id="loan-term-select" cf-objectify="loan-term">
                 <option value="30">30 years</option>
               </select>
             </div> <!-- /.select-content -->
 
             <label for="loan-type-select">Loan type</label>
             <div class="select-content">
-              <select name="loan-type-select" class="recalc" id="loan-type-select">
+              <select name="loan-type-select" class="recalc" id="loan-type-select" cf-objectify="loan-type">
                 <option value="conf">Conventional</option>
               </select>
             </div> <!-- /.select-content -->
@@ -179,14 +179,14 @@
           <div class="input-subsection">
             <label for="arm-type-select">ARM type</label>
             <div class="select-content">
-              <select name="arm-type-select" class="recalc" id="arm-type-select">
+              <select name="arm-type-select" class="recalc" id="arm-type-select" cf-objectify="arm-type">
                 <option value="5/1">5/1</option>
               </select>
             </div> <!-- /.select-content -->
 
             <label for="interest-rate-select">Interest rate</label>
             <div class="select-content">
-              <select name="interest-rate-select" class="recalc" id="interest-rate-select">
+              <select name="interest-rate-select" class="recalc" id="interest-rate-select" cf-objectify="interest-rate">
                 <option value="4">4%</option>
               </select>
             </div> <!-- /.select-content -->
