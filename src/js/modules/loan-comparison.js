@@ -68,3 +68,13 @@ function calcCosts( opts ) {
 }
 
 $('.comparisons').on( 'change', '.recalc', updateComparisons );
+
+// toggle the inputs on mobile
+$('.lc-toggle').click(function(e) {
+  e.preventDefault();
+  var $parent = $(this).parents('.lc-comparison'),
+      $inputs = $parent.find('.lc-inputs'),
+      $editLink = $('.lc-edit-link');
+  $inputs.toggleClass('input-open');
+  $editLink.toggle();
+});
