@@ -2,8 +2,95 @@
   .webfont-medium();
 }
 
-.container-thing {
-  color: blue;
+.comparison-header {
+  font-size: 1.375em;
+  .webfont-regular();
 }
 
-// I'M SAVING THIS FILE NOW AND COMMITTING IT, YOU DO THE SAME.
+.comparison-column {
+  .column( 4 );
+}
+/*
+  Mobile overview section
+  --------------------------- */
+
+// default to hiding mobile overview section
+.mobile-overview {
+  display: none;
+
+  p {
+    .webfont-regular();
+    margin-bottom: 0.75em;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .comparison-column {
+    .column( 12 ); // this will have to change when we have two loans
+  }
+
+  .comparison-lead {
+    .column( 6 );
+  }
+
+  // display mobile overview on small screens
+  .mobile-overview {
+    display: block;
+    border-top: 3px solid @green-midtone;
+    padding: 1em 0;
+
+    h4 {
+      font-size: 0.75em;
+      .webfont-demi();
+      text-transform: uppercase;
+    }
+  }
+}
+
+/*
+  Loan Comparison Inputs
+  --------------------------- */
+
+.lc-inputs {
+  background: @gray-10;
+  .wrapper;
+  .webfont-regular();
+
+  label {
+    margin-top: 0.875em;
+  }
+}
+
+.lc-amount-label {
+  font-size: 0.75em;
+  .webfont-demi();
+}
+
+.small-input {
+  display: inline-block;
+  width: 20%;
+}
+
+.mid-input {
+  display: inline-block;
+  width: 75%;
+}
+
+@media (max-width: 600px) {
+  .input-subsection {
+    padding: 0.625em 0 1.5em 0;
+    border-bottom: 1px solid @gray-20;
+  }
+}
+
+
+/*
+  Loan Comparison Results
+  --------------------------- */
+
+@media (max-width: 600px) {
+  .result-heading {
+    display: none;
+  }
+}
