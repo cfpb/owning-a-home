@@ -84,8 +84,6 @@
   background: #fff;
   font-size: 0.875em;
   text-align: center;
-  border-top: 1px dotted @pacific;
-  border-bottom: 1px dotted @pacific;
   padding: 8px 0;
 
   .cf-icon {
@@ -93,8 +91,23 @@
   }
 }
 
+.lc-edit-link {
+  border-top: 1px dotted @pacific;
+  border-bottom: 1px dotted @pacific;
+}
+
 .lc-save-link {
   margin: 0 -15px; // negative margin accomodates for grid padding
+
+  &.first-save {
+    border-top: 1px dotted @pacific;
+    border-bottom: 1px solid @gray-20;
+  }
+
+  &.second-save {
+    border-top: 1px solid @gray-20;
+    border-bottom: 1px dotted @pacific;
+  }
 }
 
 @media (max-width: 600px) {
