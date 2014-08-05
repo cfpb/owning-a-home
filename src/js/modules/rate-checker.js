@@ -95,7 +95,7 @@ var options = {
 function init() {
 
   // Only attempt to do things if we're on the rate checker page.
-  if ( $('.rate-checker').length < 0 ) {
+  if ( $('.rate-checker').length < 1 ) {
     return;
   }
 
@@ -850,7 +850,7 @@ if ( $('.rate-checker[role=main]').length > 0 ) {
   // Recalculate interest costs.
   $('#rate-structure').on( 'change', checkARM );
 
-}
+  // Do it!
+  init();
 
-// Do it!
-init();
+}
