@@ -46,8 +46,8 @@
 
 @media (max-width: 600px) {
 
-  .comparison-column-1,
-  .comparison-column {
+  .comparison-input-column-1,
+  .comparison-input-column {
     .column( 12 ); // this will have to change when we have two loans
   }
 
@@ -75,6 +75,10 @@
   background: @gray-10;
   width: 100%;
   .webfont-regular();
+
+  .wrap {
+    padding: 0;
+  }
 }
 
 /* labels and inputs are full width on small screens */
@@ -99,9 +103,9 @@
   }
 
   // todo: layout all headings
-  .lc-comparison-a .comparison-lead {
-    position: relative;
-    left: 14%;
+  .lc-comparison-a .comparison-header {
+    display: inline-block;
+   .push(2);
   }
 }
 
@@ -190,6 +194,7 @@
 
 .result-heading {
   color: @gray;
+  display: inline-block;
   .push(3);
 }
 
