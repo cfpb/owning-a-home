@@ -21,6 +21,9 @@ var loan = objectify([
     name: 'amount-borrowed',
     source: 'house-price - down-payment'
   },{
+    name: 'down-payment',
+    source: 'down-payment'
+  },{
     name: 'rate-structure',
     source: 'rate-structure'
   },{
@@ -38,41 +41,74 @@ var loan = objectify([
   },{
     name: 'monthly-payment',
     source: function() {
-      var amortized = amortize({
+      return amortize({
         amount: loan['amount-borrowed'],
         rate: loan['interest-rate'],
-        totalTerm: loan['loan-term'],
+        totalTerm: loan['loan-term'] * 12,
         amortizeTerm: 60
-      });
-      return amortized.payment;
+      }).payment;
     }
   },{
     name: 'overall-cost',
     source: function() {
-      var overall = cost({
+      return cost({
         amountBorrowed: loan['amount-borrowed'],
         rate: loan['interest-rate'],
         totalTerm: loan['loan-term'],
-      });
-      return overall.overallCost;
+      }).overallCost;
     }
   }
 ]);
 
-function updateComparisons() {
+// Cache these for later
+var $monthly = $('.monthly-payment-display'),
+    $overall = $('.overall-costs-display'),
+    $amount = $('.loan-amount-display');
 
-  var $monthly = $('#monthly-payment span'),
-      $overall = $('#overall-costs span');
+function updateComparisons( changes ) {
+
+  // Take care of special use cases by monitoring the object's changes.
+  // The down payment and percent down fields are wonky and require special handling.
+  for ( var i = 0, len = changes.length; i < len; i++ ) {
+    var $el,
+        val;
+    console.log(changes[i]);
+    
+    if ( changes[i].name === 'percent-down' ) {
+      $el = $('#percent-down-input');
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+      val = val / 100 * loan.price;
+      $('#down-payment-input').val( val ).trigger('change');
+    }
+    if ( changes[i].name === 'down-payment' ) {
+      $el = $('#down-payment-input');
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+      val = Math.round( val * 100 ) / 100;
+      $('#percent-down-input').val( val ).trigger('change');
+    }
+  }
 
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
+  $amount.text( formatUSD(loan['amount-borrowed'],{decimalPlaces:0}) );
 
-  console.log(formatUSD(loan['monthly-payment']));
-  console.log(formatUSD(loan['overall-cost']));
+  window.loan = loan;
 
 }
 
 Object.observe( loan, updateComparisons );
+
+// The down payment and percent down fields are wonky
+// $('#percent-down').on('keyup', function(){
+//   var val = $( this ).val() / 100 * loan.price;
+//   formalize.update();
+  
+// });
+
+// $('#down-payment').on('keyup', function(){
+//   var val = $( this ).val() / loan.price * 100;
+  
+// });
 
 // $('.comparisons').on( 'change keyup', '.recalc', debounce(updateComparisons, 500) );
 
