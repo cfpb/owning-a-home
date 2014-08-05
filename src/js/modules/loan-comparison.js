@@ -21,6 +21,12 @@ var loan = objectify([
     name: 'amount-borrowed',
     source: 'house-price - down-payment'
   },{
+    name: 'price',
+    source: 'house-price'
+  },{
+    name: 'percent-down',
+    source: 'percent-down'
+  },{
     name: 'down-payment',
     source: 'down-payment'
   },{
@@ -60,10 +66,15 @@ var loan = objectify([
   }
 ]);
 
+objectify.update();
+
+window.loan = loan;
+
 // Cache these for later
-var $monthly = $('.monthly-payment-display'),
-    $overall = $('.overall-costs-display'),
-    $amount = $('.loan-amount-display');
+var $amount = $('.loan-amount-display'),
+    $closing = $('.closing-costs-display'),
+    $monthly = $('.monthly-payment-display'),
+    $overall = $('.overall-costs-display');
 
 function updateComparisons( changes ) {
 
@@ -77,22 +88,24 @@ function updateComparisons( changes ) {
     if ( changes[i].name === 'percent-down' ) {
       $el = $('#percent-down-input');
       val = unFormatUSD( $el.val() || $el.attr('placeholder') );
-      val = val / 100 * loan.price;
+      val = parseFloat( val, 10 ) / 100 * loan['price'];
       $('#down-payment-input').val( val ).trigger('change');
     }
     if ( changes[i].name === 'down-payment' ) {
       $el = $('#down-payment-input');
       val = unFormatUSD( $el.val() || $el.attr('placeholder') );
-      val = Math.round( val * 100 ) / 100;
+      val = val / unFormatUSD( $('#house-price-input').val() ) * 100;
+      val = Math.round( val * 10 ) / 10;
+      console.log(val);
       $('#percent-down-input').val( val ).trigger('change');
     }
   }
 
+  $amount.text( formatUSD(loan['amount-borrowed'],{decimalPlaces:0}) );
+  $closing.text( formatUSD( 3000 + parseInt(loan['down-payment'], 10)) );
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
-  $amount.text( formatUSD(loan['amount-borrowed'],{decimalPlaces:0}) );
-
-  window.loan = loan;
+  
 
 }
 
