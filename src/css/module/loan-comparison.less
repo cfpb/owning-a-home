@@ -7,9 +7,29 @@
   .webfont-regular();
 }
 
-.comparison-column {
-  .column( 4 );
+.comparison-input-column-1 {
+  .column( 6 );
 }
+.comparison-input-column {
+  .column( 3 );
+}
+
+/*
+  Introductory content
+  --------------------------- */
+
+@media (max-width: 600px) {
+  .loan-comparison {
+    .lead {
+      display: none; // hide the lead for now, this will be a toggle later
+    }
+
+    .intro-img {
+      display: none; // hide the hero image on mobile
+    }
+  }
+}
+
 /*
   Mobile overview section
   --------------------------- */
@@ -26,7 +46,8 @@
 
 @media (max-width: 600px) {
 
-  .comparison-column {
+  .comparison-input-column-1,
+  .comparison-input-column {
     .column( 12 ); // this will have to change when we have two loans
   }
 
@@ -52,11 +73,48 @@
 
 .lc-inputs {
   background: @gray-10;
-  .wrapper;
+  width: 100%;
   .webfont-regular();
 
+  .wrap {
+    padding: 0;
+  }
+}
+
+/* labels and inputs are full width on small screens */
+@media (min-width: 600px) {
+
+  .lc-inputs {
+    padding-bottom: 28px;
+  }
+
+  .input-subsection {
+    .wrapper;
+    padding-top: 28px;
+  }
+
+  .label-float {
+    .column(4);
+    text-align: right;
+  }
+
+  .input-wrap {
+    .column(8);
+  }
+
+  // todo: layout all headings
+  .lc-comparison-a .comparison-header {
+    display: inline-block;
+   .push(2);
+  }
+}
+
+@media (max-width: 600px) {
+
+.lc-inputs {
   label {
-    margin-top: 0.875em;
+      margin-top: 0.875em;
+    }
   }
 }
 
@@ -74,7 +132,51 @@
   width: 75%;
 }
 
+.lc-toggle {
+  display: block;
+  background: #fff;
+  font-size: 0.875em;
+  text-align: center;
+  padding: 8px 0;
+
+  .cf-icon {
+    font-size: 1.125em;
+  }
+}
+
+.lc-edit-link {
+  border-top: 1px dotted @pacific;
+  border-bottom: 1px dotted @pacific;
+}
+
+.lc-save-link {
+  display: none; // hide on desktop
+  margin: 0 -15px; // negative margin accomodates for grid padding
+
+  &.first-save {
+    border-top: 1px dotted @pacific;
+    border-bottom: 1px solid @gray-20;
+  }
+
+  &.second-save {
+    border-top: 1px solid @gray-20;
+    border-bottom: 1px dotted @pacific;
+  }
+}
+
 @media (max-width: 600px) {
+
+  .lc-inputs {
+    display: none;
+
+    &.input-open {
+      display: block;
+    }
+  }
+
+  .lc-save-link {
+    display: block; //
+  }
   .input-subsection {
     padding: 0.625em 0 1.5em 0;
     border-bottom: 1px solid @gray-20;
@@ -86,15 +188,25 @@
   Loan Comparison Results
   --------------------------- */
 
-.results-section {
+.comparison-results {
   margin-top: 60px;
 }
 
+.result-heading {
+  color: @gray;
+  display: inline-block;
+  .push(3);
+}
+
+.results-section {
+  margin-bottom: 60px;
+}
+
 .results-section-heading {
+  .reset;
   .webfont-medium();
   font-size: 1.125em;
   background-color: @gray-10;
-  padding: 12px 10px;
 }
 
 .lc-primary-result {
@@ -102,8 +214,30 @@
   .webfont-regular();
 }
 
+@media (min-width: 600px) {
+  .results-section {
+    background-color: @gray-10;
+    padding: 12px 0;
+  }
+
+  .results-section-heading,
+  .lc-result {
+    .column(3);
+  }
+
+  .results-section-heading {
+    font-size: 1.375em;
+  }
+
+}
+
 @media (max-width: 600px) {
   .result-heading {
     display: none;
+  }
+
+  .results-section-heading {
+    padding: 12px 10px;
+
   }
 }
