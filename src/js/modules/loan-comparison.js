@@ -76,6 +76,7 @@ var $amount = $('.loan-amount-display'),
     $closing = $('.closing-costs-display'),
     $monthly = $('.monthly-payment-display'),
     $overall = $('.overall-costs-display'),
+    $interest = $('.interest-rate-display'),
     $summaryYear = $('#lc-summary-year'),
     $summaryStruct = $('#lc-summary-structure'),
     $summaryType = $('#lc-summary-type');
@@ -109,6 +110,7 @@ function updateComparisons( changes ) {
   $closing.text( formatUSD( 3000 + parseInt(loan['down-payment'], 10)) );
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
+  $interest.text( loan['interest-rate'] );
   $summaryYear.text( loan['loan-term'] );
   $summaryStruct.text( loan['rate-structure'] );
   $summaryType.text( humanizeLoanType(loan['loan-type']) );
