@@ -5,6 +5,7 @@ var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var isMoney = require('is-money-usd');
 var amortize = require('amortize');
+var humanizeLoanType = require('./humanize-loan-type');
 require('./object.observe-polyfill');
 
 var loan = objectify([
@@ -74,7 +75,10 @@ window.loan = loan;
 var $amount = $('.loan-amount-display'),
     $closing = $('.closing-costs-display'),
     $monthly = $('.monthly-payment-display'),
-    $overall = $('.overall-costs-display');
+    $overall = $('.overall-costs-display'),
+    $summaryYear = $('#lc-summary-year'),
+    $summaryStruct = $('#lc-summary-structure'),
+    $summaryType = $('#lc-summary-type');
 
 function updateComparisons( changes ) {
 
@@ -84,7 +88,7 @@ function updateComparisons( changes ) {
     var $el,
         val;
     console.log(changes[i]);
-    
+
     if ( changes[i].name === 'percent-down' ) {
       $el = $('#percent-down-input');
       val = unFormatUSD( $el.val() || $el.attr('placeholder') );
@@ -105,7 +109,9 @@ function updateComparisons( changes ) {
   $closing.text( formatUSD( 3000 + parseInt(loan['down-payment'], 10)) );
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
-  
+  $summaryYear.text( loan['loan-term'] );
+  $summaryStruct.text( loan['rate-structure'] );
+  $summaryType.text( humanizeLoanType(loan['loan-type']) );
 
 }
 
