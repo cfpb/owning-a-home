@@ -123,31 +123,36 @@
                 <div class="input-wrap"> <!-- use with columns with floated labels -->
                   <div class="select-content">
                     <select name="credit-score-select" class="recalc" id="credit-score-select" cf-objectify="credit-score">
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
-                      <option value="720-740">720-740</option>
+                      <option value="600">600 - 620</option>
+                      <option value="620">621 - 640</option>
+                      <option value="640">641 - 660</option>
+                      <option value="660">661 - 680</option>
+                      <option value="680">681 - 700</option>
+                      <option value="700">701 - 720</option>
+                      <option value="720">721 - 740</option>
+                      <option value="740">741 - 760</option>
+                      <option value="760">761 - 780</option>
+                      <option value="780">781 - 800</option>
+                      <option value="800">801 - 820</option>
+                      <option value="820">821 - 840</option>
+                      <option value="840">841+</option>
                     </select>
                   </div> <!-- /.select-content -->
                 </div> <!-- /.input-wrap -->
               </div> <!-- /.input-subsection -->
 
-              <div class="input-subsection">
+              <div class="input-subsection pricing">
                 <div class="calc-content">
                   <h5 class="lc-subhead label-float">Loan amount</h5>
                   <div class="input-wrap"> <!-- use with columns with floated labels -->
-                    <span>$240,000</span>
+                    <span class="loan-amount-display">$200,000</span>
                   </div> <!-- /.input-wrap -->
                 </div> <!-- ./calc-content-->
 
                 <div class="input-content">
                   <label for="house-price-input" class="label-float">House price</label>
                   <div class="input-wrap"> <!-- use with columns with floated labels -->
-                    <input type="text" placeholder="200,000" name="house-price-input" id="house-price-input" class="recalc" cf-objectify="house-price">
+                    <input type="text" placeholder="$200,000" name="house-price-input" id="house-price-input" class="recalc" cf-objectify="house-price">
                   </div> <!-- /.input-wrap -->
                 </div> <!-- ./input-content-->
 
@@ -179,6 +184,7 @@
                   <div class="select-content">
                     <select name="rate-structure-select" class="recalc" id="rate-structure-select" cf-objectify="rate-structure">
                       <option value="fixed">Fixed</option>
+                      <option value="ARM">Adjustable</option>
                     </select>
                   </div> <!-- /.select-content -->
                 </div><!-- /.input-wrap -->
