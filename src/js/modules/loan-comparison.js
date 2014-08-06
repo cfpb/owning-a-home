@@ -14,28 +14,31 @@ var loan = objectify([
     source: 'location'
   },{
     name: 'minfico',
-    source: 'credit-score'
+    source: 'credit-score',
+    type: 'number'
   },{
     name: 'maxfico',
-    source: 'credit-score + 20'
+    source: 'credit-score + 20',
+    type: 'number'
   },{
     name: 'amount-borrowed',
-    source: 'house-price - down-payment'
+    source: 'house-price - down-payment',
+    type: 'number'
   },{
     name: 'price',
-    source: 'house-price'
-  },{
-    name: 'percent-down',
-    source: 'percent-down'
+    source: 'house-price',
+    type: 'number'
   },{
     name: 'down-payment',
-    source: 'down-payment'
+    source: 'down-payment',
+    type: 'number'
   },{
     name: 'rate-structure',
     source: 'rate-structure'
   },{
     name: 'loan-term',
-    source: 'loan-term'
+    source: 'loan-term',
+    type: 'number'
   },{
     name: 'loan-type',
     source: 'loan-type'
@@ -44,7 +47,8 @@ var loan = objectify([
     source: 'arm-type'
   },{
     name: 'interest-rate',
-    source: 'interest-rate'
+    source: 'interest-rate',
+    type: 'number'
   },{
     name: 'monthly-payment',
     source: function() {
@@ -77,36 +81,29 @@ var $amount = $('.loan-amount-display'),
     $monthly = $('.monthly-payment-display'),
     $overall = $('.overall-costs-display'),
     $interest = $('.interest-rate-display'),
+    $percent = $('#percent-down-input'),
     $summaryYear = $('#lc-summary-year'),
     $summaryStruct = $('#lc-summary-structure'),
     $summaryType = $('#lc-summary-type');
 
+// Keep track of the last down payment field that was accessed.
+var percentDownAccessedLast;
+
+function _stayPositive( num ) {
+  return parseFloat( num ) < 0 ? 0 : num;
+}
+
 function updateComparisons( changes ) {
 
-  // Take care of special use cases by monitoring the object's changes.
-  // The down payment and percent down fields are wonky and require special handling.
   for ( var i = 0, len = changes.length; i < len; i++ ) {
-    var $el,
-        val;
-    console.log(changes[i]);
-
-    if ( changes[i].name === 'percent-down' ) {
-      $el = $('#percent-down-input');
-      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
-      val = parseFloat( val, 10 ) / 100 * loan['price'];
-      $('#down-payment-input').val( val ).trigger('change');
-    }
-    if ( changes[i].name === 'down-payment' ) {
-      $el = $('#down-payment-input');
-      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
-      val = val / unFormatUSD( $('#house-price-input').val() ) * 100;
-      val = Math.round( val * 10 ) / 10;
-      console.log(val);
-      $('#percent-down-input').val( val ).trigger('change');
+    if ( changes[i].name == 'down-payment' && !percentDownAccessedLast ) {
+      var val = loan['down-payment'] / loan['price'] * 100;
+      $('#percent-down-input').val( Math.round(val) );
+      percentDownAccessedLast = false;
     }
   }
 
-  $amount.text( formatUSD(loan['amount-borrowed'],{decimalPlaces:0}) );
+  $amount.text( formatUSD( _stayPositive(loan['amount-borrowed']),{decimalPlaces:0}) );
   $closing.text( formatUSD( 3000 + parseInt(loan['down-payment'], 10)) );
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
@@ -119,6 +116,40 @@ function updateComparisons( changes ) {
 
 // Observe the loan object for changes
 Object.observe( loan, updateComparisons );
+
+function _updateDownPayment( ev ) {
+  
+  var val;
+    
+  if ( /percent/.test(ev.target.id) ) {
+    val = $('#percent-down-input').val() / 100 * loan.price;
+    // objectify.update();
+    $('#down-payment-input').val( Math.round(val) ).trigger('keyup');
+    percentDownAccessedLast = true;
+    return;
+  }
+
+  if ( /down\-payment/.test(ev.target.id) ) {
+    percentDownAccessedLast = false;
+  }
+
+  if ( /house\-price/.test(ev.target.id) && percentDownAccessedLast !== undefined ) {
+    if ( percentDownAccessedLast ) {
+      val = $('#percent-down-input').val() / 100 * loan.price || 0;
+      objectify.update();
+      $('#down-payment-input').val( Math.round(val) ).trigger('keyup');
+    } else {
+      val = loan['down-payment'] / loan['price'] * 100 || 0;
+      $('#percent-down-input').val( Math.round(val) );
+    }
+  }
+
+  window.percentDownAccessedLast = percentDownAccessedLast;
+
+}
+
+// The pricing fields (price, dp, dp %) are wonky and require special handling.
+$('.pricing').on( 'keyup', 'input', _updateDownPayment );
 
 // toggle the inputs on mobile
 $('.lc-toggle').click(function(e) {
