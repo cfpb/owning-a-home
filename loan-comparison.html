@@ -30,7 +30,7 @@
   </section> <!-- /.page-intro -->
 
   <section class="comparisons">
-      <div class="wrap"> <!-- this markup will change with multiple columns -->
+      <div class="mobile-comparison-overviews wrap">
         <div class="wrapper">
           <div class="mobile-overview">
             <h3 class="comparison-header">Loan A</h3>
@@ -74,11 +74,20 @@
         </div> <!-- /.wrapper -->
       </div> <!-- /.comparison-lead -->
 
+      <div class="wrap">
+        <ul class="input-headers" aria-hidden="true">
+          <li><h3>Compare loan costs</h3></li>
+          <li><h3>Loan A</h3></li>
+          <li><h3>Loan B</h3></li>
+          <li><h3>Loan C</h3></li>
+        </ul>
+      </div>
+
       <div class="lc-inputs">
         <div class="wrap">
           <section id="lc-input-a" class="lc-input comparison-input-column-1 wrapper">
             <a href="#lc-input-a" class="lc-save-link lc-toggle first-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
-            <h3 class="comparison-header comparison-header-a">Loan A</h3>
+            <h3 class="visuallyhidden">Loan A</h3>
             <div class="input-subsection">
               <label for="location" class="label-float">State</label>
               <div class="input-wrap"> <!-- use with columns with floated labels -->
@@ -260,7 +269,7 @@
               <a href="#lc-input-a" class="lc-save-link lc-toggle second-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
           </section> <!-- /.comparison-input-column-1 -->
 
-          <section id="lc-input-a" class="lc-input comparison-input-column wrapper">
+          <section id="lc-input" class="lc-input comparison-input-column wrapper">
             <div class="add-btn">
               <p>Compare loans to better understand your options.</p>
               <a class="btn btn-secondary">Add another loan</a>

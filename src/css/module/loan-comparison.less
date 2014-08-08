@@ -35,6 +35,7 @@
   --------------------------- */
 
 // default to hiding mobile overview section
+.mobile-comparison-overviews,
 .mobile-overview {
   display: none;
 
@@ -45,6 +46,11 @@
 }
 
 @media (max-width: 600px) {
+
+  // show the mobile comparisons
+  .mobile-comparison-overviews {
+    display: block;
+  }
 
   .comparison-input-column-1,
   .comparison-input-column {
@@ -100,19 +106,24 @@
     padding: 0;
   }
 
-  .comparison-header {
-    position: absolute;
-    top: -40px;
-    text-align: center;
-  }
-
-  .comparison-header-a {
-    .push(3);
-  }
-
   input[type="text"] {
     width: 100%;
     border: 1px solid @gray-50;
+  }
+}
+
+.input-headers {
+  .wrapper;
+
+  li {
+    .wrapper;
+    .column(3);
+    text-align: center;
+    padding: 1em 0;
+  }
+
+  h3 {
+    .reset;
   }
 }
 
@@ -155,6 +166,10 @@
   label {
       margin-top: 0.875em;
     }
+  }
+
+  .input-headers {
+    display: none;
   }
 }
 
