@@ -1,5 +1,5 @@
 var LoanCalc = require('loan-calc');
-var formatUSD = require('./format-usd');
+var formatUSD = require('format-usd');
 
 // calculate the total interest paid on a loan
 var calcInterest = function(loanRate, termLength, loanAmt) {
