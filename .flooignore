@@ -1,0 +1,14 @@
+#*
+*.o
+*.pyc
+*~
+extern/
+node_modules/
+tmp
+vendor/
+src/vendor
+src/fonts
+static/fonts/
+dist/*
+static/*
+test/compiled_tests.js

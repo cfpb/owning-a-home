@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var debounce = require('debounce');
-var formatUSD = require('./format-usd');
-var unFormatUSD = require('./unformat-usd');
+var formatUSD = require('format-usd');
+var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
 var highcharts = require('highcharts');
 var geolocation = require('./geolocation');
@@ -9,7 +9,7 @@ var dropdown = require('./dropdown-utils');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
-var isNum = require('./num-check');
+var isNum = require('is-money-usd');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -95,7 +95,7 @@ var options = {
 function init() {
 
   // Only attempt to do things if we're on the rate checker page.
-  if ( $('.rate-checker').length < 0 ) {
+  if ( $('.rate-checker').length < 1 ) {
     return;
   }
 
@@ -632,6 +632,10 @@ function renderChart( data, cb ) {
 
   } else {
 
+    if ( chart.$el.length < 1 ) {
+      return;
+    }
+
     chart.$wrapper.addClass('geolocating');
     chart.$el.highcharts({
       chart: {
@@ -803,43 +807,50 @@ function setSelections( options ) {
 
 }
 
-// Recalculate everything when fields are changed.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
+// This is a temporary hack to only attach the below event handlers when we're on
+// the rate checker page. Eventually we will externalize shared event handlers like
+// all the loan calculation stuff.
+if ( $('.rate-checker[role=main]').length > 0 ) {
 
-// check if input value is a number
-// if not, replace the character with an empty string
-$('.calc-loan-amt .recalc').on( 'keyup', function(){
-  var inputVal = $(this).val();
-  if (!isNum(inputVal)) {
-    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
-    $(this).val(updatedVal);
-  }
-  debounce(updateView(this), 900);
-});
+  // Recalculate everything when fields are changed.
+  $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 
-// Prevent non-numeric characters from being entered
-$('.calc-loan-amt .recalc').on( 'keydown', function( event ){
-  var key = event.which,
-      allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
+  // check if input value is a number
+  // if not, replace the character with an empty string
+  $('.calc-loan-amt .recalc').on( 'keyup', function(){
+    var inputVal = $(this).val();
+    if (!isNum(inputVal)) {
+      var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
+      $(this).val(updatedVal);
+    }
+    debounce(updateView(this), 900);
+  });
 
-  // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
-  // stop everything.
-  if ( allowedKeys.indexOf(key) === -1 || (event.shiftKey && key !== 9) ) {
-    event.preventDefault();
-  }
-});
+  // Prevent non-numeric characters from being entered
+  $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
+    var key = event.which,
+        allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
 
-// Check if it's a jumbo loan if they change the loan amount or state.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
+    // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
+    // stop everything.
+    if ( allowedKeys.indexOf(key) === -1 || (event.shiftKey && key !== 9) ) {
+      event.preventDefault();
+    }
+  });
 
-// Recalculate loan amount.
-$('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
+  // Check if it's a jumbo loan if they change the loan amount or state.
+  $('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
-// Recalculate interest costs.
-$('.compare').on(' change', 'select', renderInterestAmounts );
+  // Recalculate loan amount.
+  $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
 
-// Recalculate interest costs.
-$('#rate-structure').on( 'change', checkARM );
+  // Recalculate interest costs.
+  $('.compare').on(' change', 'select', renderInterestAmounts );
 
-// Do it!
-init();
+  // Recalculate interest costs.
+  $('#rate-structure').on( 'change', checkARM );
+
+  // Do it!
+  init();
+
+}

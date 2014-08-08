@@ -1,4 +1,3 @@
-
 # Compiled source #
 ###################
 *.com
@@ -55,6 +54,10 @@ ip
 config.js
 
 # node #
-#######
+########
 npm-debug.log
 node_modules/
+
+# Floobits #
+############
+.floo
