@@ -55,12 +55,30 @@
     .column( 6 );
   }
 
+  .inactive {
+    color: @gray;
+  }
+
+  .comparison-header {
+    border-bottom: 3px solid @green-midtone;
+
+    .inactive & {
+      color: @gray-50;
+      border-bottom: 3px solid @gray-50;
+    }
+  }
+
+  .mobile-add-btn {
+    a:hover {
+      color: #fff;
+    }
+  }
+
   // display mobile overview on small screens
   .mobile-overview {
-    display: block;
-    border-top: 3px solid @green-midtone;
-    padding: 1em 0;
-    width: 50%;
+    .column(6);
+    padding-top: 1em;
+    padding-bottom: 1em;
 
     h4 {
       .allcaps-demi;
@@ -76,9 +94,20 @@
   background: @gray-10;
   width: 100%;
   .webfont-regular();
+  position: relative;
 
   .wrap {
     padding: 0;
+  }
+
+  .comparison-header {
+    position: absolute;
+    top: -40px;
+    text-align: center;
+  }
+
+  .comparison-header-a {
+    .push(3);
   }
 
   input[type="text"] {
@@ -118,6 +147,10 @@
 @media (max-width: 600px) {
 .lc-inputs {
   padding-left: 1em;
+
+  .comparison-header {
+    display: none;
+  }
 
   label {
       margin-top: 0.875em;
@@ -183,7 +216,7 @@
 
 @media (max-width: 600px) {
 
-  .lc-inputs {
+  .lc-input {
     display: none;
 
     &.input-open {
