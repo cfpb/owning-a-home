@@ -35,7 +35,6 @@
   --------------------------- */
 
 // default to hiding mobile overview section
-.mobile-comparison-overviews,
 .mobile-overview {
   display: none;
 
@@ -45,12 +44,14 @@
   }
 }
 
-@media (max-width: 600px) {
-
-  // show the mobile comparisons
+@media (min-width: 600px) {
+  // hide on small screens
   .mobile-comparison-overviews {
-    display: block;
+    display: none;
   }
+}
+
+@media (max-width: 600px) {
 
   .comparison-input-column-1,
   .comparison-input-column {
