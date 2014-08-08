@@ -111,9 +111,9 @@ function updateComparisons( changes ) {
 Object.observe( loan, updateComparisons );
 
 function _updateDownPayment( ev ) {
-  
+
   var val;
-    
+
   if ( /percent/.test(ev.target.id) ) {
     val = $('#percent-down-input').val() / 100 * loan.price;
     // objectify.update();
@@ -145,8 +145,8 @@ $('.pricing').on( 'keyup', 'input', _updateDownPayment );
 // toggle the inputs on mobile
 $('.lc-toggle').click(function(e) {
   e.preventDefault();
-  var $parent = $(this).parents('.lc-comparison'),
-      $inputs = $parent.find('.lc-inputs'),
+  var $link = $(this).attr('href'),
+      $inputs = $($link),
       $editLink = $('.lc-edit-link');
   $inputs.toggleClass('input-open');
   $editLink.toggle();
