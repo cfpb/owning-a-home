@@ -68,7 +68,8 @@
     "overall-loan-cost": "^0.3.2",
     "unformat-usd": "~0.1.1",
     "format-usd": "~0.1.0",
-    "is-money-usd": "~0.1.2"
+    "is-money-usd": "~0.1.2",
+    "objectified": "~0.3.0"
   },
   "testling": {
     "files": "test/js/*.js",
