@@ -65,7 +65,9 @@ var loan = objectify([
       return cost({
         amountBorrowed: loan['amount-borrowed'],
         rate: loan['interest-rate'],
-        totalTerm: loan['loan-term'],
+        totalTerm: loan['loan-term'] * 12,
+        downPayment: loan['down-payment'],
+        closingCosts: 3000 // hard coded value for now
       }).overallCost;
     }
   }
