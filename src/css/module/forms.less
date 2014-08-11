@@ -55,15 +55,17 @@ input {
 }
 
 .inline-radio {
-
-  margin-top: 1em;
-
- input,
- label {
   display: inline-block;
- }
+  margin-top: 1em;
+  width: 20%;
+  margin-right: -4px; // remove extra inline-block space
 
- label {
+  input,
+  label {
+  display: inline-block;
+  }
+
+  label {
   margin-right: 10px;
- }
+  }
 }
