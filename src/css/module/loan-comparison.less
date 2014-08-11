@@ -121,6 +121,7 @@
     .reset;
     border: 0;
     outline: 0;
+    display: block;
   }
 }
 
@@ -240,6 +241,46 @@
     border-bottom: 1px dotted @pacific;
   }
 }
+
+// points inline radio button layout
+.lc-radio {
+  width: 20%;
+
+  input,
+  label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  label {
+    margin-right: 10px;
+  }
+}
+
+// shrink font size below 1060px
+@media (max-width: 1060px) {
+  .lc-radio {
+    label {
+     font-size: .875em;
+    }
+  }
+}
+
+// below 950px display radio buttons and labels on new lines
+@media (max-width: 950px) {
+  .lc-radio {
+
+    input,
+    label {
+     display: block;
+    }
+
+    label {
+      margin-right: 0;
+    }
+  }
+}
+
 
 @media (max-width: 600px) {
 
