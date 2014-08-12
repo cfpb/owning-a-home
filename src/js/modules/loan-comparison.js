@@ -50,6 +50,12 @@ var loan = objectify([
     source: 'interest-rate',
     type: 'number'
   },{
+    name: 'discount',
+    source: function() {
+      var points = $( 'input:checked' ).val() / 100;
+      return points * loan['amount-borrowed'];
+    }
+  },{
     name: 'monthly-payment',
     source: function() {
       return amortize({
@@ -67,13 +73,19 @@ var loan = objectify([
         rate: loan['interest-rate'],
         totalTerm: loan['loan-term'] * 12,
         downPayment: loan['down-payment'],
-        closingCosts: 3000 // hard coded value for now
+        closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
       }).overallCost;
     }
   }
 ]);
 
 objectify.update();
+
+// update when the radio buttons are updated
+// todo: there's certainly a cleaner way to do this
+$( 'input:radio' ).on( 'click', function() {
+  objectify.update();
+});
 
 window.loan = loan;
 
@@ -84,6 +96,7 @@ var $amount = $('.loan-amount-display'),
     $overall = $('.overall-costs-display'),
     $interest = $('.interest-rate-display'),
     $percent = $('#percent-down-input'),
+    $closing = $('.closing-costs-display'),
     $summaryYear = $('#lc-summary-year'),
     $summaryStruct = $('#lc-summary-structure'),
     $summaryType = $('#lc-summary-type');
@@ -110,6 +123,7 @@ function updateComparisons( changes ) {
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
   $interest.text( loan['interest-rate'] );
+  $closing.text( formatUSD(3000 + loan['discount']) );
   $summaryYear.text( loan['loan-term'] );
   $summaryStruct.text( loan['rate-structure'] );
   $summaryType.text( humanizeLoanType(loan['loan-type']) );
