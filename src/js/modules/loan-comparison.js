@@ -1,6 +1,6 @@
 var debounce = require('debounce');
 var cost = require('overall-loan-cost');
-var objectify = require('cf-objectify');
+var objectify = require('objectified');
 var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var isMoney = require('is-money-usd');
@@ -14,31 +14,25 @@ var loan = objectify([
     source: 'location'
   },{
     name: 'minfico',
-    source: 'credit-score',
-    type: 'number'
+    source: 'credit-score'
   },{
     name: 'maxfico',
-    source: 'credit-score + 20',
-    type: 'number'
+    source: 'credit-score + 20'
   },{
     name: 'amount-borrowed',
-    source: 'house-price - down-payment',
-    type: 'number'
+    source: 'house-price - down-payment'
   },{
     name: 'price',
-    source: 'house-price',
-    type: 'number'
+    source: 'house-price'
   },{
     name: 'down-payment',
-    source: 'down-payment',
-    type: 'number'
+    source: 'down-payment'
   },{
     name: 'rate-structure',
     source: 'rate-structure'
   },{
     name: 'loan-term',
-    source: 'loan-term',
-    type: 'number'
+    source: 'loan-term'
   },{
     name: 'loan-type',
     source: 'loan-type'
@@ -47,8 +41,7 @@ var loan = objectify([
     source: 'arm-type'
   },{
     name: 'interest-rate',
-    source: 'interest-rate',
-    type: 'number'
+    source: 'interest-rate'
   },{
     name: 'discount',
     source: function() {
@@ -111,7 +104,7 @@ function _stayPositive( num ) {
 function updateComparisons( changes ) {
 
   for ( var i = 0, len = changes.length; i < len; i++ ) {
-    if ( changes[i].name == 'down-payment' && !percentDownAccessedLast ) {
+    if ( changes[i].name == 'down-payment' && typeof percentDownAccessedLast !== 'undefined' && !percentDownAccessedLast ) {
       var val = loan['down-payment'] / loan['price'] * 100;
       $('#percent-down-input').val( Math.round(val) );
       percentDownAccessedLast = false;
@@ -159,8 +152,6 @@ function _updateDownPayment( ev ) {
       $('#percent-down-input').val( Math.round(val) );
     }
   }
-
-  window.percentDownAccessedLast = percentDownAccessedLast;
 
 }
 

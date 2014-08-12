@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -118,8 +119,10 @@ class RateChecker(Base):
             return element.get_attribute("value")
 
     def set_house_price(self, house_price):
+        # Clear any existing text
+        self.driver.execute_script("document.getElementById('house-price').value=''")
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
-        element.clear()  # Clear any existing text
+        element.clear()
         element.send_keys(house_price)
 
     # DOWN PAYMENT PERCENT
@@ -134,8 +137,10 @@ class RateChecker(Base):
             return element.get_attribute("value")
 
     def set_down_payment_percent(self, down_payment):
+         # Clear any existing text
+        self.driver.execute_script("document.getElementById('percent-down').value=''")
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
-        element.clear() # Clear any existing text
+        element.clear()
         element.send_keys(down_payment)
 
     # DOWN PAYMENT AMOUNT
@@ -150,8 +155,10 @@ class RateChecker(Base):
             return element.get_attribute("value")
 
     def set_down_payment_amount(self, down_payment):
+        # Clear any existing text
+        self.driver.execute_script("document.getElementById('down-payment').value=''")
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
-        element.clear()  # Clear any existing text
+        element.clear()
         element.send_keys(down_payment) 
 
     # LOAN AMOUNT
@@ -220,3 +227,9 @@ class RateChecker(Base):
     def click_link_by_text(self, link_name):
         element = self.driver.find_element_by_link_text(link_name)
         element.click()
+
+    # INTEREST COST OVER YEARS 
+    def get_interest_rate(self, ordinal):
+        element = self.driver.find_elements_by_css_selector(".interest-cost.interest-cost-primary h5 span")
+        # Return either the Primary or Secondary text based on the ordinal passed
+        return element[ordinal].text
