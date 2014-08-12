@@ -19,13 +19,11 @@ default_driver_wait = 20
 
 class Base(object):
     def __init__(self, logger, results_folder, base_url=r'http://localhost/',
-                 driver=None, driver_wait=-1, delay_secs=0):
+                 driver=None, driver_wait=default_driver_wait, delay_secs=0):
         if driver is None:
             assert 'Driver is invalid or was not provided.'
 
-        if driver_wait == -1:
-            self.driver_wait = default_driver_wait
-
+        self.driver_wait = driver_wait
         self.base_url = base_url
         self.driver = driver
         self.chain = ActionChains(self.driver)
@@ -44,6 +42,9 @@ class Base(object):
             self.logger.info("Currently at: %s" % (self.driver.current_url))
             self.get_screenshot(full_url)
             raise
+
+    def wait(self, driver_wait=default_driver_wait):
+        return WebDriverWait(self.driver, driver_wait)
 
     def close_browser(self):
         self.utils.zzz(1)
