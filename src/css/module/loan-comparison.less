@@ -44,6 +44,13 @@
   }
 }
 
+@media (min-width: 600px) {
+  // hide on small screens
+  .mobile-comparison-overviews {
+    display: none;
+  }
+}
+
 @media (max-width: 600px) {
 
   .comparison-input-column-1,
@@ -55,12 +62,30 @@
     .column( 6 );
   }
 
+  .inactive {
+    color: @gray;
+  }
+
+  .comparison-header {
+    border-bottom: 3px solid @green-midtone;
+
+    .inactive & {
+      color: @gray-50;
+      border-bottom: 3px solid @gray-50;
+    }
+  }
+
+  .mobile-add-btn {
+    a:hover {
+      color: #fff;
+    }
+  }
+
   // display mobile overview on small screens
   .mobile-overview {
-    display: block;
-    border-top: 3px solid @green-midtone;
-    padding: 1em 0;
-    width: 50%;
+    .column(6);
+    padding-top: 1em;
+    padding-bottom: 1em;
 
     h4 {
       .allcaps-demi;
@@ -76,6 +101,7 @@
   background: @gray-10;
   width: 100%;
   .webfont-regular();
+  position: relative;
 
   .wrap {
     padding: 0;
@@ -84,6 +110,33 @@
   input[type="text"] {
     width: 100%;
     border: 1px solid @gray-50;
+  }
+
+  legend {
+    .reset;
+    display: inline-block;
+  }
+
+  fieldset {
+    .reset;
+    border: 0;
+    outline: 0;
+    display: block;
+  }
+}
+
+.input-headers {
+  .wrapper;
+
+  li {
+    .wrapper;
+    .column(3);
+    text-align: center;
+    padding: 1em 0;
+  }
+
+  h3 {
+    .reset;
   }
 }
 
@@ -119,9 +172,17 @@
 .lc-inputs {
   padding-left: 1em;
 
+  .comparison-header {
+    display: none;
+  }
+
   label {
       margin-top: 0.875em;
     }
+  }
+
+  .input-headers {
+    display: none;
   }
 }
 
@@ -181,9 +242,49 @@
   }
 }
 
+// points inline radio button layout
+.lc-radio {
+  width: 16.666666667%;
+
+  input,
+  label {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  label {
+    margin-right: 6px;
+  }
+}
+
+// shrink font size below 1060px
+@media (max-width: 1060px) {
+  .lc-radio {
+    label {
+     font-size: .875em;
+    }
+  }
+}
+
+// below 950px display radio buttons and labels on new lines
+@media (max-width: 950px) {
+  .lc-radio {
+
+    input,
+    label {
+     display: block;
+    }
+
+    label {
+      margin-right: 0;
+    }
+  }
+}
+
+
 @media (max-width: 600px) {
 
-  .lc-inputs {
+  .lc-input {
     display: none;
 
     &.input-open {
@@ -200,6 +301,22 @@
   }
 }
 
+/*
+  Add comparison
+  --------------------------- */
+
+.add-btn {
+
+  border: 2px dashed @gray-50;
+  text-align: center;
+  margin-top: 28px;
+  padding: 30px 0;
+  border-radius: .25em;
+
+  a:hover {
+    color: #fff;
+  }
+}
 
 /*
   Loan Comparison Results

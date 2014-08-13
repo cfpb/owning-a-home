@@ -30,15 +30,12 @@
   </section> <!-- /.page-intro -->
 
   <section class="comparisons">
-    <div id="comparison-a" class="lc-comparison lc-comparison-a">
-
-      <div class="wrap"> <!-- this markup will change with multiple columns -->
+      <div class="mobile-comparison-overviews wrap">
         <div class="wrapper">
-          <h3 class="comparison-header">Loan A</h3>
-
           <div class="mobile-overview">
+            <h3 class="comparison-header">Loan A</h3>
             <h4>Loan Amount</h4>
-            <p class="loan-amount-display">$200,000</p>
+            <p class="loan-amount-display">$180,000</p>
 
             <h4>Loan Type</h4>
             <p>30 year fixed conventional</p>
@@ -49,16 +46,48 @@
             <h4>Interest Rate</h4>
             <p> <span class="interest-rate-display">3.25</span>%</p>
 
-            <a href='#' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+            <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+
+          </div> <!-- /.mobile-overview -->
+
+          <div class="mobile-overview loan-b inactive">
+            <h3 class="comparison-header">Loan B</h3>
+            <div class="mobile-add-btn">
+              <p>Compare loans to better understand your options.</p>
+              <a class="btn btn-secondary">Add another loan</a>
+            </div> <!-- /.mobile-add-btn -->
+            <!--<h4>Loan Amount</h4>
+            <p class="loan-amount-display">$180,000</p>
+
+            <h4>Loan Type</h4>
+            <p>30 year fixed conventional</p>
+
+            <h4>Points or Credits</h4>
+            <p>n/a</p>
+
+            <h4>Interest Rate</h4>
+            <p> <span class="interest-rate-display">3.25</span>%</p>
+
+            <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a> -->
 
           </div> <!-- /.mobile-overview -->
         </div> <!-- /.wrapper -->
       </div> <!-- /.comparison-lead -->
 
+      <div class="wrap">
+        <ul class="input-headers" aria-hidden="true">
+          <li><h3>Compare loan costs</h3></li>
+          <li><h3>Loan A</h3></li>
+          <li><h3>Loan B</h3></li>
+          <li><h3>Loan C</h3></li>
+        </ul>
+      </div>
+
       <div class="lc-inputs">
         <div class="wrap">
-          <section class="comparison-input-column-1 wrapper">
-            <a href="#" class="lc-save-link lc-toggle first-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
+          <section id="lc-input-a" class="lc-input comparison-input-column-1 wrapper">
+            <a href="#lc-input-a" class="lc-save-link lc-toggle first-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
+            <h3 class="visuallyhidden">Loan A</h3>
             <div class="input-subsection">
               <label for="location" class="label-float">State</label>
               <div class="input-wrap"> <!-- use with columns with floated labels -->
@@ -128,7 +157,7 @@
                       <option value="640">641 - 660</option>
                       <option value="660">661 - 680</option>
                       <option value="680">681 - 700</option>
-                      <option value="700">701 - 720</option>
+                      <option value="700" selected="selected">701 - 720</option>
                       <option value="720">721 - 740</option>
                       <option value="740">741 - 760</option>
                       <option value="760">761 - 780</option>
@@ -223,7 +252,41 @@
                     </select>
                   </div> <!-- /.select-content -->
                 </div><!-- /.input-wrap -->
+              </div> <!-- /.input-subsection -->
 
+              <div class="input-subsection">
+                <fieldset id="points" class="radio-fieldset input-content">
+                  <label class="label-float">Discount point <br/>and credits</label>
+                  <div class="input-wrap"> <!-- use with columns with floated labels -->
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-negative-two" value="-2" />
+                      <label for="discount-negative-two">-2</label>
+                    </div>
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-negative-one" value="-1" />
+                      <label for="discount-negative-one">-1</label>
+                    </div>
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-zero" value="0" checked="checked" />
+                      <label for="discount-zero">0</label>
+                    </div>
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-one" value="1" />
+                      <label for="discount-one">1</label>
+                    </div>
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-two" value="2" />
+                      <label for="discount-two">2</label>
+                    </div>
+                    <div class="inline-radio lc-radio">
+                      <input type="radio" name="discount" id="discount-three" value="3" />
+                      <label for="discount-three">3</label>
+                    </div>
+                  </div> <!-- /.input-wrap -->
+                </fieldset>
+              </div> <!-- /.input-subsection -->
+
+              <div class="input-subsection">
                 <label for="interest-rate-select" class="label-float">Interest rate</label>
                 <div class="input-wrap"> <!-- use with columns with floated labels -->
                   <div class="select-content">
@@ -237,13 +300,18 @@
                   </div> <!-- /.select-content -->
                 </div><!-- /.input-wrap -->
               </div> <!-- /.input-subsection -->
-              <a href="#" class="lc-save-link lc-toggle second-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
+              <a href="#lc-input-a" class="lc-save-link lc-toggle second-save"><span class="cf-icon cf-icon-save"></span> Save inputs</a>
           </section> <!-- /.comparison-input-column-1 -->
+
+          <section id="lc-input" class="lc-input comparison-input-column wrapper">
+            <div class="add-btn">
+              <p>Compare loans to better understand your options.</p>
+              <a class="btn btn-secondary">Add another loan</a>
+            </div>
+          </section>
         </div> <!-- /.wrap -->
 
       </div> <!-- /.lc-inputs -->
-
-    </div> <!-- /#comparison-a -->
 
   </section> <!-- ./comparisons -->
 
