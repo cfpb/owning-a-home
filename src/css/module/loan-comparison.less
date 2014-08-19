@@ -7,15 +7,22 @@
   .webfont-regular();
 }
 
+.comparison-input-column {
+  .column( 3 );
+}
+
 #lc-input-a {
   .column( 6 );
 }
-.comparison-input-column {
-  .column( 3 );
-  &.no-labels {
-    .input-wrap {
-      width: 100% !important;
-    }
+
+#lc-input-b,
+#lc-input-c {
+  h5,
+  label {
+    .visuallyhidden !important;
+  }
+  .input-wrap {
+    width: 100% !important;
   }
 }
 

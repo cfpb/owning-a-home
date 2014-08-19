@@ -4,9 +4,20 @@ var objectify = require('objectified');
 var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var isMoney = require('is-money-usd');
+var positive = require('stay-positive');
 var amortize = require('amortize');
 var humanizeLoanType = require('./humanize-loan-type');
+var templates = {
+  form: require('../templates/loan-form.hbs'),
+  button: require('../templates/loan-add-button.hbs')
+};
 require('./object.observe-polyfill');
+
+$('.lc-inputs .wrap').append( templates.form({form_id: 'a'}) );
+$('.lc-inputs .wrap').append( templates.button() );
+$('.add-btn').on('click', 'a', function(){
+  $('#lc-add-button').before( templates.form({form_id: 'b'}) );
+});
 
 var loan = objectify([
   {
@@ -97,21 +108,17 @@ var $amount = $('.loan-amount-display'),
 // Keep track of the last down payment field that was accessed.
 var percentDownAccessedLast;
 
-function _stayPositive( num ) {
-  return parseFloat( num ) < 0 ? 0 : num;
-}
-
 function updateComparisons( changes ) {
 
   for ( var i = 0, len = changes.length; i < len; i++ ) {
     if ( changes[i].name == 'down-payment' && typeof percentDownAccessedLast !== 'undefined' && !percentDownAccessedLast ) {
       var val = loan['down-payment'] / loan['price'] * 100;
-      $('#percent-down-input').val( Math.round(val) );
+      $percent.val( Math.round(val) );
       percentDownAccessedLast = false;
     }
   }
 
-  $amount.text( formatUSD( _stayPositive(loan['amount-borrowed']),{decimalPlaces:0}) );
+  $amount.text( formatUSD( positive(loan['amount-borrowed']),{decimalPlaces:0}) );
   $closing.text( formatUSD( 3000 + parseInt(loan['down-payment'], 10)) );
   $monthly.text( formatUSD(loan['monthly-payment']) );
   $overall.text( formatUSD(loan['overall-cost']) );
