@@ -19,11 +19,9 @@ $button = $('#lc-add-button');
 setupLoanForm( formIDs[currentForm] );
 
 // Set up additional forms as requested.
-$('.add-btn').on('click', 'a', function(){
-  var prev = formIDs[currentForm],
-      curr;
-  currentForm++;
-  curr = formIDs[currentForm];
+$button.on('click', '.btn', function(){
+  var prev = formIDs[ currentForm++ ],
+      curr = formIDs[ currentForm ];
   $button.before( templates.form({form_id: curr}) );
   cloneForm( '#lc-input-' + prev, '#lc-input-' + curr );
   setupLoanForm( curr );

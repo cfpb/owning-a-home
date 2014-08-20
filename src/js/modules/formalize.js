@@ -8,6 +8,8 @@ var positive = require('stay-positive');
 var amortize = require('amortize');
 var humanizeLoanType = require('./humanize-loan-type');
 
+var loans = {};
+
 function createNewForm( id ) {
 
   var loan = objectify('#lc-input-' + id, [
@@ -153,6 +155,9 @@ function createNewForm( id ) {
   });
 
   loan.update();
+  loans[ id ] = loan;
+
+  return loans;
 
 }
 
