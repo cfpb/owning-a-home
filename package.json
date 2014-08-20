@@ -69,7 +69,7 @@
     "unformat-usd": "~0.1.1",
     "format-usd": "~0.1.0",
     "is-money-usd": "~0.1.2",
-    "objectified": "~0.3.0",
+    "objectified": "~0.4.1",
     "stay-positive": "~0.3.0"
   },
   "testling": {

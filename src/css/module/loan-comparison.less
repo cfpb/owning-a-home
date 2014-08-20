@@ -9,20 +9,19 @@
 
 .comparison-input-column {
   .column( 3 );
-}
-
-#lc-input-a {
-  .column( 6 );
-}
-
-#lc-input-b,
-#lc-input-c {
-  h5,
-  label {
-    .visuallyhidden !important;
+  &-a {
+    .column( 6 );
   }
-  .input-wrap {
-    width: 100% !important;
+  &-b,
+  &-c {
+    .column( 3 );
+    h5,
+    .label-float {
+      .visuallyhidden;
+    }
+    .input-wrap {
+      width: 100%;
+    }
   }
 }
 
@@ -340,8 +339,7 @@
 
 .result-heading {
   color: @gray;
-  display: inline-block;
-  .push(3);
+  .push(2);
 }
 
 .results-section {
