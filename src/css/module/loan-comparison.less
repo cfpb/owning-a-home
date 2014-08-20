@@ -7,11 +7,22 @@
   .webfont-regular();
 }
 
-.comparison-input-column-1 {
-  .column( 6 );
-}
 .comparison-input-column {
   .column( 3 );
+  &-a {
+    .column( 6 );
+  }
+  &-b,
+  &-c {
+    .column( 3 );
+    h5,
+    .label-float {
+      .visuallyhidden;
+    }
+    .input-wrap {
+      width: 100%;
+    }
+  }
 }
 
 /*
@@ -245,11 +256,13 @@
 // points inline radio button layout
 .lc-radio {
   width: 16.666666667%;
+  padding-bottom: 25px;
 
   input,
   label {
     display: inline-block;
     vertical-align: middle;
+    font-size: .875em;
   }
 
   label {
@@ -328,8 +341,7 @@
 
 .result-heading {
   color: @gray;
-  display: inline-block;
-  .push(3);
+  .push(2);
 }
 
 .results-section {
