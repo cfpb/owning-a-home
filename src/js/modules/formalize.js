@@ -102,11 +102,10 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10)) );
+    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount']) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
-    $closing.text( formatUSD(3000 + loan['discount'], {decimalPlaces:0}) );
     $summaryYear.text( loan['loan-term'] );
     $summaryStruct.text( loan['rate-structure'] );
     $summaryType.text( humanizeLoanType(loan['loan-type']) );
