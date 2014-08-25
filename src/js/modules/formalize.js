@@ -50,13 +50,13 @@ function createNewForm( id ) {
       name: 'discount',
       source: function() {
         var points = $('#points-' + id + ' input:checked' ).val() / 100;
-        return points * loan['amount-borrowed'];
+        return points * positive( loan['amount-borrowed'] );
       }
     },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
-          amount: loan['amount-borrowed'],
+          amount: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           amortizeTerm: 60
@@ -66,7 +66,7 @@ function createNewForm( id ) {
       name: 'overall-cost',
       source: function() {
         return cost({
-          amountBorrowed: loan['amount-borrowed'],
+          amountBorrowed: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],

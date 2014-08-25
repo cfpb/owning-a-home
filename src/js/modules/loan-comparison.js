@@ -1,5 +1,5 @@
 var setupLoanForm = require('./formalize');
-var cloneForm = require('./clone-form');
+var copyFormValues = require('./clone-form');
 var templates = {
   form: require('../templates/loan-form.hbs'),
   button: require('../templates/loan-add-button.hbs')
@@ -23,9 +23,9 @@ $button.on('click', '.btn', function(){
   var prev = formIDs[ currentForm++ ],
       curr = formIDs[ currentForm ];
   $button.before( templates.form({form_id: curr}) );
-  cloneForm( '#lc-input-' + prev, '#lc-input-' + curr );
+  copyFormValues( '#lc-input-' + prev, '#lc-input-' + curr );
   setupLoanForm( curr );
-  // If it's the third form, remove the button.
+  // If it's the last form, remove the button.
   if ( currentForm === formIDs.length - 1 ) {
     $button.remove();
   }
