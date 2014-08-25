@@ -8,18 +8,20 @@ require('./object.observe-polyfill');
 
 var $container = $('.lc-inputs .wrap'),
     $button,
+    $mobileButton,
     formIDs = ['a', 'b', 'c'],
     currentForm = 0;
 
 $container.append( templates.form({form_id: formIDs[currentForm]}) );
 $container.append( templates.button() );
 $button = $('#lc-add-button');
+$mobileButton = $('#mobile-lc-add-button');
 
 // Set up form A on page load.
 setupLoanForm( formIDs[currentForm] );
 
 // Set up additional forms as requested.
-$button.on('click', '.btn', function(){
+function showForm() {
   var prev = formIDs[ currentForm++ ],
       curr = formIDs[ currentForm ];
   $button.before( templates.form({form_id: curr}) );
@@ -29,14 +31,27 @@ $button.on('click', '.btn', function(){
   if ( currentForm === formIDs.length - 1 ) {
     $button.remove();
   }
+}
+
+// show desktop forms
+$button.on('click', '.btn', function(){
+  showForm();
+});
+
+// add mobile form and mobile summary
+$mobileButton.on('click', '.btn', function(){
+  showForm();
+  $('#mobile-loanb-details').removeClass('hidden');
+  $mobileButton.hide();
 });
 
 // toggle the inputs on mobile
-$('.lc-toggle').click(function(e) {
+$('#oah-loan-comparison').on('click', '.lc-toggle', function(e) {
   e.preventDefault();
   var $link = $(this).attr('href'),
       $inputs = $($link),
       $editLink = $('.lc-edit-link');
   $inputs.toggleClass('input-open');
   $editLink.toggle();
+  console.log('click');
 });
