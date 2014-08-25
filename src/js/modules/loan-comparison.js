@@ -7,6 +7,7 @@ var templates = {
 require('./object.observe-polyfill');
 
 var $container = $('.lc-inputs .wrap'),
+    $lc = $('#oah-loan-comparison'),
     $button,
     $mobileButton,
     formIDs = ['a', 'b', 'c'],
@@ -46,12 +47,11 @@ $mobileButton.on('click', '.btn', function(){
 });
 
 // toggle the inputs on mobile
-$('#oah-loan-comparison').on('click', '.lc-toggle', function(e) {
+$lc.on('click', '.lc-toggle', function(e) {
   e.preventDefault();
   var $link = $(this).attr('href'),
       $inputs = $($link),
       $editLink = $('.lc-edit-link');
   $inputs.toggleClass('input-open');
   $editLink.toggle();
-  console.log('click');
 });
