@@ -16,7 +16,9 @@
     "highcharts-release": "~3.0.10",
     "chosen": "~1.1.0",
     "rangeslider.js": "~0.2.9",
-    "respond": "1.4.2"
+    "respond": "1.4.2",
+    "html5-placeholder-polyfill": "~2.0.10",
+    "polyfill": "inexorabletash/polyfill"
   },
   "exportsOverride": {
     "cf-*": {
