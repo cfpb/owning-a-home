@@ -51,6 +51,10 @@ module.exports = function(grunt) {
         src: ['src/vendor/fj-*/*.less', 'src/vendor/cf-*/*.less'],
         dest: 'src/vendor/cf-concat/cf.less',
       },
+      ie9: {
+        src: ['src/vendor/polyfill/web.js', 'src/vendor/polyfill/Placeholders.js/lib/main.js', 'src/vendor/polyfill/Placeholders.js/lib/utils.js'],
+        dest: 'static/js/lte-ie9.js',
+      }
     },
 
     /**
@@ -194,14 +198,11 @@ module.exports = function(grunt) {
             expand: true,
             cwd: '.',
             src: [
-
               // move html & template files
               '*.html',
               '_layouts/**/*',
-
               // move static files
               'static/**/*',
-
             ],
             dest: 'dist/'
           }
@@ -214,10 +215,8 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-
               // move images to static directory
               'src/img/**/*',
-
             ],
             dest: 'static/img/'
           }
@@ -230,11 +229,9 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-
               // move shims to static directory
               'src/vendor/html5shiv/html5shiv.js',
               'src/vendor/respond/respond.src.js',
-
             ],
             dest: 'static/vendor/'
           }
