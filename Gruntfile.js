@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         dest: 'src/vendor/cf-concat/cf.less',
       },
       ie9: {
-        src: ['src/vendor/polyfill/web.js', 'src/vendor/polyfill/Placeholders.js/lib/main.js', 'src/vendor/polyfill/Placeholders.js/lib/utils.js'],
+        src: ['src/vendor/es5-shim/es5-shim.js', 'src/vendor/polyfill/web.js', 'src/vendor/polyfill/Placeholders.js/lib/main.js', 'src/vendor/polyfill/Placeholders.js/lib/utils.js'],
         dest: 'static/js/lte-ie9.js',
       }
     },
@@ -364,7 +364,7 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
