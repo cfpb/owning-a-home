@@ -54,6 +54,10 @@ module.exports = function(grunt) {
       ie9: {
         src: ['node_modules/es5-shim/es5-shim.js', 'node_modules/es5-shim/es5-sham.js', 'src/vendor/polyfill/web.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
         dest: 'static/js/lte-ie9.js',
+      },
+      ie8: {
+        src: ['node_modules/es5-shim/es5-sham.js'],
+        dest: 'static/js/lte-ie8.js',
       }
     },
 
@@ -364,7 +368,7 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
