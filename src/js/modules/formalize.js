@@ -61,7 +61,7 @@ function createNewForm( id ) {
       name: 'monthly-payment',
       source: function() {
         return amortize({
-          amount: loan['amount-borrowed'],
+          amount: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           amortizeTerm: 60
@@ -71,7 +71,7 @@ function createNewForm( id ) {
       name: 'overall-cost',
       source: function() {
         return cost({
-          amountBorrowed: loan['amount-borrowed'],
+          amountBorrowed: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
