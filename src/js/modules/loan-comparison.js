@@ -8,6 +8,7 @@ require('./object.observe-polyfill');
 
 var $container = $('.lc-inputs .wrap'),
     $lc = $('#oah-loan-comparison'),
+    $mobileOverview = $('.mobile-overview'),
     $button,
     $mobileButton,
     formIDs = ['a', 'b', 'c'],
@@ -41,8 +42,11 @@ $button.on('click', '.btn', function(){
 
 // add mobile form and mobile summary
 $mobileButton.on('click', '.btn', function(){
+  var $parent = $(this).parents('.mobile-overview'),
+      $bDetails = $('#mobile-loanb-details');
   showForm();
-  $('#mobile-loanb-details').removeClass('hidden');
+  $parent.removeClass('inactive');
+  $bDetails.removeClass('hidden');
   $mobileButton.hide();
 });
 
@@ -51,7 +55,12 @@ $lc.on('click', '.lc-toggle', function(e) {
   e.preventDefault();
   var $link = $(this).attr('href'),
       $inputs = $($link),
-      $editLink = $('.lc-edit-link');
+      $editLink = $('.lc-edit-link'),
+      $parent = $(this).parents('.mobile-overview');
+  if ($(this).hasClass('lc-edit-link') ) {
+    $mobileOverview.addClass('inactive');
+    $parent.removeClass('inactive');
+  }
   $inputs.toggleClass('input-open');
   $editLink.toggle();
 });
