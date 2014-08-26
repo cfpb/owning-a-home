@@ -25,6 +25,19 @@
   }
 }
 
+@media (max-width: 600px) {
+
+  .comparison-input-column {
+    .column( 3 );
+    &-a,
+    &-b,
+    &-c {
+      .column( 12 );
+    }
+  }
+
+}
+
 /*
   Introductory content
   --------------------------- */
@@ -384,6 +397,10 @@
 
   .results-section-heading {
     padding: 12px 10px;
+  }
 
+  .lc-primary-result,
+  .lc-result {
+    .column(6);
   }
 }
