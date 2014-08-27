@@ -25,6 +25,19 @@
   }
 }
 
+@media (max-width: 600px) {
+
+  .comparison-input-column {
+    .column( 3 );
+    &-a,
+    &-b,
+    &-c {
+      .column( 12 );
+    }
+  }
+
+}
+
 /*
   Introductory content
   --------------------------- */
@@ -193,6 +206,11 @@
   }
 
   .input-headers {
+    display: none;
+  }
+
+  // we never want to show loan c on small screens
+  .comparison-input-column-c {
     display: none;
   }
 }
@@ -384,6 +402,15 @@
 
   .results-section-heading {
     padding: 12px 10px;
+  }
 
+  .lc-primary-result,
+  .lc-result {
+    .column(6);
+  }
+
+  // we never want to show loan c on small screens
+  .lc-result-c {
+    display: none;
   }
 }
