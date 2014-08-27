@@ -1,5 +1,3 @@
-// https://github.com/jdarling/Object.observe
-
 /*
   Tested against Chromium build with Object.observe and acts EXACTLY the same,
   though Chromium build is MUCH faster
@@ -95,7 +93,7 @@ if(!Object.observe){
       }
       return ('value' in desc || 'writable' in desc);
     };
-    
+
     var validateArguments = function(O, callback, accept){
       if(typeof(O)!=='object'){
         // Throw Error
@@ -152,19 +150,14 @@ if(!Object.observe){
     })();
 
     var Notifier = function(watching){
-    var _listeners = [], _acceptLists = [], _updates = [], _updater = false, properties = [], values = [];
+      var _listeners = [], _acceptLists = [], _updates = [], _updater = false, properties = [], values = [];
       var self = this;
-      Object.defineProperty(self, '_watching', {
-                  enumerable: true,
-                  get: (function(watched){
-                    return function(){
-                      return watched;
-                    };
-                  })(watching)
-                });
+      self['_watching'] = (function(watched){
+          return watched;
+      })(watching);
       var wrapProperty = function(object, prop){
-        var propType = typeof(object[prop]), descriptor = Object.getOwnPropertyDescriptor(object, prop);
-        if((prop==='getNotifier')||isAccessorDescriptor(descriptor)||(!descriptor.enumerable)){
+        var propType = typeof(object[prop]);
+        if((prop==='getNotifier')){
           return false;
         }
         if((object instanceof Array)&&isNumeric(prop)){
@@ -176,6 +169,8 @@ if(!Object.observe){
         (function(idx, prop){
           properties[idx] = prop;
           values[idx] = object[prop];
+
+
           Object.defineProperty(object, prop, {
             get: function(){
               return values[idx];
@@ -183,10 +178,18 @@ if(!Object.observe){
             set: function(value){
               if(!sameValue(values[idx], value)){
                 Object.getNotifier(object).queueUpdate(object, prop, 'update', values[idx]);
+                console.log(value);
+                console.log(object);
                 values[idx] = value;
               }
             }
           });
+
+          // object[prop] = (function(){
+          //   Object.getNotifier(object).queueUpdate(object, prop, 'update', values[idx]);
+          //   return values[idx];
+          // })();
+
         })(properties.length, prop);
         return true;
       };
