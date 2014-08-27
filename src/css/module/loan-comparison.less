@@ -208,6 +208,11 @@
   .input-headers {
     display: none;
   }
+
+  // we never want to show loan c on small screens
+  .comparison-input-column-c {
+    display: none;
+  }
 }
 
 .lc-subhead {
@@ -402,5 +407,10 @@
   .lc-primary-result,
   .lc-result {
     .column(6);
+  }
+
+  // we never want to show loan c on small screens
+  .lc-result-c {
+    display: none;
   }
 }
