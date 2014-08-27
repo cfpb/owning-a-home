@@ -51,6 +51,10 @@ module.exports = function(grunt) {
         src: ['src/vendor/fj-*/*.less', 'src/vendor/cf-*/*.less'],
         dest: 'src/vendor/cf-concat/cf.less',
       },
+      ie9: {
+        src: ['src/js/legacy/lte-ie9.js', 'src/vendor/es5-shim/es5-shim.js', 'src/vendor/polyfill/web.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
+        dest: 'static/js/lte-ie9.js',
+      }
     },
 
     /**
@@ -194,14 +198,11 @@ module.exports = function(grunt) {
             expand: true,
             cwd: '.',
             src: [
-
               // move html & template files
               '*.html',
               '_layouts/**/*',
-
               // move static files
               'static/**/*',
-
             ],
             dest: 'dist/'
           }
@@ -214,10 +215,8 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-
               // move images to static directory
               'src/img/**/*',
-
             ],
             dest: 'static/img/'
           }
@@ -230,11 +229,9 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-
               // move shims to static directory
               'src/vendor/html5shiv/html5shiv.js',
               'src/vendor/respond/respond.src.js',
-
             ],
             dest: 'static/vendor/'
           }
@@ -367,7 +364,7 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img']);
+  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);

@@ -47,16 +47,21 @@ function createNewForm( id ) {
       name: 'interest-rate',
       source: 'interest-rate-select'
     },{
+      name: 'raw-discount',
+      source: function() {
+        return $('#points-' + id + ' input:checked' ).val();
+      }
+    },{
       name: 'discount',
       source: function() {
-        var points = $('#points-' + id + ' input:checked' ).val() / 100;
+        var points = loan['raw-discount'] / 100;
         return points * loan['amount-borrowed'];
       }
     },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
-          amount: loan['amount-borrowed'],
+          amount: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           amortizeTerm: 60
@@ -66,7 +71,7 @@ function createNewForm( id ) {
       name: 'overall-cost',
       source: function() {
         return cost({
-          amountBorrowed: loan['amount-borrowed'],
+          amountBorrowed: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
@@ -84,6 +89,7 @@ function createNewForm( id ) {
       $interest = $('.interest-rate-display-' + id),
       $percent = $('#percent-down-input-' + id),
       $down = $('#down-payment-input-' + id),
+      $discount = $('.discount-' + id),
       $summaryYear = $('#lc-summary-year-' + id),
       $summaryStruct = $('#lc-summary-structure-' + id),
       $summaryType = $('#lc-summary-type-' + id);
@@ -102,10 +108,11 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount']) );
+    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
+    $discount.text( loan['raw-discount']);
     $summaryYear.text( loan['loan-term'] );
     $summaryStruct.text( loan['rate-structure'] );
     $summaryType.text( humanizeLoanType(loan['loan-type']) );

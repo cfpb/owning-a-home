@@ -1119,7 +1119,6 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     ? Uint8Array
     : Array
 
-	var ZERO   = '0'.charCodeAt(0)
 	var PLUS   = '+'.charCodeAt(0)
 	var SLASH  = '/'.charCodeAt(0)
 	var NUMBER = '0'.charCodeAt(0)
@@ -1228,9 +1227,9 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		return output
 	}
 
-	module.exports.toByteArray = b64ToByteArray
-	module.exports.fromByteArray = uint8ToBase64
-}())
+	exports.toByteArray = b64ToByteArray
+	exports.fromByteArray = uint8ToBase64
+}(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 },{}],3:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
@@ -5853,6 +5852,32 @@ Library.prototype.test = function (obj, type) {
 };
 
 },{}],36:[function(require,module,exports){
+/**
+ * @param  {string|number} num  A number or a string in a numbery format
+ * @param  {object} opts Optionally specify the number of decimal places 
+ *   you'd like in the returned string with the `decimalPlaces` key.
+ *   e.g. {decimalPlaces: 0}
+ * @return {string}      The number in USD format.
+ */
+var formatMoney = function( num, opts ) {
+
+  opts = opts || {};
+
+  var decPlaces = isNaN( opts.decimalPlaces = Math.abs(opts.decimalPlaces) ) ? 2 : opts.decimalPlaces,
+      sign = num < 0 ? '-' : '',
+      i = parseInt( num = Math.abs(+num || 0).toFixed(decPlaces), 10 ) + '',
+      j = ( j = i.length ) > 3 ? j % 3 : 0;
+
+  return sign + 
+        '$' + 
+        ( j ? i.substr(0, j) + ',' : '' ) + 
+        i.substr( j ).replace( /(\d{3})(?=\d)/g, '$1,' ) + 
+        ( decPlaces ? '.' + Math.abs(num - i).toFixed(decPlaces).slice(2) : '');
+
+};
+
+module.exports = formatMoney;
+},{}],37:[function(require,module,exports){
 'use strict';
 
 // calculate the raw monthly payment
@@ -5923,25 +5948,9 @@ exports.totalInterest = function(opts) {
   // round the value to two decimal places
   return roundNum(rawInterest);
 };
-},{}],37:[function(require,module,exports){
-// opts = {decimalPlaces: `number`}
-var formatMoney = function( num, opts ) {
-
-  opts = opts || {};
-
-  var decPlaces = isNaN( opts.decimalPlaces = Math.abs(opts.decimalPlaces) ) ? 2 : opts.decimalPlaces,
-      sign = num < 0 ? '-' : '',
-      i = parseInt( num = Math.abs(+num || 0).toFixed(decPlaces), 10 ) + '',
-      j = ( j = i.length ) > 3 ? j % 3 : 0;
-
-  return sign + '$' + ( j ? i.substr(0, j) + ',' : '' ) + i.substr( j ).replace( /(\d{3})(?=\d)/g, '$1,' ) + ( decPlaces ? '.' + Math.abs(num - i).toFixed(decPlaces).slice(2) : '');
-
-};
-
-module.exports = formatMoney;
 },{}],38:[function(require,module,exports){
 var loanCalc = require('loan-calc');
-var formatUSD = require('./format-usd.js');
+var formatUSD = require('format-usd');
 
 // calculate the amount of a monthly payment
 module.exports = function(loanRate, termLength, loanAmt) {
@@ -5952,9 +5961,9 @@ module.exports = function(loanRate, termLength, loanAmt) {
     });
   return formatUSD(monthlyPayment);
 };
-},{"./format-usd.js":37,"loan-calc":36}],39:[function(require,module,exports){
+},{"format-usd":36,"loan-calc":37}],39:[function(require,module,exports){
 var LoanCalc = require('loan-calc');
-var formatUSD = require('./format-usd');
+var formatUSD = require('format-usd');
 
 // calculate the total interest paid on a loan
 var calcInterest = function(loanRate, termLength, loanAmt) {
@@ -5967,64 +5976,9 @@ var calcInterest = function(loanRate, termLength, loanAmt) {
 };
 
 module.exports = calcInterest;
-},{"./format-usd":37,"loan-calc":36}],40:[function(require,module,exports){
-var unFormatUSD = function( str ) {
-  if ( typeof str === 'string' ) {
-    return parseFloat( str.replace(/[,\$]/g, '') );
-  }
-  return str;
-};
-
-module.exports = unFormatUSD;
-},{}],41:[function(require,module,exports){
+},{"format-usd":36,"loan-calc":37}],40:[function(require,module,exports){
 // nothing here yet
-},{}],42:[function(require,module,exports){
-var formatUSD = require('../../src/js/modules/format-usd.js');
-
-var chai = require('chai');
-var expect = chai.expect;
-
-describe('Formats USD', function() {
-
-  it('formats a number to USD format', function() {
-    expect(formatUSD(200000)).to.equal('$200,000.00');
-  });
-
-  it('Negative test - this should fail based on the number of decimal places passed as argument', function() {
-    expect(formatUSD(200000, 5)).to.equal('$200,000.00');
-  });
-
-  it('Negative test - passing a negative number', function() {
-    expect(formatUSD(-200000)).to.equal('-$200,000.00');
-  });
-
-  it('Negative test - passing a decimal number', function() {
-    expect(formatUSD(-200000.1)).to.equal('-$200,000.10');
-  });
-
-  it('formats a numerical string to USD format', function() {
-    expect(formatUSD('200000')).to.equal('$200,000.00');
-  });
-
-  it('Negative test - this should fail based on the number of decimal places passed as argument', function() {
-    expect(formatUSD('200000', 5)).to.equal('$200,000.00');
-  });
-
-  it('Negative test - passing a negative numerical string', function() {
-    expect(formatUSD('-200000')).to.equal('-$200,000.00');
-  });
-
-  it('Negative test - passing a character string', function() {
-    expect(formatUSD('ABC')).to.equal('$0.00');
-  });
-
-  it('Negative test - passing a string with invalid characters', function() {
-    expect(formatUSD('@/#$%^&*.!')).to.equal('$0.00');
-  });
-
-});
-
-},{"../../src/js/modules/format-usd.js":37,"chai":4}],43:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 var payment = require('../../src/js/modules/payment-calc.js');
 
 var chai = require('chai');
@@ -6128,7 +6082,7 @@ describe('Payment calculation tests', function() {
   
 });
 
-},{"../../src/js/modules/payment-calc.js":38,"chai":4}],44:[function(require,module,exports){
+},{"../../src/js/modules/payment-calc.js":38,"chai":4}],42:[function(require,module,exports){
 var payment = require('../../src/js/modules/total-interest-calc.js');
 
 var chai = require('chai');
@@ -6162,20 +6116,4 @@ describe('Calculates the total interest of a loan', function() {
   */
 });
 
-},{"../../src/js/modules/total-interest-calc.js":39,"chai":4}],45:[function(require,module,exports){
-var unformatUSD = require('../../src/js/modules/unformat-usd.js');
-
-var chai = require('chai');
-var expect = chai.expect;
-
-describe('Unformat USD format string', function() {
-
-  it('takes a USD formatted string and returns an integer', function() {
-    expect(unformatUSD('$200,000.00')).to.equal(200000);
-  });
-
-  it('takes a USD formatted string and returns a float', function() {
-    expect(unformatUSD('$200,000.67')).to.equal(200000.67);
-  });
-});
-},{"../../src/js/modules/unformat-usd.js":40,"chai":4}]},{},[41,42,43,44,45]);
+},{"../../src/js/modules/total-interest-calc.js":39,"chai":4}]},{},[40,41,42]);
