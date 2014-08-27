@@ -70,8 +70,7 @@
     "format-usd": "0.1.0",
     "is-money-usd": "0.1.2",
     "objectified": "0.4.2",
-    "stay-positive": "0.3.0",
-    "es5-shim": "~4.0.3"
+    "stay-positive": "0.3.0"
   },
   "testling": {
     "files": "test/js/*.js",
