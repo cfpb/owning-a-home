@@ -56,14 +56,11 @@ $lc.on('click', '.lc-toggle', function(e) {
   var $link = $(this).attr('href'),
       $inputs = $($link),
       $editLink = $('.lc-edit-link'),
-      $parent = $(this).parents('.mobile-overview');
+      $parent = $(this).parents('.mobile-overview'),
+      hasEditLink = $(this).hasClass('lc-edit-link');
 
-  if ($(this).hasClass('lc-edit-link') ) {
-    $mobileOverview.addClass('inactive');
-    $parent.removeClass('inactive');
-  } else {
-    $mobileOverview.removeClass('inactive');
-  }
+  $mobileOverview.toggleClass( 'inactive', hasEditLink );
+  $parent.toggleClass( 'inactive', !hasEditLink );
 
   $inputs.toggleClass('input-open');
   $editLink.toggle();
