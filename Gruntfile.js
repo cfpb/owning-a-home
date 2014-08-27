@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         dest: 'src/vendor/cf-concat/cf.less',
       },
       ie9: {
-        src: ['src/js/legacy/lte-ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/vendor/polyfill/web.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
+        src: ['src/js/legacy/lte-ie9.js', 'src/vendor/es5-shim/es5-shim.js', 'src/vendor/polyfill/web.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
         dest: 'static/js/lte-ie9.js',
       },
       ie8: {

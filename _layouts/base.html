@@ -32,11 +32,7 @@
 
 <link rel="stylesheet" href="static/css/main.css">
 
-<!--[if IE 9]>
-    <script src="static/js/ie9.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
+<!--[if lte IE 8]>
     <script src="static/vendor/html5shiv.js"></script>
     <script src="static/vendor/respond.src.js"></script>
     <script>
@@ -50,6 +46,10 @@
       }, 300);
     </script>
     <script src="static/js/lte-ie8.js"></script>
+<![endif]-->
+
+<!--[if lte IE 9]>
+    <script src="static/js/lt-ie9.js"></script>
 <![endif]-->
 
     <script>
@@ -113,7 +113,6 @@
 
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
-
 
 <script src="static/js/main.js"></script>
 </body>
