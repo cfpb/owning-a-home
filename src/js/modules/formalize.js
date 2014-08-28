@@ -117,8 +117,6 @@ function createNewForm( id ) {
     $summaryStruct.text( loan['rate-structure'] );
     $summaryType.text( humanizeLoanType(loan['loan-type']) );
 
-    console.log('test');
-
   }
 
   // Observe the loan object for changes
