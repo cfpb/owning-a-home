@@ -88,7 +88,7 @@ function createNewForm( id ) {
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
-      $percent = $('#percent-down-input-' + id),
+      $percent = $('#percent-dp-input-' + id),
       $down = $('#down-payment-input-' + id),
       $discount = $('.discount-' + id),
       $summaryYear = $('#lc-summary-year-' + id),
@@ -129,35 +129,37 @@ function createNewForm( id ) {
 
   function _updateDownPayment( ev ) {
 
-    var val;
+    var targetID = ev.target.id,
+        val;
 
-    if ( /percent/.test(ev.target.id) ) {
+    if ( /percent/.test(targetID) ) {
       val = $percent.val() / 100 * loan.price;
-      loan.update();
-      $down.val( Math.round(val) ).trigger('keyup');
+      $down.val( Math.round(val) );
       percentDownAccessedLast = true;
+      loan.update();
       return;
     }
 
-    if ( /down\-payment/.test(ev.target.id) ) {
+    if ( /down\-payment/.test(targetID) ) {
       percentDownAccessedLast = false;
     }
 
-    if ( /house\-price/.test(ev.target.id) && percentDownAccessedLast !== undefined ) {
+    if ( /house\-price/.test(targetID) && percentDownAccessedLast !== undefined ) {
       if ( percentDownAccessedLast ) {
         val = $percent.val() / 100 * loan.price || 0;
+        $down.val( Math.round(val) );
         loan.update();
-        $down.val( Math.round(val) ).trigger('keyup');
       } else {
         val = loan['down-payment'] / loan['price'] * 100 || 0;
         $percent.val( Math.round(val) );
+        loan.update();
       }
     }
 
   }
 
   // The pricing fields (price, dp, dp %) are wonky and require special handling.
-  $('#lc-input-' + id).on( 'keyup', '.pricing input', _updateDownPayment );
+  $('#lc-input-' + id).on( 'keyup', '.pricing input', debounce(_updateDownPayment, 500) );
 
   // update when the radio buttons are updated
   // todo: there's certainly a cleaner way to do this
