@@ -15,14 +15,23 @@
   &-b,
   &-c {
     .column( 3 );
-    h5,
-    .label-float {
-      .visuallyhidden;
-    }
     .input-wrap {
       width: 100%;
     }
   }
+}
+
+@media (min-width: 600px) {
+
+  .comparison-input-column {
+    &-b {
+      h5,
+      .label-float {
+        .visuallyhidden;
+      }
+    }
+  }
+
 }
 
 @media (max-width: 600px) {
