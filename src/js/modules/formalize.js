@@ -7,6 +7,7 @@ var isMoney = require('is-money-usd');
 var positive = require('stay-positive');
 var amortize = require('amortize');
 var humanizeLoanType = require('./humanize-loan-type');
+var supportsAccessors = require('./supports-accessors');
 
 var loans = {};
 
@@ -119,8 +120,12 @@ function createNewForm( id ) {
 
   }
 
-  // Observe the loan object for changes
-  Object.observe( loan, updateComparisons );
+  // Observe the loan object for changes *only* if the browser supports it.
+  // If the browser doesn't support it, we'll include a separate JS file full of
+  // workarounds just for them.
+  if ( supportsAccessors ) {
+    Object.observe( loan, updateComparisons );
+  }
 
   function _updateDownPayment( ev ) {
 
