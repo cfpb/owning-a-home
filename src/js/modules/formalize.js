@@ -121,10 +121,17 @@ function createNewForm( id ) {
   }
 
   // Observe the loan object for changes *only* if the browser supports it.
-  // If the browser doesn't support it, we'll include a separate JS file full of
-  // workarounds just for them.
+  // If the browser doesn't support it, do some drrrrty checking.
   if ( supportsAccessors ) {
     Object.observe( loan, updateComparisons );
+  } else {
+    var oldLoan = $.extend( {}, loan );
+    setInterval(function(){
+      if ( JSON.stringify(loan) !== JSON.stringify(oldLoan) ) {
+        updateComparisons([]);
+        oldLoan = $.extend( {}, loan );
+      }
+    }, 500);
   }
 
   function _updateDownPayment( ev ) {
