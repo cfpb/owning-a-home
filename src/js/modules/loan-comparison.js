@@ -14,8 +14,8 @@ var $container = $('.lc-inputs .wrap'),
     formIDs = ['a', 'b', 'c'],
     currentForm = 0;
 
-$container.append( templates.form({form_id: formIDs[currentForm]}) );
-$container.append( templates.button() );
+$container.append( templates.form({form_id: formIDs[currentForm]}) )
+          .append( templates.button() );
 $button = $('#lc-add-button');
 $mobileButton = $('#mobile-lc-add-button');
 
@@ -36,9 +36,7 @@ function showForm() {
 }
 
 // show desktop forms
-$button.on('click', '.btn', function(){
-  showForm();
-});
+$button.on( 'click', '.btn', showForm );
 
 // add mobile form and mobile summary
 $mobileButton.on('click', '.btn', function(){
@@ -51,19 +49,16 @@ $mobileButton.on('click', '.btn', function(){
 });
 
 // toggle the inputs on mobile
-$lc.on('click', '.lc-toggle', function(e) {
-  e.preventDefault();
+$lc.on('click', '.lc-toggle', function(ev) {
+  ev.preventDefault();
   var $link = $(this).attr('href'),
       $inputs = $($link),
       $editLink = $('.lc-edit-link'),
-      $parent = $(this).parents('.mobile-overview');
+      $parent = $(this).parents('.mobile-overview'),
+      hasEditLink = $(this).hasClass('lc-edit-link');
 
-  if ($(this).hasClass('lc-edit-link') ) {
-    $mobileOverview.addClass('inactive');
-    $parent.removeClass('inactive');
-  } else {
-    $mobileOverview.removeClass('inactive');
-  }
+  $mobileOverview.toggleClass( 'inactive', hasEditLink );
+  $parent.toggleClass( 'inactive', !hasEditLink );
 
   $inputs.toggleClass('input-open');
   $editLink.toggle();
