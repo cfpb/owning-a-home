@@ -8,6 +8,8 @@ module.exports = function(grunt) {
 
   var path = require('path');
 
+  require('time-grunt')(grunt);
+
   grunt.initConfig({
 
     /**
@@ -65,9 +67,19 @@ module.exports = function(grunt) {
      * LESS: https://github.com/gruntjs/grunt-contrib-less
      *
      * Compile LESS files to CSS.
+     * Source maps are slow, so they're separated into their own task for when needed
      */
     less: {
-      main: {
+      watch: {
+        options: {
+          paths: grunt.file.expand('src/vendor/**/'),
+
+        },
+        files: {
+          './static/css/main.css': ['./src/css/main.less']
+        }
+      },
+      map: {
         options: {
           paths: grunt.file.expand('src/vendor/**/'),
           sourceMap: true,
@@ -320,6 +332,18 @@ module.exports = function(grunt) {
       }
     },
 
+    newer: {
+      options: {
+        override: function(detail, include) {
+          if (detail.task === 'less') {
+            include(true);
+          } else {
+            include(false);
+          }
+        }
+      }
+    },
+
     /**
      * Watch: https://github.com/gruntjs/grunt-contrib-watch
      *
@@ -331,44 +355,19 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/**/*.js', 'src/js/templates/**/*.hbs'],
         tasks: ['compile']
       }
-    },
-    newer: {
-      options: {
-        override: function(detail, include) {
-          if (detail.task === 'less') {
-            include(true);
-          } else {
-            include(false);
-          }
-        }
-      }
     }
   });
 
   /**
-   * The above tasks are loaded here.
+   * Load the tasks.
    */
-  grunt.loadNpmTasks('grunt-autoprefixer');
-  grunt.loadNpmTasks('grunt-banner');
-  grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-release');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-newer');
+  require('load-grunt-tasks')(grunt);
 
   /**
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('compile', ['newer:less:watch', 'newer:browserify:build', 'newer:autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);

@@ -19,7 +19,7 @@ var utils = function( id ) {
   /**
    * If optionVal is provided as an array, turn it into a string
    *  of attribute selectors. Otherwise, just create a single attribute
-   *  selector. If no val is provided, return an asterisk to select 
+   *  selector. If no val is provided, return an asterisk to select
    *  all elements.
    * @param  {string|array} optionVal Option(s) in the dropdown to modify.
    * @return {string}       Selector string of values.
