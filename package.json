@@ -54,7 +54,8 @@
     "grunt-string-replace": "latest",
     "load-grunt-config": "^0.13.1",
     "load-grunt-tasks": "^0.6.0",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "time-grunt": "^1.0.0"
   },
   "keywords": [],
   "dependencies": {
