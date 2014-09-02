@@ -31,12 +31,14 @@
     "browserify": "3.44.2",
     "browserify-shim": "3.4.1",
     "chai": "^1.9.1",
+    "debowerify": "~0.7.1",
     "grunt": "latest",
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-task": "~0.4.0",
     "grunt-browserify": "2.0.3",
     "grunt-combine-media-queries": "~1.0.2",
+    "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-copy": "latest",
@@ -51,8 +53,9 @@
     "grunt-release": "latest",
     "grunt-shell": "~0.3.0",
     "grunt-string-replace": "latest",
-    "mocha": "^1.18.2",
-    "debowerify": "~0.7.1"
+    "load-grunt-config": "^0.13.1",
+    "load-grunt-tasks": "^0.6.0",
+    "mocha": "^1.18.2"
   },
   "keywords": [],
   "dependencies": {
