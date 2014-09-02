@@ -5,7 +5,6 @@
   "homepage": "http://github.com/cfpb/owning-a-home",
   "author": {
     "name": "Consumer Financial Protection Bureau",
-    "email": "scott.cranfill@cfpb.gov",
     "url": "http://cfpb.github.io/"
   },
   "repository": {
@@ -56,7 +55,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "amortize": "0.2.1",
+    "amortize": "0.2.2",
     "debounce": "0.0.3",
     "foreach": "2.0.4",
     "fuzzy-state-search": "0.1.0",
@@ -65,11 +64,11 @@
     "jquery": "1.11.0",
     "loan-calc": "0.2.1",
     "median": "0.0.2",
-    "overall-loan-cost": "0.3.3",
+    "overall-loan-cost": "0.3.4",
     "unformat-usd": "0.1.1",
     "format-usd": "0.1.0",
     "is-money-usd": "0.1.2",
-    "objectified": "0.4.2",
+    "objectified": "0.4.5",
     "stay-positive": "0.3.0"
   },
   "testling": {

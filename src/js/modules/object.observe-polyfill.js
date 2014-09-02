@@ -1,4 +1,6 @@
-// https://github.com/jdarling/Object.observe
+var supportsAccessors = require('./supports-accessors');
+
+// The polyfill below is from https://github.com/jdarling/Object.observe
 
 /*
   Tested against Chromium build with Object.observe and acts EXACTLY the same,
@@ -19,8 +21,7 @@
 TODO:
   Add support for Object.prototype.watch -> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/watch
 */
-"use strict";
-if(!Object.observe){
+if(supportsAccessors && !Object.observe){
   (function(extend, global){
     var isCallable = (function(toString){
         var s = toString.call(toString),
@@ -95,7 +96,7 @@ if(!Object.observe){
       }
       return ('value' in desc || 'writable' in desc);
     };
-    
+
     var validateArguments = function(O, callback, accept){
       if(typeof(O)!=='object'){
         // Throw Error
