@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<title>Typed Array Unit Tests</title>
+<meta charset="UTF-8">
+
+<script src="//code.jquery.com/qunit/qunit-1.12.0.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" >
+
+<h1 id="qunit-header">Typed Array Tests</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.js"></script>
+<script src="../es5.js"></script>
+<script>
+// Hide native versions so polyfill is used
+['ArrayBuffer', 'DataView', 'Int8Array', 'Uint8Array', 'Uint8ClampedArray', 'Int16Array',
+ 'Uint16Array', 'Int32Array', 'Uint32Array', 'Float32Array', 'Float64Array'].forEach(
+   function(s) { window[s] = null; }
+);
+</script>
+<script src="../typedarray.js"></script>
+<script src="testhelpers.js"></script>
+<script src="typedarray_tests.js"></script>
