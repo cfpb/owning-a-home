@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options: {
-          targetDir: './src/vendor/',
+          targetDir: './src/static/vendor/',
           install: true,
           verbose: true,
           cleanBowerDir: true,
@@ -50,16 +50,16 @@ module.exports = function(grunt) {
      */
     concat: {
       'cf-less': {
-        src: ['src/vendor/fj-*/*.less', 'src/vendor/cf-*/*.less'],
-        dest: 'src/vendor/cf-concat/cf.less',
+        src: ['src/static/vendor/fj-*/*.less', 'src/static/vendor/cf-*/*.less'],
+        dest: 'src/static/vendor/cf-concat/cf.less',
       },
       ie9: {
-        src: ['src/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/vendor/polyfill/web.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
-        dest: 'static/js/ie9.js',
+        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        dest: 'dist/static/js/ie9.js',
       },
       ie8: {
-        src: ['src/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/vendor/Placeholders.js/lib/utils.js', 'src/vendor/Placeholders.js/lib/main.js'],
-        dest: 'static/js/lte-ie8.js',
+        src: ['src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        dest: 'dist/static/js/lte-ie8.js',
       }
     },
 
@@ -72,21 +72,21 @@ module.exports = function(grunt) {
     less: {
       watch: {
         options: {
-          paths: grunt.file.expand('src/vendor/**/'),
+          paths: grunt.file.expand('src/static/vendor/**/'),
 
         },
         files: {
-          './static/css/main.css': ['./src/css/main.less']
+          './dist/static/css/main.css': ['./src/static/css/main.less']
         }
       },
       map: {
         options: {
-          paths: grunt.file.expand('src/vendor/**/'),
+          paths: grunt.file.expand('src/static/vendor/**/'),
           sourceMap: true,
           sourceMapRootpath: '/'
         },
         files: {
-          './static/css/main.css': ['./src/css/main.less']
+          './dist/static/css/main.css': ['./src/static/css/main.less']
         }
       }
     },
@@ -102,16 +102,16 @@ module.exports = function(grunt) {
         diff: false
       },
       multiple_files: {
-        // Prefix all CSS files found in `src/css` and overwrite.
+        // Prefix all CSS files found in `src/static/css` and overwrite.
         expand: true,
-        src: 'static/css/main.css'
+        src: 'dist/static/css/main.css'
       },
     },
 
     browserify: {
       build: {
         files: {
-          'static/js/main.js': ['./src/js/**/*.js', './config/*.js'],
+          'dist/static/js/main.js': ['./src/static/js/**/*.js', './config/*.js'],
         },
         options: {
           watch: true,
@@ -215,10 +215,8 @@ module.exports = function(grunt) {
             cwd: '.',
             src: [
               // move html & template files
-              '*.html',
-              '_layouts/**/*',
-              // move static files
-              'static/**/*',
+              'src/*.html',
+              'src/_layouts/**/*'
             ],
             dest: 'dist/'
           }
@@ -232,7 +230,7 @@ module.exports = function(grunt) {
             flatten: true,
             src: [
               // move images to static directory
-              'src/img/**/*',
+              'src/static/img/**/*',
             ],
             dest: 'static/img/'
           }
@@ -246,8 +244,8 @@ module.exports = function(grunt) {
             flatten: true,
             src: [
               // move shims to static directory
-              'src/vendor/html5shiv/html5shiv.js',
-              'src/vendor/respond/respond.src.js',
+              'src/static/vendor/html5shiv/html5shiv.js',
+              'src/static/vendor/respond/respond.src.js',
             ],
             dest: 'static/vendor/'
           }
@@ -301,9 +299,9 @@ module.exports = function(grunt) {
         }
       },
       files: [
-        'src/js/**/*',
+        'src/static/js/**/*',
         '!node_modules/**/*',
-        '!src/js/main.js'
+        '!src/static/js/main.js'
       ]
     },
 
@@ -352,7 +350,7 @@ module.exports = function(grunt) {
      */
     watch: {
       gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/**/*.js', 'src/js/templates/**/*.hbs'],
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
         tasks: ['compile']
       }
     }
