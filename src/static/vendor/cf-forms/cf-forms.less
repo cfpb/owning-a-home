@@ -1,0 +1,472 @@
+/* ==========================================================================
+   Capital Framework
+   Form Element Styling
+   ========================================================================== */
+
+
+/* topdoc
+    name: Form labels
+    family: cf-forms
+    patterns:
+    - name: Default label
+      notes:
+        - "Warning, this pattern is still under development."
+      markup: |
+        <label>I am a form label</label>
+    tags:
+    - cf-forms
+*/
+
+label {
+    display: block;
+}
+
+
+/* topdoc
+    name: Single-line text input
+    notes:
+      - Most other text-based inputs extend styles from here as seen in the CSS to the right.
+    family: cf-forms
+    patterns:
+    - name: Default single-line text input
+      markup: |
+        <input placeholder="placeholder text" type="text" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder text" type="text" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder text" type="text" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder text" type="text" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+input[type="text"] {
+    @font-size: 16px;
+
+    display: inline-block;
+    width: 85%; // 85% leaves room for .error and .success icons
+    margin: 0;
+    padding: unit( 4 / @base-font-size-px, em );
+    font-family: Arial, sans-serif;
+    font-size: unit( @font-size / @base-font-size-px, em );
+    background: @white;
+    border: 1px solid @gray;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    vertical-align: top;
+    -webkit-appearance: none;
+    -webkit-user-modify: read-write-plaintext-only;
+}
+
+input[type="text"]:focus,
+input[type="text"].focus {
+    // Class included for static state examples
+    border: 1px solid @pacific;
+    border-color: @pacific;
+    outline: 1px solid @pacific;
+    outline-offset: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+
+input[type="text"].error {
+    border: 1px solid @redorange;
+    outline: 1px solid @redorange;
+}
+
+input[type="text"].success {
+    border: 1px solid @green;
+    outline: 1px solid @green;
+}
+
+
+/* topdoc
+    name: Single-line search input
+    family: cf-forms
+    patterns:
+    - name: Default single-line search input
+      markup: |
+        <input placeholder="placeholder search text" type="search" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder search text" type="search" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder search text" type="search" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder search text" type="search" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all input[type="search"] styles extend input[type="text"]. */
+
+input[type="search"] {
+    &:extend(input[type="text"]);
+}
+
+input[type="search"]:focus,
+input[type="search"].focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+input[type="search"].error {
+    &:extend(input[type="text"].error);
+}
+
+input[type="search"].success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Single-line email input
+    family: cf-forms
+    patterns:
+    - name: Default single-line email input
+      markup: |
+        <input placeholder="placeholder email text" type="email" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder email text" type="email" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder email text" type="email" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder email text" type="email" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all input[type="email"] styles extend input[type="text"]. */
+
+input[type="email"] {
+    &:extend(input[type="text"]);
+}
+
+input[type="email"]:focus,
+input[type="email"].focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+input[type="email"].error {
+    &:extend(input[type="text"].error);
+}
+
+input[type="email"].success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Single-line url input
+    family: cf-forms
+    patterns:
+    - name: Default single-line url input
+      markup: |
+        <input placeholder="placeholder url text" type="url" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder url text" type="url" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder url text" type="url" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder url text" type="url" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all input[type="url"] styles extend input[type="text"]. */
+
+input[type="url"] {
+    &:extend(input[type="text"]);
+}
+
+input[type="url"]:focus,
+input[type="url"].focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+input[type="url"].error {
+    &:extend(input[type="text"].error);
+}
+
+input[type="url"].success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Single-line tel input
+    family: cf-forms
+    patterns:
+    - name: Default single-line tel input
+      markup: |
+        <input placeholder="placeholder tel text" type="tel" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder tel text" type="tel" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder tel text" type="tel" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder tel text" type="tel" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all input[type="tel"] styles extend input[type="text"]. */
+
+input[type="tel"] {
+    &:extend(input[type="text"]);
+}
+
+input[type="tel"]:focus,
+input[type="tel"].focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+input[type="tel"].error {
+    &:extend(input[type="text"].error);
+}
+
+input[type="tel"].success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Single-line number input
+    family: cf-forms
+    patterns:
+    - name: Default single-line number input
+      markup: |
+        <input placeholder="placeholder number text" type="number" value="">
+    - name: Focused state
+      markup: |
+        <input class="focus" placeholder="placeholder number text" type="number" value="">
+    - name: Error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <input class="error" placeholder="placeholder number text" type="number" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <input class="success" placeholder="placeholder number text" type="number" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all input[type="number"] styles extend input[type="text"]. */
+
+input[type="number"] {
+    &:extend(input[type="text"]);
+}
+
+input[type="number"]:focus,
+input[type="number"].focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+input[type="number"].error {
+    &:extend(input[type="text"].error);
+}
+
+input[type="number"].success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Multiline textarea
+    family: cf-forms
+    patterns:
+    - name: Default multi-line text box
+      markup: |
+        <textarea>Example entry</textarea>
+    - name: Focused multi-line text box
+      markup: |
+        <textarea class="focus">Example entry</textarea>
+    - name: Multi-line text box in error state
+      notes:
+        - Please review the notes on form input error icons in the form icons section below.
+      markup: |
+        <textarea class="error">Invalid input</textarea>
+        <i class="cf-form_input-icon icon-remove-sign" role="alert"><span class="jekyll-bug"></span></i>
+    - name: Multi-line text box in success state
+      notes:
+        - Please review the notes on form input success icons in the form icons section below.
+      markup: |
+        <textarea class="success">Validated input</textarea>
+        <i class="cf-form_input-icon icon-ok-sign"><span class="jekyll-bug"></span></i>
+    tags:
+    - cf-forms
+*/
+
+/* NOTE: all textarea styles extend input[type="text"]. */
+
+textarea {
+    &:extend(input[type="text"]);
+    overflow: auto; // http://css-tricks.com/textarea-tricks/
+}
+
+textarea:focus,
+textarea.focus {
+    // Class included for static state examples
+    &:extend(input[type="text"]:focus);
+}
+
+textarea.error {
+    &:extend(input[type="text"].error);
+}
+
+textarea.success {
+    &:extend(input[type="text"].success);
+}
+
+
+/* topdoc
+    name: Form icons
+    family: cf-forms
+    patterns:
+    - name: The .jekyll-bug element
+      codenotes:
+        - |
+          <i class="cf-form_input-icon icon-credit-card">
+            <span class="jekyll-bug"></span>
+          </i>
+      notes:
+        - |
+          Adding the .jekyll-bug element inside of an icon is only necessary
+          when using Jekyll as it tends to ignore empty <i> elements.
+    - name: Form input icons
+      notes:
+        - "Form input icons add small positioning tweaks to Font Awesome icons."
+        - "They are meant to be positioned after a form input."
+      markup: |
+        <input type="text" value="">
+        <i class="cf-form_input-icon icon-credit-card">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Form input error icon
+      notes:
+        - |
+          The icon must be placed directly after the form input in the markup
+          and the input must have the class of "error".
+        - 'Use the alert role to mark invalid fields: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alert_role'
+      markup: |
+        <input class="error" placeholder="placeholder search text" type="search" value="Invalid input">
+        <i class="cf-form_input-icon icon-remove-sign" role="alert">
+          <span class="jekyll-bug"></span>
+        </i>
+    - name: Form input success icon
+      notes:
+        - |
+          The icon must be placed directly after the form input in the markup
+          and the input must have the class of "success".
+      markup: |
+        <input class="success" placeholder="placeholder search text" type="search" value="Validated input">
+        <i class="cf-form_input-icon icon-ok-sign">
+          <span class="jekyll-bug"></span>
+        </i>
+    tags:
+    - cf-forms
+*/
+
+@cf-forms_input-icon-class: cf-form_input-icon;
+
+.@{cf-forms_input-icon-class} {
+    @font-size: 20px;
+
+    position: relative;
+    top: unit( 3px / @font-size, em);
+    margin-left: unit( 4px / @font-size, em);
+    font-size: unit( @font-size / @base-font-size-px, em );
+}
+
+.error + .@{cf-forms_input-icon-class} {
+    color: @redorange;
+}
+
+.success + .@{cf-forms_input-icon-class} {
+    color: @green;
+}
+
+
+/* topdoc
+  name: EOF
+  eof: true
+*/

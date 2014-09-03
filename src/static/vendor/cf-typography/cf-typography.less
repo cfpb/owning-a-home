@@ -1,0 +1,561 @@
+/* ==========================================================================
+   Capital Framework
+   Basic Typography
+   ========================================================================== */
+
+
+@import (less) "licensed-fonts.css";
+
+
+/* topdoc
+  name: Less variables
+  family: cf-typography
+  patterns:
+    - name: Font sizes
+      codenotes:
+        - "@base-font-size-px: 16px;"
+        - "@base-line-height-px: 22px;"
+        - "@base-line-height: unit(@base-line-height-px / @base-font-size-px);"
+  tags:
+    - cf-typography
+*/
+
+@base-font-size-px: 16px;
+@base-line-height-px: 22px;
+@base-line-height: unit(@base-line-height-px / @base-font-size-px);
+
+
+/* topdoc
+  name: Webfonts
+  family: cf-typography
+  patterns:
+    - name: Licensed webfonts
+      notes:
+        - "Avenir Next is included via the licensed-fonts.css file.
+          This file contains absolute links to our paid font service.
+          Fonts included this way will only work on CFPB-registered domains."
+        - "Note that when using Avenir Regular we automatically fix faux italic
+          and bold issues by overriding i, em, b, and strong tags to use the
+          appropriate fonts."
+    - name: Webfont mixins
+      codenotes:
+        - ".webfont-regular()"
+        - ".webfont-italic()"
+        - ".webfont-medium()"
+        - ".webfont-demi()"
+      notes:
+        - "Use these mixins to easily add the Avenir Next font family to your
+          elements."
+        - "To avoid faux bold and italics in Avenir Next, you must use the font
+          family name for that particular style. So when defining an italic or
+          bold style in Avenir Next you need to use the Avenir Next Italic font
+          family. Use the mixins when setting bold or italic text as they also
+          set the appropriate font-weight and font-style."
+        - "These mixins also add the appropriate .lt-ie9 overrides.
+          .lt-ie9 overrides are necessary to override font-style and font-weight
+          each time the webfont is used. These overrides are built into the webfont
+          mixins so you get them automatically. Note that this requires you to
+          use conditional classes on the <html> element:
+          https://github.com/h5bp/html5-boilerplate/blob/v4.3.0/doc/html.md#conditional-html-classes."
+  tags:
+    - cf-typography
+*/
+
+.webfont-regular() {
+    font-family: "AvenirNextLTW01-Regular", Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+
+    & em,
+    & i {
+        .webfont-italic();
+    }
+
+    & strong,
+    & b {
+        .webfont-demi();
+    }
+}
+
+.webfont-italic() {
+    font-family: "AvenirNextLTW01-Italic", Arial, sans-serif;
+    font-style: italic;
+    font-weight: normal;
+    .lt-ie9 & {
+        font-style: normal !important;
+    }
+}
+
+.webfont-medium() {
+    font-family: "AvenirNextLTW01-Medium", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    .lt-ie9 & {
+        font-weight: normal !important;
+    }
+}
+
+.webfont-demi() {
+    font-family: "AvenirNextLTW01-Demi", Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    .lt-ie9 & {
+        font-weight: normal !important;
+    }
+}
+
+
+/* topdoc
+  name: Type hierarchy
+  family: cf-typography
+  patterns:
+    - name: Default body type
+      markup: |
+        <p>Lorem ipsum dolor sit amet, <em>consectetur adipisicing elit</em>, sed do eiusmod <strong>tempor incididunt</strong> ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    - name: Heading level 1
+      markup: |
+        <h1>Example heading element</h1>
+        <p class="h1">A non-heading element</p>
+    - name: Heading level 2
+      markup: |
+        <h2>Example heading element</h2>
+        <p class="h2">A non-heading element</p>
+    - name: Heading level 3
+      markup: |
+        <h3>Example heading element</h3>
+        <p class="h3">A non-heading element</p>
+    - name: Heading level 4
+      markup: |
+        <h4>Example heading element</h4>
+        <p class="h4">A non-heading element</p>
+    - name: Heading level 5
+      markup: |
+        <h5>Example heading element</h5>
+        <p class="h5">A non-heading element</p>
+    - name: Heading level 6
+      markup: |
+        <h6>Example heading element</h6>
+        <p class="h6">A non-heading element</p>
+    - name: Super header
+      markup: |
+        <h1 class="superheader">Example super heading</h1>
+        <p class="superheader">Example super heading</p>
+  tags:
+    - cf-typography
+*/
+
+body {
+    color: @black;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 100%;
+    line-height: @base-line-height;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    .webfont-regular();
+}
+
+h1,
+.h1 {
+    @font-size: 34px;
+    @line-height: 44px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 30px.
+    margin-bottom: unit( 16px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    line-height: unit( @line-height / @font-size );
+}
+
+h2,
+.h2 {
+    @font-size: 26px;
+    @line-height: 33px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 20px.
+    margin-bottom: unit( 8px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    line-height: unit( @line-height / @font-size );
+}
+
+h3,
+.h3 {
+    @font-size: 22px;
+    @line-height: 28px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 15px.
+    margin-bottom: unit( 5px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    line-height: unit( @line-height / @font-size );
+}
+
+h4,
+.h4 {
+    @font-size: 18px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 15px.
+    margin-bottom: unit( 5px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    .webfont-medium();
+    line-height: unit( @base-line-height-px / @font-size );
+}
+
+h5,
+h6,
+.h5,
+.h6 {
+    .webfont-demi();
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h5,
+.h5 {
+    @font-size: 14px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 15px.
+    margin-bottom: unit( 5px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    line-height: unit( @base-line-height-px / @font-size );
+}
+
+h6,
+.h6 {
+    @font-size: 12px;
+
+    margin-top: 0;
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 15px.
+    margin-bottom: unit( 5px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    line-height: unit( @base-line-height-px / @font-size );
+}
+
+.superheader {
+    // For when you want a heading that's bigger than a normal H1
+
+    @font-size: 48px;
+    @line-height: 66px;
+
+    // Spacing in the design manual is based off of the baseline so this margin
+    // number has been eyeballed to be 30px.
+    margin-bottom: unit( 9px / @font-size, em );
+    font-size: unit( @font-size / @base-font-size-px, em );
+    .webfont-demi();
+    line-height: unit( @line-height / @font-size );
+}
+
+
+/* topdoc
+  name: Margins
+  family: cf-typography
+  patterns:
+    - name: Consistent vertical margins
+      notes:
+        - "Assumes that the font size of each of these items remains the default."
+      markup: |
+        <p>Paragraph margin example</p>
+        <p>Paragraph margin example</p>
+  tags:
+    - cf-typography
+*/
+
+p,
+ul,
+ol,
+dl,
+table,
+figure {
+    margin-top: 0;
+    // Spacing has been eyeballed to be 30px from the baseline.
+    margin-bottom: unit(20px / @base-font-size-px, em);
+}
+
+
+/* topdoc
+  name: Default link
+  notes:
+    - "Note that the .visited, .hover, .focus, .active classes are for demonstration purposes only and should not 
+      be used in production."
+  family: cf-typography
+  patterns:
+    - name: Default state
+      markup: |
+        <a href="#">Default link style</a>
+    - name: Visited state
+      markup: |
+        <a href="#" class="visited">Visited link style</a>
+    - name: Hovered state
+      markup: |
+        <a href="#" class="hover">Hovered link style</a>
+    - name: Focused state
+      markup: |
+        <a href="#" class="focus">Focused link style</a>
+    - name: Active state
+      markup: |
+        <a href="#" class="active">Active link style</a>
+  tags:
+    - cf-typography
+*/
+
+a {
+    border-bottom-width: 0;
+    border-bottom-style: dotted;
+    border-bottom-color: @pacific;
+    color: @pacific;
+    text-decoration: none;
+
+    &:visited,
+    &.visited {
+        border-bottom-color: @teal;
+        color: @teal;
+    }
+
+    &:hover,
+    &.hover {
+        border-bottom-style: solid;
+        border-bottom-color: @pacific-50;
+        color: @pacific-50;
+    }
+
+    &:focus,
+    &.focus {
+        border-bottom-style: solid;
+        outline: thin dotted;
+    }
+
+    &:active,
+    &.active {
+        border-bottom-style: solid;
+        border-bottom-color: @navy;
+        color: @navy;
+    }
+}
+
+
+/* topdoc
+  name: Underlined links
+  family: cf-typography
+  patterns:
+    - name: States
+      notes:
+        - "Note that the .visited, .hover, .focus, .active classes are for demonstration purposes only and should not 
+          be used in production."
+        - "The underline style properties are mostly set above in the a tag.
+          To enable the underline simply set a bottom-border-width as done here."
+      markup: |
+        <p>
+            <a href="#">Default</a>,
+            <a href="#" class="visited">Visited</a>,
+            <a href="#" class="hover">Hovered</a>,
+            <a href="#" class="focus">Focused</a>,
+            <a href="#" class="active">Active</a>
+        </p>
+    - name: Underline conditions
+      notes:
+        - "We're restricting link borders to links within p, li, and dd so that
+          we don't have to override them every time we want a plain link."
+      markup: |
+        <p>
+            <a href="#">A child of a paragraph</a>
+        </p>
+        <ul>
+            <li>
+                <a href="#">A child of a list item</a>
+            </li>
+        </ul>
+        <dl>
+            <dt>
+                Definition list term
+            </dt>
+            <dd>
+                <a href="#">A child of a definition list description</a>
+            </dd>
+        </dl>
+    - name: Exceptions for underlined links
+      notes:
+        - "Inline text links inside of a nav element are not underlined."
+      markup: |
+        <nav>
+            <p>
+                <a href="#">A child of a paragraph</a>
+            </p>
+            <ul>
+                <li>
+                    <a href="#">A child of a list item</a>
+                </li>
+            </ul>
+            <dl>
+                <dt>
+                    Definition list term
+                </dt>
+                <dd>
+                    <a href="#">A child of a definition list description</a>
+                </dd>
+            </dl>
+        </nav>
+  tags:
+    - cf-typography
+*/
+
+p,
+li,
+dd {
+    // Restrict bottom borders to inline text links ...
+
+    a {
+        border-bottom-width: 1px;
+    }
+}
+
+nav a {
+    // ... unless they're part of a nav list
+    border-bottom-width: 0;
+}
+
+
+/* topdoc
+  name: Lists
+  family: cf-typography
+  patterns:
+    - name: Unordered list
+      markup: |
+        <ul>
+            <li>List item</li>
+            <li>List item</li>
+            <li>List item</li>
+        </ul>
+  tags:
+    - cf-typography
+*/
+
+ul {
+    list-style: square;
+}
+
+
+/* topdoc
+  name: Block quote
+  family: cf-typography
+  patterns:
+    - name: Default block quote
+      markup: |
+        <blockquote cite="link-to-source">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+            similique fugit hic eligendi praesentium officiis illum optio iusto
+            commodi eum tempore nisi ad in perferendis enim quo dolores.
+            Reprehenderit similique earum quibusdam possimus vitae esse
+            nesciunt mollitia sed beatae aliquid dolores iure a impedit quam
+            minus eum modi illum ducimus eligendi eveniet labore non sequi
+            voluptate et totam praesentium animi itaque asperiores dolorum
+            sunt laudantium repellat nam commodi. Perspiciatis natus aliquam
+            veniam officiis ducimus voluptatum ut necessitatibus non!
+        </blockquote>
+      notes:
+        - "Use a block quote to quote from an external work. See .pull-quote if
+          you need to highlight an excerpt from the current work."
+        - "It is best practice to document the URL of a quoted work using the
+          cite attribute."
+  tags:
+    - cf-typography
+*/
+
+blockquote {
+    // Vertical spacing has been eyeballed to be 30px from the baseline.
+    margin: unit(20px / @base-font-size-px, em);
+
+    @media only all and (min-width: (unit(600px / @base-font-size-px, em))) {
+        margin: unit(28px / @base-font-size-px, em)
+                unit(40px / @base-font-size-px, em);
+    }
+}
+
+
+/* topdoc
+  name: Pull quote
+  family: cf-typography
+  patterns:
+    - name: Default pull quote
+      markup: |
+        <aside class="pull-quote">
+            <div class="pull-quote_body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Cum corrupti tempora nam nihil qui mollitia consectetur
+                corporis nemo culpa dolorum!
+            </div>
+            <footer>
+                <cite class="pull-quote_citation">
+                    - Author Name
+                </cite>
+            <footer>
+        </aside>
+      notes:
+        - "Use a pull quote to highlight excerpts from the current work.
+          This is not to be confused with blockquote which quotes from an
+          external work."
+        - "Since a pull quote is an excerpt and repeats content from the
+          article it's contained within you should use the aside element."
+    - name: Large pull quote
+      markup: |
+        <aside class="pull-quote pull-quote__large">
+            <div class="pull-quote_body">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Cum corrupti tempora nam nihil qui mollitia consectetur
+                corporis nemo culpa dolorum!
+            </div>
+            <footer>
+                <cite class="pull-quote_citation">
+                    - Author Name
+                </cite>
+            <footer>
+        </aside>
+  tags:
+    - cf-typography
+*/
+
+.pull-quote {
+
+    &_body {
+        .h3();
+        // Spacing is based off of the baseline so this margin number has been
+        // eyeballed to be ~24px.
+        margin-bottom: unit(12px / @font-size, em);
+        color: @black;
+    }
+
+    &_citation {
+        .h5();
+        color: @gray;
+    }
+}
+
+.pull-quote__large {
+
+    .pull-quote_body {
+        .h2();
+        // Spacing is based off of the baseline so this margin number has been
+        // eyeballed to be ~30px.
+        margin-bottom: unit(18px / @font-size, em);
+    }
+}
+
+
+/* topdoc
+  name: EOF
+  eof: true
+*/

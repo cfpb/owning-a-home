@@ -1,0 +1,13 @@
+{
+  "name": "polyfill",
+  "homepage": "https://github.com/inexorabletash/polyfill",
+  "_release": "924854b453",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "924854b453d95723ac3769d4120e8d525b8163c9"
+  },
+  "_source": "git://github.com/inexorabletash/polyfill.git",
+  "_target": "*",
+  "_originalSource": "inexorabletash/polyfill"
+}
