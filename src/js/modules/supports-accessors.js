@@ -4,6 +4,7 @@ var supportsAccessors = (function supportsAccessors() {
     return false;
   }
   try {
+    // IE8 incorrectly let's you define properties only on DOM objects.
     Object.defineProperty( obj, 'foo', {} );
     return 'foo' in obj;
   } catch ( e ) {}
