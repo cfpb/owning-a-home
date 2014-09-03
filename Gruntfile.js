@@ -72,8 +72,7 @@ module.exports = function(grunt) {
     less: {
       watch: {
         options: {
-          paths: grunt.file.expand('src/static/vendor/**/'),
-
+          paths: grunt.file.expand('src/static/vendor/**/')
         },
         files: {
           './dist/static/css/main.css': ['./src/static/css/main.less']
@@ -212,11 +211,11 @@ module.exports = function(grunt) {
         [
           {
             expand: true,
-            cwd: '.',
+            cwd: 'src',
             src: [
               // move html & template files
-              'src/*.html',
-              'src/_layouts/**/*'
+              '*.html',
+              '_layouts'
             ],
             dest: 'dist/'
           }
@@ -349,9 +348,17 @@ module.exports = function(grunt) {
      * Add files to monitor below.
      */
     watch: {
-      gruntfile: {
+      all: {
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['compile']
+        tasks: ['clean:dist', 'copy:dist', 'newer:less:watch', 'newer:browserify:build', 'newer:autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']
+      },
+      js: {
+        files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['clean:dist', 'copy:dist', 'newer:browserify:build', ]
+      },
+      css: {
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['clean:dist', 'copy:dist', 'newer:less:watch', 'newer:autoprefixer']
       }
     }
   });
@@ -365,8 +372,8 @@ module.exports = function(grunt) {
    * Create custom task aliases and combinations
    */
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less:watch', 'newer:browserify:build', 'newer:autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
+  grunt.registerTask('compile', ['clean:dist', 'copy:dist', 'less:watch', 'browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('dist', ['cssmin', 'uglify', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('default', ['compile', 'dist']);
 
