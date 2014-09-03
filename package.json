@@ -91,7 +91,7 @@
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js",
-    "highcharts": "./src/vendor/highcharts-release/highcharts.js",
+    "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
     "oah-config": "./config/config.js"
   },
   "browserify-shim": "./config/shim.js"

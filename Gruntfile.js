@@ -232,7 +232,7 @@ module.exports = function(grunt) {
               // move images to static directory
               'src/static/img/**/*',
             ],
-            dest: 'static/img/'
+            dest: 'dist/static/img/'
           }
         ]
       },
@@ -247,7 +247,7 @@ module.exports = function(grunt) {
               'src/static/vendor/html5shiv/html5shiv.js',
               'src/static/vendor/respond/respond.src.js',
             ],
-            dest: 'static/vendor/'
+            dest: 'dist/static/vendor/'
           }
         ]
       }
