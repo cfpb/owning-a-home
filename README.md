@@ -85,10 +85,10 @@ The owning-a-home front-end currently uses the following:
 ### Installing Dependencies (one time)
 
 1. Install [node.js](http://nodejs.org/) however you'd like.
-2. Install [Grunt](http://gruntjs.com/) and [Browserify](http://browserify.org/):
+2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 
 ```
-$ npm install -g grunt-cli browserify
+$ npm install -g grunt-cli bower browserify
 ```
 
 ## Developing
@@ -96,22 +96,22 @@ $ npm install -g grunt-cli browserify
 Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
 
 ```bash
-npm install
-grunt
+$ npm install
+$ grunt
 ```
 
 To work on the app you will need sheer running to compile the templates in `_layouts`. There is also a `grunt watch` command that will recompile Less and JS on the fly while you're developing.
 
 ```bash
 # use the sheer virtualenv
-workon sheer
+$ workon sheer
 # navigate to the built app directory that grunt created
-cd dist
+$ cd dist
 # start sheer
-sheer serve
+$ sheer serve
 
 # open a new command prompt and run:
-grunt watch
+$ grunt watch
 ```
 
 To view the site browse to: <http://localhost:7000>
