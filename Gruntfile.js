@@ -173,9 +173,6 @@ module.exports = function(grunt) {
      */
     cssmin: {
       build: {
-        options: {
-          //root: '/src/'
-        },
         files: {
           './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
         }
@@ -183,9 +180,19 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      build: {
+      main: {
         files: {
           './dist/static/js/main.min.js': ['./dist/static/js/main.js']
+        }
+      },
+      ie9: {
+        files: {
+          './dist/static/js/ie9.min.js': ['./dist/static/js/ie9.js']
+        }
+      },
+      ie8: {
+        files: {
+          './dist/static/js/lte-ie8.min.js': ['./dist/static/js/lte-ie8.js']
         }
       }
     },
@@ -215,7 +222,7 @@ module.exports = function(grunt) {
             src: [
               // move html & template files
               '*.html',
-              '_layouts'
+              '_layouts/*'
             ],
             dest: 'dist/'
           }
@@ -329,6 +336,10 @@ module.exports = function(grunt) {
       }
     },
 
+    usemin: {
+      html: ['dist/_layouts/base.html']
+    },
+
     newer: {
       options: {
         override: function(detail, include) {
@@ -341,6 +352,10 @@ module.exports = function(grunt) {
       }
     },
 
+    concurrent: {
+      all: ['css', 'js']
+    },
+
     /**
      * Watch: https://github.com/gruntjs/grunt-contrib-watch
      *
@@ -350,31 +365,34 @@ module.exports = function(grunt) {
     watch: {
       all: {
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['clean:dist', 'copy:dist', 'newer:less:watch', 'newer:browserify:build', 'newer:autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']
+        tasks: ['compile']
       },
       js: {
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['clean:dist', 'copy:dist', 'newer:browserify:build', ]
+        tasks: ['js']
       },
       css: {
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['clean:dist', 'copy:dist', 'newer:less:watch', 'newer:autoprefixer']
+        tasks: ['css']
       }
     }
+
   });
 
   /**
    * Load the tasks.
    */
+  grunt.loadNpmTasks('grunt-usemin');
   require('load-grunt-tasks')(grunt);
 
-  /**
-   * Create custom task aliases and combinations
-   */
+  grunt.registerTask('reset', ['clean:dist', 'copy:dist']);
+  grunt.registerTask('js', ['newer:browserify:build']);
+  grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
+
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['clean:dist', 'copy:dist', 'less:watch', 'browserify:build', 'autoprefixer', 'copy:img', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('dist', ['cssmin', 'uglify', 'usebanner']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy:img', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
-  grunt.registerTask('default', ['compile', 'dist']);
+  grunt.registerTask('default', ['build', 'ship']);
 
 };
