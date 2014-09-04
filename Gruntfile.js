@@ -363,17 +363,26 @@ module.exports = function(grunt) {
      * Add files to monitor below.
      */
     watch: {
-      all: {
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['compile']
-      },
       js: {
+        options: {
+          interrupt: true,
+        },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
         tasks: ['js']
       },
       css: {
+        options: {
+          interrupt: true,
+        },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
         tasks: ['css']
+      },
+      all: {
+        options: {
+          interrupt: true,
+        },
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['build']
       }
     }
 
