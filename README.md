@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/cfpb/owning-a-home.svg?branch=master)](https://travis-ci.org/cfpb/owning-a-home)
 
 ## This project is a work in progress
-Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on www.consumerfinance.gov/owning-a-home. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate. 
+Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on www.consumerfinance.gov/owning-a-home. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate.
 
 ## We want your feedback, but will not be able to respond to everyone
 We are working under an agile framework, and plan to use this repo to publish, receive feedback, and iterate on that feedback as often as possible. Our goal is to see user trends and reactions to our work. We want as much feedback as possible to help us make informed decisions so that we can make this tool better. Unfortunately, we will not be able to respond to every piece of feedback or comment we receive, but intend to respond with our progress through the evolution of the tool.
@@ -62,7 +62,7 @@ sheer: error: too few arguments
 
 ## Configuration
 
-Currently owning-a-home's Rate Checker is powered by an API that returns mortgage rate data. To configure owning-a-home you will need to point to an API url in `config/config.js`. To do this:
+Currently owning-a-home's Rate Checker is powered by a private API that returns mortgage rate data. To configure owning-a-home you will need to point to an API url in `config/config.js`. To do this:
 
 In the config folder, copy the `example-config.js` file and rename it `config.js`
 
@@ -70,7 +70,7 @@ Change line 3 to point to an appropriate API url:
 
 ```javascript
 config.rateCheckerAPI = 'YOUR API URL HERE';
-``` 
+```
 
 ## Working with the front end
 
@@ -85,33 +85,33 @@ The owning-a-home front-end currently uses the following:
 ### Installing Dependencies (one time)
 
 1. Install [node.js](http://nodejs.org/) however you'd like.
-2. Install [Grunt](http://gruntjs.com/), a JavaScript task runner:
+2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 
 ```
-$ npm install -g grunt-cli
+$ npm install -g grunt-cli bower browserify
 ```
 
 ## Developing
 
-Each time you fetch from upstream, install the dependencies with npm and the custom `grunt vendor` task:
+Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
 
-```
+```bash
 $ npm install
-$ grunt vendor
 $ grunt
 ```
 
-To work on the app you will need sheer running as well as the `grunt watch` task.
+To work on the app you will need sheer running to compile the templates in `_layouts`. There is also a `grunt watch` command that will recompile Less and JS on the fly while you're developing.
 
 ```bash
-# use the sheer virtualenv and start sheer
-workon sheer
-sheer serve
+# use the sheer virtualenv
+$ workon sheer
+# navigate to the built app directory that grunt created
+$ cd dist
+# start sheer
+$ sheer serve
 
-# open a new tab in terminal with Command + T and type the following:
-grunt watch
-
-# open a third tab in terminal for your git commands
+# open a new command prompt and run:
+$ grunt watch
 ```
 
 To view the site browse to: <http://localhost:7000>
