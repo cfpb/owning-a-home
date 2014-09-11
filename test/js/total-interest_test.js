@@ -1,4 +1,4 @@
-var payment = require('../../src/js/modules/total-interest-calc.js');
+var payment = require('../../src/static/js/modules/total-interest-calc.js');
 
 var chai = require('chai');
 var expect = chai.expect;
