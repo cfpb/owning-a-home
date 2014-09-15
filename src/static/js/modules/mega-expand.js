@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 var megaExpand = function(ev, $header){
 
   var $container = $header.parent('.expandable'),
