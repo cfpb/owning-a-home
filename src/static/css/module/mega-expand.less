@@ -1,3 +1,4 @@
+@mega-header-height: 60px;
 
 // custom styles for the MEGA expandables
 .mega-expand {
@@ -13,6 +14,8 @@
       background: @gray-10;
       border-bottom: 1px solid @gray-20;
       padding: 4px 0;
+      cursor: pointer;
+      cursor: hand;
     }
 
     .expandable-button,
@@ -30,6 +33,7 @@
       .webfont-regular();
       font-size: 1.625em;
       margin: 0;
+      line-height: @mega-header-height;
     }
 
     .list-heading {
@@ -54,11 +58,14 @@
 
 /* expandable header layout */
 .expandable-title {
-  .column(10);
+  .column(9);
 }
 
 .expandable-link {
-  .column(2);
+  .column(3);
+  text-align: right;
+  height: @mega-header-height;
+  line-height: @mega-header-height;
 }
 
 .icon-plus-sign:before {
