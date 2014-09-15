@@ -1,0 +1,18 @@
+<!-- NAVIGATION -->
+{% set navigation_bar = [
+    ('index.html', 'index', 'Owning a Home'),
+    ('rate-checker.html', 'rate-checker', 'Rate Checker'),
+    ('loan-comparison.html', 'loan-comparison', 'Loan Comparison'),
+    ('loan-types.html', 'loan-types', 'Loan types')
+] -%}
+{% set active_page = active_page|default('index') -%}
+
+<nav class="secondary-nav col-3">
+  <ul class="secondary-nav-list">
+  {% for href, id, caption in navigation_bar %}
+    <li{% if id == active_page %} class="current"{% endif
+    %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
+  {% endfor %}
+  </ul>
+</nav>
+<!-- /NAVIGATION -->
