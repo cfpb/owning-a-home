@@ -1,3 +1,4 @@
+var $ = require('jquery');
 var setupLoanForm = require('./formalize');
 var copyFormValues = require('./clone-form');
 var templates = {
