@@ -1,7 +1,3 @@
-// required for browserify shimming
-var shims = require('./config/shim'),
-    sharedModules = Object.keys(shims);
-
 module.exports = function(grunt) {
 
   'use strict';
@@ -118,8 +114,7 @@ module.exports = function(grunt) {
               entries: ['./src/static/js/modules/loan-types.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
               o: ['dist/static/js/loan-types.js', 'dist/static/js/rate-checker.js', 'dist/static/js/loan-comparison.js']
             }]
-          ],
-          require: sharedModules
+          ]
         }
       },
       tests: {
