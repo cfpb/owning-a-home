@@ -109,9 +109,8 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        files: {
-          'dist/static/js/main.js': ['./src/static/js/**/*.js', './config/*.js'],
-        },
+        src: ['./src/static/js/**/*.js', './config/*.js'],
+        dest: 'dist/static/js/main.js',
         options: {
           watch: true,
           transform: ['browserify-shim', 'hbsfy'],
