@@ -1,3 +1,21 @@
 {% extends "base.html" %}
 {% set active_page = "index" %}
-{% set subnav = True %}
+
+{% block title %}Owning a Home: Loan Types{% endblock title %}
+
+{% block content %}
+
+<div class="wrap content-area">
+  <div class="wrapper">
+
+    {% with active_page = "index" %}
+      {% include "sidebar_nav.html" %}
+    {% endwith %}
+
+  <section class="main-content col-9" role="main">
+    <h1 class="oah-title">Owning a Home <sup class="beta">BETA</sup></h1>
+  </section>
+
+  </div> <!-- /.wrapper -->
+</div> <!-- /. wrap content-area -->
+{% endblock %}

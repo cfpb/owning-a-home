@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% set active_page = "loan-types" %}
-{% set subnav = true %}
 
 {% block title %}Owning a Home: Loan Types{% endblock title %}
 
@@ -9,7 +8,11 @@
 <div class="wrap content-area">
   <div class="wrapper">
 
-  <section class="main-content {% if subnav %}col-9{% endif %}" role="main">
+    {% with active_page = "loan-types" %}
+      {% include "sidebar_nav.html" %}
+    {% endwith %}
+
+  <section class="main-content col-9" role="main">
 
   <h1>Understanding loan types</h1>
 
