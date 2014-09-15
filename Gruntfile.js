@@ -109,11 +109,16 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/**/*.js', './config/*.js'],
+        src: ['./src/static/js/modules/loan-types.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
         dest: 'dist/static/js/main.js',
         options: {
-          watch: true,
           transform: ['browserify-shim', 'hbsfy'],
+          plugin: [
+            ['factor-bundle', {
+              entries: ['./src/static/js/modules/loan-types.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
+              o: ['dist/static/js/loan-types.js', 'dist/static/js/rate-checker.js', 'dist/static/js/loan-comparison.js']
+            }]
+          ],
           require: sharedModules
         }
       },
