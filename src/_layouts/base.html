@@ -41,18 +41,6 @@
 <![endif]-->
 
 <!--[if lte IE 8]>
-    <script src="static/vendor/html5shiv.js"></script>
-    <script src="static/vendor/respond.src.js"></script>
-    <script>
-      var cfHead = document.getElementsByTagName('head')[0],
-        cfStyle = document.createElement('style');
-      cfStyle.type = 'text/css';
-      cfStyle.styleSheet.cssText = ':before,:after{content:none !important}';
-      cfHead.appendChild(cfStyle);
-      setTimeout(function(){
-        cfHead.removeChild(cfStyle);
-      }, 300);
-    </script>
     <!-- build:js static/js/lte-ie8.min.js -->
     <script src="static/js/lte-ie8.js"></script>
     <!-- endbuild -->
