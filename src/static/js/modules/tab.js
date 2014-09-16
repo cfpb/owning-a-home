@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 $('.tab-link').click(function( e ) {
   var $tabs = $('.tab-list'),
       $tabLi = $(this).parent('.tab-list'),

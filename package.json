@@ -36,7 +36,7 @@
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-task": "~0.4.0",
-    "grunt-browserify": "2.0.3",
+    "grunt-browserify": "~3.0.1",
     "grunt-combine-media-queries": "~1.0.2",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "latest",
@@ -49,7 +49,6 @@
     "grunt-contrib-watch": "~0.4.4",
     "grunt-mocha-test": "^0.10.2",
     "grunt-newer": "^0.7.0",
-    "grunt-notify": "~0.2.4",
     "grunt-release": "latest",
     "grunt-shell": "~0.3.0",
     "grunt-string-replace": "latest",
@@ -57,7 +56,8 @@
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.18.2",
     "time-grunt": "^1.0.0",
-    "grunt-usemin": "~2.4.0"
+    "grunt-usemin": "~2.4.0",
+    "factor-bundle": "~2.2.1"
   },
   "keywords": [],
   "dependencies": {
