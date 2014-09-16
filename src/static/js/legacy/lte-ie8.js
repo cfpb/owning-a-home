@@ -1,3 +1,12 @@
+var cfHead = document.getElementsByTagName('head')[0],
+cfStyle = document.createElement('style');
+cfStyle.type = 'text/css';
+cfStyle.styleSheet.cssText = ':before,:after{content:none !important}';
+cfHead.appendChild(cfStyle);
+setTimeout(function(){
+cfHead.removeChild(cfStyle);
+}, 300);
+
 // Some polyfills
 
 if ( typeof console === 'undefined' ) {
@@ -120,5 +129,3 @@ if (!Object.isFrozen) {
     return this.fireEvent("on" + eventObject.type, eventObject);
   };
 })(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
-
-// jQuery madness to compensate for IE8 not having accessors for observing objects.

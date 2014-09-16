@@ -47,15 +47,15 @@ module.exports = function(grunt) {
     concat: {
       'cf-less': {
         src: ['src/static/vendor/fj-*/*.less', 'src/static/vendor/cf-*/*.less'],
-        dest: 'src/static/vendor/cf-concat/cf.less',
+        dest: 'src/static/vendor/cf-concat/cf.less'
       },
       ie9: {
         src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
-        dest: 'dist/static/js/ie9.js',
+        dest: 'dist/static/js/ie9.js'
       },
       ie8: {
-        src: ['src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
-        dest: 'dist/static/js/lte-ie8.js',
+        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        dest: 'dist/static/js/lte-ie8.js'
       }
     },
 
@@ -240,21 +240,6 @@ module.exports = function(grunt) {
             dest: 'dist/static/img/'
           }
         ]
-      },
-      vendor: {
-        files:
-        [
-          {
-            expand: true,
-            flatten: true,
-            src: [
-              // move shims to static directory
-              'src/static/vendor/html5shiv/html5shiv.js',
-              'src/static/vendor/respond/respond.src.js',
-            ],
-            dest: 'dist/static/vendor/'
-          }
-        ]
       }
     },
 
@@ -397,7 +382,7 @@ module.exports = function(grunt) {
   grunt.registerTask('js', ['newer:browserify:build']);
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
-  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy:img', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
