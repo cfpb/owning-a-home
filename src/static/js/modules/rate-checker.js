@@ -807,50 +807,43 @@ function setSelections( options ) {
 
 }
 
-// This is a temporary hack to only attach the below event handlers when we're on
-// the rate checker page. Eventually we will externalize shared event handlers like
-// all the loan calculation stuff.
-if ( $('.rate-checker[role=main]').length > 0 ) {
+// Recalculate everything when fields are changed.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
 
-  // Recalculate everything when fields are changed.
-  $('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
+// check if input value is a number
+// if not, replace the character with an empty string
+$('.calc-loan-amt .recalc').on( 'keyup', function(){
+  var inputVal = $(this).val();
+  if (!isNum(inputVal)) {
+    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
+    $(this).val(updatedVal);
+  }
+  debounce(updateView(this), 900);
+});
 
-  // check if input value is a number
-  // if not, replace the character with an empty string
-  $('.calc-loan-amt .recalc').on( 'keyup', function(){
-    var inputVal = $(this).val();
-    if (!isNum(inputVal)) {
-      var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
-      $(this).val(updatedVal);
-    }
-    debounce(updateView(this), 900);
-  });
+// Prevent non-numeric characters from being entered
+$('.calc-loan-amt .recalc').on( 'keydown', function( event ){
+  var key = event.which,
+      allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
 
-  // Prevent non-numeric characters from being entered
-  $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
-    var key = event.which,
-        allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
+  // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
+  // stop everything.
+  if ( allowedKeys.indexOf(key) === -1 || (event.shiftKey && key !== 9) ) {
+    event.preventDefault();
+  }
+});
 
-    // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
-    // stop everything.
-    if ( allowedKeys.indexOf(key) === -1 || (event.shiftKey && key !== 9) ) {
-      event.preventDefault();
-    }
-  });
+// Check if it's a jumbo loan if they change the loan amount or state.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
-  // Check if it's a jumbo loan if they change the loan amount or state.
-  $('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
+// Recalculate loan amount.
+$('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
 
-  // Recalculate loan amount.
-  $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
+// Recalculate interest costs.
+$('.compare').on(' change', 'select', renderInterestAmounts );
 
-  // Recalculate interest costs.
-  $('.compare').on(' change', 'select', renderInterestAmounts );
+// Recalculate interest costs.
+$('#rate-structure').on( 'change', checkARM );
 
-  // Recalculate interest costs.
-  $('#rate-structure').on( 'change', checkARM );
-
-  // Do it!
-  init();
-
-}
+// Do it!
+init();
