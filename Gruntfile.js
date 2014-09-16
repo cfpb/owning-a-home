@@ -382,7 +382,7 @@ module.exports = function(grunt) {
   grunt.registerTask('js', ['newer:browserify:build']);
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
-  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy:img', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
