@@ -120,5 +120,3 @@ if (!Object.isFrozen) {
     return this.fireEvent("on" + eventObject.type, eventObject);
   };
 })(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
-
-// jQuery madness to compensate for IE8 not having accessors for observing objects.
