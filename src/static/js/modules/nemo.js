@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 var linkElement, hidemenu, dropdown, dropping;
 
 function escHandler(e) {

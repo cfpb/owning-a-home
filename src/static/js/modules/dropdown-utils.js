@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 /**
  * Some dropdown utility methods.
  * @param  {string | array} id ID(s) of the HTML select elements.
