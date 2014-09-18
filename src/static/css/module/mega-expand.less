@@ -1,0 +1,133 @@
+@mega-header-height: 60px;
+
+// custom styles for the MEGA expandables
+.mega-expand {
+    //margin: 0;
+    background: #fff;
+
+    .expandable-header {
+        .webfont-regular();
+        padding: 40px 0 20px 0;
+    }
+
+    .expandable-mainhead {
+      background: @gray-10;
+      border-bottom: 1px solid @gray-20;
+      padding: 4px 0;
+      cursor: pointer;
+      cursor: hand;
+    }
+
+    .expandable-button,
+    .expandable-button:link,
+    .expandable-button:visited {
+      line-height: 32px; //match height of expandable header content
+    }
+
+    .expandable-subhead {
+      background: #fff;
+      padding-top: 20px;
+    }
+
+    .expandable-heading {
+      .webfont-regular();
+      font-size: 1.625em;
+      margin: 0;
+      line-height: @mega-header-height;
+    }
+
+    .list-heading {
+      .webfont-demi();
+      font-size: 1em;
+    }
+
+    &:hover,
+    &:active {
+        background: #fff;
+    }
+
+    .expandable-content {
+      border-top: 1px solid  @gray-20;
+      padding-top: 40px;
+    }
+
+    .expandable-text {
+      margin-right: 6px;
+    }
+}
+
+/* expandable header layout */
+.expandable-title {
+  .column(9);
+}
+
+.expandable-link {
+  .column(3);
+  text-align: right;
+  height: @mega-header-height;
+  line-height: @mega-header-height;
+}
+
+.icon-plus-sign:before {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 16px;
+}
+
+// us cf-icons for the expandable icons
+.icon-plus-sign:before {
+  .cf-icon;
+  content: "\e109";
+}
+.open .icon-plus-sign:before {
+  .cf-icon;
+  content: "\e111";
+}
+
+.expandable-subsection {
+  border-top: 1px solid  @gray-20;
+  padding: 1.375em 0;
+
+  .expandable-section-content {
+    font-size: .875em;
+  }
+}
+
+.expandable-subsection-title {
+  border-top: 1px solid  @gray-20;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+// internal collapse link
+
+.expand-close {
+  .webfont-regular();
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.expand-close:link,
+.expand-close:visited {
+  color: @pacific;
+}
+
+.expand-close:hover,
+.expand-close:active,
+.expand-close:focus {
+  text-decoration: underline;
+}
+
+// hide the learn more/collapse link below 1100px
+
+@media (max-width: 1100px) {
+  .mega-expand {
+    .expandable-text {
+      .visuallyhidden;
+    }
+
+  }
+}

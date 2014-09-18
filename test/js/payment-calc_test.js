@@ -1,4 +1,4 @@
-var payment = require('../../src/js/modules/payment-calc.js');
+var payment = require('../../src/static/js/modules/payment-calc.js');
 
 var chai = require('chai');
 var expect = chai.expect;
@@ -11,7 +11,7 @@ describe('Payment calculation tests', function() {
   it('Positive test - correctly calculates a monthly payment on 30 year loan', function() {
     expect(payment(5, 360, 200000)).to.equal('$1,073.64');
   });
-  
+
 // -- LOAN RATE TESTS -- //
  it('Negative test - passes *Decimal* Loan Rate', function() {
     expect(payment(3.6, 240, 200000)).to.equal('$1,170.22');
@@ -35,44 +35,44 @@ describe('Payment calculation tests', function() {
     expect(payment(-5, 240, 200000)).to.equal('$1,319.91');
   });
   */
-  
+
   // This test should catch the exception: Error: Please specify a loan rate as a number
   /* it('Negative test - passes an *Invalid* Loan Rate', function() {
     expect(payment('&', 240, 200000)).to.equal('$1,319.91');
   });
   */
-  
+
 // -- LOAN TERM TESTS -- //
   it('Negative test - passes a *Decimal* Loan Term', function() {
     expect(payment(5, 360.1, 200000)).to.equal('$1,073.51');
   });
-  
+
   // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
-  // This test should catch the exception: Error: Please specify the length of the loan term as a positive number  
+  // This test should catch the exception: Error: Please specify the length of the loan term as a positive number
   /* it('Negative test - passes *ZERO* Loan Term', function() {
     expect(payment(5, 0, 200000)).to.equal('$1,073.51');
   });
   */
-  
+
   // This test should cause an exception: Error: Please specify a loan term as a number between 1 and 480
   it('Negative test - passes *Out of range* Loan Term argument', function() {
     expect(payment( 5, 600, 300000)).to.equal('$1,362.42');
   });
-  
+
   // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
   // This test should catch the exception: Error: Please specify the length of the term as a positive number
   /* it('Negative test - passes a *Negative* Loan Term', function() {
     expect(payment(5, -240, 200000)).to.equal('$1,319.91');
   });
   */
-  
+
   // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
   // This test should catch the exception: Error: Please specify the length of the term as a positive number
   /* it('Negative test - passes an *Invalid* Loan Term', function() {
     expect(payment(7, '*', 200000)).to.equal('$1,319.91');
   });
   */
-  
+
 // -- LOAN AMOUNT TESTS -- //
   it('Negative test - passes *Decimal* Loan Amount', function() {
     expect(payment(3.6, 480, 200000.05)).to.equal('$786.82');
@@ -84,19 +84,19 @@ describe('Payment calculation tests', function() {
     expect(payment(3.6, 480, 0)).to.equal('$786.82');
   });
   */
-  
+
   // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
   // This test should catch the exception: Error: Please specify a loan amount as a positive number
   /* it('Negative test - passes *Negative* Loan Amount', function() {
     expect(payment(3.6, 480, -180000)).to.equal('$786.82');
   });
   */
-  
+
   // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
   // This test should catch the exception: Error: Please specify a loan amount as a positive number
   /* it('Negative test - passes an *Invalid* Loan Amount', function() {
     expect(payment(3.6, 480, '%')).to.equal('$786.82');
   });
   */
-  
+
 });

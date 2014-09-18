@@ -1,0 +1,425 @@
+.calc-content {
+  .webfont-medium();
+}
+
+.comparison-header {
+  font-size: 1.375em;
+  .webfont-regular();
+}
+
+.comparison-input-column {
+  .column( 3 );
+  &-a {
+    .column( 6 );
+  }
+  &-b,
+  &-c {
+    .column( 3 );
+    .input-wrap {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+
+  .comparison-input-column {
+    &-b {
+      h5,
+      .label-float {
+        .visuallyhidden;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .comparison-input-column {
+    .column( 3 );
+    &-a,
+    &-b,
+    &-c {
+      .column( 12 );
+    }
+  }
+
+}
+
+/*
+  Introductory content
+  --------------------------- */
+
+@media (max-width: 600px) {
+  .loan-comparison {
+    .lead {
+      display: none; // hide the lead for now, this will be a toggle later
+    }
+
+    .intro-img {
+      display: none; // hide the hero image on mobile
+    }
+  }
+}
+
+/*
+  Mobile overview section
+  --------------------------- */
+
+// default to hiding mobile overview section
+.mobile-overview {
+  display: none;
+
+  p {
+    .webfont-regular();
+    margin-bottom: 0.75em;
+  }
+}
+
+@media (min-width: 600px) {
+  // hide on small screens
+  .mobile-comparison-overviews {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .comparison-input-column-1,
+  .comparison-input-column {
+    .column( 12 ); // this will have to change when we have two loans
+  }
+
+  .comparison-lead {
+    .column( 6 );
+  }
+
+  .inactive {
+    color: @gray;
+  }
+
+  .comparison-header {
+    border-bottom: 3px solid @green-midtone;
+
+    .inactive & {
+      color: @gray-50;
+      border-bottom: 3px solid @gray-50;
+    }
+  }
+
+  .mobile-add-btn {
+    a:hover {
+      color: #fff;
+    }
+  }
+
+  // display mobile overview on small screens
+  .mobile-overview {
+    .column(6);
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    h4 {
+      .allcaps-demi;
+    }
+  }
+}
+
+/*
+  Loan Comparison Inputs
+  --------------------------- */
+
+.lc-inputs {
+  background: @gray-10;
+  width: 100%;
+  .webfont-regular();
+  position: relative;
+
+  .wrap {
+    padding: 0;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid @gray-50;
+  }
+
+  legend {
+    .reset;
+    display: inline-block;
+  }
+
+  fieldset {
+    .reset;
+    border: 0;
+    outline: 0;
+    display: block;
+  }
+}
+
+.input-headers {
+  .wrapper;
+
+  li {
+    .wrapper;
+    .column(3);
+    text-align: center;
+    padding: 1em 0;
+  }
+
+  h3 {
+    .reset;
+  }
+}
+
+/* labels and inputs are full width on small screens */
+@media (min-width: 600px) {
+
+  .lc-inputs {
+    padding-bottom: 28px;
+  }
+
+  .input-subsection {
+    .wrapper;
+    padding-top: 28px;
+  }
+
+  .label-float {
+    .column(6);
+    text-align: right;
+  }
+
+  .input-wrap {
+    .column(6);
+  }
+
+  // todo: layout all headings
+  .lc-comparison-a .comparison-header {
+    display: inline-block;
+   .push(3);
+  }
+}
+
+@media (max-width: 600px) {
+.lc-inputs {
+  padding-left: 1em;
+
+  .comparison-header {
+    display: none;
+  }
+
+  label {
+      margin-top: 0.875em;
+    }
+  }
+
+  .input-headers {
+    display: none;
+  }
+
+  // we never want to show loan c on small screens
+  .comparison-input-column-c {
+    display: none;
+  }
+}
+
+.lc-subhead {
+  .allcaps-demi;
+}
+
+.small-input {
+  display: inline-block;
+  width: 25%;
+  margin-right: -4px; // normalize inline-block
+}
+
+.mid-input {
+  display: inline-block;
+  width: 75%;
+  margin-right: -4px; // nornalize inline block
+}
+
+@media (max-width: 600px) {
+  .small-input {
+    width: 25%;
+    padding-right: 5%;
+    margin-right: -4px; // normalize inline-block
+  }
+}
+
+.lc-toggle {
+  display: block;
+  background: #fff;
+  font-size: 0.875em;
+  text-align: center;
+  padding: 8px 0;
+
+  .cf-icon {
+    font-size: 1.125em;
+  }
+}
+
+.lc-edit-link {
+  border-top: 1px dotted @pacific;
+  border-bottom: 1px dotted @pacific;
+}
+
+.lc-save-link {
+  display: none; // hide on desktop
+  margin: 0 -30px 0 -15px; // negative margin accomodates for grid padding
+
+  &.first-save {
+    border-top: 1px dotted @pacific;
+    border-bottom: 1px solid @gray-20;
+  }
+
+  &.second-save {
+    border-top: 1px solid @gray-20;
+    border-bottom: 1px dotted @pacific;
+  }
+}
+
+// points inline radio button layout
+.lc-radio {
+  width: 16.666666667%;
+  padding-bottom: 25px;
+
+  input,
+  label {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: .875em;
+  }
+
+  label {
+    margin-right: 6px;
+  }
+}
+
+// shrink font size below 1060px
+@media (max-width: 1060px) {
+  .lc-radio {
+    label {
+     font-size: .875em;
+    }
+  }
+}
+
+// below 950px display radio buttons and labels on new lines
+@media (max-width: 950px) {
+  .lc-radio {
+
+    input,
+    label {
+     display: block;
+    }
+
+    label {
+      margin-right: 0;
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .lc-input {
+    display: none;
+
+    &.input-open {
+      display: block;
+    }
+  }
+
+  .lc-save-link {
+    display: block; //
+  }
+  .input-subsection {
+    padding: 0.625em 0 1.5em 0;
+    border-bottom: 1px solid @gray-20;
+  }
+}
+
+/*
+  Add comparison
+  --------------------------- */
+
+.add-btn {
+
+  border: 2px dashed @gray-50;
+  text-align: center;
+  margin-top: 28px;
+  padding: 30px 0;
+  border-radius: .25em;
+
+  a:hover {
+    color: #fff;
+  }
+}
+
+/*
+  Loan Comparison Results
+  --------------------------- */
+
+.comparison-results {
+  margin-top: 60px;
+}
+
+.result-heading {
+  color: @gray;
+  .push(2);
+}
+
+.results-section {
+  margin-bottom: 60px;
+}
+
+.results-section-heading {
+  .reset;
+  .webfont-medium();
+  font-size: 1.125em;
+  background-color: @gray-10;
+}
+
+.lc-primary-result {
+  font-size: 1.375em;
+  .webfont-regular();
+}
+
+@media (min-width: 600px) {
+  .results-section {
+    background-color: @gray-10;
+    padding: 12px 0;
+  }
+
+  .results-section-heading,
+  .lc-result {
+    .column(3);
+  }
+
+  .results-section-heading {
+    font-size: 1.375em;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .result-heading {
+    display: none;
+  }
+
+  .results-section-heading {
+    padding: 12px 10px;
+  }
+
+  .lc-primary-result,
+  .lc-result {
+    .column(6);
+  }
+
+  // we never want to show loan c on small screens
+  .lc-result-c {
+    display: none;
+  }
+}
