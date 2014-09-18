@@ -1,0 +1,90 @@
+/* Headings
+--------------------------- */
+
+.section-heading {
+  margin-top: 60px;
+}
+
+// subheads are small headings in all caps
+.subhead {
+  font-size: 0.875em;
+  text-transform: uppercase;
+  .webfont-demi();
+   margin: 24px 0 16px 0;
+}
+
+// subheadings have green borders and are larger
+.subheading {
+  .webfont-demi();
+  font-size: 1em;
+  text-transform: uppercase;
+  margin-top: 32px;
+  padding-bottom: 10px;
+  border-bottom: 4px solid #AED690;
+}
+
+.h5 {
+  .webfont-demi();
+  font-size: 0.75em;
+  text-transform: uppercase;
+  border-bottom: 1px solid @gray-20;
+}
+
+.callout-heading {
+  .webfont-demi();
+  font-size: 0.875em;
+  text-transform: uppercase;
+}
+
+.callout-mid-heading {
+  .webfont-medium();
+  text-transform: none;
+  font-size: 1.125em;
+  margin-bottom: 10px;
+  margin-top: 32px;
+}
+
+// wrap tabbed headings in a tabbed header
+.tabbed-header {
+  border-top: 1px solid @gray-50;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+// a tabbed heading has a green highlight above it
+.tabbed-heading {
+  position: absolute;
+  top: -2px;
+  margin-top: 0;
+  padding-top: 6px;
+  display: inline-block;
+  border-top: 4px solid @green;
+}
+
+/* Lists
+--------------------------- */
+
+ul > li {
+  list-style: disc;
+}
+
+/* Links
+--------------------------- */
+
+.go-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.go-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e002";
+  border-bottom: none;
+}

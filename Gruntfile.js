@@ -1,12 +1,10 @@
-// required for browserify shimming
-var shims = require('./config/shim'),
-    sharedModules = Object.keys(shims);
-
 module.exports = function(grunt) {
 
   'use strict';
 
   var path = require('path');
+
+  require('time-grunt')(grunt);
 
   grunt.initConfig({
 
@@ -23,7 +21,7 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options: {
-          targetDir: './src/vendor/',
+          targetDir: './src/static/vendor/',
           install: true,
           verbose: true,
           cleanBowerDir: true,
@@ -48,25 +46,42 @@ module.exports = function(grunt) {
      */
     concat: {
       'cf-less': {
-        src: ['src/vendor/fj-*/*.less', 'src/vendor/cf-*/*.less'],
-        dest: 'src/vendor/cf-concat/cf.less',
+        src: ['src/static/vendor/fj-*/*.less', 'src/static/vendor/cf-*/*.less'],
+        dest: 'src/static/vendor/cf-concat/cf.less'
       },
+      ie9: {
+        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        dest: 'dist/static/js/ie9.js'
+      },
+      ie8: {
+        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        dest: 'dist/static/js/lte-ie8.js'
+      }
     },
 
     /**
      * LESS: https://github.com/gruntjs/grunt-contrib-less
      *
      * Compile LESS files to CSS.
+     * Source maps are slow, so they're separated into their own task for when needed
      */
     less: {
-      main: {
+      watch: {
         options: {
-          paths: grunt.file.expand('src/vendor/**/'),
+          paths: grunt.file.expand('src/static/vendor/**/')
+        },
+        files: {
+          './dist/static/css/main.css': ['./src/static/css/main.less']
+        }
+      },
+      map: {
+        options: {
+          paths: grunt.file.expand('src/static/vendor/**/'),
           sourceMap: true,
           sourceMapRootpath: '/'
         },
         files: {
-          './static/css/main.css': ['./src/css/main.less']
+          './dist/static/css/main.css': ['./src/static/css/main.less']
         }
       }
     },
@@ -82,21 +97,24 @@ module.exports = function(grunt) {
         diff: false
       },
       multiple_files: {
-        // Prefix all CSS files found in `src/css` and overwrite.
+        // Prefix all CSS files found in `src/static/css` and overwrite.
         expand: true,
-        src: 'static/css/main.css'
+        src: 'dist/static/css/main.css'
       },
     },
 
     browserify: {
       build: {
-        files: {
-          'static/js/main.js': ['./src/js/**/*.js', './config/*.js'],
-        },
+        src: ['./src/static/js/modules/loan-types.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
+        dest: 'dist/static/js/main.js',
         options: {
-          watch: true,
           transform: ['browserify-shim', 'hbsfy'],
-          require: sharedModules
+          plugin: [
+            ['factor-bundle', {
+              entries: ['./src/static/js/modules/loan-types.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
+              o: ['dist/static/js/loan-types.js', 'dist/static/js/rate-checker.js', 'dist/static/js/loan-comparison.js']
+            }]
+          ]
         }
       },
       tests: {
@@ -154,9 +172,6 @@ module.exports = function(grunt) {
      */
     cssmin: {
       build: {
-        options: {
-          //root: '/src/'
-        },
         files: {
           './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
         }
@@ -164,9 +179,19 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      build: {
+      main: {
         files: {
           './dist/static/js/main.min.js': ['./dist/static/js/main.js']
+        }
+      },
+      ie9: {
+        files: {
+          './dist/static/js/ie9.min.js': ['./dist/static/js/ie9.js']
+        }
+      },
+      ie8: {
+        files: {
+          './dist/static/js/lte-ie8.min.js': ['./dist/static/js/lte-ie8.js']
         }
       }
     },
@@ -192,16 +217,11 @@ module.exports = function(grunt) {
         [
           {
             expand: true,
-            cwd: '.',
+            cwd: 'src',
             src: [
-
               // move html & template files
               '*.html',
-              '_layouts/**/*',
-
-              // move static files
-              'static/**/*',
-
+              '_layouts/*'
             ],
             dest: 'dist/'
           }
@@ -214,29 +234,10 @@ module.exports = function(grunt) {
             expand: true,
             flatten: true,
             src: [
-
               // move images to static directory
-              'src/img/**/*',
-
+              'src/static/img/**/*',
             ],
-            dest: 'static/img/'
-          }
-        ]
-      },
-      vendor: {
-        files:
-        [
-          {
-            expand: true,
-            flatten: true,
-            src: [
-
-              // move shims to static directory
-              'src/vendor/html5shiv/html5shiv.js',
-              'src/vendor/respond/respond.src.js',
-
-            ],
-            dest: 'static/vendor/'
+            dest: 'dist/static/img/'
           }
         ]
       }
@@ -288,9 +289,9 @@ module.exports = function(grunt) {
         }
       },
       files: [
-        'src/js/**/*',
+        'src/static/js/**/*',
         '!node_modules/**/*',
-        '!src/js/main.js'
+        '!src/static/js/main.js'
       ]
     },
 
@@ -319,18 +320,10 @@ module.exports = function(grunt) {
       }
     },
 
-    /**
-     * Watch: https://github.com/gruntjs/grunt-contrib-watch
-     *
-     * Run predefined tasks whenever watched file patterns are added, changed or deleted.
-     * Add files to monitor below.
-     */
-    watch: {
-      gruntfile: {
-        files: ['Gruntfile.js', 'src/css/*.less', 'src/css/module/*.less', 'src/js/app.js', 'src/js/modules/**/*.js'],
-        tasks: ['compile']
-      }
+    usemin: {
+      html: ['dist/_layouts/base.html']
     },
+
     newer: {
       options: {
         override: function(detail, include) {
@@ -341,35 +334,58 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+
+    concurrent: {
+      all: ['css', 'js']
+    },
+
+    /**
+     * Watch: https://github.com/gruntjs/grunt-contrib-watch
+     *
+     * Run predefined tasks whenever watched file patterns are added, changed or deleted.
+     * Add files to monitor below.
+     */
+    watch: {
+      js: {
+        options: {
+          interrupt: true,
+        },
+        files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['js']
+      },
+      css: {
+        options: {
+          interrupt: true,
+        },
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['css']
+      },
+      all: {
+        options: {
+          interrupt: true,
+        },
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['build']
+      }
     }
+
   });
 
   /**
-   * The above tasks are loaded here.
+   * Load the tasks.
    */
-  grunt.loadNpmTasks('grunt-autoprefixer');
-  grunt.loadNpmTasks('grunt-banner');
-  grunt.loadNpmTasks('grunt-bower-task');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-release');
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('grunt-usemin');
+  require('load-grunt-tasks')(grunt);
 
-  /**
-   * Create custom task aliases and combinations
-   */
-  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less', 'copy:vendor']);
-  grunt.registerTask('compile', ['newer:less', 'newer:browserify:build', 'autoprefixer', 'copy:img']);
-  grunt.registerTask('dist', ['clean:dist', 'copy:dist', 'cssmin', 'uglify', 'usebanner']);
+  grunt.registerTask('reset', ['clean:dist', 'copy:dist']);
+  grunt.registerTask('js', ['newer:browserify:build']);
+  grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
+
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy:img', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
-  grunt.registerTask('default', ['compile', 'dist']);
+  grunt.registerTask('default', ['build', 'ship']);
 
 };
