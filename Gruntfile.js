@@ -219,8 +219,8 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src',
             src: [
-              // move html & template files
-              '*.html',
+              // move html & template files new template folders need to be added here
+              '**/*.html',
               '_layouts/*'
             ],
             dest: 'dist/'
@@ -379,7 +379,7 @@ module.exports = function(grunt) {
         options: {
           interrupt: true,
         },
-        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/*.html', '_layouts/*'],
+        files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/**/*.html', '_layouts/*'],
         tasks: ['build']
       }
     }
