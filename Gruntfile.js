@@ -235,9 +235,23 @@ module.exports = function(grunt) {
             flatten: true,
             src: [
               // move images to static directory
-              'src/static/img/**/*',
+              'src/static/img/**/*'
             ],
             dest: 'dist/static/img/'
+          }
+        ]
+      },
+      fonts: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              // move images to static directory
+              'src/static/fonts/**/*'
+            ],
+            dest: 'dist/static/fonts/'
           }
         ]
       }
