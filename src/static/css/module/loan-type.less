@@ -104,7 +104,7 @@
       a,
       a:link,
       a:visited {
-        border-bottom: 4px solid @green;
+        border-bottom: 4px solid @green-midtone;
       }
 
       a:hover,
@@ -112,7 +112,8 @@
       .current:link,
       .current:visited {
         color: @black;
-        border-bottom: 4px solid #AED690;
+        background-color: @green-tint;
+        border-bottom: 4px solid @green;
       }
     }
   }
@@ -261,10 +262,11 @@
   }
 
   .rate-comparison {
-    min-height: 140px;
+    min-height: 160px;
   }
 
   .sub-comparison-header {
+    color: @gray;
     border-top: 2px solid @gray-20;
     border-bottom: 1px solid @gray-20;
     padding: 10px 12px;
@@ -323,6 +325,7 @@
 
 .arm-heading {
   .webfont-regular();
+  text-transform: none;
   margin-bottom: 20px;
   font-size: 1.375em;
 }

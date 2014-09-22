@@ -91,16 +91,41 @@ object {
     }
 }
 
+.sub-demi {
+  font-size: 0.875em;
+  .webfont-demi();
+  text-transform: uppercase;
+}
+
 /* notes are subtle call out boxes with top and bottom borders */
 .note {
   .webfont-regular();
-  color: @darkgray;
-  font-size: 0.875em;
+  color: @gray;
   padding: 20px 10px;
   margin: 1em 0;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
+
+  p {
+    font-size: 0.875em;
+  }
+
+  p:last-child {
+    .reset;
+  }
+
+  h4:first-child,
+  h5:first-child {
+    margin-top: 0;
+  }
 }
+
+@media (min-width: 620px) {
+  .note {
+    padding: 20px 12%;
+  }
+}
+
 
 /* highlight the text */
 .highlight {
@@ -168,6 +193,10 @@ object {
   color: @redorange;
 }
 
+.alert-neutral {
+  color:  @gray-50;
+}
+
 // tag styles
 .tags {
   .reset
@@ -199,9 +228,9 @@ object {
 .callout,
 .mega-callout {
   .webfont-regular();
-  background: @gray-5;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
+  background-color: @gray-5;
   padding: 20px;
 
   p {
@@ -224,16 +253,14 @@ object {
   .cf-icon;
   content: "\e103";
   color:  @redorange;
-  text-indent: -1.2em;
-  margin-right: .2em;
+  text-indent: -1.4em;
 }
 
 .alert-alt:before {
   .cf-icon;
   content: "\e103";
   color:  @gold;
-  text-indent: -1.2em;
-  margin-right: .2em;
+  text-indent: -1.4em;
 }
 
 .point-right:after {
