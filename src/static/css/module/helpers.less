@@ -94,13 +94,24 @@ object {
 /* notes are subtle call out boxes with top and bottom borders */
 .note {
   .webfont-regular();
-  color: @darkgray;
+  color: @gray;
   font-size: 0.875em;
   padding: 20px 10px;
   margin: 1em 0;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
+
+  p:last-child {
+    .reset;
+  }
 }
+
+@media (min-width: 620px) {
+  .note {
+    padding: 20px 12%;
+  }
+}
+
 
 /* highlight the text */
 .highlight {
@@ -199,7 +210,6 @@ object {
 .callout,
 .mega-callout {
   .webfont-regular();
-  background: @gray-5;
   border-top: 1px solid @gray-20;
   border-bottom: 1px solid @gray-20;
   padding: 20px;
@@ -224,16 +234,14 @@ object {
   .cf-icon;
   content: "\e103";
   color:  @redorange;
-  text-indent: -1.2em;
-  margin-right: .2em;
+  text-indent: -1.4em;
 }
 
 .alert-alt:before {
   .cf-icon;
   content: "\e103";
   color:  @gold;
-  text-indent: -1.2em;
-  margin-right: .2em;
+  text-indent: -1.4em;
 }
 
 .point-right:after {
