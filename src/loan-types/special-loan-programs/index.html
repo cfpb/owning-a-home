@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Owning a Home: Loan Types{% endblock title %}
+
+{% block content %}
+
+<div class="wrap content-area">
+  <div class="wrapper">
+
+  <section class="main-content col-9" role="main">
+
+    {% include "loan_types_subpage_heading.html" %}
+
+    <section class="loan-programs special-programs sans">
+      <h3>Special Loan Progams</h3>
+
+      <p>You might be eligible for special loan programs. They are always worth considering, but they may or may not offer the best deal. Always compare official loan offers (<a href="http://www.consumerfinance.gov/askcfpb/" id="ask-special-good-faith">Good Faith Estimates</a>) before making a final decision.</p>
+
+
+     <section class="loan-program" id="va">
+      <h4 class="subheading">VA loan</h4>
+
+      <p>The <a href="http://www.benefits.va.gov/homeloans/" id="va-external-link">Veterans Administration (VA)</a> has a loan program for veterans, current servicemembers, and surviving spouses.  It is similar to the <a href="#fha" id="va-fha-link">FHA program</a>, but partially subsidized by the VA, so it can offer a better deal for those who qualify.</p>
+
+      <p>VA loans are available with low or even zero down payments, but may be more expensive than <a href="#conventional" id="va-conventional-link">conventional loans</a>. Veterans or servicemembers with significant savings and good credit should compare VA and conventional loans to see which offers the better deal.</p>
+
+      <h4 class="subheading">USDA loan (Or Rural Development Loan)</h4>
+
+      <p>The <a href="http://www.rurdev.usda.gov/had-guaranteed_housing_loans.html" id="usda-external-link">US Department of Agriculture</a> offers a similar program to the FHA and VA, designed specifically for low- and moderate-income borrowers in rural areas.</p>
+
+      <p>USDA loans offer zero down payments and must be 30-year, fixed-rate loans.</p>
+
+      <p>It can sometimes be difficult to qualify for a standard, 30-year fixed <a href="#conventional" id="usda-conventional-link">conventional loan</a> in rural areas. USDA loans can be a good option for borrowers in this situation. </p>
+    </section> <!-- /.#va -->
+
+    <section class="loan-program" id="local">
+      <h4 class="subheading">State and Local Programs</h4>
+
+      <p>Many states, local governments, and local nonprofits offer various programs to help low- and moderate-income families buy their first home. Some programs may also be available to families who have previously owned a home.</p>
+
+      <p>Programs include down payment assistance programs that work in combination with an FHA or conventional loan, as well as subsidized loan programs.</p>
+
+      <p>If you think you might qualify, contact a <a href="http://www.consumerfinance.gov/find-a-housing-counselor/" id="hud-link">local housing counselor</a> to discuss your options. </p>
+
+      <div class="mega-callout">
+        <p><span class="cf-icon cf-icon-error-round alert-warning icon-outdent"></span> Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you. Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time.  Learn more</p>
+      </div><!-- /.callout-->
+    </section> <!-- /#local -->
+  </section> <!-- /.loan-programs -->
+
+  </section> <!-- /.main-content -->
+  </div> <!-- /.wrapper -->
+</div><!--  /.wrap -->
+{% endblock %}
+

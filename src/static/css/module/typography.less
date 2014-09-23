@@ -70,6 +70,15 @@ ul > li {
   list-style: disc;
 }
 
+.no-bullet {
+  .reset;
+
+  li {
+    list-style: none;
+    margin-bottom: 1em;
+  }
+}
+
 /* Links
 --------------------------- */
 
@@ -88,5 +97,23 @@ ul > li {
   padding-left: .25em;
   width: 1em;
   content: "\e002";
+  border-bottom: none;
+}
+
+.go-back-link {
+  display: inline-block;
+  position: relative;
+  margin-left: 1.25em;
+}
+
+.go-back-link:before {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 22%;
+  left: -1em;
+  padding-right: .25em;
+  width: 1em;
+  content: "\e000";
   border-bottom: none;
 }
