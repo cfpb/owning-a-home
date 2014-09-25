@@ -1,55 +1,127 @@
 {% extends "base.html" %}
+{% set active_page = "loan-types" %}
 
 {% block title %}Owning a Home: Loan Types{% endblock title %}
 
 {% block content %}
 
-<div class="wrap content-area">
-  <div class="wrapper">
+<main class="content content__2-1 content__bleedbar" id="main" role="main">
+  <div class="wrap content_wrapper">
+    <section class="content_main">
+      {% include "loan_types_subpage_heading.html" %}
 
-  <section class="main-content col-9" role="main">
+      <h2>Special Loan Progams</h2>
 
-    {% include "loan_types_subpage_heading.html" %}
-
-    <section class="loan-programs special-programs sans">
-      <h3>Special Loan Progams</h3>
-
-      <p>You might be eligible for special loan programs. They are always worth considering, but they may or may not offer the best deal. Always compare official loan offers (<a href="http://www.consumerfinance.gov/askcfpb/" id="ask-special-good-faith">Good Faith Estimates</a>) before making a final decision.</p>
+      <p>Special loan programs exist for borrowers that meet specific eligibility criteria.  For those that qualify, these programs can often be more affordable than a <a href="/loan-types/conventional-loans/">conventional</a> or <a href="/loan-types/FHA-loans/">FHA loan</a>, so make sure to investigate if you are eligible.  Always compare official loan offers (called <a href="#">Good Faith Estimates</a>) before making a final decision.</p>
 
 
-     <section class="loan-program" id="va">
-      <h4 class="subheading">VA loan</h4>
+      <section class="loan-program" id="va">
+        <h3 class="subheading">VA loan</h3>
 
-      <p>The <a href="http://www.benefits.va.gov/homeloans/" id="va-external-link">Veterans Administration (VA)</a> has a loan program for veterans, current servicemembers, and surviving spouses.  It is similar to the <a href="#fha" id="va-fha-link">FHA program</a>, but partially subsidized by the VA, so it can offer a better deal for those who qualify.</p>
+        <div class="wrapper l-bump">
+          <div class="col-9">
 
-      <p>VA loans are available with low or even zero down payments, but may be more expensive than <a href="#conventional" id="va-conventional-link">conventional loans</a>. Veterans or servicemembers with significant savings and good credit should compare VA and conventional loans to see which offers the better deal.</p>
+            <p>The <a href="http://www.benefits.va.gov/homeloans/" id="va-external-link">Veterans Administration (VA)</a> has a loan program for <strong>veterans, current servicemembers, and surviving spouses</strong>.  The program is similar to the <a href="/loan-types/FHA-loans/" id="va-fha-link">FHA</a> program, but partially subsidized so it can offer a better deal for <a href="#">those who qualify</a>. VA loans also offer low-cost, streamlined refinance options and some additional protections if you have trouble paying your mortgage later on.</p>
 
-      <h4 class="subheading">USDA loan (Or Rural Development Loan)</h4>
+            <p>Unlike FHA loans, VA loans do not require monthly mortgage insurance premiums, but usually require an upfront fee at closing. <a href="#mortgage-insurance">Learn more about mortgage insurance</a>.</p>
 
-      <p>The <a href="http://www.rurdev.usda.gov/had-guaranteed_housing_loans.html" id="usda-external-link">US Department of Agriculture</a> offers a similar program to the FHA and VA, designed specifically for low- and moderate-income borrowers in rural areas.</p>
+            <p>VA loans are available with low or even zero down payments, but may be more expensive than <a href="/loan-types/conventional-loans/">conventional loans</a>. If you have significant down payment funds and good credit, you should compare VA and conventional loans to see which offers the better deal.</p>
+          </div>
 
-      <p>USDA loans offer zero down payments and must be 30-year, fixed-rate loans.</p>
+          <div class="col-3">
+            <h4 class="small-heading">Mortgage insurance.</h4>
+            <p class="sans">VA loans include mortgage insurance, but don’t have monthly premiums. <br>
+            <a href="#mortgage-insurance">Learn more below</a>.</p>
+          </div>
 
-      <p>It can sometimes be difficult to qualify for a standard, 30-year fixed <a href="#conventional" id="usda-conventional-link">conventional loan</a> in rural areas. USDA loans can be a good option for borrowers in this situation. </p>
-    </section> <!-- /.#va -->
+        </div> <!-- /.wrapper-->
+      </section> <!-- /.#va -->
 
-    <section class="loan-program" id="local">
-      <h4 class="subheading">State and Local Programs</h4>
+      <section class="loan-program" id="usda">
+        <h3 class="subheading">USDA loan (Or Rural Development Loan)</h3>
 
-      <p>Many states, local governments, and local nonprofits offer various programs to help low- and moderate-income families buy their first home. Some programs may also be available to families who have previously owned a home.</p>
+        <div class="wrapper l-bump">
+          <div class="col-9">
 
-      <p>Programs include down payment assistance programs that work in combination with an FHA or conventional loan, as well as subsidized loan programs.</p>
+            <p>The <a href="http://www.rurdev.usda.gov/had-guaranteed_housing_loans.html" id="usda-external-link">US Department of Agriculture</a> offers a similar program to the FHA and VA, designed specifically for <strong>low- and moderate-income borrowers in rural areas</strong>.</p>
 
-      <p>If you think you might qualify, contact a <a href="http://www.consumerfinance.gov/find-a-housing-counselor/" id="hud-link">local housing counselor</a> to discuss your options. </p>
+            <p>USDA loans can be a good option for qualifying borrowers who have little available savings.  They offer <strong>zero down payments</strong> and are usually cheaper than FHA loans. Borrowers will pay an upfront fee as well as ongoing mortgage insurance premiums to the USDA.</p>
 
-      <div class="mega-callout">
-        <p><span class="cf-icon cf-icon-error-round alert-warning icon-outdent"></span> Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you. Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time.  Learn more</p>
-      </div><!-- /.callout-->
-    </section> <!-- /#local -->
-  </section> <!-- /.loan-programs -->
+            <p><a class="external-link" href="#">Find out if you're eligible</a>.</p>
+          </div>
 
-  </section> <!-- /.main-content -->
-  </div> <!-- /.wrapper -->
-</div><!--  /.wrap -->
+          <div class="col-3">
+            <h4 class="small-heading">Mortgage insurance.</h4>
+            <p class="sans">Required by <strong>all</strong> USDA loans. <a href="#mortgage-insurance">Learn more below</a>.</p>
+          </div>
+
+        </div> <!-- /.wrapper-->
+      </section> <!-- /.#usda -->
+
+      <section class="loan-program" id="local">
+        <h3 class="subheading">State and Local Programs</h3>
+
+        <div class="wrapper l-bump">
+          <div class="col-9">
+
+            <p>Many states, local governments, and local nonprofits offer various programs to help make homeownership more affordable. Many of these programs focus on <strong>low- and moderate-income</strong> families buying their first home, though some may be available to families who have previously owned a home. Other programs target teachers, firefighters, and other public service employees, or people interested in purchasing a home in a particular neighborhood. </p>
+
+            <p>Many programs offer down payment assistance that can be used with a regular <a href="/loan-types/FHA-loans/">FHA</a> or conventional loan. Some programs lend money directly through subsidized loans. </p>
+
+            <p>If you think you might qualify, <a class="external-link" href="#">explore programs in your area using this tool</a> or concact a <a href="http://www.consumerfinance.gov/find-a-housing-counselor/" id="hud-link">local housing counselor</a> to discuss your options. You can also ask local lenders whether they offer any special programs.</p>
+          </div>
+
+          <div class="col-3">
+            <h4 class="small-heading">Mortgage insurance.</h4>
+            <p class="sans">Required by <strong>many</strong> state and local programs. <a href="#mortgage-insurance">Learn more below</a>.</p>
+          </div>
+
+        </div> <!-- /.wrapper-->
+
+      </section> <!-- /#local -->
+      <section id="mortgage-insurance" class="l-bump sans">
+          <h3>Mortgage Insurance: What you need to know</h3>
+
+          <p class="bump"><strong>Mortgage insurance helps you get a loan you wouldn’t otherwise be able to get.</strong> If you can’t afford a 20 percent down payment, you will likely have to pay for  some kind mortgage insurance.  You may choose to get a conventional loan with private mortgage insurance (PMI), or an FHA, VA, or USDA loan.</p>
+          <p><strong>Mortgage insurance usually adds to your costs.</strong> Depending on the loan type, you will pay monthly mortgage insurance premiums, an upfront mortgage insurance fee, or both.  Mortgage insurance is an important component of your total loan cost, but so is the interest rate, which varies widely depending on your loan type, down payment amount, and the specific lender.  If you’re considering multiple options, ask lenders for quotes for each option and compare total costs to see which option offers the best overall deal.</p>
+          <p><strong>Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you.</strong> Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time. </p>
+          <p>Learn more about <a href="#">mortgage insurance costs</a>.</p>
+      </section>
+    </section> <!-- /content_main -->
+
+
+    <aside class="content_sidebar">
+
+      <div class="aside-chunk">
+        <h4>Conventioanl</h4>
+
+        <p>Majority of loans</p>
+        <p>Conventional loans typically have lower costs than FHA loans but stricter standards for approval.</p>
+        <p><a class="go-link" href="/loan-types/conventional-loans/">Get all the details</a></p>
+      </div>
+
+      <div class="aside-chunk">
+        <h4>FHA</h4>
+
+        <p>Low down payment; low credit score</p>
+        <p>FHA loans are regulated and guaranteed by the Federal Housing Administration (FHA), a government agency.</p>
+        <p><a class="go-link" href="/loan-types/FHA-loans/">Get all the details</a></p>
+      </div>
+
+      <header class="tabbed-header">
+        <h3 class="subhead tabbed-heading">Ask CFPB</h3>
+      </header>
+
+      <div class="aside-chunk">
+        <ul class="no-bullet">
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
 {% endblock %}
 

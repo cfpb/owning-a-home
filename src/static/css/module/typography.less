@@ -16,17 +16,21 @@
 // subheadings have green borders and are larger
 .subheading {
   .webfont-demi();
-  font-size: 1em;
+  font-size: .875em;
   text-transform: uppercase;
   margin-top: 32px;
   padding-bottom: 10px;
   border-bottom: 4px solid #AED690;
 }
 
-.h5 {
+.h5,
+.small-heading {
   .webfont-demi();
   font-size: 0.75em;
   text-transform: uppercase;
+}
+
+.h5 {
   border-bottom: 1px solid @gray-20;
 }
 
@@ -79,6 +83,17 @@ ul > li {
   }
 }
 
+// apply the standard-list class to remove margins and paddings to lists
+.standard-list {
+  .reset;
+  margin-left: 20px;
+}
+
+// circle style bullets for nested lists
+.standard-list  ul li {
+  list-style-type: circle;
+}
+
 /* Links
 --------------------------- */
 
@@ -111,9 +126,27 @@ ul > li {
   display: block;
   position: absolute;
   top: 22%;
-  left: -1em;
+  left: -1.25em;
   padding-right: .25em;
   width: 1em;
   content: "\e000";
+  border-bottom: none;
+}
+
+.external-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.external-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 20%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e610";
   border-bottom: none;
 }
