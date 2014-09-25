@@ -886,7 +886,7 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(){
 // Prevent non-numeric characters from being entered
 $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
   var key = event.which,
-      allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
+      allowedKeys = [ 8, 9, 37, 38, 39, 40, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
 
   // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
   // stop everything.
