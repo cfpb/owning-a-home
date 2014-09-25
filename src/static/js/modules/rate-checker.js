@@ -416,9 +416,11 @@ function processCounties() {
         break;
     }
     dropdown('loan-type').disable( norms );
+    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
+    $('#hb-warning').addClass('hidden');
   }
 
   updateView();
