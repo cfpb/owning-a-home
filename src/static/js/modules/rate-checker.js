@@ -469,7 +469,6 @@ function renderDownPayment() {
   } else {
     val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
     $down.val( val > 0 ? Math.round(val) : '' );
-    $percent.val(Math.round(+$down.val() / +$price.val() * 100) || '');
   }
 
 }
