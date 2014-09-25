@@ -1,15 +1,14 @@
 {% extends "base.html" %}
+{% set active_page = "loan-types" %}
 
 {% block title %}Owning a Home: Loan Types{% endblock title %}
 
 {% block content %}
 
-<div class="wrap content-area">
-  <div class="wrapper">
-
-  <section class="main-content col-9" role="main">
-
-    {% include "loan_types_subpage_heading.html" %}
+<main class="content content__2-1 content__bleedbar" id="main" role="main">
+  <div class="wrap content_wrapper">
+    <section class="content_main">
+        {% include "loan_types_subpage_heading.html" %}
 
     <section class="loan-program" id="conventional">
       <h4 class="subheading">Conventional loan</h4>
@@ -55,9 +54,12 @@
 
       </div> <!-- /.callout -->
     </section> <!-- /#conventional -->
+    </section>
+    <aside class="content_sidebar">
+        Bleeding sidebar
+    </aside>
+    </div>
+</main>
 
-  </section> <!-- /.main-content -->
-  </div> <!-- /.wrapper -->
-</div><!--  /.wrap -->
 {% endblock %}
 
