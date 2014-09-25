@@ -75,7 +75,7 @@ def step(context, state_name):
     # TO DO: work with FEWD to find a way to remove these sleep commands
     context.base.sleep(2)
     context.rate_checker.set_location(state_name)
-
+    context.base.sleep(3)
 
 @then(u'I should see "{state_name}" as the selected location')
 def step(context, state_name):
