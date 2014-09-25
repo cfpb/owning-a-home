@@ -21,6 +21,8 @@ require('./nemo-shim');
 // Load our handlebar templates.
 var template = {
   county: require('../templates/county-option.hbs'),
+  countyConfWarning: require('../templates/county-conf-warning.hbs'),
+  countyFHAWarning: require('../templates/county-fha-warning.hbs'),
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
@@ -297,20 +299,29 @@ function checkForJumbo() {
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       request;
 
-      loan = jumbo({
-        loanType: params['loan-type'],
-        loanAmount: params['loan-amount']
-      });
+  loan = jumbo({
+    loanType: params['loan-type'],
+    loanAmount: params['loan-amount']
+  });
 
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
     dropdown('loan-type').removeOption( jumbos );
+    $('#county-warning').addClass('hidden');
     return;
   }
 
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
+
+  // Show a message if appropriate.
+  if ( params['loan-type'] === 'conf' ) {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
+  }
+  if ( params['loan-type'] === 'fha' ) {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
   if ( $('#county').data('state') === params['location'] ) {
@@ -422,6 +433,9 @@ function processCounties() {
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
   }
+
+  // Hide the county warning.
+  $('#county-warning').addClass('hidden');
 
   updateView();
 
