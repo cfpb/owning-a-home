@@ -76,7 +76,7 @@
     "is-money-usd": "0.1.2",
     "objectified": "0.4.5",
     "stay-positive": "0.3.0",
-    "jumbo-mortgage": "~0.1.1"
+    "jumbo-mortgage": "0.2.0"
   },
   "testling": {
     "files": "test/js/*.js",
