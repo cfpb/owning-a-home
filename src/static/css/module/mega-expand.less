@@ -1,4 +1,4 @@
-@mega-header-height: 60px;
+@mega-header-height: 46px;
 
 // custom styles for the MEGA expandables
 .mega-expand {
@@ -12,10 +12,20 @@
 
     .expandable-mainhead {
       background: @gray-10;
-      border-bottom: 1px solid @gray-20;
+      border-bottom: 1px solid @gray-50;
       padding: 4px 0;
       cursor: pointer;
       cursor: hand;
+    }
+
+    // vertically center the icons in the expandable header
+    .lt-icon:before,
+    .lt-icon-structure {
+      top: 20%;
+    }
+
+    .lt-icon-structure:before {
+      line-height: 1.4em;
     }
 
     .expandable-button,
@@ -34,6 +44,8 @@
       font-size: 1.625em;
       margin: 0;
       line-height: @mega-header-height;
+      position: relative;
+      margin-left: 1.4em; // accomodate for absolute positioned icons
     }
 
     .list-heading {
@@ -68,24 +80,35 @@
 .expandable-link {
   .column(3);
   text-align: right;
+  padding-right: 1.4em; // accomodate for the abosolute positioned + sign
   height: @mega-header-height;
   line-height: @mega-header-height;
 }
 
-.icon-plus-sign:before {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-  font-size: 16px;
+.expandable-button,
+.expandable-button:link,
+.expandable-button:visited,
+.expandable-button:hover,
+.expandable-button:active,
+.expandable-button:focus, {
+  border: 0;
+  text-decoration: underline;
+  position: relative;
 }
 
-// us cf-icons for the expandable icons
-.icon-plus-sign:before {
+.expandable-button:after {
   .cf-icon;
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
   content: "\e109";
+  border-bottom: none;
 }
-.open .icon-plus-sign:before {
-  .cf-icon;
+
+.open .expandable-button:after {
   content: "\e111";
 }
 
