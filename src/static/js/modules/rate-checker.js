@@ -6,6 +6,7 @@ var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
 var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
+var jumbo = require('jumbo-mortgage');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
@@ -250,7 +251,7 @@ function updateLanguage( data ) {
 
   renderLocation();
   renderMedian( data );
-  updateTerm(data);
+  updateTerm( data );
 }
 
 /**
@@ -272,6 +273,7 @@ function processLoanAmount() {
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
   checkForJumbo();
+  processCounties();
 
 }
 
@@ -291,25 +293,32 @@ function renderLoanAmount() {
  */
 function checkForJumbo() {
 
-  var amount = params['loan-amount'],
+  var loan,
+      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       request;
 
-  // If it's less than the $417,000 limit, we cool bro.
-  if ( amount <= 417000 ) {
+      loan = jumbo({
+        loanType: params['loan-type'],
+        loanAmount: params['loan-amount']
+      });
+
+  // If we don't need to request a county, hide the county dropdown and jumbo options.
+  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
+    dropdown('loan-type').removeOption( jumbos );
     return;
   }
 
-  // If the state hasn't changed, we also cool. No need to get new counties.
+  // Otherwise, make sure the county dropdown is shown.
+  dropdown('county').show();
+
+  // If the state hasn't changed, we also cool. No need to load new counties.
   if ( $('#county').data('state') === params['location'] ) {
     dropdown('county').hideHighlight();
     return;
   }
 
-  // Otherwise, let's show the counties dropdown.
-  dropdown('county').show()
-                    .showLoadingAnimation();
-
+  // Let's load us some counties.
   loadCounties();
 
 }
@@ -350,6 +359,71 @@ function loadCounties() {
   request.then(function() {
     dropdown('county').hideLoadingAnimation();
   });
+
+}
+
+function processCounties() {
+
+  var $counties = $('#county'),
+      $county = $('#county').find(':selected'),
+      $loan = dropdown('loan-type'),
+      norms = ['conf', 'fha', 'va'],
+      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      loan;
+
+  // If the county field is hidden or they haven't selected a county, abort.
+  if ( !$counties.is(':visible') || !$counties.val() ) {
+    return;
+  }
+
+  loan = jumbo({
+    loanType: params['loan-type'],
+    loanAmount: params['loan-amount'],
+    gseCountyLimit: parseInt( $county.data('gse'), 10 ),
+    fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
+    vaCountyLimit: parseInt( $county.data('va'), 10 )
+  });
+
+  if ( loan.success && loan.isJumbo ) {
+    switch ( loan.type ) {
+      case 'agency':
+        $loan.addOption({
+          label: 'Conforming Jumbo',
+          value: 'agency',
+          select: true
+        });
+        break;
+      case 'jumbo':
+        $loan.addOption({
+          label: 'Jumbo',
+          value: 'jumbo',
+          select: true
+        });
+        break;
+      case 'fha-hb':
+        $loan.addOption({
+          label: 'FHA-HB',
+          value: 'fha-hb',
+          select: true
+        });
+        break;
+      case 'va-hb':
+        $loan.addOption({
+          label: 'VA-HB',
+          value: 'va-hb',
+          select: true
+        });
+        break;
+    }
+    dropdown('loan-type').disable( norms );
+    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+  } else {
+    dropdown('loan-type').removeOption( jumbos );
+    dropdown('loan-type').enable( norms );
+    $('#hb-warning').addClass('hidden');
+  }
+
+  updateView();
 
 }
 
@@ -406,7 +480,6 @@ function renderDownPayment() {
   } else {
     val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
     $down.val( val > 0 ? Math.round(val) : '' );
-    $percent.val(Math.round(+$down.val() / +$price.val() * 100) || '');
   }
 
 }
@@ -824,7 +897,7 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(){
 // Prevent non-numeric characters from being entered
 $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
   var key = event.which,
-      allowedKeys = [ 8, 9, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
+      allowedKeys = [ 8, 9, 37, 38, 39, 40, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 188, 190 ];
 
   // If it's not an allowed key OR the shift key is held down (and they're not tabbing)
   // stop everything.
@@ -834,10 +907,13 @@ $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
 });
 
 // Check if it's a jumbo loan if they change the loan amount or state.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
+$('.demographics, .calc-loan-amt, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
 
 // Recalculate loan amount.
 $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
+
+// Recalculate loan amount.
+$('#county').on( 'change', processCounties );
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
