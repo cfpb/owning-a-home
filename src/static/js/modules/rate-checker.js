@@ -293,16 +293,19 @@ function renderLoanAmount() {
  */
 function checkForJumbo() {
 
-  var loan = jumbo({
-        loanType: params['loan-type'],
-        loanAmount: params['loan-amount']
-      }),
+  var loan,
+      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       request;
 
+      loan = jumbo({
+        loanType: params['loan-type'],
+        loanAmount: params['loan-amount']
+      });
+
   // If we don't need to request a county, hide the county dropdown and jumbo options.
-  if ( !loan.needCounty ) {
+  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
-    dropdown('loan-type').removeOption(['jumbo', 'agency', 'fha-hb', 'va-hb']);
+    dropdown('loan-type').removeOption( jumbos );
     return;
   }
 
@@ -364,6 +367,8 @@ function processCounties() {
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
+      norms = ['conf', 'fha', 'va'],
+      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       loan;
 
   // If the county field is hidden or they haven't selected a county, abort.
@@ -380,7 +385,6 @@ function processCounties() {
   });
 
   if ( loan.success && loan.isJumbo ) {
-
     switch ( loan.type ) {
       case 'agency':
         $loan.addOption({
@@ -411,8 +415,13 @@ function processCounties() {
         });
         break;
     }
-
+    dropdown('loan-type').disable( norms );
+  } else {
+    dropdown('loan-type').removeOption( jumbos );
+    dropdown('loan-type').enable( norms );
   }
+
+  updateView();
 
 }
 
