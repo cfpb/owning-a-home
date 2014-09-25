@@ -9,33 +9,63 @@
 .loan-type-list {
   padding-left: 30px; // match the negative outdent of the numbering
   margin: 0;
-  counter-reset: li;
   list-style: none;
   position: relative;
 
   li {
-    display: inline-block;
+    display: inline;
     position: relative;
     margin-right: 60px;
+    .webfont-demi();
     text-transform: uppercase;
     font-size: 0.875em;
   }
 
 }
 
-.loan-type-list > li:before {
-  content: counter(li);
-  counter-increment: li;
-  background: #2cb34a;
-  color: #fff;
-  font-size: 12px;
+.lt-icon:before {
+  .cf-icon;
+  color: @green;
+  display: block;
   position: absolute;
+  top: 0;
+  left: -1.4em;
+  padding-right: .25em;
+  width: 1.2em;
+  font-size: 1.2em;
+}
+
+.lt-icon-term:before {
+  content: "\e637";
+}
+
+.lt-icon-program:before {
+  content: "\e505";
+}
+
+// currently we lack a % sign minicon in the font
+.lt-icon-structure {
+  .webfont-regular();
+  color: white;
+  background-color: @green;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -1.6em;
+  padding-right: .25em;
+  border-radius: 50%;
+  width: 1.2em;
+  height: 1.2em;
   text-align: center;
-  left: -30px;
-  height: 20px;
-  width: 20px;
-  line-height: 20px;
-  border-radius: 20px;
+  padding: 0.125em;
+}
+
+.lt-icon-structure:before {
+  content: "%";
+  font-size: 0.875em;
+  position: absolute;
+  top: 5%;
+  left: 20%;
 }
 
 @media (max-width: 840px) {
