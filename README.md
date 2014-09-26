@@ -82,7 +82,7 @@ The owning-a-home front-end currently uses the following:
 - node/CommonJS style modules (compiled with [Browserify](http://browserify.org/))
 - [Bower](http://bower.io/) & [npm](https://www.npmjs.org/) for package management
 
-### Installing Dependencies (one time)
+### Installing dependencies (one time)
 
 1. Install [node.js](http://nodejs.org/) however you'd like.
 2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
@@ -115,6 +115,31 @@ $ grunt watch
 ```
 
 To view the site browse to: <http://localhost:7000>
+
+## Browser tests
+
+### Browser test setup
+
+Browser tests can be found in `test/browser_testing/` directory. To run them you will need [Chromedriver](http://chromedriver.storage.googleapis.com/index.html).
+
+Once Chromedriver is downloaded, unzip the *chromedriver* file and copy it to a folder that is accessible to the development environment, such as `/usr/bin/`.
+
+Before running tests, you will need to set up a Python virtual environment, install dependencies, and create an enviconment.cfg file.
+
+```bash
+$ cd test/browser_testing/
+$ mkvirtualenv oah-tests
+$ pip install test/browser_testing/requirements.txt
+```
+
+Rename `test/browser_testing/features/example-environment.cfg` to `environtment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
+
+### Running browser tests
+
+```bash
+$ workon oah-tests
+$ behave -k
+```
 
 ## Contributions
 We welcome contributions, in both code and design form, with the understanding that you are contributing to a project that is in the public domain, and anything you contribute to this project will also be released into the public domain. See our [CONTRIBUTING file](https://github.com/cfpb/owning-a-home/blob/master/CONTRIBUTING.md) for more details.
