@@ -44,6 +44,7 @@ def step(context, link_name):
         context.navigation.click_link(LOAN_TYPES)
     elif (link_name == 'Rate Checker'):
         context.navigation.click_link(RATE_CHECKER)
+        context.base.sleep(3) # This is troubleshoot an error in Jenkins
 
 @then(u'I should see "{link_name}" displayed in the page title')
 def step(context, link_name):
