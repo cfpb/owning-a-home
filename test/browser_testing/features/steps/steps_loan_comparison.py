@@ -4,20 +4,6 @@ from hamcrest.core import assert_that, equal_to
 from pages.base import Base
 from pages.loan_comparison import LoanComparison
 
-
-# LOAN COMPARISON COLUMNS
-@then(u'I should see the "{column_name}" column enabled')
-def step(context, column_name):
-    column_present = context.loan_comparison.is_column_present(column_name)
-    assert_that(column_present, equal_to(True))
-
-
-@then(u'I should NOT see the "{column_name}" column')
-def step(context, column_name):
-    column_present = context.loan_comparison.is_column_present(column_name)
-    assert_that(column_present, equal_to(False))
-
-
 # STATE
 @then(u'I should see "{state_name}" as default State')
 def step(context, state_name):
@@ -87,6 +73,12 @@ def step(context, expected_value):
     actual_value = context.loan_comparison.get_arm_type()
     assert_that(actual_value, equal_to(expected_value))
 
+
+# DISCOUNT POINTS AND CREDITS
+@then(u'I should see "{expected_points}" as default Discount point and credits')
+def step(context, expected_points):
+    actual_points = context.loan_comparison.get_selected_points()
+    assert_that(actual_points, equal_to(expected_points))
 
 # INTEREST RATE
 @then(u'I should see "{expected_value}" as default Interest Rate')
