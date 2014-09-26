@@ -7,10 +7,6 @@ Background:
   Given I navigate to the "Rate Checker" page
 
 @smoke_testing @rc
-Scenario: Default location
-  Then I should see the lender rate offered to "District of Columbia" residents
-
-@smoke_testing @rc
 Scenario: Default credit score range
   Then I should see the Credit Score Range displayed as "700 - 720"
  
