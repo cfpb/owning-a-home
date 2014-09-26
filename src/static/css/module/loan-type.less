@@ -357,26 +357,33 @@
 .arm-heading {
   .webfont-regular();
   text-transform: none;
-  margin-bottom: 20px;
+  margin: 30px 0;
   font-size: 1.375em;
 }
 
-.arm-content {
-  background: url('../img/arm-border.png') no-repeat;
-  padding-left: 52px;
-  .webfont-regular();
-
-  p {
-    margin-bottom: .5em;
-  }
-
-  strong {
-    .webfont-demi();
+@media (min-width: 620px) {
+  .arm-content {
+    padding: 20px 12%;
   }
 }
 
-.arm-adjustable {
-  margin-top: 48px;
+.arm-content {
+  .webfont-regular();
+
+  h5 {
+    .webfont-demi();
+    font-size: 1em;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.fixed-arm {
+  color: @green;
+}
+
+.adjustable-arm {
+  color: @gold;
 }
 
 /*
