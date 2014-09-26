@@ -7,18 +7,19 @@ from selenium.webdriver.support.ui import Select
 
 from pages.base import Base
 
-HOUSE_PRICE_TBOX = "house-price-input"  # HOUSE PRICE TEXTBOX
-DOWN_PAYMENT_PERCENT_TBOX = "percent-down-input"
-DOWN_PAYMENT_AMOUNT_TBOX = "down-payment-input"
+# ELEMENT ID'S FOR TEXT BOXES
+HOUSE_PRICE_TBOX = "house-price-input-a"
+DOWN_PAYMENT_PERCENT_TBOX = "percent-dp-input-a"
+DOWN_PAYMENT_AMOUNT_TBOX = "down-payment-input-a"
 
 # ELEMENT ID'S FOR DROP DOWN LISTS
-STATE_DDL = "location"  # STATE LIST
-CREDIT_SCORE_DDL = "credit-score-select"
-RATE_STRUCTURE_DDL = "rate-structure-select"  # RATE STRUCTURE DROPDOWN LIST
-LOAN_TERM_DDL = "loan-term-select"
-LOAN_TYPE_DDL = "loan-type-select"
-ARM_TYPE_DDL = "arm-type-select"
-INT_RATE_DDL = "interest-rate-select"
+STATE_DDL = "location-a"
+CREDIT_SCORE_DDL = "credit-score-select-a"
+RATE_STRUCTURE_DDL = "rate-structure-select-a"
+LOAN_TERM_DDL = "loan-term-select-a"
+LOAN_TYPE_DDL = "loan-type-select-a"
+ARM_TYPE_DDL = "arm-type-select-a"
+INT_RATE_DDL = "interest-rate-select-a"
 
 
 class LoanComparison(Base):
@@ -61,7 +62,7 @@ class LoanComparison(Base):
     # LOAN AMOUNT
     def get_loan_amount(self):
         # Get the text from the Loan Amount Label
-        e_css = ".input-wrap .loan-amount-display"
+        e_css = ".input-wrap .loan-amount-display-a"
         element = self.driver.find_element_by_css_selector(e_css)
         return element.text
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
@@ -132,6 +133,11 @@ class LoanComparison(Base):
 
         # Then Get the corresponding text from the selected Index
         return option.get_attribute('text')
+
+    # DISCOUNT POINTS AND CREDITS
+    def get_selected_points(self):
+        element = self.driver.find_element_by_xpath("//input[@name='discount' and @checked='checked']")
+        return element.get_attribute('value')
 
     # INTEREST RATE
     def get_interest_rate(self):

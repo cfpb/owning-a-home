@@ -60,6 +60,10 @@ def step(context):
     actual_text = context.rate_checker.get_range_alert()
     assert_that(actual_text, contains_string(RANGE_ALERT_TEXT))
 
+@then(u'I should NOT see an alert for borowers with less than 620 score')
+def step(context):
+    actual_text = context.rate_checker.get_range_alert()
+    assert_that(actual_text, equal_to(False))
 
 @then(u'I should see the credit score slider handle turns red')
 def step(context):

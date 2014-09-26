@@ -49,8 +49,11 @@ class RateChecker(Base):
         return element.get_attribute("class")
 
     def get_range_alert(self):
-        element = self.driver.find_element_by_xpath(RANGE_ALERT)
-        return element.text
+        try:
+            element = self.driver.find_element_by_xpath(RANGE_ALERT)
+            return element.text
+        except NoSuchElementException:
+            return False
 
     # CHART AREA
     def get_chart_location(self):
@@ -91,7 +94,6 @@ class RateChecker(Base):
         elif(slider_direction == "lowest"):
             xOffset = (slider_width/-2)
 
-        #actions.drag_and_drop_by_offset(element, xOffset, 0)
         actions.click_and_hold(element)
         actions.move_by_offset(xOffset, 0)
         actions.release()
