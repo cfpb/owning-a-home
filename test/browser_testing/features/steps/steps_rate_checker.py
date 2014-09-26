@@ -60,6 +60,10 @@ def step(context):
     actual_text = context.rate_checker.get_range_alert()
     assert_that(actual_text, contains_string(RANGE_ALERT_TEXT))
 
+@then(u'I should NOT see an alert for borowers with less than 620 score')
+def step(context):
+    actual_text = context.rate_checker.get_range_alert()
+    assert_that(actual_text, equal_to(False))
 
 @then(u'I should see the credit score slider handle turns red')
 def step(context):
@@ -75,7 +79,7 @@ def step(context, state_name):
     # TO DO: work with FEWD to find a way to remove these sleep commands
     context.base.sleep(2)
     context.rate_checker.set_location(state_name)
-
+    context.base.sleep(3)
 
 @then(u'I should see "{state_name}" as the selected location')
 def step(context, state_name):

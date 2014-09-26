@@ -75,7 +75,7 @@ def before_all(context):
                                    context.delay_secs)
     context.rate_checker = RateChecker(context.logger, context.directory,
                                        context.base_url,
-                                       driver, -1, context.delay_secs)
+                                       driver, 10, context.delay_secs)
     context.navigation = Navigation(context.logger, context.directory,
                                     context.base_url,
                                     driver, -1, context.delay_secs)

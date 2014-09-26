@@ -6,16 +6,16 @@ from pages.home import Home
 from pages.base import Base
 
 # XPATH LOCATORS
-OWNING_A_HOME = "//li/a[@href='index.html']"
-LOAN_COMPARISON = "//li/a[@href='loan-comparison.html']"
-LOAN_TYPES = "//li/a[@href='loan-types.html']"
-RATE_CHECKER = "//li/a[@href='rate-checker.html']"
+OWNING_A_HOME = "//li/a[@href='../']"
+LOAN_COMPARISON = "//li/a[@href='../loan-comparison/']"
+LOAN_TYPES = "//li/a[@href='../loan-types/']"
+RATE_CHECKER = "//li/a[@href='../rate-checker/']"
 
 # RELATIVE URL'S
 RELATIVE_URL_HOME = 'index.html'
-RELATIVE_URL_LC = 'loan-comparison.html'
-RELATIVE_URL_LT = 'loan-types.html'
-RELATIVE_URL_RC = 'rate-checker.html'
+RELATIVE_URL_LC = 'loan-comparison'
+RELATIVE_URL_LT = 'loan-types'
+RELATIVE_URL_RC = 'rate-checker'
 
 @given(u'I navigate to the "{page_name}" page')
 def step(context, page_name):
