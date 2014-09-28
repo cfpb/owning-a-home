@@ -442,8 +442,6 @@ function processCounties() {
 
 }
 
-window.dropdown = dropdown;
-
 /**
  * Get a list of counties from the API for the selected state.
  * @return {object} jQuery promise.
