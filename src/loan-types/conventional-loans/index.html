@@ -1,63 +1,126 @@
 {% extends "base.html" %}
+{% set active_page = "loan-types" %}
 
 {% block title %}Owning a Home: Loan Types{% endblock title %}
 
 {% block content %}
 
-<div class="wrap content-area">
-  <div class="wrapper">
+<main class="content content__2-1 content__bleedbar" id="main" role="main">
+  <div class="wrap content_wrapper">
+    <section class="content_main">
+      {% include "loan_types_subpage_heading.html" %}
 
-  <section class="main-content col-9" role="main">
-
-    {% include "loan_types_subpage_heading.html" %}
-
-    <section class="loan-program" id="conventional">
-      <h4 class="subheading">Conventional loan</h4>
-
-      <p>“Conventional” just means that the loan is not part of a specific government program. Conventional loans typically have lower costs than FHA loans but stricter standards for approval. There are several types of conventional loans:</p>
+      <h2>Conventional loans</h2>
 
       <div class="wrapper">
+        <section id="conventional-overview" class="col-9">
+          <p>“Conventional” just means that the loan is not part of a specific government program. Conventional loans typically have lower costs than FHA loans but stricter standards for approval. There are two main categories of conventional loans–conforming and non-conforming.</p>
+          <p>Conforming loans have maximum loan amounts that are set by the government. Other rules for conforming loans are set by Fannie Mae or Freddie Mac, companies that provide backing for conforming loans).</p>
+          <p>Non-conforming loans are less standardized. Eligibility, pricing, and features can vary widely by lender, so it’s particularly important to shop around and compare several offers.</p>
+        </section>
+
+        <div class="col-3">
+          <h4 class="small-heading">Mortgage insurance</h4>
+          <p class="sans">Required by <strong>some</strong> conventional loans. <a href="#mortgage-insurance">Learn more below</a>.</p>
+        </div>
+      </div>
+
+      <div class="wrapper sans l-bump">
         <div class="col-4">
-          <h5 class="h5">Conforming</h5>
+          <h3 class="subheading">Conforming</h3>
+          <p class="bump"><strong>$417,000 or less</strong></p>
           <ul class="standard-list loan-list">
-            <li><strong>The loan amount must be less than $417k.</strong></li>
-            <li>If your down payment is less than 20 percent, you will probably need to pay for private mortgage insurance.</li>
+            <li>The most common loan type.</li>
+            <li>The loan amount must be $417,000 or less, unless you’re buying a home with multiple units. </li>
+            <li>If your down payment is less than 20%, you’ll probably need mortgage insurance.</li>
           </ul>
         </div>
 
         <div class="col-4">
-          <h5 class="h5">Agency Jumbo</h5>
+          <h3 class="subheading">Conforming Jumbo</h3>
+          <p class="bump"><strong>$417,000 to county limit</strong></p>
           <ul class="standard-list loan-list">
-            <li>An extension of the conforming program for <strong>loan amounts higher than $417k.</strong></li>
+            <li>An extension of the conforming program for loan amounts higher than $417,000. </li>
             <li>Only available in certain counties.</li>
-            <li>The maximum loan amount varies by county.</li>
+            <li>The maximum loan amount varies by county. <a href="#">Learn what the loan limit is in your county</a>.</li>
           </ul>
         </div>
 
         <div class="col-4">
-          <h5 class="h5">Nonconforming Jumbo</h5>
+          <h3 class="subheading">Non-conforming Jumbo</h3>
+          <p class="bump"><strong>up to $1-2 million</strong></p>
           <ul class="standard-list loan-list">
-            <li>For loan amounts greater than the Agency Jumbo limit, this is the only option.</li>
-            <li>Eligibility rules vary from lender to lender, but you usually must have good credit and a high down payment.</li>
+            <li>Many lenders offer Jumbo loans for loan amounts greater than the Conforming Jumbo limit in your county.</li>
+            <li>You usually must have good credit and a high down payment to qualify.</li>
           </ul>
         </div>
       </div> <!-- /.wrapper -->
 
-      <div class="mega-callout">
-        <h5 class="callout-mid-heading"><span class="cf-icon cf-icon-error-round alert-warning icon-outdent"></span> Shop Carefully.</h5>
-        <p>Most conventional loans will fall into one of these three categories, but lenders are not required to stick to them. Shop carefully and ask lots of questions if you are considering a conventional mortgage that does not fit into one of these categories.</p>
+      <h3 class="subheading">Non-conforming (other)</h3>
+      <ul class="standard-list loan-list">
+        <li>Some loans in this category are intended for borrowers with poor credit. These loans tend to have high rates and may contain risky features. </li>
+        <li>Some lenders also offer niche programs for mainstream borrowers with unusual circumstances. These can include:
+          <ul>
+            <li>Loans for properties with non-standard features (such as more than 10 acres of land, properties with agricultural income, or properties that are difficult to appraise).</li>
+            <li>Loans for affluent customers with tricky finances, such as self-employed borrowers, or newly graduated doctors.</li>
+          </li>
+      </ul>
 
-        <h5 class="callout-mid-heading">Alternative Mortgages.</h5>
-        <p>Alternative mortgages – especially those marketed to people with lower credit scores – are more likely to contain risky features and have high rates. An FHA loan might be a better option if you have a credit score in the mid 600s or below. Make sure to consult with multiple lenders and get quotes for FHA loans as well so you can compare costs. And never make a final decision before getting your official <a href="http://www.consumerfinance.gov/askcfpb/" id="ask-conventional-good-faith">Good Faith Estimates</a>.</p>
+      <div class="note">
+        <h4 class="callout-mid-heading"><span class="cf-icon cf-icon-error-round alert-warning icon-outdent"></span> Many of the subprime loans that got people in trouble during the crisis fell in the Non-conforming (other) category. </h4>
+        <p>Stronger government regulation means that many of these loans won’t return, but some will. Non-conforming loans marketed to people with lower credit scores are more likely to have high rates and contain risky features, such as rates that adjust more than once per year, <a href="#">prepayment penalties</a>, and <a href="#">loan balances that can increase</a>. If you are considering a non-conforming loan, consult with multiple lenders. Ask if you could qualify for a conforming or <a href="/loan-types/FHA-loans/">FHA loan</a> instead. Never make a final decision about which loan to take before getting your official <a href="#">Good Faith Estimates</a>.</p>
+      </div> <!-- /.note -->
 
-        <h5>Mortgage Insurance.</h5>
-        <p>Pay attention to it!</p>
+        <section id="mortgage-insurance" class="l-bump sans">
+          <h3>Mortgage Insurance: What you need to know</h3>
 
-      </div> <!-- /.callout -->
-    </section> <!-- /#conventional -->
+          <p><strong>Mortgage insurance helps you get a loan you wouldn’t otherwise be able to get.</strong> If you can’t afford a 20 percent down payment, you will likely have to pay for  some kind mortgage insurance.  You may choose to get a conventional loan with private mortgage insurance (PMI), or an FHA, VA, or USDA loan.</p>
+          <p><strong>Mortgage insurance usually adds to your costs.</strong> Depending on the loan type, you will pay monthly mortgage insurance premiums, an upfront mortgage insurance fee, or both.  Mortgage insurance is an important component of your total loan cost, but so is the interest rate, which varies widely depending on your loan type, down payment amount, and the specific lender.  If you’re considering multiple options, ask lenders for quotes for each option and compare total costs to see which option offers the best overall deal.</p>
+          <p><strong>Mortgage insurance—no matter what kind—protects the lender in the event that you fall behind on your payments. It does not protect you.</strong> Your credit score will suffer and you may face foreclosure if you don’t pay your mortgage on time. </p>
+          <p>Learn more about <a href="#">mortgage insurance costs</a>.</p>
+        </section>
 
-  </section> <!-- /.main-content -->
-  </div> <!-- /.wrapper -->
-</div><!--  /.wrap -->
+    </section>
+    <aside class="content_sidebar sans">
+      <header class="tabbed-header">
+        <h3 class="subhead tabbed-heading">Related Links</h3>
+      </header>
+
+      <div class="aside-chunk">
+        <h4>FHA</h4>
+
+        <p>Low down payment; low credit score</p>
+        <p>FHA loans are regulated and guaranteed by the Federal Housing Administration (FHA), a government agency.</p>
+        <p><a class="go-link" href="/loan-types/FHA-loans/">Get all the details</a></p>
+      </div>
+
+      <div class="aside-chunk">
+        <h4>Special Programs</h4>
+        <ul class="no-bullet">
+          <li><strong>VA:</strong> veteran, servicemember, or surviving spouse</li>
+          <li><strong>USDA:</strong> Rural; low- to middle-income</li>
+          <li><strong>Local:</strong> Low- to middle-income; first-time homebuyer; public service employee</li>
+        </ul>
+
+        <p><a class="go-link" href="/loan-types/special-loan-programs/">Get all the details</a></p>
+      </div>
+
+
+      <header class="tabbed-header">
+        <h3 class="subhead tabbed-heading">Ask CFPB</h3>
+      </header>
+
+      <div class="aside-chunk">
+        <ul class="no-bullet">
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </div>
+
+    </aside>
+    </div>
+</main>
+
 {% endblock %}
 

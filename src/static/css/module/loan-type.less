@@ -15,9 +15,10 @@
   li {
     display: inline;
     position: relative;
-    margin-right: 60px;
+    margin-right: 46px;
     .webfont-demi();
     text-transform: uppercase;
+    letter-spacing: 1px;
     font-size: 0.875em;
   }
 
@@ -196,7 +197,6 @@
 
   .loan-details {
     .reset;
-    font-size: 0.875em;
     padding: 1em .5em;
   }
 
@@ -268,6 +268,7 @@
 
   ul {
     .reset;
+    margin-top: .75em;
   }
 
   li {
@@ -356,26 +357,33 @@
 .arm-heading {
   .webfont-regular();
   text-transform: none;
-  margin-bottom: 20px;
+  margin: 30px 0;
   font-size: 1.375em;
 }
 
-.arm-content {
-  background: url('../img/arm-border.png') no-repeat;
-  padding-left: 52px;
-  .webfont-regular();
-
-  p {
-    margin-bottom: .5em;
-  }
-
-  strong {
-    .webfont-demi();
+@media (min-width: 620px) {
+  .arm-content {
+    padding: 20px 12%;
   }
 }
 
-.arm-adjustable {
-  margin-top: 48px;
+.arm-content {
+  .webfont-regular();
+
+  h5 {
+    .webfont-demi();
+    font-size: 1em;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.fixed-arm {
+  color: @green;
+}
+
+.adjustable-arm {
+  color: @gold;
 }
 
 /*
@@ -400,3 +408,15 @@
   font-size: 1.375em;
 }
 
+
+/*
+  loan types subpage styles
+  ----------------------------*/
+
+.lt-subpage-header {
+  margin-bottom: 1em;
+}
+
+.aside-chunk {
+  margin-bottom: 2.875em;
+}

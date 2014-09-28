@@ -37,10 +37,11 @@ RANGE_ALERT = "//div[@class='result-alert credit-alert']/p"
 class RateChecker(Base):
 
     def __init__(self, logger, directory, base_url=r'http://localhost/',
-                 driver=None, driver_wait=-1, delay_secs=0):
+                 driver=None, driver_wait=10, delay_secs=0):
         super(RateChecker, self).__init__(logger, directory, base_url,
                                           driver, driver_wait, delay_secs)
         self.logger = logger
+        self.driver_wait = driver_wait
 
     # ALERTS
     def get_warning_button(self):
@@ -48,15 +49,21 @@ class RateChecker(Base):
         return element.get_attribute("class")
 
     def get_range_alert(self):
-        element = self.driver.find_element_by_xpath(RANGE_ALERT)
-        return element.text
+        try:
+            element = self.driver.find_element_by_xpath(RANGE_ALERT)
+            return element.text
+        except NoSuchElementException:
+            return False
 
     # CHART AREA
     def get_chart_location(self):
         # This label is invisible on page load
         # We wait for the element to become visible before extracting the text
-        WebDriverWait(self.driver, self.driver_wait)\
-            .until(EC.visibility_of_element_located((By.XPATH, RATE_LOCATION)))
+        l_wait = 30
+        msg = 'Location was not visible within %s seconds' % l_wait
+        WebDriverWait(self.driver, l_wait)\
+            .until(EC.visibility_of_element_located((By.XPATH,
+                                                    RATE_LOCATION)), msg)
 
         element = self.driver.find_element_by_xpath(RATE_LOCATION)
         return element.text
@@ -72,22 +79,24 @@ class RateChecker(Base):
         # Get the pixel width of the slider control
         slider_element = self.driver.find_element_by_xpath(SLIDER)
         slider_width = int(slider_element.get_attribute("scrollWidth"))
-        
+
         self.logger.info("width: %s" % slider_width)
 
         element = self.driver.find_element_by_xpath(SLIDER_HANDLE)
 
         # Move the slider 1/4 of the total width to the right
         if(slider_direction == "right"):
-            xOffset =  (slider_width/4)   
+            xOffset = (slider_width/4)
         # Move the slider 1/4 of the total width to the left
         elif(slider_direction == "left"):
-            xOffset =  (slider_width/-4)
+            xOffset = (slider_width/-4)
         # Move the slider 1/2 of the total width to the left
         elif(slider_direction == "lowest"):
-            xOffset =  (slider_width/-2)
-        
-        actions.drag_and_drop_by_offset(element, xOffset, 0)
+            xOffset = (slider_width/-2)
+
+        actions.click_and_hold(element)
+        actions.move_by_offset(xOffset, 0)
+        actions.release()
         actions.perform()
 
     # LOCATION
@@ -110,7 +119,7 @@ class RateChecker(Base):
     # HOUSE PRICE
     def get_house_price(self):
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
-        
+
         # If the textbox is empty then return the placeholder amount
         if (element.get_attribute("value") == ''):
             return element.get_attribute("placeholder")
@@ -120,7 +129,8 @@ class RateChecker(Base):
 
     def set_house_price(self, house_price):
         # Clear any existing text
-        self.driver.execute_script("document.getElementById('house-price').value=''")
+        script = "document.getElementById('house-price').value=''"
+        self.driver.execute_script(script)
         element = self.driver.find_element_by_id(HOUSE_PRICE_TBOX)
         element.clear()
         element.send_keys(house_price)
@@ -128,25 +138,32 @@ class RateChecker(Base):
     # DOWN PAYMENT PERCENT
     def get_down_payment_percent(self):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
-        
-        # If the textbox is empty then return the placeholder amount
+
+        # If the textbox is empty then return the placeholder value
         if (element.get_attribute("value") == ''):
             return element.get_attribute("placeholder")
         else:
-            # Return the value attribute from the Down Payment percent % textbox
+            # Return the value attribute from the Down Payment % textbox
             return element.get_attribute("value")
 
     def set_down_payment_percent(self, down_payment):
-         # Clear any existing text
-        self.driver.execute_script("document.getElementById('percent-down').value=''")
+        # Clear any existing text
+        script = "document.getElementById('" + DOWN_PAYMENT_PERCENT_TBOX + "').value=''"
+        self.driver.execute_script(script)
+
+        # Set the value using jscript
+        # This is done because the down payment percent control updates on every keystroke sent
+        script = "document.getElementById('" + DOWN_PAYMENT_PERCENT_TBOX + "').value='" + down_payment + "'"
+        self.driver.execute_script(script)
+
+        # Press the ENTER key to trigger the onchange event
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
-        element.clear()
-        element.send_keys(down_payment)
+        element.send_keys(Keys.ENTER)
 
     # DOWN PAYMENT AMOUNT
     def get_down_payment_amount(self):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
-        
+
         # If the textbox is empty then return the placeholder amount
         if (element.get_attribute("value") == ''):
             return element.get_attribute("placeholder")
@@ -156,10 +173,11 @@ class RateChecker(Base):
 
     def set_down_payment_amount(self, down_payment):
         # Clear any existing text
-        self.driver.execute_script("document.getElementById('down-payment').value=''")
+        script = "document.getElementById('down-payment').value=''"
+        self.driver.execute_script(script)
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
         element.clear()
-        element.send_keys(down_payment) 
+        element.send_keys(down_payment)
 
     # LOAN AMOUNT
     def get_loan_amount(self):
@@ -228,8 +246,10 @@ class RateChecker(Base):
         element = self.driver.find_element_by_link_text(link_name)
         element.click()
 
-    # INTEREST COST OVER YEARS 
+    # INTEREST COST OVER YEARS
     def get_interest_rate(self, ordinal):
-        element = self.driver.find_elements_by_css_selector(".interest-cost.interest-cost-primary h5 span")
-        # Return either the Primary or Secondary text based on the ordinal passed
+        e_css = ".interest-cost.interest-cost-primary h5 span"
+        element = self.driver.find_elements_by_css_selector(e_css)
+        # Return either the Primary or Secondary text
+        # based on the ordinal passed
         return element[ordinal].text
