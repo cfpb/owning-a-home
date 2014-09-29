@@ -72,6 +72,20 @@
     }
 }
 
+// hide icons in expandable headers on mobile
+@media (max-width: 600px) {
+  .expandable-title {
+    .lt-icon:before,
+    .lt-icon-structure {
+      display: none;
+    }
+  }
+
+  .mega-expand .expandable-heading {
+    margin-left: 0;
+  }
+}
+
 /* expandable header layout */
 .expandable-title {
   .column(9);
@@ -151,6 +165,11 @@
   .mega-expand {
     .expandable-text {
       .visuallyhidden;
+    }
+
+    .expandable-link {
+      display: inline-block;
+      vertical-align: middle;
     }
 
   }
