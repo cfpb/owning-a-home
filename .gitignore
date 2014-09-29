@@ -6,6 +6,7 @@
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
@@ -50,6 +51,7 @@ test/compiled_tests.js
 ######
 ip
 config.js
+test/browser_testing/features/environment.cfg
 
 # node #
 ########
