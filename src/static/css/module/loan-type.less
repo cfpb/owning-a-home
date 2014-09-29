@@ -213,12 +213,6 @@
 
 }
 
-@media (min-width: 620px) {
-  .loan-details {
-    border-bottom: 1px solid @gray-20;
-  }
-}
-
 .term-output {
   margin: 1.5em 0;
   padding: 0;
@@ -231,6 +225,29 @@
 
   strong {
     .webfont-demi();
+  }
+}
+
+@media (min-width: 620px) {
+  .loan-details {
+    border-bottom: 1px solid @gray-20;
+  }
+}
+
+@media (max-width: 620px) {
+  .loan-details {
+    .value {
+      display: block;
+      margin: .5em 0;
+    }
+  }
+
+  .term-output {
+    line-height: 1.5;
+  }
+
+  .loan-value {
+    margin: 0 0 .5em 0;
   }
 }
 
