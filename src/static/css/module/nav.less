@@ -9,52 +9,110 @@ nav {
   }
 }
 
-.secondary-nav {
-  a {
-    .webfont-medium();
-    display: block;
-    padding: 10px;
-    transition: .4s;
-  }
+/*
+*  Secondary Nav Styles
+*  ====================
+*  styles based on cf.gov refresh
+*  https://github.com/cfpb/cfgov-refresh/blob/gh-pages/static/css/nav-secondary.less
+*/
 
-  a,
-  a:link,
-  a:visited {
-    color: @pacific;
-    border-bottom: none;
-  }
 
-  li:hover,
-  a:focus,
-  li:active,
-  .current {
-    border-left: 4px solid @green;
-    background-color: transparent;
-    padding-left: 0;
-  }
+.nav-secondary {
+    margin-bottom: unit(30px / @base-font-size-px, em);
 
-  .current a:link,
-  .current a:visited {
-    color: @black;
-  }
+    &_list {
+        margin: 0;
+        padding: 0;
+    }
 
-  ul {
-    margin: 0;
-    padding: 0;
-    /*border-top: 1px solid @gray-50;*/
-  }
+    &_item {
+        list-style: none;
 
-  li {
-    list-style: none;
-    font-size: 1.125em;
-    padding-left: 4px;
+        .respond-to-min(801px, {
+            & + & {
+                margin-top: 10px;
+            }
+        });
+    }
 
-  }
+    &_link {
+        @font-size-small: 16px;
+        @font-size-large: 18px;
 
-}
+        .respond-to-max(800px, {
+            display: block;
+            // width: 100%; // Needed to override button styles
+            padding: 0.9375em 1.875em;
+            border-bottom-style: solid;
+            border-width: 0; // Needed to override button styles
+            border-bottom-width: 1px;
+            background: @gray-10;
+            .webfont-medium();
+            font-size: unit(@font-size-small / @base-font-size-px, em);
+            .u-link__colors(@darkgray, @darkgray, @darkgray, @darkgray, @darkgray,
+                            @gray-20, @gray-20, @gray-20, @gray-20, @gray-20);
+            text-align: left; // Needed to override button styles
+        });
 
-@media (max-width: 720px) {
-  .secondary-nav {
-    margin-bottom: 2em;
-  }
+        .respond-to-max(600px, {
+            padding-left: 0.9375em;
+            padding-right: 0.9375em;
+        });
+
+        .respond-to-min(801px, {
+            display: inline-block;
+            padding: 0.27777778em 0.83333333em;
+            border-left-style: solid;
+            border-left-width: 5px;
+            .webfont-medium();
+            font-size: unit(@font-size-large / @base-font-size-px, em);
+            .u-link__colors(@pacific, @pacific, @black, @black, @black,
+                            transparent, transparent, @green, @green, @green);
+        });
+
+        &__current {
+            .respond-to-max(800px, {
+                display: none;
+            });
+            .respond-to-min(801px, {
+                .u-link__colors(@black, @black, @black, @black, @black,
+                                @green, @green, @green, @green, @green);
+            });
+        }
+
+        &__button {
+            width: 100%;
+            .webfont-demi();
+            text-align: left;
+            text-transform: uppercase;
+
+            &:focus {
+                outline: thin dotted;
+            }
+
+            .respond-to-min(801px, {
+                display: none;
+            });
+        }
+    }
+
+    // This modifier should be moved to cf-icons.
+    .cf-icon__green {
+        color: @green;
+    }
+
+    // Overrides the overflow: hidden set in .expandable_header for float clearing.
+    // In cf-expandables we should try to change this to our clear float utility
+    // instead so we don't have to do this here.
+    & .expandable_header {
+        overflow: visible;
+    }
+
+    // Overrides the 1px padding used to prevent margin collapse. It's noticeable
+    // in this pattern because of the background colors and bottom borders.
+    // In cf-expandables we should try to change this to our clear float utility
+    // instead so we don't have to do this here.
+    & .expandable_content {
+        padding: 0;
+    }
 }
