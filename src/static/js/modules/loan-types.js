@@ -4,6 +4,7 @@ var payment = require('./payment-calc');
 var interest = require('./total-interest-calc');
 require('./local-storage-polyfill');
 require('./mega-expand');
+require('./secondary-nav');
 require('./nemo');
 require('./nemo-shim');
 
