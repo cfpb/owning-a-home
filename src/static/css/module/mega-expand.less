@@ -148,15 +148,35 @@
   margin-top: 10px;
 }
 
-.expand-close:link,
-.expand-close:visited {
+.expand-close-link:link,
+.expand-close-link:visited {
   color: @pacific;
+  border-bottom: 1px dotted @pacific;
 }
 
-.expand-close:hover,
-.expand-close:active,
-.expand-close:focus {
-  text-decoration: underline;
+.expand-close-link:hover,
+.expand-close-link:active,
+.expand-close-link:focus {
+  border-bottom: 1px solid @pacific-50;
+  color: @pacific-50;
+}
+
+.expand-close-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.expand-close-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 18%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e111";
+  border-bottom: none;
 }
 
 // hide the learn more/collapse link below 1100px

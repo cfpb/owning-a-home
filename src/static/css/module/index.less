@@ -1,0 +1,109 @@
+/* ==========================================================================
+   "Home Page" custom styles
+   ========================================================================== */
+
+.index {
+  .webfont-regular();
+
+  .page-intro {
+    border-bottom: 1px solid @gray-20;
+  }
+
+}
+
+#primary-content.index{
+  background-image: url('/static/img/gray-bg.svg');
+  background-position: center top;
+}
+
+
+
+/*
+    Hero
+    --------------------------- */
+
+#hero-bg-image{
+
+  background: #e4e2e0 url('/static/img/oah-hero-image.svg');
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: auto 240px;
+  height:240px;
+  width: 100%;
+  position: absolute;
+}
+
+.hero-wrapper{
+  margin: -24px 0 0 -15px;
+  padding: 46px 0 0 0;
+  /*background: url('/static/img/oah-hero-image.png');*/
+  background-size: auto 241px;
+  min-height:240px;
+
+  h1{
+    font-weight: bold;
+  }
+
+  h2{
+    /*max-width: 500px;*/
+    font-size: 1.425em;
+  }
+}
+
+.tabbed-pad-top{
+  margin-top: 40px;
+}
+
+/*
+  CONTENT
+  ---------------------------- */
+.gray-box{
+  background: #EFEFEF;
+  padding: 0px 15px 260px 15px;
+  border-left: 1px solid #cdcdcb;
+}
+
+.index-content{
+  .webfont-regular();
+
+  h3 + p {
+    margin-top: -20px;
+  }
+
+  p + p a.go-link{
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+}
+
+.index-left-content{
+  margin-top: 44px;
+}
+
+.links-ul{
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+
+  li{
+    list-style: none;
+    margin: 0px;
+    padding: 0 0 10px 0;
+  }
+}
+
+.border-sep:before{
+  content: " ";
+  display: block;
+  margin: 30px 30px 30px 15px;
+  border-top: 1px solid #cdcdcb;
+}
+
+#email{
+  width: 200px;
+}
+.input-with-btn > div{display: inline-block;}
+
+
+
+
