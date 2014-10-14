@@ -4,7 +4,7 @@ $(function() {
 
   'use strict';
 
-  require('./modules/loan-types');
+  require('./modules/loan-options');
   require('./modules/rate-checker');
 
 });
