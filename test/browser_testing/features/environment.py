@@ -11,7 +11,7 @@ from pages.screenshot import Screenshot
 from pages.base import Base
 from pages.home import Home
 from pages.loan_comparison import LoanComparison
-from pages.loan_types import LoanTypes
+from pages.loan_options import LoanOptions
 from pages.navigation import Navigation
 from pages.rate_checker import RateChecker
 
@@ -64,21 +64,21 @@ def before_all(context):
         driver = webdriver.Chrome(context.chromedriver_path)
 
     context.base = Base(context.logger, context.directory,
-                        context.base_url, driver, -1, context.delay_secs)
+                        context.base_url, driver, 10, context.delay_secs)
     context.home = Home(context.logger, context.directory,
-                        context.base_url, driver, -1, context.delay_secs)
+                        context.base_url, driver, 10, context.delay_secs)
     context.loan_comparison = LoanComparison(context.logger, context.directory,
-                                             context.base_url, driver, -1,
+                                             context.base_url, driver, 10,
                                              context.delay_secs)
-    context.loan_types = LoanTypes(context.logger, context.directory,
-                                   context.base_url, driver, -1,
-                                   context.delay_secs)
+    context.loan_options = LoanOptions(context.logger, context.directory,
+                                       context.base_url, driver, 10,
+                                       context.delay_secs)
     context.rate_checker = RateChecker(context.logger, context.directory,
                                        context.base_url,
                                        driver, 10, context.delay_secs)
     context.navigation = Navigation(context.logger, context.directory,
                                     context.base_url,
-                                    driver, -1, context.delay_secs)
+                                    driver, 10, context.delay_secs)
     context.screenshot = Screenshot(context.base, context.take_screenshots)
 
 
@@ -93,9 +93,6 @@ def before_feature(context, feature):
 
 def before_scenario(context, scenario):
     # Ensure each scenario starts with a full browser window.
-    # When opening new windows, PhantomJS uses
-    # its default window size of 400x300,
-    # which is potentially problematic for responsive sites
     context.base.driver.maximize_window()
     context.logger.info('starting scenario %s with row %s' %
                         (scenario, scenario._row))

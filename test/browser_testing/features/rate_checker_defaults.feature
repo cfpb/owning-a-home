@@ -1,4 +1,4 @@
-Feature: verify the Rate Checker fields default to the correct values
+Feature: Test the Rate Checker fields default to the correct values
   As a first time visitor to the Rate Checker page
   I want to have fields pre-populated
   So that I can make informed choices when shopping for a mortgage loan
