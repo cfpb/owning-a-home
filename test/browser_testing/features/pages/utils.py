@@ -33,36 +33,3 @@ class Utils(object):
     def urls_match(self, url1, url2):
         return (self.strip_trailing_slash(url1) ==
                 self.strip_trailing_slash(url2))
-
-    def build_login(self, user_nickname):
-        # ToDo: retrieve login by 'nickname'
-        suffix = '@agency.gov'
-        username = user_nickname
-
-        if user_nickname == 'invalid':
-            username = 'bad.login'
-
-        return '%s%s' % (username, suffix)
-
-    def build_password(self, user_nickname):
-        # ToDo: retrieve password by 'nickname'
-        if user_nickname == 'test1':
-            return '1'
-        elif user_nickname == 'test2':
-            return '2'
-        elif user_nickname == 'test3':
-            return '3'
-        elif user_nickname == 'admin':
-            return '4'
-        else:
-            return 'bad.password'
-
-    def convert_nickname_to_id(self, nickname):
-        id = ''
-
-        if nickname == 'search':
-            id = 'q'
-        elif nickname == 'card issuer':
-            id = 'issuer_select_chzn'
-
-        return id
