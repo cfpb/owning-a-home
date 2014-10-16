@@ -228,6 +228,23 @@ module.exports = function(grunt) {
           }
         ]
       },
+      release: {
+        files:
+        [
+          {
+            expand: true,
+            cwd: 'src',
+            src: [
+              // move html & template files new template folders need to be added here
+              'index.html',
+              'loan-options/*',
+              '_layouts/*',
+              'resources/*'
+            ],
+            dest: 'dist/'
+          }
+        ]
+      },
       img: {
         files:
         [
@@ -401,6 +418,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
+  grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);
 
 };
