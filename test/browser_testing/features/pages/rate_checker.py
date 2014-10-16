@@ -1,3 +1,4 @@
+# coding: utf-8
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -11,8 +12,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base import Base
 
 # ELEMENT ID'S FOR TEXTBOXES
+EMAIL = "email"
 DOWN_PAYMENT_AMOUNT_TBOX = "down-payment"  # DOWN PAYMENT AMOUNT TEXTBOX
-DOWN_PAYMENT_PERCENT_TBOX = "percent-down"  # DOWN PAYMENT PERCENTAGE TEXTBOX
+DOWN_PAYMENT_PERCENT = "percent-down"  # DOWN PAYMENT PERCENTAGE TEXTBOX
 HOUSE_PRICE_TBOX = "house-price"  # HOUSE PRICE TEXTBOX
 
 # ELEMENT ID'S FOR DROP DOWN LISTS
@@ -27,11 +29,15 @@ LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
 # This label displays range as 700 - 720
 SLIDER_RANGE_LABEL = "slider-range"
 
+# ELEMENT ID'S FOR BUTTONS
+SIGNUP = "beta-btn"
+
 # XPATH LOCATORS
 RATE_LOCATION = "//h2/*[@class ='location']"
 SLIDER_HANDLE = "//div[contains(@class, 'rangeslider__handle')]"
 SLIDER = "//div[@class = 'rangeslider']"
 RANGE_ALERT = "//div[@class='result-alert credit-alert']/p"
+EMAIL_LBL = "//form[@id='signup']/p"
 
 
 class RateChecker(Base):
@@ -42,6 +48,34 @@ class RateChecker(Base):
                                           driver, driver_wait, delay_secs)
         self.logger = logger
         self.driver_wait = driver_wait
+
+    # EMAIL SIGNUP
+    def set_email_address(self, email_address):
+        element = self.driver.find_element_by_id(EMAIL)
+        element.send_keys(email_address)
+
+    def click_signup_button(self):
+        element = self.driver.find_element_by_id(SIGNUP)
+        element.click()
+
+    def get_email_label(self):
+        msg = 'Element %s not found after %s secs' % (EMAIL_LBL,
+                                                      self.driver_wait)
+        # Wait for the label to display
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.visibility_of_element_located((By.XPATH,
+                                                    EMAIL_LBL)), msg)
+        return element.text
+
+    def is_multiple_email_labels(self):
+        l_wait = 5
+        # If the list has > 1 elements then multiple labels are displayed
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(lambda s: len(s.find_elements(By.XPATH, EMAIL_LBL)) > 1)
+            return True
+        except TimeoutException:
+            return False
 
     # ALERTS
     def get_warning_button(self):
@@ -93,6 +127,9 @@ class RateChecker(Base):
         # Move the slider 1/2 of the total width to the left
         elif(slider_direction == "lowest"):
             xOffset = (slider_width/-2)
+        # Move the slider 1/2 of the total width to the right
+        elif(slider_direction == "highest"):
+            xOffset = (slider_width/2)
 
         actions.click_and_hold(element)
         actions.move_by_offset(xOffset, 0)
@@ -137,7 +174,7 @@ class RateChecker(Base):
 
     # DOWN PAYMENT PERCENT
     def get_down_payment_percent(self):
-        element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
+        element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT)
 
         # If the textbox is empty then return the placeholder value
         if (element.get_attribute("value") == ''):
@@ -148,16 +185,18 @@ class RateChecker(Base):
 
     def set_down_payment_percent(self, down_payment):
         # Clear any existing text
-        script = "document.getElementById('" + DOWN_PAYMENT_PERCENT_TBOX + "').value=''"
-        self.driver.execute_script(script)
+        s = "document.getElementById('" + DOWN_PAYMENT_PERCENT + "').value=''"
+        self.driver.execute_script(s)
 
         # Set the value using jscript
-        # This is done because the down payment percent control updates on every keystroke sent
-        script = "document.getElementById('" + DOWN_PAYMENT_PERCENT_TBOX + "').value='" + down_payment + "'"
+        # This is done because the down payment percent control
+        # updates on every keystroke sent
+        script = "document.getElementById('" + DOWN_PAYMENT_PERCENT + \
+            "').value='" + down_payment + "'"
         self.driver.execute_script(script)
 
         # Press the ENTER key to trigger the onchange event
-        element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT_TBOX)
+        element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT)
         element.send_keys(Keys.ENTER)
 
     # DOWN PAYMENT AMOUNT
@@ -211,8 +250,22 @@ class RateChecker(Base):
         element = Select(self.driver.find_element_by_id(LOAN_TERM_DDL))
         element.select_by_visible_text(number_of_years)
 
+    def is_loan_term_option_enabled(self, loan_term):
+        e_xpath = "//select[@id='" + LOAN_TERM_DDL + \
+            "']/option[text()='" + loan_term + "']"
+        element = self.driver.find_element_by_xpath(e_xpath)
+
+        # If the option is enabled, the disabled attribute returns None
+        if (element.get_attribute('disabled') is None):
+            return 'enabled'
+        # If the option is disabled, the disabled attribute returns true
+        elif (element.get_attribute('disabled') == 'true'):
+            return 'disabled'
+        else:
+            return element.get_attribute('disabled')
+
     # LOAN TYPE
-    def get_loan_type(self):
+    def get_selected_loan_type(self):
         # First Get the selected Index from the Loan Type dropdown list
         element = Select(self.driver.find_element_by_id(LOAN_TYPE_DDL))
         option = element.first_selected_option
@@ -223,6 +276,20 @@ class RateChecker(Base):
     def set_loan_type(self, loan_type):
         element = Select(self.driver.find_element_by_id(LOAN_TYPE_DDL))
         element.select_by_visible_text(loan_type)
+
+    def is_loan_type_option_enabled(self, loan_type):
+        e_xpath = "//select[@id='" + LOAN_TYPE_DDL + \
+            "']/option[text()='" + loan_type + "']"
+        element = self.driver.find_element_by_xpath(e_xpath)
+
+        # If the option is enabled, the disabled attribute returns None
+        if (element.get_attribute('disabled') is None):
+            return 'enabled'
+        # If the option is disabled, the disabled attribute returns true
+        elif (element.get_attribute('disabled') == 'true'):
+            return 'disabled'
+        else:
+            return element.get_attribute('disabled')
 
     # ARM TYPE
     def get_arm_type(self):
@@ -247,9 +314,30 @@ class RateChecker(Base):
         element.click()
 
     # INTEREST COST OVER YEARS
-    def get_interest_rate(self, ordinal):
-        e_css = ".interest-cost.interest-cost-primary h5 span"
-        element = self.driver.find_elements_by_css_selector(e_css)
-        # Return either the Primary or Secondary text
+    def get_primary_interest_rate(self, ordinal, years):
+        e_xpath = "//div[contains(@class,'interest-cost-primary')]" + \
+            "/h5/span[text()=" + years + "]"
+        m = 'Element %s not found after %s secs' % (e_xpath, self.driver_wait)
+
+        # Wait for the label to update itself
+        WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.text_to_be_present_in_element((By.XPATH,
+                                                    e_xpath), years), m)
+        # Return the text from either the First or Second column
         # based on the ordinal passed
+        element = self.driver.find_elements_by_xpath(e_xpath)
+        return element[ordinal].text
+
+    def get_secondary_interest_rate(self, ordinal, years):
+        e_xpath = "//div[contains(@class,'interest-cost-secondary')]" + \
+            "/h5/span[text()=" + years + "]"
+        m = 'Element %s not found after %s secs' % (e_xpath, self.driver_wait)
+
+        # Wait for the label to update itself
+        WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.text_to_be_present_in_element((By.XPATH,
+                                                    e_xpath), years), m)
+        # Return the text from either the First or Second column
+        # based on the ordinal passed
+        element = self.driver.find_elements_by_xpath(e_xpath)
         return element[ordinal].text
