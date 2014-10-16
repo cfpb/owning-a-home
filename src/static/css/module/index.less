@@ -12,10 +12,16 @@
 }
 
 #primary-content.index{
-  background-image: url('/static/img/gray-bg.svg');
-  background-position: center top;
+  background: url('/static/img/gray-bg.svg');
+  background-position: 50px 0;
+  background-repeat: repeat-y;
 }
 
+@media (max-width: 720px) {
+  #primary-content.index{
+    background: transparent;
+  }
+}
 
 
 /*
@@ -23,7 +29,6 @@
     --------------------------- */
 
 #hero-bg-image{
-
   background: #e4e2e0 url('/static/img/oah-hero-image.svg');
   background-position: center top;
   background-repeat: no-repeat;
@@ -32,6 +37,13 @@
   width: 100%;
   position: absolute;
 }
+
+@media (max-width: 720px) {
+  #hero-bg-image{
+    background-position: 0 0;
+  }
+}
+
 
 .hero-wrapper{
   margin: -24px 0 0 -15px;
