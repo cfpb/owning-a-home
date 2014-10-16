@@ -12,7 +12,7 @@ module.exports = function(grunt) {
      * Pull in the package.json file so we can read its metadata.
      */
     pkg: grunt.file.readJSON('package.json'),
-    
+
     /**
      * Bower: https://github.com/yatskevich/grunt-bower-task
      *
@@ -221,7 +221,8 @@ module.exports = function(grunt) {
             src: [
               // move html & template files new template folders need to be added here
               '**/*.html',
-              '_layouts/*'
+              '_layouts/*',
+              'resources/*'
             ],
             dest: 'dist/'
           }
