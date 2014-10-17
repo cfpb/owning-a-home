@@ -12,7 +12,7 @@ module.exports = function(grunt) {
      * Pull in the package.json file so we can read its metadata.
      */
     pkg: grunt.file.readJSON('package.json'),
-    
+
     /**
      * Bower: https://github.com/yatskevich/grunt-bower-task
      *
@@ -221,7 +221,25 @@ module.exports = function(grunt) {
             src: [
               // move html & template files new template folders need to be added here
               '**/*.html',
-              '_layouts/*'
+              '_layouts/*',
+              'resources/*'
+            ],
+            dest: 'dist/'
+          }
+        ]
+      },
+      release: {
+        files:
+        [
+          {
+            expand: true,
+            cwd: 'src',
+            src: [
+              // move html & template files new template folders need to be added here
+              'index.html',
+              'loan-options/*',
+              '_layouts/*',
+              'resources/*'
             ],
             dest: 'dist/'
           }
@@ -400,6 +418,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
+  grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);
 
 };

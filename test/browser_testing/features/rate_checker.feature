@@ -6,6 +6,30 @@ Feature: verify the Rate Checker tool works according to requirements
 Background:
   Given I navigate to the "Rate Checker" page
 
+@beta_signup
+Scenario Outline: Testing valid email signup
+  When I enter "<email_address>"
+    And I click the Signup button
+  Then I should see "Thanks, we’ll be in touch!" displayed
+
+Examples:
+  | email_address         |
+  | test@yahoo.com        |
+  | test123@gmail.com     |
+  | mr.tester@github.com  |
+
+@bugfix
+Scenario Outline: Testing that multiple "Thanks, we’ll be in touch!" messages are NOT displayed
+  When I enter "<email_address>"
+    And I click the Signup button
+    And I click the Signup button again
+    And I click the Signup button again
+  Then I should NOT see multiple "Thanks, we’ll be in touch!" messages displayed
+
+Examples:
+  | email_address        |
+  | test.abc@yahoo.com   |
+
 @smoke_testing @rc
 Scenario Outline: Test selecting different states
   When I select "<state_name>" from the Location dropdown list
@@ -16,24 +40,6 @@ Examples:
   | Nevada          |
   | California			|
   | Virginia		    |
-
-@smoke_testing @rc
-Scenario: Select the ARM Type
-  When I select "Adjustable" Rate Structure
-  Then I should see "3/1" as the selected ARM Type
-
-@smoke_testing @rc
-Scenario Outline: Select 30 and 15 year Fixed Rate loans
-  When I select "Fixed" Rate Structure
-    And I select "<total_number> Years" Loan Term
-  Then I should see "District of Columbia" as the selected location
-    And I should see the "Primary" Interest cost over <total_number> years
-    And I should see the "Secondary" Interest cost over <total_number> years
-
-Examples:
-  | total_number |
-  | 30           |
-  | 15           |
 
 @rc @ignore
 Scenario: Test all dropdown lists in the Rate Checker page
