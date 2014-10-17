@@ -12,8 +12,8 @@
 }
 
 #primary-content.index{
-  background: url('/static/img/gray-bg.svg');
-  background-position: 50px 0;
+  background: url('/static/img/gray-bg.png');
+  background-position: center top;
   background-repeat: repeat-y;
 }
 
@@ -29,7 +29,7 @@
     --------------------------- */
 
 #hero-bg-image{
-  background: #e4e2e0 url('/static/img/oah-hero-image.svg');
+  background: #e4e2e0 url('/static/img/oah-hero-image.png');
   background-position: center top;
   background-repeat: no-repeat;
   background-size: auto 240px;
@@ -59,6 +59,12 @@
   h2{
     /*max-width: 500px;*/
     font-size: 1.425em;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-wrapper{
+    padding-top:25px;
   }
 }
 
