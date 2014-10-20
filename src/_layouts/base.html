@@ -85,9 +85,7 @@
 
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
-<!-- build:js {{ url_for('static', filename='js/main.min.js') }} -->
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<!-- endbuild -->
+<script src="{{ url_for('static', filename='js/main.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js') }}/{{active_page}}.js"></script>
 </body>
 
