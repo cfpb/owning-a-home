@@ -178,6 +178,11 @@ module.exports = function(grunt) {
       }
     },
 
+    /**
+     * Uglify: https://github.com/gruntjs/grunt-contrib-uglify
+     *
+     * Minify files with UglifyJS.
+     */
     uglify: {
       main: {
         files: {
@@ -186,7 +191,9 @@ module.exports = function(grunt) {
       },
       pages: {
         files: [{
-          src: '<%= browserify.build.options.plugin[0][1].entries %>',
+          expand: true,
+          cwd: './src/static/js/modules',
+          src: ['loan-options.js', 'rate-checker.js', 'loan-comparison.js'],
           dest: './dist/static/js'
         }]
       },
