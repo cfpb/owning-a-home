@@ -397,21 +397,21 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['js']
+        tasks: ['js', 'uglify']
       },
       css: {
         options: {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['css']
+        tasks: ['css', 'cssmin']
       },
       all: {
         options: {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/**/*.html', '_layouts/*'],
-        tasks: ['build']
+        tasks: ['build', 'ship']
       }
     }
 
