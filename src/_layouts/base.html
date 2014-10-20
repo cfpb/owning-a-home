@@ -80,7 +80,9 @@
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
 <script src="{{ url_for('static', filename='js/main.min.js') }}"></script>
+{% if active_page != "index" %}
 <script src="{{ url_for('static', filename='js') }}/{{active_page}}.js"></script>
+{% endif %}
 </body>
 
 </html>
