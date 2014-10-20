@@ -30,19 +30,19 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<!-- build:css /static/css/main.min.css -->
-<link rel="stylesheet" href="/static/css/main.css">
+<!-- build:css {{ url_for('static', filename='css/main.min.css') }} -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <!-- endbuild -->
 
 <!--[if IE 9]>
-<!-- build:js /static/js/ie9.min.js -->
-    <script src="/static/js/ie9.js"></script>
+<!-- build:js {{ url_for('static', filename='js/ie9.min.js') }} -->
+    <script src="{{ url_for('static', filename='js/ie9.js') }}"></script>
 <!-- endbuild -->
 <![endif]-->
 
 <!--[if lte IE 8]>
-    <!-- build:js /static/js/lte-ie8.min.js -->
-    <script src="/static/js/lte-ie8.js"></script>
+    <!-- build:js {{ url_for('static', filename='js/lte-ie8.min.js') }} -->
+    <script src="{{ url_for('static', filename='js/lte-ie8.js') }}"></script>
     <!-- endbuild -->
 <![endif]-->
 
@@ -85,10 +85,10 @@
 
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
-<!-- build:js /static/js/main.min.js -->
-<script src="/static/js/main.js"></script>
+<!-- build:js {{ url_for('static', filename='js/main.min.js') }} -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <!-- endbuild -->
-<script src="/static/js/{{ active_page }}.js"></script>
+<script src="{{ url_for('static', filename='js') }}/{{active_page}}.js"></script>
 </body>
 
 </html>
