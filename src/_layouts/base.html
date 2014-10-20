@@ -30,20 +30,14 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<!-- build:css {{ url_for('static', filename='css/main.min.css') }} -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-<!-- endbuild -->
 
 <!--[if IE 9]>
-<!-- build:js {{ url_for('static', filename='js/ie9.min.js') }} -->
     <script src="{{ url_for('static', filename='js/ie9.js') }}"></script>
-<!-- endbuild -->
 <![endif]-->
 
 <!--[if lte IE 8]>
-    <!-- build:js {{ url_for('static', filename='js/lte-ie8.min.js') }} -->
     <script src="{{ url_for('static', filename='js/lte-ie8.js') }}"></script>
-    <!-- endbuild -->
 <![endif]-->
 
     <script>
@@ -85,10 +79,10 @@
 
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
-<!-- build:js {{ url_for('static', filename='js/main.min.js') }} -->
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<!-- endbuild -->
+<script src="{{ url_for('static', filename='js/main.min.js') }}"></script>
+{% if active_page != "index" %}
 <script src="{{ url_for('static', filename='js') }}/{{active_page}}.js"></script>
+{% endif %}
 </body>
 
 </html>
