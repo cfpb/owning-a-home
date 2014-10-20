@@ -178,11 +178,24 @@ module.exports = function(grunt) {
       }
     },
 
+    /**
+     * Uglify: https://github.com/gruntjs/grunt-contrib-uglify
+     *
+     * Minify files with UglifyJS.
+     */
     uglify: {
       main: {
         files: {
           './dist/static/js/main.min.js': ['./dist/static/js/main.js']
         }
+      },
+      pages: {
+        files: [{
+          expand: true,
+          cwd: './dist/static/js',
+          src: ['loan-options.js', 'rate-checker.js', 'loan-comparison.js'],
+          dest: './dist/static/js'
+        }]
       },
       ie9: {
         files: {
@@ -416,7 +429,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner', 'usemin']);
+  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('deploy', ['release', 'ship']);
