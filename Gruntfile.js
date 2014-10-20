@@ -192,7 +192,7 @@ module.exports = function(grunt) {
       pages: {
         files: [{
           expand: true,
-          cwd: './src/static/js/modules',
+          cwd: './dist/static/js',
           src: ['loan-options.js', 'rate-checker.js', 'loan-comparison.js'],
           dest: './dist/static/js'
         }]
