@@ -184,6 +184,12 @@ module.exports = function(grunt) {
           './dist/static/js/main.min.js': ['./dist/static/js/main.js']
         }
       },
+      pages: {
+        files: [{
+          src: '<%= browserify.build.options.plugin[0][1].entries %>',
+          dest: './dist/static/js'
+        }]
+      },
       ie9: {
         files: {
           './dist/static/js/ie9.min.js': ['./dist/static/js/ie9.js']
