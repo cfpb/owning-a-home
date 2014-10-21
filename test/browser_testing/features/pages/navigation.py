@@ -13,6 +13,6 @@ class Navigation(Base):
         super(Navigation, self).__init__(logger, directory, base_url,
                                          driver, driver_wait, delay_secs)
 
-    def click_link(self, tab_xpath):
-        element = self.driver.find_element_by_xpath(tab_xpath)
+    def click_link(self, link_text):
+        element = self.driver.find_element_by_link_text(link_text)
         element.click()
