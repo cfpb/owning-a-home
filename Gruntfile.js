@@ -105,14 +105,14 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
+        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js'],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/rate-checker.js', 'dist/static/js/loan-comparison.js']
+              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/rate-checker.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js'],
+              o: ['dist/static/js/loan-options.js', 'dist/static/js/rate-checker.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/home.js']
             }]
           ]
         }
@@ -193,7 +193,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './dist/static/js',
-          src: ['loan-options.js', 'rate-checker.js', 'loan-comparison.js'],
+          src: ['loan-options.js', 'rate-checker.js', 'loan-comparison.js', 'home.js'],
           dest: './dist/static/js'
         }]
       },
