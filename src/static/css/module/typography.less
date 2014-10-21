@@ -157,3 +157,46 @@ ul > li {
   content: "\e610";
   border-bottom: none;
 }
+
+.pdf-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.pdf-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 25%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e402";
+  border-bottom: none;
+}
+
+.link-with-icon > .cf-icon {
+  padding-left: 0.375em;
+  position: absolute;
+  top: 0.1875em;
+  left: 100%;
+}
+
+.cf-icon {
+  font-family: 'CFPB Minicons';
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.link-with-icon {
+  /*display: inline-block;*/
+  position: relative;
+}
+
+.link-icon-two-liner .cf-icon{
+  top: 1.54em;
+}
