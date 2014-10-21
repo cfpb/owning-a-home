@@ -14,6 +14,7 @@ from pages.loan_comparison import LoanComparison
 from pages.loan_options import LoanOptions
 from pages.navigation import Navigation
 from pages.rate_checker import RateChecker
+from pages.utils import Utils
 
 
 try:
@@ -26,10 +27,7 @@ def before_all(context):
     setup_config(context)
     setup_logger(context)
 
-    if context.browser == 'Phantom':
-        driver = webdriver.PhantomJS()
-
-    elif context.browser == 'Sauce':
+    if context.browser == 'Sauce':
         context.logger.info("Using Sauce Labs")
         desired_capabilities = {
             'name': os.getenv('SELENIUM_NAME',
@@ -81,6 +79,9 @@ def before_all(context):
                                     driver, 10, context.delay_secs)
     context.screenshot = Screenshot(context.base, context.take_screenshots)
 
+    context.utils = Utils(context.base)
+
+    context.logger.info('TEST ENVIRONMENT = %s' % context.base_url)
 
 def before_feature(context, feature):
     context.logger.info('STARTING FEATURE %s' % feature)
