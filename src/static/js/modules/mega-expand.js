@@ -16,12 +16,12 @@ var megaExpand = function(ev, $header){
 };
 
 
-$('.expandable').on( 'click', '.expandable-header', function(ev){
-  var $header = $(this);
+$('.expandable').on( 'click', '.expandable-mainhead', function(ev){
+  var $header = $(this).parent('.expandable-header');
   megaExpand(ev, $header);
 });
 
 $('.expandable').on( 'click', '.expand-close', function(ev){
-  var $header = $(this).parents('.expandable').find('.expandable-header');
+  var $header = $(this).parent('.expandable-header');
   megaExpand(ev, $header);
 });
