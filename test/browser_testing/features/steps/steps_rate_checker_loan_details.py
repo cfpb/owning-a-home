@@ -4,10 +4,8 @@ from hamcrest.core.core.isequal import equal_to
 from hamcrest.library.number.ordering_comparison import greater_than, less_than
 from hamcrest.library.text.stringcontains import contains_string
 
-from pages.rate_checker import RateChecker
 from pages.base import Base
-from pages.screenshot import Screenshot
-
+from pages.rate_checker import RateChecker
 
 # RATE STRUCTURE
 @when(u'I select "{rate_selection}" Rate Structure')
