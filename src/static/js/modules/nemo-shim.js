@@ -9,3 +9,4 @@ $('.toggle-menu').on('click', function(){
 });
 
 window.$ = $;
+window.jQuery = $;
