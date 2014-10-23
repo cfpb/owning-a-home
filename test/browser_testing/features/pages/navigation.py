@@ -15,4 +15,9 @@ class Navigation(Base):
 
     def click_link(self, link_text):
         element = self.driver.find_element_by_link_text(link_text)
+
+        # scroll the element into view so it can be
+        # observed with SauceLabs screencast
+        script = "arguments[0].scrollIntoView(true);"
+        self.driver.execute_script(script, element)
         element.click()

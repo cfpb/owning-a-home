@@ -6,7 +6,7 @@ Feature: Test the default values in the Loan Comparison page
 Background:
    Given I navigate to the "Loan Comparison" page
 
-@smoke_testing @loan_comparison1
+@smoke_testing @loan_comparison
 Scenario: First time visitor should see Loan A but NOT Loan B or C
   Then I should see the "Loan A" column
     But I should NOT see the "Loan B" column
