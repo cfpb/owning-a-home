@@ -18,7 +18,7 @@ Examples:
   | Interest rate type      | Compare your interest rate options  |
   | Loan type 				      | Choosing the right loan type 		    |
 
-@smoke_testing @loan_options
+@smoke_testing @loan_options @ignore
 Scenario Outline: Click 'Collapse' to collapse sections
 	When I click Learn More to expand the "<section_name>" section
 		And I collapse the "<section_name>" section
@@ -30,7 +30,7 @@ Examples:
   | Interest rate type       |
   | Loan type 				       |
 
-@smoke_testing @loan_options
+@smoke_testing @loan_options @ignore
 Scenario Outline: Click 'Collapse <section_name>' to collapse sections
   When I click Learn More to expand the "<section_name>" section
     And I click on the "<link_name>" link
@@ -60,12 +60,12 @@ Scenario: Test OAH link in the Loan Options page
    Then I should be directed to the OAH Landing page
 
 
-@smoke_testing @loan_options
+@smoke_testing @loan_options1
 Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click Get all the details for "<loan_type>" loans
   Then I should be directed to the internal "<relative_url>" URL
-      And I should see "Loan options" displayed in the page title
+      And I should see "Loan Options" displayed in the page title
 
 Examples:
   | loan_type        | relative_url                        |
