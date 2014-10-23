@@ -8,6 +8,11 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base import Base
 
+# HREF FOR INTERNAL  LINKS
+CONVENTIONAL_LOAN = "./conventional-loans"
+FHA_LOAN = "./FHA-loans"
+SPECIAL_LOAN = "./special-loan-programs"
+
 # ELEMENTS ID
 LOAN_AMOUNT = "loan-amount-value"
 INTEREST_RATE = "loan-interest-value"
@@ -48,18 +53,27 @@ class LoanOptions(Base):
     def click_learn_more(self, page_section):
         if(page_section == 'Loan term'):
             e = self.driver.find_element_by_css_selector(LOAN_TERM_EXPAND)
-        elif(page_section == 'Interest rate structure'):
+            e_css = LOAN_TERM_COLLAPSE
+        elif(page_section == 'Interest rate type'):
             e = self.driver.find_element_by_css_selector(INTEREST_RATE_EXPAND)
+            e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
         elif(page_section == 'Loan type'):
             e = self.driver.find_element_by_css_selector(LOAN_TYPE_EXPAND)
+            e_css = LOAN_TYPE_COLLAPSE
         else:
             raise Exception(page_section + " is NOT a valid section")
+
         e.click()
+
+        msg = 'Element %s not found after %s secs' % (e_css, self.driver_wait)
+        # Wait for the collapse button to appear
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.element_to_be_clickable((By.CSS_SELECTOR, e_css)), msg)
 
     def click_collapse(self, page_section):
         if(page_section == 'Loan term'):
             e_css = LOAN_TERM_COLLAPSE
-        elif(page_section == 'Interest rate structure'):
+        elif(page_section == 'Interest rate type'):
             e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_COLLAPSE
@@ -73,12 +87,39 @@ class LoanOptions(Base):
 
         element.click()
 
+    # this method clicks the 'Get all the details' link
+    # for the 'loan_type' specified
+    def click_loan_type(self, loan_type):
+        if(loan_type == 'Conventional'):
+            e_href = CONVENTIONAL_LOAN
+        elif(loan_type == 'FHA'):
+            e_href = FHA_LOAN
+        elif(loan_type == 'Special programs'):
+            e_href = SPECIAL_LOAN
+        else:
+            raise Exception(loan_type + " is NOT a valid Loan Type")
+
+        e_text = "Get all the details"
+        e_xpath = "//a[text() = '" + e_text + "' and @href='" + e_href + "']"
+
+        msg = 'Element %s not found after %s sec' % (e_xpath, self.driver_wait)
+
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.element_to_be_clickable((By.XPATH, e_xpath)), msg)
+
+        # scroll the element into view so it can be
+        # observed with SauceLabs screencast
+        script = "arguments[0].scrollIntoView(true);"
+        self.driver.execute_script(script, element)
+
+        element.click()
+
     def get_subsection_text(self, page_section):
         local_wait = 2
 
         if(page_section == 'Loan term'):
             e_css = LOAN_TERM_SUBSECTION
-        elif(page_section == 'Interest rate structure'):
+        elif(page_section == 'Interest rate type'):
             e_css = INTEREST_RATE_STRUCTURE_SUBSECTION
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_SUBSECTION
@@ -98,7 +139,7 @@ class LoanOptions(Base):
     def get_expand_button_caption(self, page_section):
         if(page_section == 'Loan term'):
             e_css = LOAN_TERM_EXPAND
-        elif(page_section == 'Interest rate structure'):
+        elif(page_section == 'Interest rate type'):
             e_css = INTEREST_RATE_EXPAND
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_EXPAND
