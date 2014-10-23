@@ -22,6 +22,6 @@ $('.expandable').on( 'click', '.expandable-mainhead', function(ev){
 });
 
 $('.expandable').on( 'click', '.expand-close', function(ev){
-  var $header = $(this).parent('.expandable-header');
+  var $header = $(this).parents('.expandable').find('.expandable-header');
   megaExpand(ev, $header);
 });
