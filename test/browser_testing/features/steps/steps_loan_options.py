@@ -16,6 +16,11 @@ def step(context, section_name):
     context.loan_options.click_collapse(section_name)
 
 
+@when(u'I click Get all the details for "{loan_type}" loans')
+def step(context, loan_type):
+    context.loan_options.click_loan_type(loan_type)
+
+
 @then(u'I should see a collapse link for the "{section_name}" section')
 def step(context, section_name):
     caption = context.loan_options.get_expand_button_caption(section_name)
