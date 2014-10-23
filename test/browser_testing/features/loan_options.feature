@@ -44,7 +44,6 @@ Examples:
 
 @smoke_testing @loan_options
 Scenario Outline: Test inbound links in the Loan Options page
-   Given I navigate to the "Loan Options" page 
    When I click on the "<link_name>" link
    Then I should be directed to the internal "<relative_url>" URL
       And I should see "<page_title>" displayed in the page title

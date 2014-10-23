@@ -13,6 +13,10 @@ CONVENTIONAL_LOAN = "./conventional-loans"
 FHA_LOAN = "./FHA-loans"
 SPECIAL_LOAN = "./special-loan-programs"
 
+# HREF FOR RELATED  LINKS
+RELATED_FHA_LOAN = "../FHA-loans/"
+RELATED_SPECIAL = "../special-loan-programs/"
+
 # ELEMENTS ID
 LOAN_AMOUNT = "loan-amount-value"
 INTEREST_RATE = "loan-interest-value"
@@ -96,6 +100,10 @@ class LoanOptions(Base):
             e_href = FHA_LOAN
         elif(loan_type == 'Special programs'):
             e_href = SPECIAL_LOAN
+        elif(loan_type == 'Related Link FHA'):
+            e_href = RELATED_FHA_LOAN
+        elif(loan_type == 'Related Link Special Programs'):
+            e_href = RELATED_SPECIAL
         else:
             raise Exception(loan_type + " is NOT a valid Loan Type")
 

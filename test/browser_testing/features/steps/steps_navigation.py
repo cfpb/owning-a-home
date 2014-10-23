@@ -9,22 +9,25 @@ from pages.utils import Utils
 # XPATH LOCATORS
 
 # RELATIVE URL'S
-RELATIVE_URL_HOME = 'index.html'
-RELATIVE_URL_LC = 'loan-comparison'
-RELATIVE_URL_LT = 'loan-options'
-RELATIVE_URL_RC = 'rate-checker'
+HOME = 'index.html'
+LC = 'loan-comparison'
+LO = 'loan-options'
+CONV = 'loan-options/conventional-loans'
+RC = 'rate-checker'
 
 
 @given(u'I navigate to the "{page_name}" page')
 def step(context, page_name):
     if (page_name == 'Owning a Home'):
-        context.base.go(RELATIVE_URL_HOME)
+        context.base.go(HOME)
     elif (page_name == 'Loan Comparison'):
-        context.base.go(RELATIVE_URL_LC)
+        context.base.go(LC)
     elif (page_name == 'Loan Options'):
-        context.base.go(RELATIVE_URL_LT)
+        context.base.go(LO)
     elif (page_name == 'Rate Checker'):
-        context.base.go(RELATIVE_URL_RC)
+        context.base.go(RC)
+    elif (page_name == 'Conventional Loan'):
+        context.base.go(CONV)
     else:
         raise Exception(page_name + ' is NOT a valid page')
 
