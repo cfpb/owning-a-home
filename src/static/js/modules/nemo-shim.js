@@ -7,3 +7,6 @@ bodyTag.className += " js";
 $('.toggle-menu').on('click', function(){
     $('nav.main ul').toggleClass('vis');
 });
+
+window.$ = $;
+window.jQuery = $;
