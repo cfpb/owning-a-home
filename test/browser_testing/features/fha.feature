@@ -42,6 +42,6 @@ Scenario Outline: Test Related links in the Conventional Loan page
 
 Examples:
   | loan_type   	  				| relative_url								| page_title 	|
-  | Related Link Conventional 		| /loan-options/conventional-loans/ 		| Loan options  |
-  | Related Link Special Programs   | /loan-options/special-loan-programs/      | Loan options  |
+  | Related Link Conventional 		| /loan-options/conventional-loans/ 		| Loan Options  |
+  | Related Link Special Programs   | /loan-options/special-loan-programs/      | Loan Options  |
 
