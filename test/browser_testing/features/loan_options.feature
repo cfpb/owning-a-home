@@ -18,7 +18,7 @@ Examples:
   | Interest rate type      | Compare your interest rate options  |
   | Loan type 				      | Choosing the right loan type 		    |
 
-@smoke_testing @loan_options @ignore
+@smoke_testing @loan_options
 Scenario Outline: Click 'Collapse' to collapse sections
 	When I click Learn More to expand the "<section_name>" section
 		And I collapse the "<section_name>" section
@@ -30,7 +30,7 @@ Examples:
   | Interest rate type       |
   | Loan type 				       |
 
-@smoke_testing @loan_options @ignore
+@smoke_testing @loan_options
 Scenario Outline: Click 'Collapse <section_name>' to collapse sections
   When I click Learn More to expand the "<section_name>" section
     And I click on the "<link_name>" link
@@ -60,7 +60,7 @@ Scenario: Test OAH link in the Loan Options page
    Then I should be directed to the OAH Landing page
 
 
-@smoke_testing @loan_options1
+@smoke_testing @loan_options
 Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click Get all the details for "<loan_type>" loans
@@ -80,8 +80,8 @@ Scenario Outline: Expand 'Loan Types' section then click links inside the expand
   Then I should be directed to the external "<full_url>" URL
 
 Examples:
-  | link_name          | full_url                                                                    |
-  | Qualified Mortgage | http://www.consumerfinance.gov/askcfpb/1789/what-qualified-mortgage.html    |
+  | link_name          | full_url                                      |
+  | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    |
 
 @smoke_testing @loan_options
 Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
@@ -91,11 +91,11 @@ Scenario Outline: Expand 'Loan Term' section then click links inside the expande
 
 Examples:
   | link_name                      | full_url                                                                                                                                                   |
-  | principal and interest         | http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-  | Learn why                      | http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-  | Learn more                     | http://www.consumerfinance.gov/askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                        |
-  | Good Faith Estimates           | http://www.consumerfinance.gov/askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
-  | Learn more about balloon loans | http://www.consumerfinance.gov/askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
+  | principal and interest         | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
+  | Learn why                      | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
+  | Learn more                     | /askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                        |
+  | Good Faith Estimates           | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
+  | Learn more about balloon loans | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
 
 @smoke_testing @loan_options
 Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
@@ -105,17 +105,17 @@ Scenario Outline: Expand 'Loan Term' section then click links inside the expande
 
 Examples:   
   | link_name                                   | full_url                                                                                                                                                                          |
-  | increase or decrease based on the market    | http://www.consumerfinance.gov/askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
-  | payments can increase or decrease over time | http://www.consumerfinance.gov/askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
-  | total monthly payment                       | http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
-  | changes based on the market                 | http://www.consumerfinance.gov/askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
-  | could go up a lot                           | http://www.consumerfinance.gov/askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                                               |
-  | notified in advance                         | http://www.consumerfinance.gov/askcfpb/1843/i-received-notice-of-an-upcoming-rate-change-on-my-adjustable-rate-mortgage-ARM-why-did-i-receive-this-and-what-should-i-do-now.html  |
-  | specific rules                              | http://www.consumerfinance.gov/askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
-  | how your rate is calculated                 | http://www.consumerfinance.gov/askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
-  | how much your rate and payment can adjust   | http://www.consumerfinance.gov/askcfpb/1951/with-an-adjustable-rate-mortgage-arm-what-are-rate-caps-and-how-do-they-work.html                                                     |
-  | pre-payment penalties                       | http://www.consumerfinance.gov/askcfpb/1957/what-is-a-prepayment-penalty.html                                                                                                     |
-  | loan balances that can increase             | http://www.consumerfinance.gov/askcfpb/103/what-is-negative-amortization.html                                                                                                     |
+  | increase or decrease based on the market    | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
+  | payments can increase or decrease over time | /askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
+  | total monthly payment                       | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
+  | changes based on the market                 | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
+  | could go up a lot                           | /askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                                               |
+  | notified in advance                         | /askcfpb/1843/i-received-notice-of-an-upcoming-rate-change-on-my-adjustable-rate-mortgage-ARM-why-did-i-receive-this-and-what-should-i-do-now.html  |
+  | specific rules                              | /askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
+  | how your rate is calculated                 | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
+  | how much your rate and payment can adjust   | /askcfpb/1951/with-an-adjustable-rate-mortgage-arm-what-are-rate-caps-and-how-do-they-work.html                                                     |
+  | pre-payment penalties                       | /askcfpb/1957/what-is-a-prepayment-penalty.html                                                                                                     |
+  | loan balances that can increase             | /askcfpb/103/what-is-negative-amortization.html                                                                                                     |
 
 
 
