@@ -4,8 +4,16 @@ I want to navigate the home page
 So that I can find the information I'm looking for
 
 Background:
-   Given I navigate to the "Owning a Home" page
+   Given I navigate to the OAH Landing page
 
-@smoke_testing
-Scenario: First time visitor should see landing page by default
-    
+@smoke_testing @landing_page
+Scenario Outline: Testing valid email signup
+  When I enter "<email_address>"
+    And I click the Signup button
+  Then I should see "Thanks, we’ll be in touch!" displayed
+
+Examples:
+  | email_address         |
+  | test@yahoo.com        |
+  | test123@gmail.com     |
+  | mr.tester@github.com  |
