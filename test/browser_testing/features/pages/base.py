@@ -16,6 +16,15 @@ import time
 # DEFAULT VALUES
 default_driver_wait = 20
 
+# ELEMENT ID'S FOR TEXTBOXES
+EMAIL = "email"
+
+# ELEMENT ID'S FOR BUTTONS
+
+# XPATH LOCATORS
+EMAIL_LBL = "//form[@id='signup']/p"
+SIGNUP = "//button[text()='Sign up']"
+
 
 class Base(object):
     def __init__(self, logger, results_folder, base_url=r'http://localhost/',
@@ -67,3 +76,31 @@ class Base(object):
 
     def get_current_url(self):
         return (self.driver.current_url)
+
+    # EMAIL SIGNUP
+    def set_email_address(self, email_address):
+        element = self.driver.find_element_by_id(EMAIL)
+        element.send_keys(email_address)
+
+    def click_signup_button(self):
+        element = self.driver.find_element_by_xpath(SIGNUP)
+        element.click()
+
+    def get_email_label(self):
+        msg = 'Element %s not found after %s secs' % (EMAIL_LBL,
+                                                      self.driver_wait)
+        # Wait for the label to display
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.visibility_of_element_located((By.XPATH,
+                                                    EMAIL_LBL)), msg)
+        return element.text
+
+    def is_multiple_email_labels(self):
+        l_wait = 5
+        # If the list has > 1 elements then multiple labels are displayed
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(lambda s: len(s.find_elements(By.XPATH, EMAIL_LBL)) > 1)
+            return True
+        except TimeoutException:
+            return False

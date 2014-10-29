@@ -1,13 +1,13 @@
 Feature: verify the FHA Loan page works according to requirements
   As a first time visitor to the Owning a Home page
-  I want to navigate the Convetional Loan page
+  I want to navigate the FHA Loan page
   So that I can find the information I'm looking for
 
 Background:
    Given I navigate to the "FHA Loan" page
 
 @smoke_testing @loan_options
-Scenario Outline: Test inbound links in the Conventional Loan page
+Scenario Outline: Test inbound links in the FHA Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
@@ -20,8 +20,8 @@ Examples:
 
 
 
-@smoke_testing @loan_options
-Scenario Outline: Test outbound links in the Conventional Loan page
+@smoke_testing @loan_options @prod_only
+Scenario Outline: Test outbound links in the FHA Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the external "<full_url>" URL
 		And I should see "<page_title>" displayed in the page title
@@ -35,7 +35,7 @@ Examples:
 
 
 @smoke_testing @loan_options
-Scenario Outline: Test Related links in the Conventional Loan page
+Scenario Outline: Test Related links in the FHA Loan page
 	When I click Get all the details for "<loan_type>" loans
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
