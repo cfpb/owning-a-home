@@ -17,3 +17,15 @@ Examples:
   | test@yahoo.com        |
   | test123@gmail.com     |
   | mr.tester@github.com  |
+
+@smoke_testing @landing_page
+Scenario Outline: Testing multiple messages
+  When I enter "<email_address>"
+    And I click the Signup button
+    And I click the Signup button again
+    And I click the Signup button again
+  Then I should NOT see multiple "Thanks, we’ll be in touch!" messages displayed
+
+Examples:
+  | email_address         |
+  | test@yahoo.com        |
