@@ -36,7 +36,7 @@ Examples:
   | Find out if you're eligible.                | http://eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do    | Welcome                             |
   | this tool                                   | http://downpaymentresource.com/                                     | Down Payment Resource               |
   | local housing counselor                     | /find-a-housing-counselor/                                          | Find a housing counselor            |
-  | Learn more about mortgage insurance         | /1953/what-is-mortgage-insurance-and-how-does-it-work.html          | What is mortgage insurance and how does it work? |
+  | Learn more about mortgage insurance         | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html          | What is mortgage insurance and how does it work? |
 
 
 @smoke_testing @loan_options
