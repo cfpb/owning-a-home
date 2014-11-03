@@ -1,4 +1,5 @@
 var $ = require('jquery');
+require('./local-storage-polyfill');
 
 var megaExpand = function(ev, $header){
 
