@@ -12,7 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base import Base
 
 # ELEMENT ID'S FOR TEXTBOXES
-EMAIL = "email"
 DOWN_PAYMENT_AMOUNT_TBOX = "down-payment"  # DOWN PAYMENT AMOUNT TEXTBOX
 DOWN_PAYMENT_PERCENT = "percent-down"  # DOWN PAYMENT PERCENTAGE TEXTBOX
 HOUSE_PRICE_TBOX = "house-price"  # HOUSE PRICE TEXTBOX
@@ -30,14 +29,12 @@ LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
 SLIDER_RANGE_LABEL = "slider-range"
 
 # ELEMENT ID'S FOR BUTTONS
-SIGNUP = "beta-btn"
 
 # XPATH LOCATORS
 RATE_LOCATION = "//h2/*[@class ='location']"
 SLIDER_HANDLE = "//div[contains(@class, 'rangeslider__handle')]"
 SLIDER = "//div[@class = 'rangeslider']"
 RANGE_ALERT = "//div[@class='result-alert credit-alert']/p"
-EMAIL_LBL = "//form[@id='signup']/p"
 
 
 class RateChecker(Base):
@@ -48,34 +45,6 @@ class RateChecker(Base):
                                           driver, driver_wait, delay_secs)
         self.logger = logger
         self.driver_wait = driver_wait
-
-    # EMAIL SIGNUP
-    def set_email_address(self, email_address):
-        element = self.driver.find_element_by_id(EMAIL)
-        element.send_keys(email_address)
-
-    def click_signup_button(self):
-        element = self.driver.find_element_by_id(SIGNUP)
-        element.click()
-
-    def get_email_label(self):
-        msg = 'Element %s not found after %s secs' % (EMAIL_LBL,
-                                                      self.driver_wait)
-        # Wait for the label to display
-        element = WebDriverWait(self.driver, self.driver_wait)\
-            .until(EC.visibility_of_element_located((By.XPATH,
-                                                    EMAIL_LBL)), msg)
-        return element.text
-
-    def is_multiple_email_labels(self):
-        l_wait = 5
-        # If the list has > 1 elements then multiple labels are displayed
-        try:
-            WebDriverWait(self.driver, l_wait)\
-                .until(lambda s: len(s.find_elements(By.XPATH, EMAIL_LBL)) > 1)
-            return True
-        except TimeoutException:
-            return False
 
     # ALERTS
     def get_warning_button(self):

@@ -2,6 +2,7 @@ var $ = require('jquery');
 var debounce = require('debounce');
 var payment = require('./payment-calc');
 var interest = require('./total-interest-calc');
+var formatUSD = require('format-usd');
 require('./local-storage-polyfill');
 require('./mega-expand');
 require('./secondary-nav');
@@ -26,7 +27,9 @@ var loanToggle = function() {
   var termLength = $('.term-timeline .current').data('term'),
       loanAmt = $('#loan-amount-value').val(),
       // parseFloat to ingnore % signs
-      loanRate = parseFloat($('#loan-interest-value').val());
+      loanRate = parseFloat($('#loan-interest-value').val()),
+      // store a USD formatted version
+      formatted = formatUSD(loanAmt, {decimalPlaces: 0});
 
   // convert a currency string to an integer
   loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
@@ -41,6 +44,7 @@ var loanToggle = function() {
   // add calculations to the dom
   $('#monthly-payment').html(monthlyPayment);
   $('#total-interest').html(totalInterest);
+  $('#loan-amount-value').val(formatted);
 
 };
 
