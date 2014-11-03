@@ -1,4 +1,4 @@
-Feature: verify the navigation tabs works according to requirements
+Feature: verify the navigation tabs/links works according to requirements
   As a first time visitor to the Owning a Home page
   I want to click on invidual tabs and links
   So that I can easily navigate the site
@@ -26,8 +26,8 @@ Scenario Outline: Test outbound links in the landing page
       And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | link_name                                       | page_title               | full_url                                                                                |
-  | Find a HUD-approved housing counselor           | Find a housing counselor | http://www.consumerfinance.gov/find-a-housing-counselor/                                |
-  | Get answers to common questions                 | Mortgages                | http://www.consumerfinance.gov/askcfpb/search/?selected_facets=category_exact:mortgages |
-  | Submit a mortgage complaint                     | Submit a complaint       | http://www.consumerfinance.gov/complaint/#mortgage                                      |
-  | Learn how CFPB is protecting mortgage borrowers | Mortgages                | http://www.consumerfinance.gov/mortgage/                                                |
+  | link_name                                       | page_title               | full_url                                                   |
+ #| Find a HUD-approved housing counselor           | Find a housing counselor | http://www.consumerfinance.gov/find-a-housing-counselor/   |
+  | Get answers to common questions                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
+  | Submit a mortgage complaint                     | Submit a complaint       | /complaint/#mortgage                                       |
+  | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/                                                 |

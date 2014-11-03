@@ -16,6 +16,7 @@ SPECIAL_LOAN = "./special-loan-programs"
 # HREF FOR RELATED  LINKS
 RELATED_FHA_LOAN = "../FHA-loans/"
 RELATED_SPECIAL = "../special-loan-programs/"
+RELATED_CONV = "../conventional-loans/"
 
 # ELEMENTS ID
 LOAN_AMOUNT = "loan-amount-value"
@@ -25,8 +26,7 @@ INTEREST_RATE = "loan-interest-value"
 LOAN_TERM_EXPAND = "#loan-term-expand-toggle"
 LOAN_TERM_COLLAPSE = "#loan-term-expand-header + .expandable-content" + \
     ".expandable-hidden[style='display: block;'] .expand-close-link"
-LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content." + \
-    "expandable-hidden[style='display: block;'] .tight-heading"
+LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content.expandable-hidden[style='display: block;'] .tight-heading"
 
 INTEREST_RATE_EXPAND = "#interest-rate-expand-toggle"
 INTEREST_RATE_STRUCTURE_SUBSECTION = "#interest-rate-expand-header + " + \
@@ -77,15 +77,18 @@ class LoanOptions(Base):
     def click_collapse(self, page_section):
         if(page_section == 'Loan term'):
             e_css = LOAN_TERM_COLLAPSE
+            e_expand = LOAN_TERM_EXPAND
         elif(page_section == 'Interest rate type'):
             e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_expand = INTEREST_RATE_EXPAND
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_COLLAPSE
+            e_expand = LOAN_TYPE_EXPAND
         else:
             raise Exception(page_section + " is NOT a valid section")
 
         msg = 'Element %s not found after %s secs' % (e_css, self.driver_wait)
-        # Wait for the collapse button to appear
+        # Wait for the collapse button to appear before clicking it
         element = WebDriverWait(self.driver, self.driver_wait)\
             .until(EC.element_to_be_clickable((By.CSS_SELECTOR, e_css)), msg)
 
@@ -104,6 +107,8 @@ class LoanOptions(Base):
             e_href = RELATED_FHA_LOAN
         elif(loan_type == 'Related Link Special Programs'):
             e_href = RELATED_SPECIAL
+        elif(loan_type == 'Related Link Conventional'):
+            e_href = RELATED_CONV
         else:
             raise Exception(loan_type + " is NOT a valid Loan Type")
 

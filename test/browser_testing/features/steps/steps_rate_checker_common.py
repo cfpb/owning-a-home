@@ -19,18 +19,18 @@ def step(context, email_address):
 @when(u'I click the Signup button')
 @when(u'I click the Signup button again')
 def step(context):
-    context.rate_checker.click_signup_button()
+    context.base.click_signup_button()
 
 
 @then(u'I should see "{expected_text}" displayed')
 def step(context, expected_text):
-    actual_text = context.rate_checker.get_email_label()
+    actual_text = context.base.get_email_label()
     assert_that(actual_text, equal_to(expected_text))
 
 
 @then(u'I should NOT see multiple "{expected_text}" messages displayed')
 def step(context, expected_text):
-    multiple_labels = context.rate_checker.is_multiple_email_labels()
+    multiple_labels = context.base.is_multiple_email_labels()
     assert_that(multiple_labels, equal_to(False), 'Multiple messages found')
 
 

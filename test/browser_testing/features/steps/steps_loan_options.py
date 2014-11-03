@@ -35,6 +35,7 @@ def step(context, expected_text, section_name):
 
 @then(u'I should NOT see the "{section_name}" section expanded')
 def step(context, section_name):
+    context.base.sleep(2)
     actual_text = context.loan_options.get_subsection_text(section_name)
     assert_that(actual_text, equal_to('Section NOT visible'))
 
