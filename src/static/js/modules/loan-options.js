@@ -3,6 +3,7 @@ var debounce = require('debounce');
 var payment = require('./payment-calc');
 var interest = require('./total-interest-calc');
 var formatUSD = require('format-usd');
+var unformatUSD = require('unformat-usd')
 require('./local-storage-polyfill');
 require('./mega-expand');
 require('./secondary-nav');
@@ -30,9 +31,8 @@ var loanToggle = function() {
       loanRate = parseFloat($('#loan-interest-value').val()),
       // store a USD formatted version
       formatted = formatUSD(loanAmt, {decimalPlaces: 0});
-
   // convert a currency string to an integer
-  loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
+  loanAmt = unformatUSD(loanAmt);
 
   // convert the term length to months
   termLength = termLength * 12;
