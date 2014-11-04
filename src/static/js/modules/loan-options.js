@@ -25,15 +25,18 @@ $timelineLinks.on( 'click', function(e) {
 var loanToggle = function() {
 
   // get loan values
-  var termLength = $('.term-timeline .current').data('term'),
-      loanAmt = $('#loan-amount-value').val(),
-      // parseFloat to ingnore % signs
-      loanRate = parseFloat($('#loan-interest-value').val()),
-      // store a USD formatted version
-      formatted = formatUSD(loanAmt, {decimalPlaces: 0});
+  var termLength = $('.term-timeline .current').data('term');
+  
+  // parseFloat to ingnore % signs, Use placeholder if field is blank
+  var loanAmt = ( $('#loan-amount-value').val() );
+  if ( loanAmt === "" )  loanAmt = $('#loan-amount-value').attr('placeholder');
+  var loanRate = parseFloat( $('#loan-interest-value').val() );
+  if ( $('#loan-interest-value').val() === "" ) loanRate = parseFloat( $('#loan-interest-value').attr('placeholder') );
+
+  // store a USD formatted version
+  var formatted = formatUSD(loanAmt, {decimalPlaces: 0});
   // convert a currency string to an integer
   loanAmt = unformatUSD(loanAmt);
-
   // convert the term length to months
   termLength = termLength * 12;
 
