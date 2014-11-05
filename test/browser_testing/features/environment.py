@@ -126,8 +126,7 @@ def after_all(context):
                            (context.sauce_config['username'],
                             context.base.driver.session_id),
                            body_content,
-                           headers={"Authorization": "Basic %s" %
-                                    base64string})
+                           headers={"Authorization": "Basic %s" % base64string})
         result = connection.getresponse()
         context.logger.info(result.read())
         context.logger.info("Sauce update status: %s" % result.status)

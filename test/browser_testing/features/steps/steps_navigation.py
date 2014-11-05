@@ -1,3 +1,4 @@
+# coding: utf-8
 from behave import given, when, then
 from hamcrest.core import assert_that, equal_to
 from hamcrest.library.text.stringcontains import contains_string
@@ -32,7 +33,7 @@ def step(context, page_name):
         context.base.go(CONV)
     elif (page_name == 'FHA Loan'):
         context.base.go(FHA)
-    elif (page_name == 'Special Loan Progams'):
+    elif (page_name == 'Special Loan Programs'):
         context.base.go(SPECIAL)
     else:
         raise Exception(page_name + ' is NOT a valid page')

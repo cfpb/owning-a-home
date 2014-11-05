@@ -4,7 +4,7 @@ Feature: verify the Special Programs Loan page works according to requirements
   So that I can find the information I'm looking for
 
 Background:
-   Given I navigate to the "Special Loan Progams" page
+   Given I navigate to the "Special Loan Programs" page
 
 @smoke_testing @loan_options
 Scenario Outline: Test inbound links in the Special Programs Loan page
@@ -14,10 +14,11 @@ Scenario Outline: Test inbound links in the Special Programs Loan page
 
 Examples:
   | link_name       	  		     | relative_url											                      | page_title 	  |
+  | Owning a Home              | /                                                      | Owning a Home |
   | conventional               	 | loan-options/conventional-loans/                       | Loan Options  |
   | FHA                          | loan-options/FHA-loans/                                | Loan Options  |
   | conventional loans           | loan-options/conventional-loans/                       | Loan Options  |
-  | Learn more below             | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
+  | More on mortgage insurance   | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
   | mortgage insurance           | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
 
 @smoke_testing @loan_options @prod_only

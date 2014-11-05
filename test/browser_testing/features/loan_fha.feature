@@ -13,10 +13,11 @@ Scenario Outline: Test inbound links in the FHA Loan page
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | link_name       	  		| relative_url											| page_title 	|
-  | Understanding loan options 	| /loan-options/  	    								| Loan Options  |
-  | conventional loans 			| /loan-options/conventional-loans/ 					| Loan Options  |
-  | Learn more below 			| /loan-options/FHA-loans/#mortgage-insurance 			| Loan Options  |
+  | link_name       	  	     | relative_url											            | page_title 	  |
+  | Owning a Home              | /                                                      | Owning a Home |
+  | Understanding loan options | /loan-options/  	    								        | Loan Options  |
+  | conventional loans 			   | /loan-options/conventional-loans/ 					  | Loan Options  |
+  | More on mortgage insurance | /loan-options/FHA-loans/#mortgage-insurance  | Loan Options  |
 
 
 
