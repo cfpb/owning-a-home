@@ -1,0 +1,3 @@
+[submodule "jmeter-bootstrap"]
+	path = test/jmeter-bootstrap
+	url = https://github.com/cfpb/jmeter-bootstrap.git
