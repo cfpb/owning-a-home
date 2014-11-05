@@ -10,30 +10,6 @@ from pages.base import Base
 from pages.screenshot import Screenshot
 
 
-# EMAIL SIGNUP
-@when(u'I enter "{email_address}"')
-def step(context, email_address):
-    context.rate_checker.set_email_address(email_address)
-
-
-@when(u'I click the Signup button')
-@when(u'I click the Signup button again')
-def step(context):
-    context.base.click_signup_button()
-
-
-@then(u'I should see "{expected_text}" displayed')
-def step(context, expected_text):
-    actual_text = context.base.get_email_label()
-    assert_that(actual_text, equal_to(expected_text))
-
-
-@then(u'I should NOT see multiple "{expected_text}" messages displayed')
-def step(context, expected_text):
-    multiple_labels = context.base.is_multiple_email_labels()
-    assert_that(multiple_labels, equal_to(False), 'Multiple messages found')
-
-
 # CHART AREA
 @then(u'I should see the selected "{state_name}" above the Rate Checker chart')
 @then(u'I should see the lender rate offered to "{state_name}" residents')

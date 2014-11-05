@@ -26,7 +26,8 @@ INTEREST_RATE = "loan-interest-value"
 LOAN_TERM_EXPAND = "#loan-term-expand-toggle"
 LOAN_TERM_COLLAPSE = "#loan-term-expand-header + .expandable-content" + \
     ".expandable-hidden[style='display: block;'] .expand-close-link"
-LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content.expandable-hidden[style='display: block;'] .tight-heading"
+LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content" + \
+    ".expandable-hidden[style='display: block;'] .tight-heading"
 
 INTEREST_RATE_EXPAND = "#interest-rate-expand-toggle"
 INTEREST_RATE_STRUCTURE_SUBSECTION = "#interest-rate-expand-header + " + \
@@ -55,24 +56,41 @@ class LoanOptions(Base):
         self.driver_wait = driver_wait
 
     def click_learn_more(self, page_section):
+        l_wait = 2  # Local Wait
+
         if(page_section == 'Loan term'):
-            e = self.driver.find_element_by_css_selector(LOAN_TERM_EXPAND)
-            e_css = LOAN_TERM_COLLAPSE
+            e_expand = LOAN_TERM_EXPAND
+            e_collapse = LOAN_TERM_COLLAPSE
         elif(page_section == 'Interest rate type'):
-            e = self.driver.find_element_by_css_selector(INTEREST_RATE_EXPAND)
-            e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_expand = INTEREST_RATE_EXPAND
+            e_collapse = INTEREST_RATE_STRUCTURE_COLLAPSE
         elif(page_section == 'Loan type'):
-            e = self.driver.find_element_by_css_selector(LOAN_TYPE_EXPAND)
-            e_css = LOAN_TYPE_COLLAPSE
+            e_expand = LOAN_TYPE_EXPAND
+            e_collapse = LOAN_TYPE_COLLAPSE
         else:
             raise Exception(page_section + " is NOT a valid section")
 
-        e.click()
+        # If the collapse link is visible,
+        # Then the Learn More pane is already expanded
+        try:
+            msg = 'Element %s not found after %s secs' % (e_collapse, l_wait)
+            element = WebDriverWait(self.driver, l_wait)\
+                .until(EC.element_to_be_clickable((By.CSS_SELECTOR, e_collapse)), msg)
 
-        msg = 'Element %s not found after %s secs' % (e_css, self.driver_wait)
+        except TimeoutException:
+            e = self.driver.find_element_by_css_selector(e_expand)
+            # scroll the element into view so it can be
+            # observed with SauceLabs screencast
+            script = "arguments[0].scrollIntoView(true);"
+            self.driver.execute_script(script, e)
+            e.click()
+
         # Wait for the collapse button to appear
+        msg = 'Element %s not found after %s secs' % (e_collapse,
+                                                      self.driver_wait)
         element = WebDriverWait(self.driver, self.driver_wait)\
-            .until(EC.element_to_be_clickable((By.CSS_SELECTOR, e_css)), msg)
+            .until(EC.element_to_be_clickable
+                   ((By.CSS_SELECTOR, e_collapse)), msg)
 
     def click_collapse(self, page_section):
         if(page_section == 'Loan term'):

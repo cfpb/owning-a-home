@@ -101,10 +101,10 @@ Examples:
 Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
   When I click Learn More to expand the "Interest rate type" section
     And I click on the "<link_name>" link
-  Then I should be directed to the external "<full_url>" URL
+  Then I should be directed to the external "<relative_url>" URL
 
 Examples:   
-  | link_name                                   | full_url                                                                                                                                                                          |
+  | link_name                                   | relative_url                                                                                                                                        |
   | increase or decrease based on the market    | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
   | payments can increase or decrease over time | /askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
   | total monthly payment                       | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
@@ -131,7 +131,7 @@ Scenario Outline: Expand 'Loan Term' section then click links inside the expande
 
 Examples:
   | link_name          | relative_url                                    |
-  | loan term          | loan-options/#loan-term-expand-header           |
+ #| loan term          | loan-options/#loan-term-expand-header           |
   | FHA loan           | loan-options/FHA-loans/                         |
 
 
