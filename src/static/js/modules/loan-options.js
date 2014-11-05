@@ -25,20 +25,31 @@ $timelineLinks.on( 'click', function(e) {
 var loanToggle = function() {
 
   // get loan values
-  var termLength = $('.term-timeline .current').data('term');
+  var termLength = $('.term-timeline .current').data('term'),
+    loanAmt = ( $('#loan-amount-value').val() ),
+    // remove non-numeric characters (excluding period) from loanRate then parseFloat
+    loanRate = parseFloat( $('#loan-interest-value').val().replace(/[^\d.]+/g,'') ),
+    // store a USD formatted version
+    formatted = formatUSD(loanAmt, {decimalPlaces: 0});
   
-  // parseFloat to ingnore % signs, Use placeholder if field is blank
-  var loanAmt = ( $('#loan-amount-value').val() );
-  if ( loanAmt === "" )  loanAmt = $('#loan-amount-value').attr('placeholder');
-  var loanRate = parseFloat( $('#loan-interest-value').val() );
-  if ( $('#loan-interest-value').val() === "" ) loanRate = parseFloat( $('#loan-interest-value').attr('placeholder') );
+  // If field is blank (for instance, when page loads), use placeholder value
+  if ( loanAmt === "" )  {
+    loanAmt = $('#loan-amount-value').attr('placeholder');
+    formatted = formatUSD(loanAmt, {decimalPlaces: 0});
+  }
+  if ( $('#loan-interest-value').val() === "" ) {
+    loanRate = parseFloat( $('#loan-interest-value').attr('placeholder') );
+  }
 
-  // store a USD formatted version
-  var formatted = formatUSD(loanAmt, {decimalPlaces: 0});
   // convert a currency string to an integer
   loanAmt = unformatUSD(loanAmt);
   // convert the term length to months
   termLength = termLength * 12;
+
+  //if loanRate is still NaN, set it to 0 to prevent error in calculations
+  if ( isNaN( loanRate ) ) {
+    loanRate = 0;
+  }
 
   // perform calculations
   var monthlyPayment = payment(loanRate, termLength, loanAmt),
@@ -47,7 +58,9 @@ var loanToggle = function() {
   // add calculations to the dom
   $('#monthly-payment').html(monthlyPayment);
   $('#total-interest').html(totalInterest);
+  // replace inputs with clean, formatted values
   $('#loan-amount-value').val(formatted);
+  $('#loan-interest-value').val(loanRate + "%")
 
 };
 
