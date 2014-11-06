@@ -3,6 +3,7 @@ var debounce = require('debounce');
 var payment = require('./payment-calc');
 var interest = require('./total-interest-calc');
 var formatUSD = require('format-usd');
+var unformatUSD = require('unformat-usd')
 require('./local-storage-polyfill');
 require('./mega-expand');
 require('./secondary-nav');
@@ -25,17 +26,30 @@ var loanToggle = function() {
 
   // get loan values
   var termLength = $('.term-timeline .current').data('term'),
-      loanAmt = $('#loan-amount-value').val(),
-      // parseFloat to ingnore % signs
-      loanRate = parseFloat($('#loan-interest-value').val()),
-      // store a USD formatted version
-      formatted = formatUSD(loanAmt, {decimalPlaces: 0});
+    loanAmt = ( $('#loan-amount-value').val() ),
+    // remove non-numeric characters (excluding period) from loanRate then parseFloat
+    loanRate = parseFloat( $('#loan-interest-value').val().replace(/[^\d.]+/g,'') ),
+    // store a USD formatted version
+    formatted = formatUSD(loanAmt, {decimalPlaces: 0});
+  
+  // If field is blank (for instance, when page loads), use placeholder value
+  if ( loanAmt === "" )  {
+    loanAmt = $('#loan-amount-value').attr('placeholder');
+    formatted = formatUSD(loanAmt, {decimalPlaces: 0});
+  }
+  if ( $('#loan-interest-value').val() === "" ) {
+    loanRate = parseFloat( $('#loan-interest-value').attr('placeholder') );
+  }
 
   // convert a currency string to an integer
-  loanAmt = Number(loanAmt.replace(/[^0-9\.]+/g,''));
-
+  loanAmt = unformatUSD(loanAmt);
   // convert the term length to months
   termLength = termLength * 12;
+
+  //if loanRate is still NaN, set it to 0 to prevent error in calculations
+  if ( isNaN( loanRate ) ) {
+    loanRate = 0;
+  }
 
   // perform calculations
   var monthlyPayment = payment(loanRate, termLength, loanAmt),
@@ -44,7 +58,9 @@ var loanToggle = function() {
   // add calculations to the dom
   $('#monthly-payment').html(monthlyPayment);
   $('#total-interest').html(totalInterest);
+  // replace inputs with clean, formatted values
   $('#loan-amount-value').val(formatted);
+  $('#loan-interest-value').val(loanRate + "%")
 
 };
 
