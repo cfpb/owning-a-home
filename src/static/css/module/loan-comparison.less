@@ -8,13 +8,13 @@
 }
 
 .comparison-input-column {
-  .column( 3 );
+  .grid_column( 3 );
   &-a {
-    .column( 6 );
+    .grid_column( 6 );
   }
   &-b,
   &-c {
-    .column( 3 );
+    .grid_column( 3 );
     .input-wrap {
       width: 100%;
     }
@@ -38,11 +38,11 @@
 @media (max-width: 600px) {
 
   .comparison-input-column {
-    .column( 3 );
+    .grid_column( 3 );
     &-a,
     &-b,
     &-c {
-      .column( 12 );
+      .grid_column( 12 );
     }
   }
 
@@ -89,11 +89,11 @@
 
   .comparison-input-column-1,
   .comparison-input-column {
-    .column( 12 ); // this will have to change when we have two loans
+    .grid_column( 12 ); // this will have to change when we have two loans
   }
 
   .comparison-lead {
-    .column( 6 );
+    .grid_column( 6 );
   }
 
   .inactive {
@@ -117,7 +117,7 @@
 
   // display mobile overview on small screens
   .mobile-overview {
-    .column(6);
+    .grid_column(6);
     padding-top: 1em;
     padding-bottom: 1em;
 
@@ -164,7 +164,7 @@
 
   li {
     .wrapper;
-    .column(3);
+    .grid_column(3);
     text-align: center;
     padding: 1em 0;
   }
@@ -187,18 +187,18 @@
   }
 
   .label-float {
-    .column(6);
+    .grid_column(6);
     text-align: right;
   }
 
   .input-wrap {
-    .column(6);
+    .grid_column(6);
   }
 
   // todo: layout all headings
   .lc-comparison-a .comparison-header {
     display: inline-block;
-   .push(3);
+   .grid_push(3);
   }
 }
 
@@ -369,7 +369,7 @@
 
 .result-heading {
   color: @gray;
-  .push(2);
+  .grid_push(2);
 }
 
 .results-section {
@@ -396,7 +396,7 @@
 
   .results-section-heading,
   .lc-result {
-    .column(3);
+    .grid_column(3);
   }
 
   .results-section-heading {
@@ -416,7 +416,7 @@
 
   .lc-primary-result,
   .lc-result {
-    .column(6);
+    .grid_column(6);
   }
 
   // we never want to show loan c on small screens

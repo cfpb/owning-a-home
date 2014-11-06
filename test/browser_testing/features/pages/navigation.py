@@ -14,7 +14,8 @@ class Navigation(Base):
                                          driver, driver_wait, delay_secs)
 
     def click_link(self, link_text):
-        element = self.driver.find_element_by_link_text(link_text)
+        xpath = "//a[contains(text(),'" + link_text + "')]"
+        element = self.driver.find_element_by_xpath(xpath)
 
         # scroll the element into view so it can be
         # observed with SauceLabs screencast

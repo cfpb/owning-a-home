@@ -15,20 +15,20 @@
     --------------------------- */
 
 .calculator {
-  .column( 4 );
-  .push(8);
+  .grid_column( 4 );
+  .grid_push( 8 );
 }
 
 .rc-results {
-  .column( 8 );
-  .pull(4);
+  .grid_column( 8 );
+  .grid_pull( 4 );
 }
 
 @media (max-width: 720px) {
   .calculator,
   .rc-results {
-    .column( 12 );
-    .push( 0 );
+    .grid_column( 12 );
+    .grid_push( 0 );
   }
 }
 
@@ -344,7 +344,7 @@
 }
 
 .rate-compare-container {
-  .column( 6 );
+  .grid_column( 6 );
   position: relative;
   margin-bottom: 10px;
 }
@@ -432,7 +432,7 @@
 
 @media (max-width: 1000px) {
   .flex-input {
-    .column(12);
+    .grid_column(12);
   }
 
   .new-cost {

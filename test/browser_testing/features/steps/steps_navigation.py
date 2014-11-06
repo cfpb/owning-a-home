@@ -1,3 +1,4 @@
+# coding: utf-8
 from behave import given, when, then
 from hamcrest.core import assert_that, equal_to
 from hamcrest.library.text.stringcontains import contains_string
@@ -14,6 +15,8 @@ LC = 'loan-comparison'
 LO = 'loan-options'
 CONV = 'loan-options/conventional-loans'
 RC = 'rate-checker'
+FHA = 'loan-options/FHA-loans'
+SPECIAL = 'loan-options/special-loan-programs'
 
 
 @given(u'I navigate to the "{page_name}" page')
@@ -28,6 +31,10 @@ def step(context, page_name):
         context.base.go(RC)
     elif (page_name == 'Conventional Loan'):
         context.base.go(CONV)
+    elif (page_name == 'FHA Loan'):
+        context.base.go(FHA)
+    elif (page_name == 'Special Loan Programs'):
+        context.base.go(SPECIAL)
     else:
         raise Exception(page_name + ' is NOT a valid page')
 
@@ -67,7 +74,7 @@ def step(context, relative_url):
 @then(u'I should be directed to the external "{full_url}" URL')
 def step(context, full_url):
     actual_url = context.base.get_current_url()
-    assert_that(actual_url, equal_to(full_url))
+    assert_that(actual_url, contains_string(full_url))
 
 
 @then(u'I should be directed to the OAH Landing page')
