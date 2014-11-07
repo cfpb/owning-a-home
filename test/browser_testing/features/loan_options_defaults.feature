@@ -8,7 +8,7 @@ Background:
 
 @smoke_testing @loan_options
 Scenario: Click 'Learn More' to expand sections
-	When I click Learn More to expand the "Loan term" section
-  Then I should see "$200,000" as the default loan amount
-    And I should see "5%" as the default interest rate
-    And I should see "30" years as the default loan term
+   When I click Learn More to expand the "Loan term" section
+   Then I should see "$200,000" as the default loan amount
+	    And I should see "5%" as the default interest rate
+        And I should see "30" years as the default loan term
