@@ -6,42 +6,42 @@ Feature: Test the Rate Checker fields default to the correct values
 Background:
   Given I navigate to the "Rate Checker" page
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default credit score range
   Then I should see the Credit Score Range displayed as "700 - 720"
  
-@smoke_testing @rc
+@rate_checker
 Scenario: Default location
   Then I should see "District of Columbia" as the selected location 
 
-@smoke_testing @rc  
+@rate_checker  
 Scenario: Default Rate Structure
   Then I should see "Fixed" as the selected Rate Structure
 
-@smoke_testing @rc  
+@rate_checker  
 Scenario: Default Loan Term
   Then I should see "30 Years" as the selected Loan Term
 
-@smoke_testing @rc  
+@rate_checker  
 Scenario: Default Loan Type
   Then I should see "Conventional" as the selected Loan Type
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default House price
   Then I should see $"200,000" as the House price
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default Down Payment amount
   Then I should see $"20,000" as Down Payment amount
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default Down Payment percent
   Then I should see "10" as Down Payment percent
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default loan amount
   Then I should see "$180,000" as Loan Amount
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Default tab
   Then I should see the "I plan to buy in the next couple of months" tab selected

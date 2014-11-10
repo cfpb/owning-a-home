@@ -6,12 +6,12 @@ Feature: verify the Rate Checker tool works according to requirements
 Background:
   Given I navigate to the "Rate Checker" page
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Select the ARM Type
   When I select "Adjustable" Rate Structure
   Then I should see "3/1" as the selected ARM Type
 
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Select Fixed Rate loans for different loan types and terms
   When I select "<rate_structure>" Rate Structure
   	And I select "<loan_type>" Loan Type
@@ -28,7 +28,7 @@ Examples:
   | Fixed 			     | VA 		      | 30 	      |
   | Fixed 			     | VA 		      | 15 	      |
  
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Select Fixed Rate loans for different loan types and terms
   When I select "<rate_structure>" Rate Structure
   	And I select "<loan_type>" Loan Type
@@ -40,7 +40,7 @@ Examples:
   | rate_structure    | loan_type    | loan_term    | fixed_years |
   | Adjustable 		    | Conventional | 30           | 3 	        |
 
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Select Adjustable rate and verify that ONLY 30 Year loan term can be selected
   When I select "Adjustable" Rate Structure
   Then Loan type option "<loan_type>" should be "<option_state>"
@@ -50,7 +50,7 @@ Examples:
    | Conventional | enabled      |
    | FHA 		      | disabled     |
 
-@smoke_testing @rc1
+@rate_checker1
 Scenario Outline: Select Adjustable rate and verify that ONLY Conventional loan type can be selected
   When I select "Adjustable" Rate Structure
   Then Loan term option "<loan_term>" should be "<option_state>"

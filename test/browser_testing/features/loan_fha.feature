@@ -21,18 +21,18 @@ Examples:
 
 
 
-@smoke_testing @loan_options @prod_only
+@loan_options @prod_only
 Scenario Outline: Test outbound links in the FHA Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the external "<full_url>" URL
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | link_name       	  											  | full_url		 																  | page_title 							  |
-  | Federal Housing Administration									  | http://portal.hud.gov/hudportal/HUD?src=/federal_housing_administration  		  | Federal Housing Administration 		  |
-  | Learn your FHA loan limit 										  | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html 	  | Consumer Financial Protection Bureau  |
-  | Learn more about mortgage insurance 							  | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				  | Consumer Financial Protection Bureau  |
-  | How can I find the loan limit for an FHA loan in my county?       | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html     | Consumer Financial Protection Bureau  |
+  | link_name       	  											                  | full_url		 																                                  | page_title 							              |
+  | Federal Housing Administration									            | http://portal.hud.gov/hudportal/HUD?src=/federal_housing_administration  		  | Federal Housing Administration 		    |
+  | Learn your FHA loan limit 										              | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
+  | Learn more about mortgage insurance 							          | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				    | Consumer Financial Protection Bureau  |
+  | How can I find the loan limit for an FHA loan in my county? | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
 
 
 @smoke_testing @loan_options
@@ -42,7 +42,7 @@ Scenario Outline: Test Related links in the FHA Loan page
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | loan_type   	  				| relative_url								| page_title 	|
-  | Related Link Conventional 		| /loan-options/conventional-loans/ 		| Loan Options  |
+  | loan_type   	  				        | relative_url								              | page_title 	|
+  | Related Link Conventional 		  | /loan-options/conventional-loans/ 		    | Loan Options  |
   | Related Link Special Programs   | /loan-options/special-loan-programs/      | Loan Options  |
 

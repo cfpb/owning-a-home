@@ -19,7 +19,7 @@ Examples:
   | FHA loans 					       | /loan-options/FHA-loans/ 								              | Loan Options  |
   | More on mortgage insurance | /loan-options/conventional-loans/#mortgage-insurance	  | Loan Options  |
 
-@smoke_testing @loan_options @prod_only
+@loan_options @prod_only
 Scenario Outline: Test outbound links in the Conventional Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the external "<full_url>" URL
@@ -43,10 +43,6 @@ Scenario Outline: Test Related links in the Conventional Loan page
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | loan_type   	  				| relative_url								| page_title 	|
-  | Related Link FHA 				| /loan-options/FHA-loans/ 					| Loan Options  |
-  | Related Link Special Programs 	| /loan-options/special-loan-programs/ 		| Loan Options  |
-
-
-
-
+  | loan_type   	  				        | relative_url							             | page_title    |
+  | Related Link FHA 				        | /loan-options/FHA-loans/ 					     | Loan Options  |
+  | Related Link Special Programs	  | /loan-options/special-loan-programs/ 	 | Loan Options  |
