@@ -6,7 +6,7 @@ Feature: test the Rate Checker inbound and outbound links
 Background:
   Given I navigate to the "Rate Checker" page
 
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Click outbound links
   When I click on the "<link_name>" link in the Rate Checker page
   Then I should see "<page_title>" displayed in the page title
@@ -22,7 +22,7 @@ Examples:
   | credit report                           | Annual Credit Report.com                    	 |
   | get them corrected                      | How do I dispute an error on my credit report? |
 
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Click outbound links inside tab page
   When I click on the "I won’t buy for several months" tab in the Rate Checker page
     And I click on the "<link_name>" link in the Rate Checker page
@@ -34,7 +34,7 @@ Examples:
   | Learn about improving your credit score | How do I get and keep a good credit score?  |
   | Learn more about down payments          | What kind of down payment do I need?        |
 
-@smoke_testing @rc
+@rate_checker
 Scenario: Click internal links
   When I click on the "About our data source" link in the Rate Checker page
   Then I should see the page scroll to the "#about" section

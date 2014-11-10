@@ -6,7 +6,7 @@ So that I can find the information I'm looking for
 Background:
    Given I navigate to the OAH Landing page
 
-@smoke_testing @landing_page
+@smoke_testing @landing_page @email_signup
 Scenario Outline: Testing valid email signup
   When I enter "<email_address>"
     And I click the Signup button
@@ -18,7 +18,7 @@ Examples:
   | test123@gmail.com     |
   | mr.tester@github.com  |
 
-@smoke_testing @landing_page
+@landing_page @email_signup
 Scenario Outline: Testing multiple messages
   When I enter "<email_address>"
     And I click the Signup button

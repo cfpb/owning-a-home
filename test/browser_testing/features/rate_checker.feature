@@ -30,7 +30,7 @@ Examples:
   | email_address        |
   | test.abc@yahoo.com   |
 
-@smoke_testing @rc
+@rate_checker
 Scenario Outline: Test selecting different states
   When I select "<state_name>" from the Location dropdown list
   Then I should see the selected "<state_name>" above the Rate Checker chart
@@ -41,7 +41,7 @@ Examples:
   | California			|
   | Virginia		    |
 
-@rc @ignore
+@rate_checker @ignore
 Scenario: Test all dropdown lists in the Rate Checker page
   When I select "Adjustable" Rate Structure
     And I select "7/1" ARM Type

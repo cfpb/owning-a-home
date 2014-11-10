@@ -6,33 +6,33 @@ Feature: Test the "Credit score range" slider
 Background:
   Given I navigate to the "Rate Checker" page
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Decrease credit score range
   When I move the credit score slider to the "left"
   Then I should see the credit score range "decrease"
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Increase credit score range
   When I move the credit score slider to the "right"
   Then I should see the credit score range "increase"
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Lowest credit score range
   When I move the credit score slider to the "lowest" range
   Then I should see the Credit Score Range displayed as "600 - 620"
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Highest credit score range
   When I move the credit score slider to the "highest" range
   Then I should see the Credit Score Range displayed as "840 - 860"
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Lowest credit score range alerts
   When I move the credit score slider to the "lowest" range
   Then I should see the credit score slider handle turns "red"
     And I should see an alert for borowers with less than 620 score
 
-@smoke_testing @credit_score
+@credit_score @rate_checker
 Scenario: Lowest credit score range alerts go away when score range increases
   When I move the credit score slider to the "lowest" range
   	And I move the credit score slider to the "right"
