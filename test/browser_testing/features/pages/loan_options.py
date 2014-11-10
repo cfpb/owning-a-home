@@ -183,11 +183,11 @@ class LoanOptions(Base):
 
     def get_loan_amount(self):
         element = self.driver.find_element_by_id(LOAN_AMOUNT)
-        return element.get_attribute("value")
+        return element.get_attribute("placeholder")
 
     def get_interest_rate(self):
         element = self.driver.find_element_by_id(INTEREST_RATE)
-        return element.get_attribute("value")
+        return element.get_attribute("placeholder")
 
     def get_loan_term(self):
         element = self.driver.find_element_by_css_selector(SELECTED_TERM)
