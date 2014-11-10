@@ -2,11 +2,10 @@ var $ = require('jquery');
 require('./local-storage-polyfill');
 
 var megaExpand = function(ev, $header, duration){
-  if ( duration == undefined ) {
+  if ( !duration ) {
     duration = 400;
   }
 
-  console.log('Duration: ' + duration);
   var $container = $header.parent('.expandable'),
       $button = $header.children('.expandable-button'),
       state = {};
@@ -36,6 +35,9 @@ var megaExpand = function(ev, $header, duration){
 // check storage and call megaExpand if open
 var checkStorage = function(ev) {
   var storageVal = JSON.parse(localStorage.getItem( 'expandableState'));
+  if ( !storageVal ) {
+    return false;
+  }
   var $header = $('#' + storageVal.header);
   if (storageVal.expand === 'open') {
     megaExpand(ev, $header);
@@ -65,7 +67,7 @@ $(document).ready( function() {
   if ( hash !== "" ) {
     megaExpand(false, $header, 0);
     var offSet = $('#' + hash).offset().top;
-    $('body').scrollTop(offSet)
+    $('body').scrollTop(offSet);
   }
   else {
     // check for state on page load
