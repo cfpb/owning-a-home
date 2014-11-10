@@ -14,14 +14,14 @@ Scenario Outline: Test inbound links in the Special Programs Loan page
 
 Examples:
   | link_name       	  		     | relative_url											                      | page_title 	  |
-  | Owning a Home              | /                                                      | Owning a Home |
+  | Owning a Home                | /                                                      | Owning a Home |
   | conventional               	 | loan-options/conventional-loans/                       | Loan Options  |
   | FHA                          | loan-options/FHA-loans/                                | Loan Options  |
   | conventional loans           | loan-options/conventional-loans/                       | Loan Options  |
   | More on mortgage insurance   | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
   | mortgage insurance           | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
 
-@smoke_testing @loan_options @prod_only
+@loan_options @prod_only
 Scenario Outline: Test outbound links in the Special Programs Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the external "<full_url>" URL
@@ -37,7 +37,7 @@ Examples:
   | Find out if you're eligible.                | http://eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do    | Welcome                             |
   | this tool                                   | http://downpaymentresource.com/                                     | Down Payment Resource               |
   | local housing counselor                     | /find-a-housing-counselor/                                          | Find a housing counselor            |
-  | Learn more about mortgage insurance         | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html          | What is mortgage insurance and how does it work? |
+  | Learn more about mortgage insurance         | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html  | What is mortgage insurance and how does it work? |
 
 
 @smoke_testing @loan_options

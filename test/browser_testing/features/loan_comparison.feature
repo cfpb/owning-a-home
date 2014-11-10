@@ -6,7 +6,7 @@ Feature: Test the default values in the Loan Comparison page
 Background:
    Given I navigate to the "Loan Comparison" page
 
-@smoke_testing @loan_comparison
+@loan_comparison
 Scenario: Test inbound links in the Loan Options page
    When I click on the "Check out the Rate Checker" link
    Then I should be directed to the internal "rate-checker" URL

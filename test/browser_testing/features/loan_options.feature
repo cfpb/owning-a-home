@@ -18,8 +18,8 @@ Examples:
   | Interest rate type      | Compare your interest rate options  |
   | Loan type 				      | Choosing the right loan type 		    |
 
-@smoke_testing @loan_options
-Scenario Outline: Click 'Collapse' to collapse sections
+@loan_options
+Scenario Outline: Click 'Collapse' button to collapse sections
 	When I click Learn More to expand the "<section_name>" section
 		And I collapse the "<section_name>" section
 	Then I should NOT see the "<section_name>" section expanded
@@ -30,8 +30,8 @@ Examples:
   | Interest rate type       |
   | Loan type 				       |
 
-@smoke_testing @loan_options
-Scenario Outline: Click 'Collapse <section_name>' to collapse sections
+@loan_options
+Scenario Outline: Click 'Collapse <section_name>' link to collapse sections
   When I click Learn More to expand the "<section_name>" section
     And I click on the "<link_name>" link
   Then I should NOT see the "<section_name>" section expanded
@@ -60,7 +60,7 @@ Scenario: Test OAH link in the Loan Options page
    Then I should be directed to the OAH Landing page
 
 
-@smoke_testing @loan_options
+@loan_options
 Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click Get all the details for "<loan_type>" loans
@@ -73,7 +73,7 @@ Examples:
   | FHA              | loan-options/FHA-loans/             |
   | Special programs | loan-options/special-loan-programs/ |
 
-@smoke_testing @loan_options
+@loan_options
 Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click on the "<link_name>" link
@@ -83,7 +83,7 @@ Examples:
   | link_name          | full_url                                      |
   | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    |
 
-@smoke_testing @loan_options
+@loan_options
 Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
   When I click Learn More to expand the "Loan term" section
     And I click on the "<link_name>" link
@@ -97,7 +97,7 @@ Examples:
   | Good Faith Estimates           | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
   | Learn more about balloon loans | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
 
-@smoke_testing @loan_options
+@loan_options
 Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
   When I click Learn More to expand the "Interest rate type" section
     And I click on the "<link_name>" link

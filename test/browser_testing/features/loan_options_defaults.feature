@@ -6,7 +6,7 @@ Feature: verify the Loan Options page defaults to the correct values
 Background:
    Given I navigate to the "Loan Options" page
 
-@smoke_testing @loan_options
+@loan_options
 Scenario: Click 'Learn More' to expand sections
    When I click Learn More to expand the "Loan term" section
    Then I should see "$200,000" as the default loan amount
