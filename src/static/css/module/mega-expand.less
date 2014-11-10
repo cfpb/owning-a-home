@@ -88,15 +88,20 @@
 
 /* expandable header layout */
 .expandable-title {
-  .grid_column(9);
+  .grid_column(8);
 }
 
 .expandable-link {
-  .grid_column(3);
+  .grid_column(4);
   text-align: right;
-  padding-right: 1.4em; // accomodate for the abosolute positioned + sign
   height: @mega-header-height;
   line-height: @mega-header-height;
+}
+
+@media (min-width: 600px) {
+  .expandable-link {
+    padding-right: 1.4em; // accomodate for the abosolute positioned + sign
+  }
 }
 
 .expandable-text {
@@ -113,10 +118,17 @@
   position: absolute;
   top: 18%;
   right: -1em;
-  padding-left: .25em;
+  padding-left: 1em;
   width: 1em;
   content: "\e109";
   border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .expandable-button:after {
+    right: 0;
+    left: -1.4em;
+  }
 }
 
 .open .expandable-button:after {
