@@ -62,12 +62,19 @@ strong {
 
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 1100px) {
 
+  .wrapper-container,
+  .split {
+    max-width: 100%;
+  }
   // Hide the multi-language banner
   .wrapper-container .language-banner {
     display: none;
   }
+}
+
+@media screen and (max-width: 660px) {
 
   // Scale the logo a bit
   #header h1 {
