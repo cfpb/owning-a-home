@@ -2,9 +2,10 @@ var $ = require('jquery');
 require('./local-storage-polyfill');
 
 var megaExpand = function(ev, $header, duration){
-  if ( !duration ) {
+  if ( duration == undefined ) {
     duration = 400;
   }
+  console.log(duration);
 
   var $container = $header.parent('.expandable'),
       $button = $header.children('.expandable-button'),
