@@ -174,9 +174,28 @@ var updateView = function() {
       }
     };
 
-    $.each(results.data, function(key, val) {
+    // sort results by interest rate, ascending
+    var sortedKeys = [],
+        sortedResults = {},
+        key, x, len;
+
+    for ( key in results.data ) {
+      if ( results.data.hasOwnProperty( key ) ) {
+        sortedKeys.push(key);
+      }
+    }
+    
+    sortedKeys.sort();
+    len = sortedKeys.length;
+
+    for ( x=0; x < len; x++ ) {
+      sortedResults[sortedKeys[x]] = results.data[sortedKeys[x]];
+    }
+
+    $.each( sortedResults, function(key, val) {
       data.intLabels.push(+key);
       data.labels.push(key + '%');
+
       data.vals.push(val);
       if ( val > data.largest.val ) {
         data.largest.val = val;
