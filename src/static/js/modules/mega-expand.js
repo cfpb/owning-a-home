@@ -12,7 +12,6 @@ var megaExpand = function(ev, $header, duration){
 
   if (ev) {
     ev.preventDefault();
-    ev.stopPropagation();
   }
 
   $container.toggleClass('open');
