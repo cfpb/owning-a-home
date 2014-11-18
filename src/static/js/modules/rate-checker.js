@@ -368,20 +368,22 @@ function loadCounties() {
     if ( !$('#county').data('state') ) {
       dropdown('county').showHighlight();
     }
+    else {
+      // Empty the current counties and cache the current state so we
+      // can monitor if it changes.
+      $('#county').html('')
+                  .data( 'state', params['location'] );
 
-    // Empty the current counties and cache the current state so we
-    // can monitor if it changes.
-    $('#county').html('')
-                .data( 'state', params['location'] );
+      // Inject each county into the DOM.
+      $.each(resp.data, function( i, countyData ) {
+        var countyOption = template.county( countyData );
+        $('#county').append( countyOption );
+      });
 
-    // Inject each county into the DOM.
-    $.each(resp.data, function( i, countyData ) {
-      var countyOption = template.county( countyData );
-      $('#county').append( countyOption );
-    });
+      // Don't select any options by default.
+      $('#county').prop( 'selectedIndex', -1 );      
+    }
 
-    // Don't select any options by default.
-    $('#county').prop( 'selectedIndex', -1 );
 
   });
 
