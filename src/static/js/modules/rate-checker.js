@@ -945,13 +945,6 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(){
   debounce(updateView(this), 500);
 });
 
-
-// Check if it's a jumbo loan if they change the loan amount or state.
-// $('.demographics, .calc-loan-amt, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
-
-// Recalculate loan amount.
-// $('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
-
 // Recalculate loan amount.
 $('#county').on( 'change', processCounties );
 
