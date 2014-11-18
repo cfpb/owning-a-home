@@ -949,9 +949,11 @@ $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
 
 // check if input value is a number
 // if not, replace the character with an empty string
-$('.calc-loan-amt .recalc').on( 'keyup', function() {
-  // on keyup, immediately gray chart
-  chart.startLoading();
+$('.calc-loan-amt .recalc').on( 'keyup', function(ev) {
+  // on keyup (not tab or arrows), immediately gray chart
+  if ( ev.which !== 9 && ( ev.which < 37 || ev.which > 40 ) ) {
+    chart.startLoading();
+  }
   var inputVal = $(this).val();
   if (!isNum(inputVal)) {
     var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
