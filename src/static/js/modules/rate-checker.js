@@ -359,7 +359,6 @@ function loadCounties() {
 
   // And request 'em.
   request = getCounties();
-  console.log(request);
   request.done(function( resp ) {
 
     // If they haven't yet selected a state highlight the field.
