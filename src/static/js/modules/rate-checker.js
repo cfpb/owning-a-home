@@ -359,12 +359,12 @@ function loadCounties() {
 
   // And request 'em.
   request = getCounties();
-
+  console.log(request);
   request.done(function( resp ) {
 
     // If they haven't yet selected a state highlight the field.
-    if ( !$('#county').data('state') ) {
-      dropdown('county').showHighlight();
+    if ( !(params['location']) ) {
+      dropdown('location').showHighlight();
     }
     else {
       // Empty the current counties and cache the current state so we
@@ -466,7 +466,6 @@ function processCounties() {
  * @return {object} jQuery promise.
  */
 function getCounties() {
-
   return $.get( config.countyAPI, {
     state: params['location']
   });
@@ -940,7 +939,7 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(){
     var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
     $(this).val(updatedVal);
   }
-  // console.log(this);
+  checkForJumbo();
   processLoanAmount( this );
   debounce(updateView(this), 500);
 });
