@@ -86,7 +86,7 @@ var slider = {
 // dp-constant: track the down payment interactions
 // request: Keep the latest AJAX request accessible so we can terminate it if need be.
 var options = {
-  'dp-constant': null,
+  'dp-constant': 'percent-down',
   'request': ''
 };
 
@@ -151,92 +151,102 @@ var updateView = function() {
 
   chart.startLoading();
 
+  var data = {
+    labels: [],
+    intLabels: [],
+    uniqueLabels: [],
+    vals: [],
+    totalVals: [],
+    largest: {
+      label: 4,
+      val: 0
+    }
+  };  
+
   // Abort the previous request.
   if ( typeof options['request'] === 'object' ) {
     options['request'].abort();
   }
 
   // And start a new one.
-  options['request'] = getData();
+  if ( +params['loan-amount'] !== 0 ) {
+    options['request'] = getData();
 
-  // If it succeeds, update the DOM.
-  options['request'].done(function( results ){
+    // If it succeeds, update the DOM.
+    options['request'].done(function( results ) {
+      // sort results by interest rate, ascending
+      var sortedKeys = [],
+          sortedResults = {},
+          key, x, len;
 
-    var data = {
-      labels: [],
-      intLabels: [],
-      uniqueLabels: [],
-      vals: [],
-      totalVals: [],
-      largest: {
-        label: 4,
-        val: 0
+      for ( key in results.data ) {
+        if ( results.data.hasOwnProperty( key ) ) {
+          sortedKeys.push(key);
+        }
       }
-    };
+      
+      sortedKeys.sort();
+      len = sortedKeys.length;
 
-    // sort results by interest rate, ascending
-    var sortedKeys = [],
-        sortedResults = {},
-        key, x, len;
-
-    for ( key in results.data ) {
-      if ( results.data.hasOwnProperty( key ) ) {
-        sortedKeys.push(key);
-      }
-    }
-    
-    sortedKeys.sort();
-    len = sortedKeys.length;
-
-    for ( x=0; x < len; x++ ) {
-      sortedResults[sortedKeys[x]] = results.data[sortedKeys[x]];
-    }
-
-    $.each( sortedResults, function(key, val) {
-      data.intLabels.push(+key);
-      data.labels.push(key + '%');
-
-      data.vals.push(val);
-      if ( val > data.largest.val ) {
-        data.largest.val = val;
-        data.largest.label = key + '%';
+      for ( x=0; x < len; x++ ) {
+        sortedResults[sortedKeys[x]] = results.data[sortedKeys[x]];
       }
 
-      for(var i = 0; i < val; i++) {
-        data.totalVals.push(+key);
+      $.each( sortedResults, function(key, val) {
+        data.intLabels.push(+key);
+        data.labels.push(key + '%');
+
+        data.vals.push(val);
+        if ( val > data.largest.val ) {
+          data.largest.val = val;
+          data.largest.label = key + '%';
+        }
+
+        for(var i = 0; i < val; i++) {
+          data.totalVals.push(+key);
+        }
+      });
+
+      // display an error message if less than 2 results are returned
+      if( data.vals.length < 2 ) {
+        chart.stopLoading();
+        resultWarning();
+        return;
       }
+
+      // display an error message if the downpayment is greater than the house price
+      if(+params['house-price'] < +params['down-payment']) {
+        chart.stopLoading();
+        resultWarning();
+        downPaymentWarning();
+        return;
+      }
+
+      data.uniqueLabels = $.unique( data.labels.slice(0) );
+
+      removeAlerts();
+      updateLanguage( data );
+      renderAccessibleData( data );
+      renderChart( data );
+      updateComparisons( data );
+      renderInterestAmounts();
+
     });
+  }
 
-    // display an error message if less than 2 results are returned
-    if( data.vals.length < 2 ) {
-      chart.stopLoading();
-      resultWarning();
-      return;
-    }
-
-    // display an error message if the downpayment is greater than the house price
-    if(+params['house-price'] < +params['down-payment']) {
-      chart.stopLoading();
-      resultWarning();
-      downPaymentWarning();
-      return;
-    }
-
-    data.uniqueLabels = $.unique( data.labels.slice(0) );
-
-    removeAlerts();
-    updateLanguage( data );
-    renderAccessibleData( data );
-    renderChart( data );
-    updateComparisons( data );
-    renderInterestAmounts();
-
-  });
+  else {
+    chart.stopLoading();
+    resultWarning();
+    downPaymentWarning();
+  }
 
   // Whether the request succeeds or fails, stop the loading animation.
   options['request'].then(function(){
     chart.stopLoading();
   });
+
+  // clean up input formatting
+
 
 };
 
@@ -302,7 +312,11 @@ function processLoanAmount( element ) {
  */
 function renderLoanAmount() {
   var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
-  params['loan-amount'] = loan > 0 ? loan : 0;
+  if ( loan > 0 ) {
+    params['loan-amount'] = loan;
+  } else {
+    params['loan-amount'] = 0;
+  }
   $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
 }
 
@@ -478,13 +492,14 @@ function getCounties() {
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     removeAlerts();
-    $percent.val('0').attr('placeholder', '');
-    $down.val('0');
+    // $percent.val('0').attr('placeholder', '');
+    // $down.val('0');
     chart.stopLoading();
     downPaymentWarning();
-    return;
+    return true;
   } else if ($percent.attr('placeholder') === '') {
-    $percent.attr('placeholder', '10');
+    // $percent.attr('placeholder', '10');
+    return false;
   }
 }
 
@@ -498,22 +513,24 @@ function renderDownPayment() {
       $price = $('#house-price'),
       $percent = $('#percent-down'),
       $down = $('#down-payment'),
-      val;
+      val,
+      existsZero;
 
   if ( !$el.val() ) {
     return;
   }
 
-  checkIfZero($price, $percent, $down);
+  existsZero = checkIfZero($price, $percent, $down);
 
-  if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
-    val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
-    $percent.val( Math.round(val) );
-  } else {
-    val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
-    $down.val( val > 0 ? Math.round(val) : '' );
+  if ( $price.val() != 0 ) {
+    if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
+      val = ( getSelection('down-payment') / getSelection('house-price') * 100 ) || '';
+      $percent.val( Math.round(val) );
+    } else {
+      val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
+      $down.val( val > 0 ? Math.round(val) : '' );
+    }
   }
-
 }
 
 /**
@@ -932,16 +949,25 @@ $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
 
 // check if input value is a number
 // if not, replace the character with an empty string
-$('.calc-loan-amt .recalc').on( 'keyup', function(){
+$('.calc-loan-amt .recalc').on( 'keyup', function() {
+  // on keyup, immediately gray chart
+  chart.startLoading();
   var inputVal = $(this).val();
   if (!isNum(inputVal)) {
     var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
     $(this).val(updatedVal);
   }
-  checkForJumbo();
-  processLoanAmount( this );
-  debounce(updateView(this), 500);
 });
+
+// debounced function for processing and updating
+$('.calc-loan-amt .recalc').on( 'keyup', debounce(
+  function(ev) {
+    // Don't recalculate on TAB or arrow keys
+    if ( ev.which !== 9 && ( ev.which < 37 || ev.which > 40 ) ) {
+      processLoanAmount( this );
+      updateView( this );   
+    }
+  }, 500, false));
 
 // Recalculate loan amount.
 $('#county').on( 'change', processCounties );
@@ -954,3 +980,6 @@ $('#rate-structure').on( 'change', checkARM );
 
 // Do it!
 init();
+
+
+
