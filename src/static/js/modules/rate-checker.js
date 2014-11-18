@@ -279,17 +279,15 @@ function updateLanguage( data ) {
  * Store the loan amount and down payment and check if it's a jumbo loan.
  * @return {null}
  */
-function processLoanAmount() {
-
-  var name = $( this ).attr('name');
-
+function processLoanAmount( element ) {
+  var name = $( element ).attr('name');
   // Save the dp-constant value when the user interacts with
   // down payment or down payment percentages.
   if ( name === 'down-payment' || name === 'percent-down' ) {
     options['dp-constant'] = name;
   }
 
-  renderDownPayment.apply( this );
+  renderDownPayment.apply( element );
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
@@ -361,27 +359,28 @@ function loadCounties() {
 
   // And request 'em.
   request = getCounties();
-
   request.done(function( resp ) {
 
     // If they haven't yet selected a state highlight the field.
-    if ( !$('#county').data('state') ) {
-      dropdown('county').showHighlight();
+    if ( !(params['location']) ) {
+      dropdown('location').showHighlight();
+    }
+    else {
+      // Empty the current counties and cache the current state so we
+      // can monitor if it changes.
+      $('#county').html('')
+                  .data( 'state', params['location'] );
+
+      // Inject each county into the DOM.
+      $.each(resp.data, function( i, countyData ) {
+        var countyOption = template.county( countyData );
+        $('#county').append( countyOption );
+      });
+
+      // Don't select any options by default.
+      $('#county').prop( 'selectedIndex', -1 );      
     }
 
-    // Empty the current counties and cache the current state so we
-    // can monitor if it changes.
-    $('#county').html('')
-                .data( 'state', params['location'] );
-
-    // Inject each county into the DOM.
-    $.each(resp.data, function( i, countyData ) {
-      var countyOption = template.county( countyData );
-      $('#county').append( countyOption );
-    });
-
-    // Don't select any options by default.
-    $('#county').prop( 'selectedIndex', -1 );
 
   });
 
@@ -466,7 +465,6 @@ function processCounties() {
  * @return {object} jQuery promise.
  */
 function getCounties() {
-
   return $.get( config.countyAPI, {
     state: params['location']
   });
@@ -914,18 +912,10 @@ function setSelections( options ) {
 
 }
 
-// Recalculate everything when fields are changed.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', updateView );
-
-// check if input value is a number
-// if not, replace the character with an empty string
-$('.calc-loan-amt .recalc').on( 'keyup', function(){
-  var inputVal = $(this).val();
-  if (!isNum(inputVal)) {
-    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
-    $(this).val(updatedVal);
-  }
-  debounce(updateView(this), 900);
+// Recalculate everything when drop-down menus are changed.
+$('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
+  checkForJumbo();
+  updateView();
 });
 
 // Prevent non-numeric characters from being entered
@@ -940,11 +930,18 @@ $('.calc-loan-amt .recalc').on( 'keydown', function( event ){
   }
 });
 
-// Check if it's a jumbo loan if they change the loan amount or state.
-$('.demographics, .calc-loan-amt, .calc-loan-details').on( 'change', '.recalc', checkForJumbo );
-
-// Recalculate loan amount.
-$('#house-price, #percent-down, #down-payment').on( 'change keyup', processLoanAmount );
+// check if input value is a number
+// if not, replace the character with an empty string
+$('.calc-loan-amt .recalc').on( 'keyup', function(){
+  var inputVal = $(this).val();
+  if (!isNum(inputVal)) {
+    var updatedVal = inputVal.toString().replace(/[^0-9\\.,]+/g,'');
+    $(this).val(updatedVal);
+  }
+  checkForJumbo();
+  processLoanAmount( this );
+  debounce(updateView(this), 500);
+});
 
 // Recalculate loan amount.
 $('#county').on( 'change', processCounties );
