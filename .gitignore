@@ -52,6 +52,7 @@ environment.cfg
 ######
 ip
 config.js
+config.json
 test/browser_testing/features/environment.cfg
 
 # node #
