@@ -14,18 +14,6 @@ Scenario: Default credit score range
 Scenario: Default location
   Then I should see "District of Columbia" as the selected location 
 
-@rate_checker  
-Scenario: Default Rate Structure
-  Then I should see "Fixed" as the selected Rate Structure
-
-@rate_checker  
-Scenario: Default Loan Term
-  Then I should see "30 Years" as the selected Loan Term
-
-@rate_checker  
-Scenario: Default Loan Type
-  Then I should see "Conventional" as the selected Loan Type
-
 @rate_checker
 Scenario: Default House price
   Then I should see $"200,000" as the House price
@@ -42,6 +30,22 @@ Scenario: Default Down Payment percent
 Scenario: Default loan amount
   Then I should see "$180,000" as Loan Amount
 
+@rate_checker  
+Scenario: Default Rate Structure
+  Then I should see "Fixed" as the selected Rate Structure
+
+@rate_checker  
+Scenario: Default Loan Term
+  Then I should see "30 Years" as the selected Loan Term
+
+@rate_checker  
+Scenario: Default Loan Type
+  Then I should see "Conventional" as the selected Loan Type
+
 @rate_checker
 Scenario: Default tab
   Then I should see the "I plan to buy in the next couple of months" tab selected
+
+@rate_checker
+Scenario: County should NOT be visible by default
+  Then I should NOT see the County selection
