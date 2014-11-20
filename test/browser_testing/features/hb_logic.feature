@@ -46,7 +46,7 @@ Examples:
 	| Virginia 		| Amelia County 	| $535,900 				|
 	| Wisconsin 	| St. Croix County 	| $318,550              |
 
-@rate_checker
+@high_balance
 Scenario Outline: Triggering a Conventional loan when FHA high balance is not available
 # This test currently fails, pending work on issue #625
   Given I navigate to the "Rate Checker" page
@@ -69,3 +69,20 @@ Examples:
 | Utah 		 | Salt Lake County  | $300,150            |
 | Kansas 	 | Johnson County    | $278,300 		   |
 | Montana 	 | Missoula County   | $282,900            |
+
+@jumbo
+Scenario Outline: Trigger jumbo loan
+  Given I navigate to the "Rate Checker" page
+    And I select "<state_name>" from the Location dropdown list
+	And I select "FHA" Loan Type
+	And I enter $"500,000" as House Price amount
+  When I select <county_name> County
+  Then I should see "Conforming Jumbo" as the selected Loan Type
+  And I should see an HB alert "You are not eligible for an FHA loan when you borrow more than <FHA_max_loan_amount> in your county. You are eligible for a conforming jumbo loan."
+     #And the chart should be active with new data.
+
+Examples:
+| state_name | county_name            | FHA_max_loan_amount |
+| Hawaii     | Hawaii County          | $368,000            |
+| Utah       | Toolele County         | $300,150            |
+| Alaska     | Anchorage Municipality | $355,350            |
