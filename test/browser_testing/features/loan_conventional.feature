@@ -37,12 +37,12 @@ Examples:
   | What is a Good Faith Estimate? 								  | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					  | Consumer Financial Protection Bureau  |
 
 @smoke_testing @loan_options
-Scenario Outline: Test Related links in the Conventional Loan page
-	When I click Get all the details for "<loan_type>" loans
+Scenario Outline: Test OTHER LOAN TYPES links in the Conventional Loan page
+	When I click OTHER LOAN TYPES "<loan_type>"
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | loan_type   	  				        | relative_url							             | page_title    |
-  | Related Link FHA 				        | /loan-options/FHA-loans/ 					     | Loan Options  |
-  | Related Link Special Programs	  | /loan-options/special-loan-programs/ 	 | Loan Options  |
+  | loan_type   	  		| relative_url							             | page_title    |
+  | FHA 				        | /loan-options/FHA-loans/ 					     | Loan Options  |
+  | Special Programs	  | /loan-options/special-loan-programs/ 	 | Loan Options  |

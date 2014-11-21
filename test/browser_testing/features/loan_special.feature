@@ -42,11 +42,11 @@ Examples:
 
 @smoke_testing @loan_options
 Scenario Outline: Test Related links in the Special Programs Loan page
-	When I click Get all the details for "<loan_type>" loans
+	When I click OTHER LOAN TYPES "<loan_type>"
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | loan_type   	  				      | relative_url								          | page_title 	  |
-  | Related Link Conventional 		| /loan-options/conventional-loans/ 		| Loan Options  |
-  | Related Link FHA              | /loan-options/FHA-loans/              | Loan Options  |
+  | loan_type 	    | relative_url								          | page_title 	  |
+  | Conventional 		| /loan-options/conventional-loans/ 		| Loan Options  |
+  | FHA             | /loan-options/FHA-loans/              | Loan Options  |
