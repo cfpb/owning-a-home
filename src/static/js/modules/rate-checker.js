@@ -43,6 +43,7 @@ var params = {
   'loan-term': 30,
   'loan-type': 'conf',
   'arm-type': '3-1',
+  'edited': false,
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -513,14 +514,13 @@ function renderDownPayment() {
       $price = $('#house-price'),
       $percent = $('#percent-down'),
       $down = $('#down-payment'),
-      val,
-      existsZero;
+      val;
 
   if ( !$el.val() ) {
     return;
   }
 
-  existsZero = checkIfZero($price, $percent, $down);
+  checkIfZero($price, $percent, $down);
 
   if ( $price.val() != 0 ) {
     if ( $el.attr('id') === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
@@ -605,15 +605,17 @@ function checkARM() {
   if ( getSelection('rate-structure') === 'arm' ) {
     if ( getSelection('loan-term') !== '30' ) {
       dropdown('loan-term').showHighlight();
+      $('#arm-warning').removeClass('hidden');
     }
     if ( getSelection('loan-type') !== 'conf' ) {
       dropdown('loan-type').showHighlight();
+      $('#arm-warning').removeClass('hidden');
     }
     dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
     dropdown('arm-type').show();
-    $('#arm-warning').removeClass('hidden');
+    dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
@@ -970,6 +972,18 @@ $('.calc-loan-amt .recalc').on( 'keyup', debounce(
       updateView( this );   
     }
   }, 500, false));
+
+// Once the user has edited fields, put the kibosh on the placeholders
+$('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
+  if ( params['edited'] === false ) {
+    // Set the other two fields to their placeholder values
+    $('#house-price, #percent-down, #down-payment').not( $(this) ).each( function(i, val) {
+      $(this).val( $(this).attr('placeholder') );
+    });
+    $('#house-price, #percent-down, #down-payment').removeAttr('placeholder');
+    params['edited'] = true;
+  }
+});
 
 // Recalculate loan amount.
 $('#county').on( 'change', processCounties );
