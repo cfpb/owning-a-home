@@ -605,15 +605,17 @@ function checkARM() {
   if ( getSelection('rate-structure') === 'arm' ) {
     if ( getSelection('loan-term') !== '30' ) {
       dropdown('loan-term').showHighlight();
+      $('#arm-warning').removeClass('hidden');
     }
     if ( getSelection('loan-type') !== 'conf' ) {
       dropdown('loan-type').showHighlight();
+      $('#arm-warning').removeClass('hidden');
     }
     dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
     dropdown('arm-type').show();
-    $('#arm-warning').removeClass('hidden');
+    dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
