@@ -43,7 +43,7 @@ var params = {
   'loan-term': 30,
   'loan-type': 'conf',
   'arm-type': '3-1',
-  'editted': false,
+  'edited': false,
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -973,15 +973,15 @@ $('.calc-loan-amt .recalc').on( 'keyup', debounce(
     }
   }, 500, false));
 
-// Once the user has editted fields, put the kibosh on the placeholders
+// Once the user has edited fields, put the kibosh on the placeholders
 $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
-  if ( params['editted'] === false ) {
+  if ( params['edited'] === false ) {
     // Set the other two fields to their placeholder values
     $('#house-price, #percent-down, #down-payment').not( $(this) ).each( function(i, val) {
       $(this).val( $(this).attr('placeholder') );
     });
     $('#house-price, #percent-down, #down-payment').removeAttr('placeholder');
-    params['editted'] = true;
+    params['edited'] = true;
   }
 });
 
