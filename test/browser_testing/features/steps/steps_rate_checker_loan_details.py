@@ -7,6 +7,7 @@ from hamcrest.library.text.stringcontains import contains_string
 from pages.base import Base
 from pages.rate_checker import RateChecker
 
+
 # RATE STRUCTURE
 @when(u'I select "{rate_selection}" Rate Structure')
 def step(context, rate_selection):
@@ -38,6 +39,7 @@ def step(context, loan_term, expected_state):
 
 
 # LOAN TYPE
+@given(u'I select "{loan_type}" Loan Type')
 @when(u'I select "{loan_type}" Loan Type')
 def step(context, loan_type):
     context.rate_checker.set_loan_type(loan_type)
@@ -47,6 +49,12 @@ def step(context, loan_type):
 def step(context, loan_type):
     current_Selection = context.rate_checker.get_selected_loan_type()
     assert_that(current_Selection, equal_to(loan_type))
+
+
+@then(u'I should see an HB alert "{alert_text}"')
+def step(context, alert_text):
+    actual_text = context.rate_checker.get_hb_alert_text(alert_text)
+    assert_that(actual_text, equal_to(True))
 
 
 @then(u'Loan type option "{loan_type}" should be "{expected_state}"')

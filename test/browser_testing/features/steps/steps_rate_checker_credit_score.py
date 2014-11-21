@@ -44,19 +44,19 @@ def step(context, range_operation):
 # ALERTS
 @then(u'I should see an alert for borowers with less than 620 score')
 def step(context):
-    actual_text = context.rate_checker.get_range_alert()
+    actual_text = context.rate_checker.get_range_alert_text()
     assert_that(actual_text, contains_string(RANGE_ALERT_TEXT))
 
 
 @then(u'I should NOT see an alert for borowers with less than 620 score')
 def step(context):
-    actual_text = context.rate_checker.get_range_alert()
+    actual_text = context.rate_checker.get_range_alert_text()
     assert_that(actual_text, equal_to(False))
 
 
 @then(u'I should see the credit score slider handle turns "{handle_color}"')
 def step(context, handle_color):
-    actual_text = context.rate_checker.get_warning_button()
+    actual_text = context.rate_checker.get_warning_button_class()
     # If the element's class name includes 'warning'
     # Then the button has turned red
     if(handle_color == 'red'):

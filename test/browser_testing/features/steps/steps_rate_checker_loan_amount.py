@@ -10,6 +10,7 @@ from pages.screenshot import Screenshot
 
 
 # HOUSE PRICE
+@given(u'I enter $"{house_price}" as House Price amount')
 @when(u'I enter $"{house_price}" as House Price amount')
 @when(u'I change the House Price amount to $"{house_price}"')
 def step(context, house_price):
@@ -54,3 +55,27 @@ def step(context, dp_amount):
 def step(context, expected_loan_amount):
     actual_loan_amount = context.rate_checker.get_loan_amount()
     assert_that(actual_loan_amount, equal_to(expected_loan_amount))
+
+
+# COUNTY
+@when(u'I select {county_name} County')
+def step(context, county_name):
+    context.rate_checker.set_county(county_name)
+
+
+@then(u'I should NOT see the County selection')
+def step(context):
+    county = context.rate_checker.is_county_visible()
+    assert_that(county, equal_to(False))
+
+
+@then(u'I should see a County alert "{alert_text}"')
+def step(context, alert_text):
+    actual_text = context.rate_checker.get_county_alert_text(alert_text)
+    assert_that(actual_text, equal_to(True))
+
+
+@then(u'I should NOT see a County alert "{alert_text}"')
+def step(context, alert_text):
+    actual_text = context.rate_checker.get_county_alert_text(alert_text)
+    assert_that(actual_text, equal_to(False))

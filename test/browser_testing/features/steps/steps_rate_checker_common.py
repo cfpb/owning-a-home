@@ -25,6 +25,7 @@ def step(context, state_name):
 
 
 # STATE
+@given(u'I select "{state_name}" from the Location dropdown list')
 @when(u'I select "{state_name}" from the Location dropdown list')
 def step(context, state_name):
     # TO DO: work with FEWD to find a way to remove these sleep commands

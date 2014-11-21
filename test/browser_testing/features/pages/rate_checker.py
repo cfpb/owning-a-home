@@ -22,13 +22,18 @@ LOAN_TERM_DDL = "loan-term"  # LOAN TERM DROPDOWN LIST
 LOAN_TYPE_DDL = "loan-type"  # LOAN TYPE DROPDOWN LIST
 LOCATION_DDL = "location"  # LOCATION DROPDOWN LIST
 RATE_STRUCTURE_DDL = "rate-structure"  # RATE STRUCTURE DROPDOWN LIST
+COUNTY_DLL = "county"
 
-# ELEMENT ID'S FOR LABELS
+# ELEMENT ID'S FOR LABELS/WARNINGS
 LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
+COUNTY_WARNING = "#county-warning .warning-text"
+HB_WARNING = "#hb-warning .warning-text"
+
 # This label displays range as 700 - 720
 SLIDER_RANGE_LABEL = "slider-range"
 
-# ELEMENT ID'S FOR BUTTONS
+# CSS SELECTORS
+COUNTY_HIDDEN = ".col-7.county.hidden"
 
 # XPATH LOCATORS
 RATE_LOCATION = "//h2/*[@class ='location']"
@@ -47,15 +52,42 @@ class RateChecker(Base):
         self.driver_wait = driver_wait
 
     # ALERTS
-    def get_warning_button(self):
+    def get_warning_button_class(self):
         element = self.driver.find_element_by_xpath(SLIDER_HANDLE)
         return element.get_attribute("class")
 
-    def get_range_alert(self):
+    def get_range_alert_text(self):
+        l_wait = 5
+        msg = 'Alert was not visible within %s seconds' % l_wait
+
         try:
             element = self.driver.find_element_by_xpath(RANGE_ALERT)
-            return element.text
+            return element.get_attribute("textContent")
         except NoSuchElementException:
+            return False
+
+    def get_county_alert_text(self, alert_text):
+        l_wait = 5
+        msg = 'County alert text was not visible within %s seconds' % l_wait
+
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,
+                       COUNTY_WARNING), alert_text), msg)
+            return True
+        except TimeoutException:
+            return False
+
+    def get_hb_alert_text(self, alert_text):
+        l_wait = 5
+        msg = 'HB alert text was not visible within %s seconds' % l_wait
+
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,
+                       HB_WARNING), alert_text), msg)
+            return True
+        except TimeoutException:
             return False
 
     # CHART AREA
@@ -192,6 +224,27 @@ class RateChecker(Base):
         # Get the text from the Loan Amount label
         element = self.driver.find_element_by_id(LOAN_AMOUNT_LABEL)
         return element.text
+
+    # COUNTY
+    def is_county_visible(self):
+        try:
+            self.driver.find_element_by_css_selector(COUNTY_HIDDEN)
+            return False
+        except NoSuchElementException:
+            return True
+
+    def set_county(self, county_name):
+        l_wait = 5
+        msg = '%s not found after %s seconds' % (county_name, l_wait)
+
+        # Wait for the dropdown list to be populated with county_name
+        # before making a selection
+        WebDriverWait(self.driver, l_wait)\
+            .until(EC.text_to_be_present_in_element((By.ID,
+                   COUNTY_DLL), county_name), msg)
+
+        select = Select(self.driver.find_element_by_id(COUNTY_DLL))
+        select.select_by_visible_text(county_name)
 
     # RATE STRUCTURE
     def get_rate_structure(self):
