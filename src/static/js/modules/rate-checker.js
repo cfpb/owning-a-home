@@ -738,6 +738,62 @@ function renderAccessibleData( data ) {
   });
 }
 
+// get_indexes_in_range([12, 13, 14, 44, 45, 46, 100, 200], 43, 47)
+// [3, 4, 5]
+function get_indexes_in_range(list, min, max){
+  var range = [], val;
+  for(var i=0, j=list.length; i<j; i++){
+    val = list[i];
+    if(val>=min && val<max)
+      range.push(i);
+  }
+  return range;
+}
+
+// get_items_from_list_by_index_list([1, 3, 4], ['a', 'b', 'c', 'd', 'e', 'f'])
+// ["b", "d", "e"]
+function get_items_from_list_by_index_list(index_list, list){
+  var _val_list = [];
+
+  for(var i=0, j=index_list.length; i<j; i++){
+    _val_list.push(list[index_list[i]])
+  }
+
+  return _val_list;
+}
+
+function sum_list(list){
+  var total=0;
+  for(var i=0,j=list.length; i<j; i++)
+    total+=list[i]
+  return total;
+}
+
+function get_data_with_fixed_x_axis(data, min, max, incr){
+  var _labels=[], _vals=[], i, 
+      _val, _matched_indexes, _matched_vals;
+
+  for(i=min; i<max; i+=incr){
+    // first grab all labels in that range
+    _matched_indexes = get_indexes_in_range(data.intLabels, i, i+incr);
+
+    // then group the values into one total
+    _matched_vals = get_items_from_list_by_index_list(_matched_indexes, data.vals);
+    val = sum_list(_matched_vals);
+
+    _vals.push(val);
+
+    // if there is
+    if(i==parseInt(i))
+      _labels.push(i + '%');
+    else
+      _labels.push('');
+  }
+    
+  return {labels: _labels, vals: _vals}
+}
+
+
 /**
  * Render (or update) the Highcharts chart.
  * @param  {object} data Data processed from the API.
@@ -745,14 +801,20 @@ function renderAccessibleData( data ) {
  * @return {null}
  */
 function renderChart( data, cb ) {
-
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
 
+    // Spread the labels from 2 to 8 with 0.125 increments
+    var fixed_x_axis_data = get_data_with_fixed_x_axis(data, 3, 6, 0.125);
+
+    var _data = data;
+    if( document.location.href.search('show')>1 )
+      _data = fixed_x_axis_data;
+
     chart.$wrapper.removeClass('geolocating');
-    hc.xAxis[0].setCategories( data.labels );
-    hc.series[0].setData( data.vals );
+    hc.xAxis[0].setCategories( _data.labels );
+    hc.series[0].setData( _data.vals );
 
   } else {
 
@@ -795,7 +857,14 @@ function renderChart( data, cb ) {
       yAxis: [{
         title: {
           text: '',
-        }
+        },
+        labels: {
+          formatter: function() {
+            return this.value>9?(this.value + '+'):this.value;
+          }
+        },
+        max: 10,
+        min: 0
       }, {
         opposite: true,
         title: {
