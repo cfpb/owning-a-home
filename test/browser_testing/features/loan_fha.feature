@@ -36,13 +36,13 @@ Examples:
 
 
 @smoke_testing @loan_options
-Scenario Outline: Test Related links in the FHA Loan page
-	When I click Get all the details for "<loan_type>" loans
+Scenario Outline: Test OTHER LOAN TYPES links in the FHA Loan page
+	When I click OTHER LOAN TYPES "<loan_type>"
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
 
 Examples:
   | loan_type   	  				        | relative_url								              | page_title 	|
-  | Related Link Conventional 		  | /loan-options/conventional-loans/ 		    | Loan Options  |
-  | Related Link Special Programs   | /loan-options/special-loan-programs/      | Loan Options  |
+  | Conventional 		  | /loan-options/conventional-loans/ 		    | Loan Options  |
+  | Special Programs  | /loan-options/special-loan-programs/      | Loan Options  |
 

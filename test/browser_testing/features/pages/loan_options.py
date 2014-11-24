@@ -75,7 +75,8 @@ class LoanOptions(Base):
         try:
             msg = 'Element %s not found after %s secs' % (e_collapse, l_wait)
             element = WebDriverWait(self.driver, l_wait)\
-                .until(EC.element_to_be_clickable((By.CSS_SELECTOR, e_collapse)), msg)
+                .until(EC.element_to_be_clickable
+                       ((By.CSS_SELECTOR, e_collapse)), msg)
 
         except TimeoutException:
             e = self.driver.find_element_by_css_selector(e_expand)
@@ -121,12 +122,6 @@ class LoanOptions(Base):
             e_href = FHA_LOAN
         elif(loan_type == 'Special programs'):
             e_href = SPECIAL_LOAN
-        elif(loan_type == 'Related Link FHA'):
-            e_href = RELATED_FHA_LOAN
-        elif(loan_type == 'Related Link Special Programs'):
-            e_href = RELATED_SPECIAL
-        elif(loan_type == 'Related Link Conventional'):
-            e_href = RELATED_CONV
         else:
             raise Exception(loan_type + " is NOT a valid Loan Type")
 
@@ -143,6 +138,23 @@ class LoanOptions(Base):
         script = "arguments[0].scrollIntoView(true);"
         self.driver.execute_script(script, element)
 
+        element.click()
+
+    def click_go_link(self, loan_type):
+        if(loan_type == 'FHA'):
+            e_href = RELATED_FHA_LOAN
+        elif(loan_type == 'Special Programs'):
+            e_href = RELATED_SPECIAL
+        elif(loan_type == 'Conventional'):
+            e_href = RELATED_CONV
+        else:
+            raise Exception(loan_type + " is NOT a valid Loan Type")
+
+        e_xpath = "//a[@class = 'go-link' and @href='" + e_href + "']"
+        msg = 'Element %s not found after %s sec' % (e_xpath, self.driver_wait)
+
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.element_to_be_clickable((By.XPATH, e_xpath)), msg)
         element.click()
 
     def get_subsection_text(self, page_section):
