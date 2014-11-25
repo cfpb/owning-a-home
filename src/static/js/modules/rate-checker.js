@@ -738,6 +738,8 @@ function renderAccessibleData( data ) {
   });
 }
 
+
+
 /**
  * Render (or update) the Highcharts chart.
  * @param  {object} data Data processed from the API.
@@ -745,7 +747,6 @@ function renderAccessibleData( data ) {
  * @return {null}
  */
 function renderChart( data, cb ) {
-
   if ( chart.isInitialized ) {
 
     var hc = chart.$el.highcharts();
@@ -795,7 +796,14 @@ function renderChart( data, cb ) {
       yAxis: [{
         title: {
           text: '',
-        }
+        },
+        labels: {
+          formatter: function() {
+            return this.value>9?(this.value + '+'):this.value;
+          }
+        },
+        max: 10,
+        min: 0
       }, {
         opposite: true,
         title: {
