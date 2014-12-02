@@ -162,7 +162,7 @@ var updateView = function() {
       label: 4,
       val: 0
     }
-  };  
+  };
 
   // Abort the previous request.
   if ( typeof options['request'] === 'object' ) {
@@ -185,7 +185,7 @@ var updateView = function() {
           sortedKeys.push(key);
         }
       }
-      
+
       sortedKeys.sort();
       len = sortedKeys.length;
 
@@ -393,7 +393,7 @@ function loadCounties() {
       });
 
       // Don't select any options by default.
-      $('#county').prop( 'selectedIndex', -1 );      
+      $('#county').prop( 'selectedIndex', -1 );
     }
 
 
@@ -528,7 +528,7 @@ function renderDownPayment() {
       $percent.val( Math.round(val) );
     } else {
       val = getSelection('house-price') * ( getSelection('percent-down') / 100 );
-      $down.val( val > 0 ? Math.round(val) : '' );
+      $down.val( val >= 0 ? Math.round(val) : '' );
     }
   }
 }
@@ -977,7 +977,7 @@ $('.calc-loan-amt .recalc').on( 'keyup', debounce(
     // Don't recalculate on TAB or arrow keys
     if ( ev.which !== 9 && ( ev.which < 37 || ev.which > 40 ) ) {
       processLoanAmount( this );
-      updateView( this );   
+      updateView( this );
     }
   }, 500, false));
 
