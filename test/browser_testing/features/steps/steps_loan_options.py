@@ -6,6 +6,7 @@ from pages.base import Base
 from pages.loan_options import LoanOptions
 
 
+# EXPAND/COLLAPSE
 @when(u'I click Learn More to expand the "{section_name}" section')
 def step(context, section_name):
     context.loan_options.click_learn_more(section_name)
@@ -16,17 +17,13 @@ def step(context, section_name):
     context.loan_options.click_collapse(section_name)
 
 
-@when(u'I click Get all the details for "{loan_type}" loans')
-def step(context, loan_type):
-    context.loan_options.click_loan_type(loan_type)
-
-
 @then(u'I should see a collapse link for the "{section_name}" section')
 def step(context, section_name):
     caption = context.loan_options.get_expand_button_caption(section_name)
     assert_that(caption, equal_to('Collapse'))
 
 
+# SUB-SECTIONS
 @then(u'I should see "{expected_text}" inside the "{section_name}" section')
 def step(context, expected_text, section_name):
     actual_text = context.loan_options.get_subsection_text(section_name)
@@ -56,3 +53,15 @@ def step(context, interest_rate):
 def step(context, loan_term):
     actual_term = context.loan_options.get_loan_term()
     assert_that(actual_term, equal_to(loan_term))
+
+
+# Choosing the right loan type
+@when(u'I click Get all the details for "{loan_type}" loans')
+def step(context, loan_type):
+    context.loan_options.click_loan_type(loan_type)
+
+
+# OTHER LOAN TYPES
+@when(u'I click OTHER LOAN TYPES "{loan_type}"')
+def step(context, loan_type):
+    context.loan_options.click_go_link(loan_type)
