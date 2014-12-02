@@ -2,7 +2,7 @@
 {% set navigation_bar = [
     ('../', 'index', 'Owning a Home'),
     ('../loan-options/', 'loan-options', 'Understanding loan options'),
-    ('../rate-checker/', 'rate-checker', 'Check Interest Rates'),
+    ('../rate-checker/', 'rate-checker', 'Check interest rates'),
     ('../resources/checklist_mortgage_closing.pdf', 'closing-checklist', 'Closing checklist'),
     ('../resources/mortgage_closing_forms.pdf', 'closing-forms', 'Closing forms explainer')
 ] -%}
@@ -42,7 +42,7 @@
                 {% if id == 'rate-checker' %}
                     <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
                        href="{{ href|e }}">
-                       {{ caption|e }} <sup>Beta</sup>
+                       {{ caption|e }} <sup>BETA</sup>
                    </a>
                 {% else %}
                     <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
