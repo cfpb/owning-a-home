@@ -251,6 +251,7 @@ module.exports = function(grunt) {
               // move html & template files new template folders need to be added here
               'index.html',
               'loan-options/**',
+              'check-rates/**',
               '_layouts/*',
               'resources/*'
             ],
