@@ -326,7 +326,7 @@ function renderLoanAmount() {
  * @return {null}
  */
 function checkForJumbo() {
-
+  params.update();
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       request;
@@ -347,7 +347,8 @@ function checkForJumbo() {
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
-  // Show a message if appropriate.
+  // Hide any existing message, then show a message if appropriate.
+  $('#county-warning').addClass('hidden');
   if ( params['loan-type'] === 'conf' ) {
     $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
   }
@@ -407,13 +408,15 @@ function loadCounties() {
 }
 
 function processCounties() {
-
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
+      prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       loan;
+
+  params.update();
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
@@ -427,7 +430,6 @@ function processCounties() {
     fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
     vaCountyLimit: parseInt( $county.data('va'), 10 )
   });
-
   if ( loan.success && loan.isJumbo ) {
     switch ( loan.type ) {
       case 'agency':
@@ -459,13 +461,23 @@ function processCounties() {
         });
         break;
     }
-    dropdown('loan-type').disable( norms );
+    dropdown('loan-type').enable( norms );
+    dropdown('loan-type').disable( prevLoanType );
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
+    if ( prevLoanType === 'jumbo' ) {
+      $('#loan-type').val( 'conv' );
+    }
+    else if ( prevLoanType === 'fha-hb' ) {
+      $('#loan-type').val( 'fha' );
+    }
+    else if ( prevLoanType === 'va-hb' ) {
+      $('#loan-type').val( 'va' );
+    }
   }
 
   // Hide the county warning.
@@ -942,7 +954,7 @@ function setSelections( options ) {
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
   checkForJumbo();
-  updateView();
+  processCounties();
 });
 
 // Prevent non-numeric characters from being entered
