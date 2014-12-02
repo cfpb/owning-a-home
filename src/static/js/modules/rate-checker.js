@@ -408,14 +408,15 @@ function loadCounties() {
 }
 
 function processCounties() {
-  params.update();
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
-      loanType = $('#loan-type').val(),
+      prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       loan;
+
+  params.update();
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
@@ -461,13 +462,22 @@ function processCounties() {
         break;
     }
     dropdown('loan-type').enable( norms );
-    dropdown('loan-type').disable( loanType );
+    dropdown('loan-type').disable( prevLoanType );
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
+    if ( prevLoanType === 'jumbo' ) {
+      $('#loan-type').val( 'conv' );
+    }
+    else if ( prevLoanType === 'fha-hb' ) {
+      $('#loan-type').val( 'fha' );
+    }
+    else if ( prevLoanType === 'va-hb' ) {
+      $('#loan-type').val( 'va' );
+    }
   }
 
   // Hide the county warning.
