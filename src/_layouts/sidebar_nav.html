@@ -2,6 +2,7 @@
 {% set navigation_bar = [
     ('../', 'index', 'Owning a Home'),
     ('../loan-options/', 'loan-options', 'Understanding loan options'),
+    ('../check-rates/', 'check-rates', 'Check interest rates'),
     ('../resources/checklist_mortgage_closing.pdf', 'closing-checklist', 'Closing checklist'),
     ('../resources/mortgage_closing_forms.pdf', 'closing-forms', 'Closing forms explainer')
 ] -%}
@@ -38,10 +39,17 @@
         <ul class="nav-secondary_list">
         {%- for href, id, caption in navigation_bar %}
             <li class="nav-secondary_item">
-                <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
-                   href="{{ href|e }}">
-                   {{ caption|e }}
-               </a>
+                {% if id == 'check-rates' %}
+                    <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
+                       href="{{ href|e }}">
+                       {{ caption|e }} <sup>BETA</sup>
+                   </a>
+                {% else %}
+                    <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
+                       href="{{ href|e }}">
+                       {{ caption|e }}
+                   </a>
+               {% endif %}
             </li>
         {%- endfor %}
         </ul>
