@@ -141,5 +141,34 @@ $ workon oah-tests
 $ behave -k
 ```
 
+## Load tests
+
+### Installing Jmeter
+
+Run "jmeter-bootstrap/bin/JMeterInstaller.py" which will install Jmeter 2.11 and required plugins to run Jmeter locally
+
+### Running load tests locally from the command line:
+
+apache-jmeter-2.11/bin/jmeter.sh -t owning-a-home/test/load_testing/RateChecker.jmx -Jserver_url oah.fake.demo.domain -Jthreads=8
+
+-t : this tells Jmeter where the test lives, relative to where Jmeter us running from
+-Jserver URL : this is the URL to runs load tests against
+-Jthreads : this is the maximum number of concurrent users for the load test
+
+OaH.jmx - this test is for the landing pages using all default settings (loan-options, rate-checker, etc)
+
+Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+
+If the number of threads is 6 and the there are 3 rows of queries the test will execute in this order:
+```
+user 1 - row 1
+user 2 - row 2
+user 3 - row 3
+user 4 - row 1
+user 5 - row 2
+user 6 - row 3
+```
+
+
 ## Contributions
 We welcome contributions, in both code and design form, with the understanding that you are contributing to a project that is in the public domain, and anything you contribute to this project will also be released into the public domain. See our [CONTRIBUTING file](https://github.com/cfpb/owning-a-home/blob/master/CONTRIBUTING.md) for more details.
