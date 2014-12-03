@@ -29,8 +29,7 @@ var template = {
   resultAlert: require('../templates/result-alert.hbs'),
   dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
-  chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs'),
-  dataDate: require('../templates/data-date.hbs')
+  chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
 };
 
 // List all the parameters the user can change and set
@@ -108,6 +107,7 @@ function init() {
   renderSlider();
   renderChart();
   renderLoanAmount();
+  renderTime();
   setSelections({ usePlaceholder: true });
 
   geolocation.getState({timeout: 2000}, function( state ){
@@ -295,8 +295,10 @@ function updateLanguage( data ) {
  * @return {null}
  */
 function renderTime( time ) {
-  this.time = formatTime( time );
-  $('.chart').after( template.dataDate( this ) );
+  if ( time ) {
+    time = formatTime( time );
+  }
+  $('#timestamp').text( time );
 }
 
 /**
