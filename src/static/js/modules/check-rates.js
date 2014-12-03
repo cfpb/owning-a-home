@@ -11,6 +11,7 @@ var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
 var isNum = require('is-money-usd');
+var formatTime = require('./format-timestamp');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -28,7 +29,8 @@ var template = {
   resultAlert: require('../templates/result-alert.hbs'),
   dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
-  chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
+  chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs'),
+  dataDate: require('../templates/data-date.hbs')
 };
 
 // List all the parameters the user can change and set
@@ -229,6 +231,7 @@ var updateView = function() {
       updateLanguage( data );
       renderAccessibleData( data );
       renderChart( data );
+      renderTime( results.timestamp );
       updateComparisons( data );
       renderInterestAmounts();
 
@@ -284,6 +287,16 @@ function updateLanguage( data ) {
   renderLocation();
   renderMedian( data );
   updateTerm( data );
+}
+
+/**
+ * Updates the sentence data date sentence below the chart
+ * @param  {string} timestamp from API
+ * @return {null}
+ */
+function renderTime( time ) {
+  this.time = formatTime( time );
+  $('.chart').after( template.dataDate( this ) );
 }
 
 /**
