@@ -11,6 +11,7 @@ var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
 var isNum = require('is-money-usd');
+var formatTime = require('./format-timestamp');
 require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
@@ -26,6 +27,7 @@ var template = {
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
+  failAlert: require('../templates/fail-alert.hbs'),
   dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
   chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
@@ -106,6 +108,7 @@ function init() {
   renderSlider();
   renderChart();
   renderLoanAmount();
+  renderTime();
   setSelections({ usePlaceholder: true });
 
   geolocation.getState({timeout: 2000}, function( state ){
@@ -138,6 +141,8 @@ var getData = function() {
     loan_term: params['loan-term'],
     loan_type: params['loan-type'],
     arm_type: params['arm-type']
+  }).fail(function() {
+    resultFailWarning();
   });
 
   return promise;
@@ -229,6 +234,7 @@ var updateView = function() {
       updateLanguage( data );
       renderAccessibleData( data );
       renderChart( data );
+      renderTime( results.timestamp );
       updateComparisons( data );
       renderInterestAmounts();
 
@@ -284,6 +290,18 @@ function updateLanguage( data ) {
   renderLocation();
   renderMedian( data );
   updateTerm( data );
+}
+
+/**
+ * Updates the sentence data date sentence below the chart
+ * @param  {string} timestamp from API
+ * @return {null}
+ */
+function renderTime( time ) {
+  if ( time ) {
+    time = formatTime( time );
+  }
+  $('#timestamp').text( time );
 }
 
 /**
@@ -663,6 +681,11 @@ function scoreWarning() {
  */
 function resultWarning() {
   $('#chart').addClass('warning').append( template.resultAlert );
+}
+
+function resultFailWarning() {
+  chart.stopLoading();
+  $('#chart').addClass('warning').append( template.failAlert );
 }
 
 function downPaymentWarning() {
