@@ -27,6 +27,7 @@ var template = {
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
+  failAlert: require('../templates/fail-alert.hbs'),
   dpWarning: require('../templates/down-payment-warning.hbs'),
   chartTooltipSingle: require('../templates/chart-tooltip-single.hbs'),
   chartTooltipMultiple: require('../templates/chart-tooltip-multiple.hbs')
@@ -140,6 +141,8 @@ var getData = function() {
     loan_term: params['loan-term'],
     loan_type: params['loan-type'],
     arm_type: params['arm-type']
+  }).fail(function() {
+    resultFailWarning();
   });
 
   return promise;
@@ -666,6 +669,11 @@ function scoreWarning() {
  */
 function resultWarning() {
   $('#chart').addClass('warning').append( template.resultAlert );
+}
+
+function resultFailWarning() {
+  chart.stopLoading();
+  $('#chart').addClass('warning').append( template.failAlert );
 }
 
 function downPaymentWarning() {
