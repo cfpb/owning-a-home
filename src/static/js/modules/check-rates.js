@@ -423,7 +423,6 @@ function checkForJumbo() {
 
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
-    console.log(prevLoanType)
     dropdown('county').hide();
     dropdown('loan-type').removeOption( jumbos );
     if ( prevLoanType === 'jumbo' ) {
