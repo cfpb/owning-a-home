@@ -426,7 +426,7 @@ function checkForJumbo() {
     dropdown('county').hide();
     dropdown('loan-type').removeOption( jumbos );
     if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conv' );
+      $('#loan-type').val( 'conf' );
     }
     else if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
@@ -528,7 +528,7 @@ function processCounty() {
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
     if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conv' );
+      $('#loan-type').val( 'conf' );
     }
     else if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
