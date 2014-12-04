@@ -93,51 +93,19 @@ var options = {
   'request': ''
 };
 
-
-/**
- * Initialize the rate checker app.
- * @return {null}
- */
-function init() {
-
-  // Only attempt to do things if we're on the rate checker page.
-  if ( $('.rate-checker').length < 1 ) {
-    return;
-  }
-
-  renderSlider();
-  renderChart();
-  renderLoanAmount();
-  renderTime();
-  setSelections({ usePlaceholder: true });
-
-  geolocation.getState({timeout: 2000}, function( state ){
-    // If a state is returned (meaning they allowed the browser
-    // to determine their location).
-    if ( state ) {
-      params.location = state;
-      setSelection('location');
-    }
-    updateView();
-  });
-
-}
-
 /**
  * Get data from the API.
  * @return {object} jQuery promise.
  */
-var getData = function() {
-
+function getData() {
   params.update();
-
   var promise = $.get( config.rateCheckerAPI, {
     price: params['house-price'],
     loan_amount: params['loan-amount'],
     minfico: slider.min,
     maxfico: slider.max,
     state: params['location'],
-    rate_structure: params['rate-structure'],
+    rate_structure: params['rate-structure'],   
     loan_term: params['loan-term'],
     loan_type: params['loan-type'],
     arm_type: params['arm-type']
@@ -146,14 +114,108 @@ var getData = function() {
   });
 
   return promise;
-
 };
+
+/**
+ * Get values of all HTML elements in the control panel.
+ * @return {object} Key-value hash of element ids and values.
+ */
+function getSelections() {
+
+  var selections = {},
+      ids = [];
+
+  for ( var param in params ) {
+    selections[ param ] = getSelection( param );
+  }
+
+  return selections;
+
+}
+
+/**
+ * Get value(s) of an individual HTML element in the control panel.
+ * @param  {string} param Name of parameter to get. Usually the HTML element's id attribute.
+ * @return {object} Hash of element id and its value(s).
+ */
+function getSelection( param ) {
+
+  var $el = $( '#' + param ),
+      val;
+
+  switch ( param ) {
+    case 'location':
+    case 'rate-structure':
+    case 'loan-term':
+    case 'loan-type':
+    case 'arm-type':
+      val = $el.val();
+      break;
+    default:
+      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
+  }
+
+  return val;
+
+}
+
+/**
+ * Set value(s) of all HTML elements in the control panel.
+ * @return {null}
+ */
+function setSelections( options ) {
+
+  for ( var param in params ) {
+    setSelection( param, options );
+  }
+
+}
+
+/**
+ * Set value(s) of an individual HTML element in the control panel.
+ * @param  {string} param Name of parameter to set. Usually the HTML element's id attribute.
+ * @param  {object} options Hash of options.
+ * @return {null}
+ */
+function setSelection( param, options ) {
+
+  var opts = options || {},
+      $el = $( '#' + param ),
+      val = opts.value || params[ param ];
+
+  switch ( param ) {
+    case 'credit-score':
+      $el.val( val ).change();
+      break;
+    default:
+      if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
+        $el.attr( 'placeholder', val );
+      } else {
+        $el.val( val );
+      }
+  }
+
+}
+
+/**
+ * Calculate and render the loan amount.
+ * @return {null}
+ */
+function renderLoanAmount() {
+  var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
+  if ( loan > 0 ) {
+    params['loan-amount'] = loan;
+  } else {
+    params['loan-amount'] = 0;
+  }
+  $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
+}
 
 /**
  * Render all applicable rate checker areas.
  * @return {null}
  */
-var updateView = function() {
+function updateView() {
 
   chart.startLoading();
 
@@ -254,7 +316,6 @@ var updateView = function() {
 
   // clean up input formatting
 
-
 };
 
 /**
@@ -292,96 +353,15 @@ function updateLanguage( data ) {
   updateTerm( data );
 }
 
-/**
- * Updates the sentence data date sentence below the chart
- * @param  {string} timestamp from API
- * @return {null}
- */
-function renderTime( time ) {
-  if ( time ) {
-    time = formatTime( time );
-  }
-  $('#timestamp').text( time );
-}
 
 /**
- * Store the loan amount and down payment and check if it's a jumbo loan.
- * @return {null}
+ * Get a list of counties from the API for the selected state.
+ * @return {object} jQuery promise.
  */
-function processLoanAmount( element ) {
-  var name = $( element ).attr('name');
-  // Save the dp-constant value when the user interacts with
-  // down payment or down payment percentages.
-  if ( name === 'down-payment' || name === 'percent-down' ) {
-    options['dp-constant'] = name;
-  }
-
-  renderDownPayment.apply( element );
-  params['house-price'] = getSelection('house-price');
-  params['down-payment'] = getSelection('down-payment');
-  renderLoanAmount();
-  checkForJumbo();
-  processCounties();
-
-}
-
-/**
- * Calculate and render the loan amount.
- * @return {null}
- */
-function renderLoanAmount() {
-  var loan = unFormatUSD( params['house-price'] ) - unFormatUSD( params['down-payment'] );
-  if ( loan > 0 ) {
-    params['loan-amount'] = loan;
-  } else {
-    params['loan-amount'] = 0;
-  }
-  $('#loan-amount-result').text( formatUSD(params['loan-amount'], {decimalPlaces: 0}) );
-}
-
-/**
- * Check the loan amount and initiate the jumbo loan interactions if need be.
- * @return {null}
- */
-function checkForJumbo() {
-  params.update();
-  var loan,
-      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
-      request;
-
-  loan = jumbo({
-    loanType: params['loan-type'],
-    loanAmount: params['loan-amount']
+function getCounties() {
+  return $.get( config.countyAPI, {
+    state: params['location']
   });
-
-  // If we don't need to request a county, hide the county dropdown and jumbo options.
-  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
-    dropdown('county').hide();
-    dropdown('loan-type').removeOption( jumbos );
-    $('#county-warning').addClass('hidden');
-    return;
-  }
-
-  // Otherwise, make sure the county dropdown is shown.
-  dropdown('county').show();
-
-  // Hide any existing message, then show a message if appropriate.
-  $('#county-warning').addClass('hidden');
-  if ( params['loan-type'] === 'conf' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
-  }
-  if ( params['loan-type'] === 'fha' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
-  }
-
-  // If the state hasn't changed, we also cool. No need to load new counties.
-  if ( $('#county').data('state') === params['location'] ) {
-    dropdown('county').hideHighlight();
-    return;
-  }
-
-  // Let's load us some counties.
-  loadCounties();
 
 }
 
@@ -422,10 +402,70 @@ function loadCounties() {
   request.then(function() {
     dropdown('county').hideLoadingAnimation();
   });
+}
+
+/**
+ * Check the loan amount and initiate the jumbo loan interactions if need be.
+ * @return {null}
+ */
+function checkForJumbo() {
+  var loan,
+      jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      request,
+      prevLoanType = $('#loan-type').val();
+
+  params.update();
+
+  loan = jumbo({
+    loanType: params['loan-type'],
+    loanAmount: params['loan-amount']
+  });
+
+  // If we don't need to request a county, hide the county dropdown and jumbo options.
+  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
+    dropdown('county').hide();
+    dropdown('loan-type').removeOption( jumbos );
+    if ( prevLoanType === 'jumbo' ) {
+      $('#loan-type').val( 'conf' );
+    }
+    else if ( prevLoanType === 'fha-hb' ) {
+      $('#loan-type').val( 'fha' );
+    }
+    else if ( prevLoanType === 'va-hb' ) {
+      $('#loan-type').val( 'va' );
+    }
+    $('#county-warning').addClass('hidden');
+    return;
+  }
+
+  // Otherwise, make sure the county dropdown is shown.
+  dropdown('county').show();
+
+  // Hide any existing message, then show a message if appropriate.
+  $('#county-warning').addClass('hidden');
+  if ( params['loan-type'] === 'conf' ) {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
+  }
+  if ( params['loan-type'] === 'fha' ) {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  }
+
+  // If the state hasn't changed, we also cool. No need to load new counties.
+  if ( $('#county').data('state') === params['location'] ) {
+    dropdown('county').hideHighlight();
+    return;
+  }
+
+  // Let's load us some counties.
+  loadCounties();
 
 }
 
-function processCounties() {
+/**
+ * Get data for the chosen county
+ * @return {null}
+ */
+function processCounty() {
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
@@ -488,7 +528,7 @@ function processCounties() {
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
     if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conv' );
+      $('#loan-type').val( 'conf' );
     }
     else if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
@@ -506,14 +546,36 @@ function processCounties() {
 }
 
 /**
- * Get a list of counties from the API for the selected state.
- * @return {object} jQuery promise.
+ * Updates the sentence data date sentence below the chart
+ * @param  {string} timestamp from API
+ * @return {null}
  */
-function getCounties() {
-  return $.get( config.countyAPI, {
-    state: params['location']
-  });
+function renderTime( time ) {
+  if ( time ) {
+    time = formatTime( time );  }
+  $('#timestamp').text( time );
+}
 
+
+/**
+ * Store the loan amount and down payment, process the county data, check if it's a jumbo loan.
+ * @return {null}
+ */
+function processLoanAmount( element ) {
+  var name = $( element ).attr('name');
+  // Save the dp-constant value when the user interacts with
+  // down payment or down payment percentages.
+  if ( name === 'down-payment' || name === 'percent-down' ) {
+    options['dp-constant'] = name;
+  }
+
+  renderDownPayment.apply( element );
+  params['house-price'] = getSelection('house-price');
+  params['down-payment'] = getSelection('down-payment');
+  renderLoanAmount();
+  processCounty();
+  checkForJumbo();
+  updateView();
 }
 
 /**
@@ -707,16 +769,6 @@ function removeAlerts() {
 }
 
 /**
- * Have the reset button clear selections.
- * @return {null}
- */
-$('.defaults-link').click(function(e){
-  setSelections({ usePlaceholder: true });
-  updateView();
-  return false;
-});
-
-/**
  * Initialize the range slider. http://andreruffert.github.io/rangeslider.js/
  * @param  {function} cb Optional callback.
  * @return {null}
@@ -894,90 +946,45 @@ function renderChart( data, cb ) {
 }
 
 /**
- * Get value(s) of an individual HTML element in the control panel.
- * @param  {string} param Name of parameter to get. Usually the HTML element's id attribute.
- * @return {object} Hash of element id and its value(s).
- */
-function getSelection( param ) {
-
-  var $el = $( '#' + param ),
-      val;
-
-  switch ( param ) {
-    case 'location':
-    case 'rate-structure':
-    case 'loan-term':
-    case 'loan-type':
-    case 'arm-type':
-      val = $el.val();
-      break;
-    default:
-      val = unFormatUSD( $el.val() || $el.attr('placeholder') );
-  }
-
-  return val;
-
-}
-
-/**
- * Get values of all HTML elements in the control panel.
- * @return {object} Key-value hash of element ids and values.
- */
-function getSelections() {
-
-  var selections = {},
-      ids = [];
-
-  for ( var param in params ) {
-    selections[ param ] = getSelection( param );
-  }
-
-  return selections;
-
-}
-
-/**
- * Set value(s) of an individual HTML element in the control panel.
- * @param  {string} param Name of parameter to set. Usually the HTML element's id attribute.
- * @param  {object} options Hash of options.
+ * Initialize the rate checker app.
  * @return {null}
  */
-function setSelection( param, options ) {
+function init() {
 
-  var opts = options || {},
-      $el = $( '#' + param ),
-      val = opts.value || params[ param ];
-
-  switch ( param ) {
-    case 'credit-score':
-      $el.val( val ).change();
-      break;
-    default:
-      if ( opts.usePlaceholder && $el.is('[placeholder]') ) {
-        $el.attr( 'placeholder', val );
-      } else {
-        $el.val( val );
-      }
+  // Only attempt to do things if we're on the rate checker page.
+  if ( $('.rate-checker').length < 1 ) {
+    return;
   }
+
+  renderSlider();
+  renderChart();
+  renderLoanAmount();
+  renderTime();
+  setSelections({ usePlaceholder: true });
+
+  geolocation.getState({timeout: 2000}, function( state ){
+    // If a state is returned (meaning they allowed the browser
+    // to determine their location).
+    if ( state ) {
+      params.location = state;
+      setSelection('location');
+    }
+    updateView();
+  });
 
 }
 
-/**
- * Set value(s) of all HTML elements in the control panel.
- * @return {null}
- */
-function setSelections( options ) {
+// Have the reset button clear selections.
+$('.defaults-link').click(function(ev){
+  ev.preventDefault();
+  setSelections({ usePlaceholder: true });
+  updateView();
+});
 
-  for ( var param in params ) {
-    setSelection( param, options );
-  }
-
-}
 
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
-  checkForJumbo();
-  processCounties();
+  processLoanAmount( this );
 });
 
 // Prevent non-numeric characters from being entered
@@ -1012,7 +1019,6 @@ $('.calc-loan-amt .recalc').on( 'keyup', debounce(
     // Don't recalculate on TAB or arrow keys
     if ( ev.which !== 9 && ( ev.which < 37 || ev.which > 40 ) ) {
       processLoanAmount( this );
-      updateView( this );
     }
   }, 500, false));
 
@@ -1029,7 +1035,7 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
 });
 
 // Recalculate loan amount.
-$('#county').on( 'change', processCounties );
+$('#county').on( 'change', processCounty );
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
