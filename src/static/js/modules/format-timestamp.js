@@ -1,5 +1,3 @@
-var hdate = require('human-date')
-
 module.exports = function( then ) {
 
   then = new Date( then );
