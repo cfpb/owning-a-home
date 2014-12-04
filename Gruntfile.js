@@ -186,7 +186,7 @@ module.exports = function(grunt) {
     uglify: {
       main: {
         files: {
-          './dist/static/js/main.min.js': ['./dist/static/js/main.js']
+          './dist/static/js/main.js': ['./dist/static/js/main.js']
         }
       },
       pages: {
@@ -398,7 +398,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['js', 'uglify']
+        tasks: ['js']
       },
       css: {
         options: {
@@ -412,7 +412,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/**/*.html', '_layouts/*'],
-        tasks: ['build', 'ship']
+        tasks: ['build']
       }
     }
 
