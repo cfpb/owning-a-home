@@ -492,28 +492,28 @@ function processCounty() {
     switch ( loan.type ) {
       case 'agency':
         $loan.addOption({
-          label: 'Conforming Jumbo',
+          label: 'Conforming jumbo',
           value: 'agency',
           select: true
         });
         break;
       case 'jumbo':
         $loan.addOption({
-          label: 'Jumbo',
+          label: 'Jumbo (non-conforming)',
           value: 'jumbo',
           select: true
         });
         break;
       case 'fha-hb':
         $loan.addOption({
-          label: 'FHA-HB',
+          label: 'FHA high-balance',
           value: 'fha-hb',
           select: true
         });
         break;
       case 'va-hb':
         $loan.addOption({
-          label: 'VA-HB',
+          label: 'VA high-balance',
           value: 'va-hb',
           select: true
         });
