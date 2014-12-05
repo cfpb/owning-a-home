@@ -414,8 +414,6 @@ function checkForJumbo() {
       request,
       prevLoanType = $('#loan-type').val();
 
-  console.log("checkForJumbo() called with " + params['loan-type'] + params['house-price'] );
-
   params.update();
 
   loan = jumbo({
@@ -496,7 +494,6 @@ function processCounty() {
     fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
     vaCountyLimit: parseInt( $county.data('va'), 10 )
   });
-  console.log(loan.isJumbo);
   if ( loan.success && loan.isJumbo ) {
     switch ( loan.type ) {
       case 'agency':
@@ -590,7 +587,7 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  if ( $('#county').val() !== '' ) {
+  if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
     processCounty();
   }
   checkForJumbo();
@@ -999,6 +996,8 @@ $('.defaults-link').click(function(ev){
 
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
+  // If the loan-type is conf, and there's a county visible, then we just exited a HB situation. Clear the county before proceeding.
+  $('#hb-warning').addClass('hidden');
   processLoanAmount( this );
 });
 
