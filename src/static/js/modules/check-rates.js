@@ -433,7 +433,7 @@ function checkForJumbo() {
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
-    else {
+    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
       $('#loan-type').val( 'conf' );
     }
     $('#county-warning').addClass('hidden');
@@ -541,7 +541,7 @@ function processCounty() {
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
-    else {
+    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
       $('#loan-type').val( 'conf' );
     }
   }
