@@ -421,6 +421,7 @@ function checkForJumbo() {
     loanAmount: params['loan-amount']
   });
 
+
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
@@ -437,7 +438,6 @@ function checkForJumbo() {
     $('#county-warning').addClass('hidden');
     return;
   }
-
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
@@ -448,6 +448,11 @@ function checkForJumbo() {
   }
   if ( params['loan-type'] === 'fha' ) {
     $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  }
+
+  // if county is undefined, highligh the dropdown.
+  if ( $('#county').val() === null ) {
+    dropdown('county').showHighlight();
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -971,7 +976,6 @@ function init() {
     }
     updateView();
   });
-
 }
 
 // Have the reset button clear selections.
