@@ -426,14 +426,14 @@ function checkForJumbo() {
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
     dropdown('loan-type').removeOption( jumbos );
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
+    }
+    else {
+      $('#loan-type').val( 'conf' );
     }
     $('#county-warning').addClass('hidden');
     return;
@@ -525,21 +525,23 @@ function processCounty() {
         break;
     }
     dropdown('loan-type').enable( norms );
-    dropdown('loan-type').disable( prevLoanType );
+    if ( prevLoanType !== params['loan-type'] ) {
+      dropdown('loan-type').disable( prevLoanType );
+    }
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
+    }
+    else {
+      $('#loan-type').val( 'conf' );
     }
   }
 
@@ -590,13 +592,10 @@ function processLoanAmount( element ) {
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     removeAlerts();
-    // $percent.val('0').attr('placeholder', '');
-    // $down.val('0');
     chart.stopLoading();
     downPaymentWarning();
     return true;
   } else if ($percent.attr('placeholder') === '') {
-    // $percent.attr('placeholder', '10');
     return false;
   }
 }
