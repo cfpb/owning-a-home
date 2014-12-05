@@ -421,23 +421,23 @@ function checkForJumbo() {
     loanAmount: params['loan-amount']
   });
 
+
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
     dropdown('loan-type').removeOption( jumbos );
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
+    else {
+      $('#loan-type').val( 'conf' );
+    }
     $('#county-warning').addClass('hidden');
     return;
   }
-
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
@@ -448,6 +448,11 @@ function checkForJumbo() {
   }
   if ( params['loan-type'] === 'fha' ) {
     $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  }
+
+  // if county is undefined, highligh the dropdown.
+  if ( $('#county').val() === null ) {
+    dropdown('county').showHighlight();
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -520,21 +525,23 @@ function processCounty() {
         break;
     }
     dropdown('loan-type').enable( norms );
-    dropdown('loan-type').disable( prevLoanType );
+    if ( prevLoanType !== params['loan-type'] ) {
+      dropdown('loan-type').disable( prevLoanType );
+    }
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
     $('#hb-warning').addClass('hidden');
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
+    }
+    else {
+      $('#loan-type').val( 'conf' );
     }
   }
 
@@ -585,13 +592,10 @@ function processLoanAmount( element ) {
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     removeAlerts();
-    // $percent.val('0').attr('placeholder', '');
-    // $down.val('0');
     chart.stopLoading();
     downPaymentWarning();
     return true;
   } else if ($percent.attr('placeholder') === '') {
-    // $percent.attr('placeholder', '10');
     return false;
   }
 }
@@ -971,7 +975,6 @@ function init() {
     }
     updateView();
   });
-
 }
 
 // Have the reset button clear selections.
