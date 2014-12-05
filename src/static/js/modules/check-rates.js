@@ -422,6 +422,7 @@ function checkForJumbo() {
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
+    $('#county').val('');
     dropdown('loan-type').removeOption( jumbos );
     if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
@@ -429,7 +430,7 @@ function checkForJumbo() {
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
-    else {
+    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
       $('#loan-type').val( 'conf' );
     }
     $('#county-warning').addClass('hidden');
@@ -520,24 +521,30 @@ function processCounty() {
           select: true
         });
         break;
+      case 'conf':
+        $('#loan-type').val( 'conf' );
+        break;
     }
     dropdown('loan-type').enable( norms );
+    dropdown('loan-type').showHighlight();
+    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
     if ( prevLoanType !== params['loan-type'] ) {
       dropdown('loan-type').disable( prevLoanType );
     }
-    dropdown('loan-type').showHighlight();
-    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
+
     $('#hb-warning').addClass('hidden');
+    // Disable previous loan type if loan was kicked out of jumbo
     if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
-    else {
+    if ( $('#loan-type').val === null ) {
       $('#loan-type').val( 'conf' );
     }
   }
@@ -577,7 +584,9 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  processCounty();
+  if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
+    processCounty();
+  }
   checkForJumbo();
   updateView();
 }
@@ -984,6 +993,8 @@ $('.defaults-link').click(function(ev){
 
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
+  // If the loan-type is conf, and there's a county visible, then we just exited a HB situation. Clear the county before proceeding.
+  $('#hb-warning').addClass('hidden');
   processLoanAmount( this );
 });
 
@@ -1035,7 +1046,9 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
 });
 
 // Recalculate loan amount.
-$('#county').on( 'change', processCounty );
+$('#county').on( 'change', function() {
+  processCounty();
+});
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
