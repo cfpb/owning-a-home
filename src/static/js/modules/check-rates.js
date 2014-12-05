@@ -18,6 +18,7 @@ require('./tab');
 require('./analytics/rc-analytics');
 require('./nemo');
 require('./nemo-shim');
+require('./placeholder-polyfill');
 
 // Load our handlebar templates.
 var template = {
@@ -105,11 +106,15 @@ function getData() {
     minfico: slider.min,
     maxfico: slider.max,
     state: params['location'],
-    rate_structure: params['rate-structure'],   
+    rate_structure: params['rate-structure'],
     loan_term: params['loan-term'],
     loan_type: params['loan-type'],
     arm_type: params['arm-type']
-  }).fail(function() {
+  })
+  .done(function() {
+    chart.stopLoading();
+  })
+  .fail(function() {
     resultFailWarning();
   });
 
@@ -308,14 +313,6 @@ function updateView() {
     resultWarning();
     downPaymentWarning();
   }
-
-  // Whether the request succeeds or fails, stop the loading animation.
-  options['request'].then(function(){
-    chart.stopLoading();
-  });
-
-  // clean up input formatting
-
 };
 
 /**
