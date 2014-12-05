@@ -281,6 +281,16 @@ function updateView() {
         }
       });
 
+      console.log ("test1: " + $('#county').is(':visible') + " && " + ($('#county').val() === null) );
+      // fade out chart and highlight county if no county is selected
+      if ( $('#county').is(':visible') && $('#county').val() === null ) {
+        chart.startLoading();
+        dropdown('county').showHighlight();
+        $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
+        $('#hb-warning').addClass('hidden');
+        return;
+      }
+
       // display an error message if less than 2 results are returned
       if( data.vals.length < 2 ) {
         chart.stopLoading();
@@ -293,13 +303,6 @@ function updateView() {
         chart.stopLoading();
         resultWarning();
         downPaymentWarning();
-        return;
-      }
-
-      // fade out chart and highlight county if no county is selected
-      if ( $('#county').is(':visible') && $('#county').val() === null ) {
-        chart.startLoading();
-        dropdown('county').showHighlight();
         return;
       }
 
@@ -596,11 +599,11 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  checkForJumbo();
   // If a county is selected, process it
   if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
     processCounty();
   }
+  checkForJumbo();
   updateView();
 
 }
