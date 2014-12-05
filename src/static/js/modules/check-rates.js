@@ -414,6 +414,8 @@ function checkForJumbo() {
       request,
       prevLoanType = $('#loan-type').val();
 
+  console.log("checkForJumbo() called with " + params['loan-type'] + params['house-price'] );
+
   params.update();
 
   loan = jumbo({
@@ -494,6 +496,7 @@ function processCounty() {
     fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
     vaCountyLimit: parseInt( $county.data('va'), 10 )
   });
+  console.log(loan.isJumbo);
   if ( loan.success && loan.isJumbo ) {
     switch ( loan.type ) {
       case 'agency':
@@ -524,24 +527,30 @@ function processCounty() {
           select: true
         });
         break;
+      case 'conf':
+        $('#loan-type').val( 'conf' );
+        break;
     }
     dropdown('loan-type').enable( norms );
+    dropdown('loan-type').showHighlight();
+    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
     if ( prevLoanType !== params['loan-type'] ) {
       dropdown('loan-type').disable( prevLoanType );
     }
-    dropdown('loan-type').showHighlight();
-    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
+
     $('#hb-warning').addClass('hidden');
+    // Disable previous loan type if loan was kicked out of jumbo
     if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
-    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
+    if ( $('#loan-type').val === null ) {
       $('#loan-type').val( 'conf' );
     }
   }
@@ -581,7 +590,9 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  processCounty();
+  if ( $('#county').val() !== '' ) {
+    processCounty();
+  }
   checkForJumbo();
   updateView();
 }
@@ -1039,7 +1050,9 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
 });
 
 // Recalculate loan amount.
-$('#county').on( 'change', processCounty );
+$('#county').on( 'change', function() {
+  processCounty();
+});
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
