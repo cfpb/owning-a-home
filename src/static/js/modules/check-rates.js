@@ -281,7 +281,6 @@ function updateView() {
         }
       });
 
-      console.log ("test1: " + $('#county').is(':visible') + " && " + ($('#county').val() === null) );
       // fade out chart and highlight county if no county is selected
       if ( $('#county').is(':visible') && $('#county').val() === null ) {
         chart.startLoading();
