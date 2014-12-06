@@ -457,11 +457,6 @@ function checkForJumbo() {
     $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
   }
 
-  // if county is undefined, highlight the dropdown and fade the graph.
-  if ( $('#county').val() === null ) {
-    dropdown('county').showHighlight();
-  }
-
   // If the state hasn't changed, we also cool. No need to load new counties.
   if ( $('#county').data('state') === params['location'] ) {
     dropdown('county').hideHighlight();
