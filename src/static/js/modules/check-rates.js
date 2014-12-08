@@ -258,6 +258,7 @@ function updateView() {
         }
       }
 
+
       sortedKeys.sort();
       len = sortedKeys.length;
 
@@ -279,6 +280,15 @@ function updateView() {
           data.totalVals.push(+key);
         }
       });
+
+      // fade out chart and highlight county if no county is selected
+      if ( $('#county').is(':visible') && $('#county').val() === null ) {
+        chart.startLoading();
+        dropdown('county').showHighlight();
+        $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
+        $('#hb-warning').addClass('hidden');
+        return;
+      }
 
       // display an error message if less than 2 results are returned
       if( data.vals.length < 2 ) {
@@ -313,6 +323,7 @@ function updateView() {
     resultWarning();
     downPaymentWarning();
   }
+  checkARM();
 };
 
 /**
@@ -388,6 +399,21 @@ function loadCounties() {
         $('#county').append( countyOption );
       });
 
+      // Alphabetize counties
+      var countyOptions = $('#county option');
+      countyOptions.sort( function(x,y) {
+        if ( x.text > y.text ) {
+          return 1;
+        }
+        else if ( x.text < y.text ) {
+          return -1;
+        }
+        else {
+          return 0;
+        }
+      });
+      $("#county").empty().append( countyOptions );
+
       // Don't select any options by default.
       $('#county').prop( 'selectedIndex', -1 );
     }
@@ -421,20 +447,20 @@ function checkForJumbo() {
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
+    $('#county').val('');
     dropdown('loan-type').removeOption( jumbos );
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
+    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
+      $('#loan-type').val( 'conf' );
+    }
     $('#county-warning').addClass('hidden');
     return;
   }
-
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
@@ -469,6 +495,7 @@ function processCounty() {
       prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'Jumbo (non-conforming)', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
       loan;
 
   params.update();
@@ -485,60 +512,39 @@ function processCounty() {
     fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
     vaCountyLimit: parseInt( $county.data('va'), 10 )
   });
+
   if ( loan.success && loan.isJumbo ) {
-    switch ( loan.type ) {
-      case 'agency':
-        $loan.addOption({
-          label: 'Conforming Jumbo',
-          value: 'agency',
-          select: true
-        });
-        break;
-      case 'jumbo':
-        $loan.addOption({
-          label: 'Jumbo',
-          value: 'jumbo',
-          select: true
-        });
-        break;
-      case 'fha-hb':
-        $loan.addOption({
-          label: 'FHA-HB',
-          value: 'fha-hb',
-          select: true
-        });
-        break;
-      case 'va-hb':
-        $loan.addOption({
-          label: 'VA-HB',
-          value: 'va-hb',
-          select: true
-        });
-        break;
-    }
     dropdown('loan-type').enable( norms );
-    dropdown('loan-type').disable( prevLoanType );
+    $loan.addOption({
+      'label': loanTypes[loan.type],
+      'value': loan.type,
+      'select': true
+    })
+    if ( norms.indexOf( prevLoanType ) !== -1 ) {
+      dropdown('loan-type').disable( prevLoanType );
+    }
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+
   } else {
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
+
     $('#hb-warning').addClass('hidden');
-    if ( prevLoanType === 'jumbo' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    else if ( prevLoanType === 'fha-hb' ) {
+    // Disable previous loan type if loan was kicked out of jumbo
+    if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
+    if ( $('#loan-type').val === null ) {
+      $('#loan-type').val( 'conf' );
+    }
   }
 
   // Hide the county warning.
   $('#county-warning').addClass('hidden');
-
-  updateView();
 
 }
 
@@ -570,9 +576,13 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  processCounty();
+  // If a county is selected, process it
+  if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
+    processCounty();
+  }
   checkForJumbo();
   updateView();
+
 }
 
 /**
@@ -582,13 +592,10 @@ function processLoanAmount( element ) {
 function checkIfZero($price, $percent, $down) {
   if (params['house-price'] === '0' || +params['house-price'] === 0) {
     removeAlerts();
-    // $percent.val('0').attr('placeholder', '');
-    // $down.val('0');
     chart.stopLoading();
     downPaymentWarning();
     return true;
   } else if ($percent.attr('placeholder') === '') {
-    // $percent.attr('placeholder', '10');
     return false;
   }
 }
@@ -691,18 +698,32 @@ function renderInterestSummary(intVals) {
  * @return {null}
  */
 function checkARM() {
-  if ( getSelection('rate-structure') === 'arm' ) {
-    if ( getSelection('loan-term') !== '30' ) {
+  // reset warning and info
+  $('#arm-warning').addClass('hidden');
+  $('#arm-info').addClass('hidden');
+  params.update();
+  var disallowedTypes = [ 'fha', 'va'],
+      disallowedTerms = [ '15' ];
+
+  if ( params['rate-structure'] === 'arm' ) {
+    // ARMs must be 30 years
+    if ( params['loan-term'] !== '30' ) {
       dropdown('loan-term').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    if ( getSelection('loan-type') !== 'conf' ) {
+    // ARMs cannot be VA-HB or FHA-HB
+    if ( params['loan-type'] === 'va-hb' || params['loan-type'] === 'fha-hb' ) {
       dropdown('loan-type').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
+    if ( disallowedTerms.indexOf( params['loan-term']) !== -1 ) {
+      dropdown('loan-term').reset();
+    }
+    if ( disallowedTypes.indexOf( params['loan-type']) !== -1 ) {
+      dropdown('loan-type').reset();
+    }
     dropdown('arm-type').show();
     dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
@@ -968,7 +989,6 @@ function init() {
     }
     updateView();
   });
-
 }
 
 // Have the reset button clear selections.
@@ -978,9 +998,15 @@ $('.defaults-link').click(function(ev){
   updateView();
 });
 
-
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
+  // If the loan-type is conf, and there's a county visible, then we just exited a HB situation. Clear the county before proceeding.
+  $('#hb-warning').addClass('hidden');
+  // If the state field changed, wipe out county.
+  if ( $(this).attr('id') === 'location' ) {
+    $('#county').html('');
+    dropdown('county').hide();
+  }
   processLoanAmount( this );
 });
 
@@ -1032,13 +1058,13 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
 });
 
 // Recalculate loan amount.
-$('#county').on( 'change', processCounty );
+$('#county').on( 'change', function() {
+  processCounty();
+  updateView();
+});
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
-
-// Recalculate interest costs.
-$('#rate-structure').on( 'change', checkARM );
 
 // Do it!
 init();
