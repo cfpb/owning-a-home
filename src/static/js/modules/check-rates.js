@@ -81,7 +81,7 @@ var slider = {
   update: function() {
     var leftVal = +$('.rangeslider__handle').css('left').replace( 'px', '' );
     this.min = getSelection('credit-score');
-    this.max = this.min + 20;
+    this.max = this.min + 19;
     $('#slider-range').text( template.sliderLabel(this) ).css( 'left', leftVal - 9 + 'px' );
   }
 };
@@ -887,7 +887,7 @@ function renderChart( data, cb ) {
         column: {
           states: {
             hover: {
-              color: '#ffecd1'
+              color: '#2CB34A'
             }
           }
         }
@@ -912,7 +912,7 @@ function renderChart( data, cb ) {
       }, {
         opposite: true,
         title: {
-          text: '# OF LENDERS OFFERING RATE',
+          text: 'Number of lenders offering rate',
         }
       }],
       series: [{

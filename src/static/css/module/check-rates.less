@@ -10,6 +10,10 @@
     }
 }
 
+.rc-illu-inner {
+  padding: 1em 4.5em 0 4.5em;
+}
+
 /*
     layout
     --------------------------- */
@@ -40,13 +44,13 @@
    background: @gray-5;
    .webfont-regular();
 
-    p {
+    p:last-child,
+    section p:last-child {
       margin: 0;
     }
 
     label {
       .webfont-medium();
-      font-size: 0.875em;
       margin-bottom: 4px;
       text-transform: none;
     }
@@ -61,14 +65,19 @@
       border-top: 1px solid @gray-20;
     }
 
+    section:first-child,
+    section:nth-child(2) {
+      border-top: none;
+    }
+
+    section:first-child {
+      padding: 30px 0 0 0;
+    }
 
     .calc-footer {
       padding: 15px 0; // the bottom <section> has less padding
     }
 
-    section:first-child {
-      border-top: none;
-    }
     input[type='number'] {
         -moz-appearance:textfield;
     }
@@ -259,15 +268,13 @@
 }
 
 .chart-caption {
-  font-size: 0.75em;
+  font-size: 1em;
   padding: 0 1em 1em 1em;
 }
 
 .caption-title {
-  .webfont-demi();
-  text-transform: uppercase;
-  color: @gray-80;
-  letter-spacing: 1px;
+  .webfont-regular();
+  color: @black;
 }
 
 .rc-data-link {
@@ -289,7 +296,7 @@
   z-index: 9999;
   background-color: #fff;
   color: @darkgray;
-  border: 2px solid @gold-50;
+  border: 2px solid @green-midtone;
   padding: 4px 10px 4px 8px;
   margin: 0 2px;
 }
@@ -516,7 +523,7 @@
 
     .about {
       border-top: 1px solid @gray-20;
-      margin-top: 6em;
+      margin-top: 3.75em;
     }
 
     .feedback {
