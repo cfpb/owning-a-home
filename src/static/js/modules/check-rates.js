@@ -479,6 +479,7 @@ function processCounty() {
       prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'jumbo', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
       loan;
 
   params.update();
@@ -498,47 +499,13 @@ function processCounty() {
 
   if ( loan.success && loan.isJumbo ) {
     dropdown('loan-type').enable( norms );
-    switch ( loan.type ) {
-      case 'agency':
-        $loan.addOption({
-          label: 'Conforming jumbo',
-          value: 'agency',
-          select: true
-        });
-        break;
-      case 'jumbo':
-        $loan.addOption({
-          label: 'Jumbo (non-conforming)',
-          value: 'jumbo',
-          select: true
-        });
-        if ( prevLoanType === 'conf' ) {
-          dropdown('loan-type').disable( 'conf' );
-        }
-        break;
-      case 'fha-hb':
-        $loan.addOption({
-          label: 'FHA high-balance',
-          value: 'fha-hb',
-          select: true
-        });
-        if ( prevLoanType === 'fha' ) {
-          dropdown('loan-type').disable( 'fha' );
-        }
-        break;
-      case 'va-hb':
-        $loan.addOption({
-          label: 'VA high-balance',
-          value: 'va-hb',
-          select: true
-        });
-        if ( prevLoanType === 'va' ) {
-          dropdown('loan-type').disable( 'va' );
-        }
-        break;
-      case 'conf':
-        $('#loan-type').val( 'conf' );
-        break;
+    $loan.addOption({
+      'label': loanTypes[loan.type],
+      'value': loan.type,
+      'select': true
+    })
+    if ( norms.indexOf( prevLoanType ) !== -1 ) {
+      dropdown('loan-type').disable( prevLoanType );
     }
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
