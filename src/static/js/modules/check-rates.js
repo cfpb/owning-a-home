@@ -1066,9 +1066,6 @@ $('#county').on( 'change', function() {
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
 
-// On rate-structure change, run CheckARM.
-// $('#rate-structure').on( 'change', checkARM );
-
 // Do it!
 init();
 
