@@ -891,7 +891,7 @@ function renderChart( data, cb ) {
       }, {
         opposite: true,
         title: {
-          text: '# OF LENDERS OFFERING RATE',
+          text: 'Number of lenders offering rate',
         }
       }],
       series: [{

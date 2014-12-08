@@ -20,8 +20,9 @@ Highcharts.theme = {
     tickWidth: 0,
     title: {
       style: {
-        color: '#BABBBD',
-        fontSize: '10px',
+        color: '#101820',
+        fontSize: '16px',
+        fontWeight: 'normal',
         fontFamily: '"Avenir Next", Arial, sans-serif'
       },
       rotation: 450
@@ -43,7 +44,7 @@ Highcharts.theme = {
       style: {
         color: '#BABBBD',
         fontSize: '12px',
-        fontWeight: 'medium',
+        fontWeight: 'normal',
         fontFamily: '"Avenir Next", Arial, sans-serif'
       }
     }
