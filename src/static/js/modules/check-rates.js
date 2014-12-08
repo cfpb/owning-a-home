@@ -81,7 +81,7 @@ var slider = {
   update: function() {
     var leftVal = +$('.rangeslider__handle').css('left').replace( 'px', '' );
     this.min = getSelection('credit-score');
-    this.max = this.min + 20;
+    this.max = this.min + 19;
     $('#slider-range').text( template.sliderLabel(this) ).css( 'left', leftVal - 9 + 'px' );
   }
 };
