@@ -866,7 +866,7 @@ function renderChart( data, cb ) {
         column: {
           states: {
             hover: {
-              color: '#ffecd1'
+              color: '#2CB34A'
             }
           }
         }

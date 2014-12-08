@@ -1,5 +1,5 @@
 Highcharts.theme = {
-  colors: ['#FFCE8D'],
+  colors: ['#ADDC91'],
   style: {
     fontFamily: '"Avenir Next", Arial, Helvetica, sans-serif',
     fontSize: '13px'
