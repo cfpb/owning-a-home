@@ -9,6 +9,13 @@
 // import combined CF component LESS
 @import "../../vendor/cf-concat/cf.less";
 
+// import CFPB nemo theme header and footer styles
+.nemo {
+  @import "module/nemo.less";
+  // and a shim to override some things
+  @import "module/nemo-shim.less";
+}
+
 // import other modules
 @import "module/mixins.less";
 @import "module/typography.less";
@@ -17,7 +24,7 @@
 @import "module/mega-expand.less";
 @import "module/index.less";
 @import "module/loan-type.less";
-@import "module/loan-comparison.less";
+//@import "module/loan-comparison.less";
 @import "module/loan-options.less";
 @import "module/rate-checker.less";
 @import "module/hero.less";
@@ -26,10 +33,3 @@
 @import "module/tab.less";
 @import "module/no-js.less";
 @import "module/helpers.less";
-
-// import CFPB nemo theme header and footer styles
-.nemo {
-  @import "module/nemo.less";
-  // and a shim to override some things
-  @import "module/nemo-shim.less";
-}
