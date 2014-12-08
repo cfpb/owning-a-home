@@ -323,6 +323,7 @@ function updateView() {
     resultWarning();
     downPaymentWarning();
   }
+  checkARM();
 };
 
 /**
@@ -397,6 +398,21 @@ function loadCounties() {
         var countyOption = template.county( countyData );
         $('#county').append( countyOption );
       });
+
+      // Alphabetize counties
+      var countyOptions = $('#county option');
+      countyOptions.sort( function(x,y) {
+        if ( x.text > y.text ) {
+          return 1;
+        }
+        else if ( x.text < y.text ) {
+          return -1;
+        }
+        else {
+          return 0;
+        }
+      });
+      $("#county").empty().append( countyOptions );
 
       // Don't select any options by default.
       $('#county').prop( 'selectedIndex', -1 );
@@ -479,6 +495,7 @@ function processCounty() {
       prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'Jumbo (non-conforming)', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
       loan;
 
   params.update();
@@ -498,47 +515,13 @@ function processCounty() {
 
   if ( loan.success && loan.isJumbo ) {
     dropdown('loan-type').enable( norms );
-    switch ( loan.type ) {
-      case 'agency':
-        $loan.addOption({
-          label: 'Conforming jumbo',
-          value: 'agency',
-          select: true
-        });
-        break;
-      case 'jumbo':
-        $loan.addOption({
-          label: 'Jumbo (non-conforming)',
-          value: 'jumbo',
-          select: true
-        });
-        if ( prevLoanType === 'conf' ) {
-          dropdown('loan-type').disable( 'conf' );
-        }
-        break;
-      case 'fha-hb':
-        $loan.addOption({
-          label: 'FHA high-balance',
-          value: 'fha-hb',
-          select: true
-        });
-        if ( prevLoanType === 'fha' ) {
-          dropdown('loan-type').disable( 'fha' );
-        }
-        break;
-      case 'va-hb':
-        $loan.addOption({
-          label: 'VA high-balance',
-          value: 'va-hb',
-          select: true
-        });
-        if ( prevLoanType === 'va' ) {
-          dropdown('loan-type').disable( 'va' );
-        }
-        break;
-      case 'conf':
-        $('#loan-type').val( 'conf' );
-        break;
+    $loan.addOption({
+      'label': loanTypes[loan.type],
+      'value': loan.type,
+      'select': true
+    })
+    if ( norms.indexOf( prevLoanType ) !== -1 ) {
+      dropdown('loan-type').disable( prevLoanType );
     }
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
@@ -715,18 +698,32 @@ function renderInterestSummary(intVals) {
  * @return {null}
  */
 function checkARM() {
-  if ( getSelection('rate-structure') === 'arm' ) {
-    if ( getSelection('loan-term') !== '30' ) {
+  // reset warning and info
+  $('#arm-warning').addClass('hidden');
+  $('#arm-info').addClass('hidden');
+  params.update();
+  var disallowedTypes = [ 'fha', 'va'],
+      disallowedTerms = [ '15' ];
+
+  if ( params['rate-structure'] === 'arm' ) {
+    // ARMs must be 30 years
+    if ( params['loan-term'] !== '30' ) {
       dropdown('loan-term').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    if ( getSelection('loan-type') !== 'conf' ) {
+    // ARMs cannot be VA-HB or FHA-HB
+    if ( params['loan-type'] === 'va-hb' || params['loan-type'] === 'fha-hb' ) {
       dropdown('loan-type').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
+    if ( disallowedTerms.indexOf( params['loan-term']) !== -1 ) {
+      dropdown('loan-term').reset();
+    }
+    if ( disallowedTypes.indexOf( params['loan-type']) !== -1 ) {
+      dropdown('loan-type').reset();
+    }
     dropdown('arm-type').show();
     dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
@@ -1068,9 +1065,6 @@ $('#county').on( 'change', function() {
 
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
-
-// Recalculate interest costs.
-$('#rate-structure').on( 'change', checkARM );
 
 // Do it!
 init();
