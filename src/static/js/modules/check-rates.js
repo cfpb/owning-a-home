@@ -398,6 +398,21 @@ function loadCounties() {
         $('#county').append( countyOption );
       });
 
+      // Alphabetize counties
+      var countyOptions = $('#county option');
+      countyOptions.sort( function(x,y) {
+        if ( x.text > y.text ) {
+          return 1;
+        }
+        else if ( x.text < y.text ) {
+          return -1;
+        }
+        else {
+          return 0;
+        }
+      });
+      $("#county").empty().append( countyOptions );
+
       // Don't select any options by default.
       $('#county').prop( 'selectedIndex', -1 );
     }
