@@ -479,7 +479,7 @@ function processCounty() {
       prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
-      loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'jumbo', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
+      loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'Jumbo (non-conforming)', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
       loan;
 
   params.update();
