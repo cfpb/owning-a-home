@@ -323,6 +323,7 @@ function updateView() {
     resultWarning();
     downPaymentWarning();
   }
+  checkARM();
 };
 
 /**
@@ -697,18 +698,32 @@ function renderInterestSummary(intVals) {
  * @return {null}
  */
 function checkARM() {
-  if ( getSelection('rate-structure') === 'arm' ) {
-    if ( getSelection('loan-term') !== '30' ) {
+  // reset warning and info
+  $('#arm-warning').addClass('hidden');
+  $('#arm-info').addClass('hidden');
+  params.update();
+  var disallowedTypes = [ 'fha', 'va'],
+      disallowedTerms = [ '15' ];
+
+  if ( params['rate-structure'] === 'arm' ) {
+    // ARMs must be 30 years
+    if ( params['loan-term'] !== '30' ) {
       dropdown('loan-term').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    if ( getSelection('loan-type') !== 'conf' ) {
+    // ARMs cannot be VA-HB or FHA-HB
+    if ( params['loan-type'] === 'va-hb' || params['loan-type'] === 'fha-hb' ) {
       dropdown('loan-type').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    dropdown(['loan-term', 'loan-type']).reset();
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
+    if ( disallowedTerms.indexOf( params['loan-term']) !== -1 ) {
+      dropdown('loan-term').reset();
+    }
+    if ( disallowedTypes.indexOf( params['loan-type']) !== -1 ) {
+      dropdown('loan-type').reset();
+    }
     dropdown('arm-type').show();
     dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
@@ -1051,8 +1066,8 @@ $('#county').on( 'change', function() {
 // Recalculate interest costs.
 $('.compare').on(' change', 'select', renderInterestAmounts );
 
-// Recalculate interest costs.
-$('#rate-structure').on( 'change', checkARM );
+// On rate-structure change, run CheckARM.
+// $('#rate-structure').on( 'change', checkARM );
 
 // Do it!
 init();
