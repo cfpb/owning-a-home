@@ -65,14 +65,15 @@
       border-top: 1px solid @gray-20;
     }
 
+    section:first-child,
+    section:nth-child(2n) {
+      border-top: none;
+    }
 
     .calc-footer {
       padding: 15px 0; // the bottom <section> has less padding
     }
 
-    section:first-child {
-      border-top: none;
-    }
     input[type='number'] {
         -moz-appearance:textfield;
     }
