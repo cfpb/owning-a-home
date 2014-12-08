@@ -258,6 +258,7 @@ function updateView() {
         }
       }
 
+
       sortedKeys.sort();
       len = sortedKeys.length;
 
@@ -279,6 +280,15 @@ function updateView() {
           data.totalVals.push(+key);
         }
       });
+
+      // fade out chart and highlight county if no county is selected
+      if ( $('#county').is(':visible') && $('#county').val() === null ) {
+        chart.startLoading();
+        dropdown('county').showHighlight();
+        $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
+        $('#hb-warning').addClass('hidden');
+        return;
+      }
 
       // display an error message if less than 2 results are returned
       if( data.vals.length < 2 ) {
@@ -418,7 +428,6 @@ function checkForJumbo() {
     loanAmount: params['loan-amount']
   });
 
-
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
@@ -446,11 +455,6 @@ function checkForJumbo() {
   }
   if ( params['loan-type'] === 'fha' ) {
     $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
-  }
-
-  // if county is undefined, highligh the dropdown.
-  if ( $('#county').val() === null ) {
-    dropdown('county').showHighlight();
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -491,7 +495,9 @@ function processCounty() {
     fhaCountyLimit: parseInt( $county.data('fha'), 10 ),
     vaCountyLimit: parseInt( $county.data('va'), 10 )
   });
+
   if ( loan.success && loan.isJumbo ) {
+    dropdown('loan-type').enable( norms );
     switch ( loan.type ) {
       case 'agency':
         $loan.addOption({
@@ -506,6 +512,9 @@ function processCounty() {
           value: 'jumbo',
           select: true
         });
+        if ( prevLoanType === 'conf' ) {
+          dropdown('loan-type').disable( 'conf' );
+        }
         break;
       case 'fha-hb':
         $loan.addOption({
@@ -513,6 +522,9 @@ function processCounty() {
           value: 'fha-hb',
           select: true
         });
+        if ( prevLoanType === 'fha' ) {
+          dropdown('loan-type').disable( 'fha' );
+        }
         break;
       case 'va-hb':
         $loan.addOption({
@@ -520,17 +532,16 @@ function processCounty() {
           value: 'va-hb',
           select: true
         });
+        if ( prevLoanType === 'va' ) {
+          dropdown('loan-type').disable( 'va' );
+        }
         break;
       case 'conf':
         $('#loan-type').val( 'conf' );
         break;
     }
-    dropdown('loan-type').enable( norms );
     dropdown('loan-type').showHighlight();
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
-    if ( prevLoanType !== params['loan-type'] ) {
-      dropdown('loan-type').disable( prevLoanType );
-    }
 
   } else {
     dropdown('loan-type').removeOption( jumbos );
@@ -551,8 +562,6 @@ function processCounty() {
 
   // Hide the county warning.
   $('#county-warning').addClass('hidden');
-
-  updateView();
 
 }
 
@@ -584,11 +593,13 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
+  // If a county is selected, process it
   if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
     processCounty();
   }
   checkForJumbo();
   updateView();
+
 }
 
 /**
@@ -990,11 +1001,15 @@ $('.defaults-link').click(function(ev){
   updateView();
 });
 
-
 // Recalculate everything when drop-down menus are changed.
 $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
   // If the loan-type is conf, and there's a county visible, then we just exited a HB situation. Clear the county before proceeding.
   $('#hb-warning').addClass('hidden');
+  // If the state field changed, wipe out county.
+  if ( $(this).attr('id') === 'location' ) {
+    $('#county').html('');
+    dropdown('county').hide();
+  }
   processLoanAmount( this );
 });
 
@@ -1048,6 +1063,7 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
 // Recalculate loan amount.
 $('#county').on( 'change', function() {
   processCounty();
+  updateView();
 });
 
 // Recalculate interest costs.
