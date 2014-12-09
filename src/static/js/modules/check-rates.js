@@ -704,7 +704,6 @@ function checkARM() {
   // reset warning and info
   $('#arm-warning').addClass('hidden');
   $('#arm-info').addClass('hidden');
-  params.update();
   var disallowedTypes = [ 'fha', 'va'],
       disallowedTerms = [ '15' ];
 
@@ -728,7 +727,6 @@ function checkARM() {
       dropdown('loan-type').reset();
     }
     dropdown('arm-type').show();
-    dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
@@ -999,6 +997,17 @@ $('.defaults-link').click(function(ev){
   ev.preventDefault();
   setSelections({ usePlaceholder: true });
   updateView();
+});
+
+// ARM highlighting handler
+$('#rate-structure').on( 'change', function() {
+  if ( $(this).val() !== params['rate-structure'] ) {
+      dropdown('arm-type').showHighlight();
+  }
+});
+
+$('#arm-type').on( 'change', function() {
+  dropdown('arm-type').hideHighlight();
 });
 
 // Recalculate everything when drop-down menus are changed.
