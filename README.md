@@ -105,8 +105,10 @@ To work on the app you will need sheer running to compile the templates in `_lay
 ```bash
 # use the sheer virtualenv
 $ workon sheer
+
 # navigate to the built app directory that grunt created
 $ cd dist
+
 # start sheer
 $ sheer serve
 
