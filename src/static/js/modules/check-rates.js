@@ -100,22 +100,30 @@ var options = {
  */
 function getData() {
   params.update();
-  var promise = $.get( config.rateCheckerAPI, {
-    price: params['house-price'],
-    loan_amount: params['loan-amount'],
-    minfico: slider.min,
-    maxfico: slider.max,
-    state: params['location'],
-    rate_structure: params['rate-structure'],
-    loan_term: params['loan-term'],
-    loan_type: params['loan-type'],
-    arm_type: params['arm-type']
-  })
-  .done(function() {
-    chart.stopLoading();
-  })
-  .fail(function() {
-    resultFailWarning();
+
+  var promise = $.ajax({
+      type: 'GET',
+      url: config.rateCheckerAPI,
+      data: {
+        price: params['house-price'],
+        loan_amount: params['loan-amount'],
+        minfico: slider.min,
+        maxfico: slider.max,
+        state: params['location'],
+        rate_structure: params['rate-structure'],
+        loan_term: params['loan-term'],
+        loan_type: params['loan-type'],
+        arm_type: params['arm-type']
+      },
+      dataType: 'json',
+      contentType: "application/json",
+      success: function (request, status, errorThrown) {
+          chart.stopLoading();
+        },
+      error: function (request, status, errorThrown) {
+          alert(errorThrown); // temporary for debugging IE on demo
+          resultFailWarning();
+        }
   });
 
   return promise;
@@ -950,10 +958,9 @@ function renderChart( data, cb ) {
           };
         }
       },
-    }, function(){
-      // After the chart is loaded
-      chart.isInitialized = true;
     });
+
+  chart.isInitialized = true;
 
   }
 
@@ -987,8 +994,9 @@ function init() {
       params.location = state;
       setSelection('location');
     }
-    updateView();
+    //updateView();
   });
+  updateView();
 }
 
 // Have the reset button clear selections.
