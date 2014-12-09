@@ -226,7 +226,7 @@ function updateView() {
   chart.startLoading();
 
   // reset view
-  dropdown('county').hideHighlight();
+  dropdown(['county', 'loan-term']).hideHighlight();
 
   var data = {
     labels: [],
@@ -522,9 +522,11 @@ function processCounty() {
       'select': true
     })
     if ( norms.indexOf( prevLoanType ) !== -1 ) {
-      dropdown('loan-type').disable( prevLoanType );
+      dropdown('loan-type').disable( prevLoanType ).showHighlight();
     }
-    dropdown('loan-type').showHighlight();
+    else {
+      dropdown('loan-type').hideHighlight();
+    }
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
 
   } else {
@@ -730,7 +732,7 @@ function checkARM() {
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
-    dropdown(['loan-term', 'loan-type']).hideHighlight().enable();
+    dropdown(['loan-term', 'loan-type']).enable();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
