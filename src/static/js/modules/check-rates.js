@@ -25,6 +25,7 @@ var template = {
   county: require('../templates/county-option.hbs'),
   countyConfWarning: require('../templates/county-conf-warning.hbs'),
   countyFHAWarning: require('../templates/county-fha-warning.hbs'),
+  countyVAWarning: require('../templates/county-va-warning.hbs'),
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
@@ -232,6 +233,9 @@ function updateView() {
 
   chart.startLoading();
 
+  // reset view
+  dropdown(['county', 'loan-term']).hideHighlight();
+
   var data = {
     labels: [],
     intLabels: [],
@@ -293,7 +297,6 @@ function updateView() {
       if ( $('#county').is(':visible') && $('#county').val() === null ) {
         chart.startLoading();
         dropdown('county').showHighlight();
-        $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
         $('#hb-warning').addClass('hidden');
         return;
       }
@@ -442,6 +445,7 @@ function loadCounties() {
 function checkForJumbo() {
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning },
       request,
       prevLoanType = $('#loan-type').val();
 
@@ -474,11 +478,8 @@ function checkForJumbo() {
 
   // Hide any existing message, then show a message if appropriate.
   $('#county-warning').addClass('hidden');
-  if ( params['loan-type'] === 'conf' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
-  }
-  if ( params['loan-type'] === 'fha' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  if ( warnings.hasOwnProperty( params['loan-type'] ) ) {
+    $('#county-warning').removeClass('hidden').find('p').text( warnings[params['loan-type']].call() );
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -529,9 +530,11 @@ function processCounty() {
       'select': true
     })
     if ( norms.indexOf( prevLoanType ) !== -1 ) {
-      dropdown('loan-type').disable( prevLoanType );
+      dropdown('loan-type').disable( prevLoanType ).showHighlight();
     }
-    dropdown('loan-type').showHighlight();
+    else {
+      dropdown('loan-type').hideHighlight();
+    }
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
 
   } else {
@@ -709,7 +712,6 @@ function checkARM() {
   // reset warning and info
   $('#arm-warning').addClass('hidden');
   $('#arm-info').addClass('hidden');
-  params.update();
   var disallowedTypes = [ 'fha', 'va'],
       disallowedTerms = [ '15' ];
 
@@ -733,11 +735,10 @@ function checkARM() {
       dropdown('loan-type').reset();
     }
     dropdown('arm-type').show();
-    dropdown('arm-type').showHighlight();
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
-    dropdown(['loan-term', 'loan-type']).hideHighlight().enable();
+    dropdown(['loan-term', 'loan-type']).enable();
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
@@ -1004,6 +1005,17 @@ $('.defaults-link').click(function(ev){
   ev.preventDefault();
   setSelections({ usePlaceholder: true });
   updateView();
+});
+
+// ARM highlighting handler
+$('#rate-structure').on( 'change', function() {
+  if ( $(this).val() !== params['rate-structure'] ) {
+      dropdown('arm-type').showHighlight();
+  }
+});
+
+$('#arm-type').on( 'change', function() {
+  dropdown('arm-type').hideHighlight();
 });
 
 // Recalculate everything when drop-down menus are changed.
