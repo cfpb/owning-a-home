@@ -25,6 +25,7 @@ var template = {
   county: require('../templates/county-option.hbs'),
   countyConfWarning: require('../templates/county-conf-warning.hbs'),
   countyFHAWarning: require('../templates/county-fha-warning.hbs'),
+  countyVAWarning: require('../templates/county-va-warning.hbs'),
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
@@ -285,7 +286,6 @@ function updateView() {
       if ( $('#county').is(':visible') && $('#county').val() === null ) {
         chart.startLoading();
         dropdown('county').showHighlight();
-        $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
         $('#hb-warning').addClass('hidden');
         return;
       }
@@ -434,6 +434,7 @@ function loadCounties() {
 function checkForJumbo() {
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning },
       request,
       prevLoanType = $('#loan-type').val();
 
@@ -466,11 +467,8 @@ function checkForJumbo() {
 
   // Hide any existing message, then show a message if appropriate.
   $('#county-warning').addClass('hidden');
-  if ( params['loan-type'] === 'conf' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyConfWarning );
-  }
-  if ( params['loan-type'] === 'fha' ) {
-    $('#county-warning').removeClass('hidden').find('p').text( template.countyFHAWarning );
+  if ( warnings.hasOwnProperty( params['loan-type'] ) ) {
+    $('#county-warning').removeClass('hidden').find('p').text( warnings[params['loan-type']].call() );
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
