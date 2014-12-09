@@ -58,17 +58,19 @@ var chart = {
   $wrapper: $('.chart'),
   $load: $('.data-enabled'),
   $summary: $('#rc-summary'),
+  $timestamp: $('#timestamp-p'),
+  $clear: $('#rc-summary, #timestamp-p'),
   isInitialized: false,
   startLoading: function() {
     removeAlerts();
     this.$load.addClass('loading').removeClass('loaded');
   },
-  stopLoading: function() {
+  stopLoading: function(state) {
     this.$wrapper.removeClass('geolocating');
-    this.$load.removeClass('loading').addClass('loaded');
-    if(this.$summary.hasClass('clear')) {
-      this.$summary.removeClass('clear');
+    if(this.$clear.hasClass('clear') && state !== 'error') {
+      this.$clear.removeClass('clear');
     }
+    this.$load.removeClass('loading').addClass('loaded');
   }
 };
 
@@ -772,7 +774,7 @@ function resultWarning() {
 }
 
 function resultFailWarning() {
-  chart.stopLoading();
+  chart.stopLoading('error');
   $('#chart').addClass('warning').append( template.failAlert );
 }
 
