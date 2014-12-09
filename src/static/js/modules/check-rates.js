@@ -225,6 +225,9 @@ function updateView() {
 
   chart.startLoading();
 
+  // reset view
+  dropdown('county').hideHighlight();
+
   var data = {
     labels: [],
     intLabels: [],
