@@ -239,6 +239,9 @@ function updateView() {
   // reset view
   dropdown(['county', 'loan-term']).hideHighlight();
 
+  // Check ARM
+  checkARM();
+
   var data = {
     labels: [],
     intLabels: [],
@@ -337,7 +340,6 @@ function updateView() {
     resultWarning();
     downPaymentWarning();
   }
-  checkARM();
 };
 
 /**
