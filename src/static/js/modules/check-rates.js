@@ -48,6 +48,7 @@ var params = {
   'loan-type': 'conf',
   'arm-type': '3-1',
   'edited': false,
+  'isJumbo': false,
   update: function() {
     $.extend( params, getSelections() );
   }
@@ -523,6 +524,7 @@ function processCounty() {
   });
 
   if ( loan.success && loan.isJumbo ) {
+    params['isJumbo'] = true;
     dropdown('loan-type').enable( norms );
     $loan.addOption({
       'label': loanTypes[loan.type],
@@ -538,6 +540,7 @@ function processCounty() {
     $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
 
   } else {
+    params['isJumbo'] = false;
     dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
 
@@ -738,7 +741,9 @@ function checkARM() {
     $('.interest-cost-primary').children().addClass('hidden');
     $('#arm-info').removeClass('hidden');
   } else {
-    dropdown(['loan-term', 'loan-type']).enable();
+    if ( params['isJumbo'] === false ) {
+      dropdown(['loan-term', 'loan-type']).enable();
+    }
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
     $('#arm-info').addClass('hidden');
