@@ -541,7 +541,7 @@ function processCounty() {
     else {
       dropdown('loan-type').hideHighlight();
     }
-    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+    $('#hb-warning').removeClass('hidden').find('p').html( loan.msg );
 
   } else {
     params['isJumbo'] = false;
