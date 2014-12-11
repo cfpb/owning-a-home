@@ -463,10 +463,7 @@ function checkForJumbo() {
     loanType: params['loan-type'],
     loanAmount: params['loan-amount']
   });
-  // If the user changed state, remove highlights, show dropdown, etc, and
-  if ( params['location'] !== params['prevLocation'] ) {
-    dropdown('loan-type').hideHighlight();
-  }
+  dropdown('loan-type').hideHighlight();
 
   // If county is not needed and loan-type is a HB loan, bounce it to a regular loan
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) > 0 ) {
@@ -703,7 +700,6 @@ function renderInterestAmounts() {
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
-    console.log($el.text());
     // add short term rates, interest, and term to the shortTermVal array
     if (length < 180) {
       shortTermVal.push( {rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12} );
