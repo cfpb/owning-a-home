@@ -10,7 +10,7 @@
 
     <div class="rate-checker result {% if subnav %}col-9{% endif %}" role="main">
 
-      <section class="page-intro">
+      <section class="page-intro wrapper">
 
         <div class="col-8">
 
@@ -271,70 +271,75 @@
           </section>
           <p id="timestamp-p" class="data-enabled timestamp-message clear">These rates are current as of <strong id="timestamp"></strong>.</p>
 
-          <section class="compare wrapper">
+          <section class="compare wrapper data-enabled loading">
+            <h3>Explore what a lower interest rate means for your wallet</h2>
 
-            <div class="rate-selects col-6">
-              <div class="wrapper">
+            <div class="rate-selects">
 
-                <div class="rate-compare-container data-enabled loading">
-                  <label for="rate-compare-1">Rate</label>
-                  <div class="select-content">
+                <label for="rate-compare-1">Rate 1</label>
+                  <div class="select-content rc-comp-3">
                     <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
                       <option value="1">1%</option>
                     </select>
-                  </div>
-                  <div id="arm-info" class="arm-info-comparison hidden" role="alert">
-                    <p>With the adjustable-rate mortgage you've chosen, the rate is only fixed for the first <span class="loan-years">5</span> years. Your interest costs in the future could change.</p>
-                  </div>
-                  <div class="interest-cost interest-cost-primary">
-                     <h5>Interest cost over <span class="loan-years">30</span> years</h5>
-                    <span class="new-cost">$150,000</span>
-                  </div>
-                  <div class="interest-cost interest-cost-secondary">
-                    <h5>Interest cost over <span class="loan-years">5</span> years</h5>
-                    <span class="new-cost">$150,000</span>
-                  </div>
-                </div>
+                  </div> <!-- /.select-content-->
 
-                <div class="rate-compare-container data-enabled loading">
-                  <label for="rate-compare-2">Rate</label>
-                  <div class="select-content">
+                  <div class="rc-comp-1 vs">
+                    vs.
+                  </div>
+
+                  <label for="rate-compare-2">Rate 2</label>
+                  <div class="select-content rc-comp-3">
                     <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
                       <option value="1">1%</option>
                     </select>
+                  </div> <!-- /.select-content-->
+
+                  <div class="rc-comp-5">
+                    <p>Interest is only one of many costs associated with getting a mortgage.</p>
                   </div>
-                  <div class="interest-cost interest-cost-primary">
-                     <h5>Interest cost over <span class="loan-years">30</span> years</h5>
-                    <span class="new-cost">$150,000</span>
-                  </div>
-                  <div class="interest-cost interest-cost-secondary">
-                    <h5>Interest cost over <span class="loan-years">5</span> years</h5>
-                    <span class="new-cost">$150,000</span>
-                  </div>
-                </div>
-
-                <div class="comparison-summary col-12">
-
-                  <div class="interest-summary highlight-container data-enabled loading" id="rc-comparison-summary">
-                    <p>Over the first <span id="comparison-term">5</span> years, an interest rate of <span id="higher-rate">1%</span> costs <strong id="rate-diff">$0</strong> more than an interest rate of <span id="lower-rate">1%</span>.</p>
-                  </div>
-
-                  <p class="sub">Interest is only one of many costs associated with getting a mortgage. <a id="go-ask-cost" class="go-link" href="http://www.consumerfinance.gov/askcfpb/153/what-costs-will-i-have-to-pay-as-part-of-taking-out-a-mortgage-loan.html">Learn more</a></p>
-
-                </div> <!-- /.comparison-summary -->
-
-              </div> <!-- /.wrapper -->
             </div> <!-- /.rate-selects -->
 
-                <div class="col-6">
+            <div class="rc-comparison-section rc-comparison-short">
+              <h4 class="rc-comparison-subhead">Interest costs over the first <span class="loan-years">5</span> years</h4>
+                <div class="rc-comparison-subsection">
+                  <div class="wrapper">
+                    <div class="interest-cost interest-cost-primary rc-comp-3">
+                      <span class="new-cost">$150,000</span>
+                    </div>
 
-                  <h4>What does this mean for you?</h4>
+                    <div class="interest-cost interest-cost-secondary rc-comp-3-push">
+                      <span class="new-cost">$150,000</span>
+                    </div>
 
-                  <p>Rates are different based on your personal situation and the lender you go to. Shop around with multiple lenders to get the best rate you can for your situation.</p>
-                  <p> When shopping for a rate, make sure to ask how many <a id="ask-rate-points" href="http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html">points</a> you’ll have to pay to get the rate. Points (also known as discount points) lower your interest rate, but increase your upfront <a id="ask-closing-costs" href="http://www.consumerfinance.gov/askcfpb/139/what-are-closing-costs.html">closing costs</a>. The rates shown here come with between -0.5 and 0.5 points.</p>
+                    <div class="interest-summary rc-comp-5" id="rc-comparison-summary-short">
+                      <p>Over the first <span class="comparison-term">5</span> years, an interest rate of <span class="higher-rate">1%</span> costs <strong class="rate-diff">$0</strong> more than an interest rate of <span class="lower-rate">1%</span>.</p>
+                    </div>
+                  </div> <!-- /.wrapper -->
+                </div> <!-- /.rc-comparison-subsection -->
+            </div> <!-- /.rc-comparison-section -->
 
-                </div>
+            <div class="rc-comparison-section rc-comparison-long">
+              <h4 class="rc-comparison-subhead">Interest costs over <span class="loan-years">30</span> years</h5>
+                <div class="rc-comparison-subsection">
+                  <div class="wrapper">
+                    <div class="interest-cost interest-cost-primary rc-comp-3">
+                      <span class="new-cost no-arm">$150,000</span>
+                      <span class="arm-info hidden">Can change</span>
+                    </div>
 
+                    <div class="interest-cost interest-cost-secondary rc-comp-3-push">
+                      <span class="new-cost no-arm">$150,000</span>
+                      <span class="arm-info hidden">Can change</span>
+                    </div>
+
+                    <div class="interest-summary rc-comp-5" id="rc-comparison-summary-long">
+                      <p class="no-arm">Over the first <span class="comparison-term-long">30</span> years, an interest rate of <span class="higher-rate">1%</span> costs <strong class="rate-diff">$0</strong> more than an interest rate of <span class="lower-rate">1%</span>.</p>
+
+                      <p class="arm-info hidden">With the <strong>adjustable-rate mortgage</strong> you've chosen, the rate is only fixed for the <strong>first 3 years.</strong> Your interest costs in the future can change.</p>
+                    </div>
+                </div> <!-- /.wrapper -->
+              </div> <!-- /.rc-comparison-subsection -->
+            </div> <!-- /.rc-comparison-section -->
 
           </section>
 

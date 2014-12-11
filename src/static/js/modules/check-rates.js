@@ -130,7 +130,6 @@ function getData() {
           chart.stopLoading();
         },
       error: function (request, status, errorThrown) {
-          alert(errorThrown); // temporary for debugging IE on demo
           resultFailWarning();
         }
   });
@@ -369,11 +368,11 @@ function updateLanguage( data ) {
     if ( getSelection('rate-structure') === 'arm' ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
-      $('.loan-years').text(term).fadeIn();
+      $('.rc-comparison-short .loan-years').text(term).fadeIn();
     } else {
       var termVal = getSelection('loan-term');
-      $('.interest-cost-primary .loan-years').text(termVal).fadeIn();
-      $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
+      $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
+      $('.rc-comparison-short .loan-years').text( 5 ).fadeIn();
     }
   }
 
@@ -689,21 +688,32 @@ function updateComparisons( data ) {
  */
 function renderInterestAmounts() {
   var shortTermVal = [],
+      longTermVal = [],
+      rate,
       fullTerm = +(getSelection('loan-term')) * 12;
   $('.interest-cost').each(function( index ) {
-    var rate =  $(this).siblings().find('.rate-compare').val().replace('%', ''),
-        length = (parseInt($(this).find('.loan-years').text(), 10)) * 12,
-        amortizedVal = amortize({amount: params['loan-amount'], rate: rate, totalTerm: fullTerm, amortizeTerm: length}),
+    if ( $(this).hasClass('interest-cost-primary') ) {
+      rate = $('#rate-compare-1').val().replace('%', '');
+    } else {
+      rate = $('#rate-compare-2').val().replace('%', '');
+    }
+    var length = ( parseInt($(this).parents('.rc-comparison-section').find('.loan-years').text(), 10) ) * 12,
+        amortizedVal = amortize( {amount: params['loan-amount'], rate: rate, totalTerm: fullTerm, amortizeTerm: length} ),
         totalInterest = amortizedVal['interest'],
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
+    console.log($el.text());
     // add short term rates, interest, and term to the shortTermVal array
     if (length < 180) {
-      shortTermVal.push({rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12});
+      shortTermVal.push( {rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12} );
+      renderInterestSummary(shortTermVal, 'short');
+    } else {
+      longTermVal.push( {rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12} );
+      renderInterestSummary(longTermVal, 'long');
     }
   });
-  renderInterestSummary(shortTermVal);
+
 }
 
 /**
@@ -711,20 +721,21 @@ function renderInterestAmounts() {
  * @param  {array} intVals array with two objects containing rate, interest accrued, and term
  * @return {null}
  */
-function renderInterestSummary(intVals) {
+function renderInterestSummary(intVals, term) {
 
   var sortedRates,
-      diff;
+      diff,
+      id = '#rc-comparison-summary-' + term;
 
   sortedRates = intVals.sort(function( a, b ) {
     return a.rate - b.rate;
   });
 
   diff = formatUSD(sortedRates[sortedRates.length - 1].interest - sortedRates[0].interest, {decimalPlaces: 0});
-  $('#comparison-term').text(sortedRates[0].term);
-  $('#rate-diff').text(diff);
-  $('#higher-rate').text(sortedRates[sortedRates.length - 1].rate + '%');
-  $('#lower-rate').text(sortedRates[0].rate + '%');
+  $(id + ' .comparison-term').text(sortedRates[0].term);
+  $(id + ' .rate-diff').text(diff);
+  $(id + ' .higher-rate').text(sortedRates[sortedRates.length - 1].rate + '%');
+  $(id + ' .lower-rate').text(sortedRates[0].rate + '%');
 }
 
 /**
@@ -735,7 +746,7 @@ function renderInterestSummary(intVals) {
 function checkARM() {
   // reset warning and info
   $('#arm-warning').addClass('hidden');
-  $('#arm-info').addClass('hidden');
+  $('.arm-info').addClass('hidden');
   var disallowedTypes = [ 'fha', 'va'],
       disallowedTerms = [ '15' ];
 
@@ -759,16 +770,16 @@ function checkARM() {
       dropdown('loan-type').reset();
     }
     dropdown('arm-type').show();
-    $('.interest-cost-primary').children().addClass('hidden');
-    $('#arm-info').removeClass('hidden');
+    $('.no-arm').addClass('hidden');
+    $('.arm-info').removeClass('hidden');
   } else {
     if ( params['isJumbo'] === false ) {
       dropdown(['loan-term', 'loan-type']).enable();
     }
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
-    $('#arm-info').addClass('hidden');
-    $('.interest-cost-primary').children().removeClass('hidden');
+    $('.arm-info').addClass('hidden');
+    $('.no-arm').removeClass('hidden');
   }
 }
 

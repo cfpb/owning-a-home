@@ -328,6 +328,7 @@
 /*
     "Compare interest rate costs"
     --------------------------- */
+
 .compare {
 
   .webfont-regular();
@@ -342,42 +343,66 @@
     }
 }
 
-.new-cost {
-  .webfont-demi();
+//layout
+
+.rc-comp-1 {
+  .grid_column( 1 );
+}
+
+.rc-comp-3 {
+  .grid_column( 3 );
+}
+
+.rc-comp-3-push {
+  .grid_column( @columns: 3; @prefix: 1; @suffix: 0 )
+}
+
+.rc-comp-5 {
+  .grid_column( 5 );
+}
+
+@media (max-width: 800px) {
+
+  .rc-comp-1 {
+  .grid_column( 2 );
+}
+
+  .rc-comp-3 {
+    .grid_column( 5 );
+  }
+
+  .rc-comp-3-push {
+  .grid_column( @columns: 5; @prefix: 1; @suffix: 0 )
+}
+
+  .rc-comp-5 {
+    .grid_column( 12 );
+  }
+}
+
+.vs {
+  text-align: center;
   font-size: 1.375em;
 }
 
-.interest-cost-primary,
-.interest-cost-secondary {
-  padding: 0 10px 10px 10px;
-  min-height: 70px;
+.rc-comparison-subhead {
+  font-size: 1em;
+}
 
-  h5 {
-    font-size: .625em;
-    text-transform: none;
-    .webfont-regular();
-    margin: 10px 0;
-    letter-spacing: 0;
-  }
+.rc-comparison-subsection {
+  border-top: 1px solid @gray-10;
+  padding: 1em 0;
+}
+
+.interest-cost {
+  font-size: 1.625em;
+  text-align: right;
 }
 
 .rate-compare-container {
   .grid_column( 6 );
   position: relative;
   margin-bottom: 10px;
-}
-
-.interest-cost-secondary {
-  background: @gray-5;
-  border-top: 2px solid #FFCE8D;
-  top: 110px;
-  width: 100%;
-
-
-  .new-cost {
-    font-size: 1.75em;
-  }
-
 }
 
 .dollar-input,
@@ -422,14 +447,6 @@
   }
 }
 
-.interest-summary {
-  margin: 1em 0 1.5em 0;
-
-  p:last-child {
-    margin: 0;
-  }
-}
-
 .arm-info-comparison {
   .webfont-regular();
   padding: 1em 0;
@@ -442,25 +459,11 @@
     margin: 0;
   }
 }
-@media (max-width: 720px) {
-  .interest-cost-secondary {
-    position: static;
-  }
-
-}
 
 @media (max-width: 1000px) {
   .flex-input {
     .grid_column(12);
   }
-
-  .new-cost {
-    font-size: 1em;
-  }
-
-  .interest-cost-secondary .new-cost {
-      font-size: 1.25em;
-    }
 }
 
 /*
