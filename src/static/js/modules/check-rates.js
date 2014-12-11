@@ -557,6 +557,10 @@ function processCounty() {
     else {
       dropdown('loan-type').hideHighlight();
     }
+    // When the loan-type is agency or jumbo, disable conventional
+    if ( $.inArray( params['loan-type'], ['agency', 'jumbo'] ) >= 0 ) {
+      dropdown('loan-type').disable( 'conf' );
+    }
     // Add links to loan messages
     loan.msg.replace('jumbo (non-conforming)', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">jumbo (non-conforming)</a>');
     loan.msg.replace('conforming jumbo', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">conforming jumbo</a>');
