@@ -466,7 +466,7 @@ function checkForJumbo() {
   dropdown('loan-type').hideHighlight();
 
   // If county is not needed and loan-type is a HB loan, bounce it to a regular loan
-  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) > 0 ) {
+  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) >= 0 ) {
     // Change loan-type according to the bounces object
     if ( bounces.hasOwnProperty( params['prevLoanType'] ) ) {
       params['loan-type'] = bounces[ params['prevLoanType'] ];
