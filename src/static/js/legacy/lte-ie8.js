@@ -197,3 +197,10 @@ if (!Array.prototype.indexOf) {
     return -1;
   };
 }
+
+//polyfill isArray
+if (!Array.isArray) {
+  Array.isArray = function(arg) {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  };
+}
