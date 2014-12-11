@@ -463,7 +463,9 @@ function checkForJumbo() {
     loanType: params['loan-type'],
     loanAmount: params['loan-amount']
   });
+  dropdown('loan-type').enable( norms );
   dropdown('loan-type').hideHighlight();
+  $('#county-warning').addClass('hidden');
 
   // If county is not needed and loan-type is a HB loan, bounce it to a regular loan
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) >= 0 ) {
