@@ -328,6 +328,7 @@
 /*
     "Compare interest rate costs"
     --------------------------- */
+
 .compare {
 
   .webfont-regular();
@@ -342,9 +343,41 @@
     }
 }
 
-.new-cost {
-  .webfont-demi();
+//layout
+
+.rc-comp-1 {
+  .grid_column( 1 );
+}
+
+.rc-comp-3 {
+  .grid_column( 3 );
+}
+
+.rc-comp-3-push {
+  .grid_column( @columns: 3; @prefix: 1; @suffix: 0 )
+}
+
+.rc-comp-5 {
+  .grid_column( 5 );
+}
+
+.vs {
+  text-align: center;
   font-size: 1.375em;
+}
+
+.rc-comparison-subhead {
+  font-size: 1em;
+}
+
+.rc-comparison-subsection {
+  border-top: 1px solid @gray-10;
+  padding: 1em 0;
+}
+
+.new-cost {
+  font-size: 1.625em;
+  text-align: right;
 }
 
 .interest-cost-primary,
@@ -419,14 +452,6 @@
 @media (max-width: 1000px) {
   .down-payment {
     margin-top: 20px;
-  }
-}
-
-.interest-summary {
-  margin: 1em 0 1.5em 0;
-
-  p:last-child {
-    margin: 0;
   }
 }
 

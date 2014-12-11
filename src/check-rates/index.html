@@ -10,7 +10,7 @@
 
     <div class="rate-checker result {% if subnav %}col-9{% endif %}" role="main">
 
-      <section class="page-intro">
+      <section class="page-intro wrapper">
 
         <div class="col-8">
 
@@ -271,9 +271,68 @@
           </section>
           <p id="timestamp-p" class="data-enabled timestamp-message clear">These rates are current as of <strong id="timestamp"></strong>.</p>
 
-          <section class="compare wrapper">
+          <section class="compare wrapper data-enabled loading">
+            <h3>Explore what a lower interest rate means for your wallet</h2>
 
-            <div class="rate-selects col-6">
+            <div class="rate-selects">
+
+                <label for="rate-compare-1">Rate 1</label>
+                  <div class="select-content rc-comp-3">
+                    <select name="rate-compare-1" id="rate-compare-1" class="rate-compare">
+                      <option value="1">1%</option>
+                    </select>
+                  </div> <!-- /.select-content-->
+
+                  <div class="rc-comp-1 vs">
+                    vs.
+                  </div>
+
+                  <label for="rate-compare-2">Rate 2</label>
+                  <div class="select-content rc-comp-3">
+                    <select name="rate-compare-2" id="rate-compare-2" class="rate-compare">
+                      <option value="1">1%</option>
+                    </select>
+                  </div> <!-- /.select-content-->
+
+                  <div class="rc-comp-5">
+                    <p>Interest is only one of many costs associated with getting a mortgage.</p>
+                  </div>
+            </div> <!-- /.rate-selects -->
+
+            <h4 class="rc-comparison-subhead">Interest costs over the first 5 years</h5>
+              <div class="rc-comparison-subsection">
+                <div class="wrapper">
+                  <div class="new-cost rc-comp-3">
+                    $150,000
+                  </div>
+
+                  <div class="new-cost rc-comp-3-push">
+                    $150,000
+                  </div>
+
+                  <div class="interest-summary rc-comp-5" id="rc-comparison-summary">
+                    <p>Over the first <span id="comparison-term">5</span> years, an interest rate of <span id="higher-rate">1%</span> costs <strong id="rate-diff">$0</strong> more than an interest rate of <span id="lower-rate">1%</span>.</p>
+                  </div>
+                </div> <!-- /.wrapper -->
+              </div> <!-- /.rc-comparison-subsection -->
+            <h4 class="rc-comparison-subhead">Interest costs over <span class="loan-years">30</span> years</h5>
+              <div class="rc-comparison-subsection">
+                <div class="wrapper">
+                  <div class="new-cost rc-comp-3">
+                    $150,000
+                  </div>
+
+                  <div class="new-cost rc-comp-3-push">
+                    $150,000
+                  </div>
+
+                  <div class="interest-summary rc-comp-5" id="rc-comparison-summary">
+                    <p>Over the first <span id="comparison-term">5</span> years, an interest rate of <span id="higher-rate">1%</span> costs <strong id="rate-diff">$0</strong> more than an interest rate of <span id="lower-rate">1%</span>.</p>
+                  </div>
+              </div> <!-- /.wrapper -->
+            </div> <!-- /.rc-comparison-subsection -->
+
+            <!--<div class="rate-selects col-6">
               <div class="wrapper">
 
                 <div class="rate-compare-container data-enabled loading">
@@ -321,20 +380,7 @@
 
                   <p class="sub">Interest is only one of many costs associated with getting a mortgage. <a id="go-ask-cost" class="go-link" href="http://www.consumerfinance.gov/askcfpb/153/what-costs-will-i-have-to-pay-as-part-of-taking-out-a-mortgage-loan.html">Learn more</a></p>
 
-                </div> <!-- /.comparison-summary -->
-
-              </div> <!-- /.wrapper -->
-            </div> <!-- /.rate-selects -->
-
-                <div class="col-6">
-
-                  <h4>What does this mean for you?</h4>
-
-                  <p>Rates are different based on your personal situation and the lender you go to. Shop around with multiple lenders to get the best rate you can for your situation.</p>
-                  <p> When shopping for a rate, make sure to ask how many <a id="ask-rate-points" href="http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html">points</a> you’ll have to pay to get the rate. Points (also known as discount points) lower your interest rate, but increase your upfront <a id="ask-closing-costs" href="http://www.consumerfinance.gov/askcfpb/139/what-are-closing-costs.html">closing costs</a>. The rates shown here come with between -0.5 and 0.5 points.</p>
-
-                </div>
-
+                </div> --> <!-- /.comparison-summary -->
 
           </section>
 
