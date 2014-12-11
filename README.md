@@ -131,7 +131,7 @@ Before running tests, you will need to set up a Python virtual environment, inst
 ```bash
 $ cd test/browser_testing/
 $ mkvirtualenv oah-tests
-$ pip install test/browser_testing/requirements.txt
+$ pip install -r requirements.txt
 ```
 
 Rename `test/browser_testing/features/example-environment.cfg` to `environtment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
