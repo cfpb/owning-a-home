@@ -496,6 +496,9 @@ function checkForJumbo() {
   if ( warnings.hasOwnProperty( params['loan-type'] ) ) {
     $('#county-warning').removeClass('hidden').find('p').text( warnings[params['loan-type']].call() );
   }
+  else {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyGenWarning() );
+  }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
   if ( $('#county').data('state') === params['location'] ) {
