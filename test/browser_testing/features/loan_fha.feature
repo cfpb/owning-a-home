@@ -15,7 +15,7 @@ Scenario Outline: Test inbound links in the FHA Loan page
 Examples:
   | link_name       	  	     | relative_url											            | page_title 	  |
   | Owning a Home              | /                                                      | Owning a Home |
-  | Understanding loan options | /loan-options/  	    								        | Loan Options  |
+  | Understand loan options    | /loan-options/  	    								        | Loan Options  |
   | conventional loans 			   | /loan-options/conventional-loans/ 					  | Loan Options  |
   | More on mortgage insurance | /loan-options/FHA-loans/#mortgage-insurance  | Loan Options  |
 
