@@ -448,9 +448,12 @@ function loadCounties() {
  * @return {null}
  */
 function checkForJumbo() {
+  console.log('Checking for Jumbo');
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
-      warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning },
+      warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning,
+                 'agency': template.countyConfWarning, 'jumbo': template.countyConfWarning, 'fha-hb': template.countyFHAWarning,
+                 'va-hb': template.countyVAWarning},
       request,
       prevLoanType = $('#loan-type').val();
 
@@ -460,10 +463,12 @@ function checkForJumbo() {
     loanType: params['loan-type'],
     loanAmount: params['loan-amount']
   });
+  // If the user changed state, 
 
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
+    dropdown('loan-type').hideHighlight();
     $('#county').val('');
     dropdown('loan-type').removeOption( jumbos );
     if ( prevLoanType === 'fha-hb' ) {
@@ -516,6 +521,7 @@ function processCounty() {
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
+    $('#hb-warning').removeClass('hidden');
     return;
   }
 
@@ -541,6 +547,9 @@ function processCounty() {
     else {
       dropdown('loan-type').hideHighlight();
     }
+    // Add links to loan messages
+    loan.msg.replace('jumbo (non-conforming)', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">jumbo (non-conforming)</a>');
+    loan.msg.replace('conforming jumbo', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">conforming jumbo</a>');
     $('#hb-warning').removeClass('hidden').find('p').html( loan.msg );
 
   } else {
@@ -594,11 +603,8 @@ function processLoanAmount( element ) {
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
   renderLoanAmount();
-  // If a county is selected, process it
-  if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
-    processCounty();
-  }
   checkForJumbo();
+  processCounty();
   updateView();
 
 }
@@ -1033,8 +1039,9 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
   $('#hb-warning').addClass('hidden');
   // If the state field changed, wipe out county.
   if ( $(this).attr('id') === 'location' ) {
+    console.log('State changed');
     $('#county').html('');
-    dropdown('county').hide();
+    // dropdown('county').hide();
   }
   processLoanAmount( this );
 });
