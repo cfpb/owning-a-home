@@ -363,11 +363,11 @@ function updateLanguage( data ) {
     if ( getSelection('rate-structure') === 'arm' ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
-      $('.loan-years').text(term).fadeIn();
+      $('.rc-comparison-short .loan-years').text(term).fadeIn();
     } else {
       var termVal = getSelection('loan-term');
-      $('.interest-cost-primary .loan-years').text(termVal).fadeIn();
-      $('.interest-cost-secondary .loan-years').text( 5 ).fadeIn();
+      $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
+      $('.rc-comparison-short .loan-years').text( 5 ).fadeIn();
     }
   }
 
@@ -686,6 +686,7 @@ function renderInterestAmounts() {
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
+    console.log($el.text());
     // add short term rates, interest, and term to the shortTermVal array
     if (length < 180) {
       shortTermVal.push( {rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12} );
@@ -728,7 +729,7 @@ function renderInterestSummary(intVals, term) {
 function checkARM() {
   // reset warning and info
   $('#arm-warning').addClass('hidden');
-  $('#arm-info').addClass('hidden');
+  $('.arm-info').addClass('hidden');
   var disallowedTypes = [ 'fha', 'va'],
       disallowedTerms = [ '15' ];
 
@@ -752,16 +753,16 @@ function checkARM() {
       dropdown('loan-type').reset();
     }
     dropdown('arm-type').show();
-    $('.interest-cost-primary').children().addClass('hidden');
-    $('#arm-info').removeClass('hidden');
+    $('.no-arm').addClass('hidden');
+    $('.arm-info').removeClass('hidden');
   } else {
     if ( params['isJumbo'] === false ) {
       dropdown(['loan-term', 'loan-type']).enable();
     }
     dropdown('arm-type').hide();
     $('#arm-warning').addClass('hidden');
-    $('#arm-info').addClass('hidden');
-    $('.interest-cost-primary').children().removeClass('hidden');
+    $('.arm-info').addClass('hidden');
+    $('.no-arm').removeClass('hidden');
   }
 }
 
