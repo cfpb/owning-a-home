@@ -46,7 +46,7 @@ var params = {
   'rate-structure': 'fixed',
   'loan-term': 30,
   'loan-type': 'conf',
-  'arm-type': '3-1',
+  'arm-type': '5-1',
   'edited': false,
   'isJumbo': false,
   update: function() {
@@ -448,7 +448,6 @@ function loadCounties() {
  * @return {null}
  */
 function checkForJumbo() {
-  console.log('Checking for Jumbo');
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning,
@@ -521,7 +520,6 @@ function processCounty() {
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
-    $('#hb-warning').removeClass('hidden');
     return;
   }
 
@@ -1039,7 +1037,6 @@ $('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
   $('#hb-warning').addClass('hidden');
   // If the state field changed, wipe out county.
   if ( $(this).attr('id') === 'location' ) {
-    console.log('State changed');
     $('#county').html('');
     // dropdown('county').hide();
   }
