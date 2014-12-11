@@ -125,7 +125,6 @@ function getData() {
           chart.stopLoading();
         },
       error: function (request, status, errorThrown) {
-          alert(errorThrown); // temporary for debugging IE on demo
           resultFailWarning();
         }
   });
