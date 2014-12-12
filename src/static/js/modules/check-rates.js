@@ -562,8 +562,8 @@ function processCounty() {
       dropdown('loan-type').disable( 'conf' );
     }
     // Add links to loan messages
-    loan.msg.replace('jumbo (non-conforming)', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">jumbo (non-conforming)</a>');
-    loan.msg.replace('conforming jumbo', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">conforming jumbo</a>');
+    loan.msg = loan.msg.replace('jumbo (non-conforming)', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">jumbo (non-conforming)</a>');
+    loan.msg = loan.msg.replace('conforming jumbo', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">conforming jumbo</a>');
     $('#hb-warning').removeClass('hidden').find('p').html( loan.msg );
 
   } else {
