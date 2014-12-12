@@ -50,7 +50,7 @@ Scenario Outline: Test inbound links in the Loan Options page
 
 Examples:
   | link_name                    | page_title                      | relative_url                              |
-  | Understanding loan options   | Loan Options                    | /loan-options/                            |
+  | Understand loan options      | Loan Options                    | /loan-options/                            |
   | Closing checklist            | checklist_mortgage_closing.pdf  | /resources/checklist_mortgage_closing.pdf |
   | Closing forms explainer      | mortgage_closing_forms.pdf      | /resources/mortgage_closing_forms.pdf     |
 
