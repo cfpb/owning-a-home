@@ -368,7 +368,7 @@ function updateLanguage( data ) {
     if ( getSelection('rate-structure') === 'arm' ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
-      $('.rc-comparison-short .loan-years').text(term).fadeIn();
+      $('.rc-comparison-short .loan-years, .arm-comparison-term').text(term).fadeIn();
     } else {
       var termVal = getSelection('loan-term');
       $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
