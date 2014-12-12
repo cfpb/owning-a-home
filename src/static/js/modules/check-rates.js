@@ -26,6 +26,7 @@ var template = {
   countyConfWarning: require('../templates/county-conf-warning.hbs'),
   countyFHAWarning: require('../templates/county-fha-warning.hbs'),
   countyVAWarning: require('../templates/county-va-warning.hbs'),
+  countyGenWarning: require('../templates/county-general-warning.hbs'),
   sliderLabel: require('../templates/slider-range-label.hbs'),
   creditAlert: require('../templates/credit-alert.hbs'),
   resultAlert: require('../templates/result-alert.hbs'),
@@ -46,10 +47,14 @@ var params = {
   'rate-structure': 'fixed',
   'loan-term': 30,
   'loan-type': 'conf',
-  'arm-type': '3-1',
+  'arm-type': '5-1',
   'edited': false,
   'isJumbo': false,
+  'prevLoanType': '',
+  'prevLocation': '',
   update: function() {
+    this['prevLoanType'] = this['loan-type'];
+    this.prevLocation = this.location;
     $.extend( params, getSelections() );
   }
 };
@@ -449,32 +454,40 @@ function loadCounties() {
 function checkForJumbo() {
   var loan,
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
+      norms = ['conf', 'fha', 'va'],
       warnings = {'conf': template.countyConfWarning, 'fha': template.countyFHAWarning, 'va': template.countyVAWarning },
-      request,
-      prevLoanType = $('#loan-type').val();
-
-  params.update();
+      bounces = { 'fha-hb' : 'fha', 'va-hb': 'va' },
+      request;
 
   loan = jumbo({
     loanType: params['loan-type'],
     loanAmount: params['loan-amount']
   });
+  dropdown('loan-type').enable( norms );
+  dropdown('loan-type').hideHighlight();
+  $('#county-warning').addClass('hidden');
+
+  // If county is not needed and loan-type is a HB loan, bounce it to a regular loan
+  if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) >= 0 ) {
+    // Change loan-type according to the bounces object
+    if ( bounces.hasOwnProperty( params['prevLoanType'] ) ) {
+      params['loan-type'] = bounces[ params['prevLoanType'] ];
+      $('#loan-type').val( params['loan-type'] );
+    }
+    else {
+      params['loan-type'] = 'conf';
+      $('#loan-type').val( 'conf' );
+    }
+    $('#county-warning, #hb-warning').addClass('hidden');
+    dropdown('loan-type').enable( norms );
+    dropdown('loan-type').showHighlight();
+  }
 
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
     $('#county').val('');
     dropdown('loan-type').removeOption( jumbos );
-    if ( prevLoanType === 'fha-hb' ) {
-      $('#loan-type').val( 'fha' );
-    }
-    else if ( prevLoanType === 'va-hb' ) {
-      $('#loan-type').val( 'va' );
-    }
-    else if ( prevLoanType !== 'fha' && prevLoanType !== 'va' ) {
-      $('#loan-type').val( 'conf' );
-    }
-    $('#county-warning').addClass('hidden');
     return;
   }
   // Otherwise, make sure the county dropdown is shown.
@@ -484,6 +497,9 @@ function checkForJumbo() {
   $('#county-warning').addClass('hidden');
   if ( warnings.hasOwnProperty( params['loan-type'] ) ) {
     $('#county-warning').removeClass('hidden').find('p').text( warnings[params['loan-type']].call() );
+  }
+  else {
+    $('#county-warning').removeClass('hidden').find('p').text( template.countyGenWarning() );
   }
 
   // If the state hasn't changed, we also cool. No need to load new counties.
@@ -505,13 +521,10 @@ function processCounty() {
   var $counties = $('#county'),
       $county = $('#county').find(':selected'),
       $loan = dropdown('loan-type'),
-      prevLoanType = $('#loan-type').val(),
       norms = ['conf', 'fha', 'va'],
       jumbos = ['jumbo', 'agency', 'fha-hb', 'va-hb'],
       loanTypes = { 'agency': 'Conforming jumbo', 'jumbo': 'Jumbo (non-conforming)', 'fha-hb': 'FHA high-balance', 'va-hb': 'VA high-balance'},
       loan;
-
-  params.update();
 
   // If the county field is hidden or they haven't selected a county, abort.
   if ( !$counties.is(':visible') || !$counties.val() ) {
@@ -528,19 +541,30 @@ function processCounty() {
 
   if ( loan.success && loan.isJumbo ) {
     params['isJumbo'] = true;
+    dropdown('loan-type').removeOption( jumbos );
     dropdown('loan-type').enable( norms );
     $loan.addOption({
       'label': loanTypes[loan.type],
       'value': loan.type,
       'select': true
-    })
-    if ( norms.indexOf( prevLoanType ) !== -1 ) {
-      dropdown('loan-type').disable( prevLoanType ).showHighlight();
+    });
+    // if loan-type has changed as a result of the jumbo() operation, make sure everything is updated
+    if ( loan.type !== params['loan-type'] ) {
+      params['prevLoanType'] = params['loan-type'];
+      params['loan-type'] = loan.type;
+      dropdown('loan-type').disable( params.prevLoanType ).showHighlight();
     }
     else {
       dropdown('loan-type').hideHighlight();
     }
-    $('#hb-warning').removeClass('hidden').find('p').text( loan.msg );
+    // When the loan-type is agency or jumbo, disable conventional
+    if ( $.inArray( params['loan-type'], ['agency', 'jumbo'] ) >= 0 ) {
+      dropdown('loan-type').disable( 'conf' );
+    }
+    // Add links to loan messages
+    loan.msg.replace('jumbo (non-conforming)', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">jumbo (non-conforming)</a>');
+    loan.msg.replace('conforming jumbo', '<a href="/owning-a-home/loan-options/conventional-loans/" target="_blank">conforming jumbo</a>');
+    $('#hb-warning').removeClass('hidden').find('p').html( loan.msg );
 
   } else {
     params['isJumbo'] = false;
@@ -548,9 +572,10 @@ function processCounty() {
     dropdown('loan-type').enable( norms );
 
     $('#hb-warning').addClass('hidden');
-    // Disable previous loan type if loan was kicked out of jumbo
+    // Select appropriate loan type if loan was kicked out of jumbo
     if ( prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
+
     }
     else if ( prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
@@ -592,12 +617,10 @@ function processLoanAmount( element ) {
   renderDownPayment.apply( element );
   params['house-price'] = getSelection('house-price');
   params['down-payment'] = getSelection('down-payment');
+  params.update();
   renderLoanAmount();
-  // If a county is selected, process it
-  if ( $('#county').val() !== '' && $('#county').is(':visible') ) {
-    processCounty();
-  }
   checkForJumbo();
+  processCounty();
   updateView();
 
 }
@@ -686,7 +709,6 @@ function renderInterestAmounts() {
         roundedInterest = Math.round( unFormatUSD(totalInterest) ),
         $el = $(this).find('.new-cost');
     $el.text( formatUSD(roundedInterest, {decimalPlaces: 0}) );
-    console.log($el.text());
     // add short term rates, interest, and term to the shortTermVal array
     if (length < 180) {
       shortTermVal.push( {rate: parseFloat(rate), interest: parseFloat(totalInterest), term: length/12} );
@@ -1039,13 +1061,13 @@ $('#arm-type').on( 'change', function() {
 });
 
 // Recalculate everything when drop-down menus are changed.
-$('.demographics, .calc-loan-details').on( 'change', '.recalc', function() {
+$('.demographics, .calc-loan-details, .county').on( 'change', '.recalc', function() {
   // If the loan-type is conf, and there's a county visible, then we just exited a HB situation. Clear the county before proceeding.
   $('#hb-warning').addClass('hidden');
   // If the state field changed, wipe out county.
   if ( $(this).attr('id') === 'location' ) {
     $('#county').html('');
-    dropdown('county').hide();
+    // dropdown('county').hide();
   }
   processLoanAmount( this );
 });
@@ -1095,12 +1117,6 @@ $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
     $('#house-price, #percent-down, #down-payment').removeAttr('placeholder');
     params['edited'] = true;
   }
-});
-
-// Recalculate loan amount.
-$('#county').on( 'change', function() {
-  processCounty();
-  updateView();
 });
 
 // Recalculate interest costs.
