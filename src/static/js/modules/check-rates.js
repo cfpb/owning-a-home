@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var highcharts = require('highcharts');
-var debounce = require('debounce');
 var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
