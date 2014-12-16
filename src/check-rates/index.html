@@ -123,7 +123,7 @@
               <label for="house-price">House price</label>
               <div class="dollar-input">
                 <span class="unit">$</span>
-                <input type="text" placeholder="200,000" name="house-price" class="recalc" id="house-price">
+                <input type="text" placeholder="200,000" name="house-price" class="recalc" id="house-price" autocomplete="off">
               </div>
               </div>
             </div>
@@ -133,11 +133,11 @@
               <label for="down-payment">Down payment</label>
               <div class="percent-input">
                 <span class="unit">%</span>
-                <input type="text" placeholder="10" name="percent-down" maxlength="2" class="recalc down-calc" id="percent-down">
+                <input type="text" placeholder="10" name="percent-down" maxlength="2" class="recalc down-calc" id="percent-down" autocomplete="off">
               </div>
               <div class="dollar-input">
                 <span class="unit">$</span>
-                <input type="text" placeholder="20,000" name="down-payment" class="recalc down-calc" id="down-payment">
+                <input type="text" placeholder="20,000" name="down-payment" class="recalc down-calc" id="down-payment" autocomplete="off">
               </div>
               </div>
             </div>
@@ -256,7 +256,7 @@
             </table>
           </div>
 
-          <section class="chart wrapper">
+          <section id="chart-section" class="chart wrapper">
             <figure class="data-enabled loading">
               <div id="chart" class="chart-area"></div>
               <figcaption class="chart-caption">

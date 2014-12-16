@@ -76,7 +76,10 @@ var chart = {
     if(this.$clear.hasClass('clear') && state !== 'error') {
       this.$clear.removeClass('clear');
     }
-    this.$load.removeClass('loading').addClass('loaded');
+
+    if (state !== 'error') {
+      this.$load.removeClass('loading').addClass('loaded');
+    }
   }
 };
 
@@ -142,9 +145,6 @@ function getData() {
       },
       dataType: 'json',
       contentType: "application/json",
-      success: function (request, status, errorThrown) {
-          chart.stopLoading();
-        },
       error: function (request, status, errorThrown) {
           resultFailWarning();
         }
@@ -329,14 +329,12 @@ function updateView() {
 
       // display an error message if less than 2 results are returned
       if( data.vals.length < 2 ) {
-        chart.stopLoading();
         resultWarning();
         return;
       }
 
       // display an error message if the downpayment is greater than the house price
       if(+params['house-price'] < +params['down-payment']) {
-        chart.stopLoading();
         resultWarning();
         downPaymentWarning();
         return;
@@ -344,6 +342,7 @@ function updateView() {
 
       data.uniqueLabels = $.unique( data.labels.slice(0) );
 
+      chart.stopLoading();
       removeAlerts();
       updateLanguage( data );
       renderAccessibleData( data );
@@ -356,7 +355,6 @@ function updateView() {
   }
 
   else {
-    chart.stopLoading();
     resultWarning();
     downPaymentWarning();
   }
@@ -827,12 +825,13 @@ function scoreWarning() {
  * @return {null}
  */
 function resultWarning() {
-  $('#chart').addClass('warning').append( template.resultAlert );
+  chart.stopLoading('error');
+  $('#chart-section').addClass('warning').append( template.resultAlert );
 }
 
 function resultFailWarning() {
   chart.stopLoading('error');
-  $('#chart').addClass('warning').append( template.failAlert );
+  $('#chart-section').addClass('warning').append( template.failAlert );
 }
 
 function downPaymentWarning() {
