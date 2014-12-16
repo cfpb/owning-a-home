@@ -32,7 +32,7 @@ Examples:
 
 @rate_checker
 Scenario Outline: Test selecting different states
-  When I select "<state_name>" from the Location dropdown list
+  When I select "<state_name>" as State
   Then I should see the selected "<state_name>" above the Rate Checker chart
 
 Examples:

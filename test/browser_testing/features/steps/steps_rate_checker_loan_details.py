@@ -40,6 +40,7 @@ def step(context, loan_term, expected_state):
 
 # LOAN TYPE
 @given(u'I select "{loan_type}" Loan Type')
+@when(u'I change to "{loan_type}" Loan Type')
 @when(u'I select "{loan_type}" Loan Type')
 def step(context, loan_type):
     context.rate_checker.set_loan_type(loan_type)
@@ -51,10 +52,28 @@ def step(context, loan_type):
     assert_that(current_Selection, equal_to(loan_type))
 
 
+@then(u'I should see the Loan Type field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_loan_type_highlighted()
+    assert_that(actual_state, equal_to(True))
+
+
+@then(u'I should NOT see the Loan Type field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_loan_type_highlighted()
+    assert_that(actual_state, equal_to(False))
+
+
 @then(u'I should see an HB alert "{alert_text}"')
 def step(context, alert_text):
     actual_text = context.rate_checker.get_hb_alert_text(alert_text)
-    assert_that(actual_text, equal_to(True))
+    assert_that(actual_text, equal_to(alert_text))
+
+
+@then(u'I should NOT see an HB alert "{alert_text}"')
+def step(context, alert_text):
+    actual_text = context.rate_checker.is_hb_alert_hidden(alert_text)
+    assert_that(actual_text, equal_to(alert_text))
 
 
 @then(u'Loan type option "{loan_type}" should be "{expected_state}"')

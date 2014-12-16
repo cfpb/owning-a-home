@@ -14,7 +14,12 @@ from pages.screenshot import Screenshot
 @when(u'I enter $"{house_price}" as House Price amount')
 @when(u'I change the House Price amount to $"{house_price}"')
 def step(context, house_price):
+    # Wait for the chart to load
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    
     context.rate_checker.set_house_price(house_price)
+    # Wait for the chart to load
+    # assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
 
 
 @then(u'I should see $"{house_price}" as the House price')
@@ -58,8 +63,10 @@ def step(context, expected_loan_amount):
 
 
 # COUNTY
+@given(u'I select {county_name} County')
 @when(u'I select {county_name} County')
 def step(context, county_name):
+    context.base.sleep(2)
     context.rate_checker.set_county(county_name)
 
 
@@ -79,3 +86,14 @@ def step(context, alert_text):
 def step(context, alert_text):
     actual_text = context.rate_checker.get_county_alert_text(alert_text)
     assert_that(actual_text, equal_to(False))
+
+@then(u'I should see the County field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_county_highlighted()
+    assert_that(actual_state, equal_to(True))
+
+@then(u'I should NOT see the County field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_county_highlighted()
+    assert_that(actual_state, equal_to(False))
+

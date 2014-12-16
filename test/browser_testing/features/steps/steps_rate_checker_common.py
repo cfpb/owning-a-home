@@ -24,24 +24,39 @@ def step(context, state_name):
         assert_that(actual_text, equal_to(state_name))
 
 
+@then(u'I should see the chart faded out to indicate the data is out of date')
+def step(context):
+    is_faded = context.rate_checker.is_chart_faded()
+    assert_that(is_faded, equal_to(True))
+
+
+@then(u'I should see the chart active with new data')
+def step(context):
+    # Wait for the chart to load
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+
+
 # STATE
-@given(u'I select "{state_name}" from the Location dropdown list')
-@when(u'I select "{state_name}" from the Location dropdown list')
+@given(u'I select "{state_name}" as State')
+@when(u'I select "{state_name}" as State')
 def step(context, state_name):
-    # TO DO: work with FEWD to find a way to remove these sleep commands
-    context.base.sleep(2)
+    # Wait for the chart to load
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    
     context.rate_checker.set_location(state_name)
-    context.base.sleep(3)
+    # Wait for the chart to load
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
 
 
 @then(u'I should see "{state_name}" as the selected location')
 def step(context, state_name):
     current_Selection = context.rate_checker.get_location()
-    # If the location tracker is not available then "Alabama" is set by default
+    
     try:
-        assert_that(current_Selection, equal_to('Alabama'))
+        assert_that(current_Selection, equal_to(state_name))        
     except:
-        assert_that(current_Selection, equal_to(state_name))
+        # If the location tracker is not available then "Alabama" is set by default
+        assert_that(current_Selection, equal_to('Alabama'))
 
 
 # TABS AND LINKS

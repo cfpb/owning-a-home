@@ -14,7 +14,7 @@ HOME = 'index.html'
 LC = 'loan-comparison'
 LO = 'loan-options'
 CONV = 'loan-options/conventional-loans'
-RC = 'rate-checker'
+RC = 'check-rates'
 FHA = 'loan-options/FHA-loans'
 SPECIAL = 'loan-options/special-loan-programs'
 
@@ -29,6 +29,9 @@ def step(context, page_name):
         context.base.go(LO)
     elif (page_name == 'Rate Checker'):
         context.base.go(RC)
+        # Wait for the chart to load
+        context.base.sleep(1)
+        assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
     elif (page_name == 'Conventional Loan'):
         context.base.go(CONV)
     elif (page_name == 'FHA Loan'):

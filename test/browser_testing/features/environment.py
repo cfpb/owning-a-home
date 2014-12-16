@@ -159,6 +159,8 @@ def setup_config(context):
 
     if config.has_option('logging', 'log_level'):
         context.log_level = int(config.get('logging', 'log_level'))
+    else:
+        context.log_level = logging.DEBUG
 
     if config.has_option('general', 'testing_output'):
         context.directory = config.get('general', 'testing_output')
