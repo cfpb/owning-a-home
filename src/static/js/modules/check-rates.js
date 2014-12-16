@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var highcharts = require('highcharts');
-var debounce = require('debounce');
 var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
@@ -106,6 +105,19 @@ var options = {
   'dp-constant': 'percent-down',
   'request': ''
 };
+
+/** 
+ * Simple (anonymous) delay function 
+ * @return {object} function that has been delayed
+ */
+var delay = (function(){ 
+  var t = 0;
+  return function(callback, delay) {
+    clearTimeout(t);
+    t = setTimeout(callback, delay);
+  };
+})();
+
 
 /**
  * Get data from the API.
@@ -1102,14 +1114,18 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(ev) {
   }
 });
 
-// debounced function for processing and updating
-$('.calc-loan-amt .recalc').on( 'keyup', debounce(
-  function(ev) {
-    // Don't recalculate on TAB or arrow keys
-    if ( ev.which !== 9 && ( ev.which < 37 || ev.which > 40 ) ) {
-      processLoanAmount( this );
-    }
-  }, 500, false));
+// delayed function for processing and updating
+$('.calc-loan-amt').on( 'keyup', '.recalc', function(ev) {
+  var verbotenKeys = [ 9, 37, 38, 39, 40 ],
+      element = this;
+
+  // Don't recalculate on TAB or arrow keys
+  if ( verbotenKeys.indexOf( ev.which ) === -1 ) {
+    delay(function() {
+      processLoanAmount( element );
+    }, 500);
+  }  
+});
 
 // Once the user has edited fields, put the kibosh on the placeholders
 $('#house-price, #percent-down, #down-payment').on( 'keyup', function( ev ) {
