@@ -77,7 +77,10 @@ var chart = {
     if(this.$clear.hasClass('clear') && state !== 'error') {
       this.$clear.removeClass('clear');
     }
-    this.$load.removeClass('loading').addClass('loaded');
+
+    if (state !== 'error') {
+      this.$load.removeClass('loading').addClass('loaded');
+    }
   }
 };
 
@@ -815,12 +818,12 @@ function scoreWarning() {
  * @return {null}
  */
 function resultWarning() {
-  $('#chart').addClass('warning').append( template.resultAlert );
+  $('#chart-section').addClass('warning').append( template.resultAlert );
 }
 
 function resultFailWarning() {
   chart.stopLoading('error');
-  $('#chart').addClass('warning').append( template.failAlert );
+  $('#chart-section').addClass('warning').append( template.failAlert );
 }
 
 function downPaymentWarning() {
