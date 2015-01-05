@@ -19,12 +19,12 @@ Scenario: Increase credit score range
 @credit_score @rate_checker
 Scenario: Lowest credit score range
   When I move the credit score slider to the "lowest" range
-  Then I should see the Credit Score Range displayed as "600 - 620"
+  Then I should see the Credit Score Range displayed as "600 - 619"
 
 @credit_score @rate_checker
 Scenario: Highest credit score range
   When I move the credit score slider to the "highest" range
-  Then I should see the Credit Score Range displayed as "840 - 860"
+  Then I should see the Credit Score Range displayed as "840 - 850"
 
 @credit_score @rate_checker
 Scenario: Lowest credit score range alerts

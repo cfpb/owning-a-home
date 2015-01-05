@@ -29,6 +29,7 @@ LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
 COUNTY_WARNING = "#county-warning .warning-text"
 HB_WARNING = "#hb-warning .warning-text"
 HB_WARNING_HIDDEN = ".form-sub.warning.hidden#hb-warning .warning-text"
+DP_WARNING = "#dp-alert"
 
 # This label displays range as 700 - 720
 SLIDER_RANGE_LABEL = "slider-range"
@@ -109,7 +110,14 @@ class RateChecker(Base):
         except TimeoutException:
             return False
 
+    def get_dp_alert_text(self, alert_text):
+        l_wait = 5
+        msg = "Element %s not found after %s seconds" % (DP_WARNING, l_wait)
 
+        WebDriverWait(self.driver, 5)\
+                .until(lambda s: (s.find_element_by_css_selector(DP_WARNING)), msg)
+        
+        return self.driver.find_element_by_css_selector(DP_WARNING).text
 
     # CHART AREA
     def get_chart_location(self):
@@ -230,8 +238,13 @@ class RateChecker(Base):
         # If the textbox is empty then return the placeholder value
         if (element.get_attribute("value") == ''):
             return element.get_attribute("placeholder")
-        else:
-            # Return the value attribute from the Down Payment % textbox
+
+        # Wait for the dp percentage to change from the default amount of 10
+        try:
+            WebDriverWait(self.driver, 5)\
+                .until(lambda s: (s.find_element_by_id(DOWN_PAYMENT_PERCENT).get_attribute("value")) != "10")
+            return element.get_attribute("value")
+        except TimeoutException:
             return element.get_attribute("value")
 
     def set_down_payment_percent(self, down_payment):
@@ -257,8 +270,13 @@ class RateChecker(Base):
         # If the textbox is empty then return the placeholder amount
         if (element.get_attribute("value") == ''):
             return element.get_attribute("placeholder")
-        else:
-            # Return the value attribute from the Down Payment textbox
+
+        # Wait for the dp amount to change from the default amount of 20,000
+        try:
+            WebDriverWait(self.driver, 5)\
+                .until(lambda s: (s.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX).get_attribute("value")) != "20,000")
+            return element.get_attribute("value")
+        except TimeoutException:
             return element.get_attribute("value")
 
     def set_down_payment_amount(self, down_payment):
@@ -272,8 +290,13 @@ class RateChecker(Base):
     # LOAN AMOUNT
     def get_loan_amount(self):
         # Get the text from the Loan Amount label
-        element = self.driver.find_element_by_id(LOAN_AMOUNT_LABEL)
-        return element.text
+        # Wait for the loan amount to change from the default amount of $180,000
+        try:
+            WebDriverWait(self.driver, 5)\
+                .until(lambda s: (s.find_element_by_id(LOAN_AMOUNT_LABEL).text) != "$180,000")
+            return self.driver.find_element_by_id(LOAN_AMOUNT_LABEL).text
+        except TimeoutException:
+            return self.driver.find_element_by_id(LOAN_AMOUNT_LABEL).text
 
     # COUNTY
     def is_county_visible(self):
@@ -301,9 +324,9 @@ class RateChecker(Base):
         msg = '%s not found after %s seconds' % (county_name, l_wait)
         # Wait for the dropdown list to be populated with county_name
         # before making a selection
-        #WebDriverWait(self.driver, l_wait)\
-        #    .until(EC.text_to_be_present_in_element((By.ID,
-        #           COUNTY_DLL), county_name), msg)
+        WebDriverWait(self.driver, l_wait)\
+            .until(EC.text_to_be_present_in_element((By.ID,
+                   COUNTY_DLL), county_name), msg)
         
         select = Select(self.driver.find_element_by_id(COUNTY_DLL))
         select.select_by_visible_text(county_name)
@@ -408,12 +431,14 @@ class RateChecker(Base):
 
     def click_link_by_text(self, link_name):
         element = self.driver.find_element_by_link_text(link_name)
+        script = "arguments[0].scrollIntoView(true);"
+        self.driver.execute_script(script, element)
         element.click()
 
     # INTEREST COST OVER YEARS
-    def get_primary_interest_rate(self, ordinal, years):
-        e_xpath = "//div[contains(@class,'interest-cost-primary')]" + \
-            "/h5/span[text()=" + years + "]"
+    def get_primary_interest_rate(self, years):
+        e_xpath = "//div[contains(@class,'rc-comparison-section')]" + \
+            "/h4/span[text()=" + years + "]"
         m = 'Element %s not found after %s secs' % (e_xpath, self.driver_wait)
 
         # Wait for the label to update itself
@@ -422,12 +447,12 @@ class RateChecker(Base):
                                                     e_xpath), years), m)
         # Return the text from either the First or Second column
         # based on the ordinal passed
-        element = self.driver.find_elements_by_xpath(e_xpath)
-        return element[ordinal].text
+        element = self.driver.find_element_by_xpath(e_xpath)
+        return element.text
 
-    def get_secondary_interest_rate(self, ordinal, years):
-        e_xpath = "//div[contains(@class,'interest-cost-secondary')]" + \
-            "/h5/span[text()=" + years + "]"
+    def get_secondary_interest_rate(self, years):
+        e_xpath = "//div[contains(@class,'rc-comparison-section')]" + \
+            "/h4/span[text()=" + years + "]"
         m = 'Element %s not found after %s secs' % (e_xpath, self.driver_wait)
 
         # Wait for the label to update itself
@@ -436,5 +461,5 @@ class RateChecker(Base):
                                                     e_xpath), years), m)
         # Return the text from either the First or Second column
         # based on the ordinal passed
-        element = self.driver.find_elements_by_xpath(e_xpath)
-        return element[ordinal].text
+        element = self.driver.find_element_by_xpath(e_xpath)
+        return element.text

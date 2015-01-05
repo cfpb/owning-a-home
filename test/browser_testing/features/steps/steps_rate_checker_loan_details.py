@@ -95,21 +95,17 @@ def step(context, arm_type):
 
 
 # INTEREST COST LABEL
-@then(u'I should see primary Interest cost over "{total_years}" years in the "{selection}" column')
-def step(context, total_years, selection):
-    if selection == "First":
-        actual_text = context.rate_checker.get_primary_interest_rate(0, total_years)
-    if selection == "Second":
-        actual_text = context.rate_checker.get_primary_interest_rate(1, total_years)
+@then(u'I should see primary Interest costs over the first "{loan_years}" years')
+@then(u'I should see primary Interest costs over "{loan_years}" years')
+def step(context, loan_years):
+    actual_text = context.rate_checker.get_primary_interest_rate(loan_years)
 
-    assert_that(actual_text, equal_to(total_years))
+    assert_that(actual_text, equal_to(loan_years))
 
 
-@then(u'I should see secondary Interest cost over "{total_years}" years in the "{selection}" column')
-def step(context, total_years, selection):
-    if selection == "First":
-        actual_text = context.rate_checker.get_secondary_interest_rate(0, total_years)
-    if selection == "Second":
-        actual_text = context.rate_checker.get_secondary_interest_rate(1, total_years)
+@then(u'I should see Interest costs over the first "{total_years}" years')
+@then(u'I should see Interest costs over "{total_years}" years')
+def step(context, total_years):
+    actual_text = context.rate_checker.get_secondary_interest_rate(total_years)
 
     assert_that(actual_text, equal_to(total_years))
