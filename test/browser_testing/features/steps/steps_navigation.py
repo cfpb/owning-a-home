@@ -56,7 +56,6 @@ def step(context, link_name):
 @then(u'I should see "{link_name}" displayed in the page title')
 def step(context, link_name):
     # Verify that the page title matches the link we clicked
-    context.base.sleep(2)
     page_title = context.base.get_page_title()
     assert_that(page_title, contains_string(link_name))
 
@@ -85,6 +84,7 @@ def step(context):
     actual_url = context.base.get_current_url()
     expected_url = context.utils.build_url(context.base_url, '/')
     assert_that(actual_url, equal_to(expected_url))
+
 
 @then(u'I should see the "{relative_url}" URL with page title {page_title} open in a new tab')
 def step(context, relative_url, page_title):
