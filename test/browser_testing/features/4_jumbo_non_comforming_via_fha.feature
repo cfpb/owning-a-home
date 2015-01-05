@@ -10,7 +10,8 @@ Background:
 Scenario Outline: Trigger conforming jumbo loan
   When I select "<state_name>" as State
 	  And I select "FHA" Loan Type
-    And I enter $"500,000" as House Price amount
+    And I enter "20" as Down Payment percent
+    And I enter $"550,000" as House Price amount
   Then I should see the chart faded out to indicate the data is out of date
     And I should see a County alert "Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates." 
     And I should see the County field highlighted
@@ -28,7 +29,8 @@ Examples:
 Scenario Outline: Trigger non-conforming jumbo loan
   When I select "<state_name>" as State
     And I select "FHA" Loan Type
-    And I enter $"500,000" as House Price amount
+    And I enter "20" as Down Payment percent
+    And I enter $"550,000" as House Price amount
     And I select <county_name> County
   Then I should see the chart active with new data
     And I should see "Jumbo (non-conforming)" as the selected Loan Type
