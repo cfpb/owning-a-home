@@ -22,12 +22,11 @@ Examples:
 Scenario Outline: Test outbound links in the landing page
    Given I navigate to the OAH Landing page
    When I click on the "<link_name>" link
-   Then I should be directed to the external "<full_url>" URL
-      And I should see "<page_title>" displayed in the page title
+   Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
 
 Examples:
-  | link_name                                       | page_title               | full_url                                                   |
- #| Find a HUD-approved housing counselor           | Find a housing counselor | http://www.consumerfinance.gov/find-a-housing-counselor/   |
+  | link_name                                       | page_title               | relative_url                                               |
+  | Find a HUD-approved housing counselor           | Find a housing counselor | /find-a-housing-counselor/                                 |
   | Get answers to common questions                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
   | Submit a mortgage complaint                     | Submit a complaint       | /complaint/#mortgage                                       |
   | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/                                                 |

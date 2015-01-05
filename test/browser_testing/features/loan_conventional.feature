@@ -1,3 +1,5 @@
+# Navigational links: open in same tab
+# Non-Navigational links: open in new tab
 Feature: verify the Conventional Loan page works according to requirements
   As a first time visitor to the Owning a Home page
   I want to navigate the Conventional Loan page
@@ -7,7 +9,7 @@ Background:
    Given I navigate to the "Conventional Loan" page
 
 @smoke_testing @loan_options
-Scenario Outline: Test inbound links in the Conventional Loan page
+Scenario Outline: Test Navigational links in the Conventional Loan page open is same tab
 	When I click on the "<link_name>" link
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
@@ -16,11 +18,19 @@ Examples:
   | link_name       	  		   | relative_url											                      | page_title 	  |
   | Owning a Home              | /                                                      | Owning a Home |
   | Understand loan options    | /loan-options/  	    								                  | Loan Options  |
-  | FHA loans 					       | /loan-options/FHA-loans/ 								              | Loan Options  |
   | More on mortgage insurance | /loan-options/conventional-loans/#mortgage-insurance	  | Loan Options  |
 
+@smoke_testing @loan_options
+Scenario Outline: Test NON-Navigational links in the Conventional Loan page open in new tab
+  When I click on the "<link_name>" link
+  Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
+
+Examples:
+  | link_name                  | relative_url                                           | page_title    |
+  | FHA loans                  | /loan-options/FHA-loans/                               | Loan Options  |
+
 @loan_options @prod_only
-Scenario Outline: Test outbound links in the Conventional Loan page
+Scenario Outline: Test Navigational outbound links in the Conventional Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the external "<full_url>" URL
 		And I should see "<page_title>" displayed in the page title

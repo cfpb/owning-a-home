@@ -55,6 +55,25 @@ class Base(object):
     def wait(self, driver_wait=default_driver_wait):
         return WebDriverWait(self.driver, driver_wait)
 
+
+    # Switch to the tab specified by relative_url
+    # And return the page title
+    def switch_to_new_tab(self, relative_url):
+        for handle in self.driver.window_handles:
+            self.driver.switch_to_window(handle)
+            # Wait for the URL to display in the address bar
+            WebDriverWait(self.driver, 5)\
+                .until(lambda s: len(s.current_url) > 1)
+            
+            self.logger.info("Current url: %s" % self.driver.current_url)
+            if relative_url in (self.driver.current_url):
+                return self.driver.title
+                self.driver.close()
+                break
+        
+        return relative_url + " tab not found!"
+
+
     def close_browser(self):
         self.utils.zzz(1)
         self.driver.quit()

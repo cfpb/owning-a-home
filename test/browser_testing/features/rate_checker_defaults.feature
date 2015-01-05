@@ -8,7 +8,7 @@ Background:
 
 @rate_checker
 Scenario: Default credit score range
-  Then I should see the Credit Score Range displayed as "700 - 720"
+  Then I should see the Credit Score Range displayed as "700 - 719"
  
 @rate_checker
 Scenario: Default location
