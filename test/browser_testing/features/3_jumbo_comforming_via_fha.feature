@@ -37,5 +37,5 @@ Scenario Outline: Trigger conforming jumbo loan
 Examples:
 | state_name | county_name            | FHA_max_loan_amount |
 | Hawaii     | Hawaii County          | $368,000            |
-| Utah       | Tooele County          | $300,150            |
-| Alaska     | Anchorage Municipality | $355,350            |
+| Utah       | Tooele County          | $304,750            |
+| Alaska     | Anchorage Municipality | $388,700            |

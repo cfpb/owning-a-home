@@ -49,22 +49,22 @@ Scenario Outline: Triggering conventional via FHA high-balance
 
  Examples:
 | state_name    | county_name 		  	  | FHA_max_loan_amount   | new_loan_type |
-| Georgia 		  | Cobb County 			    | $320,850 				      | VA 			      |
+| Georgia 		  | Cobb County 			    | $342,700 				      | VA 			      |
 | Illinois 		  | Kane County           | $365,700              | VA            |
-| Maryland      | Baltimore city        | $494,500              | VA            |
+| Maryland      | Baltimore city        | $517,500              | VA            |
 | New Jersey    | Monmouth County       | $625,500              | VA            |
 | Oregon        | Hood River County     | $371,450              | VA            |
 | Pennsylvania  | Lehigh County         | $372,600              | VA            |
 | Virginia      | Amelia County         | $535,900              | VA            |
-| Wisconsin     | St. Croix County      | $318,550              | VA            |
-| Georgia       | Cobb County           | $320,850              | Conventional  |
+| Wisconsin     | St. Croix County      | $322,000              | VA            |
+| Georgia       | Cobb County           | $342,700              | Conventional  |
 | Illinois      | Kane County           | $365,700              | Conventional  |
-| Maryland      | Baltimore city        | $494,500              | Conventional  |
+| Maryland      | Baltimore city        | $517,500              | Conventional  |
 | New Jersey    | Monmouth County       | $625,500              | Conventional  |
 | Oregon        | Hood River County     | $371,450              | Conventional  |
 | Pennsylvania  | Lehigh County         | $372,600              | Conventional  |
 | Virginia      | Amelia County         | $535,900              | Conventional  |
-| Wisconsin     | St. Croix County      | $318,550              | Conventional  |
+| Wisconsin     | St. Croix County      | $322,000              | Conventional  |
 
 @high_balance
 Scenario Outline: Triggering conventional via FHA high-balance
@@ -77,20 +77,20 @@ Scenario Outline: Triggering conventional via FHA high-balance
     But I should NOT see the County selection
 
  Examples:
-| state_name    | county_name 		  	| FHA_max_loan_amount 	| new_loan_type |
-| Georgia 		| Cobb County 			| $320,850 				| VA 			|
-| Illinois 		| Kane County | $365,700 | VA |
-| Maryland | Baltimore city | $494,500 | VA |
-| New Jersey | Monmouth County | $625,500 | VA |
-| Oregon | Hood River County | $371,450 | VA |
-| Pennsylvania | Lehigh County | $372,600 | VA |
-| Virginia | Amelia County | $535,900 | VA |
-| Wisconsin | St. Croix County | $318,550 | VA |
-| Georgia | Cobb County | $320,850 | Conventional |
-| Illinois | Kane County | $365,700 | Conventional |
-| Maryland | Baltimore city | $494,500 | Conventional |
-| New Jersey | Monmouth County | $625,500 | Conventional |
-| Oregon | Hood River County | $371,450 | Conventional |
-| Pennsylvania | Lehigh County | $372,600 | Conventional |
-| Virginia | Amelia County | $535,900 | Conventional |
-| Wisconsin | St. Croix County | $318,550 | Conventional |
+| state_name    | county_name 		 	| FHA_max_loan_amount 	| new_loan_type |
+| Georgia 		  | Cobb County 			| $342,700 				      | VA 			      |
+| Illinois 		  | Kane County       | $365,700              | VA            |
+| Maryland      | Baltimore city    | $517,500              | VA            |
+| New Jersey    | Monmouth County   | $625,500              | VA            |
+| Oregon        | Hood River County | $371,450              | VA            |
+| Pennsylvania  | Lehigh County     | $372,600              | VA            |
+| Virginia      | Amelia County     | $535,900              | VA            |
+| Wisconsin     | St. Croix County  | $322,000              | VA            |
+| Georgia       | Cobb County       | $342,700              | Conventional  |
+| Illinois      | Kane County       | $365,700              | Conventional  |
+| Maryland      | Baltimore city    | $517,500              | Conventional  |
+| New Jersey    | Monmouth County   | $625,500              | Conventional  |
+| Oregon        | Hood River County | $371,450              | Conventional  |
+| Pennsylvania  | Lehigh County     | $372,600              | Conventional  |
+| Virginia      | Amelia County     | $535,900              | Conventional  |
+| Wisconsin     | St. Croix County  | $322,000              | Conventional  |

@@ -41,12 +41,12 @@ Scenario Outline: Triggering conventional via FHA high-balance
     And I should see an HB alert "When you borrow between $417,000 and <VA_max_loan_amount> in your county, you may be eligible for a high-balance VA loan." 
 
 Examples:
-| state_name    | county_name | VA_max_loan_amount |
-| California | Mono County | $529,000 |
-| Colorado | San Miguel County | $625,500 |
-| Florida | Monroe County | $529,000|
-| Idaho | Blaine County | $625,500 |
-| Maryland | Anne Arundel County | $500,000 |
-| North Carolina | Gates County | $458,850 |
-| Virginia | Norfolk city | $458,850 |
-| Washington | Snohomish County | $506,000 | 
+| state_name      | county_name         | VA_max_loan_amount  |
+| California      | Mono County         | $529,000            |
+| Colorado        | San Miguel County   | $625,500            |
+| Florida         | Monroe County       | $529,000            |
+| Idaho           | Blaine County       | $625,500            |
+| Maryland        | Anne Arundel County | $517,500            |
+| North Carolina  | Gates County        | $458,850            |
+| Virginia        | Norfolk city        | $458,850            |
+| Washington      | Snohomish County    | $517,500            | 
