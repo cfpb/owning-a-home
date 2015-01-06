@@ -109,11 +109,11 @@ var options = {
   'request': ''
 };
 
-/** 
- * Simple (anonymous) delay function 
+/**
+ * Simple (anonymous) delay function
  * @return {object} function that has been delayed
  */
-var delay = (function(){ 
+var delay = (function(){
   var t = 0;
   return function(callback, delay) {
     clearTimeout(t);
@@ -382,7 +382,7 @@ function updateLanguage( data ) {
     if ( getSelection('rate-structure') === 'arm' ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
-      $('.rc-comparison-short .loan-years, .arm-comparison-term').text(term).fadeIn();
+      $('.rc-comparison-short .loan-years, .rc-comparison-long .loan-years, .arm-comparison-term').text(term).fadeIn();
     } else {
       var termVal = getSelection('loan-term');
       $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
@@ -1123,7 +1123,7 @@ $('.calc-loan-amt').on( 'keyup', '.recalc', function(ev) {
     delay(function() {
       processLoanAmount( element );
     }, 500);
-  }  
+  }
 });
 
 // Once the user has edited fields, put the kibosh on the placeholders
