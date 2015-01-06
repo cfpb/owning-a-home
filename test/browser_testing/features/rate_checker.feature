@@ -6,30 +6,6 @@ Feature: verify the Rate Checker tool works according to requirements
 Background:
   Given I navigate to the "Rate Checker" page
 
-@email_signup
-Scenario Outline: Testing valid email signup
-  When I enter "<email_address>"
-    And I click the Signup button
-  Then I should see "Thanks, we’ll be in touch!" displayed
-
-Examples:
-  | email_address         |
-  | test@yahoo.com        |
-  | test123@gmail.com     |
-  | mr.tester@github.com  |
-
-@bugfix
-Scenario Outline: Testing that multiple "Thanks, we’ll be in touch!" messages are NOT displayed
-  When I enter "<email_address>"
-    And I click the Signup button
-    And I click the Signup button again
-    And I click the Signup button again
-  Then I should NOT see multiple "Thanks, we’ll be in touch!" messages displayed
-
-Examples:
-  | email_address        |
-  | test.abc@yahoo.com   |
-
 @rate_checker
 Scenario Outline: Test selecting different states
   When I select "<state_name>" as State
