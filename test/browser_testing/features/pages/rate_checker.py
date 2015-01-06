@@ -292,7 +292,7 @@ class RateChecker(Base):
         # Get the text from the Loan Amount label
         # Wait for the loan amount to change from the default amount of $180,000
         try:
-            WebDriverWait(self.driver, 5)\
+            WebDriverWait(self.driver, 2)\
                 .until(lambda s: (s.find_element_by_id(LOAN_AMOUNT_LABEL).text) != "$180,000")
             return self.driver.find_element_by_id(LOAN_AMOUNT_LABEL).text
         except TimeoutException:
