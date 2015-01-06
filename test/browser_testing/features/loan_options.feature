@@ -82,8 +82,8 @@ Scenario Outline: Expand 'Loan Types' section then click Non-Navigational links 
   Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
 
 Examples:
-  | link_name          | relative_url                                  | page_title   |
-  | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    | Loan Options |
+  | link_name          | relative_url                                  | page_title                     |
+  | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    | What is a Qualified Mortgage?  |
 
 @loan_options @prod_only
 Scenario Outline: Expand 'Loan Term' section then click Non-Navigational links inside the expanded section
@@ -100,7 +100,7 @@ Examples:
   | Good Faith Estimates                      | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
   | Learn more about balloon loans            | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
 
-@loan_options @prod_only @1
+@loan_options @prod_only
 Scenario Outline: Expand 'Interest rate type' section then click links inside the expanded section
   When I click Learn More to expand the "Interest rate type" section
     And I click on the "<link_name>" link
