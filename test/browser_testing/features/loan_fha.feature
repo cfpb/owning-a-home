@@ -29,10 +29,17 @@ Examples:
   | link_name                                                   | relative_url                                                                  | page_title                            |
   | conventional loans                                          | /loan-options/conventional-loans/                                             | Loan Options                          |
   | Federal Housing Administration									            | portal.hud.gov/hudportal/HUD?src=/federal_housing_administration  		        | Federal Housing Administration 		    |
-  | Learn your FHA loan limit 										              | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
-  | Learn more about mortgage insurance 							          | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				    | Consumer Financial Protection Bureau  |
-  | How can I find the loan limit for an FHA loan in my county? | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
 
+@loan_options @prod_only
+Scenario Outline: Test NON-Navigational links in the FHA Loan page open in a new tab
+  When I click on the "<link_name>" link
+  Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
+
+Examples:
+  | link_name                                                   | relative_url                                                                  | page_title                            |
+  | Learn your FHA loan limit                                   | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
+  | Learn more about mortgage insurance                         | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html            | Consumer Financial Protection Bureau  |
+  | How can I find the loan limit for an FHA loan in my county? | /askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html | Consumer Financial Protection Bureau  |
 
 @smoke_testing @loan_options
 Scenario Outline: Test OTHER LOAN TYPES links in the FHA Loan page
