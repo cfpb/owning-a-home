@@ -6,7 +6,7 @@ Feature: verify the Rate Checker tool works according to requirements
 Background:
   Given I navigate to the "Rate Checker" page
 
-@beta_signup
+@email_signup
 Scenario Outline: Testing valid email signup
   When I enter "<email_address>"
     And I click the Signup button
