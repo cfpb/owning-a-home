@@ -378,16 +378,14 @@ function updateLanguage( data ) {
   }
 
   function updateTerm() {
+    var termVal = getSelection('loan-term');
+    $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
     // change from 5 years to x if an ARM
     if ( getSelection('rate-structure') === 'arm' ) {
       var armVal = getSelection('arm-type');
       var term = armVal.match(/[^-]*/i)[0];
       $('.rc-comparison-short .loan-years, .arm-comparison-term').text(term).fadeIn();
-      // ensure that the long term comparison term is always 30 for ARMs
-      $('.rc-comparison-long .loan-years').text('30');
     } else {
-      var termVal = getSelection('loan-term');
-      $('.rc-comparison-long .loan-years').text(termVal).fadeIn();
       $('.rc-comparison-short .loan-years').text( 5 ).fadeIn();
     }
   }
