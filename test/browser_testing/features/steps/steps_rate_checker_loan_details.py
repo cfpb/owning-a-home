@@ -94,6 +94,12 @@ def step(context, arm_type):
     assert_that(current_Selection, equal_to(arm_type))
 
 
+@then(u'I should NOT see the ARM Type selection')
+def step(context):
+    arm_type_selection = context.rate_checker.is_arm_type_visible()
+    assert_that(arm_type_selection, equal_to(False))
+
+
 # INTEREST COST LABEL
 @then(u'I should see primary Interest costs over the first "{loan_years}" years')
 @then(u'I should see primary Interest costs over "{loan_years}" years')

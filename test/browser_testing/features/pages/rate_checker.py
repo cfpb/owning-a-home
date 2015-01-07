@@ -35,7 +35,8 @@ DP_WARNING = "#dp-alert"
 SLIDER_RANGE_LABEL = "slider-range"
 
 # CSS SELECTORS
-COUNTY_HIDDEN = ".col-7.county.hidden"
+COUNTY_HIDDEN = ".county.hidden"
+ARM_TYPE_HIDDEN = ".arm-type.hidden"
 CHART_FADED = ".chart.wrapper .data-enabled.loading"
 CHART_NOT_FADED = ".chart.wrapper .data-enabled.loaded"
 
@@ -423,6 +424,13 @@ class RateChecker(Base):
     def set_arm_type(self, arm_type):
         element = Select(self.driver.find_element_by_id(ARM_TYPE_DDL))
         element.select_by_visible_text(arm_type)
+
+    def is_arm_type_visible(self):
+        try:
+            self.driver.find_element_by_css_selector(ARM_TYPE_HIDDEN)
+            return False
+        except NoSuchElementException:
+            return True
 
     # TABS AND LINKS
     def get_active_tab_text(self):
