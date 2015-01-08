@@ -130,7 +130,7 @@ $(document).ready(function (){
                         thanks = form.attr("data-thanks");
                     }
                     else {
-                        thanks = "Thanks, weâ€™ll be in touch.";
+                        thanks = "Thanks, we'll be in touch.";
                     }
                     form.html("<p>"+thanks+"</p>");
                 } else {
