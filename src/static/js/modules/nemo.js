@@ -114,8 +114,10 @@ $(document).ready(function (){
         $(this).removeClass("filled");
       }
     });
-    $(".signup").submit(function() {
-        var form = $(this);     form.children("fieldset").children("p:last-child").children("button").attr("disabled","disabled");
+    $(".signup,.signup2").submit(function() {
+        var form = $(this);
+        form.children("fieldset").children("p:last-child").children("button").attr("disabled","disabled");
+
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
@@ -130,7 +132,7 @@ $(document).ready(function (){
                     else {
                         thanks = "Thanks, weâ€™ll be in touch.";
                     }
-                    form.append("<p>"+thanks+"</p>");
+                    form.html("<p>"+thanks+"</p>");
                 } else {
                     form.children("fieldset").hide();
                     form.append("<p>Something went wrong. Please try again later.</p>");
