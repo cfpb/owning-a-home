@@ -62,6 +62,7 @@
   "keywords": [],
   "dependencies": {
     "amortize": "0.2.2",
+    "date-format": "0.0.2",
     "debounce": "0.0.3",
     "foreach": "2.0.4",
     "format-usd": "^0.2.0",
