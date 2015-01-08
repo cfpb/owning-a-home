@@ -26,7 +26,7 @@ Examples:
 	| Virginia 		|
 	| Wisconsin     |
 
-@fha_high_balance @hp_first1
+@fha_high_balance @hp_first
 Scenario Outline: Triggering FHA High Balance loan warning
 	When I select "<state_name>" as State
 		And I enter $"350,000" as House Price amount
@@ -41,14 +41,14 @@ Scenario Outline: Triggering FHA High Balance loan warning
 
 Examples:
 	| state_name 	| county_name 		| FHA_max_loan_amount   |
-	| Georgia 		| Cobb County 		| $320,850 		    	|
+	| Georgia 		| Cobb County 		| $342,700 		    	|
 	| Illinois 		| Kane County 		| $365,700 				|
-	| Maryland 		| Baltimore city 	| $494,500 				|
+	| Maryland 		| Baltimore city 	| $517,500				|
 	| New Jersey 	| Monmouth County 	| $625,500 				|
 	| Oregon 		| Hood River County | $371,450 				|
 	| Pennsylvania 	| Lehigh County 	| $372,600 				|
 	| Virginia 		| Amelia County 	| $535,900 				|
-	| Wisconsin 	| St. Croix County 	| $318,550              |
+	| Wisconsin 	| St. Croix County 	| $322,000              |
 
 @fha_high_balance @lt_first
 Scenario Outline: Trigger the County warning
@@ -86,11 +86,11 @@ Scenario Outline: Triggering FHA High Balance loan warning
 
 Examples:
 	| state_name 	| county_name 		| FHA_max_loan_amount   |
-	| Georgia 		| Cobb County 		| $320,850 		    	|
+	| Georgia 		| Cobb County 		| $342,700 		    	|
 	| Illinois 		| Kane County 		| $365,700 				|
-	| Maryland 		| Baltimore city 	| $494,500 				|
+	| Maryland 		| Baltimore city 	| $517,500				|
 	| New Jersey 	| Monmouth County 	| $625,500 				|
 	| Oregon 		| Hood River County | $371,450 				|
 	| Pennsylvania 	| Lehigh County 	| $372,600 				|
 	| Virginia 		| Amelia County 	| $535,900 				|
-	| Wisconsin 	| St. Croix County 	| $318,550              |
+	| Wisconsin 	| St. Croix County 	| $322,000              |

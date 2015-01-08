@@ -1,11 +1,10 @@
 from behave import given, when, then
-from hamcrest.core import assert_that, equal_to
+from hamcrest.core import assert_that, equal_to, is_not
 from hamcrest.library.number.ordering_comparison import greater_than
+from hamcrest.library.text.stringcontains import contains_string
 import requests
 import json
 import logging
-
-from hamcrest.library.text.stringcontains import contains_string
 
 
 @given(u'I select "{house_price}" as House Price')
@@ -99,7 +98,7 @@ def step(context):
     assert_that(len(context.json_data[u'data']), greater_than(0))
 
 
-@then(u'The response should state that required parameter "{param_name}" is missing')
+@then(u'the response should state that required parameter "{param_name}" is missing')
 def step(context, param_name):
     expected_reponse = "Required parameter '" + param_name + "' is missing"
     context.json_data = json.loads(context.response.text)
@@ -108,3 +107,8 @@ def step(context, param_name):
     context.logger.debug("JSON text is: %s" % context.response.text)
 
     assert_that(context.json_data['detail'], equal_to(expected_reponse))
+
+@then(u'the response should NOT include "{html_text}"')
+def step(context, html_text):
+    assert_that(context.response.text, is_not(contains_string(html_text)))
+

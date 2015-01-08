@@ -19,7 +19,6 @@ RANGE_ALERT_TEXT = ("Many lenders do not accept borrowers "
 @when(u'I move the credit score slider to the "{slider_direction}" range')
 @when(u'I move the credit score slider to the "{slider_direction}"')
 def step(context, slider_direction):
-    context.base.sleep(2)
     context.rate_checker.set_credit_score_range(slider_direction)
 
 

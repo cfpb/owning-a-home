@@ -39,11 +39,11 @@ Scenario Outline: Triggering conventional via FHA high-balance
 
  Examples:
 | state_name    | county_name 		  | FHA_max_loan_amount |
-| Georgia       | Cobb County       | $320,850            |
+| Georgia       | Cobb County       | $342,700            |
 | Illinois      | Kane County       | $365,700            |
 | Oregon        | Hood River County | $371,450            |
 | Pennsylvania  | Lehigh County     | $372,600            |
-| Wisconsin     | St. Croix County  | $318,550            |
+| Wisconsin     | St. Croix County  | $322,000            |
 | New Mexico    | Los Alamos County | $380,650            |
 | North Dakota  | Billings County   | $304,750            |
 | Connecticut   | Middlesex County  | $353,050            |
@@ -63,11 +63,11 @@ Scenario Outline: Triggering conventional via FHA high-balance + increase in hou
 
 Examples:
 | state_name    | county_name       | FHA_max_loan_amount |
-| Georgia       | Cobb County       | $320,850            |
+| Georgia       | Cobb County       | $342,700            |
 | Illinois      | Kane County       | $365,700            |
 | Oregon        | Hood River County | $371,450            |
 | Pennsylvania  | Lehigh County     | $372,600            |
-| Wisconsin     | St. Croix County  | $318,550            |
+| Wisconsin     | St. Croix County  | $322,000            |
 | New Mexico    | Los Alamos County | $380,650            |
 | North Dakota  | Billings County   | $304,750            |
 | Connecticut   | Middlesex County  | $353,050            |

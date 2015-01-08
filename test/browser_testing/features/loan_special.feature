@@ -1,3 +1,5 @@
+# Navigational links: open in same tab
+# Non-Navigational links: open in new tab
 Feature: verify the Special Programs Loan page works according to requirements
   As a first time visitor to the Owning a Home page
   I want to navigate the Special Programs Loan page
@@ -7,7 +9,7 @@ Background:
    Given I navigate to the "Special Loan Programs" page
 
 @smoke_testing @loan_options
-Scenario Outline: Test inbound links in the Special Programs Loan page
+Scenario Outline: Test Navigational links in the Special Programs Loan page
 	When I click on the "<link_name>" link
 	Then I should be directed to the internal "<relative_url>" URL
 		And I should see "<page_title>" displayed in the page title
@@ -15,30 +17,38 @@ Scenario Outline: Test inbound links in the Special Programs Loan page
 Examples:
   | link_name       	  		     | relative_url											                      | page_title 	  |
   | Owning a Home                | /                                                      | Owning a Home |
-  | conventional               	 | loan-options/conventional-loans/                       | Loan Options  |
-  | FHA                          | loan-options/FHA-loans/                                | Loan Options  |
-  | conventional loans           | loan-options/conventional-loans/                       | Loan Options  |
   | More on mortgage insurance   | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
   | mortgage insurance           | loan-options/special-loan-programs/#mortgage-insurance | Loan Options  |
 
-@loan_options @prod_only
-Scenario Outline: Test outbound links in the Special Programs Loan page
-	When I click on the "<link_name>" link
-	Then I should be directed to the external "<full_url>" URL
-		And I should see "<page_title>" displayed in the page title
+
+@smoke_testing @loan_options
+Scenario Outline: Test NON-Navigational links in the Special Programs Loan page open in new tab
+  When I click on the "<link_name>" link
+  Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
 
 Examples:
-  | link_name       	  											  | full_url		 																                        | page_title 							            |
-  | Good Faith Estimates    									  | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html  		  | What is a Good Faith Estimate? 		  |
-  | Department of Veterans' Affairs (VA)        | http://www.benefits.va.gov/homeloans/                               | Home Loans Home                     |
-  | eligible                                    | http://www.benefits.va.gov/homeloans/purchaseco_certificate.asp     | Certificate of Eligibility          |
-  | upfront fee                                 | http://www.benefits.va.gov/homeloans/purchaseco_loan_fee.asp        | Loan Fees                           |
-  | US Department of Agriculture                | http://www.rurdev.usda.gov/had-guaranteed_housing_loans.html        | Guaranteed Housing Loans            |
-  | Find out if you're eligible.                | http://eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do    | Welcome                             |
-  | this tool                                   | http://downpaymentresource.com/                                     | Down Payment Resource               |
-  | local housing counselor                     | /find-a-housing-counselor/                                          | Find a housing counselor            |
-  | Learn more about mortgage insurance         | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html  | What is mortgage insurance and how does it work? |
+  | link_name                  | relative_url                                                   | page_title                          |
+  | conventional               | loan-options/conventional-loans/                               | Loan Options                        |
+  | FHA                        | loan-options/FHA-loans/                                        | Loan Options                        |
+  | conventional loans         | loan-options/conventional-loans/                               | Loan Options                        |
 
+
+@loan_options @prod_only
+Scenario Outline: Test NON-Navigational outbound links in the Special Programs Loan page
+	When I click on the "<link_name>" link
+	Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
+
+Examples:
+  | link_name       	  							    | relative_url		 																                    | page_title 							                          |
+  | Department of Veterans                | benefits.va.gov/homeloans/                                          | Home Loans Home                                   |
+  | eligible                              | benefits.va.gov/homeloans/purchaseco_certificate.asp                | Certificate of Eligibility                        |
+  | upfront fee                           | benefits.va.gov/homeloans/purchaseco_loan_fee.asp                   | Loan Fees                                         |
+  | US Department of Agriculture          | rurdev.usda.gov/had-guaranteed_housing_loans.html                   | Guaranteed Housing Loans                          |
+  | Find out if you                       | eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do           | Welcome                                           |
+  | this tool                             | downpaymentresource.com/                                            | Down Payment Resource                             |
+  | local housing counselor               | find-a-housing-counselor/                                           | Find a housing counselor                          |
+  | Learn more about mortgage insurance   | askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html   | What is mortgage insurance and how does it work?  |
+  | Good Faith Estimates       | askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html   | What is a Good Faith Estimate?      |
 
 @smoke_testing @loan_options
 Scenario Outline: Test Related links in the Special Programs Loan page

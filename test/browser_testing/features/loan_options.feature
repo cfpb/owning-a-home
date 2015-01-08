@@ -1,3 +1,5 @@
+# Navigational links: open in same tab
+# Non-Navigational links: open in new tab
 Feature: verify the Loan Options page works according to requirements
   As a first time visitor to the Owning a Home page
   I want to navigate the Loan Options page
@@ -73,38 +75,40 @@ Examples:
   | FHA              | loan-options/FHA-loans/             |
   | Special programs | loan-options/special-loan-programs/ |
 
-@loan_options
-Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
+@loan_options @prod_only
+Scenario Outline: Expand 'Loan Types' section then click Non-Navigational links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click on the "<link_name>" link
-  Then I should be directed to the external "<full_url>" URL
+  Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
 
 Examples:
-  | link_name          | full_url                                      |
-  | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    |
+  | link_name          | relative_url                                  | page_title                     |
+  | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    | What is a Qualified Mortgage?  |
 
-@loan_options
-Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
+@loan_options @prod_only
+Scenario Outline: Expand 'Loan Term' section then click Non-Navigational links inside the expanded section
   When I click Learn More to expand the "Loan term" section
     And I click on the "<link_name>" link
-  Then I should be directed to the external "<full_url>" URL
+  Then I should see the "<relative_url>" URL with page title Consumer Financial Protection Bureau open in a new tab
 
 Examples:
-  | link_name                      | full_url                                                                                                                                                   |
-  | principal and interest         | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-  | Learn why                      | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-  | Learn more                     | /askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                        |
-  | Good Faith Estimates           | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
-  | Learn more about balloon loans | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
+  | link_name                                 | relative_url                                                                                                                 |
+  | principal and interest                    | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
+  | Learn why                                 | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
+  | Learn more                                | /askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                        |
+  | Explore rates specific to your situation  | /check-rates/                                                                                                                |
+  | Good Faith Estimates                      | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
+  | Learn more about balloon loans            | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
 
-@loan_options
-Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
+@loan_options @prod_only
+Scenario Outline: Expand 'Interest rate type' section then click links inside the expanded section
   When I click Learn More to expand the "Interest rate type" section
     And I click on the "<link_name>" link
-  Then I should be directed to the external "<relative_url>" URL
+  Then I should see the "<relative_url>" URL with page title Consumer Financial Protection Bureau open in a new tab
 
 Examples:   
   | link_name                                   | relative_url                                                                                                                                        |
+  | principal and interest payment              | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
   | increase or decrease based on the market    | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
   | payments can increase or decrease over time | /askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html                                 |
   | total monthly payment                       | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
@@ -116,23 +120,4 @@ Examples:
   | how much your rate and payment can adjust   | /askcfpb/1951/with-an-adjustable-rate-mortgage-arm-what-are-rate-caps-and-how-do-they-work.html                                                     |
   | pre-payment penalties                       | /askcfpb/1957/what-is-a-prepayment-penalty.html                                                                                                     |
   | loan balances that can increase             | /askcfpb/103/what-is-negative-amortization.html                                                                                                     |
-
-
-
-  #| Learn more | http://www.consumerfinance.gov/askcfpb/1947/if-i-am-considering-an-adjustable-rate-mortgage-arm-what-should-i-look-out-for-in-the-fine-print.html |
-  #| principal and interest payment | http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-  #| principal and interest payment | http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
-
-@smoke_testing @loan_options
-Scenario Outline: Expand 'Loan Term' section then click links inside the expanded section
-  When I click Learn More to expand the "Interest rate type" section
-    And I click on the "<link_name>" link
-  Then I should be directed to the internal "<relative_url>" URL
-
-Examples:
-  | link_name          | relative_url                                    |
- #| loan term          | loan-options/#loan-term-expand-header           |
-  | FHA loan           | loan-options/FHA-loans/                         |
-
-
-
+  | FHA loan                                    | /loan-options/FHA-loans/                                                                                                                            |

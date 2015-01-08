@@ -54,6 +54,11 @@ def step(context, dp_amount):
     current_Amount = context.rate_checker.get_down_payment_amount()
     assert_that(current_Amount, equal_to(dp_amount))
 
+@then(u'I should see a DP alert "{alert_text}"')
+def step(context, alert_text):
+    pass
+    actual_text = context.rate_checker.get_dp_alert_text(alert_text)
+    assert_that(actual_text, equal_to(alert_text))
 
 # LOAN AMOUNT
 @then(u'I should see "{expected_loan_amount}" as Loan Amount')
