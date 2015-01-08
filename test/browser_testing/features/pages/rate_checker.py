@@ -22,7 +22,7 @@ LOAN_TERM_DDL = "loan-term"  # LOAN TERM DROPDOWN LIST
 LOAN_TYPE_DDL = "loan-type"  # LOAN TYPE DROPDOWN LIST
 LOCATION_DDL = "location"  # LOCATION DROPDOWN LIST
 RATE_STRUCTURE_DDL = "rate-structure"  # RATE STRUCTURE DROPDOWN LIST
-COUNTY_DLL = "county" # COUNTY DROPDOWN LIST
+COUNTY_DLL = "county"  # COUNTY DROPDOWN LIST
 
 # ELEMENT ID'S FOR LABELS/WARNINGS
 LOAN_AMOUNT_LABEL = "loan-amount-result"  # LOAN AMOUNT LABEL
@@ -97,7 +97,6 @@ class RateChecker(Base):
             element = self.driver.find_element_by_css_selector(HB_WARNING)
             return element.text
 
-
     def is_hb_alert_hidden(self, alert_text):
         l_wait = 5
         msg = 'HB alert text was not visible within %s seconds' % l_wait
@@ -106,8 +105,8 @@ class RateChecker(Base):
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.text_to_be_present_in_element((By.CSS_SELECTOR,
                        HB_WARNING_HIDDEN), alert_text), msg)
-            element = self.driver.find_element_by_css_selector(HB_WARNING_HIDDEN)
-            return element.text
+            e = self.driver.find_element_by_css_selector(HB_WARNING_HIDDEN)
+            return e.text
         except TimeoutException:
             return False
 
@@ -116,8 +115,8 @@ class RateChecker(Base):
         msg = "Element %s not found after %s seconds" % (DP_WARNING, l_wait)
 
         WebDriverWait(self.driver, 5)\
-                .until(lambda s: (s.find_element_by_css_selector(DP_WARNING)), msg)
-        
+            .until(lambda s: (s.find_element_by_css_selector(DP_WARNING)), msg)
+
         return self.driver.find_element_by_css_selector(DP_WARNING).text
 
     # CHART AREA
@@ -139,7 +138,7 @@ class RateChecker(Base):
         try:
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   CHART_FADED)))
+                       CHART_FADED)))
             return True
         except TimeoutException:
             return False
@@ -150,7 +149,7 @@ class RateChecker(Base):
         try:
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   CHART_NOT_FADED)))
+                       CHART_NOT_FADED)))
             return True
         except TimeoutException:
             return False
@@ -210,7 +209,7 @@ class RateChecker(Base):
         select.select_by_visible_text(state_name)
 
         WebDriverWait(self.driver, l_wait)\
-                .until(EC.presence_of_element_located((By.CSS_SELECTOR,
+            .until(EC.presence_of_element_located((By.CSS_SELECTOR,
                    CHART_NOT_FADED)), msg)
 
     # HOUSE PRICE
@@ -242,8 +241,9 @@ class RateChecker(Base):
 
         # Wait for the dp percentage to change from the default amount of 10
         try:
-            WebDriverWait(self.driver, 5)\
-                .until(lambda s: (s.find_element_by_id(DOWN_PAYMENT_PERCENT).get_attribute("value")) != "10")
+            WebDriverWait(self.driver, 2)\
+                .until(lambda s: (s.find_element_by_id(DOWN_PAYMENT_PERCENT)
+                       .get_attribute("value")) != "10")
             return element.get_attribute("value")
         except TimeoutException:
             return element.get_attribute("value")
@@ -274,8 +274,10 @@ class RateChecker(Base):
 
         # Wait for the dp amount to change from the default amount of 20,000
         try:
-            WebDriverWait(self.driver, 5)\
-                .until(lambda s: (s.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX).get_attribute("value")) != "20,000")
+            WebDriverWait(self.driver, 2)\
+                .until(lambda s: (s.find_element_by_id
+                       (DOWN_PAYMENT_AMOUNT_TBOX)
+                    .get_attribute("value")) != "20,000")
             return element.get_attribute("value")
         except TimeoutException:
             return element.get_attribute("value")
@@ -291,10 +293,11 @@ class RateChecker(Base):
     # LOAN AMOUNT
     def get_loan_amount(self):
         # Get the text from the Loan Amount label
-        # Wait for the loan amount to change from the default amount of $180,000
+        # Wait for the loan amount to change from the default amount ($180,000)
         try:
             WebDriverWait(self.driver, 2)\
-                .until(lambda s: (s.find_element_by_id(LOAN_AMOUNT_LABEL).text) != "$180,000")
+                .until(lambda s: (s.find_element_by_id(LOAN_AMOUNT_LABEL)
+                       .text) != "$180,000")
             return self.driver.find_element_by_id(LOAN_AMOUNT_LABEL).text
         except TimeoutException:
             return self.driver.find_element_by_id(LOAN_AMOUNT_LABEL).text
@@ -315,7 +318,7 @@ class RateChecker(Base):
         try:
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   css)), msg)
+                       css)), msg)
             return True
         except TimeoutException:
             return False
@@ -328,7 +331,7 @@ class RateChecker(Base):
         WebDriverWait(self.driver, l_wait)\
             .until(EC.text_to_be_present_in_element((By.ID,
                    COUNTY_DLL), county_name), msg)
-        
+
         select = Select(self.driver.find_element_by_id(COUNTY_DLL))
         select.select_by_visible_text(county_name)
 
@@ -407,7 +410,7 @@ class RateChecker(Base):
         try:
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   css)), msg)
+                       css)), msg)
             return True
         except TimeoutException:
             return False
@@ -431,6 +434,19 @@ class RateChecker(Base):
             return False
         except NoSuchElementException:
             return True
+
+    def is_arm_type_highlighted(self):
+        css = ".highlight-dropdown #" + ARM_TYPE_DDL
+        l_wait = 2
+        msg = '%s not found after %s seconds' % (css, l_wait)
+
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                       css)), msg)
+            return True
+        except TimeoutException:
+            return False
 
     # TABS AND LINKS
     def get_active_tab_text(self):

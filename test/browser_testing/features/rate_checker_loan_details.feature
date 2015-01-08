@@ -57,3 +57,23 @@ Examples:
    | loan_term    | option_state | 
    | 30 Years     | enabled      |
    | 15 Years     | disabled     |
+
+
+@rate_checker
+Scenario: Select Adjustable then change back to Fixed rate to verify that ARM Type disappears
+  When I select "Adjustable" Rate Structure
+    And I select "Fixed" Rate Structure
+  Then I should NOT see the ARM Type selection
+
+
+@rate_checker
+Scenario: Select Adjustable rate then verify that ARM Type is highlighted
+  When I select "Adjustable" Rate Structure
+  Then I should see the ARM Type field highlighted
+
+
+@rate_checker
+Scenario: Select Adjustable rate, ARM Type then verify that ARM Type is NOT highlighted
+  When I select "Adjustable" Rate Structure
+    And I select "7/1" ARM Type
+  Then I should NOT see the ARM Type field highlighted

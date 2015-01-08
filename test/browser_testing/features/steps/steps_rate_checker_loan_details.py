@@ -100,6 +100,18 @@ def step(context):
     assert_that(arm_type_selection, equal_to(False))
 
 
+@then(u'I should see the ARM Type field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_arm_type_highlighted()
+    assert_that(actual_state, equal_to(True))
+
+
+@then(u'I should NOT see the ARM Type field highlighted')
+def step(context):
+    actual_state = context.rate_checker.is_arm_type_highlighted()
+    assert_that(actual_state, equal_to(False))
+
+
 # INTEREST COST LABEL
 @then(u'I should see primary Interest costs over the first "{loan_years}" years')
 @then(u'I should see primary Interest costs over "{loan_years}" years')
