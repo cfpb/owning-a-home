@@ -32,19 +32,18 @@ Examples:
 @loan_options @prod_only
 Scenario Outline: Test Navigational outbound links in the Conventional Loan page
 	When I click on the "<link_name>" link
-	Then I should be directed to the external "<full_url>" URL
-		And I should see "<page_title>" displayed in the page title
+	Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
 
 Examples:
-  | link_name       	  											      | full_url		 																								  | page_title 							  |
-  | Fannie Mae or Freddie Mac 										  | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							  | Consumer Financial Protection Bureau  |
-  | unless you’re buying a home with multiple units | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | Consumer Financial Protection Bureau  |
-  | Maximum loan amount varies by county 					  | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | Consumer Financial Protection Bureau  |
-  | Good Faith Estimates 											      | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					  | Consumer Financial Protection Bureau  |
-  | Learn more about mortgage insurance 					  | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				  | Consumer Financial Protection Bureau  |
-  | What are Fannie Mae and Freddie Mac? 					  | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							  | Consumer Financial Protection Bureau  |
-  | How can I find the loan limit for a conforming loan in my county? | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | Consumer Financial Protection Bureau  |
-  | What is a Good Faith Estimate? 								  | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					  | Consumer Financial Protection Bureau  |
+  | link_name       	  											                        | relative_url		 																								                    | page_title 							                                           |
+  | Fannie Mae or Freddie Mac 										                    | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							                | What are Fannie Mae and Freddie Mac?                               |
+  | unless you’re buying a home with multiple units                   | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
+  | Maximum loan amount varies by county 					                    | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
+  | Good Faith Estimates 											                        | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					            | What is a Good Faith Estimate? What is a GFE?                      |
+  | Learn more about mortgage insurance 					                    | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				          | What is mortgage insurance and how does it work?                   |
+  | What are Fannie Mae and Freddie Mac? 					                    | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							                | What are Fannie Mae and Freddie Mac?                               |
+  | How can I find the loan limit for a conforming loan in my county? | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
+  | What is a Good Faith Estimate? 								                    | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					            | What is a Good Faith Estimate? What is a GFE?                      |
 
 @smoke_testing @loan_options
 Scenario Outline: Test OTHER LOAN TYPES links in the Conventional Loan page

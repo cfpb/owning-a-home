@@ -92,6 +92,7 @@ def step(context, alert_text):
     actual_text = context.rate_checker.get_county_alert_text(alert_text)
     assert_that(actual_text, equal_to(False))
 
+
 @then(u'I should see the County field highlighted')
 def step(context):
     actual_state = context.rate_checker.is_county_highlighted()
