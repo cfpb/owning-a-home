@@ -766,28 +766,24 @@ function checkARM() {
   // reset warning and info
   $('#arm-warning').addClass('hidden');
   $('.arm-info').addClass('hidden');
-  var disallowedTypes = [ 'fha', 'va'],
+  var disallowedTypes = [ 'fha', 'va', 'va-hb', 'fha-hb'],
       disallowedTerms = [ '15' ];
 
   if ( params['rate-structure'] === 'arm' ) {
-    // ARMs must be 30 years
-    if ( params['loan-term'] !== '30' ) {
+    // Reset and highlight if the loan term is disallowed
+    if ( disallowedTerms.indexOf( params['loan-term']) !== -1 ) {
+      dropdown('loan-term').reset();
       dropdown('loan-term').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
-    // ARMs cannot be VA-HB or FHA-HB
-    if ( params['loan-type'] === 'va-hb' || params['loan-type'] === 'fha-hb' ) {
+    // Reset and highlight if the loan type is disallowed
+    if ( disallowedTypes.indexOf( params['loan-type']) !== -1 ) {
+      dropdown('loan-type').reset();
       dropdown('loan-type').showHighlight();
       $('#arm-warning').removeClass('hidden');
     }
     dropdown('loan-term').disable('15');
     dropdown('loan-type').disable(['fha', 'va']);
-    if ( disallowedTerms.indexOf( params['loan-term']) !== -1 ) {
-      dropdown('loan-term').reset();
-    }
-    if ( disallowedTypes.indexOf( params['loan-type']) !== -1 ) {
-      dropdown('loan-type').reset();
-    }
     dropdown('arm-type').show();
     $('.no-arm').addClass('hidden');
     $('.arm-info').removeClass('hidden');
