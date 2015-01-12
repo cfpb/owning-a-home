@@ -31,7 +31,7 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v1">
 
 <!--[if IE 9]>
     <script src="{{ url_for('static', filename='js/ie9.js') }}"></script>
@@ -80,8 +80,8 @@
 
 {% include "nemo_subnav.html" %}
 {% include "nemo_footer.html" %}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<script src="{{ url_for('static', filename='js') }}/{{active_page}}.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}?v1"></script>
+<script src="{{ url_for('static', filename='js') }}/{{active_page}}.js?v1"></script>
 </body>
 
 </html>

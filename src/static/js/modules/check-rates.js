@@ -347,7 +347,21 @@ function updateView() {
       updateLanguage( data );
       renderAccessibleData( data );
       renderChart( data );
-      renderTime( results.timestamp );
+
+      // Update timestamp
+      var _timestamp = results.timestamp;
+      try{
+        // Safari 8 seems to have a bug with date conversion:
+        //    The following: new Date("2015-01-07T05:00:00Z")
+        //    Incorrectly returns: Tue Jan 06 2015 21:00:00 GMT-0800 (PST)
+        // The following will detect it and will offset the timezone enough
+        // to get the correct date (but not time)
+        if((new Date(results.timestamp)).getDate() != parseInt(results.timestamp.split('T')[0].split('-')[2]))
+          _timestamp = _timestamp.split('T')[0] + "T15:00:00Z";
+      }catch(e){}
+
+      renderTime( _timestamp );
+      
       updateComparisons( data );
       renderInterestAmounts();
 
