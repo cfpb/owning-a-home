@@ -3,7 +3,7 @@ var highcharts = require('highcharts');
 var formatUSD = require('format-usd');
 var unFormatUSD = require('unformat-usd');
 var interest = require('./total-interest-calc');
-var geolocation = require('./geolocation');
+// var geolocation = require('./geolocation');
 var dropdown = require('./dropdown-utils');
 var jumbo = require('jumbo-mortgage');
 var median = require('median');
@@ -1041,6 +1041,7 @@ function init() {
   renderTime();
   setSelections({ usePlaceholder: true });
 
+/*
   geolocation.getState({timeout: 2000}, function( state ){
     // If a state is returned (meaning they allowed the browser
     // to determine their location).
@@ -1048,8 +1049,8 @@ function init() {
       params.location = state;
       setSelection('location');
     }
-    //updateView();
   });
+*/
   updateView();
 }
 
