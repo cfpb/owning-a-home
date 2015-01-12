@@ -43,7 +43,7 @@ $(document).ready(function() {
   $('#percent-down').keyup(function() {
     var value = $(this).val();
     delay(function(){
-      try{track('OAH rate tool', 'House price', value);}
+      try{track('OAH rate tool', 'Percent down', value);}
       catch( error ) {}
     }, 900 );
   });
@@ -52,7 +52,7 @@ $(document).ready(function() {
   $('#down-payment').keyup(function() {
     var value = $(this).val();
     delay(function(){
-      try{track('OAH rate tool', 'House price', value);}
+      try{track('OAH rate tool', 'Down payment', value);}
       catch( error ) {}
     }, 900 );
   });
@@ -107,7 +107,7 @@ $(document).ready(function() {
   // rate comparison select #2
   $('#rate-compare-2').on('change', function() {
     var value = $(this).val();
-    try{track('OAH rate tool', 'Interest cost 1', value);}
+    try{track('OAH rate tool', 'Interest cost 2', value);}
     catch( error ) {}
   });
 
