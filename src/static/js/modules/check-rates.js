@@ -129,6 +129,9 @@ var delay = (function(){
 function getData() {
   params.update();
 
+  var today = new Date();
+  var decache = "" + today.getDate() + today.getMonth();
+
   var promise = $.ajax({
       type: 'GET',
       url: config.rateCheckerAPI,
@@ -141,7 +144,8 @@ function getData() {
         rate_structure: params['rate-structure'],
         loan_term: params['loan-term'],
         loan_type: params['loan-type'],
-        arm_type: params['arm-type']
+        arm_type: params['arm-type'],
+        decache: decache
       },
       dataType: 'json',
       contentType: "application/json",
