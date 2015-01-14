@@ -33,7 +33,7 @@ Examples:
   | conventional loans         | loan-options/conventional-loans/                               | Loan Options                        |
 
 
-@loan_options @prod_only
+@smoke_testing @loan_options @prod_only
 Scenario Outline: Test NON-Navigational outbound links in the Special Programs Loan page
 	When I click on the "<link_name>" link
 	Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab

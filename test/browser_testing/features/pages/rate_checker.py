@@ -133,7 +133,7 @@ class RateChecker(Base):
         return element.text
 
     def is_chart_faded(self):
-        l_wait = 5
+        l_wait = 10
 
         try:
             WebDriverWait(self.driver, l_wait)\
