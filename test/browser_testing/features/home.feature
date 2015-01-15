@@ -7,25 +7,30 @@ Background:
    Given I navigate to the OAH Landing page
 
 @smoke_testing @landing_page @email_signup
-Scenario Outline: Testing valid email signup
-  When I enter "<email_address>"
+Scenario: Testing valid email signup
+  When I enter "test@yahoo.com"
     And I click the Signup button
   Then I should see "Thanks, we’ll be in touch!" displayed
+    And I should see the Signup button disappear
 
-Examples:
-  | email_address         |
-  | test@yahoo.com        |
-  | test123@gmail.com     |
-  | mr.tester@github.com  |
 
 @landing_page @email_signup
-Scenario Outline: Testing multiple messages
-  When I enter "<email_address>"
+Scenario: Testing multiple validation messages
+  When I enter "zz"
     And I click the Signup button
     And I click the Signup button again
     And I click the Signup button again
   Then I should NOT see multiple "Thanks, we’ll be in touch!" messages displayed
 
+@landing_page @email_signup
+Scenario Outline: Testing invalid email address
+  When I enter "<email_address>"
+    And I click the Signup button
+  Then I should NOT see "Thanks, we’ll be in touch!" displayed
+
 Examples:
   | email_address         |
-  | test@yahoo.com        |
+  | testyahoo.com         |
+  | 11@                   |
+  | @@                    |
+  | 11.com                |

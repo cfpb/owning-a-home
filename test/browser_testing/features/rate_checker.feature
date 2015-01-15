@@ -17,7 +17,7 @@ Examples:
   | California			|
   | Virginia		    |
 
-@rate_checker @ignore
+@rate_checker
 Scenario: Test all dropdown lists in the Rate Checker page
   When I select "Adjustable" Rate Structure
     And I select "7/1" ARM Type
