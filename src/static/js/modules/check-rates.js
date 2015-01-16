@@ -1130,12 +1130,12 @@ $('.calc-loan-amt .recalc').on( 'keyup', function(ev) {
 });
 
 // delayed function for processing and updating
-$('.calc-loan-amt').on( 'keyup', '.recalc', function(ev) {
+$('.calc-loan-amt, .credit-score').on( 'keyup', '.recalc', function(ev) {
   var verbotenKeys = [ 9, 37, 38, 39, 40 ],
       element = this;
 
   // Don't recalculate on TAB or arrow keys
-  if ( verbotenKeys.indexOf( ev.which ) === -1 ) {
+  if ( verbotenKeys.indexOf( ev.which ) === -1 || $(this).hasClass('range') ) {
     delay(function() {
       processLoanAmount( element );
     }, 500);
