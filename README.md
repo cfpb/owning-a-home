@@ -22,7 +22,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 To get started with Sheer:
 
-Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).)::
+Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
 
 ```
 $ brew install elasticsearch
@@ -38,7 +38,7 @@ Create a virtualenv for sheer:
 $ mkvirtualenv sheer
 ```
 
-The new virtualenv will activate right away. to activate it later on (say, in a new terminal session) use the command `workon sheer`.
+The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon sheer`.
 
 Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 
