@@ -22,25 +22,25 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 To get started with Sheer:
 
-Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (we use [homebrew](http://brew.sh/))::
+Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).)::
 
 ```
 $ brew install elasticsearch
 ```
 
-Check out the sheer Github project:
+Check out the sheer GitHub project (you may want to first navigate to your project directory, or wherever you work on code):
 ```
 $ git clone https://github.com/cfpb/sheer.git
 ```
 
-create a virtualenv for sheer:
+Create a virtualenv for sheer:
 ```
 $ mkvirtualenv sheer
 ```
 
-The new virtualenv will activate right away. to activate it later on (say, in a new terminal session) use the command "workon sheer"
+The new virtualenv will activate right away. to activate it later on (say, in a new terminal session) use the command `workon sheer`.
 
-Install sheer into the virtualenv with the -e flag (which allows you to make changes to sheer itself):
+Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 
 ```
 $ pip install -e ~/path/to/sheer
@@ -56,7 +56,7 @@ You should now be able to run the sheer command:
 ```
 $ sheer
 
-usage: sheer [-h] [--debug] {inspect,index,serve} ...
+usage: sheer [-h] [--debug] {inspect,index,serve} …
 sheer: error: too few arguments
 ```
 
