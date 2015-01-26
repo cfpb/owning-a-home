@@ -62,14 +62,20 @@ sheer: error: too few arguments
 
 ## Configuration
 
-Currently owning-a-home's Rate Checker is powered by a private API that returns mortgage rate data. To configure owning-a-home you will need to point to an API url in `config/config.js`. To do this:
+Currently owning-a-home's Rate Checker is powered by a private API that returns mortgage rate data. To configure owning-a-home you will need to point to an API URL in `config/config.js`. To do this:
 
-In the config folder, copy the `example-config.js` file and rename it `config.js`
+In the config folder, copy the `example-config.js` file and rename it `config.js`. This can be done from the command line with the following two commands:
 
-Change line 3 to point to an appropriate API url:
+```shell
+cd config
+cp example-config.js config.js
+```
 
-```javascript
-config.rateCheckerAPI = 'YOUR API URL HERE';
+In `config/config.js`, change line 2 to point to an appropriate API URL:
+
+```json
+{
+    "rateCheckerAPI": "YOUR API URL HERE",
 ```
 
 ## Working with the front end
