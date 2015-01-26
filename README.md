@@ -33,12 +33,12 @@ Check out the sheer GitHub project (you may want to first navigate to your proje
 $ git clone https://github.com/cfpb/sheer.git
 ```
 
-Create a virtualenv for sheer:
+Create a virtualenv for sheer, which you'll name `OAH`:
 ```
-$ mkvirtualenv sheer
+$ mkvirtualenv OAH
 ```
 
-The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon sheer`.
+The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
 
 Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 
@@ -104,7 +104,7 @@ To work on the app you will need sheer running to compile the templates in `_lay
 
 ```bash
 # use the sheer virtualenv
-$ workon sheer
+$ workon OAH
 
 # navigate to the built app directory that grunt created
 $ cd dist
