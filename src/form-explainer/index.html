@@ -6,10 +6,7 @@
 {% block content %}
 
 <div class="wrap content-area">
-  <div class="wrapper">
-
     <div class="form-explainer {% if subnav %}col-9{% endif %}" role="main">
-
       <section>
 
         <div class="oah-title-tag">
@@ -21,40 +18,33 @@
           <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
         </div><!-- /.page-intro -->
 
-        <div class="form-explainer" aria-controls="form-explainer">
+        <figure class="explain" aria-controls="form-explainer">
 
-          <figure class="explain">
+          <div class="image-map explain_image-map">
+            <div class="image-map_wrapper">
+              <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
+              <a class="image-map_point" style="left:4%;top:15%;" href="#1">1</a>
+              <a class="image-map_point" style="left:4%;top:50%;" href="#2">2</a>
+              <a class="image-map_point" style="left:50%;top:50%;" href="#3">33</a>
+            </div>
+          </div><!-- /.image-map -->
 
-            <div class="image-map explain_image-map">
-              <div class="image-map_wrapper">
-                <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
-                <a class="image-map_point" style="left:4%;top:15%;" href="#1">1</a>
-                <a class="image-map_point" style="left:4%;top:50%;" href="#2">2</a>
-                <a class="image-map_point" style="left:50%;top:50%;" href="#3">33</a>
-              </div>
-            </div><!-- /.image-map -->
+          <figcaption class="terms explain_terms">
+            <div class="terms_item">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint cupiditate aspernatur quam odio fugiat voluptatum iure labore quidem perferendis eius tempora accusantium qui nostrum voluptates deleniti at eaque dolorum adipisci.                
+            </div>
+            <div class="terms_item">
+              <dl>
+                <dt>Term</dt>
+                <dd>Definition ipsum dolor sit amet, consectetur adipisicing elit.</dd>
+              </dl>
+            </div>
+          </figcaption><!-- /.terms -->
 
-            <figcaption class="terms explain_terms">
-              <div class="terms_item">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint cupiditate aspernatur quam odio fugiat voluptatum iure labore quidem perferendis eius tempora accusantium qui nostrum voluptates deleniti at eaque dolorum adipisci.                
-              </div>
-              <div class="terms_item">
-                <dl>
-                  <dt>Term</dt>
-                  <dd>Definition ipsum dolor sit amet, consectetur adipisicing elit.</dd>
-                </dl>
-              </div>
-            </figcaption><!-- /.terms -->
-
-          </figure><!-- ./explain -->
-
-        </div><!-- /.form-explainer -->
+        </figure><!-- ./explain -->
 
       </section>
-
-    </div><!-- END .rate-checker -->
-
-  </div> <!-- /.wrapper -->
+    </div><!-- /.form-explainer -->
 </div> <!-- /.wrap -->
 
 {% endblock %}
