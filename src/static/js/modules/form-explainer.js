@@ -10,12 +10,7 @@ var fx = {
   $window:          $( window )
 };
 
-function getWidth( newHeight, orginalWidth, originalHeight ) {
-  if ( currentHeight == 0 ) return newHeight;
-  var aspectRatio = currentWidth / currentHeight;
-  return newHeight * aspectRatio;
-}
-
+// http://stackoverflow.com/questions/1682495/jquery-resize-to-aspect-ratio
 $.fn.resizeHeightMaintainRatio = function( newHeight ) {
   var aspectRatio = $(this).data('aspectRatio');
   if (aspectRatio == undefined) {
