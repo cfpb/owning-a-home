@@ -1,4 +1,4 @@
-# owning-a-home
+# Owning a Home
 
 [![Build Status](https://travis-ci.org/cfpb/owning-a-home.svg?branch=master)](https://travis-ci.org/cfpb/owning-a-home)
 
@@ -11,6 +11,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 ## Dependencies
 
 - Unix-based OS (including Macs). Windows is not supported at this time.
+- [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
@@ -20,6 +21,14 @@ We are working under an agile framework, and plan to use this repo to publish, r
 - [Capital Framework](http://cfpb.github.io/capital-framework/)
 - [LESS](http://lesscss.org/)
 
+### Virtualenv & Virtualenvwrapper Python modules
+
+If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
+
+1. Run:
+	```bash
+	pip install virtualenv virtualenvwrapper
+	```
 
 ### Sheer & Elasticsearch
 
@@ -106,16 +115,21 @@ To configure the Rate Checker you will need to point to the required API URLs in
 
 ## Workflow
 
-Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
+The following commands need to be run as part of your daily workflow developing this application.
+
+
+### Fetch changes workflow
+1. Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
 
 ```bash
 $ npm install
 $ grunt
 ```
 
-To work on the app you will need sheer running to compile the templates in `_layouts`. There is also a `grunt watch` command that will recompile Less and JS on the fly while you're developing.
+### Sheer workflow
+Sheer needs to be running to compile the templates in `_layouts`. 
 
-1. Use the sheer virtualenv
+1. Use the sheer virtualenv:
 	```bash
 	$ workon OAH
 	```
@@ -131,7 +145,10 @@ To work on the app you will need sheer running to compile the templates in `_lay
 	```
 	**Note:** The first time you start sheer, you may get a firewall alert and login prompt. Hit cancel at either of these.
 
-4. Open a new command prompt and run:
+### Grunt workflow
+Grunt watch will recompile Less and JS everytime you save changes to those project files.
+
+1. Open a new command prompt and run:
 	```bash
 	$ grunt watch
 	```
