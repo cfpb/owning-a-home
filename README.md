@@ -69,6 +69,10 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 ### Rate Checker
 The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
 
+The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker app.
+
+#### Private API Users
+
 To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. To do this navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
 
 ```shell
