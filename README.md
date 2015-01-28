@@ -129,6 +129,7 @@ To work on the app you will need sheer running to compile the templates in `_lay
 	```bash
 	$ sheer serve
 	```
+	**Note:** The first time you start sheer, you may get a firewall alert and login prompt. Hit cancel at either of these.
 
 4. Open a new command prompt and run:
 	```bash
