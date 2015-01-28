@@ -8,7 +8,7 @@ Nothing presented in the issues or in this repo is a final product unless it is 
 ## We want your feedback, but will not be able to respond to everyone
 We are working under an agile framework, and plan to use this repo to publish, receive feedback, and iterate on that feedback as often as possible. Our goal is to see user trends and reactions to our work. We want as much feedback as possible to help us make informed decisions so that we can make this tool better. Unfortunately, we will not be able to respond to every piece of feedback or comment we receive, but intend to respond with our progress through the evolution of the tool.
 
-## Requirements
+## Dependencies
 
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
