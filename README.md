@@ -16,12 +16,14 @@ We are working under an agile framework, and plan to use this repo to publish, r
 - [Node](http://nodejs.org/)
 - [Grunt](http://gruntjs.com/)
 - [Bower](http://bower.io/)
+- [Browserify](http://browserify.org/)
+- [Capital Framework](http://cfpb.github.io/capital-framework/)
+- [LESS](http://lesscss.org/)
 
-## Getting up and running with sheer
+
+### Sheer & Elasticsearch
 
 [Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool." It requires [Elasticsearch](http://www.elasticsearch.org/).
-
-### To get started with Sheer:
 
 1. Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
 	```
@@ -57,8 +59,24 @@ We are working under an agile framework, and plan to use this repo to publish, r
 	sheer: error: too few arguments
 	```
 
-
 If you run into problems or have any questions about Sheer, check out [Sheer on Github](https://github.com/cfpb/sheer) and the [Sheer Issue Tracker](https://github.com/cfpb/sheer/issues).
+
+### Node, Grunt, Bower, Browserify
+
+1. Install [node.js](http://nodejs.org/) however you'd like.
+2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
+	```
+	$ npm install -g grunt-cli bower browserify
+	```
+3. Install the project's node dependencies:
+	```bash
+	$ npm install
+	```
+4. Run grunt to build the site:
+	```
+	grunt
+	```
+
 
 ## Configuration
 
@@ -85,26 +103,8 @@ To configure the Rate Checker you will need to point to the required API URLs in
 	}
 	```
 
-## Working with the front end
 
-The owning-a-home front-end currently uses the following:
-
-- [LESS](http://lesscss.org/)
-- [Capital Framework](http://cfpb.github.io/capital-framework/)
-- [Grunt](http://gruntjs.com/)
-- node/CommonJS style modules (compiled with [Browserify](http://browserify.org/))
-- [Bower](http://bower.io/) & [npm](https://www.npmjs.org/) for package management
-
-### Installing dependencies (one time)
-
-1. Install [node.js](http://nodejs.org/) however you'd like.
-2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
-
-```
-$ npm install -g grunt-cli bower browserify
-```
-
-## Developing
+## Workflow
 
 Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
 
@@ -115,19 +115,25 @@ $ grunt
 
 To work on the app you will need sheer running to compile the templates in `_layouts`. There is also a `grunt watch` command that will recompile Less and JS on the fly while you're developing.
 
-```bash
-# use the sheer virtualenv
-$ workon OAH
+1. Use the sheer virtualenv
+	```bash
+	$ workon OAH
+	```
 
-# navigate to the built app directory that grunt created
-$ cd dist
+2. Navigate to the built app directory that grunt created
+	```bash
+	$ cd dist
+	```
 
-# start sheer
-$ sheer serve
+3. Start Sheer:
+	```bash
+	$ sheer serve
+	```
 
-# open a new command prompt and run:
-$ grunt watch
-```
+4. Open a new command prompt and run:
+	```bash
+	$ grunt watch
+	```
 
 To view the site browse to: <http://localhost:7000>
 
