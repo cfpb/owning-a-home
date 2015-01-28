@@ -10,6 +10,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 ## Dependencies
 
+- Unix-based OS (including Macs). Windows is not supported at this time.
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
@@ -18,41 +19,41 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 ## Getting up and running with sheer
 
-[Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool."
+[Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool." It requires [Elasticsearch](http://www.elasticsearch.org/).
 
-To get started with Sheer:
+### To get started with Sheer:
 
-Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
+1. Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
 
 ```
 $ brew install elasticsearch
 ```
 
-Check out the sheer GitHub project (you may want to first navigate to your project directory, or wherever you work on code):
+1. Clone the sheer GitHub project:
 ```
 $ git clone https://github.com/cfpb/sheer.git
 ```
 
-Create a virtualenv for sheer, which you'll name `OAH`:
+1. Create a virtualenv for sheer, which you'll name `OAH`:
 ```
 $ mkvirtualenv OAH
 ```
 
 The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
 
-Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
+1. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 
 ```
 $ pip install -e ~/path/to/sheer
 ```
 
-Install sheer's python requirements:
+1. Install sheer's python requirements:
 
 ```
 $ pip install -r ~/path/to/sheer/requirements.txt
 ```
 
-You should now be able to run the sheer command:
+1. You should now be able to run the sheer command:
 ```
 $ sheer
 
