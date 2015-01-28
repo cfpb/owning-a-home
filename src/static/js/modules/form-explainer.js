@@ -1,5 +1,7 @@
 var $ = require('jquery');
 require('sticky');
+require('jquery-easing');
+require('cf-expandables');
 
 var fx = {
   $wrapper:         $('.explain'),
@@ -12,13 +14,13 @@ var fx = {
 
 // http://stackoverflow.com/questions/1682495/jquery-resize-to-aspect-ratio
 $.fn.resizeHeightMaintainRatio = function( newHeight ) {
-  var aspectRatio = $(this).data('aspectRatio');
-  if (aspectRatio == undefined) {
-    aspectRatio = $(this).width() / $(this).height();
-    $(this).data('aspectRatio', aspectRatio);
+  var aspectRatio = $( this ).data('aspectRatio');
+  if ( aspectRatio === undefined ) {
+    aspectRatio = $( this ).width() / $( this ).height();
+    $( this ).data( 'aspectRatio', aspectRatio );
   }
-  $(this).height(newHeight); 
-  $(this).width(parseInt(newHeight * aspectRatio));
+  $( this ).height( newHeight );
+  $( this ).width( parseInt(newHeight * aspectRatio, 10) );
 };
 
 /**
