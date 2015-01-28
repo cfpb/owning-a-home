@@ -24,42 +24,38 @@ We are working under an agile framework, and plan to use this repo to publish, r
 ### To get started with Sheer:
 
 1. Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
-
-```
-$ brew install elasticsearch
-```
+	```
+	$ brew install elasticsearch
+	```
 
 2. Clone the sheer GitHub project:
-```
-$ git clone https://github.com/cfpb/sheer.git
-```
+	```
+	$ git clone https://github.com/cfpb/sheer.git
+	```
 
 3. Create a virtualenv for sheer, which you'll name `OAH`:
-```
-$ mkvirtualenv OAH
-```
+	```
+	$ mkvirtualenv OAH
+	```
 
-The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
+	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
 
 4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
-
-```
-$ pip install -e ~/path/to/sheer
-```
+	```
+	$ pip install -e ~/path/to/sheer
+	```
 
 5. Install sheer's python requirements:
-
-```
-$ pip install -r ~/path/to/sheer/requirements.txt
-```
+	```
+	$ pip install -r ~/path/to/sheer/requirements.txt
+	```
 
 6. You should now be able to run the sheer command:
-```
-$ sheer
-
-usage: sheer [-h] [--debug] {inspect,index,serve} …
-sheer: error: too few arguments
-```
+	```
+	$ sheer
+	usage: sheer [-h] [--debug] {inspect,index,serve} …
+	sheer: error: too few arguments
+	```
 
 
 If you run into problems or have any questions about Sheer, check out [Sheer on Github](https://github.com/cfpb/sheer) and the [Sheer Issue Tracker](https://github.com/cfpb/sheer/issues).
@@ -76,20 +72,18 @@ The Rate Checker is a JavaScript application for checking mortgage interest rate
 To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
 
 1. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
-
-```shell
-cd config
-cp example-config.json config.json
-```
+	```shell
+	cd config
+	cp example-config.json config.json
+	```
 
 2. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
-
-```json
-{
-    "rateCheckerAPI": "YOUR API URL HERE",
-    "countyAPI": "YOUR COUNTY API URL HERE"
-}
-```
+	```json
+	{
+	    "rateCheckerAPI": "YOUR API URL HERE",
+	    "countyAPI": "YOUR COUNTY API URL HERE"
+	}
+	```
 
 ## Working with the front end
 
