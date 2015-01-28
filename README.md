@@ -61,6 +61,9 @@ usage: sheer [-h] [--debug] {inspect,index,serve} …
 sheer: error: too few arguments
 ```
 
+
+If you run into problems or have any questions about Sheer, check out [Sheer on Github](https://github.com/cfpb/sheer) and the [Sheer Issue Tracker](https://github.com/cfpb/sheer/issues).
+
 ## Configuration
 
 ### Rate Checker
