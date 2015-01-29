@@ -1,0 +1,61 @@
+
+{# ==========================================================================
+
+   render( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render a list of expandable terms with definitions.
+
+   terms:              An array of term objects. See item() for info on term
+                       objects.
+
+   ========================================================================== #}
+
+{% macro render( terms ) %}
+{% for item in terms %}
+  {{ term( item ) }}
+{% endfor %}
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   item( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render an expandable term with a definition.
+
+   item:               A term object. Term objects have the following structure:
+                       { 'term': 'Term name',
+                         'definition': 'This definition can contain HTML.' }
+
+   ========================================================================== #}
+
+{% macro term( item ) %}
+  <div class="expandable expandable__padded expandable__form-explainer">
+    <button class="expandable_header expandable_target">
+      <span class="expandable_header-left expandable_label">
+          {{ item.term }}
+      </span>
+      <span class="expandable_header-right expandable_link">
+        <span class="expandable_cue-open">
+          <span class="u-visually-hidden">Show</span>
+          <span class="cf-icon cf-icon-plus"></span>
+        </span>
+        <span class="expandable_cue-close">
+          <span class="u-visually-hidden">Hide</span>
+          <span class="cf-icon cf-icon-minus"></span>
+        </span>
+      </span>
+    </button>
+    <div class="expandable_content">
+      {{ item.definition|safe }}
+    </div>
+  </div>
+{% endmacro %}

@@ -30,28 +30,10 @@
           </div><!-- /.image-map -->
 
           <figcaption class="terms explain_terms">
-            <div class="expandable expandable__padded">
-              <button class="expandable_header expandable_target">
-                <span class="expandable_header-left expandable_label">
-                    Term 1
-                </span>
-                <span class="expandable_header-right expandable_link">
-                  <span class="expandable_cue-open">
-                    <span class="u-visually-hidden">Show</span>
-                    <span class="cf-icon cf-icon-plus"></span>
-                  </span>
-                  <span class="expandable_cue-close">
-                    <span class="u-visually-hidden">Hide</span>
-                    <span class="cf-icon cf-icon-minus"></span>
-                  </span>
-                </span>
-              </button>
-              <div class="expandable_content">
-                <p>
-                  Is your name and contact information correct (including spelling)?  If not, ask the lender to correct it.  Even minor misspellings and other errors can cause big problems later.
-                </p>
-              </div>
-            </div>
+            {# Show the terms #}
+            {% import "form-explainer.html" as form_explainer %}
+            {% import "form-explainer-data.html" as form_explainer_data %}
+            {{ form_explainer.render( form_explainer_data.terms ) }}
           </figcaption><!-- /.terms -->
 
         </figure><!-- ./explain -->
