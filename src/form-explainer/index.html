@@ -18,22 +18,22 @@
           <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
         </div><!-- /.page-intro -->
 
+        {# Import form-explainer macros #}
+        {% import "form-explainer.html" as form_explainer %}
+        {% import "form-explainer-data.html" as form_explainer_data %}
         <figure class="explain" aria-controls="form-explainer">
 
           <div class="image-map explain_image-map">
             <div class="image-map_wrapper">
               <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
-              <a class="image-map_point" style="left:4%;top:15%;" href="#1">1</a>
-              <a class="image-map_point" style="left:4%;top:50%;" href="#2">2</a>
-              <a class="image-map_point" style="left:50%;top:50%;" href="#3">33</a>
+              {# Show the map points #}
+              {{ form_explainer.render_map_points( form_explainer_data.terms ) }}
             </div>
           </div><!-- /.image-map -->
 
           <figcaption class="terms explain_terms">
             {# Show the terms #}
-            {% import "form-explainer.html" as form_explainer %}
-            {% import "form-explainer-data.html" as form_explainer_data %}
-            {{ form_explainer.render( form_explainer_data.terms ) }}
+            {{ form_explainer.render_terms( form_explainer_data.terms ) }}
           </figcaption><!-- /.terms -->
 
         </figure><!-- ./explain -->

@@ -1,7 +1,7 @@
 
 {# ==========================================================================
 
-   render( terms )
+   render_map_points( terms )
 
    ==========================================================================
 
@@ -14,7 +14,32 @@
 
    ========================================================================== #}
 
-{% macro render( terms ) %}
+{% macro render_map_points( terms ) %}
+{% for item in terms %}
+  <a class="image-map_point" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}"
+     href="#{{ item.id }}">
+    {{ loop.index }}
+ </a>
+{% endfor %}
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   render_terms( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render a list of expandable terms with definitions.
+
+   terms:              An array of term objects. See item() for info on term
+                       objects.
+
+   ========================================================================== #}
+
+{% macro render_terms( terms ) %}
 {% for item in terms %}
   {{ term( item, loop.index ) }}
 {% endfor %}
@@ -33,15 +58,21 @@
 
    item:               A term object. Term objects have the following structure:
                        { 'term': 'Term name',
+                         'id': 'a-unique-html-id',
                          'definition': 'This definition can contain HTML.' }
+
+   index:              The term's position within the array.
 
    ========================================================================== #}
 
 {% macro term( item, index ) %}
   <div class="expandable expandable__padded expandable__form-explainer"
-       id="{{ index }}">
+       id="{{ item.id }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
+          <span class="expandable_number">
+            {{ index }}    
+          </span>
           {{ item.term }}
       </span>
       <span class="expandable_header-right expandable_link">
