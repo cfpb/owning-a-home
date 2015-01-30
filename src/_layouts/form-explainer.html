@@ -1,0 +1,93 @@
+
+{# ==========================================================================
+
+   render_map_points( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render a list of expandable terms with definitions.
+
+   terms:              An array of term objects. See item() for info on term
+                       objects.
+
+   ========================================================================== #}
+
+{% macro render_map_points( terms ) %}
+{% for item in terms %}
+  <a class="image-map_point" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}"
+     href="#{{ item.id }}">
+    {{ loop.index }}
+ </a>
+{% endfor %}
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   render_terms( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render a list of expandable terms with definitions.
+
+   terms:              An array of term objects. See item() for info on term
+                       objects.
+
+   ========================================================================== #}
+
+{% macro render_terms( terms ) %}
+{% for item in terms %}
+  {{ term( item, loop.index ) }}
+{% endfor %}
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   item( terms )
+
+   ==========================================================================
+
+   Description:
+
+   Render an expandable term with a definition.
+
+   item:               A term object. Term objects have the following structure:
+                       { 'term': 'Term name',
+                         'id': 'a-unique-html-id',
+                         'definition': 'This definition can contain HTML.' }
+
+   index:              The term's position within the array.
+
+   ========================================================================== #}
+
+{% macro term( item, index ) %}
+  <div class="expandable expandable__padded expandable__form-explainer"
+       id="{{ item.id }}">
+    <button class="expandable_header expandable_target">
+      <span class="expandable_header-left expandable_label">
+          <span class="expandable_number">
+            {{ index }}    
+          </span>
+          {{ item.term }}
+      </span>
+      <span class="expandable_header-right expandable_link">
+        <span class="expandable_cue-open">
+          <span class="u-visually-hidden">Show</span>
+          <span class="cf-icon cf-icon-plus"></span>
+        </span>
+        <span class="expandable_cue-close">
+          <span class="u-visually-hidden">Hide</span>
+          <span class="cf-icon cf-icon-minus"></span>
+        </span>
+      </span>
+    </button>
+    <div class="expandable_content">
+      {{ item.definition|safe }}
+    </div>
+  </div>
+{% endmacro %}

@@ -71,6 +71,7 @@
     "hbsfy": "1.3.2",
     "is-money-usd": "0.1.2",
     "jquery": "1.11.0",
+    "jquery.scrollto": "1.4.14",
     "jumbo-mortgage": "0.3.3",
     "loan-calc": "0.2.1",
     "median": "0.0.2",
@@ -95,7 +96,10 @@
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js",
+    "jquery-easing": "./src/static/vendor/jquery.easing/jquery.easing.js",
     "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
+    "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
+    "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
     "oah-config": "./config/config.json"
   },
   "browserify-shim": "./config/shim.js"

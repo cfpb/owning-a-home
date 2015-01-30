@@ -19,7 +19,8 @@
     "polyfill": "inexorabletash/polyfill",
     "Placeholders.js": "jamesallardice/Placeholders.js#~3.0.2",
     "es5-shim": "~4.0.3",
-    "aight": "~1.2.5"
+    "aight": "~1.2.5",
+    "sticky": "~1.0.1"
   },
   "exportsOverride": {
     "cf-*": {

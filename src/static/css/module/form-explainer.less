@@ -1,0 +1,122 @@
+/* ==========================================================================
+   "Form explainer" custom styles
+   ========================================================================== */
+
+.dot-text( @font-size: 1em, @dot-size: 2.5em ) {
+    display: inline-block;
+    width: @dot-size;
+    height: @dot-size;
+
+    .webfont-medium();
+    font-size: @font-size;
+    line-height: @dot-size;
+    text-align: center;
+    border-radius: 100%;
+
+    color: @white;
+    background: @pacific;
+}
+
+.form-explainer {
+    .webfont-regular();
+
+    .page-intro {
+      border-bottom: 1px solid @gray-20;
+    }
+}
+
+.image-map {
+    display: block;
+    .u-clearfix();
+    min-width: 290px;
+
+    .respond-to-max(599px, {
+        display: none;
+    });
+}
+
+.image-map_wrapper {
+    float: left;
+    position: relative;
+}
+
+.image-map_image {
+    box-sizing: border-box;
+    display: block;
+    border: 1px solid @black;
+}
+
+.js-sticky-bottom {
+    position: absolute !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: 0 !important;
+    left: auto !important;
+}
+
+.image-map_point {
+    @font-size: 1em;
+    @dot-size: 2.5em;
+    .dot-text(@font-size, @dot-size);
+    .u-link__no-border();
+    position: absolute;
+    margin: -1.25em 0 0 -1.25em;
+    transform: scale(1);
+    transition: transform 100ms ease-out;
+
+    &:visited {
+        color: @white;
+    }
+
+    &:hover {
+        color: @white;
+        background: @pacific-80;
+        transform: scale(1.25);
+    }
+
+    &:focus {
+        color: @white;
+        background: @pacific-80;
+        outline: 1px dotted @pacific;
+        outline-offset: 1px;
+    }
+
+    &:active {
+        color: @white;
+    }
+
+    &.has-attention {
+        transform: scale(1.25);
+    }
+}
+
+.expandable__form-explainer {
+    margin: 0;
+    & + & {
+        margin-top: 1px;
+    }
+    &.has-attention {
+        background: @green-tint;
+    }
+    .expandable_content {
+        margin-bottom: 0;
+    }
+    .expandable_number {
+        @font-size: .75em;
+        @dot-size: 1.75em;
+        .dot-text(@font-size, @dot-size);
+    }
+}
+
+.explain {
+    margin: unit(60px / @base-font-size-px, em) auto;
+    .respond-to-min(600px, {
+        .grid_nested-col-group();
+    });
+    &_image-map {
+        .grid_column(8);
+    }
+    &_terms {
+        .grid_column(4);
+    }
+}
