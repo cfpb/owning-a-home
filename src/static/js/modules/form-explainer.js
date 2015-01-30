@@ -57,6 +57,7 @@ $wrapper.on( 'click', '.image-map_point', function( event ) {
     duration: 200,
     offset: 0
   });
+  $( itemID ).get(0).expand();
 });
 
 // Scroll to the proper item when the corresponding form dot is selected
