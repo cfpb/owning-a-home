@@ -50,13 +50,29 @@ function updateStickiness() {
 }
 
 // Scroll to the proper item when the corresponding form dot is selected
-$wrapper.on('click', '.image-map_point', function( event ) {
+$wrapper.on( 'click', '.image-map_point', function( event ) {
   event.preventDefault();
   var itemID = $( this ).attr('href');
   $.scrollTo( $(itemID), {
     duration: 200,
     offset: 0
   });
+});
+
+// Scroll to the proper item when the corresponding form dot is selected
+$wrapper.on( 'mouseenter mouseleave', '.image-map_point, .expandable__form-explainer', function( event ) {
+  event.preventDefault();
+  var $target;
+  if ( typeof $( this ).attr('href') !== 'undefined' ) {
+    $target = $( $(this).attr('href') );
+  } else  if ( typeof $( this ).attr('id') !== 'undefined' ) {
+    $target = $('[href=#'+$( this ).attr('id')+']');
+  }
+  if ( $target.hasClass('has-attention') ) {
+    $target.removeClass('has-attention');
+  } else {
+    $target.addClass('has-attention');
+  }
 });
 
 /**
