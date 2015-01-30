@@ -12,6 +12,11 @@ var fx = {
   $window:          $( window )
 };
 
+/**
+ * Limit .image-map_image to the height of the window and then adjust the two
+ * columns to match.
+ * @return {null}
+ */
 function setDimensions() {
   var windowHeight = fx.$window.height(),
       wrapperWidth = fx.$wrapper.width(),
@@ -34,7 +39,11 @@ function setDimensions() {
   }
 }
 
-// http://stackoverflow.com/questions/1682495/jquery-resize-to-aspect-ratio
+/**
+ * Resize the height while maintaining the original aspect ratio
+ * http://stackoverflow.com/questions/1682495/jquery-resize-to-aspect-ratio
+ * @return {null}
+ */
 $.fn.resizeHeightMaintainRatio = function( newHeight ) {
   var aspectRatio = $( this ).data('aspectRatio');
   if ( aspectRatio === undefined ) {
@@ -52,7 +61,7 @@ $.fn.resizeHeightMaintainRatio = function( newHeight ) {
  */
 function updateStickiness() {
   var max = fx.$wrapper.offset().top + fx.$wrapper.height() - fx.$imageMapWrapper.height(),
-      stickBottom = 'image-map_image__stick-to-bottom';
+      stickBottom = 'js-sticky-bottom';
   if ( fx.$window.scrollTop() >= max && !fx.$imageMapWrapper.hasClass( stickBottom ) ) {
     fx.$imageMapWrapper.addClass( stickBottom );
   } else if ( fx.$window.scrollTop() < max && fx.$imageMapWrapper.hasClass( stickBottom ) ) {
