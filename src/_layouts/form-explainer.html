@@ -16,7 +16,7 @@
 
 {% macro render( terms ) %}
 {% for item in terms %}
-  {{ term( item ) }}
+  {{ term( item, loop.index ) }}
 {% endfor %}
 {% endmacro %}
 
@@ -37,8 +37,9 @@
 
    ========================================================================== #}
 
-{% macro term( item ) %}
-  <div class="expandable expandable__padded expandable__form-explainer">
+{% macro term( item, index ) %}
+  <div class="expandable expandable__padded expandable__form-explainer"
+       id="{{ index }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
           {{ item.term }}

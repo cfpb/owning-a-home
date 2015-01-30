@@ -1,6 +1,7 @@
 var $ = require('jquery');
 require('sticky');
 require('jquery-easing');
+require('jquery.scrollto');
 require('cf-expandables');
 
 var $wrapper =          $('.explain'),
@@ -52,6 +53,16 @@ function updateStickiness() {
     $imageMapWrapper.removeClass( stickBottom );
   }
 }
+
+// Scroll to the proper item when the corresponding form dot is selected
+$wrapper.on('click', '.image-map_point', function( event ) {
+  event.preventDefault();
+  var itemID = $( this ).attr('href');
+  $.scrollTo( $(itemID), {
+    duration: 200,
+    offset: -20
+  });
+});
 
 /**
  * Initialize the form explainer app.
