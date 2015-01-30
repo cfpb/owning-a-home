@@ -22,7 +22,7 @@ function setDimensions() {
     // Since the image map is too tall we need to proportionally shrink it to
     // match the height of the window. It's new width will be represented as
     // imageMapWidthNewPercent.
-    var imageMapImageRatio = $imageMapImage.width() / $imageMapImage.height(),
+    var imageMapImageRatio = $imageMapImage.outerWidth() / $imageMapImage.outerHeight(),
         imageMapWidthNewPx,
         imageMapWidthNewPercent;
     imageMapWidthNewPx = $window.height() * imageMapImageRatio + 30;
