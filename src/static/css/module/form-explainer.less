@@ -13,33 +13,8 @@
     text-align: center;
     border-radius: 100%;
 
-    .u-link__no-border();
     color: @white;
     background: @pacific;
-
-    transform: scale(1);
-    transition: transform 100ms ease-out;
-
-    &:visited {
-        color: @white;
-    }
-
-    &:hover {
-        color: @white;
-        background: @pacific-80;
-        transform: scale(1.25);
-    }
-
-    &:focus {
-        color: @white;
-        background: @pacific-80;
-        outline: 1px dotted @pacific;
-        outline-offset: 1px;
-    }
-
-    &:active {
-        color: @white;
-    }
 }
 
 .form-explainer {
@@ -83,8 +58,33 @@
     @font-size: 1em;
     @dot-size: 2.5em;
     .dot-text(@font-size, @dot-size);
+    .u-link__no-border();
     position: absolute;
     margin: -1.25em 0 0 -1.25em;
+    transform: scale(1);
+    transition: transform 100ms ease-out;
+
+    &:visited {
+        color: @white;
+    }
+
+    &:hover {
+        color: @white;
+        background: @pacific-80;
+        transform: scale(1.25);
+    }
+
+    &:focus {
+        color: @white;
+        background: @pacific-80;
+        outline: 1px dotted @pacific;
+        outline-offset: 1px;
+    }
+
+    &:active {
+        color: @white;
+    }
+
     &.has-attention {
         transform: scale(1.25);
     }
