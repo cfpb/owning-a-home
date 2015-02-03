@@ -183,13 +183,19 @@
 
 .explain {
     margin: unit(60px / @base-font-size-px, em) auto;
+    &_tabs {
+        margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
+    }
     .respond-to-min(600px, {
         .grid_nested-col-group();
+        &_tabs {
+            .grid_column(12);
+        }
+        &_image-map {
+            .grid_column(8);
+        }
+        &_terms {
+            .grid_column(4);
+        }
     });
-    &_image-map {
-        .grid_column(8);
-    }
-    &_terms {
-        .grid_column(4);
-    }
 }

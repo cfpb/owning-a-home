@@ -49,6 +49,22 @@ function updateStickiness() {
   }
 }
 
+// Filter the expandables via the tabs
+$wrapper.on( 'click', '.explain_tabs .tab-list', function( event ) {
+  var target = $(this).find('[data-target]').data('target');
+  event.preventDefault();
+  // Update the tab state
+  $('.explain_tabs .tab-list').removeClass('active-tab');
+  $(this).addClass('active-tab');
+  // Filter the expandables
+  if ( target === 'all' ) {
+    $('.expandable__form-explainer').show();
+  } else {
+    $('.expandable__form-explainer').hide();
+    $( '.expandable__form-explainer-' + target ).show();
+  }
+});
+
 // Scroll to the proper item when the corresponding form dot is selected
 $wrapper.on( 'click', '.image-map_overlay', function( event ) {
   event.preventDefault();

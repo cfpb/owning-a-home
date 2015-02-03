@@ -23,6 +23,32 @@
         {% import "form-explainer-data.html" as form_explainer_data %}
         <figure class="explain" aria-controls="form-explainer">
 
+          <ul class="tabs explain_tabs">
+            <li class="tab-list active-tab">
+              <button class="tab-link" data-target="all">
+                All
+              </button>
+            </li>
+            <li class="tab-list">
+              <button class="tab-link" data-target="checklist">
+                <span class="cf-icon cf-icon-approved-round"></span>
+                Checklist
+              </button>
+            </li>
+            <li class="tab-list">
+              <button class="tab-link" data-target="alerts">
+                <span class="cf-icon cf-icon-error-round"></span>
+                Alerts
+              </button>
+            </li>
+            <li class="tab-list">
+              <button class="tab-link" data-target="definitions">
+                <span class="cf-icon cf-icon-help-round"></span>
+                Definitions
+              </button>
+            </li>
+          </ul>
+
           <div class="image-map explain_image-map">
             <div class="image-map_wrapper" data-img="/static/img/form-explainer-loan-estimate-sample.gif">
               <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
