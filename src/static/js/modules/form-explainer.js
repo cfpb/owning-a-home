@@ -59,9 +59,12 @@ $wrapper.on( 'click', '.explain_tabs .tab-list', function( event ) {
   // Filter the expandables
   if ( target === 'all' ) {
     $('.expandable__form-explainer').show();
+    $('.image-map_overlay').show();
   } else {
     $('.expandable__form-explainer').hide();
     $( '.expandable__form-explainer-' + target ).show();
+    $('.image-map_overlay').hide();
+    $( '.image-map_overlay__' + target ).show();
   }
 });
 
