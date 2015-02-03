@@ -16,10 +16,10 @@
 
 {% macro render_map_points( terms ) %}
 {% for item in terms %}
-  <a class="image-map_point" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}"
+  <button class="image-map_overlay image-map_overlay__{{ item.category }}" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
      href="#{{ item.id }}">
-    {{ loop.index }}
- </a>
+    <span class="u-visually-hidden">{{ item.term }}</span>
+ </button>
 {% endfor %}
 {% endmacro %}
 
@@ -66,12 +66,14 @@
    ========================================================================== #}
 
 {% macro term( item, index ) %}
-  <div class="expandable expandable__padded expandable__form-explainer"
+  <div class="expandable expandable__padded
+              expandable__form-explainer
+              expandable__form-explainer-{{ item.category }}"
        id="{{ item.id }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
-          <span class="expandable_number">
-            {{ index }}    
+          <span class="expandable_category expandable_category__{{ item.category }}">
+            <span class="u-visually-hidden">{{ item.category }}</span>
           </span>
           {{ item.term }}
       </span>

@@ -61,7 +61,7 @@ $wrapper.on( 'click', '.image-map_point', function( event ) {
 });
 
 // Scroll to the proper item when the corresponding form dot is selected
-$wrapper.on( 'mouseenter mouseleave', '.image-map_point, .expandable__form-explainer', function( event ) {
+$wrapper.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
   event.preventDefault();
   var $target;
   if ( typeof $( this ).attr('href') !== 'undefined' ) {
