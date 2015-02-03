@@ -68,6 +68,10 @@
     &.has-attention  {
         border-color: @redorange-80;
     }
+    &:focus {
+        outline: 1px dotted @redorange;
+        outline-offset: 1px;
+    }
 }
 .image-map_overlay__alerts {
     &:hover,
@@ -75,12 +79,20 @@
     &.has-attention  {
         border-color: @gold-80;
     }
+    &:focus {
+        outline: 1px dotted @gold;
+        outline-offset: 1px;
+    }
 }
 .image-map_overlay__definitions {
     &:hover,
     &:focus,
     &.has-attention  {
         border-color: @navy-80;
+    }
+    &:focus {
+        outline: 1px dotted @navy;
+        outline-offset: 1px;
     }
 }
 

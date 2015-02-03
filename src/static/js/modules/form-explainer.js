@@ -50,7 +50,7 @@ function updateStickiness() {
 }
 
 // Scroll to the proper item when the corresponding form dot is selected
-$wrapper.on( 'click', '.image-map_point', function( event ) {
+$wrapper.on( 'click', '.image-map_overlay', function( event ) {
   event.preventDefault();
   var itemID = $( this ).attr('href');
   $.scrollTo( $(itemID), {
