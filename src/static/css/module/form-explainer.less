@@ -2,27 +2,8 @@
    "Form explainer" custom styles
    ========================================================================== */
 
-.dot-text( @font-size: 1em, @dot-size: 2.5em ) {
-    display: inline-block;
-    width: @dot-size;
-    height: @dot-size;
-
-    .webfont-medium();
-    font-size: @font-size;
-    line-height: @dot-size;
-    text-align: center;
-    border-radius: 100%;
-
-    color: @white;
-    background: @pacific;
-}
-
 .form-explainer {
     .webfont-regular();
-
-    .page-intro {
-      border-bottom: 1px solid @gray-20;
-    }
 }
 
 .image-map {
@@ -182,7 +163,10 @@
 }
 
 .explain {
-    margin: unit(60px / @base-font-size-px, em) auto;
+    // Eyeballed to top margin of 30px when including line height of text above
+    margin: unit(24px / @base-font-size-px, em)
+            auto
+            unit(60px / @base-font-size-px, em);
     &_tabs {
         margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
     }
