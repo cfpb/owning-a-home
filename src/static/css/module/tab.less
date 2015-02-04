@@ -6,29 +6,50 @@
 .tabs {
   margin-top: 2em;
 
+  button,
   a {
+    position: relative;
+    display: block;
+    width: 100%;
     padding: 28px 20px;
     .webfont-regular();
     font-size: 1.375em;
+    text-align: left;
+    z-index: 1;
   }
 
+  button,
   a,
   a:link,
   a:visited {
     border-bottom: 1px solid @gray-20;
     border-top: 4px solid @gray-20;
+    border-left: 0;
+    border-right: 0;
     background: @gray-5;
     color: @gray;
   }
 
+  button:hover,
+  button:focus,
   a:hover,
   a:active,
   a:focus {
     color: @black;
     background: #fff;
+    z-index: 2;
+  }
+
+  button:focus,
+  a:focus {
+    outline: 1px dotted @black;
+    outline-offset: 1px;
   }
 
   .active-tab {
+    button,
+    button:hover,
+    button:focus,
     a,
     a:link,
     a:visited,
@@ -41,21 +62,36 @@
       color: @black;
     }
   }
-
-  li:first-child {
-    a {
-      border-right: 1px solid @gray-20;
-    }
-  }
 }
 
 .tab-list {
   list-style: none;
 }
 
+.tab-list + .tab-list {
+  button,
+  a {
+    border-left: 1px solid @gray-20;
+  }
+}
+
 .next-steps {
   .tab-list {
     .grid_column( 6 );
+    // No gutters
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+.form-explainer {
+  .tab-list {
+    .respond-to-min(768px, {
+      .grid_column( 3 );
+      // No gutters
+      border-left: 0;
+      border-right: 0;
+    });
   }
 }
 

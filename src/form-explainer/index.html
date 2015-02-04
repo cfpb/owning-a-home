@@ -14,29 +14,21 @@
         </div>
 
         <div class="page-intro">
-          <h1 class="page-title">Form explainer</h1>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
+          <h1 class="page-title">Loan Estimate Explainer</h1>
+          <div class="wrapper">
+            <div class="col-9">
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
+              <a class="go-link" href="#">Go to Closing Disclosure Explainer</a>
+            </div>            
+          </div>
         </div><!-- /.page-intro -->
 
-        {# Import form-explainer macros #}
+        {# Import the form explainer macros #}
         {% import "form-explainer.html" as form_explainer %}
-        {% import "form-explainer-data.html" as form_explainer_data %}
-        <figure class="explain" aria-controls="form-explainer">
-
-          <div class="image-map explain_image-map">
-            <div class="image-map_wrapper">
-              <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
-              {# Show the map points #}
-              {{ form_explainer.render_map_points( form_explainer_data.terms ) }}
-            </div>
-          </div><!-- /.image-map -->
-
-          <figcaption class="terms explain_terms">
-            {# Show the terms #}
-            {{ form_explainer.render_terms( form_explainer_data.terms ) }}
-          </figcaption><!-- /.terms -->
-
-        </figure><!-- ./explain -->
+        {# Import the data to use with form explainer #}
+        {% import "loan-estimate-form-data.html" as loan_stimate_form %}
+        {# Render form explainer with the data for this form #}
+        {{ form_explainer.render( loan_stimate_form.data ) }}
 
       </section>
     </div><!-- /.form-explainer -->
