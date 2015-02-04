@@ -66,6 +66,10 @@ $wrapper.on( 'click', '.explain_tabs .tab-list', function( event ) {
     $('.image-map_overlay').hide();
     $( '.image-map_overlay__' + target ).show();
   }
+  $.scrollTo( $terms, {
+    duration: 200,
+    offset: 0
+  });
 });
 
 // Scroll to the proper item when the corresponding form dot is selected
