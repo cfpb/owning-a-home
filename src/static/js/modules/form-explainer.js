@@ -66,6 +66,7 @@ $wrapper.on( 'click', '.explain_tabs .tab-list', function( event ) {
     $('.image-map_overlay').hide();
     $( '.image-map_overlay__' + target ).show();
   }
+  // Scroll down to the list of terms
   $.scrollTo( $terms, {
     duration: 200,
     offset: 0
