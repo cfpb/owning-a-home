@@ -10,12 +10,11 @@
    Renders the entire form explainer.
 
    data:               The data structure needs to be as follows:
-                       { 'pages': [
-                           { 'img': 'url-to-form-img'
-                             'terms': [ ... ]
-                           }    
-                         ]
-                       }
+                       [
+                         { 'img': 'url-to-form-img'
+                           'terms': [ ... ]
+                         }    
+                       ]
 
    ========================================================================== #}
 
@@ -46,7 +45,7 @@
         </button>
       </li>
     </ul>
-    {% for page in data.pages %}
+    {% for page in data %}
     <figure class="explain_page" id="explain_page-{{ loop.index }}">
       <div class="image-map explain_image-map">
         <div class="image-map_wrapper">

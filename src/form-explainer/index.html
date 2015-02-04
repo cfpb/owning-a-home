@@ -26,9 +26,10 @@
         {# Import the form explainer macros #}
         {% import "form-explainer.html" as form_explainer %}
         {# Import the data to use with form explainer #}
-        {% import "loan-estimate-form-data.html" as loan_stimate_form %}
+        {% from "loan-estimate-form-page-1.html" import data as page_1 %}
+        {% from "loan-estimate-form-page-2.html" import data as page_2 %}
         {# Render form explainer with the data for this form #}
-        {{ form_explainer.render( loan_stimate_form.data ) }}
+        {{ form_explainer.render([ page_1, page_2 ]) }}
 
       </section>
     </div><!-- /.form-explainer -->
