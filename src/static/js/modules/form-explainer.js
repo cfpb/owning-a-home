@@ -13,7 +13,7 @@ var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
  * @return {number}
  */
 function getCurrentPageNum() {
-  return parseInt( $('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
+  return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
 }
 
 /**
@@ -22,7 +22,7 @@ function getCurrentPageNum() {
  * @return {object}
  */
 function getCurrentPage() {
-  return $( '#explain_page-' + getCurrentPageNum() );
+  return $WRAPPER.find( '#explain_page-' + getCurrentPageNum() );
 }
 
 /**
@@ -75,79 +75,80 @@ function updateStickiness() {
 }
 
 /**
+ * Paginatie through the various form pages.
+ * @return {null}
+ */
+function paginate( direction ) {
+  var currentPage = getCurrentPageNum(),
+      newCurrentPage = currentPage,
+      $currentPage = getCurrentPage();
+  if ( direction === 'next' ) {
+    newCurrentPage = currentPage + 1;
+  } else if ( direction === 'prev' ) {
+    newCurrentPage = currentPage - 1;
+  }
+  // Move to the next or previous page if it's not the first or last page.
+  if ( direction === 'next' && newCurrentPage <= TOTAL ||
+       direction === 'prev' && newCurrentPage >= 1 ) {
+    $('.explain_page').hide();
+    $( '#explain_page-' + newCurrentPage ).show();
+    $('.explain_pagination .pagination_current').text( newCurrentPage );
+  }
+  // Update the previous/next buttons if the new page is the first or last.
+  $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
+  if ( newCurrentPage === 1 ) {
+    $('.explain_pagination .pagination_prev').addClass('btn__disabled');
+  } else if ( newCurrentPage === TOTAL ) {
+    $('.explain_pagination .pagination_next').addClass('btn__disabled');
+  }
+  // Call init() again to set up the next page
+  init();
+  $.scrollTo( $TABS, {
+    duration: 400,
+    offset: -30
+  });
+}
+
+/**
  * Initialize the form explainer app.
  * @return {null}
  */
 function init() {
-  var $currentPage = getCurrentPage(),
+  var $currentPage =      getCurrentPage(),
       $imageMap =         $currentPage.find('.image-map'),
       $imageMapImage =    $currentPage.find('.image-map_image'),
       $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
       $terms =            $currentPage.find('.terms');
   // Resize the image, terms and pagination columns
   fitToWindow();
-  // Initiate a sticky image map only if the terms are taller than the window.
-  if ( $terms.height() > $WINDOW.height() ) {
-    // When the sticky plugin is applied to the image, it adds position fixed,
-    // and the image's width is no longer constrained to its parent.
-    // To fix this we will give it its own width that is equal to the parent.
-    $imageMapImage.css( 'width', $imageMap.width() );
-    $imageMapWrapper.sticky();
-    $WINDOW.on( 'scroll', updateStickiness );
-  }
+  // When the sticky plugin is applied to the image, it adds position fixed,
+  // and the image's width is no longer constrained to its parent.
+  // To fix this we will give it its own width that is equal to the parent.
+  $imageMapImage.css( 'width', $imageMap.width() );
+  $imageMapWrapper.sticky();
+  $WINDOW.on( 'scroll', updateStickiness );
 }
 
 // Do it!
 $(document).ready(function(){
-  // Set some constant variables
-  $WRAPPER =          $('.explain'),
-  $TABS =             $('.explain_tabs'),
-  $PAGINATION =       $('.explain_pagination'),
-  $WINDOW =           $( window ),
-  TOTAL =             parseInt( $('.explain_pagination .pagination_total').text(), 10 );
 
-  // Toggle the different form pages
-  $WRAPPER.on( 'click', '.pagination_next, .pagination_prev', function( event ) {
-    var currentPage = getCurrentPageNum(),
-        newCurrentPage = 0,
-        $currentPage = getCurrentPage(),
-        isDisabled = $( event.target ).hasClass('btn__disabled'),
-        isGoingNext = $( event.target ).hasClass('pagination_next');
-    // console.log('currentPage',currentPage);
-    if ( isDisabled ) {
-      return;
+  // Set some constant variables
+  $WRAPPER =    $('.explain'),
+  $TABS =       $WRAPPER.find('.explain_tabs'),
+  $PAGINATION = $WRAPPER.find('.explain_pagination'),
+  $WINDOW =     $( window ),
+  TOTAL =       parseInt( $PAGINATION.find('.pagination_total').text(), 10 );
+
+  // Pagination events
+  $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
+    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
+      paginate('next');
     }
-    // Update the current number and show the new current page
-    if ( isGoingNext ) {
-      newCurrentPage = currentPage + 1;
-    } else {
-      newCurrentPage = currentPage - 1;
+  });
+  $WRAPPER.find( '.explain_pagination .pagination_prev' ).on( 'click', function( event ) {
+    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
+      paginate('prev');
     }
-    // console.log('isGoingNext',isGoingNext);
-    // console.log('newCurrentPage',newCurrentPage);
-    if ( isGoingNext && newCurrentPage <= TOTAL ) {
-      $('.explain_page').hide();
-      $( '#explain_page-' + newCurrentPage ).show();
-      $('.explain_pagination .pagination_current').text( newCurrentPage );
-    }
-    if ( !isGoingNext && newCurrentPage >= 1 ) {
-      $('.explain_page').hide();
-      $( '#explain_page-' + newCurrentPage ).show();
-      $('.explain_pagination .pagination_current').text( newCurrentPage );
-    }
-    // Update the disabled button
-    $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
-    if ( newCurrentPage === 1 ) {
-      $('.explain_pagination .pagination_prev').addClass('btn__disabled');
-    } else if ( newCurrentPage === TOTAL ) {
-      $('.explain_pagination .pagination_next').addClass('btn__disabled');
-    }
-    // Call init() again to set up the next page
-    init();
-    $.scrollTo( $TABS, {
-      duration: 400,
-      offset: -30
-    });
   });
 
   // Filter the expandables via the tabs
