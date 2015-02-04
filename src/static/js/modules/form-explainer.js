@@ -80,8 +80,7 @@ function updateStickiness() {
  */
 function paginate( direction ) {
   var currentPage = getCurrentPageNum(),
-      newCurrentPage = currentPage,
-      $currentPage = getCurrentPage();
+      newCurrentPage = currentPage;
   if ( direction === 'next' ) {
     newCurrentPage = currentPage + 1;
   } else if ( direction === 'prev' ) {
@@ -90,19 +89,21 @@ function paginate( direction ) {
   // Move to the next or previous page if it's not the first or last page.
   if ( direction === 'next' && newCurrentPage <= TOTAL ||
        direction === 'prev' && newCurrentPage >= 1 ) {
-    $('.explain_page').hide();
-    $( '#explain_page-' + newCurrentPage ).show();
-    $('.explain_pagination .pagination_current').text( newCurrentPage );
+    $WRAPPER.find('.explain_page').hide();
+    $WRAPPER.find( '#explain_page-' + newCurrentPage ).show();
+    $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
   }
   // Update the previous/next buttons if the new page is the first or last.
   $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
   if ( newCurrentPage === 1 ) {
-    $('.explain_pagination .pagination_prev').addClass('btn__disabled');
+    $WRAPPER.find('.explain_pagination .pagination_prev').addClass('btn__disabled');
   } else if ( newCurrentPage === TOTAL ) {
-    $('.explain_pagination .pagination_next').addClass('btn__disabled');
+    $WRAPPER.find('.explain_pagination .pagination_next').addClass('btn__disabled');
   }
-  // Call init() again to set up the next page
-  init();
+  // Iniitialize the page if it hasn't already been done.
+  if ( typeof getCurrentPage().data('explain-initialized') === 'undefined' ) {
+    initPage();
+  }
   $.scrollTo( $TABS, {
     duration: 400,
     offset: -30
@@ -110,10 +111,10 @@ function paginate( direction ) {
 }
 
 /**
- * Initialize the form explainer app.
+ * Initialize a page.
  * @return {null}
  */
-function init() {
+function initPage() {
   var $currentPage =      getCurrentPage(),
       $imageMap =         $currentPage.find('.image-map'),
       $imageMapImage =    $currentPage.find('.image-map_image'),
@@ -127,9 +128,11 @@ function init() {
   $imageMapImage.css( 'width', $imageMap.width() );
   $imageMapWrapper.sticky();
   $WINDOW.on( 'scroll', updateStickiness );
+  // Set a property so we don't keep re-initializing it.
+  $currentPage.data('explain-initialized', 'true');
 }
 
-// Do it!
+// Kick things off on document ready.
 $(document).ready(function(){
 
   // Set some constant variables
@@ -202,5 +205,5 @@ $(document).ready(function(){
   });
 
   // Kick things off
-  init();
+  initPage();
 });
