@@ -38,14 +38,14 @@ function fitToWindow() {
       $terms =            $currentPage.find('.terms');
   // In order to make the image map sticky we must first make sure it will fit
   // completely within the window.
-  if ( $imageMapImage.height() > $WINDOW.height() ) {
+  if ( $imageMapImage.height() > ($WINDOW.height() + 60) ) {
     // Since the image map is too tall we need to proportionally shrink it to
     // match the height of the window. It's new width will be represented as
     // imageMapWidthNewPercent.
     var imageMapImageRatio = $imageMapImage.outerWidth() / $imageMapImage.outerHeight(),
         imageMapWidthNewPx,
         imageMapWidthNewPercent;
-    imageMapWidthNewPx = $WINDOW.height() * imageMapImageRatio + 30;
+    imageMapWidthNewPx = ($WINDOW.height() - 60) * imageMapImageRatio + 30;
     imageMapWidthNewPercent = imageMapWidthNewPx / $currentPage.width() * 100;
     $imageMap.css( 'width', imageMapWidthNewPercent + '%' );
     $PAGINATION.css( 'width', imageMapWidthNewPercent + '%' );
@@ -126,7 +126,7 @@ function initPage() {
   // and the image's width is no longer constrained to its parent.
   // To fix this we will give it its own width that is equal to the parent.
   $imageMapImage.css( 'width', $imageMap.width() );
-  $imageMapWrapper.sticky();
+  $imageMapWrapper.sticky({ topSpacing: 30 });
   $WINDOW.on( 'scroll', updateStickiness );
   // Set a property so we don't keep re-initializing it.
   $currentPage.data('explain-initialized', 'true');
@@ -177,7 +177,8 @@ $(document).ready(function(){
     });
   });
 
-  // Scroll to the proper item when the corresponding form dot is selected
+  // When an overlay is clicked, toggle the corresponding expandable and scroll
+  // the page until it is in view.
   $WRAPPER.on( 'click', '.image-map_overlay', function( event ) {
     event.preventDefault();
     var itemID = $( this ).attr('href');
@@ -185,7 +186,7 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
-    $( itemID ).get(0).expand();
+    $( itemID ).get(0).toggle();
   });
 
   // Scroll to the proper item when the corresponding form dot is selected
