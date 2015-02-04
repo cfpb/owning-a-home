@@ -31,7 +31,6 @@
     position: absolute;
     border: 4px solid transparent;
     background: transparent;
-    background: rgba(255,0,0,0.2); // For debugging
     transition: border 100ms ease-out;
 }
 
@@ -40,6 +39,7 @@
     &:focus,
     &.has-attention  {
         border-color: @redorange-80;
+        background: rgba(209,65,36,0.2);
     }
     &:focus {
         outline: 1px dotted @redorange;
@@ -51,6 +51,7 @@
     &:focus,
     &.has-attention  {
         border-color: @gold-80;
+        background: rgba(255,147,27,0.2);
     }
     &:focus {
         outline: 1px dotted @gold;
@@ -62,6 +63,7 @@
     &:focus,
     &.has-attention  {
         border-color: @navy-80;
+        background: rgba(0,45,114,0.2);
     }
     &:focus {
         outline: 1px dotted @navy;
