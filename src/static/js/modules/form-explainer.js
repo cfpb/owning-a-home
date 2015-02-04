@@ -113,11 +113,18 @@ $(document).ready(function(){
         $currentPage = getCurrentPage(),
         isDisabled = $( event.target ).hasClass('btn__disabled'),
         isGoingNext = $( event.target ).hasClass('pagination_next');
+    // console.log('currentPage',currentPage);
     if ( isDisabled ) {
       return;
     }
     // Update the current number and show the new current page
-    newCurrentPage = isGoingNext ? (currentPage + 1) : (currentPage - 1);
+    if ( isGoingNext ) {
+      newCurrentPage = currentPage + 1;
+    } else {
+      newCurrentPage = currentPage - 1;
+    }
+    // console.log('isGoingNext',isGoingNext);
+    // console.log('newCurrentPage',newCurrentPage);
     if ( isGoingNext && newCurrentPage <= TOTAL ) {
       $('.explain_page').hide();
       $( '#explain_page-' + newCurrentPage ).show();
@@ -129,7 +136,6 @@ $(document).ready(function(){
       $('.explain_pagination .pagination_current').text( newCurrentPage );
     }
     // Update the disabled button
-    console.log( newCurrentPage );
     $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
     if ( newCurrentPage === 1 ) {
       $('.explain_pagination .pagination_prev').addClass('btn__disabled');
@@ -138,37 +144,32 @@ $(document).ready(function(){
     }
     // Call init() again to set up the next page
     init();
-    // Reset the filters
-    $('.explain_tabs .tab-list:eq(0)').click();
-    // Scroll to the top of the forms
     $.scrollTo( $TABS, {
       duration: 400,
-      offset: 0
+      offset: -30
     });
   });
 
   // Filter the expandables via the tabs
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
     var target = $(this).find('[data-target]').data('target'),
-        $terms = getCurrentPage().find('.terms');
-    event.preventDefault();
+        $terms = $WRAPPER.find('.explain_terms');
     // Update the tab state
     $('.explain_tabs .tab-list').removeClass('active-tab');
     $(this).addClass('active-tab');
     // Filter the expandables
     if ( target === 'all' ) {
-      getCurrentPage().find('.expandable__form-explainer').show();
-      getCurrentPage().find('.image-map_overlay').show();
+      $WRAPPER.find('.expandable__form-explainer').show();
+      $WRAPPER.find('.image-map_overlay').show();
     } else {
-      getCurrentPage().find('.expandable__form-explainer').hide();
-      getCurrentPage().find( '.expandable__form-explainer-' + target ).show();
-      getCurrentPage().find('.image-map_overlay').hide();
-      getCurrentPage().find( '.image-map_overlay__' + target ).show();
+      $WRAPPER.find('.expandable__form-explainer').hide();
+      $WRAPPER.find( '.expandable__form-explainer-' + target ).show();
+      $WRAPPER.find('.image-map_overlay').hide();
+      $WRAPPER.find( '.image-map_overlay__' + target ).show();
     }
-    // Scroll down to the list of terms
-    $.scrollTo( $terms, {
+    $.scrollTo( $TABS, {
       duration: 200,
-      offset: 0
+      offset: -30
     });
   });
 
@@ -178,7 +179,7 @@ $(document).ready(function(){
     var itemID = $( this ).attr('href');
     $.scrollTo( $(itemID), {
       duration: 200,
-      offset: 0
+      offset: -30
     });
     $( itemID ).get(0).expand();
   });
