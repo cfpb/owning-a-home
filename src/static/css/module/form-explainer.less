@@ -27,19 +27,11 @@
     border: 1px solid @black;
 }
 
-.js-sticky-bottom {
-    position: absolute !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: 0 !important;
-    left: auto !important;
-}
-
 .image-map_overlay {
     position: absolute;
     border: 4px solid transparent;
     background: transparent;
-    // background: rgba(255,0,0,0.2); // For debugging
+    background: rgba(255,0,0,0.2); // For debugging
     transition: border 100ms ease-out;
 }
 
@@ -167,9 +159,6 @@
     margin: unit(24px / @base-font-size-px, em)
             auto
             unit(60px / @base-font-size-px, em);
-    &_tabs {
-        margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
-    }
     .respond-to-min(600px, {
         .grid_nested-col-group();
         &_tabs {
@@ -181,5 +170,37 @@
         &_terms {
             .grid_column(4);
         }
+        &_pagination {
+            .grid_column(8);
+        }
     });
+}
+
+.explain_tabs {
+    margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
+}
+
+.explain_page {
+    // Position is needed to allow .explain_image-map to stick to the bottom of
+    // .explain_page.
+    position: relative;
+    display: none;
+}
+
+// Show the first page by default
+#explain_page-1 {
+    display: block;
+}
+
+.js-sticky-bottom {
+    position: absolute !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: 0 !important;
+    left: auto !important;
+}
+
+.explain_pagination .pagination_form {
+    padding-top: unit(11px / @base-font-size-px, em);
+    padding-bottom: unit(10px / @base-font-size-px, em);
 }

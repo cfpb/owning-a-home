@@ -1,7 +1,74 @@
 
 {# ==========================================================================
 
-   render_map_points( terms )
+   render( data )
+
+   ==========================================================================
+
+   Description:
+
+   Renders the entire form explainer.
+
+   data:               The data structure needs to be as follows:
+                       { 'pages': [
+                           { 'img': 'url-to-form-img'
+                             'terms': [ ... ]
+                           }    
+                         ]
+                       }
+
+   ========================================================================== #}
+
+{% macro render( data ) %}
+  <div class="explain" aria-controls="form-explainer">
+    <ul class="tabs explain_tabs">
+      <li class="tab-list active-tab">
+        <button class="tab-link" data-target="all">
+          All
+        </button>
+      </li>
+      <li class="tab-list">
+        <button class="tab-link" data-target="checklist">
+          <span class="cf-icon cf-icon-approved-round"></span>
+          Checklist
+        </button>
+      </li>
+      <li class="tab-list">
+        <button class="tab-link" data-target="alerts">
+          <span class="cf-icon cf-icon-error-round"></span>
+          Alerts
+        </button>
+      </li>
+      <li class="tab-list">
+        <button class="tab-link" data-target="definitions">
+          <span class="cf-icon cf-icon-help-round"></span>
+          Definitions
+        </button>
+      </li>
+    </ul>
+    {% for page in data.pages %}
+    <figure class="explain_page" id="explain_page-{{ loop.index }}">
+      <div class="image-map explain_image-map">
+        <div class="image-map_wrapper">
+          <img class="image-map_image"
+               src="{{ page.img }}"
+               alt="">
+          {{ render_map_points( page.terms, loop.index ) }}
+        </div>
+      </div>
+      <figcaption class="terms explain_terms">
+        {{ render_terms( page.terms, loop.index ) }}
+      </figcaption>
+    </figure>
+    {% endfor %}
+    {{ render_pagination( loop.length ) }}
+  </div><!-- ./explain -->
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   render_map_points( terms, page_num )
 
    ==========================================================================
 
@@ -12,12 +79,14 @@
    terms:              An array of term objects. See item() for info on term
                        objects.
 
+   page_num:           The page that these map points belong to.
+
    ========================================================================== #}
 
-{% macro render_map_points( terms ) %}
+{% macro render_map_points( terms, page_num ) %}
 {% for item in terms %}
   <button class="image-map_overlay image-map_overlay__{{ item.category }}" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
-     href="#{{ item.id }}">
+     href="#{{ 'page-' + page_num|string + '-' + item.id }}">
     <span class="u-visually-hidden">{{ item.term }}</span>
  </button>
 {% endfor %}
@@ -26,7 +95,7 @@
 
 {# ==========================================================================
 
-   render_terms( terms )
+   render_terms( terms, page_num )
 
    ==========================================================================
 
@@ -37,18 +106,20 @@
    terms:              An array of term objects. See item() for info on term
                        objects.
 
+   page_num:           The page that these terms belong to.
+
    ========================================================================== #}
 
-{% macro render_terms( terms ) %}
+{% macro render_terms( terms, page_num ) %}
 {% for item in terms %}
-  {{ term( item, loop.index ) }}
+  {{ term( item, loop.index, page_num ) }}
 {% endfor %}
 {% endmacro %}
 
 
 {# ==========================================================================
 
-   item( terms )
+   term( term, index, page_num )
 
    ==========================================================================
 
@@ -63,13 +134,15 @@
 
    index:              The term's position within the array.
 
+   page_num:           The page that this term belongs to.
+
    ========================================================================== #}
 
-{% macro term( item, index ) %}
+{% macro term( item, index, page_num ) %}
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.id }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
@@ -92,4 +165,40 @@
       {{ item.definition|safe }}
     </div>
   </div>
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   render_pagination( total )
+
+   ==========================================================================
+
+   Description:
+
+   Render pagination.
+
+   total:              The total number of pages in this form.
+
+   ========================================================================== #}
+
+{% macro render_pagination( total ) %}
+  <nav class="pagination explain_pagination">
+    <button class="btn btn__super btn__disabled pagination_prev">
+      <span class="btn_icon__left cf-icon cf-icon-left"></span>
+      Previous
+    </button>
+    <button class="btn btn__super pagination_next">
+      Next
+      <span class="btn_icon__right cf-icon cf-icon-right"></span>
+    </button>
+    <div class="pagination_form">
+      <span class="pagination_label">
+        Page
+        <span class="pagination_current">1</span>
+        of
+        <span class="pagination_total">{{ total }}</span>
+      </span>
+    </div>
+  </nav>
 {% endmacro %}
