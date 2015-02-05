@@ -1,0 +1,112 @@
+/* ==========================================================================
+   "Home buyer's preparation worksheets" custom styles
+   ========================================================================== */
+
+/* Preparation worksheet specific styles */
+
+// Width of right-hand worksheet column (priority, likely-ness, etc).
+@right-column-width: 202px;
+
+// Colors
+@btn-grade-disabled-color: @gray-80;
+@btn-grade-unselected-color: @gray-50;
+@btn-grade-selected-color: @darkgray;
+@btn-grade-hover-color: @gray;
+
+@btn-grade-disabled-text-color: @white;
+@btn-grade-unselected-text-color: @darkgray;
+@btn-grade-selected-text-color: @white;
+@btn-grade-hover-text-color: @white;
+
+@btn-delete-color: @gray;
+@btn-delete-hover-color: @gray-20;
+
+// Inputs with buttons for goals, risks, and red flags.
+.input-with-btns_btns { 
+  float: right;
+}
+
+.input-with-btns_input { 
+  display: block;
+  overflow: hidden;
+  padding-right: 10px;
+}
+
+.input-with-btns_input input { 
+  width: 100%;
+}
+
+.input-with-btns {
+  display: block;
+  clear: both;
+  margin-bottom: 10px;
+}
+
+// Preparation worksheets goals, risks, red flag icon colors.
+.prepare-worksheet .cf-icon-approved-round {
+  color: @green;
+}
+
+.prepare-worksheet .cf-icon-complaint-round {
+  color: @redorange;
+}
+
+.prepare-worksheet .cf-icon-error-round {
+  color: @gold;
+}
+
+// Inputs with buttons for goals, risks, and red flags.
+// The color settings override CF colors.
+
+// Right-hand column of the worksheets (priority, likely-ness, etc).
+.worksheet .u-right {
+  width: @right-column-width;
+}
+
+// Individual graded input settings.
+
+.input-with-btns_btns {
+  // Set the width of the right column so it doesn't re-size 
+  // as the button webfont text and icons load.
+  width: @right-column-width;
+}
+
+.input-graded .content_bar {
+  border-top: 1px solid @gray-50;
+  background: @gray-5;
+}
+
+.input-graded.active .content_bar {
+  border-top: 1px solid @gray-50;
+  background: @gray-20;
+}
+
+.input-graded .btn {
+  background: @btn-grade-disabled-color;
+  color: @btn-grade-disabled-text-color;
+}
+
+.input-graded.active .btn {
+  background: @btn-grade-unselected-color;
+  color: @btn-grade-unselected-text-color;
+}
+
+.input-graded .btn:hover {
+  background: @btn-grade-hover-color;
+  color: @btn-grade-hover-text-color;
+}
+
+.input-graded .btn.active {
+  background: @btn-grade-selected-color;
+  color: @btn-grade-selected-text-color;
+}
+
+.input-graded .btn-delete {
+  color: @btn-delete-color;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.input-graded .btn-delete:hover {
+  color: @btn-delete-hover-color;
+}

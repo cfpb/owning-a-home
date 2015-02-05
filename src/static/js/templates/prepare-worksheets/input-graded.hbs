@@ -1,0 +1,15 @@
+<section class="input-graded block__border-bottom u-mb20">
+  <div class="u-mt20 u-mb20">
+    <section class="input-with-btns">
+      <div class="input-with-btns_btns">
+        <button class="btn btn__grouped-first {{#if high_grade}}active{{/if}}">High</button>
+        <button class="btn btn__grouped {{#if medium_grade}}active{{/if}}">Med</button>
+        <button class="btn btn__grouped-last {{#if low_grade}}active{{/if}}">Low</button>
+        <span class="btn-delete cf-form_input-icon cf-icon cf-icon-delete-round" role="button" title="Delete"></span>
+      </div>
+      <div class="input-with-btns_input">
+        <input type="text" value="{{input_value}}" placeholder="Fill in your own goal">
+      </div>
+    </section>
+  </div>
+</section>
