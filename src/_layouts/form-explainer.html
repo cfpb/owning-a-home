@@ -138,6 +138,22 @@
    ========================================================================== #}
 
 {% macro term( item, index, page_num ) %}
+{#- Some terms are not expandable -#}
+{% if item.definition == '' %}
+  <div class="expandable expandable__padded
+              expandable__form-explainer
+              expandable__form-explainer-{{ item.category }}"
+       id="{{ 'page-' + page_num|string + '-' + item.id }}">
+    <span class="expandable_header">
+      <span class="expandable_label">
+          <span class="expandable_category expandable_category__{{ item.category }}">
+            <span class="u-visually-hidden">{{ item.category }}</span>
+          </span>
+          {{ item.term }}
+      </span>
+    </span>
+  </div>
+{% else %}
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
@@ -164,6 +180,7 @@
       {{ item.definition|safe }}
     </div>
   </div>
+{% endif %}
 {% endmacro %}
 
 
