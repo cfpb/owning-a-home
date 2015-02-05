@@ -138,6 +138,7 @@ function initPage( id ) {
     // Set a property so we don't keep re-initializing it.
     $currentPage.data( 'explain-initialized', 'true' );
   }
+  setCategoryPlaceholders( id );
 }
 
 /**
@@ -149,6 +150,32 @@ function initPage( id ) {
 function stickyHack() {
   $WINDOW.scrollTop( $WINDOW.scrollTop() + 1 );
   $WINDOW.scrollTop( $WINDOW.scrollTop() - 1 );
+}
+
+/**
+ * Set category placeholders
+ * @return {null}
+ */
+function setCategoryPlaceholders( id ) {
+  var $currentPage = $WRAPPER.find( '#explain_page-' + id ),
+      categories = [ 'checklist', 'alerts', 'definitions' ];
+  for ( var i = 0; i < categories.length; i++ ) {
+    var category = categories[i];
+    if ( $currentPage.find( '.expandable__form-explainer-' + category ).length === 0 ) {
+      console.log('let\'s make a placeholder!');
+      placeholderHTML = '' +
+      '<div class="expandable expandable__padded expandable__form-explainer ' +
+                  'expandable__form-explainer-' + category + ' ' +
+                  'expandable__form-explainer-placeholder">' +
+        '<span class="expandable_header">' +
+          'No ' + category + ' on this page, ' +
+          'filter by another category above or page ahead to continue exploring ' +
+          category + '.' +
+        '</span>' +
+      '</div>';
+      $currentPage.find('.explain_terms').append( placeholderHTML );
+    }
+  };
 }
 
 // Kick things off on document ready.
@@ -173,6 +200,10 @@ $(document).ready(function(){
   // As the page scrolls, watcht he current page and update its stickiness.
   $WINDOW.on( 'scroll', updateStickiness );
 
+  // The "All" tab is the default tab. We don't want placeholders to be visible
+  // in the "All" tab.
+  $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
+
   // Pagination events
   $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
     if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
@@ -196,6 +227,7 @@ $(document).ready(function(){
     if ( target === 'all' ) {
       $WRAPPER.find('.expandable__form-explainer').show();
       $WRAPPER.find('.image-map_overlay').show();
+      $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
     } else {
       $WRAPPER.find('.expandable__form-explainer').hide();
       $WRAPPER.find( '.expandable__form-explainer-' + target ).show();
@@ -229,10 +261,12 @@ $(document).ready(function(){
     } else  if ( typeof $( this ).attr('id') !== 'undefined' ) {
       $target = $('[href=#'+$( this ).attr('id')+']');
     }
-    if ( $target.hasClass('has-attention') ) {
-      $target.removeClass('has-attention');
-    } else {
-      $target.addClass('has-attention');
+    if ( typeof $target !== 'undefined' ) {
+      if ( $target.hasClass('has-attention') ) {
+        $target.removeClass('has-attention');
+      } else {
+        $target.addClass('has-attention');
+      }
     }
   });
 
