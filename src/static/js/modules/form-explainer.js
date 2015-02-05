@@ -30,15 +30,15 @@ function getCurrentPage() {
  * columns to match.
  * @return {null}
  */
-function fitToWindow() {
-  var $currentPage =      getCurrentPage(),
+function fitToWindow( id ) {
+  var $currentPage =      $WRAPPER.find( '#explain_page-' + id ),
       $imageMap =         $currentPage.find('.image-map'),
       $imageMapImage =    $currentPage.find('.image-map_image'),
       $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
       $terms =            $currentPage.find('.terms');
   // In order to make the image map sticky we must first make sure it will fit
   // completely within the window.
-  if ( $imageMapImage.height() > ($WINDOW.height() + 60) ) {
+  if ( $imageMapImage.height() > ($WINDOW.innerHeight() - 60) ) {
     // Since the image map is too tall we need to proportionally shrink it to
     // match the height of the window. It's new width will be represented as
     // imageMapWidthNewPercent.
@@ -89,10 +89,25 @@ function paginate( direction ) {
   // Move to the next or previous page if it's not the first or last page.
   if ( direction === 'next' && newCurrentPage <= TOTAL ||
        direction === 'prev' && newCurrentPage >= 1 ) {
-    $WRAPPER.find('.explain_page').hide();
-    $WRAPPER.find( '#explain_page-' + newCurrentPage ).show();
-    $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
+    // Scroll the window up to the tabs.
+    $.scrollTo( $TABS, {
+      duration: 600,
+      offset: -30
+    });
+    // After scrolling the window, fade out the current page.
+    var fadeOutTimeout = window.setTimeout(function () {
+      getCurrentPage().fadeOut( 450 );
+      window.clearTimeout( fadeOutTimeout );
+    }, 600);
+    // After fading out the current page, fade in the new page.
+    var fadeInTimeout = window.setTimeout(function () {
+      $WRAPPER.find( '#explain_page-' + newCurrentPage ).fadeIn( 700 );
+      stickyHack();
+      window.clearTimeout( fadeInTimeout );
+    }, 1050);
   }
+  // Update the pagination numbers.
+  $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
   // Update the previous/next buttons if the new page is the first or last.
   $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
   if ( newCurrentPage === 1 ) {
@@ -100,36 +115,40 @@ function paginate( direction ) {
   } else if ( newCurrentPage === TOTAL ) {
     $WRAPPER.find('.explain_pagination .pagination_next').addClass('btn__disabled');
   }
-  // Iniitialize the page if it hasn't already been done.
-  if ( typeof getCurrentPage().data('explain-initialized') === 'undefined' ) {
-    initPage();
-  }
-  $.scrollTo( $TABS, {
-    duration: 400,
-    offset: -30
-  });
 }
 
 /**
  * Initialize a page.
  * @return {null}
  */
-function initPage() {
-  var $currentPage =      getCurrentPage(),
+function initPage( id ) {
+  var $currentPage =      $WRAPPER.find( '#explain_page-' + id ),
       $imageMap =         $currentPage.find('.image-map'),
       $imageMapImage =    $currentPage.find('.image-map_image'),
       $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
       $terms =            $currentPage.find('.terms');
-  // Resize the image, terms and pagination columns
-  fitToWindow();
-  // When the sticky plugin is applied to the image, it adds position fixed,
-  // and the image's width is no longer constrained to its parent.
-  // To fix this we will give it its own width that is equal to the parent.
-  $imageMapImage.css( 'width', $imageMap.width() );
-  $imageMapWrapper.sticky({ topSpacing: 30 });
-  $WINDOW.on( 'scroll', updateStickiness );
-  // Set a property so we don't keep re-initializing it.
-  $currentPage.data('explain-initialized', 'true');
+  if ( typeof $currentPage.data('explain-initialized') === 'undefined' ) {
+    // Resize the image, terms and pagination columns
+    fitToWindow( id );
+    // When the sticky plugin is applied to the image, it adds position fixed,
+    // and the image's width is no longer constrained to its parent.
+    // To fix this we will give it its own width that is equal to the parent.
+    $imageMapImage.css( 'width', $imageMap.width() );
+    $imageMapWrapper.sticky({ topSpacing: 30 });
+    // Set a property so we don't keep re-initializing it.
+    $currentPage.data( 'explain-initialized', 'true' );
+  }
+}
+
+/**
+ * Weird hack to get sticky() to update properly.
+ * We're basically jinggling the window to force a sticky() repaint.
+ * Sometimes it just needs a push I guess?
+ * @return {null}
+ */
+function stickyHack() {
+  $WINDOW.scrollTop( $WINDOW.scrollTop() + 1 );
+  $WINDOW.scrollTop( $WINDOW.scrollTop() - 1 );
 }
 
 // Kick things off on document ready.
@@ -141,6 +160,18 @@ $(document).ready(function(){
   $PAGINATION = $WRAPPER.find('.explain_pagination'),
   $WINDOW =     $( window ),
   TOTAL =       parseInt( $PAGINATION.find('.pagination_total').text(), 10 );
+
+  // Loop through each page, setting its dimensions properly and activating the
+  // sticky() plugin.
+  $WRAPPER.find('.explain_page').each(function( index ) {
+    initPage( index + 1 );
+    if ( index > 0 ) {
+      $( this ).hide();
+    }
+  });
+
+  // As the page scrolls, watcht he current page and update its stickiness.
+  $WINDOW.on( 'scroll', updateStickiness );
 
   // Pagination events
   $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
@@ -205,6 +236,4 @@ $(document).ready(function(){
     }
   });
 
-  // Kick things off
-  initPage();
 });
