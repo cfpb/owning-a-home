@@ -84,10 +84,11 @@
 
 {% macro render_map_points( terms, page_num ) %}
 {% for item in terms %}
-  <button class="image-map_overlay image-map_overlay__{{ item.category }}" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
-     href="#{{ 'page-' + page_num|string + '-' + item.id }}">
+  <a class="image-map_overlay image-map_overlay__{{ item.category }}"
+     style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
+     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}">
     <span class="u-visually-hidden">{{ item.term }}</span>
- </button>
+ </a>
 {% endfor %}
 {% endmacro %}
 
@@ -143,7 +144,7 @@
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
     <span class="expandable_header">
       <span class="expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
@@ -157,7 +158,7 @@
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
