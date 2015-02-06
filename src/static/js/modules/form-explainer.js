@@ -127,7 +127,7 @@ function initPage( id ) {
       $imageMapImage =    $currentPage.find('.image-map_image'),
       $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
       $terms =            $currentPage.find('.terms');
-  if ( typeof $currentPage.data('explain-initialized') === 'undefined' ) {
+  if ( $WINDOW.width() >= 600 ) {
     // Resize the image, terms and pagination columns
     fitToWindow( id );
     // When the sticky plugin is applied to the image, it adds position fixed,
@@ -137,8 +137,6 @@ function initPage( id ) {
     if ( $WINDOW.width() >= 600 ) {
       $imageMapWrapper.sticky({ topSpacing: 30 });
     }
-    // Set a property so we don't keep re-initializing it.
-    $currentPage.data( 'explain-initialized', 'true' );
   }
   setCategoryPlaceholders( id );
 }
@@ -198,8 +196,8 @@ $(document).ready(function(){
     }
   });
 
-  // As the page scrolls, watcht he current page and update its stickiness.
   if ( $WINDOW.width() >= 600 ) {
+    // As the page scrolls, watcht he current page and update its stickiness.
     $WINDOW.on( 'scroll', updateStickiness );
   }
 
