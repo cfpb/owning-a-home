@@ -14,11 +14,11 @@
         </div>
 
         <div class="page-intro">
-          <h1 class="page-title">Loan Estimate Explainer</h1>
+          <h1 class="page-title">Closing Disclosure Explainer</h1>
           <div class="wrapper">
             <div class="col-9">
               <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
-              <a class="go-link" href="/form-explainer/closing-disclosure.html">Go to the Closing Disclosure Explainer</a>
+              <a class="go-link" href="/form-explainer/">Go to the Loan Estimate Explainer</a>
             </div>
           </div>
         </div><!-- /.page-intro -->
@@ -26,10 +26,13 @@
         {# Import the form explainer macros #}
         {% import "form-explainer.html" as form_explainer %}
         {# Import the data to use with form explainer #}
-        {% from "loan-estimate-1.html" import data as page_1 %}
-        {% from "loan-estimate-2.html" import data as page_2 %}
+        {% from "closing-disclosure-1.html" import data as page_1 %}
+        {% from "closing-disclosure-2.html" import data as page_2 %}
+        {% from "closing-disclosure-3.html" import data as page_3 %}
+        {% from "closing-disclosure-4.html" import data as page_4 %}
+        {% from "closing-disclosure-5.html" import data as page_5 %}
         {# Render form explainer with the data for this form #}
-        {{ form_explainer.render([ page_1, page_2 ]) }}
+        {{ form_explainer.render([ page_1, page_2, page_3, page_4, page_5 ]) }}
 
       </section>
     </div><!-- /.form-explainer -->
