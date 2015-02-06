@@ -1,11 +1,23 @@
 var eventObserver = require('./event-observer.js');
 
+var _UUID = 0;
+
 function create(options) {
+
+  // Perhaps this is overkill.
+  if (_UUID === Number.MAX_VALUE) {
+    throw new Error('Maximum number of InputGraded instances created!');
+  }
+
+  options.UUID = _UUID++;
   return new InputGraded(options);
 }
 
 // InputGraded UI element constructor.
 function InputGraded(options) {
+
+  // Universal Unique ID for this graded input.
+  var UUID = options.UUID;
 
   // TODO see if bind() can be used in place of self = this.
   // Note bind()'s lack of IE8 support.
@@ -41,7 +53,7 @@ function InputGraded(options) {
   // Deletes this graded input.
   function deleteItem(evt) {
     node.parentNode.removeChild(node);
-    self.dispatchEvent('deleted', {target:node});
+    self.dispatchEvent('delete', {target: self});
   }
 
   var module = require('./button-grading-group');
@@ -64,10 +76,11 @@ function InputGraded(options) {
     buttonGradingGroup.setGrade(grade);
   }
 
-  // Expose InputGraded instance's public methods.
+  // Expose instance's public methods.
   this.deleteItem = deleteItem;
   this.getState = getState;
   this.setState = setState;
+  this.UUID = UUID;
 }
 
 // Expose public methods.

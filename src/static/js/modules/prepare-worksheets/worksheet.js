@@ -7,7 +7,8 @@ function Worksheet() {
   var InputGraded;
 
   var _inputGradedGroupDOM;
-  var _inputsGradedGroup = []; // List of InputGraded instances.
+  var _inputsGradedList = []; // List of InputGraded instances.
+  var _inputsGradedListIndex = {};
 
   function init(config) {
     _settings = config.settings;
@@ -39,19 +40,34 @@ function Worksheet() {
 
     var options = {};
     options.container = _inputGradedGroupDOM;
+    var input, index;
     for ( var g = 0, len = data.length; g < len; g++ ) {
       options.inputValue = data[g].text;
       options.gradeValue = data[g].grade;
-      _inputsGradedGroup.push(InputGraded.create(options));
+      input = InputGraded.create(options);
+      input.addEventListener('delete', _inputDeleted);
+      index = _inputsGradedList.push(input) - 1;
+      _inputsGradedListIndex[input.UUID] = index;
     }
   }
 
-  var _recordedState = [];
-  function _recordState() {
-    for ( var g = 0, len = _inputsGradedGroup.length; g < len; g++ ) {
-      _recordedState.push( _inputsGradedGroup[g].getState() );
+  function _inputDeleted(evt) {
+    _inputsGradedList.splice(_inputsGradedListIndex[evt.target.UUID], 1);
+    delete _inputsGradedListIndex[evt.target];
+
+    // Rebuilts list index.
+    _inputsGradedListIndex = [];
+    for ( var g = 0, len = _inputsGradedList.length; g < len; g++ ) {
+      _inputsGradedListIndex[_inputsGradedList[g].UUID] = g;
     }
-    return _recordedState;
+  }
+
+  function _recordState() {
+    var recordedState = [];
+    for ( var g = 0, len = _inputsGradedList.length; g < len; g++ ) {
+      recordedState.push( _inputsGradedList[g].getState() );
+    }
+    return recordedState;
   }
 
   function _addItemClickHandler(evt) {
@@ -59,7 +75,7 @@ function Worksheet() {
       container: _inputGradedGroupDOM,
       inputValue: ""
     };
-    _inputsGradedGroup.push(InputGraded.create(options));
+    _inputsGradedList.push(InputGraded.create(options));
   }
 
   // @return [Array] Array of recorded inputs.
@@ -71,7 +87,7 @@ function Worksheet() {
   function loadState(data) {
     var json = JSON.parse(data);
     for ( var i = 0, len = json.length; i < len; i++ ) {
-      _inputsGradedGroup[i].setState(json[i]);
+      _inputsGradedList[i].setState(json[i]);
     }
   }
 
