@@ -1,100 +1,99 @@
 // Import modules.
-var $ = require("jquery");
 require("../secondary-nav");
-var inputGradedFactory = require("./input-graded");
 
-// DOM HTML element references.
-var worksheetsDOM = $(".worksheets").get(0);
-var inputGradedGroupDOM;
+// Worksheet instance factory.
+var Worksheet = require('./worksheet');
 
-var inputsGradedGroup = []; // List of InputGraded instances.
+// Goals worksheet settings.
+var _worksheetGoalsSettings = require('./worksheet/goals-settings');
+var _worksheetGoals;
+
+// DOM references.
+var _worksheetsDOM = document.querySelector('.worksheets');
+var _btnNext = document.querySelector('.btn-worksheet-next');
+var _btnPrev = document.querySelector('.btn-worksheet-prev');
+
+// General app properties.
+var _currentContext; // The current worksheet that's displayed.
+var _savedData; // The data from the worksheets in JSON.
+var _page = 1;
+var TOTAL_PAGES = 3;
 
 function init() {
-  loadUserInputPage();
+  _loadWorksheets();
+  _btnNext.addEventListener('mousedown', _nextClicked, false);
+  _btnPrev.addEventListener('mousedown', _prevClicked, false);
+  _btnNext.classList.remove('btn__disabled');
 }
 
-function loadUserInputPage() {
-  var template = require('../../templates/prepare-worksheets/worksheet-goals.hbs');
-  var snippet = template();
-  worksheetsDOM.innerHTML = snippet;
-
-  var data = JSON.parse(document.getElementById('data').innerHTML); // TEMP mock data
-  data = null; // TEMP disabled temporary mock data and load defaults
-  if (data) {
-    generateInputs(data);
+function _nextClicked() {
+  _page++;
+  if (_page === TOTAL_PAGES) {
+    _btnNext.classList.add('btn__disabled');
   } else {
-    loadDefaults();
+    _btnPrev.classList.remove('btn__disabled');
   }
-
-  // Set up button interactivity - Add a new graded input item.
-  $(".btn-add-input-graded").click(addItemClickHandler);
+  _loadPage(_page);
 }
 
-function loadFeedbackPage() {
-  
+function _prevClicked() {
+  _page--;
+  if (_page === 1) {
+    _btnPrev.classList.add('btn__disabled');
+  } else {
+    _btnNext.classList.remove('btn__disabled');
+  }
+  _loadPage(_page);
 }
 
-function loadSummaryPage() {
-  var template = require('../../templates/prepare-worksheets/worksheet-summary.hbs');
-  var snippet = template({"inputs":recordedState});
-  worksheetsDOM.innerHTML = snippet;
-}
-
-function loadDefaults() {
-  // Saved values for the goal inputs.
-  var defaultGoalInputValues = [
-    {"text": "I want more space (for example, to accommodate a growing family)","grade": null},
-    {"text": "I want certain features (for example, a yard)","grade": null},
-    {"text": "I want to locate in a particular area (for example, a certain school district)","grade": null},
-    {"text": "I want to decorate, renovate, or otherwise personalize my home","grade": null},
-    {"text": "","grade": null},
-    {"text": "", "grade": null}
-  ];
-
-  generateInputs(defaultGoalInputValues);
-}
-
-function generateInputs(data) {
-  // DOM reference.
-  inputGradedGroupDOM = $(".worksheet-goal .input-graded-group");
-
-  var options = {};
-  options.container = inputGradedGroupDOM.get(0);
-  for ( var g = 0, len = data.length; g < len; g++ ) {
-    options.inputValue = data[g].text;
-    options.gradeValue = data[g].grade;
-    inputsGradedGroup.push(inputGradedFactory.create(options));
+function _loadPage(page) {
+  _saveData();
+  switch(page) {
+    case 1 :
+      _loadWorksheets(_loadData());
+    break;
+    case 2 :
+      _loadNotes();
+    break;
+    case 3 :
+      _loadSummaryPage(_loadData());
+    break;
   }
 }
 
-$(".btn-next").click(recordState);
+function _saveData() {
+  _savedData = _currentContext.getState();
+}
 
-var recordedState = [];
-function recordState() {
-  for ( var g = 0, len = inputsGradedGroup.length; g < len; g++ ) {
-    recordedState.push( inputsGradedGroup[g].getState() );
-  }
+function _loadData() {
+  return _savedData;
+}
+
+function  _loadWorksheets(data) {
+  console.log('load worksheet');
+  _worksheetGoals = Worksheet.create();
+  _worksheetGoals.init(_worksheetGoalsSettings);
+  _worksheetGoals.loadInto(_worksheetsDOM, data);
+  _currentContext = _worksheetGoals;
+
+  // TEMP Example of loading state from embedded JSON.
+  //var data = JSON.parse(document.getElementById('data').innerHTML);
+  // worksheetGoals.init(worksheetsDOM, data);
 
   // TEMP Example of loading an example state.
   // var str = '[{"text":"test","grade":0},{"text":"testing","grade":1},{"text":"dude","grade":2}]';
-  // loadState(str);
-
-  loadSummaryPage();
+  // worksheetGoals.loadState(str);
 }
 
-function loadState(data) {
-  var json = JSON.parse(data);
-  for ( var i = 0, len = json.length; i < len; i++ ) {
-    inputsGradedGroup[i].setState(json[i]);
-  }
+function _loadNotes(data) {
+  console.log('load notes');
 }
 
-function addItemClickHandler(evt) {
-  var options = {
-    container: inputGradedGroupDOM.get(0),
-    inputValue: ""
-  };
-  inputsGradedGroup.push(inputGradedFactory.create(options));
+function _loadSummaryPage(data) {
+  console.log('load summary page');
+  var template = require('../../templates/prepare-worksheets/worksheet-summary.hbs');
+  var snippet = template({"inputs":data});
+  _worksheetsDOM.innerHTML = snippet;
 }
 
 init();
