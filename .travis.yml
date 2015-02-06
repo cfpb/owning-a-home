@@ -7,5 +7,5 @@ install:
   - npm install
 
 script:
-    - bash test/test_artifacts.sh
-    - grunt mochaTest
+  - bash test/test_artifacts.sh
+  - grunt test
