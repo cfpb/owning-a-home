@@ -340,17 +340,19 @@ module.exports = function(grunt) {
         '!src/static/js/main.js'
       ]
     },
-
-    // run the mocha tests
-    'mochaTest': {
-      test: {
+    mocha_istanbul: {
+      coverage: {
+        src: ['test/js/*.js'], // multiple folders also works
         options: {
-          reporter: 'nyan'
-        },
-        src: ['test/js/*.js']
+          coverageFolder: 'test/coverage',
+          coverage: true,
+          check: {
+            lines: 75,
+            statements: 75
+          }
+        }
       }
     },
-
     /**
      * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
      *
@@ -418,6 +420,15 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.event.on('coverage', function( lcov, done ) {
+    require('coveralls').handleInput( lcov, function( err ) {
+      if ( err ) {
+        return done( err );
+      }
+      done();
+    });
+  });
+
   /**
    * Load the tasks.
    */
@@ -431,7 +442,7 @@ module.exports = function(grunt) {
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
-  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
+  grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);
