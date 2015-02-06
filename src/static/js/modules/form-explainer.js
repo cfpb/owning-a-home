@@ -55,7 +55,7 @@ function fitToWindow( id ) {
 }
 
 /**
- * Override .sticky() if the viewport has been scrolled past $currentPage so that
+ * Override sticky() if the viewport has been scrolled past $currentPage so that
  * the sticky element does not overlap content that comes after $currentPage.
  * @return {null}
  */
@@ -134,7 +134,9 @@ function initPage( id ) {
     // and the image's width is no longer constrained to its parent.
     // To fix this we will give it its own width that is equal to the parent.
     $imageMapImage.css( 'width', $imageMap.width() );
-    $imageMapWrapper.sticky({ topSpacing: 30 });
+    if ( $WINDOW.width() >= 600 ) {
+      $imageMapWrapper.sticky({ topSpacing: 30 });
+    }
     // Set a property so we don't keep re-initializing it.
     $currentPage.data( 'explain-initialized', 'true' );
   }
@@ -162,7 +164,6 @@ function setCategoryPlaceholders( id ) {
   for ( var i = 0; i < categories.length; i++ ) {
     var category = categories[i];
     if ( $currentPage.find( '.expandable__form-explainer-' + category ).length === 0 ) {
-      console.log('let\'s make a placeholder!');
       placeholderHTML = '' +
       '<div class="expandable expandable__padded expandable__form-explainer ' +
                   'expandable__form-explainer-' + category + ' ' +
@@ -175,7 +176,7 @@ function setCategoryPlaceholders( id ) {
       '</div>';
       $currentPage.find('.explain_terms').append( placeholderHTML );
     }
-  };
+  }
 }
 
 // Kick things off on document ready.
@@ -198,7 +199,9 @@ $(document).ready(function(){
   });
 
   // As the page scrolls, watcht he current page and update its stickiness.
-  $WINDOW.on( 'scroll', updateStickiness );
+  if ( $WINDOW.width() >= 600 ) {
+    $WINDOW.on( 'scroll', updateStickiness );
+  }
 
   // The "All" tab is the default tab. We don't want placeholders to be visible
   // in the "All" tab.
