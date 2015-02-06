@@ -9,7 +9,7 @@
 
    Renders the entire form explainer.
 
-   data:               The data structure needs to be as follows:
+   data:               The data structure is as follows:
                        [
                          { 'img': 'url-to-form-img'
                            'terms': [ ... ]
@@ -29,19 +29,19 @@
       <li class="tab-list">
         <button class="tab-link" data-target="checklist">
           <span class="cf-icon cf-icon-approved-round"></span>
-          Checklist
+          <span class="tab-label">Checklist</span>
         </button>
       </li>
       <li class="tab-list">
         <button class="tab-link" data-target="alerts">
           <span class="cf-icon cf-icon-error-round"></span>
-          Alerts
+          <span class="tab-label">Alerts</span>
         </button>
       </li>
       <li class="tab-list">
         <button class="tab-link" data-target="definitions">
           <span class="cf-icon cf-icon-help-round"></span>
-          Definitions
+          <span class="tab-label">Definitions</span>
         </button>
       </li>
     </ul>
@@ -84,10 +84,11 @@
 
 {% macro render_map_points( terms, page_num ) %}
 {% for item in terms %}
-  <button class="image-map_overlay image-map_overlay__{{ item.category }}" style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
-     href="#{{ 'page-' + page_num|string + '-' + item.id }}">
+  <a class="image-map_overlay image-map_overlay__{{ item.category }}"
+     style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
+     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}">
     <span class="u-visually-hidden">{{ item.term }}</span>
- </button>
+ </a>
 {% endfor %}
 {% endmacro %}
 
@@ -138,10 +139,26 @@
    ========================================================================== #}
 
 {% macro term( item, index, page_num ) %}
+{#- Some terms are not expandable -#}
+{% if item.definition == '' %}
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
+    <span class="expandable_header">
+      <span class="expandable_label">
+          <span class="expandable_category expandable_category__{{ item.category }}">
+            <span class="u-visually-hidden">{{ item.category }}</span>
+          </span>
+          {{ item.term }}
+      </span>
+    </span>
+  </div>
+{% else %}
+  <div class="expandable expandable__padded
+              expandable__form-explainer
+              expandable__form-explainer-{{ item.category }}"
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
     <button class="expandable_header expandable_target">
       <span class="expandable_header-left expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
@@ -164,6 +181,7 @@
       {{ item.definition|safe }}
     </div>
   </div>
+{% endif %}
 {% endmacro %}
 
 

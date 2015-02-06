@@ -8,12 +8,8 @@
 
 .image-map {
     display: block;
+    margin-bottom: unit(30px / @base-font-size-px, em);
     .u-clearfix();
-    min-width: 290px;
-
-    .respond-to-max(599px, {
-        display: none;
-    });
 }
 
 .image-map_wrapper {
@@ -192,12 +188,6 @@
     // Position is needed to allow .explain_image-map to stick to the bottom of
     // .explain_page.
     position: relative;
-    display: none;
-}
-
-// Show the first page by default
-#explain_page-1 {
-    display: block;
 }
 
 .js-sticky-bottom {
@@ -206,6 +196,10 @@
     right: auto !important;
     bottom: 0 !important;
     left: auto !important;
+}
+
+.explain_pagination {
+    margin-top: unit(30px / @base-font-size-px, em);
 }
 
 .explain_pagination .pagination_form {
