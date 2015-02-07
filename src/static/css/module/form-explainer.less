@@ -74,11 +74,8 @@
 }
 
 .expandable__form-explainer {
-    margin: 0;
+    margin: 0 0 unit(3px / @base-font-size-px, em);
     transition: transform 100ms ease-out;
-    & + & {
-        margin-top: unit(3px / @base-font-size-px, em);
-    }
     &.has-attention {
         transform: translateX(-(@grid_gutter-width / 2));
     }
