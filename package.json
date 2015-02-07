@@ -24,7 +24,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt mochaTest",
+    "test": "grunt test",
     "postinstall": "grunt vendor"
   },
   "devDependencies": {
@@ -50,7 +50,6 @@
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.4.4",
     "grunt-mocha-istanbul": "^2.3.1",
-    "grunt-mocha-test": "^0.10.2",
     "grunt-newer": "^0.7.0",
     "grunt-release": "latest",
     "grunt-shell": "~0.3.0",
@@ -60,6 +59,8 @@
     "load-grunt-config": "^0.13.1",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.18.2",
+    "mocha-jsdom": "^0.2.0",
+    "mochify-istanbul": "^2.1.1",
     "time-grunt": "^1.0.0"
   },
   "keywords": [],
@@ -105,10 +106,5 @@
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
     "oah-config": "./config/config.json"
   },
-  "browserify-shim": "./config/shim.js",
-  "config": {
-    "travis-cov": {
-      "threshold": 70
-    }
-  }
+  "browserify-shim": "./config/shim.js"
 }
