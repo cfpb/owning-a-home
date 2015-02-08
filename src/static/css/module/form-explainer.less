@@ -180,6 +180,32 @@
 
 .explain_tabs {
     margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
+
+    .active-tab button,
+    .active-tab a,
+    button:hover,
+    a:hover,
+    button:focus,
+    a:focus {
+      &.tab-link__checklist {
+        border-top-color: @redorange-20;
+        .cf-icon {
+          color: @redorange-80;
+        }
+      }
+      &.tab-link__alerts {
+        border-top-color: @gold-20;
+        .cf-icon {
+          color: @gold-80;
+        }
+      }
+      &.tab-link__definitions {
+        border-top-color: @navy-20;
+        .cf-icon {
+          color: @navy-80;
+        }
+      }
+    }
 }
 
 .explain_page {
