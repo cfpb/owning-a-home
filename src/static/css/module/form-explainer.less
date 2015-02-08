@@ -156,10 +156,7 @@
 }
 
 .explain {
-    // Eyeballed to top margin of 30px when including line height of text above
-    margin: unit(24px / @base-font-size-px, em)
-            auto
-            unit(60px / @base-font-size-px, em);
+    margin: 0 auto unit(60px / @base-font-size-px, em);
     .respond-to-min(600px, {
         .grid_nested-col-group();
         &_tabs {
