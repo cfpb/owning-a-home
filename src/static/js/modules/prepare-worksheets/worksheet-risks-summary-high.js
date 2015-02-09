@@ -2,7 +2,7 @@ var _grades = require('./inputs/input-graded-grades');
 
 var worksheetSettings = {
   template: require( '../../templates/prepare-worksheets/worksheet-risks-summary-high.hbs' ),
-  inputModule: require( './inputs/input-text' ),
+  inputModule: require( './inputs/input-stacked-text' ),
   type: 'risks',
   skipEmpties: true,
   showOnlyGrade: _grades.HIGH,

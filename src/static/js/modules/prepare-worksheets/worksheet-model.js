@@ -7,27 +7,27 @@
       "goals" :
       [
         {
-          "text" : "I want more space (for example, to accommodate a growing family)",
+          "text" : "I want more space (e.g., for a growing family)",
           "grade" : null,
-          "altText" : "",
+          "altText" : "Could you move to a larger rental unit instead?",
           "explanation" : ""
         },
         {
-          "text" : "I want certain features (for example, a yard)",
+          "text" : "I want certain features (e.g., a yard)",
           "grade" : null,
-          "altText" : "",
+          "altText" : "Could you find these features in a rental unit in your community?  (Renting doesn’t always have to mean living in an apartment.  In many areas you can find single-family homes for rent).",
           "explanation" : ""
         },
         {
-          "text" : "I want to locate in a particular area (for example, a certain school district)",
+          "text" : "I want to live in a particular area (e.g., a certain school district)",
           "grade" : null,
-          "altText" : "",
+          "altText" : "Are there rental units available in your desired location?",
           "explanation" : ""
         },
         {
-          "text" : "I want to decorate, renovate, or otherwise personalize my home",
+          "text" : "I want the freedom to decorate or renovate",
           "grade" : null,
-          "altText" : "",
+          "altText" : "Are there things you could do to make your rental feel more like your own?",
           "explanation" : ""
         },
         {
@@ -47,9 +47,21 @@
       "flags" :
       [
         {
-          "text" : "Is there a chance you might move in the next few months?",
+          "text" : "There is chance I might move within the next few years",
           "grade" : null,
-          "altText" : "",
+          "altText" : "Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.",
+          "explanation" : ""
+        },
+        {
+          "text" : "My current employment is short-term or unstable",
+          "grade" : null,
+          "altText" : "Owning a home is a long-term financial commitment.  If you’re not confident that you’ll be able to continue earning at a similar level for the foreseeable future, it might make more sense to keep renting.",
+          "explanation" : ""
+        },
+        {
+          "text" : "I find fixing things and doing yardwork to be a real hassle",
+          "grade" : null,
+          "altText" : "In a lot of ways, it’s simpler and more financially predictable to rent.",
           "explanation" : ""
         }
       ]
@@ -57,9 +69,21 @@
       "risks" :
       [
         {
-          "text" : "Your home value could decline",
+          "text" : "My home value could decline and my could lose your equity",
           "grade" : null,
-          "altText" : "",
+          "altText" : "You could even find yourself owing more than your home is worth.  In 2008-2012, house prices declined dramatically nationwide, with up to X% declines in some areas.",
+          "explanation" : ""
+        },
+        {
+          "text" : "Major repairs can be urgent, expensive, and unexpected",
+          "grade" : null,
+          "altText" : "When the furnace springs a leak or a tree falls on the roof, these aren’t repairs that you can wait to make.  New homeowners consistently say that they were surprised how much maintenance costs.",
+          "explanation" : ""
+        },
+        {
+          "text" : "Minor repairs add up quickly, in terms of time and money",
+          "grade" : null,
+          "altText" : "Think of all the little things that you are used to calling your landlord to deal with: a cracked window, a broken dishwasher, or a clogged toilet.  As a homeowner, you will either have to fix these yourself or call and pay for a professional.",
           "explanation" : ""
         }
       ]
@@ -146,7 +170,7 @@ this.getData = function () {
 };
 
 this.getDefaultData = function () {
-  return { worksheets : { goals : [ { text : 'I want more space (for example, to accommodate a growing family)', grade : null, altText : '', explanation : '' }, { text : 'I want certain features (for example, a yard)', grade : null, altText : '', explanation : '' }, { text : 'I want to locate in a particular area (for example, a certain school district)', grade : null, altText : '', explanation : '' }, { text : 'I want to decorate, renovate, or otherwise personalize my home', grade : null, altText : '', explanation : '' }, { text : '', grade : null, altText : '', explanation : '' }, { text : '', grade : null, altText : '', explanation : '' } ] , flags : [ { text : 'Is there a chance you might move in the next few months?', grade : null, altText : '', explanation : '' } ] , risks : [ { text : 'Your home value could decline', grade : null, altText : '', explanation : '' } ] } };
+  return { "worksheets" : { "goals" : [ { "text" : "I want more space (e.g., for a growing family)", "grade" : null, "altText" : "Could you move to a larger rental unit instead?", "explanation" : "" }, { "text" : "I want certain features (e.g., a yard)", "grade" : null, "altText" : "Could you find these features in a rental unit in your community? (Renting doesn’t always have to mean living in an apartment. In many areas you can find single-family homes for rent).", "explanation" : "" }, { "text" : "I want to live in a particular area (e.g., a certain school district)", "grade" : null, "altText" : "Are there rental units available in your desired location?", "explanation" : "" }, { "text" : "I want the freedom to decorate or renovate", "grade" : null, "altText" : "Are there things you could do to make your rental feel more like your own?", "explanation" : "" }, { "text" : "", "grade" : null, "altText" : "", "explanation" : "" }, { "text" : "", "grade" : null, "altText" : "", "explanation" : "" } ] , "flags" : [ { "text" : "There is chance I might move within the next few years", "grade" : null, "altText" : "Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.", "explanation" : "" }, { "text" : "My current employment is short-term or unstable", "grade" : null, "altText" : "Owning a home is a long-term financial commitment. If you’re not confident that you’ll be able to continue earning at a similar level for the foreseeable future, it might make more sense to keep renting.", "explanation" : "" }, { "text" : "I find fixing things and doing yardwork to be a real hassle", "grade" : null, "altText" : "In a lot of ways, it’s simpler and more financially predictable to rent.", "explanation" : "" } ] , "risks" : [ { "text" : "My home value could decline and my could lose your equity", "grade" : null, "altText" : "You could even find yourself owing more than your home is worth. In 2008-2012, house prices declined dramatically nationwide, with up to X% declines in some areas.", "explanation" : "" }, { "text" : "Major repairs can be urgent, expensive, and unexpected", "grade" : null, "altText" : "When the furnace springs a leak or a tree falls on the roof, these aren’t repairs that you can wait to make. New homeowners consistently say that they were surprised how much maintenance costs.", "explanation" : "" }, { "text" : "Minor repairs add up quickly, in terms of time and money", "grade" : null, "altText" : "Think of all the little things that you are used to calling your landlord to deal with: a cracked window, a broken dishwasher, or a clogged toilet. As a homeowner, you will either have to fix these yourself or call and pay for a professional.", "explanation" : "" } ] } };
 };
 
 // Private methods.

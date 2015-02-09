@@ -2,7 +2,7 @@ var _grades = require('./inputs/input-graded-grades');
 
 var worksheetSettings = {
   template: require( '../../templates/prepare-worksheets/worksheet-goals-summary-low.hbs' ),
-  inputModule: require( './inputs/input-text' ),
+  inputModule: require( './inputs/input-stacked-text' ),
   type: 'goals',
   skipEmpties: true,
   showOnlyGrade: _grades.LOW,

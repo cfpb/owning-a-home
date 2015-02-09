@@ -2,7 +2,7 @@ var _grades = require('./inputs/input-graded-grades');
 
 var worksheetSettings = {
   template: require( '../../templates/prepare-worksheets/worksheet-flags-summary-medium.hbs' ),
-  inputModule: require( './inputs/input-text' ),
+  inputModule: require( './inputs/input-stacked-text' ),
   type: 'flags',
   skipEmpties: true,
   showOnlyGrade: _grades.MEDIUM,
