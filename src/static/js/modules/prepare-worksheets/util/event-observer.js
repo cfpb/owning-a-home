@@ -3,10 +3,10 @@
 
 // @param target [Object] An object to attach event listener methods to.
 function attach(target) {
-  var eventObserver = new EventObserver();
-  target.addEventListener = eventObserver.addEventListener;
-  target.removeEventListener = eventObserver.removeEventListener;
-  target.dispatchEvent = eventObserver.dispatchEvent;
+  var proxy = new EventObserver();
+  target.addEventListener = proxy.addEventListener;
+  target.removeEventListener = proxy.removeEventListener;
+  target.dispatchEvent = proxy.dispatchEvent;
   return target;
 }
 

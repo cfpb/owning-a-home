@@ -5,7 +5,7 @@
 /* Preparation worksheet specific styles */
 
 // Width of right-hand worksheet column (priority, likely-ness, etc).
-@right-column-width: 202px;
+@right-col-width: 202px;
 
 // Colors
 @btn-grade-disabled-color: @gray-80;
@@ -22,17 +22,17 @@
 @btn-delete-hover-color: @gray-20;
 
 // Inputs with buttons for goals, risks, and red flags.
-.input-with-btns_btns { 
+.input-with-btns_btns {
   float: right;
 }
 
-.input-with-btns_input { 
+.input-with-btns_input {
   display: block;
   overflow: hidden;
   padding-right: 10px;
 }
 
-.input-with-btns_input input { 
+.input-with-btns_input input {
   width: 100%;
 }
 
@@ -59,16 +59,17 @@
 // The color settings override CF colors.
 
 // Right-hand column of the worksheets (priority, likely-ness, etc).
-.worksheet .u-right {
-  width: @right-column-width;
+.worksheet-right-col-header {
+  .u-right();
+  width: @right-col-width;
 }
 
 // Individual graded input settings.
 
 .input-with-btns_btns {
-  // Set the width of the right column so it doesn't re-size 
+  // Set the width of the right column so it doesn't re-size
   // as the button webfont text and icons load.
-  width: @right-column-width;
+  width: @right-col-width;
 }
 
 .input-graded .content_bar {
@@ -101,12 +102,35 @@
   color: @btn-grade-selected-text-color;
 }
 
-.input-graded .btn-delete {
+.input-graded .btn-input-delete {
   color: @btn-delete-color;
   vertical-align: top;
   cursor: pointer;
 }
 
-.input-graded .btn-delete:hover {
+.input-graded .btn-input-delete:hover {
   color: @btn-delete-hover-color;
+}
+
+// Color overrides for content dividers on summary page.
+.worksheet-flags .subheading,
+.worksheet-flags-summary .subheading {
+  border-bottom-color: @redorange;
+}
+
+.worksheet-risks .subheading,
+.worksheet-risks-summary .subheading {
+  border-bottom-color: @gold;
+}
+
+/* ==========================================================================
+   Print styles.
+   ========================================================================== */
+
+@media print {
+  .nemo,
+  aside.content_sidebar,
+  .type-details nav {
+    display: none !important;
+  }
 }
