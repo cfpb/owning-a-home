@@ -6,7 +6,7 @@ Form Explainer is a Jinja macro that you can use with Sheer.
 
 ### Step 1: Building the overlay shapes and starting some content in Illustrator
 
-Start by creating a spearate Illustrator file for each form page.
+Start by creating a separate Illustrator file for each form page.
 In each file create your ractangular overlays.
 Name each rectangle by editing its layer name.
 The naming convetion is: `[category]_[id]`,
@@ -30,8 +30,11 @@ but leave out the image of the form,
 all we need are the overlays.
 
 Convert the SVG's into Form Explainer-compliant JSON files.
-We will use the JSON to store the overlay dimensions and coordinates
-and the rest of the content needed to run a Form Explainer.
+"Form Explainer-compliant JSON" simply means that it has all of the properties
+that Form Explainer requires.
+We will use the data structure of these JSON files to store the overlay
+dimensions and coordinates as well as the rest of the content needed to run a
+Form Explainer.
 A tool for converting from SVG to a Form Explainer-compliant JSON file
 can be found at <https://github.com/himedlooff/form-explainer-svg-parser>.
 
