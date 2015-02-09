@@ -102,7 +102,7 @@ If they are empty, then `term` will not have the expandable functionality.
 
 ### Step 4: Bringing it all together
 
-Make an HTML file for your form and import the form explainer macros.
+Make an HTML file for your form and import the Form Explainer macros.
 
 ```jinja
 {% import "form-explainer.html" as form_explainer %}
