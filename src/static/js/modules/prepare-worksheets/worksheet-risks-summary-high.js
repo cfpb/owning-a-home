@@ -1,8 +1,11 @@
+var _grades = require('./inputs/input-graded-grades');
+
 var worksheetSettings = {
-  template: require( '../../templates/prepare-worksheets/worksheet-flags-summary.hbs' ),
+  template: require( '../../templates/prepare-worksheets/worksheet-risks-summary-high.hbs' ),
   inputModule: require( './inputs/input-text' ),
-  type: 'flags',
+  type: 'risks',
   skipEmpties: true,
+  showOnlyGrade: _grades.HIGH,
   getDefaultInputOptions: _getDefaultInputOptions
 };
 this.worksheetSettings = worksheetSettings;

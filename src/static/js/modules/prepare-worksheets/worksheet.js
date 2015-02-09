@@ -23,6 +23,8 @@ function Worksheet( options ) {
   // Whether inputs with empty text should be skipped for rendering.
   var _skipEmpties = _settings.skipEmpties;
 
+  var _showOnlyGrade = _settings.showOnlyGrade;
+
   // Template to load.
   var _worksheetTemplate = _settings.template;
 
@@ -66,6 +68,14 @@ function Worksheet( options ) {
       // altText is added to the later entries, the values will be
       // shifted into the void occupied by the empties.
       if ( _skipEmpties === true && options.inputValue === '' ) {
+        continue;
+      }
+
+      // Skip this input if it's not set to a grade to show.
+      // Only runs if:
+      // (a) showOnlyGrade is set.
+      // (b) grade set matches grade selected by user.
+      if ( _showOnlyGrade !== undefined && _showOnlyGrade !== options.gradeValue ) {
         continue;
       }
 

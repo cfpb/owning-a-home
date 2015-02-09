@@ -149,33 +149,83 @@ function _loadNotes() {
 }
 
 function _loadSummaryPage() {
+
+  // Prepare goals summary.
   var data = _model.getWorksheet('goals');
-  var goalsSummary = _worksheetFactory.createWorksheetGoalsSummary();
-  goalsSummary.loadInto( _worksheetsDOM, data );
+  var goalsSummaryHigh = _worksheetFactory.createWorksheetGoalsSummaryHigh();
+  goalsSummaryHigh.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('goals');
+  var goalsSummaryMedium = _worksheetFactory.createWorksheetGoalsSummaryMedium();
+  goalsSummaryMedium.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('goals');
+  var goalsSummaryLow = _worksheetFactory.createWorksheetGoalsSummaryLow();
+  goalsSummaryLow.loadInto( _worksheetsDOM, data );
+
+  // Prepare red flags summary.
+  data = _model.getWorksheet('flags');
+  var flagsSummaryHigh = _worksheetFactory.createWorksheetFlagsSummaryHigh();
+  flagsSummaryHigh.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('flags');
+  var flagsSummaryMedium = _worksheetFactory.createWorksheetFlagsSummaryMedium();
+  flagsSummaryMedium.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('flags');
+  var flagsSummaryLow = _worksheetFactory.createWorksheetFlagsSummaryLow();
+  flagsSummaryLow.loadInto( _worksheetsDOM, data );
+
+  // Prepare risks summary.
+  data = _model.getWorksheet('risks');
+  var risksSummaryHigh = _worksheetFactory.createWorksheetRisksSummaryHigh();
+  risksSummaryHigh.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('risks');
+  var risksSummaryMedium = _worksheetFactory.createWorksheetRisksSummaryMedium();
+  risksSummaryMedium.loadInto( _worksheetsDOM, data );
+
+  data = _model.getWorksheet('risks');
+  var risksSummaryLow = _worksheetFactory.createWorksheetRisksSummaryLow();
+  risksSummaryLow.loadInto( _worksheetsDOM, data );
+
+
   _currentContext = [
     {
       'type': 'goals',
-      'data': goalsSummary
-    }
-  ];
-
-  data = _model.getWorksheet('flags');
-  var flagsSummary = _worksheetFactory.createWorksheetFlagsSummary();
-  flagsSummary.loadInto( _worksheetsDOM, data );
-  _currentContext = [
+      'data': goalsSummaryHigh
+    },
+    {
+      'type': 'goals',
+      'data': goalsSummaryMedium
+    },
+    {
+      'type': 'goals',
+      'data': goalsSummaryLow
+    },
     {
       'type': 'flags',
-      'data': flagsSummary
-    }
-  ];
-
-  data = _model.getWorksheet('risks');
-  var risksSummary = _worksheetFactory.createWorksheetRisksSummary();
-  risksSummary.loadInto( _worksheetsDOM, data );
-  _currentContext = [
+      'data': flagsSummaryHigh
+    },
+    {
+      'type': 'flags',
+      'data': flagsSummaryMedium
+    },
+    {
+      'type': 'flags',
+      'data': flagsSummaryLow
+    },
     {
       'type': 'risks',
-      'data': risksSummary
+      'data': risksSummaryHigh
+    },
+    {
+      'type': 'risks',
+      'data': risksSummaryMedium
+    },
+        {
+      'type': 'risks',
+      'data': risksSummaryLow
     }
   ];
 }
