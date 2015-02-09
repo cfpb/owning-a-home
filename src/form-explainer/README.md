@@ -4,7 +4,7 @@ Form Explainer is a Jinja macro that you can use with Sheer.
 
 ## Setting up a new Form Explainer
 
-### Step 1: Build the overlay shapes and start some content Illustrator
+### Step 1: Building the overlay shapes and starting some content in Illustrator
 
 Start by creating a spearate Illustrator file for each form page.
 In each file create your ractangular overlays.
