@@ -1,14 +1,20 @@
+// Import modules.
+var _eventObserver = require( '../util/event-observer' );
+
 function create(options) {
   return new ButtonGradingGroup(options);
 }
 
 // ButtonGradingGroup UI element constructor.
 function ButtonGradingGroup(options) {
+  // TODO see if bind() can be used in place of _self = this.
+  // Note bind()'s lack of IE8 support.
+  var _self = this;
 
-  var grades = require('./input-graded-grades');
+  var _grades = require('./input-graded-grades');
 
   // The grade of this input.
-  var grade = grades.UNSET;
+  var grade = _grades.UNSET;
   var lastNode;
 
   var btnsGradeDOM = options.container.querySelectorAll(options.selector);
@@ -29,7 +35,7 @@ function ButtonGradingGroup(options) {
       if (node === lastNode) {
         unsetGrades(node);
       } else {
-        grade = grades.findGrade(btnIndex);
+        grade = _grades.findGrade(btnIndex);
         if (!lastNode) {
           node.classList.add('active');
           options.container.classList.add('active');
@@ -39,7 +45,8 @@ function ButtonGradingGroup(options) {
         }
         lastNode = node;
       }
-    }
+      _self.dispatchEvent( 'change', {target: _self} );
+    };
   }
 
   function unsetGrades(node) {
@@ -47,7 +54,7 @@ function ButtonGradingGroup(options) {
       node.classList.remove('active');
     }
     options.container.classList.remove('active');
-    grade = grades.UNSET;
+    grade = _grades.UNSET;
     lastNode = undefined;
   }
 
@@ -56,8 +63,8 @@ function ButtonGradingGroup(options) {
   }
 
   function setGrade(toGrade) {
-    var newGrade = grades.findGrade(toGrade);
-    if (newGrade === grades.UNSET) {
+    var newGrade = _grades.findGrade(toGrade);
+    if (newGrade === _grades.UNSET) {
       unsetGrades(lastNode);
     } else {
       gradeSelected( btnsGradeDOM[newGrade], newGrade )();
@@ -67,6 +74,9 @@ function ButtonGradingGroup(options) {
   // Expose public methods
   this.getGrade = getGrade;
   this.setGrade = setGrade;
+
+  // Attach additional methods.
+  _eventObserver.attach(this);
 }
 
 // Expose public methods.

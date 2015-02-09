@@ -2,13 +2,17 @@
   <div class="u-mt20 u-mb20">
     <section class="input-with-btns">
       <div class="input-with-btns_btns">
-        <button class="btn btn__grouped-first {{#if high_grade}}active{{/if}}">High</button>
-        <button class="btn btn__grouped {{#if medium_grade}}active{{/if}}">Med</button>
-        <button class="btn btn__grouped-last {{#if low_grade}}active{{/if}}">Low</button>
-        <span class="btn-delete cf-form_input-icon cf-icon cf-icon-delete-round" role="button" title="Delete"></span>
+        <label><span class="u-visually-hidden">Priority level: choose one</span>
+          <button class="btn btn__grouped-first {{#if highGrade}}active{{/if}}">{{highGradeText}}</button>
+          <button class="btn btn__grouped {{#if mediumGrade}}active{{/if}}">{{mediumGradeText}}</button>
+          <button class="btn btn__grouped-last {{#if lowGrade}}active{{/if}}">{{lowGradeText}}</button>
+          {{#if deletable}}
+          <span class="btn-input-delete cf-form_input-icon cf-icon cf-icon-delete-round" role="button" title="Delete"></span>
+        </label>
+        {{/if}}
       </div>
       <div class="input-with-btns_input">
-        <input type="text" value="{{input_value}}" placeholder="Fill in your own goal">
+        <input type="text" value="{{inputValue}}" placeholder="{{placeholderValue}}">
       </div>
     </section>
   </div>
