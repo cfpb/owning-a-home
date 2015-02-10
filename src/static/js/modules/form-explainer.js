@@ -30,28 +30,38 @@ function getCurrentPage() {
  * columns to match.
  * @return {null}
  */
-function fitToWindow( id ) {
+function fitAndStickToWindow( id ) {
   var $currentPage =      $WRAPPER.find( '#explain_page-' + id ),
       $imageMap =         $currentPage.find('.image-map'),
       $imageMapImage =    $currentPage.find('.image-map_image'),
       $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
       $terms =            $currentPage.find('.terms');
-  // In order to make the image map sticky we must first make sure it will fit
-  // completely within the window.
-  if ( $imageMapImage.height() > ($WINDOW.innerHeight() - 60) ) {
-    // Since the image map is too tall we need to proportionally shrink it to
-    // match the height of the window. It's new width will be represented as
-    // imageMapWidthNewPercent.
-    var imageMapImageRatio = $imageMapImage.outerWidth() / $imageMapImage.outerHeight(),
-        imageMapWidthNewPx,
-        imageMapWidthNewPercent;
-    imageMapWidthNewPx = ($WINDOW.height() - 60) * imageMapImageRatio + 30;
-    imageMapWidthNewPercent = imageMapWidthNewPx / $currentPage.width() * 100;
-    $imageMap.css( 'width', imageMapWidthNewPercent + '%' );
-    $PAGINATION.css( 'width', imageMapWidthNewPercent + '%' );
-    // Then we need to adjust the second column to match the image map's new width.
-    $terms.css( 'width', (100 - imageMapWidthNewPercent) + '%' );
-  }
+  // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
+  $('<img/>')
+    .attr( 'src', $imageMapImage.attr('src') )
+    .load( function() {
+      // In order to make the image map sticky we must first make sure it will fit
+      // completely within the window.
+      if ( $imageMapImage.height() > ($WINDOW.innerHeight() - 60) ) {
+        // Since the image map is too tall we need to proportionally shrink it to
+        // match the height of the window. It's new width will be represented as
+        // imageMapWidthNewPercent.
+        var imageMapImageRatio = (this.width + 2) / (this.height + 2),
+            imageMapWidthNewPx,
+            imageMapWidthNewPercent;
+        imageMapWidthNewPx = ($WINDOW.height() - 60) * imageMapImageRatio + 30;
+        imageMapWidthNewPercent = imageMapWidthNewPx / $currentPage.width() * 100;
+        $imageMap.css( 'width', imageMapWidthNewPercent + '%' );
+        $PAGINATION.css( 'width', imageMapWidthNewPercent + '%' );
+        // Then we need to adjust the second column to match the image map's new width.
+        $terms.css( 'width', (100 - imageMapWidthNewPercent) + '%' );
+      }
+      // When the sticky plugin is applied to the image, it adds position fixed,
+      // and the image's width is no longer constrained to its parent.
+      // To fix this we will give it its own width that is equal to the parent.
+      $imageMapImage.css( 'width', $imageMap.width() );
+      $imageMapWrapper.sticky({ topSpacing: 30 });
+    });
 }
 
 /**
@@ -129,15 +139,10 @@ function initPage( id ) {
       $terms =            $currentPage.find('.terms');
   if ( $WINDOW.width() >= 600 ) {
     // Resize the image, terms and pagination columns
-    fitToWindow( id );
-    // When the sticky plugin is applied to the image, it adds position fixed,
-    // and the image's width is no longer constrained to its parent.
-    // To fix this we will give it its own width that is equal to the parent.
-    $imageMapImage.css( 'width', $imageMap.width() );
-    if ( $WINDOW.width() >= 600 ) {
-      $imageMapWrapper.sticky({ topSpacing: 30 });
-    }
+    fitAndStickToWindow( id );
   }
+  // Some form pages don't have content for every category so we need to create
+  // placeholders for those categories informing the user.
   setCategoryPlaceholders( id );
 }
 
@@ -190,6 +195,7 @@ $(document).ready(function(){
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
   $WRAPPER.find('.explain_page').each(function( index ) {
+    var src = $( this ).find('.image-map_image').attr('src');
     initPage( index + 1 );
     if ( index > 0 ) {
       $( this ).hide();
