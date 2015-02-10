@@ -141,6 +141,8 @@ function initPage( id ) {
     // Resize the image, terms and pagination columns
     fitAndStickToWindow( id );
   }
+  // Some form pages don't have content for every category so we need to create
+  // placeholders for those categories informing the user.
   setCategoryPlaceholders( id );
 }
 
