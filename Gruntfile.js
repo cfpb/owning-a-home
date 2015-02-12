@@ -105,14 +105,14 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
+        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
+              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
             }]
           ]
         }
@@ -193,7 +193,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './dist/static/js',
-          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'home.js', 'loan-options-subpage.js'],
+          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'prepare-worksheets.js', 'home.js', 'loan-options-subpage.js'],
           dest: './dist/static/js'
         }]
       },
@@ -248,7 +248,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src',
             src: [
-              // move html & template files new template folders need to be added here
+              // Move html & template files new template folders need to be added here.
               'index.html',
               'loan-options/**',
               'check-rates/**',
@@ -340,17 +340,19 @@ module.exports = function(grunt) {
         '!src/static/js/main.js'
       ]
     },
-
-    // run the mocha tests
-    'mochaTest': {
-      test: {
+    mocha_istanbul: {
+      coverage: {
+        src: ['test/js/*.js'], // multiple folders also works
         options: {
-          reporter: 'nyan'
-        },
-        src: ['test/js/*.js']
+          coverageFolder: 'test/coverage',
+          coverage: true,
+          check: {
+            lines: 75,
+            statements: 75
+          }
+        }
       }
     },
-
     /**
      * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
      *
@@ -418,6 +420,15 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.event.on('coverage', function( lcov, done ) {
+    require('coveralls').handleInput( lcov, function( err ) {
+      if ( err ) {
+        return done( err );
+      }
+      done();
+    });
+  });
+
   /**
    * Load the tasks.
    */
@@ -431,7 +442,7 @@ module.exports = function(grunt) {
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
   grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
-  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
+  grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);

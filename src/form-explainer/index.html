@@ -1,45 +1,38 @@
 {% extends "base.html" %}
 {% set active_page = "form-explainer" %}
 
-{% block title %}Owning a Home: Mortgage forms explained{% endblock title %}
-
+{% block title %}Owning a Home: Loan Estimate Explainer{% endblock title %}
 {% block content %}
+<div class="form-explainer {% if subnav %}col-9{% endif %}" role="main">
+  <section class="wrap">
+    <div class="wrapper">
 
-<div class="wrap content-area">
-    <div class="form-explainer {% if subnav %}col-9{% endif %}" role="main">
-      <section>
-
+      <div class="col-8 page-intro">
         <div class="oah-title-tag">
           <a href="/owning-a-home/" class="go-back-link l-back-link">Owning a Home</a>
         </div>
 
-        <div class="page-intro">
-          <h1 class="page-title">Form explainer</h1>
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum quae aliquid quis vero saepe soluta pariatur harum alias ab odio facilis autem temporibus? Laudantium natus nulla possimus amet qui.</p>
-        </div><!-- /.page-intro -->
+        <h1 class="page-title">Loan Estimate Explainer</h1>
+        <p class="lead">When you receive a Loan Estimate, it should reflect a particular loan you discussed with a lender/broker. Check to see that everything matches your expectations. If something looks different from what you expected, talk to the lender/broker about the reason for the difference. Pay attention for red flags. If the explanation isn’t satisfactory, don’t keep working with that lender/broker.</p>
+        <a class="go-link" href="/owning-a-home/form-explainer/closing-disclosure.html">Already have a Closure Disclosure, explore it now</a>
+      </div><!-- /.page-intro -->
 
-        {# Import form-explainer macros #}
-        {% import "form-explainer.html" as form_explainer %}
-        {% import "form-explainer-data.html" as form_explainer_data %}
-        <figure class="explain" aria-controls="form-explainer">
+      <div class="col-4 illustration">
+        <img src="../static/img/ill-form-explainer.png" alt="">
+      </div><!-- /.col-4.illustration -->
 
-          <div class="image-map explain_image-map">
-            <div class="image-map_wrapper">
-              <img class="image-map_image" src="/static/img/form-explainer-loan-estimate-sample.gif" alt="">
-              {# Show the map points #}
-              {{ form_explainer.render_map_points( form_explainer_data.terms ) }}
-            </div>
-          </div><!-- /.image-map -->
+      {# Import the form explainer macros #}
+      {% import "form-explainer.html" as form_explainer %}
+      {# Import the data to use with form explainer #}
+      {% from "loan-estimate-1.html" import data as page_1 %}
+      {% from "loan-estimate-2.html" import data as page_2 %}
+      {% from "loan-estimate-3.html" import data as page_3 %}
+      {# Render form explainer with the data for this form #}
+      <div class="col-12">
+        {{ form_explainer.render([ page_1, page_2, page_3 ]) }}
+      </div>
 
-          <figcaption class="terms explain_terms">
-            {# Show the terms #}
-            {{ form_explainer.render_terms( form_explainer_data.terms ) }}
-          </figcaption><!-- /.terms -->
-
-        </figure><!-- ./explain -->
-
-      </section>
-    </div><!-- /.form-explainer -->
-</div> <!-- /.wrap -->
-
+    </div><!-- /.wrapper -->
+  </section><!-- /.wrap -->
+</div><!-- /.form-explainer -->
 {% endblock %}

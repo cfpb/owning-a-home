@@ -9,6 +9,12 @@
 // import combined CF component LESS
 @import "../../vendor/cf-concat/cf.less";
 
+// Import the brand color palette.
+@import (less) "brand-palette.less";
+
+// Override the Capital Framework theme variables with colors from the brand color palette.
+@import (less) "cf-theme-overrides.less";
+
 // import CFPB nemo theme header and footer styles
 .nemo {
   @import "module/nemo.less";
@@ -27,10 +33,11 @@
 @import "module/loan-comparison.less";
 @import "module/loan-options.less";
 @import "module/check-rates.less";
-@import "module/form-explainer.less";
+@import "module/prepare-worksheets.less";
 @import "module/hero.less";
 @import "module/nav.less";
 @import "module/forms.less";
 @import "module/tab.less";
+@import "module/form-explainer.less";
 @import "module/no-js.less";
 @import "module/helpers.less";
