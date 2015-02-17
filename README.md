@@ -151,7 +151,7 @@ Sheer needs to be running to compile the templates in `_layouts`.
 Grunt watch will recompile Less and JS everytime you save changes to those project files.
 
 1. Open a new command prompt and run:
-	```bash
+	```
 	$ grunt watch
 	```
 
