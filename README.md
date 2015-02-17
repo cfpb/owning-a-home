@@ -1,6 +1,8 @@
-# owning-a-home
+# Owning a Home
 
-[![Build Status](https://travis-ci.org/cfpb/owning-a-home.svg?branch=master)](https://travis-ci.org/cfpb/owning-a-home)
+[![Build Status](https://travis-ci.org/cfpb/owning-a-home.svg?branch=master)](https://travis-ci.org/cfpb/owning-a-home) [![Coverage Status](https://coveralls.io/repos/cfpb/owning-a-home/badge.svg)](https://coveralls.io/r/cfpb/owning-a-home)
+
+"Owning a Home" is an interactive, online toolkit designed to help consumers as they shop for a mortgage. The suite of tools gives consumers the information and confidence they need to get the best deal. It takes the consumer from the very start of the home-buying process, with a guide to loan options, terminology, and costs, through to the closing table with a closing checklist.
 
 ## This project is a work in progress
 Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on www.consumerfinance.gov/owning-a-home. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate.
@@ -8,122 +10,150 @@ Nothing presented in the issues or in this repo is a final product unless it is 
 ## We want your feedback, but will not be able to respond to everyone
 We are working under an agile framework, and plan to use this repo to publish, receive feedback, and iterate on that feedback as often as possible. Our goal is to see user trends and reactions to our work. We want as much feedback as possible to help us make informed decisions so that we can make this tool better. Unfortunately, we will not be able to respond to every piece of feedback or comment we receive, but intend to respond with our progress through the evolution of the tool.
 
-## Requirements
+## Dependencies
 
+- Unix-based OS (including Macs). Windows is not supported at this time.
+- [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
 - [Grunt](http://gruntjs.com/)
 - [Bower](http://bower.io/)
+- [Browserify](http://browserify.org/)
+- [Capital Framework](http://cfpb.github.io/capital-framework/)
+- [LESS](http://lesscss.org/)
 
-## Getting up and running with sheer
+### Virtualenv & Virtualenvwrapper Python modules
 
-[Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool."
+If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
 
-To get started with Sheer:
+1. Run:
+	```bash
+	pip install virtualenv virtualenvwrapper
+	```
 
-Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
+### Sheer & Elasticsearch
 
-```
-$ brew install elasticsearch
-```
+[Sheer](https://github.com/cfpb/sheer) is "A Jekyll-inspired, elasticsearch-powered, CMS-less publishing tool." It requires [Elasticsearch](http://www.elasticsearch.org/).
 
-Check out the sheer GitHub project (you may want to first navigate to your project directory, or wherever you work on code):
-```
-$ git clone https://github.com/cfpb/sheer.git
-```
+1. Install [Elasticsearch](http://www.elasticsearch.org/) however you'd like. (We use [homebrew](http://brew.sh/).):
+	```
+	$ brew install elasticsearch
+	```
 
-Create a virtualenv for sheer, which you'll name `OAH`:
-```
-$ mkvirtualenv OAH
-```
+2. Clone the sheer GitHub project:
+	```
+	$ git clone https://github.com/cfpb/sheer.git
+	```
 
-The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
+3. Create a virtualenv for sheer, which you'll name `OAH`:
+	```
+	$ mkvirtualenv OAH
+	```
 
-Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
+	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
 
-```
-$ pip install -e ~/path/to/sheer
-```
+4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
+	```
+	$ pip install -e ~/path/to/sheer
+	```
 
-Install sheer's python requirements:
+5. Install sheer's python requirements:
+	```
+	$ pip install -r ~/path/to/sheer/requirements.txt
+	```
 
-```
-$ pip install -r ~/path/to/sheer/requirements.txt
-```
+6. You should now be able to run the sheer command:
+	```
+	$ sheer
+	usage: sheer [-h] [--debug] {inspect,index,serve} …
+	sheer: error: too few arguments
+	```
 
-You should now be able to run the sheer command:
-```
-$ sheer
+If you run into problems or have any questions about Sheer, check out [Sheer on Github](https://github.com/cfpb/sheer) and the [Sheer Issue Tracker](https://github.com/cfpb/sheer/issues).
 
-usage: sheer [-h] [--debug] {inspect,index,serve} …
-sheer: error: too few arguments
-```
+### Node, Grunt, Bower, Browserify
+
+1. Install [node.js](http://nodejs.org/) however you'd like.
+2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
+	```
+	$ npm install -g grunt-cli bower browserify
+	```
+3. Install the project's node dependencies:
+	```bash
+	$ npm install
+	```
+4. Run grunt to build the site:
+	```
+	grunt
+	```
+
 
 ## Configuration
 
 ### Rate Checker
 The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
 
-To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. To do this navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
+**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker app.**
 
-```shell
-cd config
-cp example-config.json config.json
-```
+#### Private API Users
 
-In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
 
-```json
-{
-    "rateCheckerAPI": "YOUR API URL HERE",
-    "countyAPI": "YOUR COUNTY API URL HERE"
-}
-```
+1. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
+	```shell
+	cd config
+	cp example-config.json config.json
+	```
 
-## Working with the front end
+2. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+	```json
+	{
+	    "rateCheckerAPI": "YOUR API URL HERE",
+	    "countyAPI": "YOUR COUNTY API URL HERE"
+	}
+	```
 
-The owning-a-home front-end currently uses the following:
 
-- [LESS](http://lesscss.org/)
-- [Capital Framework](http://cfpb.github.io/capital-framework/)
-- [Grunt](http://gruntjs.com/)
-- node/CommonJS style modules (compiled with [Browserify](http://browserify.org/))
-- [Bower](http://bower.io/) & [npm](https://www.npmjs.org/) for package management
+## Workflow
 
-### Installing dependencies (one time)
+The following commands need to be run as part of your daily workflow developing this application.
 
-1. Install [node.js](http://nodejs.org/) however you'd like.
-2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 
-```
-$ npm install -g grunt-cli bower browserify
-```
-
-## Developing
-
-Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
+### Fetch changes workflow
+1. Each time you fetch from upstream, install dependencies with npm and run `grunt` to build everything:
 
 ```bash
 $ npm install
 $ grunt
 ```
 
-To work on the app you will need sheer running to compile the templates in `_layouts`. There is also a `grunt watch` command that will recompile Less and JS on the fly while you're developing.
+### Sheer workflow
+Sheer needs to be running to compile the templates in `_layouts`. 
 
-```bash
-# use the sheer virtualenv
-$ workon OAH
+1. Use the sheer virtualenv:
+	```bash
+	$ workon OAH
+	```
 
-# navigate to the built app directory that grunt created
-$ cd dist
+2. Navigate to the built app directory that grunt created
+	```bash
+	$ cd dist
+	```
 
-# start sheer
-$ sheer serve
+3. Start Sheer:
+	```bash
+	$ sheer serve
+	```
+	**Note:** The first time you start sheer, you may get a firewall alert and login prompt. Hit cancel at either of these.
 
-# open a new command prompt and run:
-$ grunt watch
-```
+### Grunt workflow
+Grunt watch will recompile Less and JS everytime you save changes to those project files.
+
+1. Open a new command prompt and run:
+	```
+	$ grunt watch
+	```
 
 To view the site browse to: <http://localhost:7000>
 

@@ -1,0 +1,19 @@
+<section class="input-graded block__border-bottom u-mb20">
+  <div class="u-mt20 u-mb20">
+    <section class="input-with-btns">
+      <div class="input-with-btns_btns">
+        <label><span class="u-visually-hidden">Priority level: choose one</span>
+          <button class="btn btn__grouped-first {{#if highGrade}}active{{/if}}">{{highGradeText}}</button>
+          <button class="btn btn__grouped {{#if mediumGrade}}active{{/if}}">{{mediumGradeText}}</button>
+          <button class="btn btn__grouped-last {{#if lowGrade}}active{{/if}}">{{lowGradeText}}</button>
+          {{#if deletable}}
+          <span class="btn-input-delete cf-form_input-icon cf-icon cf-icon-delete-round" role="button" title="Delete"></span>
+        </label>
+        {{/if}}
+      </div>
+      <div class="input-with-btns_input">
+        <input type="text" value="{{inputValue}}" placeholder="{{placeholderValue}}">
+      </div>
+    </section>
+  </div>
+</section>

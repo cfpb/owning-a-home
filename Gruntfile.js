@@ -128,40 +128,23 @@ module.exports = function(grunt) {
             }
         },
 
-        /**
-         * Banner: https://github.com/mattstyles/grunt-banner
-         *
-         * Here's a banner with some template variables.
-         * We'll be inserting it at the top of minified assets.
-         */
-        banner: '/*\n' +
-            '            /$$$$$$          /$$        \n' +
-            '           /$$__  $$        | $$        \n' +
-            '  /$$$$$$$| $$  \\__//$$$$$$ | $$$$$$$  \n' +
-            ' /$$_____/| $$$$   /$$__  $$| $$__  $$  \n' +
-            '| $$      | $$_/  | $$  \\ $$| $$  \\ $$\n' +
-            '| $$      | $$    | $$  | $$| $$  | $$  \n' +
-            '|  $$$$$$$| $$    | $$$$$$$/| $$$$$$$/  \n' +
-            ' \\_______/|__/    | $$____/ |_______/  \n' +
-            '                  | $$                  \n' +
-            '                  | $$                  \n' +
-            '                  |__/                  \n' +
-            '\n' +
-            '* <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-            '* A public domain work of the <%= pkg.author.name %> */\n',
-
-        usebanner: {
-            taskName: {
-                options: {
-                    position: 'top',
-                    banner: '<%= banner %>',
-                    linebreak: true
-                },
-                files: {
-                    src: ['./dist/static/css/*.min.css', './dist/static/js/*.min.js']
-                }
-            }
+    browserify: {
+      build: {
+        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
+        dest: 'dist/static/js/main.js',
+        options: {
+          transform: ['browserify-shim', 'hbsfy'],
+          plugin: [
+            ['factor-bundle', {
+              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
+              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+            }]
+          ]
+        }
+      },
+      tests: {
+        files: {
+          './test/compiled_tests.js': ['./test/js/*.js'],
         },
 
         /**
@@ -218,63 +201,36 @@ module.exports = function(grunt) {
             dist: ['dist/**/*', '!dist/.git/']
         },
 
-        /**
-         * Copy: https://github.com/gruntjs/grunt-contrib-copy
-         *
-         * Copy files and folders.
-         */
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    src: [
-                        // move html & template files new template folders need to be added here
-                        '**/*.html',
-                        '_layouts/*',
-                        'resources/*'
-                    ],
-                    dest: 'dist/'
-                }]
-            },
-            release: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    src: [
-                        // move html & template files new template folders need to be added here
-                        'index.html',
-                        'loan-options/**',
-                        'check-rates/**',
-                        '_layouts/*',
-                        'resources/*'
-                    ],
-                    dest: 'dist/'
-                }]
-            },
-            img: {
-                files: [{
-                    expand: true,
-                    flatten: true,
-                    src: [
-                        // move images to static directory
-                        'src/static/img/**/*'
-                    ],
-                    dest: 'dist/static/img/'
-                }]
-            },
-            fonts: {
-                files: [{
-                    expand: true,
-                    flatten: true,
-                    src: [
-                        // move images to static directory
-                        'src/static/fonts/**/*'
-                    ],
-                    dest: 'dist/static/fonts/'
-                }]
-            }
-        },
+    /**
+     * Uglify: https://github.com/gruntjs/grunt-contrib-uglify
+     *
+     * Minify files with UglifyJS.
+     */
+    uglify: {
+      main: {
+        files: {
+          './dist/static/js/main.js': ['./dist/static/js/main.js']
+        }
+      },
+      pages: {
+        files: [{
+          expand: true,
+          cwd: './dist/static/js',
+          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'prepare-worksheets.js', 'home.js', 'loan-options-subpage.js'],
+          dest: './dist/static/js'
+        }]
+      },
+      ie9: {
+        files: {
+          './dist/static/js/ie9.min.js': ['./dist/static/js/ie9.js']
+        }
+      },
+      ie8: {
+        files: {
+          './dist/static/js/lte-ie8.min.js': ['./dist/static/js/lte-ie8.js']
+        }
+      }
+    },
 
         /**
          * JSHint: https://github.com/gruntjs/grunt-contrib-jshint
@@ -328,47 +284,154 @@ module.exports = function(grunt) {
             ]
         },
 
-        // run the mocha tests
-        'mochaTest': {
-            test: {
-                options: {
-                    reporter: 'nyan',
-                    require: 'coverage/blanket'
-                },
-                src: ['test/js/*.js']
-            },
-            coverage: {
-                options: {
-                    reporter: 'html-cov',
-                    // use the quiet flag to suppress the mocha console output
-                    quiet: true,
-                    // specify a destination file to capture the mocha
-                    // output (the quiet option does not suppress this)
-                    captureFile: 'coverage.html'
-                },
-                src: ['test/**/*.js']
-            }
+    /**
+     * Copy: https://github.com/gruntjs/grunt-contrib-copy
+     *
+     * Copy files and folders.
+     */
+    copy: {
+      dist: {
+        files:
+        [
+          {
+            expand: true,
+            cwd: 'src',
+            src: [
+              // move html & template files new template folders need to be added here
+              '**/*.html',
+              '_layouts/*',
+              'resources/*'
+            ],
+            dest: 'dist/'
+          }
+        ]
+      },
+      release: {
+        files:
+        [
+          {
+            expand: true,
+            cwd: 'src',
+            src: [
+              // Move html & template files new template folders need to be added here.
+              'index.html',
+              'loan-options/**',
+              'check-rates/**',
+              '_layouts/*',
+              'resources/*'
+            ],
+            dest: 'dist/'
+          }
+        ]
+      },
+      img: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              // move images to static directory
+              'src/static/img/**/*'
+            ],
+            dest: 'dist/static/img/'
+          }
+        ]
+      },
+      fonts: {
+        files:
+        [
+          {
+            expand: true,
+            flatten: true,
+            src: [
+              // move images to static directory
+              'src/static/fonts/**/*'
+            ],
+            dest: 'dist/static/fonts/'
+          }
+        ]
+      }
+    },
 
-        },
-
-        /**
-         * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
-         *
-         * Some internal CFPB tasks.
-         */
-        'build-cfpb': {
-            prod: {
-                options: {
-                    commit: false,
-                    tag: false,
-                    push: false
-                }
-            }
-        },
-
-        usemin: {
-            html: ['dist/_layouts/base.html']
-        },
+    /**
+     * JSHint: https://github.com/gruntjs/grunt-contrib-jshint
+     *
+     * Validate files with JSHint.
+     * Below are options that conform to idiomatic.js standards.
+     * Feel free to add/remove your favorites: http://www.jshint.com/docs/#options
+     */
+    jshint: {
+      options: {
+        asi: false,
+        bitwise: true,
+        boss: true,
+        camelcase: true,
+        eqeqeq: true,
+        eqnull: true,
+        evil: true,
+        expr: true,
+        forin: true,
+        immed: true,
+        indent: 2,
+        latedef: false,
+        maxdepth: 4,
+        maxparams: 4,
+        maxstatements: 300,
+        newcap: true,
+        noarg: true,
+        noempty: true,
+        nonew: true,
+        quotmark: true,
+        strict: false,
+        trailing: true,
+        undef: true,
+        node: true,
+        browser: true,
+        jquery: true,
+        globals: {
+          jQuery: true,
+          $: true,
+          module: true,
+          require: true,
+          define: true,
+          console: true,
+          EventEmitter: true
+        }
+      },
+      files: [
+        'src/static/js/**/*',
+        '!node_modules/**/*',
+        '!src/static/js/main.js'
+      ]
+    },
+    mocha_istanbul: {
+      coverage: {
+        src: ['test/js/*.js'], // multiple folders also works
+        options: {
+          coverageFolder: 'test/coverage',
+          coverage: true,
+          check: {
+            lines: 75,
+            statements: 75
+          }
+        }
+      }
+    },
+    /**
+     * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
+     *
+     * Some internal CFPB tasks.
+     */
+    'build-cfpb': {
+      prod: {
+        options: {
+          commit: false,
+          tag: false,
+          push: false
+        }
+      }
+    },
 
         newer: {
             options: {
@@ -428,12 +491,31 @@ module.exports = function(grunt) {
     grunt.registerTask('js', ['newer:browserify:build']);
     grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
-    grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-    grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
-    grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
-    grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
-    grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
-    grunt.registerTask('deploy', ['release', 'ship']);
-    grunt.registerTask('default', ['build', 'ship']);
+  grunt.event.on('coverage', function( lcov, done ) {
+    require('coveralls').handleInput( lcov, function( err ) {
+      if ( err ) {
+        return done( err );
+      }
+      done();
+    });
+  });
+
+  /**
+   * Load the tasks.
+   */
+  grunt.loadNpmTasks('grunt-usemin');
+  require('load-grunt-tasks')(grunt);
+
+  grunt.registerTask('reset', ['clean:dist', 'copy:dist']);
+  grunt.registerTask('js', ['newer:browserify:build']);
+  grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
+
+  grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
+  grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
+  grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('deploy', ['release', 'ship']);
+  grunt.registerTask('default', ['build', 'ship']);
 
 };
