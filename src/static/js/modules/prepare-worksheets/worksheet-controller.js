@@ -2,7 +2,7 @@
 var _model = require( './worksheet-model' );
 var _domHelper = require( './util/dom-helper' );
 var _dataDocument = require( './util/data-document' );
-var _config = require('./config');
+var _config = require('./worksheet-config');
 
 // @param options [Object] Options such as the worksheet type, settings, etc.
 // @return [Object] A new Worksheet instance.

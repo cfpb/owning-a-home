@@ -1,4 +1,4 @@
-var _config = require( './config' );
+var _config = require( './worksheet-config' );
 var _uuid = require( './util/uuid' );
 var $ = require('jquery');
 
