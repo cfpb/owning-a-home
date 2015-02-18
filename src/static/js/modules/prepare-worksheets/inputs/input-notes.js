@@ -1,7 +1,6 @@
 // Import modules.
 var _eventObserver = require( '../util/event-observer' );
 var _domHelper = require( '../util/dom-helper' );
-var _uuid = require( '../util/uuid' );
 
 function create( options ) {
   return new InputNotes(options);
@@ -12,14 +11,12 @@ function InputNotes( options ) {
   // TODO see if bind() can be used in place of _self = this.
   // Note bind()'s lack of IE8 support.
   var _self = this;
+  this.row = options.row;
 
   // Load our handlebar templates.
   var _template = require( '../../../templates/prepare-worksheets/input-notes.hbs' );
-  var _templateSettings = {
-    inputValue: options.inputValue,
-    altTextValue: options.altText
-  };
-  var snippet = _template( _templateSettings );
+  
+  var snippet = _template( this.row );
 
   // This appendChild could be replaced by jquery or similar if desired/needed.
   var node = _domHelper.appendChild( options.container, snippet );
@@ -32,7 +29,7 @@ function InputNotes( options ) {
   _altTextInputDOM.addEventListener( 'keyup', _changedHandler );
 
   function _changedHandler() {
-    _self.dispatchEvent( 'change', {target: _self, state: getState()} );
+    _self.dispatchEvent( 'change', {row: _self.row, data: getState()} );
   }
 
 
@@ -58,7 +55,6 @@ function InputNotes( options ) {
 
   // Attach additional methods.
   _eventObserver.attach(this);
-  _uuid.attach(this);
 }
 
 // Expose public methods.

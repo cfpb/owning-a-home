@@ -440,7 +440,7 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
