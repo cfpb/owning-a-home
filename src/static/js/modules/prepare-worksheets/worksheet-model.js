@@ -1,6 +1,5 @@
 var _config = require( './config' );
 var _uuid = require( './util/uuid' );
-
 var $ = require('jquery');
 
 var _dataStore = {worksheets: {}};
