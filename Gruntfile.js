@@ -105,14 +105,14 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
+        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js'],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
+              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
             }]
           ]
         }
@@ -120,44 +120,6 @@ module.exports = function(grunt) {
       tests: {
         files: {
           './test/compiled_tests.js': ['./test/js/*.js'],
-        },
-        options: {
-          watch: true,
-          debug: true
-        }
-      }
-    },
-
-    /**
-     * Banner: https://github.com/mattstyles/grunt-banner
-     *
-     * Here's a banner with some template variables.
-     * We'll be inserting it at the top of minified assets.
-     */
-    banner:
-      '/*\n' +
-      '            /$$$$$$          /$$        \n' +
-      '           /$$__  $$        | $$        \n' +
-      '  /$$$$$$$| $$  \\__//$$$$$$ | $$$$$$$  \n' +
-      ' /$$_____/| $$$$   /$$__  $$| $$__  $$  \n' +
-      '| $$      | $$_/  | $$  \\ $$| $$  \\ $$\n' +
-      '| $$      | $$    | $$  | $$| $$  | $$  \n' +
-      '|  $$$$$$$| $$    | $$$$$$$/| $$$$$$$/  \n' +
-      ' \\_______/|__/    | $$____/ |_______/  \n' +
-      '                  | $$                  \n' +
-      '                  | $$                  \n' +
-      '                  |__/                  \n' +
-      '\n' +
-      '* <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-      '* A public domain work of the <%= pkg.author.name %> */\n',
-
-    usebanner: {
-      taskName: {
-        options: {
-          position: 'top',
-          banner: '<%= banner %>',
-          linebreak: true
         },
         files: {
           src: [ './dist/static/css/*.min.css', './dist/static/js/*.min.js' ]
@@ -439,10 +401,20 @@ module.exports = function(grunt) {
   grunt.registerTask('js', ['newer:browserify:build']);
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
+  /**
+   * Load the tasks.
+   */
+  grunt.loadNpmTasks('grunt-usemin');
+  require('load-grunt-tasks')(grunt);
+
+  grunt.registerTask('reset', ['clean:dist', 'copy:dist']);
+  grunt.registerTask('js', ['newer:browserify:build']);
+  grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
+
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
-  grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
+  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);

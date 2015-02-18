@@ -66,9 +66,8 @@
   "keywords": [],
   "dependencies": {
     "amortize": "0.2.2",
-    "blanket": "^1.1.6",
-    "date-format": "0.0.2",
     "debounce": "0.0.3",
+    "date-format": "0.0.2",
     "foreach": "2.0.4",
     "format-usd": "^0.2.0",
     "fuzzy-state-search": "0.1.0",
