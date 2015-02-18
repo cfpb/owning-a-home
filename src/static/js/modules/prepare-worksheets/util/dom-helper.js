@@ -2,8 +2,8 @@
 // @param node [HTMLNode] The container to append a child to.
 // @param str [String] HTML as a raw string.
 // @return [HTMLNode] The child that was appended.
-this.appendChild = function ( node, str ) {
-  var temp = document.createElement('div');
+this.appendChild = function ( node, str, elementType ) {
+  var temp = document.createElement(elementType || 'div');
   temp.innerHTML = str;
   if ( temp.children.length > 1 ) {
     throw new Error('Supplied HTML must have one top-level element!');
