@@ -1,97 +1,10 @@
-/*
-  Example default structure as JSON:
+var _config = require( './config' );
+var _uuid = require( './util/uuid' );
 
-  {
-    "worksheets" :
-    {
-      "goals" :
-      [
-        {
-          "text" : "I want more space (e.g., for a growing family)",
-          "grade" : null,
-          "altText" : "Could you move to a larger rental unit instead?",
-          "explanation" : ""
-        },
-        {
-          "text" : "I want certain features (e.g., a yard)",
-          "grade" : null,
-          "altText" : "Could you find these features in a rental unit in your community?  (Renting doesn’t always have to mean living in an apartment.  In many areas you can find single-family homes for rent).",
-          "explanation" : ""
-        },
-        {
-          "text" : "I want to live in a particular area (e.g., a certain school district)",
-          "grade" : null,
-          "altText" : "Are there rental units available in your desired location?",
-          "explanation" : ""
-        },
-        {
-          "text" : "I want the freedom to decorate or renovate",
-          "grade" : null,
-          "altText" : "Are there things you could do to make your rental feel more like your own?",
-          "explanation" : ""
-        },
-        {
-          "text" : "",
-          "grade" : null,
-          "altText" : "",
-          "explanation" : ""
-        },
-        {
-          "text" : "",
-          "grade" : null,
-          "altText" : "",
-          "explanation" : ""
-        }
-      ]
-    ,
-      "flags" :
-      [
-        {
-          "text" : "There is chance I might move within the next few years",
-          "grade" : null,
-          "altText" : "Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.",
-          "explanation" : ""
-        },
-        {
-          "text" : "My current employment is short-term or unstable",
-          "grade" : null,
-          "altText" : "Owning a home is a long-term financial commitment.  If you’re not confident that you’ll be able to continue earning at a similar level for the foreseeable future, it might make more sense to keep renting.",
-          "explanation" : ""
-        },
-        {
-          "text" : "I find fixing things and doing yardwork to be a real hassle",
-          "grade" : null,
-          "altText" : "In a lot of ways, it’s simpler and more financially predictable to rent.",
-          "explanation" : ""
-        }
-      ]
-    ,
-      "risks" :
-      [
-        {
-          "text" : "My home value could decline and my could lose your equity",
-          "grade" : null,
-          "altText" : "You could even find yourself owing more than your home is worth.  In 2008-2012, house prices declined dramatically nationwide, with up to X% declines in some areas.",
-          "explanation" : ""
-        },
-        {
-          "text" : "Major repairs can be urgent, expensive, and unexpected",
-          "grade" : null,
-          "altText" : "When the furnace springs a leak or a tree falls on the roof, these aren’t repairs that you can wait to make.  New homeowners consistently say that they were surprised how much maintenance costs.",
-          "explanation" : ""
-        },
-        {
-          "text" : "Minor repairs add up quickly, in terms of time and money",
-          "grade" : null,
-          "altText" : "Think of all the little things that you are used to calling your landlord to deal with: a cracked window, a broken dishwasher, or a clogged toilet.  As a homeowner, you will either have to fix these yourself or call and pay for a professional.",
-          "explanation" : ""
-        }
-      ]
-    }
-  }
-*/
+var $ = require('jquery');
 
 var _dataStore = {worksheets: {}};
+
 
 // CRUD operations for the worksheet as a whole.
 this.setWorksheet = function (type, value) {
@@ -106,14 +19,55 @@ this.deleteWorksheet = function (type) {
   delete _dataStore.worksheets[type];
 };
 
+this.resetWorksheet = function (type) {
+  var worksheet = this.getDefaultWorksheet(type);
+  this.setDefaultWorksheet(type, worksheet);
+  return worksheet;
+}
+
 this.getDefaultWorksheet = function (type) {
-  var defaults = this.getDefaultData();
-  return defaults.worksheets[type];
+  return _config.worksheetDefaults[type]();
+};
+
+this.setDefaultWorksheet = function (type, worksheet) {
+  // Add ids to rows.
+  worksheet || (worksheet = []);
+  for ( var i = 0; i < worksheet.length; i++ ) {
+    row = worksheet[i];
+    row.uid = _uuid.generateIdentifier();
+  }
+  // Add blank input row.
+  worksheet.push(_getDefaultRow());
+  // Set this worksheet on dataStore.
+  this.setWorksheet(type, worksheet);
+  
+  return worksheet;
+}
+
+this.getDefaultData = function () {
+  return _config.getAllWorksheetDefaults();
+}
+
+this.setDefaultData = function () {
+  var worksheet; 
+  var data = this.getDefaultData();
+    
+  for (worksheet in data) {  
+      if (data.hasOwnProperty(worksheet)) {
+          this.setDefaultWorksheet(worksheet, data[worksheet]);
+      }
+  }
+  
 };
 
 // CRUD operations for the worksheet rows.
-this.deleteWorksheetRow = function ( type, row ) {
-  _dataStore.worksheets[type].splice( row, 1 );
+this.deleteWorksheetRow = function ( type, rowID ) {
+  // TODO -- check that this row is deletable
+  var worksheet = _dataStore.worksheets[type];
+  var idx = findRowById(worksheet, rowID);
+  if (!isNaN(parseInt(idx)) ) {
+    worksheet.splice( idx, 1 );
+  }
 };
 
 this.getWorksheetRow = function ( type, row ) {
@@ -124,10 +78,14 @@ this.getWorksheetRow = function ( type, row ) {
   return row;
 };
 
-this.addWorksheetRow = function ( type, count ) {
-  for ( var i = 0; i < count; i++ ) {
-    _dataStore.worksheets[type].push( _getDefaultRow() );
-  }
+this.addWorksheetRow = function ( type, opts ) {
+  var row = _getDefaultRow();
+  if (opts) {
+    $.extend(row, opts)
+  }  
+  row.uid = _uuid.generateIdentifier();
+  _dataStore.worksheets[type].push( row );
+  return row;
 };
 
 this.setWorksheetRow = function ( type, row, data ) {
@@ -140,12 +98,7 @@ this.setWorksheetRow = function ( type, row, data ) {
 
 // CRUD operations for the worksheet properties.
 this.setWorksheetProperty = function ( type, row, key, value ) {
-  var worksheet = this.getWorksheet( type );
-  if ( !worksheet[row] ) {
-    worksheet[row] = {};
-  }
-  worksheet[row][key] = value;
-  this.setWorksheet(type, worksheet);
+  row[key] = value;
 };
 
 this.getWorksheetProperty = function ( type, row, key ) {
@@ -169,40 +122,76 @@ this.getData = function () {
   return _dataStore;
 };
 
-this.getDefaultData = function () {
-  return { "worksheets" : { "goals" : [ { "text" : "I want more space (e.g., for a growing family)", "grade" : null, "altText" : "Could you move to a larger rental unit instead?", "explanation" : "" }, { "text" : "I want certain features (e.g., a yard)", "grade" : null, "altText" : "Could you find these features in a rental unit in your community? (Renting doesn’t always have to mean living in an apartment. In many areas you can find single-family homes for rent).", "explanation" : "" }, { "text" : "I want to live in a particular area (e.g., a certain school district)", "grade" : null, "altText" : "Are there rental units available in your desired location?", "explanation" : "" }, { "text" : "I want the freedom to decorate or renovate", "grade" : null, "altText" : "Are there things you could do to make your rental feel more like your own?", "explanation" : "" }, { "text" : "", "grade" : null, "altText" : "", "explanation" : "" }, { "text" : "", "grade" : null, "altText" : "", "explanation" : "" } ] , "flags" : [ { "text" : "There is chance I might move within the next few years", "grade" : null, "altText" : "Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.", "explanation" : "" }, { "text" : "My current employment is short-term or unstable", "grade" : null, "altText" : "Owning a home is a long-term financial commitment. If you’re not confident that you’ll be able to continue earning at a similar level for the foreseeable future, it might make more sense to keep renting.", "explanation" : "" }, { "text" : "I find fixing things and doing yardwork to be a real hassle", "grade" : null, "altText" : "In a lot of ways, it’s simpler and more financially predictable to rent.", "explanation" : "" } ] , "risks" : [ { "text" : "My home value could decline and my could lose your equity", "grade" : null, "altText" : "You could even find yourself owing more than your home is worth. In 2008-2012, house prices declined dramatically nationwide, with up to X% declines in some areas.", "explanation" : "" }, { "text" : "Major repairs can be urgent, expensive, and unexpected", "grade" : null, "altText" : "When the furnace springs a leak or a tree falls on the roof, these aren’t repairs that you can wait to make. New homeowners consistently say that they were surprised how much maintenance costs.", "explanation" : "" }, { "text" : "Minor repairs add up quickly, in terms of time and money", "grade" : null, "altText" : "Think of all the little things that you are used to calling your landlord to deal with: a cracked window, a broken dishwasher, or a clogged toilet. As a homeowner, you will either have to fix these yourself or call and pay for a professional.", "explanation" : "" } ] } };
-};
+function findRowById (worksheetRows, rowID) {
+  var idx;
+  for ( var i = 0; i < worksheetRows.length; i++ ) {
+      if (worksheetRows[i].uid == rowID) {
+          idx = i;
+      }
+  }
+  return idx;
+}
+
+// Data manipulation.
+
+this.combineGoals = function () {
+  return this.getWorksheet('personal');
+  // TODO: when financial goals are added:
+  // return this.getWorksheet('personal').concat(this.getWorksheet('financial'));
+}
+
+this.filterEmptyRows = function (worksheet, opts) {
+    // Filters out worksheet rows without text values
+    // opts.requireGrade = true will also filter out items without grades
+    // opts.skipLast = true will allow blank values for last item
+    // TODO: add delete option?
+    var filteredWorksheet = [];
+    var len = worksheet.length - 1;
+    var i = 0;
+    var item;
+    opts || (opts = {});
+    
+    function isEmpty(item, lastItem) {
+      if (lastItem && opts.skipLast) {return false; }
+      if (!item.text) {return true; }
+      if (opts.requireGrade && (!item.grade && item.grade !== 0)) {return true; }
+    }
+    
+    for (i; i <= len; i++) {
+        item = worksheet[i];
+        if (!isEmpty(item, i === len)) {
+            filteredWorksheet.push(item);
+        }
+    }
+    
+    return filteredWorksheet;
+}
+
+this.sortWorksheetByGrade = function (worksheet, type) {
+  var sorted = [];
+  var labels = _config.gradeSummaryLabels[type];
+  var lenLabels = labels.length;
+  var lenWorksheet = worksheet.length;
+  var i = 0;
+  var l = 0;
+  
+  // Add an item to the 'sorted' array for each of the grade labels.
+  for (l; l < lenLabels; l++) {
+    sorted[l] = {title: labels[l], items: [], type: type};
+  }
+  
+  // Add each graded worksheet row to the appropriate grade bucket.
+  for (i; i < lenWorksheet; i++) {
+      var item = worksheet[i];
+      var grade = item.grade;
+      // if there's an object for this grade, add this item to its items array
+      ((sorted[grade] || {}).items ||[]).push(item);
+  }
+    
+  return sorted;
+}
 
 // Private methods.
 function _getDefaultRow () {
-  return {
-    text: '',
-    grade: null,
-    altText: '',
-    explanation: ''
-  };
-}
-
-// Currently unused private utility methods.
-// Could be used to verify parameter integrity.
-function _checkType ( type ) {
-  var types = this.types();
-  var found = false;
-  for ( var t = 0, len = types; t < len; t++ ) {
-    if ( type === types[t] ) {
-      found = true;
-    }
-  }
-  return found;
-}
-
-function _checkProperty ( prop ) {
-  var props = this.properties();
-  var found = false;
-  for ( var p = 0, len = props; p < len; p++ ) {
-    if ( prop === props[p] ) {
-      found = true;
-    }
-  }
-  return found;
+  return _config.getWorksheetRowDefaults();
 }

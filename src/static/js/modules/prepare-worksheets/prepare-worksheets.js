@@ -1,32 +1,32 @@
 // Import modules.
 require( '../secondary-nav' );
 var _locationServices = require( './util/location-services' );
-var _model = require( './worksheet-model' ); // The data from the worksheets in JSON.
+var _model = require( './worksheet-model' );
+var _worksheet = require( './worksheet-controller' ); 
+var config = require( './config' ); 
+var Handlebars = require("hbsfy/runtime");
+var $ = require('jquery');
 
-// Worksheet instance factory and worksheets.
-var _worksheetFactory = require('./worksheet-factory');
 
 // DOM references.
-var _worksheetsDOM = document.querySelector('.worksheets');
+var _worksheetsDOM = document.querySelector('.page-contents');
 var _btnNext = document.querySelector('.btn-worksheet-next');
 var _btnPrev = document.querySelector('.btn-worksheet-prev');
 
 // General app properties.
-var _currentContext = []; // The current worksheets that are displayed.
 var _page = 1;
 var TOTAL_PAGES = 3;
 
-function init() {
 
+function init() {
   // Load ?page=<page number> from URL or default to page 1.
   _page = Number(_locationServices.getURLParameter('page')) || 1;
 
-  // Set default data in model if goals worksheet is not populated.
-  var worksheet = _model.getWorksheet('goals');
+  // Set default data in model if goals worksheet is not populated.  
+  var worksheet = _model.getWorksheet('personal');
   if (!worksheet) {
-    _model.setData( _model.getDefaultData() );
+    _model.setDefaultData();
   }
-
   _loadPage(_page);
 }
 
@@ -86,7 +86,7 @@ function _loadPage(page) {
     _loadNotes();
     break;
   case 3 :
-    _loadSummaryPage();
+    _loadSummary();
     break;
   }
   _updateNavigationState();
@@ -98,136 +98,67 @@ document.querySelector('.official-website').addEventListener('mousedown', functi
 } );
 */
 
-function  _loadWorksheets() {
-  var data = _model.getWorksheet('goals');
-  var goals = _worksheetFactory.createWorksheetGoals();
-  goals.loadInto( _worksheetsDOM, data );
+function _loadWorksheets() {  
+  // Generate page html 
+  var pageTemplate = require( '../../templates/prepare-worksheets/page-worksheets.hbs' );
+  var pageHtml = pageTemplate();
+  _worksheetsDOM.innerHTML = pageHtml;
 
-  data = _model.getWorksheet('flags');
-  var flags = _worksheetFactory.createWorksheetFlags();
-  flags.loadInto( _worksheetsDOM, data );
+  // Add interactive sections for each of the worksheet types to the page
+  var worksheetTypes = ['personal', 'risks', 'flags'];
+  for ( i = 0; i < worksheetTypes.length; i++ ) {
+    var worksheet = _model.getWorksheet(worksheetTypes[i]);
+    var rows = _model.filterEmptyRows(worksheet, {skipLast: true});
 
-  data = _model.getWorksheet('risks');
-  var risks = _worksheetFactory.createWorksheetRisks();
-  risks.loadInto( _worksheetsDOM, data );
+    var data = config.worksheetData[worksheetTypes[i]]();
 
-  _currentContext = [
-    {
-      'type': 'goals',
-      'data': goals
-    },
-    {
-      'type': 'flags',
-      'data': flags
-    },
-    {
-      'type': 'risks',
-      'data': risks
+    var options = {
+      container: _worksheetsDOM.querySelector('.worksheet-' + worksheetTypes[i]),
+      type: worksheetTypes[i],
+      rows: rows,
+      data: data
     }
-  ];
 
-  // TEMP Example of loading state from embedded JSON.
-  //var data = JSON.parse(document.getElementById('data').innerHTML);
-  //_goals.loadInto( _worksheetsDOM, data );
-  //_currentContext = _goals;
+    $.extend(options, config.worksheetModules[worksheetTypes[i]]());
 
-  // TEMP Example of loading an example state.
-  //var str = '[{"text":"test","grade":0},{"text":"testing","grade":1},{"text":"dude","grade":2}]';
-  //_goals.loadData(str);
+    _worksheet.create(options); 
+  };    
 }
 
 function _loadNotes() {
-  var data = _model.getWorksheet('goals');
-  var notes = _worksheetFactory.createWorksheetGoalsNotes();
-  notes.loadInto( _worksheetsDOM, data );
-  _currentContext = [
-    {
-      'type': 'goals',
-      'data': notes
-    }
-  ];
+  var pageTemplate = require( '../../templates/prepare-worksheets/page-notes.hbs' );
+  var pageHtml = pageTemplate();
+
+  _worksheetsDOM.innerHTML = pageHtml;
+  var goals = _model.filterEmptyRows(_model.combineGoals());
+  var data = config.worksheetData['alternatives']();
+  
+  var options = $.extend({
+    container: _worksheetsDOM.querySelector('.worksheet-notes'),
+    type: 'notes',
+    rows: goals,
+    data: data
+  }, config.worksheetModules['alternatives']());
+
+  _worksheet.create(options);
 }
 
-function _loadSummaryPage() {
-
-  // Prepare goals summary.
-  var data = _model.getWorksheet('goals');
-  var goalsSummaryHigh = _worksheetFactory.createWorksheetGoalsSummaryHigh();
-  goalsSummaryHigh.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('goals');
-  var goalsSummaryMedium = _worksheetFactory.createWorksheetGoalsSummaryMedium();
-  goalsSummaryMedium.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('goals');
-  var goalsSummaryLow = _worksheetFactory.createWorksheetGoalsSummaryLow();
-  goalsSummaryLow.loadInto( _worksheetsDOM, data );
-
-  // Prepare red flags summary.
-  data = _model.getWorksheet('flags');
-  var flagsSummaryHigh = _worksheetFactory.createWorksheetFlagsSummaryHigh();
-  flagsSummaryHigh.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('flags');
-  var flagsSummaryMedium = _worksheetFactory.createWorksheetFlagsSummaryMedium();
-  flagsSummaryMedium.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('flags');
-  var flagsSummaryLow = _worksheetFactory.createWorksheetFlagsSummaryLow();
-  flagsSummaryLow.loadInto( _worksheetsDOM, data );
-
-  // Prepare risks summary.
-  data = _model.getWorksheet('risks');
-  var risksSummaryHigh = _worksheetFactory.createWorksheetRisksSummaryHigh();
-  risksSummaryHigh.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('risks');
-  var risksSummaryMedium = _worksheetFactory.createWorksheetRisksSummaryMedium();
-  risksSummaryMedium.loadInto( _worksheetsDOM, data );
-
-  data = _model.getWorksheet('risks');
-  var risksSummaryLow = _worksheetFactory.createWorksheetRisksSummaryLow();
-  risksSummaryLow.loadInto( _worksheetsDOM, data );
-
-
-  _currentContext = [
-    {
-      'type': 'goals',
-      'data': goalsSummaryHigh
-    },
-    {
-      'type': 'goals',
-      'data': goalsSummaryMedium
-    },
-    {
-      'type': 'goals',
-      'data': goalsSummaryLow
-    },
-    {
-      'type': 'flags',
-      'data': flagsSummaryHigh
-    },
-    {
-      'type': 'flags',
-      'data': flagsSummaryMedium
-    },
-    {
-      'type': 'flags',
-      'data': flagsSummaryLow
-    },
-    {
-      'type': 'risks',
-      'data': risksSummaryHigh
-    },
-    {
-      'type': 'risks',
-      'data': risksSummaryMedium
-    },
-        {
-      'type': 'risks',
-      'data': risksSummaryLow
-    }
-  ];
+function _loadSummary() {
+  var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
+  var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
+  Handlebars.registerPartial('summarySection', summarySection);
+  
+  var templateData = {summarySection: summarySection};
+  var filterOpts = {requireGrade: true};
+  var goals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
+  templateData.goals = _model.sortWorksheetByGrade(goals, 'goals');
+  var risks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
+  templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
+  var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
+  templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
+  
+  var pageHtml = pageTemplate(templateData);
+  _worksheetsDOM.innerHTML = pageHtml;
 }
 
 init();

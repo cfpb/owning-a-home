@@ -11,42 +11,39 @@ function ButtonGradingGroup(options) {
   // Note bind()'s lack of IE8 support.
   var _self = this;
 
-  var _grades = require('./input-graded-grades');
-
-  // The grade of this input.
-  var grade = _grades.UNSET;
-  var lastNode;
-
+  this.row = options.row;
+  
+  var _activeBtn = this.row.grade;
+  
+  var _grades = options.grades;
+  
   var btnsGradeDOM = options.container.querySelectorAll(options.selector);
-
+  
   var input;
   for (var b = 0, len = btnsGradeDOM.length; b < len; b++) {
     input = btnsGradeDOM[b];
-    if (input.classList.contains('active')) {
-      lastNode = input;
-    }
-    input.addEventListener('mousedown', gradeSelected(input, b));
+    input.addEventListener('mousedown', gradeSelected(b));
   }
 
   // @param node [Object] The DOM element for the grade selection button.
   // @param btnIndex [Number] The index position of the button.
-  function gradeSelected(node, btnIndex) {
-    return function() {
-      if (node === lastNode) {
-        unsetGrades(node);
-      } else {
-        grade = _grades.findGrade(btnIndex);
-        if (!lastNode) {
-          node.classList.add('active');
-          options.container.classList.add('active');
-        } else {
-          lastNode.classList.remove('active');
-          node.classList.add('active');
-        }
-        lastNode = node;
+  function gradeSelected(btnIndex) {
+    return function () {
+      // Remove active class from currently selected button.
+      if (_activeBtn !== null && typeof _activeBtn !== undefined) {
+        btnsGradeDOM[_activeBtn].classList.remove('active');
       }
-      _self.dispatchEvent( 'change', {target: _self} );
-    };
+      // Set new grade.
+      if (btnIndex === null || typeof btnIndex === undefined || (btnIndex === _activeBtn)) {
+        // Grade was unset.
+        _activeBtn = null;
+      } else {
+        _activeBtn = btnIndex;
+        btnsGradeDOM[btnIndex].classList.add('active');
+      }
+      _self.dispatchEvent( 'change', {row: _self.row, data: {grade: _activeBtn}} );
+    }
+    
   }
 
   function unsetGrades(node) {
@@ -54,22 +51,17 @@ function ButtonGradingGroup(options) {
       node.classList.remove('active');
     }
     options.container.classList.remove('active');
-    grade = _grades.UNSET;
-    lastNode = undefined;
+    this.row.grade = null;
   }
 
   function getGrade() {
-    return grade;
+    return _activeBtn;
   }
 
   function setGrade(toGrade) {
-    var newGrade = _grades.findGrade(toGrade);
-    if (newGrade === _grades.UNSET) {
-      unsetGrades(lastNode);
-    } else {
-      gradeSelected( btnsGradeDOM[newGrade], newGrade )();
-    }
+    gradeSelected(toGrade);
   }
+  
 
   // Expose public methods
   this.getGrade = getGrade;

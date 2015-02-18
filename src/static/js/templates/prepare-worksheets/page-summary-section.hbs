@@ -1,0 +1,17 @@
+<article class="worksheet worksheet-summary worksheet-{{type}}-summary">
+    <header class="subheading">
+        <h4 aria-hidden="true">{{title}}</h4>
+    </header>
+
+    <section class="worksheet-input-group">
+        {{#each items}}
+            <section class="input-notes block__border-bottom u-mb20">
+              <div class="u-mt20 u-mb20">
+                <section>
+                  <h4>{{text}}</h4>
+                </section>
+              </div>
+            </section>
+        {{/each}}
+    </section>
+</article>
