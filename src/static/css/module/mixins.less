@@ -65,6 +65,50 @@
     }
 }
 
+/* topdoc
+  name: respond-to-print() (mixin)
+  notes:
+    - "This mixin allows us to easily write styles that target both
+       `@media print` and `.print`."
+  family: cfgov-cf-enhancements
+  patterns:
+    - name: Usage
+      codenotes:
+        - |
+          // Example Less
+          .example {
+              color: @gray;
+
+              .respond-to-print({
+                  color: @black;
+              });
+          }
+
+          // Exports to
+          .example {
+              color: #75787B;
+          }
+          @media print {
+              .example {
+                  color: #101820;
+              }
+          }
+          .print .example {
+              color: #101820;
+          }
+  tags:
+    - cfgov-cf-enhancements
+*/
+
+.respond-to-print(@rules) {
+    @media print {
+        @rules();
+    }
+    .print & {
+        @rules();
+    }
+}
+
 /*
  * link color mixins
  * ==================
