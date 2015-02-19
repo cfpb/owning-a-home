@@ -105,7 +105,7 @@ function _loadWorksheets() {
   _worksheetsDOM.innerHTML = pageHtml;
 
   // Add interactive sections for each of the worksheet types to the page
-  var worksheetTypes = ['personal', 'risks', 'flags'];
+  var worksheetTypes = ['personal', 'financial', 'risks', 'flags'];
   for ( i = 0; i < worksheetTypes.length; i++ ) {
     var worksheet = _model.getWorksheet(worksheetTypes[i]);
     var rows = _model.filterEmptyRows(worksheet, {skipLast: true});
