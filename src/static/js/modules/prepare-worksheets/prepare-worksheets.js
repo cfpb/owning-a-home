@@ -128,7 +128,7 @@ function _loadWorksheets() {
 
 function _loadNotes() {
     var pageTemplate = require( '../../templates/prepare-worksheets/page-notes.hbs' );
-    var pageHtml = pageTemplate({defaults: _model.getDefaultWorksheet('personal')});
+    var pageHtml = pageTemplate();
 
     _worksheetsDOM.innerHTML = pageHtml;
     var goals = _model.filterEmptyRows(_model.combineGoals());
@@ -148,7 +148,6 @@ function _loadSummary() {
     var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
     var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
     Handlebars.registerPartial('summarySection', summarySection);
-
 
     var templateData = {summarySection: summarySection};
     var filterOpts = {requireGrade: true};
