@@ -41,7 +41,7 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	$ brew install elasticsearch
 	```
 
-2. Clone the sheer GitHub project:
+2. Clone the sheer GitHub project to wherever you keep your projects (not inside Owning a Home):
 	```
 	$ git clone https://github.com/cfpb/sheer.git
 	```
