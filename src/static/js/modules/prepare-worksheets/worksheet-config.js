@@ -112,28 +112,28 @@ this.worksheetDefaults = {
               "grade": null,
               "altText":"I could move to a larger rental unit instead.",
               "explanation":"",
-              "deletable": false
+              "deletable": true
           },
           {  
               "text":"I want certain features (e.g., a yard).",
               "grade": null,
               "altText":"I could find these features in a rental unit in my community.",
               "explanation":"",
-              "deletable": false
+              "deletable": true
           },
           {  
               "text":"I want to live in a particular area (e.g., a certain school district).",
               "grade": null,
               "altText":"There are rental units available in my desired location.",
               "explanation":"",
-              "deletable": false
+              "deletable": true
           },
           {  
               "text":"I want the freedom to decorate or renovate.",
               "grade": null,
               "altText":"There are things I could do to make my rental feel more like my own.",
               "explanation":"",
-              "deletable": false
+              "deletable": true
           }
       ]
     },
@@ -145,21 +145,21 @@ this.worksheetDefaults = {
           "grade":null,
           "altText":"??",
           "explanation":"Learn more: In the long term, owning a home can be a great way to build wealth.  However, it’s important to know that during the first several years of a mortgage, <a href=#>most of your payment goes to interest, not equity</a>.  Also, remember that if home prices go down instead of up – as they did in 2008-2012 – you could lose all of your equity, including your down payment.",
-          "deletable": false
+          "deletable": true
         },
         {
           "text":"I believe I can buy a nicer home for the same cost as my rent",
           "grade":null,
           "altText":"??",
           "explanation":"Learn more: This is often true.  However, it’s important to factor in the total costs of ownership – including insurance, taxes, maintenance, and discretionary improvements – as well as increases in other costs, such as commuting, that may result from buying.  And depending on the real estate market, sometimes renting can actually be cheaper.",
-          "deletable": false
+          "deletable": true
         },
         {
           "text":"I want to save money on my taxes with the mortgage deduction",
           "grade":null,
           "altText":"??",
           "explanation":"Learn more: You can only claim the mortgage interest tax deduction if you itemize your deductions.  For a typical $200,000 mortgage at 4.5%, you’d be able to deduct about $8900 for interest in the first year, and less in future years.  The standard deduction for a married couple is $12,600 in tax year 2015, so unless that couple has at least $4700 in other deductions, having a mortgage won’t lower their taxes.  For heads of household, the standard deduction is $9,250, and for singles it is $6,300.",
-          "deletable": false
+          "deletable": true
         }
       ]
     },
