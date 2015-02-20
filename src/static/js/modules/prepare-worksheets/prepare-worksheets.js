@@ -164,7 +164,6 @@ function _loadSummary() {
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
-  
 }
 
 init();
