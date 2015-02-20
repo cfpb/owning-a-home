@@ -127,9 +127,6 @@ function _loadWorksheets() {
 }
 
 function _loadNotes() {
-    Handlebars.registerHelper("stripes", function(index) {
-        return (index % 2 == 0 ? "even" : "odd");
-    });
     var pageTemplate = require( '../../templates/prepare-worksheets/page-notes.hbs' );
     var pageHtml = pageTemplate({defaults: _model.getDefaultWorksheet('personal')});
 
