@@ -6,6 +6,7 @@ var _worksheet = require( './worksheet-controller' );
 var config = require( './worksheet-config' ); 
 var Handlebars = require("hbsfy/runtime");
 var $ = require('jquery');
+require('cf-expandables');
 
 
 // DOM references.
@@ -126,39 +127,44 @@ function _loadWorksheets() {
 }
 
 function _loadNotes() {
-  var pageTemplate = require( '../../templates/prepare-worksheets/page-notes.hbs' );
-  var pageHtml = pageTemplate();
+    Handlebars.registerHelper("stripes", function(index) {
+        return (index % 2 == 0 ? "even" : "odd");
+    });
+    var pageTemplate = require( '../../templates/prepare-worksheets/page-notes.hbs' );
+    var pageHtml = pageTemplate({defaults: _model.getDefaultWorksheet('personal')});
 
-  _worksheetsDOM.innerHTML = pageHtml;
-  var goals = _model.filterEmptyRows(_model.combineGoals());
-  var data = config.worksheetData['alternatives']();
-  
-  var options = $.extend({
+    _worksheetsDOM.innerHTML = pageHtml;
+    var goals = _model.filterEmptyRows(_model.combineGoals());
+    var data = config.worksheetData['alternatives']();
+
+    var options = $.extend({
     container: _worksheetsDOM.querySelector('.worksheet-notes'),
     type: 'notes',
     rows: goals,
     data: data
-  }, config.worksheetModules['alternatives']());
+    }, config.worksheetModules['alternatives']());
 
-  _worksheet.create(options);
+    _worksheet.create(options);
 }
 
 function _loadSummary() {
-  var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
-  var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
-  Handlebars.registerPartial('summarySection', summarySection);
+    var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
+    var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
+    Handlebars.registerPartial('summarySection', summarySection);
+
+
+    var templateData = {summarySection: summarySection};
+    var filterOpts = {requireGrade: true};
+    var goals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
+    templateData.goals = _model.sortWorksheetByGrade(goals, 'goals');
+    var risks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
+    templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
+    var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
+    templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
+
+    var pageHtml = pageTemplate(templateData);
+    _worksheetsDOM.innerHTML = pageHtml;
   
-  var templateData = {summarySection: summarySection};
-  var filterOpts = {requireGrade: true};
-  var goals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
-  templateData.goals = _model.sortWorksheetByGrade(goals, 'goals');
-  var risks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
-  templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
-  var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
-  templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
-  
-  var pageHtml = pageTemplate(templateData);
-  _worksheetsDOM.innerHTML = pageHtml;
 }
 
 init();

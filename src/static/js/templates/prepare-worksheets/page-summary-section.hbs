@@ -1,15 +1,11 @@
 <article class="worksheet worksheet-summary worksheet-{{type}}-summary">
-    <header class="subheading">
-        <h4 aria-hidden="true">{{title}}</h4>
-    </header>
+    <h4 class="subheading" aria-hidden="true">{{title}}</h4>
 
     <div class="worksheet-input-group">
         {{#each items}}
             <div class="input-notes block__border-bottom u-mb20">
-              <div class="u-mt20 u-mb20">
-                <div>
-                  <h4>{{text}}</h4>
-                </div>
+              <div class="u-mt15 u-mb15">
+                  {{text}}
               </div>
             </div>
         {{/each}}
