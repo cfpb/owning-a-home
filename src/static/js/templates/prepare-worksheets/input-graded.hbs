@@ -14,6 +14,11 @@
       <div class="input-with-btns_input">
         <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
       </div>
+      {{#if input.explanation}}
+      <div class="input-explanation block__sub">
+        <p>{{{input.explanation}}}</p>
+      </div>
+      {{/if}}
     </section>
   </div>
 </section>
