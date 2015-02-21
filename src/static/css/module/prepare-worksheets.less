@@ -113,7 +113,7 @@
   color: @btn-delete-hover-color;
 }
 
-// Color overrides for content dividers on summary page.
+// Color override for content dividers on worksheet pages.
 .worksheet .subheading {
   border-bottom-color: @gray-80;
 }
@@ -183,7 +183,8 @@
         margin-bottom: (@grid_gutter-width / 2);
       }
     });
-  
+    
+    /* textarea */
     textarea {
       width: 100%;
       resize: none;
@@ -211,20 +212,20 @@
 
 }
 
-.summary {
-  h2 {
-    padding: 0;
-    margin: 0;
-  }
-  
-  .subheading {
-    margin-bottom: 0;
-  }
-  
+.worksheet-summary {  
   &_header {
       padding: unit(10px / @base-font-size-px, em) 
                unit(16px / @base-font-size-px, em);
       background-color: @gray-5;
+      
+      h2 {
+        padding: 0;
+        margin: 0;
+      }
+  }
+  
+  .subheading {
+    margin-bottom: 0;
   }
   
   .input-notes {
@@ -232,14 +233,12 @@
   }
   
   .respond-to-max(@mobile-max, {
-    .summary-risks {
+    .block__padded-top {
       margin-top: 0;
     }
   });
   
 } 
-
-
 
 
 /* ==========================================================================

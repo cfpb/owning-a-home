@@ -1,35 +1,34 @@
 <div class="summary">
-    
     <h1>Your summary</h1>
     <p class="lead">Buying a home is more complicated than simply trading a rent payment for a mortgage payment.  Owning a home is a long-term financial commitment that carries costs, risks, and benefits.  Examine your summary below to decide whether or not you are ready to continue working towards buying a home.</p>
-        
     
     <div class="summary-chart"></div>
     
     <div class="content-l content-l__main">
-        <div class="content-l_col content-l_col-1-2 summary-goals-col">
-            <section class="summary-goals">
-              <header class="summary_header">
+        <div class="content-l_col content-l_col-1-2">
+            
+            <section class="worksheet worksheet-summary worksheet-goals-summary">
+              <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-approved-round"></span> Goals</h2>
               </header>
                   {{> summarySection this.goals.[0]}}
                   {{> summarySection this.goals.[1]}}
                   {{> summarySection this.goals.[2]}}
             </section>
-        </div>
-        <div class="content-l_col content-l_col-1-2">
             
-            <section class="summary-flags">
-              <header class="summary_header">
+        </div>
+        <div class="content-l_col content-l_col-1-2 worksheet worksheet-summary worksheet-flags-summary">
+            
+            <section class="worksheet worksheet-summary worksheet-flags-summary">
+              <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-complaint-round"></span> Red Flags</h2>
               </header>
                   {{> summarySection this.flags.[0]}}
                   {{> summarySection this.flags.[1]}}
             </section>
             
-            
-            <section class="summary-risks block block__padded-top">
-              <header class="summary_header">
+            <section class="worksheet worksheet-summary worksheet-risks-summary block__padded-top">
+              <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-error-round"></span> Risks</h2>
               </header>
                   {{> summarySection this.risks.[2]}}
