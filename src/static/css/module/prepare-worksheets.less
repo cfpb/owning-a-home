@@ -22,24 +22,45 @@
 @btn-delete-hover-color: @gray-20;
 
 // Inputs with buttons for goals, risks, and red flags.
-.input-with-btns_btns {
-  float: right;
+
+.input-with-btns {
+  display: block;
+  clear: both;
+  margin-bottom: 10px;
 }
 
 .input-with-btns_input {
   display: block;
   overflow: hidden;
+  margin-bottom: 20px;
   padding-right: 10px;
+  .respond-to-min(750px, {
+    margin-bottom: 10px;
+    float: left;
+    width: 68%;
+  });
+  .respond-to-min(801px, {
+    width: 60%;
+  });
 }
 
 .input-with-btns_input input {
   width: 100%;
 }
 
-.input-with-btns {
-  display: block;
-  clear: both;
-  margin-bottom: 10px;
+.input-with-btns_btns {
+  // Set the width of the right column so it doesn't re-size
+  // as the button webfont text and icons load.
+  .respond-to-min(750px, {
+    width: @right-col-width;
+    float: right;
+  });
+  label h6 {
+    // display: inline-block;
+    .respond-to-min(750px, {
+      .u-visually-hidden();
+    });
+  }
 }
 
 // Preparation worksheets goals, risks, red flag icon colors.
@@ -58,19 +79,27 @@
 // Inputs with buttons for goals, risks, and red flags.
 // The color settings override CF colors.
 
+.worksheet-left-col-header {
+  float: left;
+  .respond-to-min(750px, {
+    width: 68%;
+  });
+  .respond-to-min(801px, {
+    width: 60%;
+  });
+}
+
 // Right-hand column of the worksheets (priority, likely-ness, etc).
 .worksheet-right-col-header {
-  .u-right();
-  width: @right-col-width;
+  display: none;
+  .respond-to-min(750px, {
+    display: block;
+    .u-right();
+    width: @right-col-width;
+  });
 }
 
 // Individual graded input settings.
-
-.input-with-btns_btns {
-  // Set the width of the right column so it doesn't re-size
-  // as the button webfont text and icons load.
-  width: @right-col-width;
-}
 
 .input-graded .content_bar {
   border-top: 1px solid @gray-50;
