@@ -8,18 +8,44 @@
 @right-col-width: 202px;
 
 // Colors
-@btn-grade-disabled-color: @gray-80;
-@btn-grade-unselected-color: @gray-50;
-@btn-grade-selected-color: @darkgray;
-@btn-grade-hover-color: @gray;
+@btn-grade-disabled-color: @gray-20;
+@btn-grade-unselected-color: @gray-20;
+@btn-grade-selected-color: @green-midtone;
+@btn-grade-hover-color: @green-tint;
 
-@btn-grade-disabled-text-color: @white;
+@btn-grade-disabled-text-color: @darkgray;
 @btn-grade-unselected-text-color: @darkgray;
-@btn-grade-selected-text-color: @white;
-@btn-grade-hover-text-color: @white;
+@btn-grade-selected-text-color: @black;
+@btn-grade-hover-text-color: @black;
 
-@btn-delete-color: @gray;
-@btn-delete-hover-color: @gray-20;
+@btn-delete-color: @pacific;
+@btn-delete-hover-color: @pacific-80;
+
+@btn-secondary-color: @gray;
+@btn-secondary-hover-color: @gray-80;
+
+@super-btn-font-size:           18px;
+
+.btn-secondary {
+  background-color: @btn-secondary-color;
+  &:hover,
+  &:focus {
+    background-color: @btn-secondary-hover-color;
+  }
+}
+
+.btn__super {
+
+    padding:
+        unit( 11px / @super-btn-font-size, em )
+        unit( 29px / @super-btn-font-size, em );
+    font-size: unit( @super-btn-font-size / @base-font-size-px, em );
+
+    & + & {
+        margin-left: unit( 6px / @super-btn-font-size, em);
+    }
+
+}
 
 // Inputs with buttons for goals, risks, and red flags.
 
@@ -40,10 +66,14 @@
     width: 68%;
   });
   .respond-to-min(801px, {
-    width: 60%;
+    margin-bottom: 20px;
+    width: auto;
+    float: none;    
   });
   .respond-to-min(960px, {
+    margin-bottom: 10px;
     width: 68%;
+    float: left;
   });
   .respond-to-min(1000px, {
     width: 70%;
@@ -64,9 +94,19 @@
     width: @right-col-width;
     float: right;
   });
+  .respond-to-min(801px, {
+    width: auto;
+    float: none;
+  });
+  .respond-to-min(960px, {
+    width: @right-col-width;
+    float: right;
+  });
   label h6 {
-    // display: inline-block;
-    .respond-to-min(750px, {
+    .respond-to-range(750px, 801px, {
+      .u-visually-hidden();
+    });
+    .respond-to-min(960px, {
       .u-visually-hidden();
     });
   }
@@ -111,6 +151,9 @@
 .worksheet-right-col-header {
   display: none;
   .respond-to-min(750px, {
+    display: none;
+  });
+  .respond-to-min(960px, {
     display: block;
     .u-right();
     width: @right-col-width;
