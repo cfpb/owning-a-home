@@ -117,7 +117,8 @@
 }
 
 // Preparation worksheets goals, risks, red flag icon colors.
-.prepare-worksheet .cf-icon-approved-round {
+.prepare-worksheet .cf-icon-approved-round,
+.prepare-worksheet .cf-icon-approved {
   color: @green;
 }
 
@@ -206,16 +207,133 @@
   color: @btn-delete-hover-color;
 }
 
-// Color overrides for content dividers on summary page.
-.worksheet-flags .subheading,
-.worksheet-flags-summary .subheading {
-  border-bottom-color: @redorange;
+// Color override for content dividers on worksheet pages.
+.worksheet .subheading {
+  border-bottom-color: @gray-80;
 }
 
-.worksheet-risks .subheading,
-.worksheet-risks-summary .subheading {
-  border-bottom-color: @gold;
+.worksheet-notes {
+  table {
+    width: 100%;
+    
+    thead {
+      border-bottom: 4px solid @gray-80;
+    }
+    
+    thead th {
+      color: @black;
+      .webfont-demi();
+      padding-bottom: (@grid_gutter-width / 3);
+    }
+  
+    thead,
+    thead th,
+    td.text-col {
+      background-color: transparent;
+    }
+    
+    .text-col,
+    th.input-col {
+      padding-left: 0;
+    }
+  
+    td {
+      vertical-align: middle;
+      
+      &.text-col {
+        font-size: 16px;
+        .webfont-medium();
+      }
+      
+      &.input-col {
+        width: 60%;
+      }
+    }
+    
+    /* responsive table */
+    .respond-to-max(@mobile-max, {
+      &,
+      tbody {
+          display: block;
+          width: 100%;
+      }
+
+      thead { 
+        display: none; 
+      }
+
+      tr,
+      th,
+      td {
+          display: block;
+          text-align: left;
+          white-space: normal;
+          width: 100% !important;
+      }
+
+      tr {
+        border-bottom: 1px solid @gray-20;
+        padding-bottom: (@grid_gutter-width / 2);
+        margin-bottom: (@grid_gutter-width / 2);
+      }
+    });
+    
+    /* textarea */
+    textarea {
+      width: 100%;
+      resize: none;
+      border-color: @gray-50;
+      .webfont-medium();
+    }
+    
+    ::-webkit-input-placeholder {
+       color: @gray-50;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+       color: @gray-50;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: @gray-50;  
+    }
+
+    :-ms-input-placeholder {  
+       color: @gray-50;  
+    }
+    
+  }    
+
 }
+
+.worksheet-summary {  
+  &_header {
+      padding: unit(10px / @base-font-size-px, em) 
+               unit(16px / @base-font-size-px, em);
+      background-color: @gray-5;
+      
+      h2 {
+        padding: 0;
+        margin: 0;
+      }
+  }
+  
+  .subheading {
+    margin-bottom: 0;
+  }
+  
+  .input-notes {
+    .webfont-medium();
+  }
+  
+  .respond-to-max(@mobile-max, {
+    .block__padded-top {
+      margin-top: 0;
+    }
+  });
+  
+} 
+
 
 /* ==========================================================================
    Print styles.

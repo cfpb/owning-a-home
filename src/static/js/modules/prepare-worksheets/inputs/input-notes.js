@@ -1,6 +1,7 @@
 // Import modules.
 var _eventObserver = require( '../util/event-observer' );
 var _domHelper = require( '../util/dom-helper' );
+var $ = require('jquery');
 
 function create( options ) {
   return new InputNotes(options);
@@ -11,32 +12,36 @@ function InputNotes( options ) {
   // TODO see if bind() can be used in place of _self = this.
   // Note bind()'s lack of IE8 support.
   var _self = this;
-  this.row = options.row;
+  var _row = options.row;
 
   // Load our handlebar templates.
   var _template = require( '../../../templates/prepare-worksheets/input-notes.hbs' );
+  var data = {text: _row.text, altText: _row.altText, placeholder: options.data.placeholder};
   
-  var snippet = _template( this.row );
+  var snippet = _template( data );
 
   // This appendChild could be replaced by jquery or similar if desired/needed.
-  var node = _domHelper.appendChild( options.container, snippet );
+  //var node = $(options.container).append($(snippet) );
+  var node = _domHelper.appendChild( options.container, snippet, 'tbody' );
+  
 
   // DOM references.
-  var _textDOM = node.querySelector('p');
-  var _altTextInputDOM = node.querySelector('input');
+  var _textDOM = node.querySelector('.text-col');
+  var _altTextInputDOM = node.querySelector('textarea');
+  
 
   // Listen for updates to the text or grading buttons.
   _altTextInputDOM.addEventListener( 'keyup', _changedHandler );
 
   function _changedHandler() {
-    _self.dispatchEvent( 'change', {row: _self.row, data: getState()} );
+    _self.dispatchEvent( 'change', {row: _row, data: getState()} );
   }
 
 
   // @return [Object] The contents of the text input and the button grade.
   function getState() {
     return {
-      text: _templateSettings.inputValue,
+      text: _row.text,
       altText: _altTextInputDOM.value
     };
   }
