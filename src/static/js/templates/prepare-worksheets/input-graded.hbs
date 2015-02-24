@@ -1,8 +1,12 @@
 <section class="input-graded block__border-bottom u-mb20">
-  <div class="u-mt20 u-mb20">
+  <div class="u-mt20 u-mb20 u-clearfix">
     <section class="input-with-btns">
+      <div class="input-with-btns_input">
+        <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
+      </div>
+
       <div class="input-with-btns_btns">
-        <label><span class="u-visually-hidden">Priority level: choose one</span>
+        <label><h6>Priority level: choose one</h6>
           <button class="btn btn__grouped-first {{#if is_0}}active{{/if}}">{{grades.[0]}}</button>
           <button class="btn btn__grouped {{#if is_1}}active{{/if}}">{{grades.[1]}}</button>
           <button class="btn btn__grouped-last {{#if is_2}}active{{/if}}">{{grades.[2]}}</button>
@@ -11,14 +15,13 @@
           {{/if}}
         </label>
       </div>
-      <div class="input-with-btns_input">
-        <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
-      </div>
+
       {{#if input.explanation}}
       <div class="input-explanation block__sub">
         <p>{{{input.explanation}}}</p>
       </div>
       {{/if}}
+      
     </section>
   </div>
 </section>
