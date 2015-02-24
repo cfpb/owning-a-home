@@ -8,38 +8,112 @@
 @right-col-width: 202px;
 
 // Colors
-@btn-grade-disabled-color: @gray-80;
-@btn-grade-unselected-color: @gray-50;
-@btn-grade-selected-color: @darkgray;
-@btn-grade-hover-color: @gray;
+@btn-grade-disabled-color: @gray-20;
+@btn-grade-unselected-color: @gray-20;
+@btn-grade-selected-color: @green-midtone;
+@btn-grade-hover-color: @green-tint;
 
-@btn-grade-disabled-text-color: @white;
+@btn-grade-disabled-text-color: @darkgray;
 @btn-grade-unselected-text-color: @darkgray;
-@btn-grade-selected-text-color: @white;
-@btn-grade-hover-text-color: @white;
+@btn-grade-selected-text-color: @black;
+@btn-grade-hover-text-color: @black;
 
-@btn-delete-color: @gray;
-@btn-delete-hover-color: @gray-20;
+@btn-delete-color: @pacific;
+@btn-delete-hover-color: @pacific-80;
+
+@btn-secondary-color: @gray;
+@btn-secondary-hover-color: @gray-80;
+
+@super-btn-font-size:           18px;
+
+.btn-secondary {
+  background-color: @btn-secondary-color;
+  &:hover,
+  &:focus {
+    background-color: @btn-secondary-hover-color;
+  }
+}
+
+.btn__super {
+
+    padding:
+        unit( 11px / @super-btn-font-size, em )
+        unit( 29px / @super-btn-font-size, em );
+    font-size: unit( @super-btn-font-size / @base-font-size-px, em );
+
+    & + & {
+        margin-left: unit( 6px / @super-btn-font-size, em);
+    }
+
+}
 
 // Inputs with buttons for goals, risks, and red flags.
-.input-with-btns_btns {
-  float: right;
+
+.input-with-btns {
+  display: block;
+  clear: both;
+  margin-bottom: 10px;
 }
 
 .input-with-btns_input {
   display: block;
   overflow: hidden;
+  margin-bottom: 20px;
   padding-right: 10px;
+  .respond-to-min(750px, {
+    margin-bottom: 10px;
+    float: left;
+    width: 68%;
+  });
+  .respond-to-min(801px, {
+    margin-bottom: 20px;
+    width: auto;
+    float: none;    
+  });
+  .respond-to-min(960px, {
+    margin-bottom: 10px;
+    width: 68%;
+    float: left;
+  });
+  .respond-to-min(1000px, {
+    width: 70%;
+  });
+  .respond-to-min(1100px, {
+    width: 71%;
+  });
 }
 
 .input-with-btns_input input {
   width: 100%;
 }
 
-.input-with-btns {
-  display: block;
+.input-with-btns_btns {
+  // Set the width of the right column so it doesn't re-size
+  // as the button webfont text and icons load.
+  .respond-to-min(750px, {
+    width: @right-col-width;
+    float: right;
+  });
+  .respond-to-min(801px, {
+    width: auto;
+    float: none;
+  });
+  .respond-to-min(960px, {
+    width: @right-col-width;
+    float: right;
+  });
+  label h6 {
+    .respond-to-range(750px, 801px, {
+      .u-visually-hidden();
+    });
+    .respond-to-min(960px, {
+      .u-visually-hidden();
+    });
+  }
+}
+
+.input-explanation {
   clear: both;
-  margin-bottom: 10px;
 }
 
 // Preparation worksheets goals, risks, red flag icon colors.
@@ -59,19 +133,39 @@
 // Inputs with buttons for goals, risks, and red flags.
 // The color settings override CF colors.
 
+.worksheet-left-col-header {
+  float: left;
+  .respond-to-min(750px, {
+    width: 68%;
+  });
+  .respond-to-min(801px, {
+    width: 60%;
+  });
+  .respond-to-min(960px, {
+    width: 68%;
+  });
+  .respond-to-min(1000px, {
+    width: 70%;
+  });
+  .respond-to-min(1100px, {
+    width: 71%;
+  });
+}
+
 // Right-hand column of the worksheets (priority, likely-ness, etc).
 .worksheet-right-col-header {
-  .u-right();
-  width: @right-col-width;
+  display: none;
+  .respond-to-min(750px, {
+    display: none;
+  });
+  .respond-to-min(960px, {
+    display: block;
+    .u-right();
+    width: @right-col-width;
+  });
 }
 
 // Individual graded input settings.
-
-.input-with-btns_btns {
-  // Set the width of the right column so it doesn't re-size
-  // as the button webfont text and icons load.
-  width: @right-col-width;
-}
 
 .input-graded .content_bar {
   border-top: 1px solid @gray-50;
