@@ -4,12 +4,7 @@
       <div class="input-with-btns_input">
         <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
       </div>
-      {{#if input.explanation}}
-      <div class="input-explanation block__sub">
-        <p>{{{input.explanation}}}</p>
-      </div>
-      {{/if}}
-      
+
       <div class="input-with-btns_btns">
         <label><h6>Priority level: choose one</h6>
           <button class="btn btn__grouped-first {{#if is_0}}active{{/if}}">{{grades.[0]}}</button>
@@ -20,6 +15,12 @@
           {{/if}}
         </label>
       </div>
+
+      {{#if input.explanation}}
+      <div class="input-explanation block__sub">
+        <p>{{{input.explanation}}}</p>
+      </div>
+      {{/if}}
       
     </section>
   </div>
