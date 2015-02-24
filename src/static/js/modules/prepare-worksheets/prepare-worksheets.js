@@ -1,12 +1,14 @@
 // Import modules.
-require( '../secondary-nav' );
+var $ = require('jquery');
 var _locationServices = require( './util/location-services' );
 var _model = require( './worksheet-model' );
 var _worksheet = require( './worksheet-controller' ); 
 var config = require( './worksheet-config' ); 
 var Handlebars = require("hbsfy/runtime");
-var $ = require('jquery');
+require( '../secondary-nav' );
 require('../nemo-shim');
+require('jquery-easing');
+require('cf-expandables');
 
 // DOM references.
 var _worksheetsDOM = document.querySelector('.page-contents');
@@ -90,6 +92,7 @@ function _loadPage(page) {
     break;
   }
   _updateNavigationState();
+  $('.expandable').expandable();
 }
 
 /* // TEMP - DEBUG - display worksheet data in console.
@@ -105,7 +108,7 @@ function _loadWorksheets() {
   _worksheetsDOM.innerHTML = pageHtml;
 
   // Add interactive sections for each of the worksheet types to the page
-  var worksheetTypes = ['personal', 'risks', 'flags'];
+  var worksheetTypes = ['personal', 'financial', 'risks', 'flags'];
   for ( i = 0; i < worksheetTypes.length; i++ ) {
     var worksheet = _model.getWorksheet(worksheetTypes[i]);
     var rows = _model.filterEmptyRows(worksheet, {skipLast: true});
