@@ -18,7 +18,7 @@ var _btnPrev = document.querySelector('.btn-worksheet-prev');
 // General app properties.
 var _page = 1;
 var TOTAL_PAGES = 3;
-
+var _pageLoad = true;
 
 function init() {
   // Load ?page=<page number> from URL or default to page 1.
@@ -92,6 +92,12 @@ function _loadPage(page) {
     break;
   }
   _updateNavigationState();
+  if (!_pageLoad) {
+    $('html, body').animate({
+      scrollTop: $(".page-contents").offset().top
+    }, 500);
+  }
+  _pageLoad = false;
   $('.expandable').expandable();
 }
 
@@ -186,6 +192,10 @@ function _loadSummary() {
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
+    // routing hack, to load page 1 when error messages clicked
+    $('.worksheet-summary a').click(function () {
+        _loadPage(1);
+    });
 }
 
 init();
