@@ -164,7 +164,7 @@ function _loadSummary() {
     var goalErrors = config.errorMessages.goals;
     if (!filteredGoals.length) {
       templateData.goalsError = goalErrors.emptyInputs;
-    } else if (filteredGoals.length && !(goals[0].length && goals[1].length && goals[2].length)) {
+    } else if (!(goals[0].length && goals[1].length && goals[2].length)) {
       templateData.goalsError = goalErrors.noGrade;
     }
     
