@@ -1,11 +1,12 @@
 // Import modules.
-require( '../secondary-nav' );
+var $ = require('jquery');
 var _locationServices = require( './util/location-services' );
 var _model = require( './worksheet-model' );
 var _worksheet = require( './worksheet-controller' ); 
 var config = require( './worksheet-config' ); 
 var Handlebars = require("hbsfy/runtime");
-var $ = require('jquery');
+require( '../secondary-nav' );
+require('../nemo-shim');
 require('jquery-easing');
 require('cf-expandables');
 
