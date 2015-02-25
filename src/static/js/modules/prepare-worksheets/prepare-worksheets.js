@@ -148,7 +148,11 @@ function _loadNotes() {
 function _loadSummary() {
     var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
     var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
-    Handlebars.registerPartial('summarySection', summarySection);
+    var summaryError = require( '../../templates/prepare-worksheets/page-summary-error.hbs' );  
+    Handlebars.registerPartial({
+      'summarySection': summarySection,
+      'summaryError': summaryError
+    });
 
     var templateData = {summarySection: summarySection};
     var filterOpts = {requireGrade: true};
@@ -158,6 +162,10 @@ function _loadSummary() {
     templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
     var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
     templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
+
+    var errorData = {summaryError: summaryError};
+    errorData.flagsError = _model.noGrade(_model.getWorksheet('flags'));
+    // errorData.flagsError = _model.loadErrors(_model.getWorksheet('flags'));
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
