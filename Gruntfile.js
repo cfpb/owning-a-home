@@ -123,7 +123,8 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          debug: true
+          debug: true,
+          transform: ['browserify-shim', 'hbsfy']
         }
       }
     },
