@@ -154,18 +154,34 @@ function _loadSummary() {
       'summaryError': summaryError
     });
 
-    var templateData = {summarySection: summarySection};
+    var templateData = {summarySection: summarySection, summaryError: summaryError};
     var filterOpts = {requireGrade: true};
-    var goals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
-    templateData.goals = _model.sortWorksheetByGrade(goals, 'goals');
-    var risks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
-    templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
-    var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
-    templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
-
-    var errorData = {summaryError: summaryError};
-    errorData.flagsError = _model.noGrade(_model.getWorksheet('flags'));
-    // errorData.flagsError = _model.loadErrors(_model.getWorksheet('flags'));
+    
+    var filteredGoals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
+    var goals = templateData.goals = _model.sortWorksheetByGrade(filteredGoals, 'goals');
+    // check for errors
+    var goalErrors = config.errorMessages.goals;
+    if (!filteredGoals.length) {
+      templateData.goalsError = goalErrors.emptyInputs;
+    } else if (filteredGoals.length && !(goals[0].length && goals[1].length && goals[2].length)) {
+      templateData.goalsError = goalErrors.noGrade;
+    }
+    
+    var filteredRisks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
+    var risks = templateData.risks = _model.sortWorksheetByGrade(filteredRisks, 'risks');
+    // check for errors
+    if (!(risks[0].length && risks[1].length)) {
+      var riskErrors = config.errorMessages.risks;
+      templateData.risksError = riskErrors.noGrade;
+    }
+    
+    var filteredFlags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
+    var flags = templateData.flags = _model.sortWorksheetByGrade(filteredFlags, 'flags');
+    // check for errors
+    if (!(flags[1].length && flags[2].length)) {
+      var flagErrors = config.errorMessages.flags;
+      templateData.flagsError = flagErrors.noGrade;
+    }
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;

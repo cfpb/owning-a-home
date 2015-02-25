@@ -135,7 +135,7 @@ function findRowById (worksheetRows, rowID) {
 
 this.combineGoals = function () {
   // TODO: when financial goals are added:
-  return this.getWorksheet('personal').concat(this.getWorksheet('financial'));
+  return this.getWorksheet('personal').concat(this.getWorksheet('financial')) || [];
 }
 
 this.filterEmptyRows = function (worksheet, opts) {
@@ -187,43 +187,6 @@ this.sortWorksheetByGrade = function (worksheet, type) {
   }
     
   return sorted;
-}
-
-this.noGrade = function (worksheet) {
-  var hasNoGrade = true;
-  var len = worksheet.length - 1;
-  var i = 0;
-  var item;
-    
-  for (i; i <= len; i++) {
-      item = worksheet[i];
-
-      if (item.grade) {
-        hasNoGrade = false;
-      }
-  }
-
-  console.log(hasNoGrade);
-  return hasNoGrade;
-}
-
-
-this.loadErrors = function (worksheet) {
-  // if (_model.noGrade(flags)) {
-  //   Handlebars.registerHelper('flagsErrorHeading', 
-  //     function() {
-  //       return config.worksheetData['flags']()['errorMessages']['noGrade']['heading'];
-  //     }
-  //   );
-  //   Handlebars.registerHelper('flagsError', 
-  //     function() {
-  //       return config.worksheetData['flags']()['errorMessages']['noGrade']['paragraph'];
-  //     }
-  //   );
-  // }
-
-  // console.log(errorMessage);
-  // return errorMessage;
 }
 
 // Private methods.

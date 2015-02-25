@@ -10,7 +10,7 @@ var grades = {
     "risks": ["Yes", "Maybe", "No"]
 }
 
-var errorMessages = {
+this.errorMessages = {
   "goals": {
     "emptyInputs": {
       "heading": "You haven’t entered any goals.",
@@ -59,7 +59,7 @@ this.worksheetData = {
           "prompt": "Priority Level",
           "placeholder": "Write your own goal",
           "grades": grades.goals,
-          "errorMessages": errorMessages.goals
+          "errorMessages": _self.errorMessages.goals
         }
     },
     "financial": function () {
@@ -68,7 +68,7 @@ this.worksheetData = {
           "prompt": "Priority Level",
           "placeholder": "Write your own goal",
           "grades": grades.goals,
-          "errorMessages": errorMessages.goals
+          "errorMessages": _self.errorMessages.goals
         }
     },
     "alternatives": function () {
@@ -84,7 +84,7 @@ this.worksheetData = {
           "prompt": "Are you ready to accept this risk?",
           "placeholder": "Identify your own risk",
           "grades": grades.risks,
-          "errorMessages": errorMessages.risks
+          "errorMessages": _self.errorMessages.risks
        }
     },
     "flags": function () {
@@ -93,7 +93,7 @@ this.worksheetData = {
           "prompt": "Is this likely?",
           "placeholder": "Identify your own flag",
           "grades": grades.risks,
-          "errorMessages": errorMessages.flags
+          "errorMessages": _self.errorMessages.flags
         }
     }
 }
