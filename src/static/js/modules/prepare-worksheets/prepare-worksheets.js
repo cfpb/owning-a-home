@@ -93,9 +93,9 @@ function _loadPage(page) {
   }
   _updateNavigationState();
   if (!_pageLoad) {
-    $('html, body').animate({
-      scrollTop: $(".page-contents").offset().top
-    }, 500);
+    //$('html, body').animate({
+    //  scrollTop: $(".page-contents").offset().top
+    //}, 700);
   }
   _pageLoad = false;
   $('.expandable').expandable();
@@ -192,8 +192,9 @@ function _loadSummary() {
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
-    // routing hack, to load page 1 when error messages clicked
-    $('.worksheet-summary a').click(function () {
+    // HACK: routing hack, to load page 1 when error messages clicked
+    $('.worksheet-summary a:not(.expandable_target)').click(function () {
+        _page = 1;
         _loadPage(1);
     });
 }
