@@ -2,7 +2,12 @@
   <div class="u-mt20 u-mb20 u-clearfix">
     <section class="input-with-btns">
       <div class="input-with-btns_input">
-        <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
+        {{#if input.uneditable}}
+            <span class="short-desc">{{input.text}}</span>
+        {{else}}
+            <input type="text" value="{{input.text}}" placeholder="{{placeholder}}">
+        {{/if}}
+        
       </div>
 
       <div class="input-with-btns_btns">

@@ -15,14 +15,14 @@ function InputGraded( options ) {
   var _template = require( '../../../templates/prepare-worksheets/input-graded.hbs' );
   var _grades = options.data.grades;
   
-  this.row = options.row;
+  var _row = options.row;
   
   var templateData = {
     placeholder: options.data.placeholder,
     grades: _grades,
-    input: this.row
+    input: _row
   }
-  templateData['is_' + this.row.grade] = true;
+  templateData['is_' + _row.grade] = true;
   var _snippet = _template( templateData );
   
   // This appendChild could be replaced by jquery or similar if desired/needed.
@@ -32,7 +32,7 @@ function InputGraded( options ) {
   var _textInputDOM = _node.querySelector('.input-with-btns_input input');
 
   // Add events for handling deletion of the node.
-  if ( this.row.deletable ) {
+  if ( _row.deletable ) {
     var btnDeleteDOM = _node.querySelector('.btn-input-delete');
     btnDeleteDOM.addEventListener( 'mousedown', deleteItem, false );
   }
@@ -48,13 +48,15 @@ function InputGraded( options ) {
   var buttonSettings = {
     container: _node, 
     selector: _selector, 
-    row: this.row, 
+    row: _row, 
     grades: _grades
   };
   var _buttonGradingGroup = _module.create( buttonSettings );
 
   // Listen for updates to the text or grading buttons.
-  _textInputDOM.addEventListener( 'keyup', _changedHandler );
+  if (!_row.uneditable) {
+    _textInputDOM.addEventListener( 'keyup', _changedHandler );
+  }
   _buttonGradingGroup.addEventListener( 'change', _changedHandler );
   
   function _changedHandler() {

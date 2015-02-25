@@ -178,7 +178,8 @@ this.worksheetDefaults = {
                 "alternative":"Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.",
                 "altText":"",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             },
             {  
                 "text":"My current employment is short-term or unstable",
@@ -186,7 +187,8 @@ this.worksheetDefaults = {
                 "alternative":"Owning a home is a long-term financial commitment. If you’re not confident that you’ll be able to continue earning at a similar level for the foreseeable future, it might make more sense to keep renting.",
                 "altText":"",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             },
             {  
                 "text":"I find fixing things and doing yardwork to be a real hassle",
@@ -194,7 +196,8 @@ this.worksheetDefaults = {
                 "alternative":"In a lot of ways, it’s simpler and more financially predictable to rent.",
                 "altText":"",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             }
         ]
     },
@@ -207,7 +210,8 @@ this.worksheetDefaults = {
                 "alternative":"You could even find yourself owing more than your home is worth. In 2008-2012, house prices declined dramatically nationwide, with up to X% declines in some areas.",
                 "altText":"",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             },
             {  
                 "text":"Major repairs can be urgent, expensive, and unexpected",
@@ -215,7 +219,8 @@ this.worksheetDefaults = {
                 "alternative":"When the furnace springs a leak or a tree falls on the roof, these aren’t repairs that you can wait to make. New homeowners consistently say that they were surprised how much maintenance costs.",
                 "altText":"",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             },
             {  
                 "text":"Minor repairs add up quickly, in terms of time and money",
@@ -223,7 +228,8 @@ this.worksheetDefaults = {
                 "alternative":"Think of all the little things that you are used to calling your landlord to deal with: a cracked window, a broken dishwasher, or a clogged toilet. As a homeowner, you will either have to fix these yourself or call and pay for a professional.",
                 "altText": "",
                 "explanation":"",
-                "deletable": false
+                "deletable": false,
+                "uneditable": true
             }
         ]
       }
