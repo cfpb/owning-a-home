@@ -66,7 +66,7 @@
                     {% if item.slug == active_step.slug %}
                         {{item.title}}
                     {% else %}
-                        <a href="/process/{{item.slug}}" class="jump-link jump-link__right">
+                        <a href="/owning-a-home/process/{{'' if item.slug == 'prepare' else item.slug}}" class="jump-link jump-link__right">
                             {{item.title}}
                         </a>
                     {% endif %}
