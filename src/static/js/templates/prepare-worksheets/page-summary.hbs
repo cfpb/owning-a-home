@@ -23,6 +23,8 @@
               <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-complaint-round"></span> Red Flags</h2>
               </header>
+                  {{> summaryError this.flagsError}}
+
                   {{> summarySection this.flags.[0]}}
                   {{> summarySection this.flags.[1]}}
             </section>
