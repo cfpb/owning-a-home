@@ -10,6 +10,31 @@ var grades = {
     "risks": ["Yes", "Maybe", "No"]
 }
 
+var errorMessages = {
+  "goals": {
+    "emptyInputs": {
+      "heading": "You haven’t entered any goals.",
+      "paragraph": "To get the best results, please go back and <a href='#page1'>enter at least one goal</a>."
+    },
+    "noGrade": {
+      "heading": "You haven’t prioritized any goals.",
+      "paragraph": "To get the best results, please go back and <a href='#page1'>prioritize at least one goal</a>."
+    }
+  },
+  "flags": {
+    "noGrade": {
+      "heading": "You haven’t indicated whether there are any red flags in your situation.",
+      "paragraph": "To get the best results, please go back and <a href='#page1flags'>assess the red flags</a>."
+    }
+  },
+  "risks": {
+    "noGrade": {
+      "heading": "You haven’t indicated whether you are ready to accept the risks associated with homeownership.",
+      "paragraph": "To get the best results, please go back and <a href='#page1risks'>assess the risks</a>."
+    }
+  }
+}
+
 this.gradeSummaryLabels = {
     "goals": ["High Priority", "Medium Priority", "Low Priority"],
     "flags": ["Likely to happen", "Somewhat likely to happen", "Not likely to happen"],
@@ -33,7 +58,8 @@ this.worksheetData = {
           "title": "Personal Goal",
           "prompt": "Priority Level",
           "placeholder": "Write your own goal",
-          "grades": grades.goals
+          "grades": grades.goals,
+          "errorMessages": errorMessages.goals
         }
     },
     "financial": function () {
@@ -41,7 +67,8 @@ this.worksheetData = {
           "title": "Financial Goal",
           "prompt": "Priority Level",
           "placeholder": "Write your own goal",
-          "grades": grades.goals
+          "grades": grades.goals,
+          "errorMessages": errorMessages.goals
         }
     },
     "alternatives": function () {
@@ -56,7 +83,8 @@ this.worksheetData = {
           "title": "Issue",
           "prompt": "Are you ready to accept this risk?",
           "placeholder": "Identify your own risk",
-          "grades": grades.risks
+          "grades": grades.risks,
+          "errorMessages": errorMessages.risks
        }
     },
     "flags": function () {
@@ -64,7 +92,8 @@ this.worksheetData = {
           "title": "Issue",
           "prompt": "Is this likely?",
           "placeholder": "Identify your own flag",
-          "grades": grades.risks
+          "grades": grades.risks,
+          "errorMessages": errorMessages.flags
         }
     }
 }
