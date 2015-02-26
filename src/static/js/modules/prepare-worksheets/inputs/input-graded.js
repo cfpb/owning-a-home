@@ -29,10 +29,12 @@ function InputGraded( options ) {
   var _node = _domHelper.appendChild( options.container, _snippet );
 
   // DOM references.
-  var _textInputDOM = _node.querySelector('.input-with-btns_input input');
+  var _textInputDOM = _row.required ?
+                      null : 
+                      _node.querySelector('.input-with-btns_input input');
 
   // Add events for handling deletion of the node.
-  if ( _row.deletable ) {
+  if ( !_row.required ) {
     var btnDeleteDOM = _node.querySelector('.btn-input-delete');
     btnDeleteDOM.addEventListener( 'mousedown', deleteItem, false );
   }
@@ -40,7 +42,7 @@ function InputGraded( options ) {
   // Deletes this graded input.
   function deleteItem( evt ) {
     _node.parentNode.removeChild( _node );
-    _self.dispatchEvent( 'delete', {uid: _self.row.uid} );
+    _self.dispatchEvent( 'delete', {uid: _row.uid} );
   }
 
   var _module = require( './button-grading-group' );
@@ -54,27 +56,32 @@ function InputGraded( options ) {
   var _buttonGradingGroup = _module.create( buttonSettings );
 
   // Listen for updates to the text or grading buttons.
-  if (!_row.uneditable) {
+  if (!_row.required) {
     _textInputDOM.addEventListener( 'keyup', _changedHandler );
   }
   _buttonGradingGroup.addEventListener( 'change', _changedHandler );
   
   function _changedHandler() {
-      _self.dispatchEvent( 'change', {row: _self.row, data: getState()} );
+      _self.dispatchEvent( 'change', {row: _row, data: getState()} );
   }
   // @return [Object] The contents of the text input and the button grade.
   function getState() {
-    return {
-      text: _textInputDOM.value,
+    var obj = {
       grade: _buttonGradingGroup.getGrade()
     };
+    if (!_row.required) {
+      obj.text = _textInputDOM.value;
+    }
+    return obj;
   }
 
   // @param state [Object] `text` and `grade` values.
   function setState( state ) {
     var text = state.text === undefined ? '' : state.text;
     var grade = state.grade === undefined ? null : state.grade;
-    _textInputDOM.value = text;
+    if (!_row.required) {
+      _textInputDOM.value = text;
+    }
     _buttonGradingGroup.setGrade( grade );
   }
 
