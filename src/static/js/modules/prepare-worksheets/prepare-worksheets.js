@@ -64,16 +64,15 @@ function _updateNavigationState() {
 }
 
 function _activateBtn( btn, action ) {
-  console.log(btn.classList);
-  if ( btn.classList.contains( 'btn__disabled' ) ) {
+  if ( btn.className.indexOf('btn__disabled') > -1 ) {
     btn.addEventListener( 'mousedown', action, false );
-    btn.classList.remove( 'btn__disabled' );
+    btn.className = btn.className.replace('btn__disabled', '');
   }
 }
 
 function _deactivateBtn( btn, action ) {
   btn.removeEventListener( 'mousedown', action, false );
-  btn.classList.add( 'btn__disabled' );
+  btn.className = btn.className + ' btn__disabled';
 }
 
 function _loadPage(page) {
