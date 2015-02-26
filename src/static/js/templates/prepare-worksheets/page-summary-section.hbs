@@ -9,19 +9,7 @@
                   <h4>{{text}}</h4>
                 
                 {{#if altText}}
-                  <div class="expandable">
-                    <a href="#" class="short-desc expandable_target">
-                        <span class="expandable_cue-open">
-                            <span class="cf-icon cf-icon-plus-round"></span>&nbsp;See your alternative
-                        </span>
-                        <span class="expandable_cue-close">
-                            <span class="cf-icon cf-icon-minus-round"></span>&nbsp;Hide your alternative
-                        </span>
-                    </a>
-                    <div class="expandable_content">
-                        <p class="short-desc block__sub block__flush-bottom">{{altText}}</p>
-                    </div>
-                  </div>
+                    <p class="short-desc block__sub block__flush-bottom"><strong>Your alternative: </strong>{{altText}}</p>
                 {{/if}}
 
                 </div>
