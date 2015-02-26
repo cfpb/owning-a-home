@@ -11,9 +11,9 @@ function ButtonGradingGroup(options) {
   // Note bind()'s lack of IE8 support.
   var _self = this;
 
-  this.row = options.row;
+  var _row = options.row;
   
-  var _activeBtn = this.row.grade;
+  var _activeBtn = _row.grade;
   
   var _grades = options.grades;
   
@@ -41,7 +41,7 @@ function ButtonGradingGroup(options) {
         _activeBtn = btnIndex;
         btnsGradeDOM[btnIndex].className = btnsGradeDOM[btnIndex].className + ' active';
       }
-      _self.dispatchEvent( 'change', {row: _self.row, data: {grade: _activeBtn}} );
+      _self.dispatchEvent( 'change', {row: _row, data: {grade: _activeBtn}} );
     }
     
   }
@@ -51,7 +51,7 @@ function ButtonGradingGroup(options) {
       node.className = node.className.replace('active', '');
     }
     options.container.className = options.container.className.replace('active', '');
-    this.row.grade = null;
+    _row.grade = null;
   }
 
   function getGrade() {
