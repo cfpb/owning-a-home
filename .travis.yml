@@ -3,6 +3,7 @@ node_js:
   - iojs
 
 install:
+  - npm install -g grunt-cli
   - ./frontendbuild.sh
 
 script:
