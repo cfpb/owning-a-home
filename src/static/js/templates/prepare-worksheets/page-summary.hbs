@@ -11,9 +11,13 @@
               <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-approved-round"></span> Goals</h2>
               </header>
+                  {{#if goalsError }}
+                    {{> summaryError this.goalsError}}
+                  {{else}}
                   {{> summarySection this.goals.[0]}}
                   {{> summarySection this.goals.[1]}}
                   {{> summarySection this.goals.[2]}}
+                  {{/if}}
             </section>
             
         </div>
@@ -23,16 +27,24 @@
               <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-complaint-round"></span> Red Flags</h2>
               </header>
+                  {{#if flagsError }}
+                  {{> summaryError this.flagsError}}
+                  {{else}}
                   {{> summarySection this.flags.[0]}}
                   {{> summarySection this.flags.[1]}}
+                  {{/if}}
             </section>
             
             <section class="worksheet worksheet-summary worksheet-risks-summary block__padded-top">
               <header class="worksheet-summary_header">
                   <h2 class="h3"><span class="cf-icon cf-icon-error-round"></span> Risks</h2>
               </header>
-                  {{> summarySection this.risks.[2]}}
-                  {{> summarySection this.risks.[1]}}
+                  {{#if risksError }}
+                    {{> summaryError this.risksError}}
+                  {{else}}
+                    {{> summarySection this.risks.[2]}}
+                    {{> summarySection this.risks.[1]}}
+                  {{/if}}
             </section>
             
         </div>
