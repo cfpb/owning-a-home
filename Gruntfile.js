@@ -123,7 +123,8 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          debug: true
+          debug: true,
+          transform: ['browserify-shim', 'hbsfy']
         }
       }
     },
@@ -347,8 +348,8 @@ module.exports = function(grunt) {
           coverageFolder: 'test/coverage',
           coverage: true,
           check: {
-            lines: 75,
-            statements: 75
+            lines: 50,
+            statements: 50
           }
         }
       }
@@ -400,7 +401,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['js']
+        tasks: ['build']
       },
       css: {
         options: {

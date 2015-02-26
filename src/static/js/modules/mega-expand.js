@@ -28,12 +28,12 @@ var megaExpand = function(ev, $header, duration){
   }
 
   // store state in local storage
-  localStorage.setItem('expandableState', JSON.stringify(state));
+  window.localStorage.setItem('expandableState', JSON.stringify(state));
 };
 
 // check storage and call megaExpand if open
 var checkStorage = function(ev) {
-  var storageVal = JSON.parse(localStorage.getItem( 'expandableState'));
+  var storageVal = JSON.parse(window.localStorage.getItem( 'expandableState'));
   if ( !storageVal ) {
     return false;
   }
