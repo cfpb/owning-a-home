@@ -401,7 +401,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['js']
+        tasks: ['build']
       },
       css: {
         options: {

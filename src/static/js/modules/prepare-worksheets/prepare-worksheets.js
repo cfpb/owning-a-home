@@ -2,13 +2,12 @@
 var $ = require('jquery');
 var _locationServices = require( './util/location-services' );
 var _model = require( './worksheet-model' );
-var _worksheet = require( './worksheet-controller' ); 
-var config = require( './worksheet-config' ); 
-var Handlebars = require("hbsfy/runtime");
-require( '../secondary-nav' );
+var _worksheet = require( './worksheet-controller' );
+var config = require( './worksheet-config' );
+var Handlebars = require('hbsfy/runtime');
+require('../mega-expand');
+require('../secondary-nav');
 require('../nemo-shim');
-require('jquery-easing');
-require('cf-expandables');
 
 // DOM references.
 var _worksheetsDOM = document.querySelector('.page-contents');
@@ -24,7 +23,7 @@ function init() {
   // Load ?page=<page number> from URL or default to page 1.
   _page = Number(_locationServices.getURLParameter('page')) || 1;
 
-  // Set default data in model if goals worksheet is not populated.  
+  // Set default data in model if goals worksheet is not populated.
   var worksheet = _model.getWorksheet('personal');
   if (!worksheet) {
     _model.setDefaultData();
@@ -65,6 +64,7 @@ function _updateNavigationState() {
 }
 
 function _activateBtn( btn, action ) {
+  console.log(btn.classList);
   if ( btn.classList.contains( 'btn__disabled' ) ) {
     btn.addEventListener( 'mousedown', action, false );
     btn.classList.remove( 'btn__disabled' );
@@ -92,7 +92,6 @@ function _loadPage(page) {
     break;
   }
   _updateNavigationState();
-  $('.expandable').expandable();
 }
 
 /* // TEMP - DEBUG - display worksheet data in console.
