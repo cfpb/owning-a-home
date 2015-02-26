@@ -31,7 +31,7 @@ function ButtonGradingGroup(options) {
     return function () {
       // Remove active class from currently selected button.
       if (_activeBtn !== null && typeof _activeBtn !== undefined) {
-        btnsGradeDOM[_activeBtn].classList.remove('active');
+        btnsGradeDOM[_activeBtn].className = btnsGradeDOM[_activeBtn].className.replace('active', '');
       }
       // Set new grade.
       if (btnIndex === null || typeof btnIndex === undefined || (btnIndex === _activeBtn)) {
@@ -39,7 +39,7 @@ function ButtonGradingGroup(options) {
         _activeBtn = null;
       } else {
         _activeBtn = btnIndex;
-        btnsGradeDOM[btnIndex].classList.add('active');
+        btnsGradeDOM[btnIndex].className = btnsGradeDOM[btnIndex].className + ' active';
       }
       _self.dispatchEvent( 'change', {row: _self.row, data: {grade: _activeBtn}} );
     }
@@ -48,9 +48,9 @@ function ButtonGradingGroup(options) {
 
   function unsetGrades(node) {
     if (node) {
-      node.classList.remove('active');
+      node.className = node.className.replace('active', '');
     }
-    options.container.classList.remove('active');
+    options.container.className = options.container.className.replace('active', '');
     this.row.grade = null;
   }
 
