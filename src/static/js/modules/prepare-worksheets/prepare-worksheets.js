@@ -17,7 +17,7 @@ var _btnPrev = document.querySelector('.btn-worksheet-prev');
 // General app properties.
 var _page = 1;
 var TOTAL_PAGES = 3;
-
+var _pageLoad = true;
 
 function init() {
   // Load ?page=<page number> from URL or default to page 1.
@@ -91,6 +91,14 @@ function _loadPage(page) {
     break;
   }
   _updateNavigationState();
+
+  if (!_pageLoad) {
+    //$('html, body').animate({
+    //  scrollTop: $(".page-contents").offset().top
+    //}, 700);
+  }
+  _pageLoad = false;
+
 }
 
 /* // TEMP - DEBUG - display worksheet data in console.
@@ -147,19 +155,48 @@ function _loadNotes() {
 function _loadSummary() {
     var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
     var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
-    Handlebars.registerPartial('summarySection', summarySection);
+    var summaryError = require( '../../templates/prepare-worksheets/page-summary-error.hbs' );  
+    Handlebars.registerPartial({
+      'summarySection': summarySection,
+      'summaryError': summaryError
+    });
 
-    var templateData = {summarySection: summarySection};
+    var templateData = {summarySection: summarySection, summaryError: summaryError};
     var filterOpts = {requireGrade: true};
-    var goals = _model.filterEmptyRows(_model.combineGoals(), filterOpts);
-    templateData.goals = _model.sortWorksheetByGrade(goals, 'goals');
-    var risks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
-    templateData.risks = _model.sortWorksheetByGrade(risks, 'risks');
-    var flags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
-    templateData.flags = _model.sortWorksheetByGrade(flags, 'flags');
+    var combinedGoals = _model.combineGoals();
+    var filteredGoals = _model.filterEmptyRows(combinedGoals, filterOpts);
+    var goals = templateData.goals = _model.sortWorksheetByGrade(filteredGoals, 'goals');
+    // check for errors
+    var goalErrors = config.errorMessages.goals;
+    if (!combinedGoals.length) {
+      templateData.goalsError = goalErrors.emptyInputs;
+    } else if (!filteredGoals.length) {
+      templateData.goalsError = goalErrors.noGrade;
+    }
+    
+    var filteredRisks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
+    var risks = templateData.risks = _model.sortWorksheetByGrade(filteredRisks, 'risks');
+    // check for errors
+    if (!filteredRisks.length) {
+      var riskErrors = config.errorMessages.risks;
+      templateData.risksError = riskErrors.noGrade;
+    }
+    
+    var filteredFlags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
+    var flags = templateData.flags = _model.sortWorksheetByGrade(filteredFlags, 'flags');
+    // check for errors
+    if (!filteredFlags.length) {
+      var flagErrors = config.errorMessages.flags;
+      templateData.flagsError = flagErrors.noGrade;
+    }
 
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
+    // HACK: routing hack, to load page 1 when error messages clicked
+    $('.worksheet-summary a:not(.expandable_target)').click(function () {
+        _page = 1;
+        _loadPage(1);
+    });
 }
 
 init();

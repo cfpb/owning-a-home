@@ -135,7 +135,7 @@ function findRowById (worksheetRows, rowID) {
 
 this.combineGoals = function () {
   // TODO: when financial goals are added:
-  return this.getWorksheet('personal').concat(this.getWorksheet('financial'));
+  return this.getWorksheet('personal').concat(this.getWorksheet('financial')) || [];
 }
 
 this.filterEmptyRows = function (worksheet, opts) {
