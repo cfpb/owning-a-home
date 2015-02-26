@@ -3,9 +3,8 @@ node_js:
   - iojs
 
 install:
-  - npm install -g grunt-cli
-  - npm install
+  - ./frontendbuild.sh
 
 script:
   - bash test/test_artifacts.sh
-  - grunt test
+  - npm test
