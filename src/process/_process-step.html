@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% set active_page = "process" %}
+{% import "_vars-process.html" as vars with context %}
+
+{% block title %}Owning a Home: Know the Process{% endblock title %}
+
+{% block content %}
+
+<main class="know-the-process content content__1-3" id="main" role="main">
+  <div class="wrapper content_wrapper">
+    <aside class="content_sidebar content__flush-all-on-small">
+      {% with active_page = "process" %}
+        {% include "sidebar_nav.html" %}
+      {% endwith %}
+    </aside>
+    <section class="content_main content__flush-top-on-small">
+        <section class="overview content-l content-l__main">
+            <div class="content-l_col content-l_col-5-8">
+                <h2 class="h5">Know the process</h2>
+                
+                <h1>{{active_step.title}}</h1>
+
+                <ul class="overview_list">
+                    {% for item in active_step.overview %}
+                    <li>{{item}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="content-l_col content-l_col-3-8">
+                Img placeholder
+            </div>
+        </section>
+        <div class="steps content-l content-l__main block">
+            <section class="content-l_col content-l_col-5-8">
+                <h1 class="h3">Action steps</h1>
+                <ol class="steps_list">
+                    {% for action in active_step.actions %}
+                    <li>{{action}}</li>
+                    {% endfor %}
+    
+                </ol>
+            </section>
+            <section class="resources content-l_col content-l_col-3-8">
+                <h1 class="header-slug">
+                    <span class="header-slug_inner">
+                        Related Resources
+                    </span>
+                </h1>
+                <ul class="list list__links resources_list">
+                    {% for resource in active_step.resources %}
+                        <li class="list_item">
+                            {{resource.text if resource.text}}
+                            <a class="list_link jump-link jump-link__right" href="resource.url">
+                                {{resource.link}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+        <section class="explore block block__bg block__padded-top ">
+            <h1 class="h4">Ready for more? Explore another phase in the mortgage process.</h1>
+            <ul class="explore_nav">
+                {% for item in vars.process_steps %}
+                    <li>
+                    {% if item.slug == active_step.slug %}
+                        {{item.title}}
+                    {% else %}
+                        <a href="/process/{{item.slug}}" class="jump-link jump-link__right">
+                            {{item.title}}
+                        </a>
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+    </section> <!-- /.content_main -->
+  </div>
+</main>
+
+{% endblock %}
