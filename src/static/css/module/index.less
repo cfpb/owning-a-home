@@ -37,7 +37,7 @@ fieldset.submit_btn > p {
     --------------------------- */
 
 #hero-bg-image{
-  background: #e4e2e0 url('../img/oah-hero-image.png');
+  // background: #e4e2e0 url('../img/oah-hero-image.png');
   /*background: #e4e2e0 url('/static/img/oah-hero-image.png');*/
   background-position: center top;
   background-repeat: no-repeat;
@@ -123,6 +123,8 @@ fieldset.submit_btn > p {
 }
 
 .index-content{
+  margin: -24px 0 0 -15px; // mimic hero wrapper width
+
   .webfont-regular();
 
   h3 + p {
@@ -169,3 +171,54 @@ fieldset.submit_btn > p {
   }
 }
 
+/* REFACTOR with Capital Framework */
+@grid_debug: true;
+
+.grid_wrapper {
+  margin: 0 auto;
+  position: relative;
+  clear: both;
+  max-width: @grid_wrapper-width;
+}
+
+.hero_wrapper {
+  height: 240px;
+}
+
+.content__main {
+  .respond-to-min(800px, {
+    .grid_column(2, 3);    
+  });
+}
+
+.content__sub {
+  .respond-to-min(800px, {
+   .grid_column(1,3);
+  });
+}
+
+.content__half {
+  .respond-to-min(800px, {
+    .grid_column(1, 2);    
+  });
+}
+
+.section__phase {
+
+}
+
+  .phase_illu {
+    .respond-to-min(800px, {
+      .grid_column(1, 5);    
+    });
+  }
+  .phase_intro {
+    .respond-to-min(800px, {
+      .grid_column(2, 5);    
+    });
+  }
+  .phase_tools {
+    .respond-to-min(800px, {
+      .grid_column(2, 5);    
+    });
+  }

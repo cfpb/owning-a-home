@@ -8,20 +8,126 @@
 <!-- BACKGROUND IMAGE FOR THE HERO -->
 <div id="hero-bg-image"></div>
 
-<div class="wrap content-area">
+<div class="grid_wrapper">
   <!-- HERO -->
-  <div class="wrapper hero-wrapper">
-    <div class="col-7">
+  <div class="hero_wrapper">
+    <div class="content__main">
       <h1>Owning a Home</h1>
-      <h2>We’re here to help you with your home buying process. Just starting out? Learn what to expect and how to get a great deal. About to close? A checklist makes it less stressful.</h2>
+      <h2>We're here to help you with your homebuying process. Learn what to expect and what questions to ask, and get tools and resources to help you make decisions.</h2>
     </div>
-  </div> <!-- /.wrapper -->
+  </div>
 
   <!-- CONTENT -->
-  <div class="wrapper index-content">
+  <div class="content_wrapper__wide">
+    <div class="content__main">
+
+      <section class="section__intro">      
+        <div class="content__half">
+          <h2>Know the process</h2>
+          <p>Buying a home can be a daunting process. If you're feeling overwhelmed, you're not alone. We've got tools and resources to help you every step of the way.</p>
+        </div>
+
+        <div class="content__half">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of interest rate chart">
+      </div>
+      </section>
+
+      <section class="section__phase">      
+        <figure class="phase_illu">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of the home-buying process">
+        </figure>
+        <div class="phase_intro">
+          <h2>Prepare to shop</h2>
+          <p>Not sure how to get started, how much you can afford, or what to expect when buying a home? Set yourself up for success with a little bit of preparation.</p>
+          <p><a class="go-link" href="{{ base_url }}process">Learn more</a></p>
+        </div>
+
+        <div class="phase_tools">
+          <h6>Key tools</h6>
+          <ul>
+            <li><a href="{{ base_url }}prepare-worksheets">Worksheet: clarify your goals</a></li>
+            <li><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+          </ul>
+      </div>
+      </section>
+
+
+    </div><!-- .content__main -->
+    
+
+    <div class="content__sub">
+    sidebar content
+    </div><!-- .content__sub -->
+
+  </div><!-- .content_wrapper -->
+
+    
+
+
+<!-- new copy old wrappers -->
+ <div class="wrapper index-content">
     <div class="col-8">
       <!-- LEFT CONTENT -->
+      <!-- <div class="wrapper index-left-content"> -->
+        <div class="col-9">
+          <h2>Know the process</h2>
+          <p>Buying a home can be a daunting process. If you're feeling overwhelmed, you're not alone. We've got tools and resources to help you every step of the way.</p>
+        </div>
+
+        <div class="col-3">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of interest rate chart">
+        </div>
+      <!-- </div> /.wrapper -->
+
       <div class="wrapper index-left-content">
+        <div class="col-9">
+          <h2>Know the process</h2>
+          <p>Buying a home can be a daunting process. If you're feeling overwhelmed, you're not alone. We've got tools and resources to help you every step of the way.</p>
+        </div>
+
+        <div class="col-3">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of interest rate chart">
+        </div>
+      </div> <!-- /.wrapper -->
+
+      <div class="wrapper border-sep">
+        <div class="col-3">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of the home-buying process">
+        </div>
+        <div class="col-5">
+          <h2>Prepare to shop</h2>
+          <p>Not sure how to get started, how much you can afford, or what to expect when buying a home? Set yourself up for success with a little bit of preparation.</p>
+          <p><a class="go-link" href="{{ base_url }}process">Learn more</a></p>
+        </div>
+        <div class="col-4">
+          <h6>Key tools</h6>
+          <ul>
+            <li><a href="{{ base_url }}prepare-worksheets">Worksheet: clarify your goals</a></li>
+            <li><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+          </ul>
+        </div>
+      </div> <!-- /.wrapper -->
+
+      <div class="wrapper border-sep">
+        <div class="col-3">
+          <img class ="rc-home-illu" src="{{ base_url }}static/img/ill-chart.png" alt="Illustration of the home-buying process">
+        </div>
+        <div class="col-5">
+          <h2>Explore loan options</h2>
+          <p>You've got a pretty good idea of your priorities and budget, and you're ready to start home shopping in earnest. Now is the time to start exploring loan options and meeting with lenders.</p>
+          <p><a class="go-link" href="{{ base_url }}process">Learn more</a></p>
+        </div>
+        <div class="col-4">
+          <h6>Key tools</h6>
+          <ul>
+            <li><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+            <li><a href="{{ base_url }}loan-options">Understand loan options</a></li>
+          </ul>
+        </div>
+      </div> <!-- /.wrapper -->      
+
+<!-- old copy below -->
+      <div class="wrapper border-sep">
         <div class="col-9">
           <h2>Check interest rates for your situation<sup>BETA</sup></h2>
           <p>If you are shopping for a mortgage, you might be wondering: What interest rates can I expect? Use this tool to see the range of interest rates currently available to borrowers like you.</p>
@@ -103,7 +209,7 @@
     </div>
   </div>
 
-</div> <!-- /. wrap content-area -->
+</div> <!-- /. grid_wrapper -->
 
 <script type="text/javascript">
 // $(function(){
