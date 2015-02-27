@@ -194,7 +194,7 @@ this.worksheetDefaults = {
     "flags": function () {
         return [
             {  
-                "text":"There is chance I might move within the next few years",
+                "text":"There is a chance I might move within the next few years",
                 "grade":null,
                 "alternative":"Renters have more flexibility. It can be risky and expensive to buy if you end up needing to move again within a few years.",
                 "altText":"",
