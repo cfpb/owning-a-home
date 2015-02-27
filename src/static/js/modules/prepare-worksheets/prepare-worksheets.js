@@ -93,9 +93,9 @@ function _loadPage(page) {
   _updateNavigationState();
 
   if (!_pageLoad) {
-    //$('html, body').animate({
-    //  scrollTop: $(".page-contents").offset().top
-    //}, 700);
+    $('html, body').animate({
+      scrollTop: $(".page-contents").offset().top
+    }, 750);
   }
   _pageLoad = false;
 
