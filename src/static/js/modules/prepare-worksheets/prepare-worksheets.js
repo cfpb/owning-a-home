@@ -193,7 +193,8 @@ function _loadSummary() {
     var pageHtml = pageTemplate(templateData);
     _worksheetsDOM.innerHTML = pageHtml;
     // HACK: routing hack, to load page 1 when error messages clicked
-    $('.worksheet-summary a:not(.expandable_target)').click(function () {
+    $('.worksheet-summary a:not(.expandable_target)').click(function (e) {
+        e.preventDefault();
         _page = 1;
         _loadPage(1);
     });
