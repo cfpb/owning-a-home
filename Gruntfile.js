@@ -63,6 +63,7 @@ module.exports = function(grunt) {
      * LESS: https://github.com/gruntjs/grunt-contrib-less
      *
      * Compile LESS files to CSS.
+     * Source maps are slow, so they're separated into their own task for when needed
      */
     less: {
       watch: {
@@ -76,11 +77,8 @@ module.exports = function(grunt) {
       map: {
         options: {
           paths: grunt.file.expand('src/static/vendor/**/'),
-          compress: false,
           sourceMap: true,
-          sourceMapFilename: './dist/static/css/main.css.map',
-          sourceMapBasepath: './src/static/css/',
-          sourceMapURL: 'main.css.map'
+          sourceMapRootpath: '/'
         },
         files: {
           './dist/static/css/main.css': ['./src/static/css/main.less']
@@ -410,7 +408,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['css']
+        tasks: ['css', 'cssmin']
       },
       all: {
         options: {
