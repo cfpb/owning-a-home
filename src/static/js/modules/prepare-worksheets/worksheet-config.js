@@ -210,6 +210,14 @@ this.worksheetDefaults = {
                 "required": true
             },
             {  
+                "text":"I will have little to no savings left over after making a down payment",
+                "grade":null,
+                "alternative":"",
+                "altText":"",
+                "explanation":"",
+                "required": true
+            },
+            {  
                 "text":"I find fixing things and doing yardwork to be a real hassle",
                 "grade":null,
                 "alternative":"In a lot of ways, it’s simpler and more financially predictable to rent.",
