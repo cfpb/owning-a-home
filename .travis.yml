@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '0.10'
+  - iojs
 
 install:
   - npm install -g grunt-cli
@@ -8,4 +8,4 @@ install:
 
 script:
   - bash test/test_artifacts.sh
-  - grunt test
+  - npm test
