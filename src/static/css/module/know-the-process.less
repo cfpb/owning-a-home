@@ -52,8 +52,12 @@
 .know-the-process {
   .wrapper {
     margin: 0 auto !important;
+    max-width: 1100px;
+    
+    .respond-to-min(800px, {
+      padding-top: @grid_gutter-width;
+    });
   }
-  
   
   /* temp. workaround for .block-link border-color issue */
   a.jump-link,
@@ -115,6 +119,7 @@
 
         li {
           list-style: none;
+          margin-bottom: @grid_gutter-width;
         }
       }
   }
@@ -127,6 +132,11 @@
       margin-left: -(@grid_gutter-width / 2);
     });
     
+    .respond-to-range(@tablet-min, 799px, {
+      margin-right: -@grid_gutter-width;
+      margin-left: -@grid_gutter-width;
+    });
+    
     ul.explore_nav {
       .list__unstyled();
       
@@ -137,6 +147,11 @@
         
         .respond-to-max(@mobile-max, {
           margin-bottom: -1px;
+          
+          &.current-step {
+            padding-top: @grid_gutter-width / 3;
+            padding-bottom: @grid_gutter-width / 3;
+          }
         });
         
         .respond-to-min(900px, {
