@@ -36,77 +36,77 @@ fieldset.submit_btn > p {
     Hero
     --------------------------- */
 
-#hero-bg-image{
-  // background: #e4e2e0 url('../img/oah-hero-image.png');
-  /*background: #e4e2e0 url('/static/img/oah-hero-image.png');*/
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: auto 240px;
-  height:240px;
-  width: 100%;
-  position: absolute;
-}
+// #hero-bg-image{
+//   // background: #e4e2e0 url('../img/oah-hero-image.png');
+//   background: #e4e2e0 url('/static/img/oah-hero-image.png');
+//   background-position: center top;
+//   background-repeat: no-repeat;
+//   background-size: auto 240px;
+//   height:240px;
+//   width: 100%;
+//   position: absolute;
+// }
 
-@media (max-width: 720px) {
-  #hero-bg-image{
-    background-position: 0 0;
-  }
-}
+// @media (max-width: 720px) {
+//   #hero-bg-image{
+//     background-position: 0 0;
+//   }
+// }
 
 
-.hero-wrapper{
-  margin: -24px 0 0 -15px;
-  padding: 46px 0 0 0;
-  /*background: url('/static/img/oah-hero-image.png');*/
-  background-size: auto 241px;
-  min-height:240px;
+// .hero-wrapper{
+//   margin: -24px 0 0 -15px;
+//   padding: 46px 0 0 0;
+//   /*background: url('/static/img/oah-hero-image.png');*/
+//   background-size: auto 241px;
+//   min-height:240px;
 
-  h1{
-    font-weight: bold;
-  }
+//   h1{
+//     font-weight: bold;
+//   }
 
-  h2{
-    /*max-width: 500px;*/
-    font-size: 1.3125em;
-  }
-}
+//   h2{
+//     /*max-width: 500px;*/
+//     font-size: 1.3125em;
+//   }
+// }
 
-@media (max-width: 900px) {
-  .hero-wrapper{
-    padding-top:25px;
-  }
-}
+// @media (max-width: 900px) {
+//   .hero-wrapper{
+//     padding-top:25px;
+//   }
+// }
 
-@media (max-width: 400px) {
+// @media (max-width: 400px) {
 
-  .hero-wrapper{
-    padding-top:5px;
+//   .hero-wrapper{
+//     padding-top:5px;
 
-    h2{
-      font-size:1.2em;
-    }
+//     h2{
+//       font-size:1.2em;
+//     }
 
-    h1{
-      font-size: 1.425em;
-    }
+//     h1{
+//       font-size: 1.425em;
+//     }
 
-  }
-}
+//   }
+// }
 
-@media (max-width: 340px) {
-  #hero-bg-image {
-    background-size: auto 260px;
-    height:260px;
-  }
+// @media (max-width: 340px) {
+//   #hero-bg-image {
+//     background-size: auto 260px;
+//     height:260px;
+//   }
 
-  .hero-wrapper{
-    padding-top:5px;
-    background-size: auto 261px;
-    min-height:260px;
+//   .hero-wrapper{
+//     padding-top:5px;
+//     background-size: auto 261px;
+//     min-height:260px;
 
-    h2{ font-size:1.2em; }
-  }
-}
+//     h2{ font-size:1.2em; }
+//   }
+// }
 
 .tabbed-pad-top{
   margin-top: 60px;
@@ -172,7 +172,7 @@ fieldset.submit_btn > p {
 }
 
 /* REFACTOR with Capital Framework */
-@grid_debug: true;
+// @grid_debug: true;
 
 .grid_wrapper {
   margin: 0 auto;
@@ -181,13 +181,58 @@ fieldset.submit_btn > p {
   max-width: @grid_wrapper-width;
 }
 
+// Hero
+#hero-bg-image {
+  position: absolute;
+  width: 100%;
+  // height: 230px;
+  
+  .respond-to-min(720px) {
+    background: @neutral-20 url('/static/img/oah-hero-image.png');
+    background-repeat: no-repeat;
+    background-size: auto 230px;
+    background-position: center top;      
+    background-size: auto 240px;
+    height: 240px;
+  }
+}
+
 .hero_wrapper {
-  height: 240px;
+  padding-top: @grid_gutter-width/2; // 15px
+  padding-bottom: @grid_gutter-width/6; // 5px
+  // height: 230px;
+  // min-height: 230px;
+  // background-size: auto 261px;
+
+  // background image on the content element for small screens only, so we can have a flexible height
+  background: @neutral-20 url('/static/img/oah-hero-image.png');
+  background-position: 0 0;
+
+  .respond-to-min(720px) {
+    height: 240px;
+    min-height: 240px;
+    background: transparent;
+    background-image: none;
+  }
+  h1 {
+    font-size: 1.425em;
+    .respond-to-min(720px) {
+      font-weight: bold;     
+    }
+  }
+  h2 {
+    font-size:1.2em;
+    .respond-to-min(720px) {
+      font-size: 1.3125em;      
+    }
+  }
 }
 
 .content__main {
+  padding: 0 @grid_gutter-width/2; // 15px
   .respond-to-min(800px, {
     .grid_column(2, 3);    
+    padding: 0;
   });
 }
 
@@ -203,6 +248,14 @@ fieldset.submit_btn > p {
   });
 }
 
+
+.section__intro {
+  padding-top: @grid_gutter-width;
+  padding-bottom: @grid_gutter-width/3; // 10px
+}
+
+
+// Phases for Journey 
 .section__phase {
 
 }
