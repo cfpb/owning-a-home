@@ -110,7 +110,7 @@ fieldset.submit_btn > p {
 // }
 
 .tabbed-pad-top{
-  margin-top: 60px;
+  margin-top: @grid_gutter-width;
 }
 
 
@@ -223,10 +223,7 @@ fieldset.submit_btn > p {
 .content_hero {
   padding-top: @grid_gutter-width/2; // 15px
   padding-bottom: @grid_gutter-width/6; // 5px
-  // height: 230px;
-  // min-height: 230px;
-  // background-size: auto 261px;
-
+  
   // background image on the content element for small screens only, so we can have a flexible height
   background: @neutral-20 url('/static/img/oah-hero-image.png');
   background-position: 0 0;
@@ -266,11 +263,12 @@ fieldset.submit_btn > p {
 
 .section__intro {
   .respond-to-min(@tablet-min, {
-    .grid_nested-col-group();
     padding-bottom: @grid_gutter-width/3; // 10px
+    .grid_nested-col-group();
   });
   .respond-to-min(800px, { // @TODO change breakpoint?
-    padding-top: @grid_gutter-width;
+    padding-top: @grid_gutter-width/3; // 10px
+    padding-bottom: @grid_gutter-width;
   });
 }
 
