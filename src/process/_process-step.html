@@ -5,7 +5,6 @@
 {% block title %}Owning a Home: Know the Process{% endblock title %}
 
 {% block content %}
-
 <main class="know-the-process content content__1-3" id="main" role="main">
   <div class="wrapper content_wrapper">
     <aside class="content_sidebar content__flush-all-on-small">
@@ -21,7 +20,7 @@
                 <h1>{{active_step.title}}</h1>
 
                 <ul class="overview_list">
-                    {% for item in active_step.overview %}
+                    {% for item in active_step.intro %}
                     <li>{{item}}</li>
                     {% endfor %}
                 </ul>
@@ -43,13 +42,15 @@
             <section class="resources content-l_col content-l_col-3-8">
                 <h1 class="header-slug">
                     <span class="header-slug_inner">
-                        Related Resources
+                        Tools
                     </span>
                 </h1>
-                <ul class="list list__links resources_list">
+                <ul class="resources_list">
                     {% for resource in active_step.resources %}
-                        <li class="list_item">
-                            {{resource.text if resource.text}}
+                        <li>
+                            {% if resource.text %}
+                                <p class="short-desc">{{resource.text }}</p>
+                            {% endif %}
                             <a class="list_link jump-link jump-link__right" href="resource.url">
                                 {{resource.link}}
                             </a>
@@ -62,15 +63,17 @@
             <h1 class="h4">Ready for more? Explore another phase in the mortgage process.</h1>
             <ul class="explore_nav">
                 {% for item in vars.process_steps %}
-                    <li>
                     {% if item.slug == active_step.slug %}
-                        {{item.title}}
-                    {% else %}
-                        <a href="/process/{{item.slug}}" class="jump-link jump-link__right">
+                        <li class="current-step">
                             {{item.title}}
-                        </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="/owning-a-home/process/{{'' if item.slug == 'prepare' else item.slug}}" class="jump-link jump-link__right">
+                                {{item.title}}
+                            </a>
+                        </li>
                     {% endif %}
-                    </li>
                 {% endfor %}
             </ul>
         </section>
