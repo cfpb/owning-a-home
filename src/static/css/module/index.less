@@ -184,12 +184,6 @@ fieldset.submit_btn > p {
   }
 }
 
-.content_wrapper {
-  .respond-to-min(@grid_column-breakpoint, {
-    .grid_nested-col-group();
-  });
-}
-
 .content__bleedbar .content_no-sidebar {
   &:after {
     display: none;
@@ -208,7 +202,7 @@ fieldset.submit_btn > p {
 #hero-bg-image {
   position: absolute;
   width: 100%;
-  // height: 230px;
+  z-index: -1;
   
   .respond-to-min(720px, {
     background: @neutral-20 url('/static/img/oah-hero-image.png');
@@ -221,9 +215,6 @@ fieldset.submit_btn > p {
 }
 
 .content_hero {
-  padding-top: @grid_gutter-width/2; // 15px
-  padding-bottom: @grid_gutter-width/6; // 5px
-  
   // background image on the content element for small screens only, so we can have a flexible height
   background: @neutral-20 url('/static/img/oah-hero-image.png');
   background-position: 0 0;
@@ -242,6 +233,9 @@ fieldset.submit_btn > p {
       .grid_column(2,3);
       padding-right: @grid_gutter-width;
     });
+    .respond-to-min(900px, {
+      padding-right: @grid_gutter-width*2;
+    });
   }
 
   h1 {
@@ -255,18 +249,18 @@ fieldset.submit_btn > p {
   }
   h2 {
     font-size:1.2em;
-    .respond-to-min(900px, {
+    .respond-to-min(1100px, {
       .h2;
     });
   }
 }
 
 .section__intro {
+  padding-bottom: @grid_gutter-width/3; // 10px
   .respond-to-min(@tablet-min, {
-    padding-bottom: @grid_gutter-width/3; // 10px
     .grid_nested-col-group();
   });
-  .respond-to-min(800px, { // @TODO change breakpoint?
+  .respond-to-min(800px, {
     padding-top: @grid_gutter-width/3; // 10px
     padding-bottom: @grid_gutter-width;
   });
@@ -274,8 +268,7 @@ fieldset.submit_btn > p {
 
 // Phases for Journey 
 .section__phase {
-  // .respond-to-min(@grid_column-breakpoint, {
-  .respond-to-min(900px, {
+  .respond-to-min(@tablet-min, {
     .grid_nested-col-group();
   });
   .content-l_col {
@@ -285,15 +278,6 @@ fieldset.submit_btn > p {
   
   .content-l_col {
     &.content-l_col-1-4  {
-      // .respond-to-range(@tablet-min, 800px, { // @TODO change breakpoint?
-      //   .grid_column(1, 4);
-      // });
-      // .respond-to-min(800px, { // @TODO change breakpoint?
-      //   .grid_column(1, 2);    
-      // });
-      // .respond-to-min(900px, { // @TODO change breakpoint?
-      //   .grid_column(1, 4);    
-      // });
       .respond-to-min(@tablet-min, { // @TODO change breakpoint?
         .grid_column(1, 4);    
       });
