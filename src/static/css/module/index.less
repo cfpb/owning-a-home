@@ -11,18 +11,19 @@
 
 }
 
-#primary-content.index{
-  background: url('../img/gray-bg.png');
-  /*background: url('/static/img/gray-bg.png');*/
-  background-position: center top;
-  background-repeat: repeat-y;
-}
 
-@media (max-width: 720px) {
-  #primary-content.index{
-    background: transparent;
-  }
-}
+// #primary-content.index{
+  // background: url('../img/gray-bg.png');
+  /*background: url('/static/img/gray-bg.png');*/
+  // background-position: center top;
+  // background-repeat: repeat-y;
+// }
+
+// @media (max-width: 720px) {
+//   #primary-content.index{
+//     background: transparent;
+//   }
+// }
 
 fieldset.submit_btn,
 fieldset.submit_btn > p {
@@ -175,7 +176,8 @@ fieldset.submit_btn > p {
 
 .index {
   .content_main {
-    .respond-to-range(@tablet-min, 900px, {
+    // .respond-to-range(@tablet-min, 900px, {
+    .respond-to-min(@tablet-min, {
       padding-top: @grid_gutter-width;
       padding-bottom: @grid_gutter-width;
     });
@@ -186,6 +188,12 @@ fieldset.submit_btn > p {
   .respond-to-min(@grid_column-breakpoint, {
     .grid_nested-col-group();
   });
+}
+
+.content__bleedbar .content_no-sidebar {
+  &:after {
+    display: none;
+  }
 }
 
 // Hero
@@ -202,14 +210,14 @@ fieldset.submit_btn > p {
   width: 100%;
   // height: 230px;
   
-  .respond-to-min(720px) {
+  .respond-to-min(720px, {
     background: @neutral-20 url('/static/img/oah-hero-image.png');
     background-repeat: no-repeat;
     background-size: auto 230px;
     background-position: center top;      
     background-size: auto 240px;
     height: 240px;
-  }
+  });
 }
 
 .content_hero {
@@ -223,23 +231,36 @@ fieldset.submit_btn > p {
   background: @neutral-20 url('/static/img/oah-hero-image.png');
   background-position: 0 0;
 
-  .respond-to-min(720px) {
+  .respond-to-min(720px, {
+    padding-top: 0;
+    padding-bottom: 0;
     height: 240px;
     min-height: 240px;
     background-color: transparent;
     background-image: none;
+  });
+
+  .content_main {
+    .respond-to-min(@grid_column-breakpoint, {
+      .grid_column(2,3);
+      padding-right: @grid_gutter-width;
+    });
   }
+
   h1 {
     font-size: 1.425em;
-    .respond-to-min(720px) {
-      font-weight: bold;     
-    }
+    .respond-to-min(@grid_column-breakpoint, {
+      .h1;
+    });
+    .respond-to-min(900px, {
+      font-weight: bold;  
+    });
   }
   h2 {
     font-size:1.2em;
-    .respond-to-min(720px) {
-      font-size: 1.3125em;      
-    }
+    .respond-to-min(900px, {
+      .h2;
+    });
   }
 }
 
@@ -248,15 +269,15 @@ fieldset.submit_btn > p {
     .grid_nested-col-group();
     padding-bottom: @grid_gutter-width/3; // 10px
   });
-  .respond-to-min(900px, { // @TODO change breakpoint?
-    .grid_column(1, 4);
+  .respond-to-min(800px, { // @TODO change breakpoint?
     padding-top: @grid_gutter-width;
   });
 }
 
 // Phases for Journey 
 .section__phase {
-  .respond-to-min(@grid_column-breakpoint, {
+  // .respond-to-min(@grid_column-breakpoint, {
+  .respond-to-min(900px, {
     .grid_nested-col-group();
   });
   .content-l_col {
@@ -266,10 +287,16 @@ fieldset.submit_btn > p {
   
   .content-l_col {
     &.content-l_col-1-4  {
-      .respond-to-range(@tablet-min, 800px, { // @TODO change breakpoint?
-        .grid_column(1, 4);    
-      });
-      .respond-to-min(900px, { // @TODO change breakpoint?
+      // .respond-to-range(@tablet-min, 800px, { // @TODO change breakpoint?
+      //   .grid_column(1, 4);
+      // });
+      // .respond-to-min(800px, { // @TODO change breakpoint?
+      //   .grid_column(1, 2);    
+      // });
+      // .respond-to-min(900px, { // @TODO change breakpoint?
+      //   .grid_column(1, 4);    
+      // });
+      .respond-to-min(@tablet-min, { // @TODO change breakpoint?
         .grid_column(1, 4);    
       });
     }
