@@ -345,6 +345,7 @@ module.exports = function(grunt) {
       coverage: {
         src: ['test/js/*.js'], // multiple folders also works
         options: {
+          harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
           check: {

@@ -1,0 +1,34 @@
+{% set active_step = 
+    {   
+        "slug": "maintain",
+        "title": "Maintain your mortgage",
+        "image": "",
+        "intro": [
+            "Learn how to wisely manage your loan.",
+            "Understand when you should refinance.",
+            "Know when to get help."
+        ],
+        "actions": [
+            "Make regular mortgage payments",
+            "Manage your spending carefully",
+            "Consider ways to pay off your home sooner",
+            "If you have an adjustable-rate mortgage, know when the rate will change",
+            "Assess whether to refinance",
+            "Seek help if you are struggling to make your payments"
+        ],
+        "resources": [
+            {
+                "text": "Have a complaint about your mortgage servicer (the company that takes your payments and handles your loan)? We can often help.",
+                "url": "/complaint",
+                "link": "Submit a complaint"
+            },
+            {
+                "text": "Struggling to make your mortgage payments? Seek help before it’s too late.",
+                "url": "/find-a-housing-counselor",
+                "link": "Find a HUD-approved housing counselor"
+            }
+        ]
+    } 
+%}
+
+{% include "_process-step.html" %}
