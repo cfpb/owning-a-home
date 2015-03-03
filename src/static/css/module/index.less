@@ -172,7 +172,16 @@ fieldset.submit_btn > p {
 }
 
 /* REFACTOR with Capital Framework */
-// @grid_debug: true;
+
+.index {
+  .content_main {
+    .respond-to-range(@tablet-min, 900px, {
+      padding-top: @grid_gutter-width;
+      padding-bottom: @grid_gutter-width;
+    });
+  }
+}
+
 .content_wrapper {
   .respond-to-min(@grid_column-breakpoint, {
     .grid_nested-col-group();
@@ -235,10 +244,13 @@ fieldset.submit_btn > p {
 }
 
 .section__intro {
-  .respond-to-min(@grid_column-breakpoint, {
-    padding-top: @grid_gutter-width;
-    padding-bottom: @grid_gutter-width/3; // 10px
+  .respond-to-min(@tablet-min, {
     .grid_nested-col-group();
+    padding-bottom: @grid_gutter-width/3; // 10px
+  });
+  .respond-to-min(900px, { // @TODO change breakpoint?
+    .grid_column(1, 4);
+    padding-top: @grid_gutter-width;
   });
 }
 
@@ -254,7 +266,10 @@ fieldset.submit_btn > p {
   
   .content-l_col {
     &.content-l_col-1-4  {
-      .respond-to-min(@grid_column-breakpoint, { // @TODO change breakpoint?
+      .respond-to-range(@tablet-min, 800px, { // @TODO change breakpoint?
+        .grid_column(1, 4);    
+      });
+      .respond-to-min(900px, { // @TODO change breakpoint?
         .grid_column(1, 4);    
       });
     }
