@@ -65,7 +65,10 @@
 }
 
 .wrapper {
-  // .grid_nested-col-group();
+  // .grid_wrapper();
+  .respond-to-min(@grid_column-breakpoint, {
+    .grid_nested-col-group();
+  });
 }
 
 .wrapper-first {

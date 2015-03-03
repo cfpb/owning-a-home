@@ -173,6 +173,12 @@ fieldset.submit_btn > p {
 
 /* REFACTOR with Capital Framework */
 // @grid_debug: true;
+.content_wrapper {
+  .respond-to-min(@grid_column-breakpoint, {
+    .grid_nested-col-group();
+  });
+}
+
 // Hero
 
 .hero_wrapper {
@@ -229,14 +235,18 @@ fieldset.submit_btn > p {
 }
 
 .section__intro {
-  .grid_nested-col-group();
-  padding-top: @grid_gutter-width;
-  padding-bottom: @grid_gutter-width/3; // 10px
+  .respond-to-min(@grid_column-breakpoint, {
+    padding-top: @grid_gutter-width;
+    padding-bottom: @grid_gutter-width/3; // 10px
+    .grid_nested-col-group();
+  });
 }
 
 // Phases for Journey 
 .section__phase {
-  .grid_nested-col-group();
+  .respond-to-min(@grid_column-breakpoint, {
+    .grid_nested-col-group();
+  });
   .content-l_col {
     margin-top: 0;
   }
@@ -244,7 +254,7 @@ fieldset.submit_btn > p {
   
   .content-l_col {
     &.content-l_col-1-4  {
-      .respond-to-min(800px, { // @TODO change breakpoint?
+      .respond-to-min(@grid_column-breakpoint, { // @TODO change breakpoint?
         .grid_column(1, 4);    
       });
     }
