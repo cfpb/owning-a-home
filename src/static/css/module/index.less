@@ -146,14 +146,12 @@ fieldset.submit_btn > p {
 }
 
 .list__links.list__spaced {
-  .list_item {
+  .jump-link_intro + .list_link {
+    margin-top: @grid_gutter-width/3;
     margin-bottom: @grid_gutter-width;
     .respond-to-min(@mobile-max, {
       margin-bottom: @grid_gutter-width/3;
     });
-  }
-  .list_link {
-    margin-top: @grid_gutter-width/3;
   }
 }
 
