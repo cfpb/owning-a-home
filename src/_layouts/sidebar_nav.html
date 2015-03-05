@@ -10,7 +10,7 @@
 {% set active_page = active_page|default('index') -%}
 
 <nav class="nav-secondary expandable">
-    <h1 class="visuallyhidden">
+    <h1 class="u-visually-hidden">
 {%- for href, id, caption in navigation_bar %}
     {% if id == 'index' %}
         {{ caption|e }} navigation
