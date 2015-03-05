@@ -12,8 +12,10 @@
 }
 
 .content_wrapper__narrow { // Matches 1060px wide current CF.gov grid
-  max-width: 1060px;
-  padding: 0 @grid_gutter-width;
+  .respond-to-min(801px, {
+    max-width: 1060px;
+    padding: @grid_gutter-width;
+  });
 }
 
 // Ghost Grid classes
