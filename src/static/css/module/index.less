@@ -141,24 +141,40 @@ fieldset.submit_btn > p {
   SIDEBAR CONTENT
   ---------------------------- */
 
-.links-ul{
-  list-style: none;
-  padding: 0px;
-  margin: 0px;
+.list__links .list_link.jump-link__bg {
+  border-color: @gray-20;
+}
 
-  li{
-    list-style: none;
-    margin: 0px;
-    padding: 0 0 10px 0;
+.list__links.list__spaced {
+  .list_item {
+    margin-bottom: @grid_gutter-width;
+    .respond-to-min(@mobile-max, {
+      margin-bottom: @grid_gutter-width/3;
+    });
+  }
+  .list_link {
+    margin-top: @grid_gutter-width/3;
   }
 }
 
-.border-sep:before{
-  content: " ";
-  display: block;
-  margin: 30px 30px 30px 15px;
-  border-top: 1px solid #cdcdcb;
-}
+// .links-ul{
+//   list-style: none;
+//   padding: 0px;
+//   margin: 0px;
+
+//   li{
+//     list-style: none;
+//     margin: 0px;
+//     padding: 0 0 10px 0;
+//   }
+// }
+
+// .border-sep:before{
+//   content: " ";
+//   display: block;
+//   margin: 30px 30px 30px 15px;
+//   border-top: 1px solid #cdcdcb;
+// }
 
 #email{
   width: 200px;
