@@ -8,123 +8,212 @@
 
 <div id="oah-loan-comparison" class="loan-comparison {% if subnav %}col-9{% endif %}" role="main">
 
-  <section class="wrap page-intro">
-    <div class="wrapper">
-      <div class="col-12 oah-title-tag">
-        <h1 class="oah-title">Owning a Home <sup class="beta">BETA</sup></h1>
+  <section class="refresh-wrapper">
+    <div class="content_main">
+      <div class="content-l content-l__full">
+        
+        <div class="content-l_col content-l_col-1 oah-title-tag">
+          <h1 class="oah-title">Owning a Home <sup class="beta">BETA</sup></h1>
+        </div>
+
+        <div class="content-l_col content-l_col-2-3">
+          <h2 class="page-title">What loan package is right for you?</h2>
+          <p class="lead">What goes into a loan package? How do different parts of my loan package affect my total cost over time? How do I make a decision? A description of the tool that explains what it does and why a consumer would want to use it. Compare! Compare! Compare!</p>
+          <p>
+            <a href="rate-checker.html" class="jump-link jump-link__right">
+              <span class="jump-link_text">Check out the Rate Checker</span>
+            </a>
+          </p>
+        </div>
+        <div class="intro-img content-l_col content-l_col-1-3">
+          img placeholder
+        </div>
+        
       </div>
-
-      <div class="col-8">
-
-        <h2 class="page-title">What loan package is right for you?</h2>
-
-        <p class="lead">What goes into a loan package? How do different parts of my loan package affect my total cost over time? How do I make a decision? A description of the tool that explains what it does and why a consumer would want to use it. Compare! Compare! Compare!</p>
-
-        <p><a href="rate-checker.html" class="go-link">Check out the Rate Checker</a></p>
-
-      </div>
-      <div class="intro-img col-4">
-        img placeholder
-      </div>
-    </div> <!--/.wrapper -->
-  </section> <!-- /.page-intro -->
-
-  <section class="comparisons">
-    <div class="mobile-comparison-overviews wrap">
-      <div class="wrapper">
-        <div class="mobile-overview">
-          <h3 class="comparison-header">Loan A</h3>
-          <h4>Loan Amount</h4>
-          <p class="loan-amount-display-a">$180,000</p>
-
-          <h4>Loan Type</h4>
-          <p><span id="lc-summary-year-a">30</span> year <span id="lc-summary-structure-a">fixed</span> <span id="lc-summary-type-a">conventional</span></p>
-
-          <h4>Points or Credits</h4>
-          <p class="discount-a">0</p>
-
-          <h4>Interest Rate</h4>
-          <p> <span class="interest-rate-display-a">3.25</span>%</p>
-
-          <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
-
-        </div> <!-- /.mobile-overview -->
-
-        <div class="mobile-overview loan-b inactive">
-          <h3 class="comparison-header">Loan B</h3>
-          <div id="mobile-lc-add-button" class="mobile-add-btn">
-            <p>Compare loans to better understand your options.</p>
-              <a class="btn btn-secondary">Add another loan</a>
-          </div> <!-- /.mobile-add-btn -->
-
-          <div id="mobile-loanb-details" class="hidden">
-            <h4>Loan Amount</h4>
-            <p class="loan-amount-display-b">$180,000</p>
-
-            <h4>Loan Type</h4>
-            <p><span id="lc-summary-year-b">30</span> year <span id="lc-summary-structure-b">fixed</span> <span id="lc-summary-type-b">conventional</span></p>
-
-            <h4>Points or Credits</h4>
-            <p class="discount-b">0</p>
-
-            <h4>Interest Rate</h4>
-            <p> <span class="interest-rate-display-b">3.25</span>%</p>
-
-            <a href='#lc-input-b' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
-          </div>
-
-        </div> <!-- /.mobile-overview -->
-      </div> <!-- /.wrapper -->
-    </div> <!-- /.comparison-lead -->
-
-    <div class="wrap">
-      <ul class="input-headers" aria-hidden="true">
-        <li><h3>Compare loan costs</h3></li>
-        <li><h3>Loan A</h3></li>
-        <li><h3>Loan B</h3></li>
-        <li><h3>Loan C</h3></li>
-      </ul>
     </div>
+  </section> <!-- /.page-intro -->
+  <section id="onboarding">
+        <div class="refresh-wrapper">
+          <div class="content_main">
+          <div class="input-row">
+            <label for="location" class="label-float">I'm looking to buy a home in</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="location" class="recalc" id="location-{{form_id}}">
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AK">Arkansas</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="DC">District of Columbia</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NY">New York</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="TX">Texas</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div> <!-- /.input-wrap -->
+          </div>
+          <div class="input-row">
+            <label for="credit-score-select" class="label-float">My credit score is about</label>
+            <div class="input-wrap"> <!-- use with columns with floated labels -->
+              <div class="select-content">
+                <select name="credit-score-select" class="recalc" id="credit-score-select-{{form_id}}">
+                  <option value="600">600 - 620</option>
+                  <option value="620">621 - 640</option>
+                  <option value="640">641 - 660</option>
+                  <option value="660">661 - 680</option>
+                  <option value="680">681 - 700</option>
+                  <option value="700" selected="selected">701 - 720</option>
+                  <option value="720">721 - 740</option>
+                  <option value="740">741 - 760</option>
+                  <option value="760">761 - 780</option>
+                  <option value="780">781 - 800</option>
+                  <option value="800">801 - 820</option>
+                  <option value="820">821 - 840</option>
+                  <option value="840">841+</option>
+                </select>
+              </div> <!-- /.select-content -->
+            </div> <!-- /.input-wrap -->
+          </div> 
+  </div>
 
-    <div class="lc-inputs">
-      <div class="wrap">
+        </div>
+    </section>
 
-      </div> <!-- /.wrap -->
+    <section class="comparisons">
+      <div class="mobile-comparison-overviews u-show-on-mobile refresh-wrapper">
+            <div class="">
+              <div class="mobile-overview">
+                <h3 class="comparison-header">Loan A</h3>
+                <h4>Loan Amount</h4>
+                <p class="loan-amount-display-a">$180,000</p>
 
-    </div> <!-- /.lc-inputs -->
+                <h4>Loan Type</h4>
+                <p><span id="lc-summary-year-a">30</span> year <span id="lc-summary-structure-a">fixed</span> <span id="lc-summary-type-a">conventional</span></p>
 
-  </section> <!-- ./comparisons -->
+                <h4>Points or Credits</h4>
+                <p class="discount-a">0</p>
 
-  <div class="wrap">
-    <div class="wrapper">
+                <h4>Interest Rate</h4>
+                <p> <span class="interest-rate-display-a">3.25</span>%</p>
 
+                <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+
+              </div> <!-- /.mobile-overview -->
+
+              <div class="mobile-overview loan-b inactive">
+                <h3 class="comparison-header">Loan B</h3>
+                <div id="mobile-lc-add-button" class="mobile-add-btn">
+                  <p>Compare loans to better understand your options.</p>
+                    <a class="btn btn-secondary">Add another loan</a>
+                </div> <!-- /.mobile-add-btn -->
+
+                <div id="mobile-loanb-details" class="hidden">
+                  <h4>Loan Amount</h4>
+                  <p class="loan-amount-display-b">$180,000</p>
+
+                  <h4>Loan Type</h4>
+                  <p><span id="lc-summary-year-b">30</span> year <span id="lc-summary-structure-b">fixed</span> <span id="lc-summary-type-b">conventional</span></p>
+
+                  <h4>Points or Credits</h4>
+                  <p class="discount-b">0</p>
+
+                  <h4>Interest Rate</h4>
+                  <p> <span class="interest-rate-display-b">3.25</span>%</p>
+
+                  <a href='#lc-input-b' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+                </div>
+              </div>
+          </div> <!-- /.mobile-overview -->
+      </div> <!-- /.comparison-lead -->
+
+
+
+      <div class="lc-inputs">
+        <div class="refresh-wrapper">
+          <div class="input-headers" aria-hidden="true">
+            <div class="comparison-input-column"><h3>Compare loan costs</h3></div>
+            <div class="comparison-input-column"><h3>Loan A</h3></div>
+            <div class="comparison-input-column"><h3>Loan B</h3></div>
+            <div class="comparison-input-column"><h3>Loan C</h3></div>
+          </div>
+          <div class="form-container"></div>
+        </div> <!-- /.wrapper content-wrapper -->
+      </div> <!-- /.lc-inputs -->
+
+    </section> <!-- ./comparisons -->
+
+    <div class="refresh-wrapper">
+        
       <section class="comparison-results">
-
         <!-- hide these from screen readers with aria-hidden="true"
         since they are not in the correct source order -->
-        <div class="wrap result-heading">
-          <ul class="input-headers" aria-hidden="true">
-            <li><h3 aria-hidden="true">Loan A</h3></li>
-            <li><h3 aria-hidden="true">Loan B</h3></li>
-            <li><h3 aria-hidden="true">Loan C</h3></li>
-          </ul>
+        <div class="result-heading">
+          <div class="input-headers" aria-hidden="true">
+            <div class="comparison-input-column"></div>
+            <div class="comparison-input-column"><h3>Loan A</h3></div>
+            <div class="comparison-input-column"><h3>Loan B</h3></div>
+            <div class="comparison-input-column"><h3>Loan C</h3></div>
+          </div>
         </div>
 
         <section id="total-costs-closing" class="results-section">
           <h4 class="results-section-heading">Total costs at closing</h4>
 
           <div class="lc-result closing-cost-result" id="closing-cost-result-a">
-            <h5 class="visuallyhidden">Loan A</h5>
+            <h5 class="u-visually-hidden">Loan A</h5>
             <span class="lc-primary-result closing-costs-display-a">$3,000</span>
           </div> <!-- /#closing-cost-result-a -->
 
           <div class="lc-result closing-cost-result" id="closing-cost-result-b">
-            <h5 class="visuallyhidden">Loan B</h5>
+            <h5 class="u-visually-hidden">Loan B</h5>
             <span class="lc-primary-result closing-costs-display-b"></span>
           </div> <!-- /#closing-cost-result-b -->
 
           <div class="lc-result lc-result-c closing-cost-result" id="closing-cost-result-c">
-            <h5 class="visuallyhidden">Loan C</h5>
+            <h5 class="u-visually-hidden">Loan C</h5>
             <span class="lc-primary-result closing-costs-display-c"></span>
           </div> <!-- /#closing-cost-result-c -->
 
@@ -134,17 +223,17 @@
           <h4 class="results-section-heading">Monthly payment</h4>
 
           <div class="lc-result monthly-payment-result" id="monthly-payment-result-a">
-            <h5 class="visuallyhidden">Loan A</h5>
+            <h5 class="u-visually-hidden">Loan A</h5>
             <span class="lc-primary-result monthly-payment-display-a">$0</span>
           </div> <!-- /#monthly-payment-result-a -->
 
           <div class="lc-result monthly-payment-result" id="monthly-payment-result-b">
-            <h5 class="visuallyhidden">Loan B</h5>
+            <h5 class="u-visually-hidden">Loan B</h5>
             <span class="lc-primary-result monthly-payment-display-b"></span>
           </div> <!-- /#monthly-payment-result-b -->
 
           <div class="lc-result lc-result-c monthly-payment-result" id="monthly-payment-result-c">
-            <h5 class="visuallyhidden">Loan C</h5>
+            <h5 class="u-visually-hidden">Loan C</h5>
             <span class="lc-primary-result monthly-payment-display-c"></span>
           </div> <!-- /#monthly-payment-result-c -->
 
@@ -155,24 +244,23 @@
           <h4 class="results-section-heading">Overall costs</h4>
 
           <div class="lc-result overall-costs-result" id="closing-cost-result-a">
-            <h5 class="visuallyhidden">Loan A</h5>
+            <h5 class="u-visually-hidden">Loan A</h5>
             <span class="lc-primary-result overall-costs-display-a">$0</span>
           </div> <!-- /#closing-cost-result-a -->
 
           <div class="lc-result overall-costs-result" id="closing-cost-result-b">
-            <h5 class="visuallyhidden">Loan B</h5>
+            <h5 class="u-visually-hidden">Loan B</h5>
             <span class="lc-primary-result overall-costs-display-b"></span>
           </div> <!-- /#closing-cost-result-b -->
 
           <div class="lc-result lc-result-c overall-costs-result" id="closing-cost-result-c">
-            <h5 class="visuallyhidden">Loan C</h5>
+            <h5 class="u-visually-hidden">Loan C</h5>
             <span class="lc-primary-result overall-costs-display-c"></span>
           </div> <!-- /#closing-cost-result-c -->
 
         </section> <!-- /#overall-costs -->
 
       </section> <!-- ./comparison-results -->
-
       <section id="about" class="about">
 
         <div class="about-data col-8">
@@ -198,7 +286,6 @@
       </section> <!-- /.about -->
 
     </div> <!-- /.wrapper -->
-  </div> <!-- /.wrap -->
 
 </div> <!-- /.loan-comparison ->
 

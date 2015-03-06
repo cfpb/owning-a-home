@@ -7,7 +7,7 @@ var templates = {
 };
 require('./object.observe-polyfill');
 
-var $container = $('.lc-inputs .wrap'),
+var $container = $('.lc-inputs .form-container'),
     $lc = $('#oah-loan-comparison'),
     $mobileOverview = $('.mobile-overview'),
     $button,
