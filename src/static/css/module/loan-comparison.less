@@ -365,34 +365,86 @@
 
 .comparison-results {
   margin-top: 60px;
+  .expandable_header {
+    position: relative;
+    background: @gray-10;
+  }
+  .expandable_header-left {
+    // .respond-to-min(@tablet-min, {
+    //   width: 90%;
+    // });
+  }
+  .expandable__padded.expandable__expanded {
+    background: @white;
+  }
+  .expandable__padded .expandable_content {
+    margin-right: 0;
+    margin-left: 0;
+    &:before,
+    &:hover {
+      display: none;      
+    }
+  }
 }
 
 .result-heading {
-  color: @gray;
   .grid_push(2);
 }
 
 .results-section {
   margin-bottom: 60px;
 }
+  .results-section-heading {
+    margin: 0;
+  }
 
-.results-section-heading {
-  .reset;
-  .webfont-medium();
-  font-size: 1.125em;
-  background-color: @gray-10;
+  .primary-results-row {
+    position: absolute;
+    bottom: 0;
+    clear: both;
+    .respond-to-min(@tablet-min, {
+      float: left;
+      clear: none;
+    });
+  }
+
+  .lender-results-row {
+    padding: 0 15px; // @todo: swap for @grid_column-gutter variable 
+  }
+    .closing-cost-result,
+    .lender-fees-result {
+      .grid_column(1,2);
+    }
+
+.result-detail {
+
 }
+  .result-detail-heading {
 
-.lc-primary-result {
-  font-size: 1.375em;
-  .webfont-regular();
+  }
+
+// .results-section-heading {
+//   .reset;
+//   .webfont-medium();
+//   font-size: 1.125em;
+// }
+
+// .lc-primary-result {
+//   font-size: 1.375em;
+//   .webfont-regular();
+// }
+
+@media (max-width: 600px) {
+  .result-heading {
+    display: none;
+  }
+  // we never want to show loan c on small screens
+  .lc-result-c {
+    display: none;
+  }
 }
 
 @media (min-width: 600px) {
-  .results-section {
-    background-color: @gray-10;
-    padding: 12px 0;
-  }
 
   .results-section-heading,
   .lc-result {
@@ -403,24 +455,4 @@
     font-size: 1.375em;
   }
 
-}
-
-@media (max-width: 600px) {
-  .result-heading {
-    display: none;
-  }
-
-  .results-section-heading {
-    padding: 12px 10px;
-  }
-
-  .lc-primary-result,
-  .lc-result {
-    .grid_column(6);
-  }
-
-  // we never want to show loan c on small screens
-  .lc-result-c {
-    display: none;
-  }
 }
