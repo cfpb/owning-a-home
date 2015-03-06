@@ -12,18 +12,6 @@
   padding: 0;
 }
 
-/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
-.visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
 .hidden {
   display: none !important;
 }
@@ -34,35 +22,6 @@
   .webfont-demi();
   font-size: 0.75em;
   text-transform: uppercase;
-}
-
-/*
- * media query mixins
- * ==================
- * based on https://github.com/cfpb/cf-core/blob/gh-pages/src/cf-media-queries.less
- * todo: move to cf-core
-*/
-
-.respond-to-min(@bp, @rules) {
-    @ems: unit((@bp / @base-font-size-px), em);
-    @media only all and (min-width: @ems) {
-        @rules();
-    }
-}
-
-.respond-to-max(@bp, @rules) {
-    @ems: unit((@bp / @base-font-size-px), em);
-    @media only all and (max-width: @ems) {
-        @rules();
-    }
-}
-
-.respond-to-range(@bp1, @bp2, @rules) {
-    @ems1: unit((@bp1 / @base-font-size-px), em);
-    @ems2: unit((@bp2 / @base-font-size-px), em);
-    @media only all and (min-width: @ems1) and (max-width: @ems2) {
-        @rules();
-    }
 }
 
 /* topdoc

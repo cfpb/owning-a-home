@@ -11,53 +11,63 @@
   clear: both;
 }
 
+.content_wrapper__narrow { // Matches 1060px wide current CF.gov grid
+  .respond-to-min(801px, {
+    max-width: 1060px;
+    padding: @grid_gutter-width;
+  });
+}
+
 // Ghost Grid classes
-.col-1 {
-  .grid_column( 1 );
-}
 
-.col-2 {
-  .grid_column( 2 );
-}
+@media (min-width: 720px) {
+  .col-1 {
+    .grid_column( 1 );
+  }
 
-.col-3 {
-  .grid_column( 3 );
-}
+  .col-2 {
+    .grid_column( 2 );
+  }
 
-.col-4 {
-  .grid_column( 4 );
-}
+  .col-3 {
+    .grid_column( 3 );
+  }
 
-.col-5 {
-  .grid_column( 5 );
-}
+  .col-4 {
+    .grid_column( 4 );
+  }
 
-.col-6 {
-  .grid_column( 6 );
-}
+  .col-5 {
+    .grid_column( 5 );
+  }
 
-.col-7 {
-  .grid_column( 7 );
-}
+  .col-6 {
+    .grid_column( 6 );
+  }
 
-.col-8 {
-  .grid_column( 8 );
-}
+  .col-7 {
+    .grid_column( 7 );
+  }
 
-.col-9 {
-  .grid_column( 9 );
-}
+  .col-8 {
+    .grid_column( 8 );
+  }
 
-.col-10 {
-  .grid_column( 10 );
-}
+  .col-9 {
+    .grid_column( 9 );
+  }
 
-.col-11 {
-  .grid_column( 11 );
-}
+  .col-10 {
+    .grid_column( 10 );
+  }
 
-.col-12 {
-  .grid_column( 12 );
+  .col-11 {
+    .grid_column( 11 );
+  }
+
+  .col-12 {
+    .grid_column( 12 );
+  }
 }
 
 .push-4{
@@ -65,7 +75,7 @@
 }
 
 .wrapper {
-  .grid_nested-col-group();
+  // .grid_wrapper();
 }
 
 .wrapper-first {
@@ -90,21 +100,6 @@
 }
 
 @media (max-width: 720px) {
-
-  .col-1,
-  .col-2,
-  .col-3,
-  .col-4,
-  .col-5,
-  .col-6,
-  .col-7,
-  .col-8,
-  .col-9,
-  .col-10,
-  .col-11,
-  .col-12 {
-    .grid_column(12);
-  }
 
   .push-4{
     .grid_push( 0 );
