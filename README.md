@@ -23,9 +23,14 @@ We are working under an agile framework, and plan to use this repo to publish, r
 - [Capital Framework](http://cfpb.github.io/capital-framework/)
 - [LESS](http://lesscss.org/)
 
-### Virtualenv & Virtualenvwrapper Python modules
+### Virtualenv Python module
 
 If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
+
+1. Run: 
+	```
+	$ easy_install pip
+	```
 
 1. Run:
 	```
