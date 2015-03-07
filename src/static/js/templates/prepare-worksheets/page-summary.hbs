@@ -7,68 +7,51 @@
       <section class="summary-chart">
 
         <!-- goals -->
+
+        <div class="box1 first">
           {{#each this.goals.[2].[items]}}
-            low priority goal #{{@index}}: 
-            <div class="goal-low"></div>
+            <!-- low priority goal #{{@index}}: -->
+            <div class="box-goals goals-low"></div>
           {{/each}} <!-- light green -->
 
           {{#each this.goals.[1].[items]}}
-            medium priority goal #{{@index}}: 
-            <div class="goal-medium"></div>
+            <!-- medium priority goal #{{@index}}: -->
+            <div class="box-goals goals-medium"></div>
           {{/each}} <!-- medium green -->
 
           {{#each this.goals.[0].[items]}}
-            high priority goal #{{@index}}: 
-            <div class="goal-high"></div>
+            <!-- high priority goal #{{@index}}: -->
+            <div class="box-goals goals-high"></div>
           {{/each}} <!-- dark green -->
+        </div>
 
-          <!-- red flags -->
+        <!-- red flags -->
+        <div class="box1">
           {{#each this.flags.[1].[items]}}
-            somewhat likely flag #{{@index}}: 
-            <div class="flag-medium"></div>
+            <!-- somewhat likely flag #{{@index}}: -->
+            <div class="box-goals flags-medium"></div>
           {{/each}} <!-- light red -->
 
+
           {{#each this.flags.[0].[items]}}
-            likely flag #{{@index}}: 
-            <div class="flag-high"></div>
+            <!-- likely flag #{{@index}}: -->
+            <div class="box-goals flags-high"></div>
           {{/each}} <!-- dark red -->
+        </div>
 
-          <!-- risks -->
-
+        <!-- risks -->
+        <div class="box1">
           {{#each this.risks.[1].[items]}}
-            maybe ready risk #{{@index}}: 
-            <div class="risk-medium"></div>
+            <!-- maybe ready risk #{{@index}}: -->
+            <div class="box-goals risks-medium"></div>
           {{/each}} <!-- light yellow -->
 
           {{#each this.risks.[2].[items]}}
-            not ready risk #{{@index}}: 
-            <div class="risk-low"></div>
+            <!-- not ready risk #{{@index}}: -->
+            <div class="box-goals risks-high"></div>
           {{/each}} <!-- dark yellow -->
+        </div>
 
-          <div class="box1 first">
-            <div class="box-goals "></div>
-            <div class="box-goals"></div>
-            <div class="box-goals"></div>
-            <div class="box-goals"></div>
-            <div class="box-goals"></div>
-            <div class="box-goals"></div>
-            <div class="box-goals"></div>
-            <div class="box-goals goals-low"></div>
-            <div class="box-goals goals-high"></div>
-            <div class="box-goals goals-high"></div>
-          </div>
-          <div class="box1 ">
-            <div class="box-goals flags-medium"></div>
-            <div class="box-goals flags-medium"></div>
-            <div class="box-goals flags-high"></div>
-            <div class="box-goals flags-high"></div>
-          </div>
-          <div class="box1 ">
-            <div class="box-goals risks-medium"></div>
-            <div class="box-goals risks-medium"></div>
-            <div class="box-goals risks-high"></div>
-            <div class="box-goals risks-high"></div>
-          </div>
           <br>
           <div class="box2">
              <h5>Goals</h5>
