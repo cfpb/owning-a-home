@@ -79,7 +79,7 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 	```
 	$ npm install -g grunt-cli bower browserify
 	```
-3. Install the project's node dependencies:
+3. Navigate to the cloned `owning-a-home` directory and install the project's node dependencies:
 	```
 	$ npm install
 	```
