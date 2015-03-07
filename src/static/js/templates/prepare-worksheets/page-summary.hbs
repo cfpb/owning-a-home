@@ -8,19 +8,20 @@
 
         <!-- goals -->
 
+        {{#if goalsError }}
         <div class="box1 first">
           {{#each this.goals.[2].[items]}}
-            <!-- low priority goal #{{@index}}: -->
+            <!-- low priority goal -->
             <div class="box-goals goals-low"></div>
           {{/each}} <!-- light green -->
 
           {{#each this.goals.[1].[items]}}
-            <!-- medium priority goal #{{@index}}: -->
+            <!-- medium priority goal -->
             <div class="box-goals goals-medium"></div>
           {{/each}} <!-- medium green -->
 
           {{#each this.goals.[0].[items]}}
-            <!-- high priority goal #{{@index}}: -->
+            <!-- high priority goal -->
             <div class="box-goals goals-high"></div>
           {{/each}} <!-- dark green -->
         </div>
@@ -28,13 +29,13 @@
         <!-- red flags -->
         <div class="box1">
           {{#each this.flags.[1].[items]}}
-            <!-- somewhat likely flag #{{@index}}: -->
+            <!-- somewhat likely flag -->
             <div class="box-goals flags-medium"></div>
           {{/each}} <!-- light red -->
 
 
           {{#each this.flags.[0].[items]}}
-            <!-- likely flag #{{@index}}: -->
+            <!-- likely flag -->
             <div class="box-goals flags-high"></div>
           {{/each}} <!-- dark red -->
         </div>
@@ -42,12 +43,12 @@
         <!-- risks -->
         <div class="box1">
           {{#each this.risks.[1].[items]}}
-            <!-- maybe ready risk #{{@index}}: -->
+            <!-- maybe ready risk -->
             <div class="box-goals risks-medium"></div>
           {{/each}} <!-- light yellow -->
 
           {{#each this.risks.[2].[items]}}
-            <!-- not ready risk #{{@index}}: -->
+            <!-- not ready risk -->
             <div class="box-goals risks-high"></div>
           {{/each}} <!-- dark yellow -->
         </div>
