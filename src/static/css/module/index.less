@@ -2,26 +2,11 @@
    "Home Page" custom styles
    ========================================================================== */
 
+/*
+  WRAPPERS & CONTAINERS
+  ---------------------------- */
 .index {
   .webfont-regular();
-
-  .page-intro {
-    border-bottom: 1px solid @gray-20;
-  }
-
-}
-
-#primary-content.index{
-  background: url('../img/gray-bg.png');
-  /*background: url('/static/img/gray-bg.png');*/
-  background-position: center top;
-  background-repeat: repeat-y;
-}
-
-@media (max-width: 720px) {
-  #primary-content.index{
-    background: transparent;
-  }
 }
 
 fieldset.submit_btn,
@@ -31,131 +16,137 @@ fieldset.submit_btn > p {
   padding:0px;
 }
 
-
-/*
-    Hero
-    --------------------------- */
-
-#hero-bg-image{
-  background: #e4e2e0 url('../img/oah-hero-image.png');
-  /*background: #e4e2e0 url('/static/img/oah-hero-image.png');*/
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: auto 240px;
-  height:240px;
-  width: 100%;
-  position: absolute;
-}
-
-@media (max-width: 720px) {
-  #hero-bg-image{
-    background-position: 0 0;
+.index {
+  .content_main {
+    .respond-to-min(@tablet-min, {
+      padding-top: @grid_gutter-width;
+      padding-bottom: @grid_gutter-width;
+    });
   }
 }
 
-
-.hero-wrapper{
-  margin: -24px 0 0 -15px;
-  padding: 46px 0 0 0;
-  /*background: url('/static/img/oah-hero-image.png');*/
-  background-size: auto 241px;
-  min-height:240px;
-
-  h1{
-    font-weight: bold;
-  }
-
-  h2{
-    /*max-width: 500px;*/
-    font-size: 1.3125em;
+.content__bleedbar.content__2-1 .content_no-sidebar {
+  &:after {
+    display: none;
   }
 }
 
-@media (max-width: 900px) {
-  .hero-wrapper{
-    padding-top:25px;
-  }
-}
-
-@media (max-width: 400px) {
-
-  .hero-wrapper{
-    padding-top:5px;
-
-    h2{
-      font-size:1.2em;
-    }
-
-    h1{
-      font-size: 1.425em;
-    }
-
-  }
-}
-
-@media (max-width: 340px) {
-  #hero-bg-image {
-    background-size: auto 260px;
-    height:260px;
-  }
-
-  .hero-wrapper{
-    padding-top:5px;
-    background-size: auto 261px;
-    min-height:260px;
-
-    h2{ font-size:1.2em; }
-  }
-}
-
-.tabbed-pad-top{
-  margin-top: 60px;
-}
 
 
 /*
-  CONTENT
+  HERO
   ---------------------------- */
-.gray-box{
-  background: #EFEFEF;
-  padding: 0px 15px 300px 30px;
-  border-left: 1px solid #cdcdcb;
+
+.hero_wrapper {
+  margin: 0 auto;
+  position: relative;
+  clear: both;
+  max-width: @grid_wrapper-width;
 }
 
-.index-content{
-  .webfont-regular();
+#hero-bg-image {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  
+  .respond-to-min(720px, {
+    background: @neutral-20 url('/static/img/oah-hero-image.png');
+    background-repeat: no-repeat;
+    background-size: auto 230px;
+    background-position: center top;      
+    background-size: auto 240px;
+    height: 240px;
+  });
+}
 
-  h3 + p {
-    margin-top: -20px;
+.content_hero {
+  // background image on the content element for small screens only, so we can have a flexible height
+  background: @neutral-20 url('/static/img/oah-hero-image.png');
+  background-position: 0 0;
+
+  .respond-to-min(720px, {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 240px;
+    min-height: 240px;
+    background-color: transparent;
+    background-image: none;
+  });
+
+  .content_main {
+    .respond-to-min(@grid_column-breakpoint, {
+      .grid_column(2,3);
+      padding-right: @grid_gutter-width;
+    });
+    .respond-to-min(900px, {
+      padding-right: @grid_gutter-width*2;
+    });
   }
 
-  p + p a.go-link{
-    margin-top: -20px;
-    margin-bottom: 20px;
+  h1 {
+    font-size: 1.425em;
+    .respond-to-min(@grid_column-breakpoint, {
+      .h1;
+    });
+    .respond-to-min(900px, {
+      font-weight: bold;  
+    });
+  }
+  h2 {
+    font-size:1.2em;
+    .respond-to-min(1100px, {
+      .h2;
+    });
   }
 }
 
-.index-left-content{
-  margin-top: 64px;
+/*
+  MAIN COLUMN CONTENT
+  ---------------------------- */
+
+.section__intro {
+  padding-bottom: @grid_gutter-width/3; // 10px
+  .respond-to-min(800px, {
+    padding-top: @grid_gutter-width/3; // 10px
+    padding-bottom: @grid_gutter-width;
+  });
 }
 
-.links-ul{
-  list-style: none;
-  padding: 0px;
-  margin: 0px;
-
-  li{
-    list-style: none;
-    margin: 0px;
-    padding: 0 0 10px 0;
+// Phases for Journey 
+.section__phase {
+  .content-l_col {
+    margin-top: 0;
   }
 }
+  
+  .content-l_col {
+    &.content-l_col-1-4  {
+      .respond-to-min(@tablet-min, { // @TODO change breakpoint?
+        .grid_column(1, 4);    
+      });
+    }
+  }
 
-.border-sep:before{
-  content: " ";
-  display: block;
-  margin: 30px 30px 30px 15px;
-  border-top: 1px solid #cdcdcb;
+  .phase_tools {
+    position: relative;
+  }
+
+/*
+  SIDEBAR CONTENT
+  ---------------------------- */
+
+.list__links .list_link.jump-link__bg {
+  border-color: @gray-20;
+}
+
+.list__links.list__spaced {
+  .jump-link_intro + .list_link {
+    margin-top: @grid_gutter-width/3;
+    margin-bottom: @grid_gutter-width;
+    .respond-to-min(@mobile-max, {
+      margin-bottom: @grid_gutter-width/3;
+    });
+  }
 }
 
 #email{
@@ -169,3 +160,6 @@ fieldset.submit_btn > p {
   }
 }
 
+.tabbed-pad-top {
+  margin-top: @grid_gutter-width;
+}
