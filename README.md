@@ -12,6 +12,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 ## Dependencies
 
+- pip, a package manager for python
 - Unix-based OS (including Macs). Windows is not supported at this time.
 - [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
 - [Sheer](https://github.com/cfpb/sheer)
@@ -27,7 +28,12 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
 
-1. Run:
+1. install pip in your home directory
+	```bash
+	sudo easy_install pip
+	```
+
+2. Run:
 	```bash
 	pip install virtualenv virtualenvwrapper
 	```
@@ -98,7 +104,7 @@ The Rate Checker is a JavaScript application for checking mortgage interest rate
 
 #### Private API Users
 
-To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
+To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`.
 
 1. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
 	```shell
@@ -129,7 +135,7 @@ $ grunt
 ```
 
 ### Sheer workflow
-Sheer needs to be running to compile the templates in `_layouts`. 
+Sheer needs to be running to compile the templates in `_layouts`.
 
 1. Use the sheer virtualenv:
 	```bash
