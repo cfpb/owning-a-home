@@ -83,7 +83,12 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 	```
 	$ npm install
 	```
-4. Run grunt to build the site:
+4. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
+	```
+	$ cd config
+	$ cp example-config.json config.json
+	```
+5. Run grunt to build the site:
 	```
 	$ grunt
 	```
@@ -100,13 +105,7 @@ The Rate Checker is a JavaScript application for checking mortgage interest rate
 
 To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
 
-1. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
-	```shell
-	$ cd config
-	$ cp example-config.json config.json
-	```
-
-2. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+1. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
 	```json
 	{
 	    "rateCheckerAPI": "YOUR API URL HERE",
