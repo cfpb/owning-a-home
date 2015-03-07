@@ -28,8 +28,8 @@ We are working under an agile framework, and plan to use this repo to publish, r
 If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
 
 1. Run:
-	```bash
-	pip install virtualenv virtualenvwrapper
+	```
+	$ pip install virtualenv virtualenvwrapper
 	```
 
 ### Sheer & Elasticsearch
@@ -80,12 +80,12 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 	$ npm install -g grunt-cli bower browserify
 	```
 3. Install the project's node dependencies:
-	```bash
+	```
 	$ npm install
 	```
 4. Run grunt to build the site:
 	```
-	grunt
+	$ grunt
 	```
 
 
@@ -102,8 +102,8 @@ To configure the Rate Checker you will need to point to the required API URLs in
 
 1. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
 	```shell
-	cd config
-	cp example-config.json config.json
+	$ cd config
+	$ cp example-config.json config.json
 	```
 
 2. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
