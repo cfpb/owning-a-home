@@ -81,12 +81,12 @@ function _loadPage(page) {
 
   switch(Number(page)) {
   case 1 :
-    _loadWorksheets();
-    break;
-  case 2 :
-    _loadNotes();
-    break;
-  case 3 :
+  //   _loadWorksheets();
+  //   break;
+  // case 2 :
+  //   _loadNotes();
+  //   break;
+  // case 3 :
     _loadSummary();
     break;
   }
