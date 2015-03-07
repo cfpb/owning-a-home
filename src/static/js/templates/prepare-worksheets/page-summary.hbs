@@ -2,7 +2,48 @@
     <h1>Your summary</h1>
     <p class="lead">Buying a home is more complicated than simply trading a rent payment for a mortgage payment.  Owning a home is a long-term financial commitment that carries costs, risks, and benefits.  Examine your summary below to decide whether or not you are ready to continue working towards buying a home.</p>
     
-    <div class="summary-chart"></div>
+    <div class="summary-chart">
+      
+
+    <!-- goals -->
+      {{#each this.goals.[2].[items]}}
+        low priority goal #{{@index}}: 
+        <div class="goal-low"></div>
+      {{/each}} <!-- light green -->
+
+      {{#each this.goals.[1].[items]}}
+        medium priority goal #{{@index}}: 
+        <div class="goal-medium"></div>
+      {{/each}} <!-- medium green -->
+
+      {{#each this.goals.[0].[items]}}
+        high priority goal #{{@index}}: 
+        <div class="goal-high"></div>
+      {{/each}} <!-- dark green -->
+
+      <!-- red flags -->
+      {{#each this.flags.[1].[items]}}
+        somewhat likely flag #{{@index}}: 
+        <div class="flag-medium"></div>
+      {{/each}} <!-- light red -->
+
+      {{#each this.flags.[0].[items]}}
+        likely flag #{{@index}}: 
+        <div class="flag-high"></div>
+      {{/each}} <!-- dark red -->
+
+      <!-- risks -->
+
+      {{#each this.risks.[1].[items]}}
+        maybe ready risk #{{@index}}: 
+        <div class="risk-medium"></div>
+      {{/each}} <!-- light yellow -->
+
+      {{#each this.risks.[2].[items]}}
+        not ready risk #{{@index}}: 
+        <div class="risk-low"></div>
+      {{/each}} <!-- dark yellow -->
+    </div>
     
     <div class="content-l content-l__main">
         <div class="content-l_col content-l_col-1-2">
