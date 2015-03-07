@@ -51,7 +51,17 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	$ mkvirtualenv OAH
 	```
 
-	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
+	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`. You'll know you have a virtual environmet activated if you see the name of it in parentheses before your terminal prompt. Ex:
+	```
+	(OAH)username$
+	```
+	
+	If the virtualenv did not activate right away, run this command from the directory above where the OAH directory lives:
+	```
+	$ source OAH/bin/activate
+	```
+	
+	To deactivate, use the command `deactivate`.
 
 4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 	```
