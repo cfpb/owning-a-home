@@ -84,7 +84,7 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 	$ npm install
 	```
 4. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
-	```
+	```shell
 	$ cd config
 	$ cp example-config.json config.json
 	```
