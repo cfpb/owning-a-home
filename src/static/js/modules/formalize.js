@@ -65,6 +65,16 @@ function createNewForm( id ) {
         return loan['amount-borrowed'] / 100;
       }
     },{
+      name: 'third-party-services',
+      source: function() {
+        return 3000;
+      }
+    },{
+      name: 'mortage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
@@ -94,6 +104,9 @@ function createNewForm( id ) {
       $lenderFees = $('.lender-fees-display-' + id),
       $discountAmount = $('.discount-display-' + id),
       $processing = $('.processing-fees-display-' + id),
+      $thirdPartyFees = $('.third-party-fees-display-' + id),
+      $thirdPartyServices = $('.third-party-services-display-' + id),
+      $mortgageInsurance = $('.mortage-insurance-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -122,6 +135,9 @@ function createNewForm( id ) {
     $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
     $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
     $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
+    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortage-insurance'], {decimalPlaces:0}) );
+    $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
+    $mortgageInsurance.text( formatUSD(loan['mortage-insurance'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
