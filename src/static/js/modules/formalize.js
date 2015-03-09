@@ -161,7 +161,6 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    // $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) ); // todo: update closing costs math to use new detailed fees below
     $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
     $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
     $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
