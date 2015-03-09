@@ -70,7 +70,7 @@ function createNewForm( id ) {
         return 3000;
       }
     },{
-      name: 'mortage-insurance',
+      name: 'mortgage-insurance',
       source: function() {
         return 0;
       }
@@ -93,6 +93,7 @@ function createNewForm( id ) {
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
           closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
+          // todo: update closing costs math to use new detailed fees
         }).overallCost;
       }
     }
@@ -106,7 +107,7 @@ function createNewForm( id ) {
       $processing = $('.processing-fees-display-' + id),
       $thirdPartyFees = $('.third-party-fees-display-' + id),
       $thirdPartyServices = $('.third-party-services-display-' + id),
-      $mortgageInsurance = $('.mortage-insurance-display-' + id),
+      $mortgageInsurance = $('.mortgage-insurance-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -131,13 +132,13 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
+    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) ); // todo: update closing costs math to use new detailed fees below
     $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
     $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
     $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
-    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortage-insurance'], {decimalPlaces:0}) );
+    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortgage-insurance'], {decimalPlaces:0}) );
     $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
-    $mortgageInsurance.text( formatUSD(loan['mortage-insurance'], {decimalPlaces:0}) );
+    $mortgageInsurance.text( formatUSD(loan['mortgage-insurance'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
