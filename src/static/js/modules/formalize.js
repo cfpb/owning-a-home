@@ -60,6 +60,11 @@ function createNewForm( id ) {
         return points * loan['amount-borrowed'];
       }
     },{
+      name: 'processing',
+      source: function() {
+        return loan['amount-borrowed'] / 100;
+      }
+    },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
@@ -86,6 +91,9 @@ function createNewForm( id ) {
   // Cache these for later
   var $amount = $('.loan-amount-display-' + id),
       $closing = $('.closing-costs-display-' + id),
+      $lenderFees = $('.lender-fees-display-' + id),
+      $discountAmount = $('.discount-display-' + id),
+      $processing = $('.processing-fees-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -111,6 +119,9 @@ function createNewForm( id ) {
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
     $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
+    $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
+    $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
+    $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
