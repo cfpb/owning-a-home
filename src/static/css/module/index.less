@@ -5,18 +5,9 @@
 /*
   WRAPPERS & CONTAINERS
   ---------------------------- */
+
 .index {
   .webfont-regular();
-}
-
-fieldset.submit_btn,
-fieldset.submit_btn > p {
-  display:inline;
-  margin:0px;
-  padding:0px;
-}
-
-.index {
   .content_main {
     .respond-to-min(@tablet-min, {
       padding-top: @grid_gutter-width;
@@ -152,6 +143,14 @@ fieldset.submit_btn > p {
 #email{
   width: 200px;
 }
+
+fieldset.submit_btn,
+fieldset.submit_btn > p {
+  display:inline;
+  margin:0px;
+  padding:0px;
+}
+
 .input-with-btn > div{display: inline-block;}
 
 @media (max-width: 720px) {
