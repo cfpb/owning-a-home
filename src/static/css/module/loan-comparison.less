@@ -364,9 +364,8 @@
   --------------------------- */
 
 .comparison-results {
-  margin-top: 60px;
   .expandable_header {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
     background: @gray-10;
   }
   .expandable_header-left {
@@ -413,7 +412,7 @@
   }
 
   .detail-results-row {
-    padding: 0 0 @grid_gutter-width;
+    padding: 0 0 25px; // magic numberssssss
   }
     .closing-cost-result,
     .lc-result-detail {
@@ -421,10 +420,12 @@
     }
 
 .result-detail {
-
+  h6 {
+    padding: 0 @grid_gutter-width/2;
+  }
 }
   .result-detail-heading {
-
+    margin-top: @grid_gutter-width/3;
   }
 
 // .results-section-heading {
@@ -433,9 +434,12 @@
 //   font-size: 1.125em;
 // }
 
+.lc-result {
+  .webfont-regular();
+}
+
 .lc-primary-result {
   font-size: 1.375em;
-  .webfont-regular();
 }
 
   // we never want to show loan c on small screens
