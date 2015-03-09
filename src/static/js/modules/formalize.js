@@ -90,6 +90,18 @@ function createNewForm( id ) {
         return 500;
       }
     },{
+      name: 'closing-costs',
+      source: function() {
+        return loan['down-payment'] 
+             + loan['discount']
+             + loan['processing'] 
+             + loan['third-party-services'] 
+             + loan['mortgage-insurance'] 
+             + loan['taxes-gov-fees'] 
+             + loan['prepaid-expenses'] 
+             + loan['initial-escrow'];
+      }
+    },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
@@ -107,8 +119,7 @@ function createNewForm( id ) {
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
-          closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
-          // todo: update closing costs math to use new detailed fees
+          closingCosts: loan['closing-costs']
         }).overallCost;
       }
     }
@@ -150,7 +161,8 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) ); // todo: update closing costs math to use new detailed fees below
+    // $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) ); // todo: update closing costs math to use new detailed fees below
+    $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
     $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
     $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
     $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
