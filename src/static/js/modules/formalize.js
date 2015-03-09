@@ -75,6 +75,21 @@ function createNewForm( id ) {
         return 0;
       }
     },{
+      name: 'taxes-gov-fees',
+      source: function() {
+        return 1000;
+      }
+    },{
+      name: 'prepaid-expenses',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'initial-escrow',
+      source: function() {
+        return 500;
+      }
+    },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
@@ -108,6 +123,9 @@ function createNewForm( id ) {
       $thirdPartyFees = $('.third-party-fees-display-' + id),
       $thirdPartyServices = $('.third-party-services-display-' + id),
       $mortgageInsurance = $('.mortgage-insurance-display-' + id),
+      $taxesGovFees = $('.taxes-gov-fees-display-' + id),
+      $prepaid = $('.prepaid-expenses-display-' + id),
+      $initialEscrow = $('.initial-escrow-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -139,6 +157,9 @@ function createNewForm( id ) {
     $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortgage-insurance'], {decimalPlaces:0}) );
     $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
     $mortgageInsurance.text( formatUSD(loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $taxesGovFees.text( formatUSD(loan['taxes-gov-fees'], {decimalPlaces:0}) );
+    $prepaid.text( formatUSD(loan['prepaid-expenses'], {decimalPlaces:0}) );
+    $initialEscrow.text( formatUSD(loan['initial-escrow'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
