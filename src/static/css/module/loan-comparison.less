@@ -403,17 +403,18 @@
     position: absolute;
     top: 55px;
     clear: both;
+    width: 100%;
     .respond-to-min(@tablet-min, {
       float: left;
       clear: none;
     });
   }
 
-  .lender-results-row {
-    padding: 0 15px; // @todo: swap for @grid_column-gutter variable 
+  .detail-results-row {
+    padding: 0 15px 30px; // @todo: swap for @grid_column-gutter variable 
   }
     .closing-cost-result,
-    .lender-fees-result {
+    .lc-result-detail {
       .grid_column(1,2);
     }
 
@@ -435,15 +436,14 @@
   .webfont-regular();
 }
 
-@media (max-width: 600px) {
+  // we never want to show loan c on small screens
+  .lc-result-c,
   .result-heading {
     display: none;
+    .respond-to-min(600px, {
+      display: block;
+    });
   }
-  // we never want to show loan c on small screens
-  .lc-result-c {
-    display: none;
-  }
-}
 
 @media (min-width: 600px) {
 
