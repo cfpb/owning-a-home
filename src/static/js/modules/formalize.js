@@ -92,7 +92,8 @@ function createNewForm( id ) {
     },{
       name: 'monthly-taxes-insurance',
       source: function() {
-        return 200;
+        var yearly = loan['price'] / 100;
+        return yearly / 12;
       }
     },{
       name: 'monthly-hoa-dues',
