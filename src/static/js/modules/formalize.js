@@ -162,6 +162,7 @@ function createNewForm( id ) {
   // Cache these for later
   var $amount = $('.loan-amount-display-' + id),
       $closing = $('.closing-costs-display-' + id),
+      $downPayment = $('.down-payment-display-' + id),
       $lenderFees = $('.lender-fees-display-' + id),
       $discountAmount = $('.discount-display-' + id),
       $processing = $('.processing-fees-display-' + id),
@@ -200,6 +201,7 @@ function createNewForm( id ) {
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
     $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
+    $downPayment.text( formatUSD(loan['down-payment'], {decimalPlaces:0}) );
     $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
     $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
     $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
