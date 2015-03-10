@@ -185,6 +185,7 @@ function createNewForm( id ) {
       $monthlyTaxes = $('.monthly-taxes-insurance-display-' + id),
       $monthlyHOA = $('.monthly-hoa-dues-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
+      $loanTerm = $('.loan-term-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
       $percent = $('#percent-dp-input-' + id),
@@ -224,6 +225,7 @@ function createNewForm( id ) {
     $monthlyTaxes.text( formatUSD(loan['monthly-taxes-insurance'], {decimalPlaces:0}) );
     $monthlyHOA.text( formatUSD(loan['monthly-hoa-dues'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
+    $loanTerm.text( loan['loan-term'] );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
     $discount.text( loan['raw-discount']);
