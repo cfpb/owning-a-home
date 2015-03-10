@@ -6,6 +6,8 @@ var templates = {
   button: require('../templates/loan-add-button.hbs')
 };
 require('./object.observe-polyfill');
+require('jquery-easing');
+require('cf-expandables');
 
 var $container = $('.lc-inputs .wrap'),
     $lc = $('#oah-loan-comparison'),

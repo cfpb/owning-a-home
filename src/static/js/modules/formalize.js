@@ -60,6 +60,48 @@ function createNewForm( id ) {
         return points * loan['amount-borrowed'];
       }
     },{
+      name: 'processing',
+      source: function() {
+        return loan['amount-borrowed'] / 100;
+      }
+    },{
+      name: 'third-party-services',
+      source: function() {
+        return 3000;
+      }
+    },{
+      name: 'mortgage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'taxes-gov-fees',
+      source: function() {
+        return 1000;
+      }
+    },{
+      name: 'prepaid-expenses',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'initial-escrow',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'closing-costs',
+      source: function() {
+        return loan['down-payment'] 
+             + loan['discount']
+             + loan['processing'] 
+             + loan['third-party-services'] 
+             + loan['mortgage-insurance'] 
+             + loan['taxes-gov-fees'] 
+             + loan['prepaid-expenses'] 
+             + loan['initial-escrow'];
+      }
+    },{
       name: 'monthly-payment',
       source: function() {
         return amortize({
@@ -77,7 +119,7 @@ function createNewForm( id ) {
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
-          closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
+          closingCosts: loan['closing-costs']
         }).overallCost;
       }
     }
@@ -86,6 +128,16 @@ function createNewForm( id ) {
   // Cache these for later
   var $amount = $('.loan-amount-display-' + id),
       $closing = $('.closing-costs-display-' + id),
+      $downPayment = $('.down-payment-display-' + id),
+      $lenderFees = $('.lender-fees-display-' + id),
+      $discountAmount = $('.discount-display-' + id),
+      $processing = $('.processing-fees-display-' + id),
+      $thirdPartyFees = $('.third-party-fees-display-' + id),
+      $thirdPartyServices = $('.third-party-services-display-' + id),
+      $mortgageInsurance = $('.mortgage-insurance-display-' + id),
+      $taxesGovFees = $('.taxes-gov-fees-display-' + id),
+      $prepaid = $('.prepaid-expenses-display-' + id),
+      $initialEscrow = $('.initial-escrow-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -110,7 +162,17 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
+    $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
+    $downPayment.text( formatUSD(loan['down-payment'], {decimalPlaces:0}) );
+    $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
+    $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
+    $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
+    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
+    $mortgageInsurance.text( formatUSD(loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $taxesGovFees.text( formatUSD(loan['taxes-gov-fees'], {decimalPlaces:0}) );
+    $prepaid.text( formatUSD(loan['prepaid-expenses'], {decimalPlaces:0}) );
+    $initialEscrow.text( formatUSD(loan['initial-escrow'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
