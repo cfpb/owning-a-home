@@ -139,12 +139,19 @@ function createNewForm( id ) {
     },{
       name: 'monthly-payment',
       source: function() {
-        return amortize({
-          amount: positive( loan['amount-borrowed'] ),
-          rate: loan['interest-rate'],
-          totalTerm: loan['loan-term'] * 12,
-          amortizeTerm: 60
-        }).payment;
+        var taxes = loan['monthly-taxes-insurance'],
+            insurance = loan['monthly-mortgage-insurance'],
+            hoa = loan['monthly-hoa-dues'],
+            monthlyPrincipalInterest = 
+              // which to use??
+              // amortize({
+              //   amount: positive( loan['amount-borrowed'] ),
+              //   rate: loan['interest-rate'],
+              //   totalTerm: loan['loan-term'] * 12,
+              //   amortizeTerm: 60
+              // }).payment;
+            loan['monthly-principal-interest'];
+        return taxes + insurance + hoa + monthlyPrincipalInterest;
       }
     },{
       name: 'overall-cost',
