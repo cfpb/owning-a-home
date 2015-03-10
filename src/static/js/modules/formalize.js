@@ -103,21 +103,12 @@ function createNewForm( id ) {
     },{
       name: 'monthly-principal-interest',
       source: function() {
-        var principal = 100, // placeholder until amortize returns monthly amt
-              // amortize({
-              //   amount: positive( loan['amount-borrowed'] ),
-              //   rate: loan['interest-rate'],
-              //   totalTerm: loan['loan-term'] * 12,
-              //   amortizeTerm: 60
-              // }).monthlyPrincipal,
-            interest = 100; // placeholder until amortize returns monthly amt
-              // amortize({
-              //   amount: positive( loan['amount-borrowed'] ),
-              //   rate: loan['interest-rate'],
-              //   totalTerm: loan['loan-term'] * 12,
-              //   amortizeTerm: 60
-              // }).monthlyInterest;
-        return principal + interest;
+        return amortize({
+          amount: positive( loan['amount-borrowed'] ),
+          rate: loan['interest-rate'],
+          totalTerm: loan['loan-term'] * 12,
+          amortizeTerm: 60
+        }).payment;
       }
     },{
       name: 'monthly-mortgage-insurance',
@@ -142,15 +133,7 @@ function createNewForm( id ) {
         var taxes = loan['monthly-taxes-insurance'],
             insurance = loan['monthly-mortgage-insurance'],
             hoa = loan['monthly-hoa-dues'],
-            monthlyPrincipalInterest = 
-              // which to use??
-              // amortize({
-              //   amount: positive( loan['amount-borrowed'] ),
-              //   rate: loan['interest-rate'],
-              //   totalTerm: loan['loan-term'] * 12,
-              //   amortizeTerm: 60
-              // }).payment;
-            loan['monthly-principal-interest'];
+            monthlyPrincipalInterest = loan['monthly-principal-interest'];
         return taxes + insurance + hoa + monthlyPrincipalInterest;
       }
     },{
