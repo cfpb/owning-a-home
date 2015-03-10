@@ -90,23 +90,38 @@ function createNewForm( id ) {
         return 500;
       }
     },{
+      name: 'monthly-taxes-insurance',
+      source: function() {
+        return 200;
+      }
+    },{
+      name: 'monthly-hoa-dues',
+      source: function() {
+        return 0;
+      }
+    },{
       name: 'monthly-principal-interest',
       source: function() {
-        var principal = 
-              amortize({
-                amount: positive( loan['amount-borrowed'] ),
-                rate: loan['interest-rate'],
-                totalTerm: loan['loan-term'] * 12,
-                amortizeTerm: 60
-              }).monthlyPrincipal,
-            interest = 
-              amortize({
-                amount: positive( loan['amount-borrowed'] ),
-                rate: loan['interest-rate'],
-                totalTerm: loan['loan-term'] * 12,
-                amortizeTerm: 60
-              }).monthlyInterest;
+        var principal = 100, // placeholder until amortize returns monthly amt
+              // amortize({
+              //   amount: positive( loan['amount-borrowed'] ),
+              //   rate: loan['interest-rate'],
+              //   totalTerm: loan['loan-term'] * 12,
+              //   amortizeTerm: 60
+              // }).monthlyPrincipal,
+            interest = 100; // placeholder until amortize returns monthly amt
+              // amortize({
+              //   amount: positive( loan['amount-borrowed'] ),
+              //   rate: loan['interest-rate'],
+              //   totalTerm: loan['loan-term'] * 12,
+              //   amortizeTerm: 60
+              // }).monthlyInterest;
         return principal + interest;
+      }
+    },{
+      name: 'monthly-mortgage-insurance',
+      source: function() {
+        return 0;
       }
     },{
       name: 'closing-costs',
@@ -157,6 +172,9 @@ function createNewForm( id ) {
       $prepaid = $('.prepaid-expenses-display-' + id),
       $initialEscrow = $('.initial-escrow-display-' + id),
       $monthlyPrincipalInterest = $('.monthly-principal-interest-display-' + id),
+      $monthlyMortgageInsurance = $('.monthly-mortgage-insurance-display-' + id),
+      $monthlyTaxes = $('.monthly-taxes-insurance-display-' + id),
+      $monthlyHOA = $('.monthly-hoa-dues-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -192,6 +210,9 @@ function createNewForm( id ) {
     $prepaid.text( formatUSD(loan['prepaid-expenses'], {decimalPlaces:0}) );
     $initialEscrow.text( formatUSD(loan['initial-escrow'], {decimalPlaces:0}) );
     $monthlyPrincipalInterest.text( formatUSD(loan['monthly-principal-interest'], {decimalPlaces:0}) );
+    $monthlyMortgageInsurance.text( formatUSD(loan['monthly-mortgage-insurance'], {decimalPlaces:0}) );
+    $monthlyTaxes.text( formatUSD(loan['monthly-taxes-insurance'], {decimalPlaces:0}) );
+    $monthlyHOA.text( formatUSD(loan['monthly-hoa-dues'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
