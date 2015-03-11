@@ -127,12 +127,9 @@ function createNewForm( id, loanData ) {
     }
 
     updateLoanDisplay();
-
   }
   
   function updateLoanDisplay () {
-    console.log('update mobile display');
-    console.log(loan);
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
     $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
