@@ -107,7 +107,7 @@ function createNewForm( id ) {
           amount: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
-          amortizeTerm: 60
+          amortizeTerm: 60 // @todo loan term * 12?
         }).payment;
       }
     },{
@@ -135,6 +135,28 @@ function createNewForm( id ) {
             hoa = loan['monthly-hoa-dues'],
             monthlyPrincipalInterest = loan['monthly-principal-interest'];
         return taxes + insurance + hoa + monthlyPrincipalInterest;
+      }
+    },{
+      name: 'principal-paid',
+      source: function() {
+        return cost({
+          amountBorrowed: positive( loan['amount-borrowed'] ),
+          rate: loan['interest-rate'],
+          totalTerm: loan['loan-term'] * 12,
+          downPayment: loan['down-payment'],
+          closingCosts: loan['closing-costs']
+        }).totalEquity;
+      }
+    },{
+      name: 'interest-fees-paid',
+      source: function() {
+        return cost({
+          amountBorrowed: positive( loan['amount-borrowed'] ),
+          rate: loan['interest-rate'],
+          totalTerm: loan['loan-term'] * 12,
+          downPayment: loan['down-payment'],
+          closingCosts: loan['closing-costs']
+        }).totalCost;
       }
     },{
       name: 'overall-cost',
@@ -169,6 +191,8 @@ function createNewForm( id ) {
       $monthlyHOA = $('.monthly-hoa-dues-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $loanTerm = $('.loan-term-display-' + id),
+      $principalPaid = $('.principal-paid-display-' + id),
+      $interestPaid = $('.interest-fees-paid-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
       $percent = $('#percent-dp-input-' + id),
@@ -208,7 +232,9 @@ function createNewForm( id ) {
     $monthlyTaxes.text( formatUSD(loan['monthly-taxes-insurance'], {decimalPlaces:0}) );
     $monthlyHOA.text( formatUSD(loan['monthly-hoa-dues'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
-    $loanTerm.text( loan['loan-term'] );
+    $loanTerm.text( 'Costs at ' + loan['loan-term'] + ' years' );
+    $principalPaid.text( formatUSD(loan['principal-paid'], {decimalPlaces:0}) );
+    $interestPaid.text( formatUSD(loan['interest-fees-paid'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
     $discount.text( loan['raw-discount']);
