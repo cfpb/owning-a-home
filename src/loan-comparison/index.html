@@ -7,8 +7,7 @@
 {% block content %}
 
 <div id="oah-loan-comparison" class="loan-comparison {% if subnav %}col-9{% endif %}" role="main">
-
-  <section class="refresh-wrapper">
+  <section class="content_wrapper content_wrapper__narrow">
     <div class="content_main">
       <div class="content-l content-l__full">
         
@@ -33,7 +32,7 @@
     </div>
   </section> <!-- /.page-intro -->
   <section id="onboarding">
-        <div class="refresh-wrapper">
+        <div class="content_wrapper content_wrapper__narrow">
           <div class="content_main">
           <div class="input-row">
             <label for="location" class="label-float">I'm looking to buy a home in</label>
@@ -117,175 +116,177 @@
               </div> <!-- /.select-content -->
             </div> <!-- /.input-wrap -->
           </div> 
-  </div>
-
         </div>
+
+      </div>
     </section>
 
     <section class="comparisons">
-      <div class="mobile-comparison-overviews u-show-on-mobile refresh-wrapper">
-            <div class="">
-              <div class="mobile-overview">
-                <h3 class="comparison-header">Loan A</h3>
-                <h4>Loan Amount</h4>
-                <p class="loan-amount-display-a">$180,000</p>
+      <div class="mobile-comparison-overviews u-show-on-mobile content_wrapper content_wrapper__narrow">
+        <div class="mobile-overview">
+          <h3 class="comparison-header">Loan A</h3>
+          <h4>Loan Amount</h4>
+          <p class="loan-amount-display-a">$180,000</p>
 
-                <h4>Loan Type</h4>
-                <p><span class="lc-summary-year-a">30</span> year <span class="lc-summary-structure-a">fixed</span> <span class="lc-summary-type-a">conventional</span></p>
+          <h4>Loan Type</h4>
+          <p><span class="lc-summary-year-a">30</span> year <span class="lc-summary-structure-a">fixed</span> <span class="lc-summary-type-a">conventional</span></p>
 
-                <h4>Points or Credits</h4>
-                <p class="discount-a">0</p>
+          <h4>Points or Credits</h4>
+          <p class="discount-a">0</p>
 
-                <h4>Interest Rate</h4>
-                <p> <span class="interest-rate-display-a">3.25</span>%</p>
+          <h4>Interest Rate</h4>
+          <p> <span class="interest-rate-display-a">3.25</span>%</p>
 
-                <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+          <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
 
-              </div> <!-- /.mobile-overview -->
+        </div> <!-- /.mobile-overview -->
 
-              <div class="mobile-overview loan-b inactive">
-                <h3 class="comparison-header">Loan B</h3>
-                <div id="mobile-lc-add-button" class="mobile-add-btn">
-                  <p>Compare loans to better understand your options.</p>
-                    <a class="btn btn-secondary lc-add-btn">Add another loan</a>
-                </div> <!-- /.mobile-add-btn -->
+        <div class="mobile-overview loan-b inactive">
+          <h3 class="comparison-header">Loan B</h3>
+          <div id="mobile-lc-add-button" class="mobile-add-btn">
+            <p>Compare loans to better understand your options.</p>
+            <a class="btn btn-secondary lc-add-btn">Add another loan</a>
+          </div> <!-- /.mobile-add-btn -->
 
-                <div id="mobile-loanb-details" class="hidden">
-                  <h4>Loan Amount</h4>
-                  <p class="loan-amount-display-b">$180,000</p>
+          <div id="mobile-loanb-details" class="hidden">
+            <h4>Loan Amount</h4>
+            <p class="loan-amount-display-b">$180,000</p>
 
-                  <h4>Loan Type</h4>
-                  <p><span class="lc-summary-year-b">30</span> year <span class="lc-summary-structure-b">fixed</span> <span class="lc-summary-type-b">conventional</span></p>
+            <h4>Loan Type</h4>
+            <p><span class="lc-summary-year-b">30</span> year <span class="lc-summary-structure-b">fixed</span> <span class="lc-summary-type-b">conventional</span></p>
 
-                  <h4>Points or Credits</h4>
-                  <p class="discount-b">0</p>
+            <h4>Points or Credits</h4>
+            <p class="discount-b">0</p>
 
-                  <h4>Interest Rate</h4>
-                  <p> <span class="interest-rate-display-b">3.25</span>%</p>
+            <h4>Interest Rate</h4>
+            <p> <span class="interest-rate-display-b">3.25</span>%</p>
 
-                  <a href='#lc-input-b' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
-                </div>
+            <a href='#lc-input-b' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+          </div>
+        </div>
+      </div> <!-- /.mobile-overview -->
+    </div><!-- /.mobile-comparisons-overview -->
+    
+    <div class="lc-inputs">
+      <div class="content_wrapper content_wrapper__narrow">
+        <div class="input-headers" aria-hidden="true">
+          <div class="comparison-input-column"><h3>Compare loan costs</h3></div>
+          <div class="comparison-input-column"><h3>Loan A</h3></div>
+          <div class="comparison-input-column"><h3>Loan B</h3></div>
+          <div class="comparison-input-column"><h3>Loan C</h3></div>
+        </div>
+        <div class="form-container"></div>
+      </div> <!-- /.wrapper content-wrapper -->
+    </div> <!-- /.lc-inputs -->
+
+  </section> <!-- ./comparisons -->
+
+  <div class="content_wrapper content_wrapper__narrow u-pb0">
+    <section class="comparison-results">
+      <!-- hide these from screen readers with aria-hidden="true"
+      since they are not in the correct source order -->
+      <div class="result-heading">
+        <div class="input-headers" aria-hidden="true">
+          <div class="comparison-input-column"></div>
+          <div class="comparison-input-column"><h3>Loan A</h3></div>
+          <div class="comparison-input-column"><h3>Loan B</h3></div>
+          <div class="comparison-input-column"><h3>Loan C</h3></div>
+        </div>
+      </div>
+
+      <section id="total-costs-closing" class="results-section">
+        <h4 class="results-section-heading">Total costs at closing</h4>
+
+        <div class="lc-result closing-cost-result" id="closing-cost-result-a">
+          <h5 class="u-visually-hidden">Loan A</h5>
+          <span class="lc-primary-result closing-costs-display-a">$3,000</span>
+        </div> <!-- /#closing-cost-result-a -->
+
+        <div class="lc-result closing-cost-result" id="closing-cost-result-b">
+          <h5 class="u-visually-hidden">Loan B</h5>
+          <span class="lc-primary-result closing-costs-display-b"></span>
+        </div> <!-- /#closing-cost-result-b -->
+
+        <div class="lc-result lc-result-c closing-cost-result" id="closing-cost-result-c">
+          <h5 class="u-visually-hidden">Loan C</h5>
+          <span class="lc-primary-result closing-costs-display-c"></span>
+        </div> <!-- /#closing-cost-result-c -->
+
+      </section> <!-- /#total-costs-closing -->
+
+      <section id="monthly-payment" class="results-section">
+        <h4 class="results-section-heading">Monthly payment</h4>
+
+        <div class="lc-result monthly-payment-result" id="monthly-payment-result-a">
+          <h5 class="u-visually-hidden">Loan A</h5>
+          <span class="lc-primary-result monthly-payment-display-a">$0</span>
+        </div> <!-- /#monthly-payment-result-a -->
+
+        <div class="lc-result monthly-payment-result" id="monthly-payment-result-b">
+          <h5 class="u-visually-hidden">Loan B</h5>
+          <span class="lc-primary-result monthly-payment-display-b"></span>
+        </div> <!-- /#monthly-payment-result-b -->
+
+        <div class="lc-result lc-result-c monthly-payment-result" id="monthly-payment-result-c">
+          <h5 class="u-visually-hidden">Loan C</h5>
+          <span class="lc-primary-result monthly-payment-display-c"></span>
+        </div> <!-- /#monthly-payment-result-c -->
+
+      </section> <!-- /#monthly-payment -->
+
+      <section id="overall-costs" class="results-section">
+
+        <h4 class="results-section-heading">Overall costs</h4>
+
+        <div class="lc-result overall-costs-result" id="closing-cost-result-a">
+          <h5 class="u-visually-hidden">Loan A</h5>
+          <span class="lc-primary-result overall-costs-display-a">$0</span>
+        </div> <!-- /#closing-cost-result-a -->
+
+        <div class="lc-result overall-costs-result" id="closing-cost-result-b">
+          <h5 class="u-visually-hidden">Loan B</h5>
+          <span class="lc-primary-result overall-costs-display-b"></span>
+        </div> <!-- /#closing-cost-result-b -->
+
+        <div class="lc-result lc-result-c overall-costs-result" id="closing-cost-result-c">
+          <h5 class="u-visually-hidden">Loan C</h5>
+          <span class="lc-primary-result overall-costs-display-c"></span>
+        </div> <!-- /#closing-cost-result-c -->
+
+      </section> <!-- /#overall-costs -->
+
+    </section> <!-- ./comparison-results -->
+    
+    
+    <section id="about" class="content_main u-pb0">
+      <div class="block block__border-top block__flush-top block__flush-bottom">
+        <div class="content-l content-l__full">
+          <div class="about-data content-l_col content-l_col-2-3">
+            <h3 class="subhead">About our data source</h3>
+
+            <p>Our data is provided by real lenders and is updated daily.  The lenders in our data include a mix of large banks, regional banks, and credit unions.</p>
+
+            <p>The data is provided by Informa Research Services, Inc., Calabasas, CA. <a id="informars" href="http://www.informars.com">www.informars.com</a>.  Informa collects the data directly from lenders and every effort is made to collect the most accurate data possible, but they cannot guarantee the data’s accuracy.</p>
+          </div>
+
+          <div class="content-l_col content-l_col-1-3 u-mt0">
+            <div class="feedback-block block block__bg block__flush-top block__flush-bottom">
+              <div class="tabbed-header">
+                <h3 class="subhead tabbed-heading">Feedback</h3>
               </div>
-          </div> <!-- /.mobile-overview -->
-      </div> <!-- /.comparison-lead -->
 
+              <h4>How do we improve this tool?</h4>
 
+              <p>We're always looking to make our tools and resources better for you. Tell us how!</p>
 
-      <div class="lc-inputs">
-        <div class="refresh-wrapper">
-          <div class="input-headers" aria-hidden="true">
-            <div class="comparison-input-column"><h3>Compare loan costs</h3></div>
-            <div class="comparison-input-column"><h3>Loan A</h3></div>
-            <div class="comparison-input-column"><h3>Loan B</h3></div>
-            <div class="comparison-input-column"><h3>Loan C</h3></div>
+              <p>Email us at <a id="about-email-link" href="mailto:owning-a-home@cfpb.gov">owning-a-home@cfpb.gov</a></p>
+            </div>
           </div>
-          <div class="form-container"></div>
-        </div> <!-- /.wrapper content-wrapper -->
-      </div> <!-- /.lc-inputs -->
+        </div><!-- /.content-l -->
+      </div>
+    </section> <!-- /.about -->
 
-    </section> <!-- ./comparisons -->
-
-    <div class="refresh-wrapper">
-        
-      <section class="comparison-results">
-        <!-- hide these from screen readers with aria-hidden="true"
-        since they are not in the correct source order -->
-        <div class="result-heading">
-          <div class="input-headers" aria-hidden="true">
-            <div class="comparison-input-column"></div>
-            <div class="comparison-input-column"><h3>Loan A</h3></div>
-            <div class="comparison-input-column"><h3>Loan B</h3></div>
-            <div class="comparison-input-column"><h3>Loan C</h3></div>
-          </div>
-        </div>
-
-        <section id="total-costs-closing" class="results-section">
-          <h4 class="results-section-heading">Total costs at closing</h4>
-
-          <div class="lc-result closing-cost-result" id="closing-cost-result-a">
-            <h5 class="u-visually-hidden">Loan A</h5>
-            <span class="lc-primary-result closing-costs-display-a">$3,000</span>
-          </div> <!-- /#closing-cost-result-a -->
-
-          <div class="lc-result closing-cost-result" id="closing-cost-result-b">
-            <h5 class="u-visually-hidden">Loan B</h5>
-            <span class="lc-primary-result closing-costs-display-b"></span>
-          </div> <!-- /#closing-cost-result-b -->
-
-          <div class="lc-result lc-result-c closing-cost-result" id="closing-cost-result-c">
-            <h5 class="u-visually-hidden">Loan C</h5>
-            <span class="lc-primary-result closing-costs-display-c"></span>
-          </div> <!-- /#closing-cost-result-c -->
-
-        </section> <!-- /#total-costs-closing -->
-
-        <section id="monthly-payment" class="results-section">
-          <h4 class="results-section-heading">Monthly payment</h4>
-
-          <div class="lc-result monthly-payment-result" id="monthly-payment-result-a">
-            <h5 class="u-visually-hidden">Loan A</h5>
-            <span class="lc-primary-result monthly-payment-display-a">$0</span>
-          </div> <!-- /#monthly-payment-result-a -->
-
-          <div class="lc-result monthly-payment-result" id="monthly-payment-result-b">
-            <h5 class="u-visually-hidden">Loan B</h5>
-            <span class="lc-primary-result monthly-payment-display-b"></span>
-          </div> <!-- /#monthly-payment-result-b -->
-
-          <div class="lc-result lc-result-c monthly-payment-result" id="monthly-payment-result-c">
-            <h5 class="u-visually-hidden">Loan C</h5>
-            <span class="lc-primary-result monthly-payment-display-c"></span>
-          </div> <!-- /#monthly-payment-result-c -->
-
-        </section> <!-- /#monthly-payment -->
-
-        <section id="overall-costs" class="results-section">
-
-          <h4 class="results-section-heading">Overall costs</h4>
-
-          <div class="lc-result overall-costs-result" id="closing-cost-result-a">
-            <h5 class="u-visually-hidden">Loan A</h5>
-            <span class="lc-primary-result overall-costs-display-a">$0</span>
-          </div> <!-- /#closing-cost-result-a -->
-
-          <div class="lc-result overall-costs-result" id="closing-cost-result-b">
-            <h5 class="u-visually-hidden">Loan B</h5>
-            <span class="lc-primary-result overall-costs-display-b"></span>
-          </div> <!-- /#closing-cost-result-b -->
-
-          <div class="lc-result lc-result-c overall-costs-result" id="closing-cost-result-c">
-            <h5 class="u-visually-hidden">Loan C</h5>
-            <span class="lc-primary-result overall-costs-display-c"></span>
-          </div> <!-- /#closing-cost-result-c -->
-
-        </section> <!-- /#overall-costs -->
-
-      </section> <!-- ./comparison-results -->
-      <section id="about" class="about">
-
-        <div class="about-data col-8">
-          <h3 class="subhead">About our data source</h3>
-
-          <p>Our data is provided by real lenders and is updated daily.  The lenders in our data include a mix of large banks, regional banks, and credit unions.</p>
-
-          <p>The data is provided by Informa Research Services, Inc., Calabasas, CA. <a id="informars" href="http://www.informars.com">www.informars.com</a>.  Informa collects the data directly from lenders and every effort is made to collect the most accurate data possible, but they cannot guarantee the data’s accuracy.</p>
-        </div>
-
-        <div class="feedback col-4">
-          <div class="tabbed-header">
-            <h3 class="subhead tabbed-heading">Feedback</h3>
-          </div>
-
-          <h4>How do we improve this tool?</h4>
-
-          <p>We're always looking to make our tools and resources better for you. Tell us how!</p>
-
-          <p>Email us at <a id="about-email-link" href="mailto:owning-a-home@cfpb.gov">owning-a-home@cfpb.gov</a></p>
-        </div>
-
-      </section> <!-- /.about -->
-
-    </div> <!-- /.wrapper -->
+  </div> <!-- /.wrapper -->
 
 </div> <!-- /.loan-comparison ->
 

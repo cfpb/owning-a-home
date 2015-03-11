@@ -1,11 +1,3 @@
-#oah-loan-comparison {
-  .refresh-wrapper {
-    .respond-to-min(801px, {
-        .grid_wrapper();
-        max-width: 1060px;
-    });
-  }
-}
 
 .calc-content {
   .webfont-medium();
@@ -461,4 +453,16 @@
   .lc-result-c {
     display: none;
   }
+}
+
+
+.feedback-block {
+  .respond-to-range(@tablet-min, 767px, {
+    margin-right: -(@grid_gutter-width) !important;
+    margin-left: -(@grid_gutter-width) !important;
+  });
+  .respond-to-max(@mobile-max, {
+    margin-right: -(@grid_gutter-width / 2);
+    margin-left: -(@grid_gutter-width / 2);
+  });
 }
