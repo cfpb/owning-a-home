@@ -401,21 +401,33 @@
     .cf-icon {
       color: @navy;
     }
+    .respond-to-min(@tablet-min, {
+      font-size: 1.375em;
+    });
   }
 
   .primary-results-row {
     position: absolute;
     top: 55px;
     clear: both;
-    width: 100%;
     .respond-to-min(@tablet-min, {
       float: left;
       clear: none;
     });
   }
+  .primary-results-row,
+  .detail-results-row {
+    width: 100%;
+    .respond-to-min(@tablet-min, {
+      margin-left: 25%;
+    });    
+  }
 
   .detail-results-row {
     padding: 0 0 25px; // magic numberssssss
+    .h6 {
+      color: @darkgray;
+    }
   }
     .closing-cost-result,
     .monthly-payment-result,
@@ -441,6 +453,9 @@
 
 .lc-result {
   .webfont-regular();
+  .respond-to-min(@tablet-min, {
+    .grid_column(3);
+  });
 }
 
 .lc-primary-result {
@@ -451,20 +466,18 @@
   .lc-result-c,
   .result-heading {
     display: none;
-    .respond-to-min(600px, {
-      display: block;
+    .respond-to-min(@tablet-min, {
+      display: inline-block;
     });
   }
 
-@media (min-width: 600px) {
+// @media (min-width: 600px) {
 
-  .results-section-heading,
-  .lc-result {
-    .grid_column(3);
-  }
+//   .results-section-heading,
+//   .lc-result {
+//   }
 
-  .results-section-heading {
-    font-size: 1.375em;
-  }
+//   .results-section-heading {
+//   }
 
-}
+// }
