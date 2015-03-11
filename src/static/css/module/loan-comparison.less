@@ -364,35 +364,98 @@
   --------------------------- */
 
 .comparison-results {
-  margin-top: 60px;
+  .expandable_header {
+    margin-bottom: 80px;
+    background: @gray-10;
+  }
+  .expandable_header-left {
+    // .respond-to-min(@tablet-min, {
+    //   width: 90%;
+    // });
+  }
+  .expandable__padded,
+  .expandable__padded.expandable__expanded {
+    background: @white;
+  }
+  .expandable__padded .expandable_content {
+    margin-right: 0;
+    margin-left: 0;
+    background: @white;
+    &:before,
+    &:hover {
+      display: none;      
+    }
+  }
 }
 
 .result-heading {
-  color: @gray;
   .grid_push(2);
 }
 
 .results-section {
+  position: relative;
   margin-bottom: 60px;
 }
+  .results-section-heading {
+    margin: 0;
+    .cf-icon {
+      color: @navy;
+    }
+  }
 
-.results-section-heading {
-  .reset;
-  .webfont-medium();
-  font-size: 1.125em;
-  background-color: @gray-10;
+  .primary-results-row {
+    position: absolute;
+    top: 55px;
+    clear: both;
+    width: 100%;
+    .respond-to-min(@tablet-min, {
+      float: left;
+      clear: none;
+    });
+  }
+
+  .detail-results-row {
+    padding: 0 0 25px; // magic numberssssss
+  }
+    .closing-cost-result,
+    .monthly-payment-result,
+    .lc-result-detail {
+      .grid_column(1,2);
+    }
+
+.result-detail {
+  h6 {
+    padding: 0 @grid_gutter-width/2;
+  }
+}
+  .result-detail-heading {
+    margin-top: @grid_gutter-width/3;
+  }
+
+// .results-section-heading {
+//   .reset;
+//   .webfont-medium();
+//   font-size: 1.125em;
+// }
+
+.lc-result {
+  .webfont-regular();
 }
 
 .lc-primary-result {
   font-size: 1.375em;
-  .webfont-regular();
 }
 
-@media (min-width: 600px) {
-  .results-section {
-    background-color: @gray-10;
-    padding: 12px 0;
+  // we never want to show loan c on small screens
+  .lc-result-c,
+  .result-heading {
+    display: none;
+    .respond-to-min(600px, {
+      display: block;
+    });
   }
+
+@media (min-width: 600px) {
 
   .results-section-heading,
   .lc-result {
@@ -403,24 +466,4 @@
     font-size: 1.375em;
   }
 
-}
-
-@media (max-width: 600px) {
-  .result-heading {
-    display: none;
-  }
-
-  .results-section-heading {
-    padding: 12px 10px;
-  }
-
-  .lc-primary-result,
-  .lc-result {
-    .grid_column(6);
-  }
-
-  // we never want to show loan c on small screens
-  .lc-result-c {
-    display: none;
-  }
 }

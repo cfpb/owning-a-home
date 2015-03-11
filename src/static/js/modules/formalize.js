@@ -60,7 +60,50 @@ function createNewForm( id ) {
         return points * loan['amount-borrowed'];
       }
     },{
-      name: 'monthly-payment',
+      name: 'processing',
+      source: function() {
+        return loan['amount-borrowed'] / 100;
+      }
+    },{
+      name: 'third-party-services',
+      source: function() {
+        return 3000;
+      }
+    },{
+      name: 'mortgage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'taxes-gov-fees',
+      source: function() {
+        return 1000;
+      }
+    },{
+      name: 'prepaid-expenses',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'initial-escrow',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'monthly-taxes-insurance',
+      source: function() {
+        var yearly = loan['price'] / 100,
+            propertyTaxes = yearly / 12,
+            homeInsurance = (.05 * loan['price']) / 12;
+        return propertyTaxes + homeInsurance;
+      }
+    },{
+      name: 'monthly-hoa-dues',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'monthly-principal-interest',
       source: function() {
         return amortize({
           amount: positive( loan['amount-borrowed'] ),
@@ -70,6 +113,32 @@ function createNewForm( id ) {
         }).payment;
       }
     },{
+      name: 'monthly-mortgage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'closing-costs',
+      source: function() {
+        return loan['down-payment'] 
+             + loan['discount']
+             + loan['processing'] 
+             + loan['third-party-services'] 
+             + loan['mortgage-insurance'] 
+             + loan['taxes-gov-fees'] 
+             + loan['prepaid-expenses'] 
+             + loan['initial-escrow'];
+      }
+    },{
+      name: 'monthly-payment',
+      source: function() {
+        var taxes = loan['monthly-taxes-insurance'],
+            insurance = loan['monthly-mortgage-insurance'],
+            hoa = loan['monthly-hoa-dues'],
+            monthlyPrincipalInterest = loan['monthly-principal-interest'];
+        return taxes + insurance + hoa + monthlyPrincipalInterest;
+      }
+    },{
       name: 'overall-cost',
       source: function() {
         return cost({
@@ -77,7 +146,7 @@ function createNewForm( id ) {
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
-          closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
+          closingCosts: loan['closing-costs']
         }).overallCost;
       }
     }
@@ -86,6 +155,20 @@ function createNewForm( id ) {
   // Cache these for later
   var $amount = $('.loan-amount-display-' + id),
       $closing = $('.closing-costs-display-' + id),
+      $downPayment = $('.down-payment-display-' + id),
+      $lenderFees = $('.lender-fees-display-' + id),
+      $discountAmount = $('.discount-display-' + id),
+      $processing = $('.processing-fees-display-' + id),
+      $thirdPartyFees = $('.third-party-fees-display-' + id),
+      $thirdPartyServices = $('.third-party-services-display-' + id),
+      $mortgageInsurance = $('.mortgage-insurance-display-' + id),
+      $taxesGovFees = $('.taxes-gov-fees-display-' + id),
+      $prepaid = $('.prepaid-expenses-display-' + id),
+      $initialEscrow = $('.initial-escrow-display-' + id),
+      $monthlyPrincipalInterest = $('.monthly-principal-interest-display-' + id),
+      $monthlyMortgageInsurance = $('.monthly-mortgage-insurance-display-' + id),
+      $monthlyTaxes = $('.monthly-taxes-insurance-display-' + id),
+      $monthlyHOA = $('.monthly-hoa-dues-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
@@ -110,7 +193,21 @@ function createNewForm( id ) {
     }
 
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
+    $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
+    $downPayment.text( formatUSD(loan['down-payment'], {decimalPlaces:0}) );
+    $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
+    $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
+    $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
+    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
+    $mortgageInsurance.text( formatUSD(loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $taxesGovFees.text( formatUSD(loan['taxes-gov-fees'], {decimalPlaces:0}) );
+    $prepaid.text( formatUSD(loan['prepaid-expenses'], {decimalPlaces:0}) );
+    $initialEscrow.text( formatUSD(loan['initial-escrow'], {decimalPlaces:0}) );
+    $monthlyPrincipalInterest.text( formatUSD(loan['monthly-principal-interest'], {decimalPlaces:0}) );
+    $monthlyMortgageInsurance.text( formatUSD(loan['monthly-mortgage-insurance'], {decimalPlaces:0}) );
+    $monthlyTaxes.text( formatUSD(loan['monthly-taxes-insurance'], {decimalPlaces:0}) );
+    $monthlyHOA.text( formatUSD(loan['monthly-hoa-dues'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
