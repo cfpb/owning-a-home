@@ -10,11 +10,10 @@ var config = require('oah-config');
  * @return {object} jQuery promise.
  */
 function fetch(params) {
-
   var today = new Date();
   var decache = "" + today.getDate() + today.getMonth();
 
-  var promise = $.ajax({
+  return $.ajax({
       type: 'GET',
       url: config.rateCheckerAPI,
       data: $.extend({decache: decache}, params),
@@ -22,7 +21,6 @@ function fetch(params) {
       contentType: "application/json"
   });
 
-  return promise;
 };
 
 module.exports = fetch;

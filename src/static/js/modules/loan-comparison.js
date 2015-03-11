@@ -5,9 +5,10 @@ var templates = {
   form: require('../templates/loan-form.hbs'),
   button: require('../templates/loan-add-button.hbs')
 };
-require('./object.observe-polyfill');
 var supportsAccessors = require('./supports-accessors');
 var objectify = require('objectified');
+require('./object.observe-polyfill');
+
 var loans = {};
 
 var $container = $('.lc-inputs .form-container'),
@@ -58,6 +59,8 @@ var sharedLoanData = objectify('#onboarding', [
 
 sharedLoanData.update();
 
+// watch for updates to shared data & update each individual
+// loan object with the changes
 if (supportsAccessors) {
   Object.observe(sharedLoanData, updateLoans);
 } else {
@@ -78,7 +81,7 @@ function getSharedVals() {
   return tmp;
 }
 
-function updateLoans () {
+function updateLoans (changes) {
   var vals = getSharedVals();
   $.each(loans, function (ind, loan) {
     $.extend(loan, vals);
@@ -93,24 +96,21 @@ function addLoan (id) {
 loans = addLoan(formIDs[currentForm]);
 
 // Set up additional forms as requested.
-function showForm(isMobile) {
+function showForm() {
   var prev = formIDs[ currentForm++ ],
       curr = formIDs[ currentForm ];
-  $addButton.before( templates.form({form_id: curr}) );
-  if (isMobile) {
-  }
-  //copyFormValues( '#lc-input-' + prev, '#lc-input-' + curr );
+  $addButton.before( templates.form({form_id: curr}));
   addLoan(curr);
   // If it's the last form, remove the button.
-  if ( currentForm === formIDs.length - 1 ) {
+  if (currentForm === formIDs.length - 1) {
     $addButton.remove();
   }
 }
 
 // show desktop forms
 $addButtons.on('click', function(e) {
-  var isMobile = $(e.target).attr('id') === mobileButtonId;
-  showForm(isMobile);
+  showForm();
+  // if this is form b, show the loan's details on mobile
   if (currentForm === 1) {
     $mobileLoanB.removeClass('inactive');
     $('#mobile-loanb-details').removeClass('hidden');
