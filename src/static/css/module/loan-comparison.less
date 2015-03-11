@@ -364,6 +364,11 @@
   --------------------------- */
 
 .comparison-results {
+  .expandable {
+    .respond-to-min(@tablet-min, {
+      overflow: hidden;
+    });
+  }
   .expandable_header {
     margin-bottom: 80px;
     background: @gray-10;
@@ -415,20 +420,39 @@
       clear: none;
     });
   }
-  .primary-results-row,
-  .detail-results-row {
-    width: 100%;
-    .respond-to-min(@tablet-min, {
-      margin-left: 25%;
-    });    
-  }
 
   .detail-results-row {
     padding: 0 0 25px; // magic numberssssss
     .h6 {
       color: @darkgray;
     }
+    h6 {
+      padding: 0 @grid_gutter-width/2;
+      .respond-to-min(@tablet-min, {
+        .meta-header;
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: @grid_gutter-width/2;
+        margin-left: @grid_gutter-width/2;
+        color: @darkgray;
+      });
+    }
   }
+
+  .detail-results-row__nested {
+    .respond-to-min(@tablet-min, {
+      padding-left: @grid_gutter-width;
+    });
+  }
+
+  .primary-results-row,
+  .detail-results-row {
+    width: 100%;
+    .respond-to-min(@tablet-min, {
+      margin-left: 25%;
+    });
+  }
+
     .closing-cost-result,
     .monthly-payment-result,
     .overall-costs-result,
@@ -436,11 +460,6 @@
       .grid_column(1,2);
     }
 
-.result-detail {
-  h6 {
-    padding: 0 @grid_gutter-width/2;
-  }
-}
   .result-detail-heading {
     margin-top: @grid_gutter-width/3;
   }
