@@ -138,7 +138,14 @@
 @grid_gutter-width:             30px;
 @grid_total-columns:            12;
 @grid_debug:                    false;
+@grid_column-breakpoint:        720px;
 
+.grid_nested-col-group() {
+  display: block;
+  position: relative;
+  margin-left: ( @grid_gutter-width / 2 ) * -1;
+  margin-right: ( @grid_gutter-width / 2 ) * -1;
+}
 
 /* cf-icons
    ========================================================================== */
