@@ -39,7 +39,7 @@
             <label for="location" class="label-float">I'm looking to buy a home in</label>
             <div class="input-wrap"> <!-- use with columns with floated labels -->
               <div class="select-content">
-                <select name="location" class="recalc" id="location-{{form_id}}">
+                <select name="location" class="recalc" id="location">
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -99,20 +99,20 @@
             <label for="credit-score-select" class="label-float">My credit score is about</label>
             <div class="input-wrap"> <!-- use with columns with floated labels -->
               <div class="select-content">
-                <select name="credit-score-select" class="recalc" id="credit-score-select-{{form_id}}">
+                <select name="credit-score-select" class="recalc" id="credit-score-select">
                   <option value="600">600 - 620</option>
-                  <option value="620">621 - 640</option>
-                  <option value="640">641 - 660</option>
-                  <option value="660">661 - 680</option>
-                  <option value="680">681 - 700</option>
-                  <option value="700" selected="selected">701 - 720</option>
-                  <option value="720">721 - 740</option>
-                  <option value="740">741 - 760</option>
-                  <option value="760">761 - 780</option>
-                  <option value="780">781 - 800</option>
-                  <option value="800">801 - 820</option>
-                  <option value="820">821 - 840</option>
-                  <option value="840">841+</option>
+                  <option value="621">621 - 640</option>
+                  <option value="641">641 - 660</option>
+                  <option value="661">661 - 680</option>
+                  <option value="681">681 - 700</option>
+                  <option value="701" selected="selected">701 - 720</option>
+                  <option value="721">721 - 740</option>
+                  <option value="741">741 - 760</option>
+                  <option value="761">761 - 780</option>
+                  <option value="781">781 - 800</option>
+                  <option value="801">801 - 820</option>
+                  <option value="821">821 - 840</option>
+                  <option value="841">841+</option>
                 </select>
               </div> <!-- /.select-content -->
             </div> <!-- /.input-wrap -->
@@ -131,7 +131,7 @@
                 <p class="loan-amount-display-a">$180,000</p>
 
                 <h4>Loan Type</h4>
-                <p><span id="lc-summary-year-a">30</span> year <span id="lc-summary-structure-a">fixed</span> <span id="lc-summary-type-a">conventional</span></p>
+                <p><span class="lc-summary-year-a">30</span> year <span class="lc-summary-structure-a">fixed</span> <span class="lc-summary-type-a">conventional</span></p>
 
                 <h4>Points or Credits</h4>
                 <p class="discount-a">0</p>
@@ -147,7 +147,7 @@
                 <h3 class="comparison-header">Loan B</h3>
                 <div id="mobile-lc-add-button" class="mobile-add-btn">
                   <p>Compare loans to better understand your options.</p>
-                    <a class="btn btn-secondary">Add another loan</a>
+                    <a class="btn btn-secondary lc-add-btn">Add another loan</a>
                 </div> <!-- /.mobile-add-btn -->
 
                 <div id="mobile-loanb-details" class="hidden">
@@ -155,7 +155,7 @@
                   <p class="loan-amount-display-b">$180,000</p>
 
                   <h4>Loan Type</h4>
-                  <p><span id="lc-summary-year-b">30</span> year <span id="lc-summary-structure-b">fixed</span> <span id="lc-summary-type-b">conventional</span></p>
+                  <p><span class="lc-summary-year-b">30</span> year <span class="lc-summary-structure-b">fixed</span> <span class="lc-summary-type-b">conventional</span></p>
 
                   <h4>Points or Credits</h4>
                   <p class="discount-b">0</p>

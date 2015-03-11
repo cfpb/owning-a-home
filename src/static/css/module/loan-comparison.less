@@ -42,10 +42,13 @@
       }
     });
   }
+
 }
 /*
   Introductory content
   --------------------------- */
+  
+
 .respond-to-max(@mobile-max, {
   .loan-comparison {
      .lead {
@@ -112,7 +115,7 @@
   .inactive {
     color: @gray;
   }
-
+  
   .comparison-header {
     border-bottom: 3px solid @green-midtone;
 
@@ -184,6 +187,34 @@
       padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
     });
   }
+  
+  .interest-rate-update,
+  .interest-rate-loading {
+    display: none;
+  }
+  .update .interest-rate-update {
+    width: 100%;
+    display: block;
+    animation: fadein .5s;
+  }
+  
+  .updating .interest-rate-loading {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    height: 2em;
+    background-image: url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif);
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .update,
+  .updating {
+    .interest-rate-content {
+      display: none;
+    }
+  }
+  
 }
 
 .input-headers {
@@ -202,12 +233,22 @@
   
   .comparisons {
     .label-float {
-      .grid_column(6);
       text-align: right;
     }
-
-    .input-wrap {
+  }
+  
+  .comparison-input-column-a {
+    .input-wrap,
+    .label-float {
       .grid_column(6);
+    }
+  }
+  
+  .comparison-input-column {
+    .input-wrap,
+    .label-float {
+      vertical-align: middle;
+      padding-bottom: 4px;
     }
   }
 });
@@ -287,7 +328,6 @@
   input,
   label {
     display: inline-block;
-    vertical-align: middle;
     font-size: .875em;
   }
 
