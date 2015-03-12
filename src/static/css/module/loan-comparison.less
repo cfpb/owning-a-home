@@ -370,10 +370,10 @@
     });
   }
   .expandable_header {
-    margin-bottom: 80px;
+    margin-bottom: @grid_gutter-width/2;
     background: @gray-10;
     .respond-to-min(1000px, {
-      margin-bottom: 25px;
+      margin-bottom: @grid_gutter-width;
     });
   }
   .expandable_link {
@@ -414,14 +414,9 @@
   }
 
   .primary-results-row {
-    position: absolute;
-    top: 55px;
-    clear: both;
-    .respond-to-min(@tablet-min, {
-      float: left;
-      clear: none;
-    });
+    margin-bottom: @grid_gutter-width;
     .respond-to-min(1000px, {
+      position: absolute;
       top: 8px;
     });
   }
