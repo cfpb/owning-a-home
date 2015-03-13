@@ -97,11 +97,8 @@ function createNewForm( id, loanData ) {
   // Keep track of the last down payment field that was accessed.
   var percentDownAccessedLast;
   
-  // Keep track of whether api rate request is in progress
-  var rateUpdateInProgress = false;
-  
-  // Keep track of whether user has changed loan data during api request
-  var rateUpdateNeeded = false;
+  // Keep track of any api rate request in progress
+  var currentRequest;
 
   function updateComparisons( changes ) {
     var loanDataChanged = false;
@@ -119,8 +116,8 @@ function createNewForm( id, loanData ) {
     }
     
     if (loanDataChanged) {
-      if (rateUpdateInProgress) {
-        rateUpdateNeeded = true;
+      if (currentRequest) {
+        getRateData();
       } else {
         $form.removeClass('updating').addClass('update');
       }
@@ -142,11 +139,13 @@ function createNewForm( id, loanData ) {
   }
   
   function getRateData() {
-    rateUpdateInProgress = true;
-    rateUpdateNeeded = false;
+    if (currentRequest && typeof currentRequest === 'object') {
+      currentRequest.abort();
+    }
+    
     $form.removeClass('update').addClass('updating');
     
-    return fetchRates({
+    currentRequest = fetchRates({
       price: loan['price'],
       loan_amount: loan['amount-borrowed'],
       minfico: loan['minfico'],
@@ -158,30 +157,26 @@ function createNewForm( id, loanData ) {
       arm_type: loan['arm-type']
     })
     .done(function (results) {
-      var rates = [];
-      for ( key in results.data ) {
-        if ( results.data.hasOwnProperty( key ) ) {
-          rates.push(key);
+        currentRequest = null;
+        var rates = [];
+        for ( key in results.data ) {
+          if ( results.data.hasOwnProperty( key ) ) {
+            rates.push(key);
+          }
         }
-      }
-      rates.sort();
-      showRates(rates);
-      rateUpdateInProgress = false;
-      $form.removeClass('updating');
-      if (rateUpdateNeeded) {
-        $form.addClass('update');
-      } else {
+        rates.sort();
+        updateRateSelect(rates);
         loan.update();
-      }
-    })
+        $form.removeClass('updating');
+      })
     .fail(function () {
-      rateUpdateInProgress = false;
+      currentRequest = null;
       $form.removeClass('updating')
            .addClass('update');
     });
   }
   
-  function showRates(rates) {
+  function updateRateSelect(rates) {
     rates || (rates = []);
     var len = rates.length;
     var half = Math.floor((len - 1) / 2);
@@ -227,6 +222,22 @@ function createNewForm( id, loanData ) {
     }
   }
   
+  // The pricing fields (price, dp, dp %) are wonky and require special handling.
+  $('#lc-input-' + id).on( 'keyup', '.pricing input', debounce(_updateDownPayment, 500) );
+
+  // update when the radio buttons are updated
+  // todo: there's certainly a cleaner way to do this
+  $('#points-' + id).on( 'click', 'input', function updatePoints() {
+    loan.update();
+  });
+
+  // refresh interest rates when update button is clicked
+  $('#interest-rate-update-' + id).click(function updateRates(e) {
+    e.preventDefault();
+    getRateData();
+  });
+  
+  
   function init() {
     // update the loan object with values from form
     loan.update();
@@ -250,23 +261,6 @@ function createNewForm( id, loanData ) {
         }
       }, 500);
     }
-    
-    // The pricing fields (price, dp, dp %) are wonky and require special handling.
-    $('#lc-input-' + id).on( 'keyup', '.pricing input', debounce(_updateDownPayment, 500) );
-
-    // update when the radio buttons are updated
-    // todo: there's certainly a cleaner way to do this
-    $('#points-' + id).on( 'click', 'input', function updatePoints() {
-      loan.update();
-    });
-
-    // refresh interest rates when update button is clicked
-    $('#interest-rate-update-' + id).click(function updateRates(e) {
-      e.preventDefault();
-      if (!rateUpdateInProgress) {
-        getRateData();
-      }
-    });
     
   }
   
