@@ -105,14 +105,17 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
+        src: ['./src/static/js/modules/loan-options.js',
+        './src/static/js/modules/rates.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+              entries: ['./src/static/js/modules/loan-options.js',
+'./src/static/js/modules/rates.js',
+'./src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
+              o: ['dist/static/js/loan-options.js', 'dist/static/js/rates.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
             }]
           ]
         }
@@ -194,7 +197,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './dist/static/js',
-          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'prepare-worksheets.js', 'home.js', 'loan-options-subpage.js'],
+          src: ['rates.js', 'loan-options.js', 'check-rates.js', 'loan-comparison.js', 'prepare-worksheets.js', 'home.js', 'loan-options-subpage.js'],
           dest: './dist/static/js'
         }]
       },

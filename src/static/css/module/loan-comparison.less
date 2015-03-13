@@ -1,3 +1,4 @@
+
 .calc-content {
   .webfont-medium();
 }
@@ -9,84 +10,91 @@
 
 .comparison-input-column {
   .grid_column( 3 );
-  &-a {
-    .grid_column( 6 );
-  }
+  
+  .respond-to-max(@mobile-max, {
+      .grid_column( 12 );
+  });
+  
+  .respond-to-min(@tablet-min, {
+    &-a {
+      .grid_column( 6 );
+    }
+  });
+  
   &-b,
   &-c {
-    .grid_column( 3 );
     .input-wrap {
       width: 100%;
     }
-  }
-}
-
-@media (min-width: 600px) {
-
-  .comparison-input-column {
-    &-b,
-    &-c {
+    
+    .respond-to-min(@tablet-min, {
       h5,
       .label-float {
         .u-visually-hidden;
       }
-    }
+    });
   }
 
 }
-
-@media (max-width: 600px) {
-
-  .comparison-input-column {
-    .grid_column( 3 );
-    &-a,
-    &-b,
-    &-c {
-      .grid_column( 12 );
-    }
-  }
-
-}
-
 /*
   Introductory content
   --------------------------- */
+  
 
-@media (max-width: 600px) {
+.respond-to-max(@mobile-max, {
   .loan-comparison {
-    .lead {
-      display: none; // hide the lead for now, this will be a toggle later
-    }
+     .lead {
+       display: none; // hide the lead for now, this will be a toggle later
+     }
 
-    .intro-img {
-      display: none; // hide the hero image on mobile
-    }
+     .intro-img {
+       display: none; // hide the hero image on mobile
+     }
+   }
+});
+
+
+.onboarding {
+  background-color: @green-tint;
+  border-top: 2px solid @green;
+  .content_main {
+      padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
+      padding-bottom: unit(@grid_gutter-width / @base-font-size-px, em);
   }
-}
+   .input-row {
+     margin-bottom:  unit((@grid_gutter-width / 2) / @base-font-size-px, em);
+   }
+   
+  .respond-to-min(@tablet-min, {
+    .label-float,
+    .input-wrap {
+      .u-inline-block;
+      vertical-align: middle;
+    }
+    
+    .label-float {
+      width: 15em;
+      .h3;
+      .u-mb0;
+    }
 
+    .input-wrap {
+      width: 200px;
+    }
+  });
+}
 /*
   Mobile overview section
   --------------------------- */
 
-// default to hiding mobile overview section
-.mobile-overview {
-  display: none;
-
-  p {
-    .webfont-regular();
-    margin-bottom: 0.75em;
-  }
-}
-
-@media (min-width: 600px) {
-  // hide on small screens
+.respond-to-min(@tablet-min, {
+  .mobile-overview,
   .mobile-comparison-overviews {
     display: none;
   }
-}
+});
 
-@media (max-width: 600px) {
-
+.respond-to-max(@mobile-max, {
   .comparison-input-column-1,
   .comparison-input-column {
     .grid_column( 12 ); // this will have to change when we have two loans
@@ -99,7 +107,7 @@
   .inactive {
     color: @gray;
   }
-
+  
   .comparison-header {
     border-bottom: 3px solid @green-midtone;
 
@@ -115,17 +123,21 @@
     }
   }
 
-  // display mobile overview on small screens
   .mobile-overview {
     .grid_column(6);
     padding-top: 1em;
     padding-bottom: 1em;
+    
+    p {
+      .webfont-regular();
+      margin-bottom: 0.75em;
+    }
 
     h4 {
       .allcaps-demi;
     }
   }
-}
+});
 
 /*
   Loan Comparison Inputs
@@ -136,9 +148,13 @@
   width: 100%;
   .webfont-regular();
   position: relative;
-
-  .wrap {
-    padding: 0;
+  
+  .respond-to-min(@tablet-min, {
+    padding-bottom: unit(@grid_gutter-width / @base-font-size-px, em);
+  });
+  
+  .comparison-header {
+    .u-hide-on-mobile;
   }
 
   input[type="text"] {
@@ -157,73 +173,89 @@
     outline: 0;
     display: block;
   }
+  
+  .input-headers {
+    .respond-to-min(@tablet-min, {
+      padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
+    });
+  }
+  
+  .interest-rate-update,
+  .interest-rate-loading {
+    display: none;
+  }
+  .update .interest-rate-update {
+    width: 100%;
+    display: block;
+    animation: fadein .5s;
+  }
+  
+  .updating .interest-rate-loading {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    height: 2em;
+    background-image: url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif);
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .update,
+  .updating {
+    .interest-rate-content {
+      display: none;
+    }
+  }
+  
 }
 
 .input-headers {
-  .wrapper;
-
-  li {
-    .wrapper;
-    .grid_column(3);
-    text-align: center;
-    padding: 1em 0;
-  }
-
+  text-align: center;
+  
   h3 {
     .reset;
   }
 }
 
 /* labels and inputs are full width on small screens */
-@media (min-width: 600px) {
-
-  .lc-inputs {
-    padding-bottom: 28px;
-  }
-
+.respond-to-min(@tablet-min, {
   .input-subsection {
-    .wrapper;
-    padding-top: 28px;
+    padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
   }
-
-  .label-float {
-    .grid_column(6);
-    text-align: right;
-  }
-
-  .input-wrap {
-    .grid_column(6);
-  }
-
-  // todo: layout all headings
-  .lc-comparison-a .comparison-header {
-    display: inline-block;
-   .grid_push(3);
-  }
-}
-
-@media (max-width: 600px) {
-.lc-inputs {
-  padding-left: 1em;
-
-  .comparison-header {
-    display: none;
-  }
-
-  label {
-      margin-top: 0.875em;
+  
+  .comparisons {
+    .label-float {
+      text-align: right;
     }
   }
+  
+  .comparison-input-column-a {
+    .input-wrap,
+    .label-float {
+      .grid_column(6);
+    }
+  }
+  
+  .comparison-input-column {
+    .input-wrap,
+    .label-float {
+      vertical-align: middle;
+    }
+  }
+});
 
-  .input-headers {
-    display: none;
+.respond-to-max(@mobile-max, {
+  .lc-inputs {
+    label {
+        margin-top: 0.875em;
+      }
   }
 
-  // we never want to show loan c on small screens
+  .input-headers,
   .comparison-input-column-c {
     display: none;
   }
-}
+});
 
 .lc-subhead {
   .allcaps-demi;
@@ -233,6 +265,10 @@
   display: inline-block;
   width: 25%;
   margin-right: -4px; // normalize inline-block
+  
+  .respond-to-max(@mobile-max, {
+    padding-right: 5%;
+  });
 }
 
 .mid-input {
@@ -241,13 +277,6 @@
   margin-right: -4px; // nornalize inline block
 }
 
-@media (max-width: 600px) {
-  .small-input {
-    width: 25%;
-    padding-right: 5%;
-    margin-right: -4px; // normalize inline-block
-  }
-}
 
 .lc-toggle {
   display: block;
@@ -268,7 +297,8 @@
 
 .lc-save-link {
   display: none; // hide on desktop
-  margin: 0 -30px 0 -15px; // negative margin accomodates for grid padding
+  margin-right: -(@grid_gutter-width / 2);
+  margin-left: -(@grid_gutter-width / 2);
 
   &.first-save {
     border-top: 1px dotted @pacific;
@@ -289,7 +319,6 @@
   input,
   label {
     display: inline-block;
-    vertical-align: middle;
     font-size: .875em;
   }
 
@@ -299,6 +328,7 @@
 }
 
 // shrink font size below 1060px
+
 @media (max-width: 1060px) {
   .lc-radio {
     label {
@@ -369,7 +399,6 @@
 
 .result-heading {
   color: @gray;
-  .grid_push(2);
 }
 
 .results-section {
@@ -423,4 +452,16 @@
   .lc-result-c {
     display: none;
   }
+}
+
+
+.feedback-block {
+  .respond-to-range(@tablet-min, 767px, {
+    margin-right: -(@grid_gutter-width) !important;
+    margin-left: -(@grid_gutter-width) !important;
+  });
+  .respond-to-max(@mobile-max, {
+    margin-right: -(@grid_gutter-width / 2);
+    margin-left: -(@grid_gutter-width / 2);
+  });
 }

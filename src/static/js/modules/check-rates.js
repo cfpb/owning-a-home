@@ -9,6 +9,7 @@ var jumbo = require('jumbo-mortgage');
 var median = require('median');
 var amortize = require('amortize');
 var config = require('oah-config');
+var fetchRates = require('./rates');
 var isNum = require('is-money-usd');
 var formatTime = require('./format-timestamp');
 require('./highcharts-theme');
@@ -128,32 +129,23 @@ var delay = (function(){
  */
 function getData() {
   params.update();
-
-  var today = new Date();
-  var decache = "" + today.getDate() + today.getMonth();
-
-  var promise = $.ajax({
-      type: 'GET',
-      url: config.rateCheckerAPI,
-      data: {
-        price: params['house-price'],
-        loan_amount: params['loan-amount'],
-        minfico: slider.min,
-        maxfico: slider.max,
-        state: params['location'],
-        rate_structure: params['rate-structure'],
-        loan_term: params['loan-term'],
-        loan_type: params['loan-type'],
-        arm_type: params['arm-type'],
-        decache: decache
-      },
-      dataType: 'json',
-      contentType: "application/json",
-      error: function (request, status, errorThrown) {
-          resultFailWarning();
-        }
+    
+  var promise = fetchRates({
+    price: params['house-price'],
+    loan_amount: params['loan-amount'],
+    minfico: slider.min,
+    maxfico: slider.max,
+    state: params['location'],
+    rate_structure: params['rate-structure'],
+    loan_term: params['loan-term'],
+    loan_type: params['loan-type'],
+    arm_type: params['arm-type']
   });
-
+  
+  promise.fail(function (request, status, errorThrown) {
+    resultFailWarning();
+  });
+  
   return promise;
 };
 
