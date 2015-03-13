@@ -8,6 +8,8 @@ var templates = {
 var supportsAccessors = require('./supports-accessors');
 var objectify = require('objectified');
 require('./object.observe-polyfill');
+require('jquery-easing');
+require('cf-expandables');
 
 var loans = {};
 

@@ -394,7 +394,43 @@
   --------------------------- */
 
 .comparison-results {
-  margin-top: 60px;
+  .comparison-input-column {
+    padding-left: @grid_gutter-width/2;
+    text-align: left;
+    border-left: 1px dashed @gray-80;
+    color: @gray-80;
+  }
+  .expandable {
+    .respond-to-min(@tablet-min, {
+      overflow: hidden;
+    });
+  }
+  .expandable_header {
+    position: relative;
+    margin-bottom: @grid_gutter-width/2;
+    z-index: 2;
+    background: rgba(0,0,0,0.05);
+    .respond-to-min(1000px, {
+      margin-bottom: @grid_gutter-width;
+    });
+  }
+  .expandable__padded .expandable_content {
+    margin-right: 0;
+    margin-left: 0;
+    &:before,
+    &:hover {
+      display: none;      
+    }
+  }
+}
+
+.expandable__no-bg {
+  &,
+  &.expandable__expanded,
+  &.expandable__padded,
+  .expandable_content {
+    background: @white;
+  }
 }
 
 .result-heading {
@@ -402,57 +438,100 @@
 }
 
 .results-section {
+  position: relative;
   margin-bottom: 60px;
 }
+  .results-section-heading {
+    margin: 0;
+    .cf-icon {
+      color: @navy;
+    }
+    .respond-to-min(@tablet-min, {
+      font-size: 1.375em;
+    });
+  }
 
-.results-section-heading {
-  .reset;
-  .webfont-medium();
-  font-size: 1.125em;
-  background-color: @gray-10;
+  .primary-results-row {
+    margin-bottom: @grid_gutter-width;
+    .respond-to-min(1000px, {
+      position: absolute;
+      top: 8px;
+      z-index: 1;
+    });
+  }
+
+  .detail-results-row {
+    padding: 0 0 25px; // magic numberssssss
+    .respond-to-min(@tablet-min, {
+      padding-left: @grid_gutter-width/2;
+    });
+    .h6 {
+      color: @darkgray;
+    }
+    h6 {
+      padding: 0 @grid_gutter-width/2;
+      .respond-to-min(@tablet-min, {
+        .meta-header;
+        padding-right: 0;
+        padding-left: 0;
+        margin-right: @grid_gutter-width/2;
+        margin-left: @grid_gutter-width/2;
+        color: @darkgray;
+      });
+    }
+  }
+
+  .detail-results-row__nested {
+    .respond-to-min(@tablet-min, {
+      padding-left: @grid_gutter-width;
+    });
+  }
+
+  .primary-results-row,
+  .detail-results-row {
+    width: 100%;
+    .respond-to-min(@tablet-min, {
+      margin-left: 25%;
+    });
+  }
+
+    .closing-cost-result,
+    .monthly-payment-result,
+    .overall-costs-result,
+    .lc-result-detail {
+      .grid_column(1,2);
+    }
+
+    .loan-term-result {
+      .respond-to-min(@tablet-min, {
+        position: relative;
+        left: -@grid_gutter-width/2;
+      });
+    }
+
+  .result-detail-heading {
+    margin-top: @grid_gutter-width/3;
+  }
+
+.lc-result {
+  .webfont-regular();
+  .respond-to-min(@tablet-min, {
+    .grid_column(3);
+  });
 }
 
 .lc-primary-result {
   font-size: 1.375em;
-  .webfont-regular();
 }
-
-@media (min-width: 600px) {
-  .results-section {
-    background-color: @gray-10;
-    padding: 12px 0;
-  }
-
-  .results-section-heading,
-  .lc-result {
-    .grid_column(3);
-  }
-
-  .results-section-heading {
-    font-size: 1.375em;
-  }
-
-}
-
-@media (max-width: 600px) {
-  .result-heading {
-    display: none;
-  }
-
-  .results-section-heading {
-    padding: 12px 10px;
-  }
-
-  .lc-primary-result,
-  .lc-result {
-    .grid_column(6);
-  }
 
   // we never want to show loan c on small screens
-  .lc-result-c {
+  .lc-result-c,
+  .result-heading {
     display: none;
+    .respond-to-min(@tablet-min, {
+      display: inline-block;
+    });
   }
-}
 
 
 .feedback-block {
