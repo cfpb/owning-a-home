@@ -1,3 +1,22 @@
+/* temp. workaround for .block-link border-color issue */
+ a.jump-link,
+ a.list_link {
+   border-color: @link-underline;
+   
+   &:visited {
+     border-color: @link-underline-visited;
+   }
+   
+   &:hover {
+     border-color: @link-underline-hover;
+     z-index: 10;
+   }
+
+   &:active{
+     border-color: @link-underline-active;
+   }
+ }
+
 /* Borrowed from flapjack.*/
 
 .list__links {
@@ -57,25 +76,6 @@
     .respond-to-min(800px, {
       padding-top: @grid_gutter-width;
     });
-  }
-  
-  /* temp. workaround for .block-link border-color issue */
-  a.jump-link,
-  a.list_link {
-    border-color: @link-underline;
-    
-    &:visited {
-      border-color: @link-underline-visited;
-    }
-    
-    &:hover {
-      border-color: @link-underline-hover;
-      z-index: 10;
-    }
-
-    &:active{
-      border-color: @link-underline-active;
-    }
   }
 
   .overview {
