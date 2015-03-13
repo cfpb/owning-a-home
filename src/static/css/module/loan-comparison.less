@@ -380,18 +380,22 @@
     position: relative;
     z-index: 1;
   }
-  .expandable__padded,
-  .expandable__padded.expandable__expanded {
-    background: @white;
-  }
   .expandable__padded .expandable_content {
     margin-right: 0;
     margin-left: 0;
-    background: @white;
     &:before,
     &:hover {
       display: none;      
     }
+  }
+}
+
+.expandable__no-bg {
+  &,
+  &.expandable__expanded,
+  &.expandable__padded,
+  .expandable_content {
+    background: @white;
   }
 }
 
