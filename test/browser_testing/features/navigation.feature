@@ -12,9 +12,9 @@ Scenario Outline: Test inbound links in the landing page
 
 Examples:
   | link_name      		                    | page_title                      | relative_url                             |
-  | Learn more about loan options         | Loan Options                    | loan-options/                            |
-  | Get the closing checklist		          | checklist_mortgage_closing.pdf  | resources/checklist_mortgage_closing.pdf |
-  | Get the closing forms explainer       | mortgage_closing_forms.pdf      | resources/mortgage_closing_forms.pdf     |
+  | Understand loan options         | Loan Options                    | loan-options/                            |
+  | Closing checklist		          | checklist_mortgage_closing.pdf  | resources/checklist_mortgage_closing.pdf |
+  | Closing forms explainer       | mortgage_closing_forms.pdf      | resources/mortgage_closing_forms.pdf     |
 
 
 
