@@ -15,8 +15,8 @@
         </div>
 
         <div class="content-l_col content-l_col-2-3">
-          <h2 class="page-title">What loan package is right for you?</h2>
-          <p class="lead">What goes into a loan package? How do different parts of my loan package affect my total cost over time? How do I make a decision? A description of the tool that explains what it does and why a consumer would want to use it. Compare! Compare! Compare!</p>
+          <h2 class="page-title">Explore loan scenarios and compare estimated costs</h2>
+          <p class="lead">The interest and fees you pay to borrow money to buy a home can often be as much, or more, as the purchase price of the home itself. That's why it's important to think carefully about which loan option is right for you and shop around to get the best deal. The loan type you choose, your down payment amount, and the interest rate you receive all can have a big impact on your total cost. Use this tool to explore different loan scenarios and determine your best strategy.</p>
           <p>
             <a href="rate-checker.html" class="jump-link jump-link__right">
               <span class="jump-link_text">Check out the Rate Checker</span>
@@ -173,9 +173,9 @@
         <div class="content_wrapper content_wrapper__narrow">
           <div class="input-headers" aria-hidden="true">
             <div class="comparison-input-column"><h3>Compare loan costs</h3></div>
-            <div class="comparison-input-column"><h3>Loan A</h3></div>
-            <div class="comparison-input-column"><h3>Loan B</h3></div>
-            <div class="comparison-input-column"><h3>Loan C</h3></div>
+            <div class="comparison-input-column"><h3>Scenario A</h3></div>
+            <div class="comparison-input-column"><h3>Scenario B</h3></div>
+            <div class="comparison-input-column"><h3>Scenario C</h3></div>
           </div>
           <div class="form-container"></div>
         </div> <!-- /.wrapper content-wrapper -->
@@ -184,80 +184,505 @@
     </section> <!-- ./comparisons -->
 
   <div class="content_wrapper content_wrapper__narrow u-pb0">
-    <section class="comparison-results">
+    <section class="comparison-results content_main">
+
       <!-- hide these from screen readers with aria-hidden="true"
       since they are not in the correct source order -->
-      <div class="result-heading">
+      <header class="u-mb20">
         <div class="input-headers" aria-hidden="true">
           <div class="comparison-input-column"></div>
-          <div class="comparison-input-column"><h3>Loan A</h3></div>
-          <div class="comparison-input-column"><h3>Loan B</h3></div>
-          <div class="comparison-input-column"><h3>Loan C</h3></div>
+          <div class="comparison-input-column"><h3>Scenario A</h3></div>
+          <div class="comparison-input-column"><h3>Scenario B</h3></div>
+          <div class="comparison-input-column"><h3>Scenario C</h3></div>
         </div>
-      </div>
+      </header>
 
-      <section id="total-costs-closing" class="results-section">
-        <h4 class="results-section-heading">Total costs at closing</h4>
+        <section id="total-costs-closing" class="results-section expandable expandable__padded expandable__no-bg">
+          <button class="expandable_header expandable_target">
+              <div class="expandable_header-left expandable_label">
+                <h4 class="results-section-heading">
+                <span class="cf-icon cf-icon-mortgage"></span>&nbsp;
+                Total cash to close</h4>
+              </div>
+              <span class="expandable_header-right expandable_link">
+                  <span class="expandable_cue-open">
+                      Show
+                      <span class="cf-icon cf-icon-plus-round"></span>
+                  </span>
+                  <span class="expandable_cue-close">
+                      Hide
+                      <span class="cf-icon cf-icon-minus-round"></span>
+                  </span>
+              </span>
+          </button>
 
-        <div class="lc-result closing-cost-result" id="closing-cost-result-a">
-          <h5 class="u-visually-hidden">Loan A</h5>
-          <span class="lc-primary-result closing-costs-display-a">$3,000</span>
-        </div> <!-- /#closing-cost-result-a -->
+          <div class="primary-results-row">
+            
+            <div class="lc-result closing-cost-result" id="closing-cost-result-a">
+              <h5 class="u-visually-hidden">Loan A</h5>
+              <span class="lc-primary-result closing-costs-display-a">$3,000</span>
+            </div> <!-- /#closing-cost-result-a -->
+            <div class="lc-result closing-cost-result" id="closing-cost-result-b">
+              <h5 class="u-visually-hidden">Loan B</h5>
+              <span class="lc-primary-result closing-costs-display-b"></span>
+            </div> <!-- /#closing-cost-result-b -->
+            <div class="lc-result lc-result-c closing-cost-result" id="closing-cost-result-c">
+              <h5 class="u-visually-hidden">Loan C</h5>
+              <span class="lc-primary-result closing-costs-display-c"></span>
+            </div> <!-- /#closing-cost-result-c -->
 
-        <div class="lc-result closing-cost-result" id="closing-cost-result-b">
-          <h5 class="u-visually-hidden">Loan B</h5>
-          <span class="lc-primary-result closing-costs-display-b"></span>
-        </div> <!-- /#closing-cost-result-b -->
+          </div><!-- .primary-results-row -->
 
-        <div class="lc-result lc-result-c closing-cost-result" id="closing-cost-result-c">
-          <h5 class="u-visually-hidden">Loan C</h5>
-          <span class="lc-primary-result closing-costs-display-c"></span>
-        </div> <!-- /#closing-cost-result-c -->
+          <div class="expandable_content result-detail">
 
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Down payment
+                </h5>
+                <div class="lc-result lc-result-detail down-payment-result" id="down-payment-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="down-payment-display-a"></span>
+                </div> <!-- /#down-payment-result-a -->
+
+                <div class="lc-result lc-result-detail down-payment-result" id="down-payment-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="down-payment-display-b"></span>
+                </div> <!-- /#down-payment-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c down-payment-result" id="down-payment-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="down-payment-display-c"></span>
+                </div> <!-- /#down-payment-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Fees charged by lender
+                </h5>
+                <div class="lc-result lc-result-detail lender-fees-result" id="lender-fees-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="lender-fees-display-a"></span>
+                </div> <!-- /#lender-fees-result-a -->
+
+                <div class="lc-result lc-result-detail lender-fees-result" id="lender-fees-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="lender-fees-display-b"></span>
+                </div> <!-- /#lender-fees-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c lender-fees-result" id="lender-fees-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="lender-fees-display-c"></span>
+                </div> <!-- /#lender-fees-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row__nested detail-results-row">
+              <h6>
+              Discount points or credits
+              </h6>
+                <div class="lc-result lc-result-detail discount-result" id="discount-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="discount-display-a"></span>
+                </div> <!-- /#discount-result-a -->
+
+                <div class="lc-result lc-result-detail discount-result" id="discount-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="discount-display-b"></span>
+                </div> <!-- /#discount-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c discount-result" id="discount-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="discount-display-c"></span>
+                </div> <!-- /#discount-result-c -->
+
+              </div><!-- .detail-results-row -->              
+
+              <div class="detail-results-row__nested detail-results-row">
+                <h6>
+                Origination and processing fees
+                </h6>
+                <div class="lc-result lc-result-detail processing-fees-result" id="processing-fees-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="processing-fees-display-a"></span>
+                </div> <!-- /#processing-fees-result-a -->
+
+                <div class="lc-result lc-result-detail processing-fees-result" id="processing-fees-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="processing-fees-display-b"></span>
+                </div> <!-- /#processing-fees-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c processing-fees-result" id="processing-fees-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="processing-fees-display-c"></span>
+                </div> <!-- /#processing-fees-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Third party fees
+                </h5>
+                <div class="lc-result lc-result-detail third-party-fees-result" id="third-party-fees-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="third-party-fees-display-a"></span>
+                </div> <!-- /#third-party-fees-result-a -->
+
+                <div class="lc-result lc-result-detail third-party-fees-result" id="third-party-fees-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="third-party-fees-display-b"></span>
+                </div> <!-- /#third-party-fees-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c third-party-fees-result" id="third-party-fees-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="third-party-fees-display-c"></span>
+                </div> <!-- /#third-party-fees-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row__nested detail-results-row">
+                <h6>
+                Third Party Services
+                </h6>
+                <div class="lc-result lc-result-detail third-party-services-result" id="third-party-services-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="third-party-services-display-a"></span>
+                </div> <!-- /#third-party-services-result-a -->
+
+                <div class="lc-result lc-result-detail third-party-services-result" id="third-party-services-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="third-party-services-display-b"></span>
+                </div> <!-- /#third-party-services-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c third-party-services-result" id="third-party-services-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="third-party-services-display-c"></span>
+                </div> <!-- /#third-party-services-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row__nested detail-results-row">
+                <h6>
+                Mortage Insurance
+                </h6>
+                <div class="lc-result lc-result-detail mortgage-insurance-result" id="mortgage-insurance-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="mortgage-insurance-display-a"></span>
+                </div> <!-- /#mortgage-insurance-result-a -->
+
+                <div class="lc-result lc-result-detail mortgage-insurance-result" id="mortgage-insurance-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="mortgage-insurance-display-b"></span>
+                </div> <!-- /#mortgage-insurance-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c mortgage-insurance-result" id="mortgage-insurance-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="mortgage-insurance-display-c"></span>
+                </div> <!-- /#mortgage-insurance-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Taxes and government fees
+                </h5>
+                <div class="lc-result lc-result-detail taxes-gov-fees-result" id="taxes-gov-fees-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="taxes-gov-fees-display-a"></span>
+                </div> <!-- /#taxes-gov-fees-result-a -->
+
+                <div class="lc-result lc-result-detail taxes-gov-fees-result" id="taxes-gov-fees-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="taxes-gov-fees-display-b"></span>
+                </div> <!-- /#taxes-gov-fees-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c taxes-gov-fees-result" id="taxes-gov-fees-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="taxes-gov-fees-display-c"></span>
+                </div> <!-- /#taxes-gov-fees-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Prepaid expenses
+                </h5>
+                <div class="lc-result lc-result-detail prepaid-expenses-result" id="prepaid-expenses-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="prepaid-expenses-display-a"></span>
+                </div> <!-- /#prepaid-expenses-result-a -->
+
+                <div class="lc-result lc-result-detail prepaid-expenses-result" id="prepaid-expenses-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="prepaid-expenses-display-b"></span>
+                </div> <!-- /#prepaid-expenses-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c prepaid-expenses-result" id="prepaid-expenses-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="prepaid-expenses-display-c"></span>
+                </div> <!-- /#prepaid-expenses-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Initial escrow deposit
+                </h5>
+                <div class="lc-result lc-result-detail initial-escrow-result" id="initial-escrow-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="initial-escrow-display-a"></span>
+                </div> <!-- /#initial-escrow-result-a -->
+
+                <div class="lc-result lc-result-detail initial-escrow-result" id="initial-escrow-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="initial-escrow-display-b"></span>
+                </div> <!-- /#initial-escrow-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c initial-escrow-result" id="initial-escrow-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="initial-escrow-display-c"></span>
+                </div> <!-- /#initial-escrow-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+          </div>
       </section> <!-- /#total-costs-closing -->
 
-      <section id="monthly-payment" class="results-section">
-        <h4 class="results-section-heading">Monthly payment</h4>
+        <section id="monthly-payment" class="results-section expandable expandable__padded expandable__no-bg">
+          <button class="expandable_header expandable_target">
+              <div class="expandable_header-left expandable_label">
+                <h4 class="results-section-heading">
+                  <span class="cf-icon cf-icon-date"></span>&nbsp;
+                  Monthly payment
+                </h4>
+              </div>
+              <span class="expandable_header-right expandable_link">
+                  <span class="expandable_cue-open">
+                      Show
+                      <span class="cf-icon cf-icon-plus-round"></span>
+                  </span>
+                  <span class="expandable_cue-close">
+                      Hide
+                      <span class="cf-icon cf-icon-minus-round"></span>
+                  </span>
+              </span>
+          </button>
 
-        <div class="lc-result monthly-payment-result" id="monthly-payment-result-a">
-          <h5 class="u-visually-hidden">Loan A</h5>
-          <span class="lc-primary-result monthly-payment-display-a">$0</span>
-        </div> <!-- /#monthly-payment-result-a -->
+          <div class="primary-results-row">
+            
+            <div class="lc-result monthly-payment-result" id="monthly-payment-result-a">
+            <h5 class="u-visually-hidden">Loan A</h5>
+            <span class="lc-primary-result monthly-payment-display-a">$0</span>
+          </div> <!-- /#monthly-payment-result-a -->
 
-        <div class="lc-result monthly-payment-result" id="monthly-payment-result-b">
-          <h5 class="u-visually-hidden">Loan B</h5>
-          <span class="lc-primary-result monthly-payment-display-b"></span>
-        </div> <!-- /#monthly-payment-result-b -->
+          <div class="lc-result monthly-payment-result" id="monthly-payment-result-b">
+            <h5 class="u-visually-hidden">Loan B</h5>
+            <span class="lc-primary-result monthly-payment-display-b"></span>
+          </div> <!-- /#monthly-payment-result-b -->
 
-        <div class="lc-result lc-result-c monthly-payment-result" id="monthly-payment-result-c">
-          <h5 class="u-visually-hidden">Loan C</h5>
-          <span class="lc-primary-result monthly-payment-display-c"></span>
-        </div> <!-- /#monthly-payment-result-c -->
+          <div class="lc-result lc-result-c monthly-payment-result" id="monthly-payment-result-c">
+            <h5 class="u-visually-hidden">Loan C</h5>
+            <span class="lc-primary-result monthly-payment-display-c"></span>
+          </div> <!-- /#monthly-payment-result-c -->
 
-      </section> <!-- /#monthly-payment -->
+          </div><!-- .primary-results-row -->
 
-      <section id="overall-costs" class="results-section">
+          <div class="expandable_content result-detail">
 
-        <h4 class="results-section-heading">Overall costs</h4>
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Principal and interest
+                </h5>
+                <div class="lc-result lc-result-detail monthly-principal-interest-result" id="monthly-principal-interest-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="monthly-principal-interest-display-a"></span>
+                </div> <!-- /#monthly-principal-interest-result-a -->
 
-        <div class="lc-result overall-costs-result" id="closing-cost-result-a">
-          <h5 class="u-visually-hidden">Loan A</h5>
-          <span class="lc-primary-result overall-costs-display-a">$0</span>
-        </div> <!-- /#closing-cost-result-a -->
+                <div class="lc-result lc-result-detail monthly-principal-interest-result" id="monthly-principal-interest-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="monthly-principal-interest-display-b"></span>
+                </div> <!-- /#monthly-principal-interest-result-b -->
 
-        <div class="lc-result overall-costs-result" id="closing-cost-result-b">
-          <h5 class="u-visually-hidden">Loan B</h5>
-          <span class="lc-primary-result overall-costs-display-b"></span>
-        </div> <!-- /#closing-cost-result-b -->
+                <div class="lc-result lc-result-detail lc-result-c monthly-principal-interest-result" id="monthly-principal-interest-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="monthly-principal-interest-display-c"></span>
+                </div> <!-- /#monthly-principal-interest-result-c -->
 
-        <div class="lc-result lc-result-c overall-costs-result" id="closing-cost-result-c">
-          <h5 class="u-visually-hidden">Loan C</h5>
-          <span class="lc-primary-result overall-costs-display-c"></span>
-        </div> <!-- /#closing-cost-result-c -->
+              </div><!-- .detail-results-row -->
 
-      </section> <!-- /#overall-costs -->
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Mortgage Insurance
+                </h5>
+                <div class="lc-result lc-result-detail monthly-mortgage-insurance-result" id="monthly-mortgage-insurance-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="monthly-mortgage-insurance-display-a"></span>
+                </div> <!-- /#monthly-mortgage-insurance-result-a -->
 
-    </section> <!-- ./comparison-results -->
+                <div class="lc-result lc-result-detail monthly-mortgage-insurance-result" id="monthly-mortgage-insurance-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="monthly-mortgage-insurance-display-b"></span>
+                </div> <!-- /#monthly-mortgage-insurance-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c monthly-mortgage-insurance-result" id="monthly-mortgage-insurance-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="monthly-mortgage-insurance-display-c"></span>
+                </div> <!-- /#monthly-mortgage-insurance-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Property taxes and insurance (escrow)
+                </h5>
+                <div class="lc-result lc-result-detail monthly-taxes-insurance-result" id="monthly-taxes-insurance-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="monthly-taxes-insurance-display-a"></span>
+                </div> <!-- /#monthly-taxes-insurance-result-a -->
+
+                <div class="lc-result lc-result-detail monthly-taxes-insurance-result" id="monthly-taxes-insurance-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="monthly-taxes-insurance-display-b"></span>
+                </div> <!-- /#monthly-taxes-insurance-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c monthly-taxes-insurance-result" id="monthly-taxes-insurance-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="monthly-taxes-insurance-display-c"></span>
+                </div> <!-- /#monthly-taxes-insurance-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Homeowner's association dues
+                </h5>
+                <div class="lc-result lc-result-detail monthly-hoa-dues-result" id="monthly-hoa-dues-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="monthly-hoa-dues-display-a"></span>
+                </div> <!-- /#monthly-hoa-dues-result-a -->
+
+                <div class="lc-result lc-result-detail monthly-hoa-dues-result" id="monthly-hoa-dues-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="monthly-hoa-dues-display-b"></span>
+                </div> <!-- /#monthly-hoa-dues-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c monthly-hoa-dues-result" id="monthly-hoa-dues-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="monthly-hoa-dues-display-c"></span>
+                </div> <!-- /#monthly-hoa-dues-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+          </div>
+        </section> <!-- /#monthly-payment -->
+
+        <section id="overall-costs" class="results-section expandable expandable__padded expandable__no-bg">
+          <button class="expandable_header expandable_target">
+              <div class="expandable_header-left expandable_label">
+                <h4 class="results-section-heading">
+                  <span class="cf-icon cf-icon-owning-home"></span>&nbsp;
+                  Overall costs
+                </h4>
+              </div>
+              <span class="expandable_header-right expandable_link">
+                  <span class="expandable_cue-open">
+                      Show
+                      <span class="cf-icon cf-icon-plus-round"></span>
+                  </span>
+                  <span class="expandable_cue-close">
+                      Hide
+                      <span class="cf-icon cf-icon-minus-round"></span>
+                  </span>
+              </span>
+          </button>
+
+          <div class="primary-results-row">
+            
+           <div class="lc-result overall-costs-result" id="overall-costs-result-a">
+            <h5 class="u-visually-hidden">Loan A</h5>
+            <span class="lc-primary-result overall-costs-display-a">$0</span>
+          </div> <!-- /#overall-costs-result-a -->
+
+          <div class="lc-result overall-costs-result" id="overall-costs-result-b">
+            <h5 class="u-visually-hidden">Loan B</h5>
+            <span class="lc-primary-result overall-costs-display-b"></span>
+          </div> <!-- /#overall-costs-result-b -->
+
+          <div class="lc-result lc-result-c overall-costs-result" id="overall-costs-result-c">
+            <h5 class="u-visually-hidden">Loan C</h5>
+            <span class="lc-primary-result overall-costs-display-c"></span>
+          </div> <!-- /#overall-costs-result-c -->
+
+          </div><!-- .primary-results-row -->
+
+          <div class="expandable_content result-detail">
+
+              <div class="detail-results-row">
+
+                <div class="lc-result lc-result-detail loan-term-result" id="loan-term-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="h6 loan-term-display-a"></span>
+                </div> <!-- /#loan-term-result-a -->
+
+                <div class="lc-result lc-result-detail loan-term-result" id="loan-term-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="h6 loan-term-display-b"></span>
+                </div> <!-- /#loan-term-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c loan-term-result" id="loan-term-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="h6 loan-term-display-c"></span>
+                </div> <!-- /#loan-term-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Principal paid
+                </h5>
+                <div class="lc-result lc-result-detail principal-paid-result" id="principal-paid-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="principal-paid-display-a"></span>
+                </div> <!-- /#principal-paid-result-a -->
+
+                <div class="lc-result lc-result-detail principal-paid-result" id="principal-paid-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="principal-paid-display-b"></span>
+                </div> <!-- /#principal-paid-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c principal-paid-result" id="principal-paid-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="principal-paid-display-c"></span>
+                </div> <!-- /#principal-paid-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+              <div class="detail-results-row">
+                <h5 class="result-detail-heading meta-header">
+                Interest and fees paid
+                </h5>
+                <div class="lc-result lc-result-detail interest-fees-paid-result" id="interest-fees-paid-result-a">
+                  <h5 class="u-visually-hidden">Loan A</h5>
+                  <span class="interest-fees-paid-display-a"></span>
+                </div> <!-- /#interest-fees-paid-result-a -->
+
+                <div class="lc-result lc-result-detail interest-fees-paid-result" id="interest-fees-paid-result-b">
+                  <h5 class="u-visually-hidden">Loan B</h5>
+                  <span class="interest-fees-paid-display-b"></span>
+                </div> <!-- /#interest-fees-paid-result-b -->
+
+                <div class="lc-result lc-result-detail lc-result-c interest-fees-paid-result" id="interest-fees-paid-result-c">
+                  <h5 class="u-visually-hidden">Loan C</h5>
+                  <span class="interest-fees-paid-display-c"></span>
+                </div> <!-- /#interest-fees-paid-result-c -->
+
+              </div><!-- .detail-results-row -->
+
+          </div>
+
+        </section> <!-- /#overall-costs -->
+
+      </section> <!-- ./comparison-results -->
     
     <div class="content_main u-pb0">
        <div class="block block__border-top block__flush-top block__flush-bottom">
