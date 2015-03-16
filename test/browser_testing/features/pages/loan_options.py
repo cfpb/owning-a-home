@@ -150,7 +150,7 @@ class LoanOptions(Base):
         else:
             raise Exception(loan_type + " is NOT a valid Loan Type")
 
-        e_xpath = "//a[@class = 'go-link' and @href='" + e_href + "']"
+        e_xpath = "//a[@class = 'jump-link' and @href='" + e_href + "']"
         msg = 'Element %s not found after %s sec' % (e_xpath, self.driver_wait)
 
         element = WebDriverWait(self.driver, self.driver_wait)\
