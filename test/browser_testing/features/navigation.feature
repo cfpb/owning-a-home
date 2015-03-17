@@ -32,6 +32,11 @@ Examples:
   | Check interest rates for your situation | Prepare to shop | check-rates/ | Check interest rates |
   | Check interest rates for your situation | Explore loan options | check-rates/ | Check interest rates |
   | Understand loan options | Explore loan options | loan-options/ | Loan Options |
+  | Check interest rates for your situation | Compare loan packages | check-rates/ | Check interest rates |
+  | Closing checklist | Decide and close | resources/checklist_mortgage_closing.pdf | checklist_mortgage_closing.pdf |
+  | Closing forms explainer | Decide and close | resources/mortgage_closing_forms.pdf | mortgage_closing_forms.pdf |
+  | Submit a complaint | Maintain your mortgage | complaint/ | Submit a complaint |
+  | Find a housing counselor | Maintain your mortgage | /find-a-housing-counselor/ | Find a housing counselor |
 
 @smoke_testing @landing_page
 Scenario Outline: Test outbound links in the landing page
