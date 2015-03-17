@@ -90,3 +90,8 @@ def step(context):
 def step(context, relative_url, page_title):
     title = context.base.switch_to_new_tab(relative_url)
     assert_that(title, contains_string(page_title))
+
+@when(u'I click on the Learn more link inside "{section_name}"')
+def step(context, section_name):
+    # Click the learn more link inside "section_name"
+    context.navigation.click_learn_more_link(section_name)
