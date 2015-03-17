@@ -32,3 +32,13 @@ class Navigation(Base):
         script = "arguments[0].scrollIntoView(true);"
         self.driver.execute_script(script, element)
         element.click()
+
+    def click_key_tools_link(self, link_name, section_name):
+        xpath = "//h3[text()='" + section_name +  "']/../../../div/ul/li/a[text()='" + link_name + "']"
+        element = self.driver.find_element_by_xpath(xpath)
+
+        # scroll the element into view so it can be
+        # observed with SauceLabs screencast
+        script = "arguments[0].scrollIntoView(true);"
+        self.driver.execute_script(script, element)
+        element.click()

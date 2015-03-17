@@ -19,6 +19,19 @@ Examples:
   | Maintain your mortgage         | Know the Process                    | process/maintain/                            |
 
 
+@smoke_testing @landing_page
+Scenario Outline: Test Key Tools links in the landing page
+  Given I navigate to the OAH Landing page
+  When I click on the Key Tools "<link_name>" link inside "<section_name>"
+  Then I should be directed to the internal "<relative_url>" URL
+  And I should see "<page_title>" displayed in the page title
+
+Examples:
+  | link_name | section_name | relative_url | page_title |
+  | Worksheet: clarify your goals | Prepare to shop | prepare-worksheets/ | Preparation worksheets |
+  | Check interest rates for your situation | Prepare to shop | check-rates/ | Check interest rates |
+  | Check interest rates for your situation | Explore loan options | check-rates/ | Check interest rates |
+  | Understand loan options | Explore loan options | loan-options/ | Loan Options |
 
 @smoke_testing @landing_page
 Scenario Outline: Test outbound links in the landing page
