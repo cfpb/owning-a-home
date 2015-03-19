@@ -34,13 +34,9 @@ DOWN_PAYMENT_AMOUNT_B = "down-payment-input-b"
 DOWN_PAYMENT_AMOUNT_C = "down-payment-input-c"
 
 # ELEMENT ID'S FOR DROP DOWN LISTS
-STATE_A = "location-a"
-STATE_B = "location-b"
-STATE_C = "location-c"
+STATE = "location"
 
-CREDIT_SCORE_A = "credit-score-select-a"
-CREDIT_SCORE_B = "credit-score-select-b"
-CREDIT_SCORE_C = "credit-score-select-c"
+CREDIT_SCORE = "credit-score-select"
 
 RATE_STRUCTURE_A = "rate-structure-select-a"
 RATE_STRUCTURE_B = "rate-structure-select-b"
@@ -91,33 +87,19 @@ class LoanComparison(Base):
         element.click()
 
     # LOCATION
-    def get_location(self, loan_column):
+    def get_location(self):
         # Get the selected Index from the Location dropdown list
-        if (loan_column == 'Loan A'):
-            element = Select(self.driver.find_element_by_id(STATE_A))
-        elif (loan_column == 'Loan B'):
-            element = Select(self.driver.find_element_by_id(STATE_B))
-        elif (loan_column == 'Loan C'):
-            element = Select(self.driver.find_element_by_id(STATE_C))
-        else:
-            return (loan_column + " is NOT valid")
-
+        element = Select(self.driver.find_element_by_id(STATE))
+        
         option = element.first_selected_option
 
         # Then Get the corresponding text from the selected Index
         return option.get_attribute('text')
 
     # CREDIT SCORE
-    def get_credit_score(self, loan_column):
+    def get_credit_score(self):
         # Get the selected Index from the Credit Score dropdown list
-        if (loan_column == 'Loan A'):
-            element = Select(self.driver.find_element_by_id(CREDIT_SCORE_A))
-        elif (loan_column == 'Loan B'):
-            element = Select(self.driver.find_element_by_id(CREDIT_SCORE_B))
-        elif (loan_column == 'Loan C'):
-            element = Select(self.driver.find_element_by_id(CREDIT_SCORE_C))
-        else:
-            return (loan_column + " is NOT valid")
+        element = Select(self.driver.find_element_by_id(CREDIT_SCORE))
 
         option = element.first_selected_option
 

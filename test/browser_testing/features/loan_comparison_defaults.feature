@@ -5,42 +5,20 @@ Feature: Test the default values in the Loan Comparison page
 
 Background:
    Given I navigate to the "Loan Comparison" page
+   
+@loan_comparison
+Scenario: First time visitor should see default State selected
+ Then I should see "Alabama" as default State
+ 
+@loan_comparison
+Scenario: First time visitor should see default Credit Score
+ Then I should see "701 - 720" as default Credit Score
 
 @loan_comparison
 Scenario: First time visitor should see Loan A but NOT Loan B or C
   Then I should see the "Loan A" column
     But I should NOT see the "Loan B" column
     But I should NOT see the "Loan C" column
-
-@loan_comparison
-Scenario: First time visitor should see default State selected for Loan A
-  Then I should see "Alabama" as default State for "Loan A"
-
-@loan_comparison
-Scenario: First time visitor should see default State selected for Loan B
-  When I click Add another loan
-  Then I should see "Alabama" as default State for "Loan B"
-
-@loan_comparison
-Scenario: First time visitor should see default State selected for Loan C
-  When I click Add another loan
-    And I click Add another loan again
-  Then I should see "Alabama" as default State for "Loan C"
-
-@loan_comparison
-Scenario: First time visitor should see default Credit Score for Loan A
-  Then I should see "701 - 720" as default Credit Score for "Loan A"
-
-@loan_comparison
-Scenario: First time visitor should see default Credit Score for Loan B
-  When I click Add another loan
-  Then I should see "701 - 720" as default Credit Score for "Loan B"
-
-@loan_comparison
-Scenario: First time visitor should see default Credit Score for Loan C
-  When I click Add another loan
-    And I click Add another loan again
-  Then I should see "701 - 720" as default Credit Score for "Loan C"
 
 @loan_comparison
 Scenario: First time visitor should see default Loan Amount for Loan A
@@ -178,19 +156,4 @@ Scenario: First time Desktop visitor should see default Discount point and credi
   When I click Add another loan
     And I click Add another loan again
   Then I should see "0" as default Discount point and credits for "Loan C"
-
-@loan_comparison
-Scenario: First time Desktop visitor should see default Interest Rate for Loan A
-  Then I should see "3.25%" as default Interest Rate for "Loan A"
-
-@loan_comparison
-Scenario: First time Desktop visitor should see default Interest Rate for Loan B
-  When I click Add another loan
-  Then I should see "3.25%" as default Interest Rate for "Loan B"
-
-@loan_comparison
-Scenario: First time Desktop visitor should see default Interest Rate for Loan C
-  When I click Add another loan
-    And I click Add another loan again
-  Then I should see "3.25%" as default Interest Rate for "Loan C"
 
