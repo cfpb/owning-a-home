@@ -42,15 +42,7 @@ var sharedLoanData = objectify('#onboarding', [
     name: 'maxfico',
     source: function() {
       var score = parseInt($('#credit-score-select').val()) || 0;
-      var maxfico;
-      if (score === 600) {
-        maxfico = 620;
-      } else if (score === 841) {
-        maxfico = 850;
-      } else {
-        maxfico = score + 19;
-      }
-      return maxfico;
+      return score + (score === 840 ? 10 : 19) ;
     }
   },
   {
