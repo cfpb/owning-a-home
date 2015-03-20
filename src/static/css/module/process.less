@@ -87,15 +87,22 @@
 
 
 .expandable__padded.expandable__flush-sides {
+  margin-right: 0;
   .expandable_header {
     padding: unit(10px / @base-font-size-px, em) 0;
   }
-  margin-right: 0;
+  .expandable_content {
+    margin: 0;    
+  }
 }
 
 .block__bg.block__small-pad {
   padding: unit(@grid_gutter-width  / @base-font-size-px, em)
            unit((@grid_gutter-width / 2) / @base-font-size-px, em);
+}
+
+.list__flush-sides {
+  padding-left: 20px;
 }
 
 /* Process-specific styles */
@@ -109,28 +116,20 @@
   .phase {
     padding-top: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
     padding-bottom: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
-  }
-  
-  .checked {
-    .webfont-regular();
-    margin-left: 19px;
-    position: relative;
-
-    &:before {
-      .cf-icon();
-    	content: "\e100";
-    	font-size: 17px;
-    	color: @green;
-    	line-height: 1;
-    	position: absolute;
-    	left: -19px;
-    	top: 2px;
-
+    .checked {
+      .webfont-regular();
+      margin-left: 19px;
     }
   }
   
   .expandable-group {
       border-top: 1px solid @gray-80;
+  }
+
+  .expandable_content {
+    p {
+      .short-desc;
+    }
   }
       
   .wrapper {

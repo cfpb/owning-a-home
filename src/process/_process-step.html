@@ -39,7 +39,7 @@
           <div class="content-l">
             {% for milestone in active_phase.milestones %}
             <div class="content-l_col content-l_col-1-3">
-              <div class="checked">{{milestone}}</div>
+              <p class="checked">{{milestone}}</p>
             </div>
             {% endfor %}
           </div>
@@ -52,7 +52,7 @@
           <h1 class="h3">Action steps</h1>
           <div class="expandable-group" data-accordion="true">
             {% for step in active_phase.steps %}            
-              <div class="expandable expandable__padded expandable__flush-sides">
+              <div class="expandable expandable__padded expandable__expanded expandable__flush-sides">
                   <button class="expandable_header expandable_target">
                       <span class="expandable_header-left expandable_label">
                           {{step.title}}
@@ -70,29 +70,41 @@
                   </button>
                   <div class="expandable_content">
                 
-                    {{step.description if step.description}}
+                    {% if step.description %}
+                    <section class="short-desc">
+                      <p>
+                      {{step.description|safe}}                        
+                      </p>
+                    </section>
+                    {% endif %}
                   
                     {% if step.key_tool %}
-                      <h4 class="h6">
-                        Key tool
+                    <section class="block block__sub">
+                      <h4 class="h6 u-mb10">
+                        <span class="cf-icon cf-icon-attach"></span>&nbsp;Key tool
                       </h4>
-                      <a href="{{step.key_tool.url}}">
-                        {{step.key_tool.text}}
+                      <a class="jump-link jump-link__right" href="{{step.key_tool.url}}">
+                        <span class="jump-link_text">{{step.key_tool.text}}</span>
                       </a>
+                    </section>
                     {% endif %}
                   
                     {% if step.how_to_take_action %}
-                      <h4 class="h6">
+                    <section>
+                      <h4 class="h6 u-mb10">
                         How to take action
                       </h4>
                       {{step.how_to_take_action|safe}}
+                    </section>
                     {% endif %}
                   
                     {% if step.what_to_know %}
-                      <h4 class="h6">
+                    <section>
+                      <h4 class="h6 u-mb10">
                         What to know
                       </h4>
                       {{step.what_to_know|safe}}
+                    </section>
                     {% endif %}
                   
                   </div>
