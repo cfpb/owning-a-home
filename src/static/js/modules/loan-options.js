@@ -5,7 +5,7 @@ var interest = require('./total-interest-calc');
 var formatUSD = require('format-usd');
 var unformatUSD = require('unformat-usd')
 require('./local-storage-polyfill');
-require('./mega-expand');
+// require('./mega-expand');
 require('./secondary-nav');
 require('./nemo');
 require('./nemo-shim');
