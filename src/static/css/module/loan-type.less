@@ -28,9 +28,6 @@
   .cf-icon;
   color: @green;
   display: inline-block;
-  // position: absolute;
-  // top: 0;
-  // left: -1.4em;
   padding-right: .25em;
   width: 1.2em;
   font-size: 1.2em;
@@ -46,19 +43,20 @@
 
 // currently we lack a % sign minicon in the font
 .lt-icon-structure {
-  .webfont-regular();
   color: white;
   background-color: @green;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: -1.6em;
-  padding-right: .25em;
+  display: inline-block;
+  // float: left;
+  position: relative;
+  top: 5px;
+  // top: 0;
+  // left: -1.6em;
+  // padding-right: .25em;
   border-radius: 50%;
   width: 1.2em;
   height: 1.2em;
   text-align: center;
-  padding: 0.125em;
+  // padding: 0.125em;
 }
 
 .lt-icon-structure:before {
@@ -67,6 +65,7 @@
   position: absolute;
   top: 5%;
   left: 20%;
+  .webfont-regular();
 }
 
 @media (max-width: 840px) {
