@@ -5,7 +5,7 @@ ul.unindent-ul{
 
 .lt-icon:before,
 .lt-icon-structure {
-  top: 20%;
+  // top: 20%;
 }
 
 .lt-icon-structure:before {
@@ -21,6 +21,17 @@ ul.unindent-ul{
     background: @gray-10;
   }
   .expandable_content {
+  }
+  .expandable_cue_text {
+    .webfont-regular();
+    font-size: 1.1em;
+    border-bottom: 1px dotted @pacific;
+    .respond-to-max(800px, {
+      .u-visually-hidden;
+    });
+  }
+  .expandable_link {
+    margin-top: 5px;
   }
 }
   .expandable-heading {
