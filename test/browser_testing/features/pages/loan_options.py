@@ -23,25 +23,17 @@ LOAN_AMOUNT = "loan-amount-value"
 INTEREST_RATE = "loan-interest-value"
 
 # ELEMENT CSS SELECTOR
-LOAN_TERM_EXPAND = "#loan-term-expand-toggle"
-LOAN_TERM_COLLAPSE = "#loan-term-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .expand-close-link"
-LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .tight-heading"
+LOAN_TERM_EXPAND = "#expandable__loan-term .expandable_target"
+LOAN_TERM_COLLAPSE = "#collapse-loan-terms"
+LOAN_TERM_SUBSECTION = "#expandable__loan-term .expandable_content .tight-heading"
 
-INTEREST_RATE_EXPAND = "#interest-rate-expand-toggle"
-INTEREST_RATE_STRUCTURE_SUBSECTION = "#interest-rate-expand-header + " + \
-    ".expandable-content.expandable-hidden[style='display: block;'] " + \
-    ".tight-heading"
-INTEREST_RATE_STRUCTURE_COLLAPSE = "#interest-rate-expand-header + " + \
-    ".expandable-content.expandable-hidden[style='display: block;'] " + \
-    ".expand-close-link"
+INTEREST_RATE_EXPAND = "#expandable__interest-rate"
+INTEREST_RATE_STRUCTURE_COLLAPSE = "#collapse-interest-rate"
+INTEREST_RATE_STRUCTURE_SUBSECTION = "#expandable__interest-rate .expandable_content .tight-heading"
 
-LOAN_TYPE_EXPAND = "#loan-programs-expand-toggle"
-LOAN_TYPE_SUBSECTION = "#loan-programs-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] h3"
-LOAN_TYPE_COLLAPSE = "#loan-programs-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .expand-close-link"
+LOAN_TYPE_EXPAND = "#expandable__loan-programs"
+LOAN_TYPE_COLLAPSE = "#collapse-loan-programs"
+LOAN_TYPE_SUBSECTION = "#expandable__loan-programs .expandable_content .tight-heading"
 
 SELECTED_TERM = ".term-timeline a.current .loan-length"
 
@@ -188,7 +180,6 @@ class LoanOptions(Base):
         else:
             raise Exception(page_section + " is NOT a valid section")
 
-        e_css = e_css + " .expandable-text"
         caption = self.driver.find_element_by_css_selector(e_css).text
         return caption
 

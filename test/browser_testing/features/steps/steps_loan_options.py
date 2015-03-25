@@ -1,6 +1,7 @@
 # coding: utf-8
 from behave import given, when, then
 from hamcrest.core import assert_that, equal_to
+from hamcrest.library.text.stringcontains import contains_string
 
 from pages.base import Base
 from pages.loan_options import LoanOptions
@@ -20,7 +21,7 @@ def step(context, section_name):
 @then(u'I should see a collapse link for the "{section_name}" section')
 def step(context, section_name):
     caption = context.loan_options.get_expand_button_caption(section_name)
-    assert_that(caption, equal_to('Collapse'))
+    assert_that(caption, contains_string('Collapse'))
 
 
 # SUB-SECTIONS
