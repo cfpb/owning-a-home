@@ -39,7 +39,7 @@ ul.unindent-ul{
     position: relative;
   }
 
-  .expandable-subhead {
+  .expandable_subhead {
     background: #fff;
     padding-top: 20px;
     .webfont-regular();
@@ -49,3 +49,67 @@ ul.unindent-ul{
     .webfont-demi();
     font-size: 1em;
   }
+
+.expandable-subsection {
+  border-top: 1px solid  @gray-20;
+  padding: 1.375em 0;
+
+  .expandable-section-content {
+    font-size: .875em;
+  }
+}
+
+.expandable-subsection-title {
+  border-top: 1px solid  @gray-20;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+// internal collapse link
+
+.expand-close {
+  .webfont-regular();
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.expand-close-link:link,
+.expand-close-link:visited {
+  color: @pacific;
+  border-bottom: 1px dotted @pacific;
+}
+
+.expand-close-link:hover,
+.expand-close-link:active,
+.expand-close-link:focus {
+  border-bottom: 1px solid @pacific-50;
+  color: @pacific-50;
+}
+
+.expand-close-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.expand-close-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 18%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e111";
+  border-bottom: none;
+}
+
+@media (max-width: 720px) {
+  .expandable-subhead {
+    .sub-demi {
+      color: @gray;
+    }
+  }
+}
