@@ -14,6 +14,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 - Unix-based OS (including Macs). Windows is not supported at this time.
 - [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
+- [Autoenv](https://github.com/kennethreitz/autoenv)
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
@@ -31,6 +32,16 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	```
 	$ pip install virtualenv virtualenvwrapper
 	```
+
+### Autoenv module
+
+If you already have [Autoenv](https://github.com/kennethreitz/autoenv) installed, [skip ahead to Sheer](#sheer-elasticsearch).
+
+1. Run:
+	```
+	$ pip install autoenv
+	```
+
 
 ### Sheer & Elasticsearch
 
@@ -95,6 +106,16 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 
 
 ## Configuration
+
+### WordPress Indexing
+To index your content from WordPress:
+
+1. In the repo directory, copy the `.env_SAMPLE` file and name it `.env`. This can be done from the command line with the following command:
+	```
+	$ cp .evn_SAMPLE .env
+	```
+1. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
+
 
 ### Rate Checker
 The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
