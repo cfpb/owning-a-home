@@ -1,7 +1,7 @@
 {
   "name": "OAH Journeys",
   "query": {
-    "doc_type": "oah-journey-step",
+    "doc_type": "journey",
     "size": 500,
     "sort": "order:asc"
   }

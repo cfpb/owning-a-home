@@ -1,6 +1,6 @@
 {
   "journey": {
-    "url":       "/journey/<id>/",
+    "url":       "/process/<id>/",
     "type":      "oah-journey-step",
     "permalink": true
   }
