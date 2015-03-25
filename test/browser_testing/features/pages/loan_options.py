@@ -24,16 +24,16 @@ INTEREST_RATE = "loan-interest-value"
 
 # ELEMENT CSS SELECTOR
 LOAN_TERM_EXPAND = "#expandable__loan-term .expandable_target"
-LOAN_TERM_COLLAPSE = "#collapse-loan-terms"
+LOAN_TERM_COLLAPSE = "#expandable__loan-term .expandable_cue-close .expandable_cue_text"
 LOAN_TERM_SUBSECTION = "#expandable__loan-term .expandable_content .tight-heading"
 
 INTEREST_RATE_EXPAND = "#expandable__interest-rate"
-INTEREST_RATE_STRUCTURE_COLLAPSE = "#collapse-interest-rate"
-INTEREST_RATE_STRUCTURE_SUBSECTION = "#expandable__interest-rate .expandable_content .tight-heading"
+INTEREST_RATE_COLLAPSE = "#expandable__interest-rate .expandable_cue-close .expandable_cue_text"
+INTEREST_RATE_SUBSECTION = "#expandable__interest-rate .expandable_content .tight-heading"
 
-LOAN_TYPE_EXPAND = "#expandable__loan-programs"
-LOAN_TYPE_COLLAPSE = "#collapse-loan-programs"
-LOAN_TYPE_SUBSECTION = "#expandable__loan-programs .expandable_content .tight-heading"
+LOAN_TYPE_EXPAND = "#expandable__loan-type"
+LOAN_TYPE_COLLAPSE = "#expandable__loan-type .expandable_cue-close .expandable_cue_text"
+LOAN_TYPE_SUBSECTION = "#expandable__loan-type .expandable_content .tight-heading"
 
 SELECTED_TERM = ".term-timeline a.current .loan-length"
 
@@ -55,7 +55,7 @@ class LoanOptions(Base):
             e_collapse = LOAN_TERM_COLLAPSE
         elif(page_section == 'Interest rate type'):
             e_expand = INTEREST_RATE_EXPAND
-            e_collapse = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_collapse = INTEREST_RATE_COLLAPSE
         elif(page_section == 'Loan type'):
             e_expand = LOAN_TYPE_EXPAND
             e_collapse = LOAN_TYPE_COLLAPSE
@@ -90,7 +90,7 @@ class LoanOptions(Base):
             e_css = LOAN_TERM_COLLAPSE
             e_expand = LOAN_TERM_EXPAND
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_css = INTEREST_RATE_COLLAPSE
             e_expand = INTEREST_RATE_EXPAND
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_COLLAPSE
@@ -154,7 +154,7 @@ class LoanOptions(Base):
         if(page_section == 'Loan term'):
             e_css = LOAN_TERM_SUBSECTION
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_STRUCTURE_SUBSECTION
+            e_css = INTEREST_RATE_SUBSECTION
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_SUBSECTION
         else:
