@@ -1,0 +1,7 @@
+{
+  "journey": {
+    "url":       "$WORDPRESS/api/get_posts/?post_type=oah-journey-step",
+    "processor": "wordpress_journey_processor",
+    "mappings":  "_settings/journey_mappings.json"
+  }
+}

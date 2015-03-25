@@ -1,0 +1,7 @@
+{
+  "journey": {
+    "url":       "/journey/<id>/",
+    "type":      "oah-journey-step",
+    "permalink": true
+  }
+}

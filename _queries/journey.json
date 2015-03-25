@@ -1,0 +1,8 @@
+{
+  "name": "OAH Journeys",
+  "query": {
+    "doc_type": "oah-journey-step",
+    "size": 500,
+    "sort": "order:asc"
+  }
+}
