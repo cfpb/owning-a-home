@@ -5,12 +5,13 @@
 {% block title %}Owning a Home: Know the Process{% endblock title %}
 
 {% block content %}
+{% set active_phase = get_document("journey", "prepare-to-shop") %}
+{# set active_phase = get_document("journey", "test") #}
 
 {% set query = queries.journey %}
-{% set steps = query.search_with_url_arguments(q="parent:{}".format(phase.id)) %}
-{% for step in steps %}
-    Testing {{ step.title }}
-{% endfor %}
+{% set filter = 'parent:' + active_phase.id %}
+{% set steps = query.search_with_url_arguments(size=100,q=filter) %}
+
 
 <main class="know-the-process content content__1-3" id="main" role="main">
   <div class="wrapper content_wrapper">
@@ -23,26 +24,24 @@
       <a class="list_link jump-link jump-link__left jump-link__before" href="">
         Owning a Home
       </a>
-      {# if active_phase.number }
+      {% if active_phase.order %}
       <div class="block block__bg block__flush-sides block__sub block__padded block__small-pad block__border-bottom">
-        <div class="content-l_col content-l_col-1 intro">Phase {{active_phase.number}} of Know the Process</div>
+        <div class="content-l_col content-l_col-1 intro">Phase {{(active_phase.order)|int}} of Know the Process</div>
       </div>
-      {# endif #}
+      {% endif %}
       
-      {#
       <section class="overview content-l content-l__main">
           <div class="content-l_col content-l_col-5-8">
-              <h1>{{active_phase.title if active_phase.title}}</h1>
-              <p class="short-desc">{{active_phase.description if active_phase.description}}</p>
+              <h1>{{active_phase.title | safe if active_phase.title}}</h1>
+              <div class="phase-content short-desc">{{active_phase.content | safe if active_phase.content}}</div>
           </div>
           <div class="content-l_col content-l_col-3-8">
               Img placeholder
           </div>
       </section>
-      #}
       
       
-      {# if active_phase.milestones }
+      {% if active_phase.milestones %}
         <div class="block block__border-top block__border-bottom block__flush-top block__padded block__flush-bottom phase">
           <h3>During this phase, you will:</h3>
           <div class="content-l">
@@ -53,20 +52,20 @@
             {% endfor %}
           </div>
         </div>
-      {# endif #}
+      {% endif %}
       
       
-      {# if active_phase.steps #}
+      {% if steps|list|length > 0 %}
         <div class="steps block">
           <h1 class="h3">Action steps</h1>
           <div class="expandable-group" data-accordion="true">
 
 
-            {# for step in active_phase.steps }            
+            {% for step in steps %}            
               <div class="expandable expandable__padded">
                   <button class="expandable_header expandable_target">
                       <span class="expandable_header-left expandable_label">
-                          {{step.title}}
+                          {{step.title|safe}}
                       </span>
                       <span class="expandable_header-right expandable_link">
                           <span class="expandable_cue-open">
@@ -80,13 +79,12 @@
                       </span>
                   </button>
                   <div class="expandable_content">
-
                     <div class="content-l content-l__main">
 
-                      {% if step.description %}
+                      {% if step.content %}
                       <section class="content-l_col-2-3 content-l_col short-desc">
                         <p>
-                        {{step.description|safe}}          
+                        {{step.content|safe}}          
                         </p>
                       </section>
                       {% endif %}
@@ -129,13 +127,13 @@
                   
                   </div>
               </div>
-         {# endfor #} 
+         {% endfor %} 
          </div>
           
         </div>
-      {# endif #}  
+      {% endif %}  
         
-      {# if active_phase.tools }
+      {% if active_phase.tools %}
         <section class="explore block block__bg block__padded-top ">
             <h3 class="h6 u-mb15">Tools for this Phase</h3>
             <div class="content-l">
@@ -145,7 +143,7 @@
                               {% if loop.index is divisibleby 2 %}
                               content-l_col__before-divider
                               {% endif %}">
-                {% if tool.text %}
+                {% if tool.description %}
                   <p class="short-desc">{{tool.description}}</p>
                 {% endif %}
                 <a class="list_link jump-link jump-link__right" href="tool.url">
@@ -155,17 +153,17 @@
             {% endfor %}
           </div>
         </section>
-      {# endif #}
+      {% endif %}
       
-      {# if active_phase.number }
+      {% if active_phase.order %}
       <h4>Ready for the next phase?</h4>
       <a href="#" class="btn btn__primary">
-        {% set next_step =  vars.process_steps[active_phase.number|int] %}
+        {% set next_step =  vars.process_steps[(active_phase.order|int) + 1] %}
         {{next_step.title}}
         
         <span class="btn_icon__right cf-icon cf-icon-right"></span>
       </a>
-      {# endif #}
+      {% endif %}
     </section> <!-- /.content_main -->
   </div>
 </main>
