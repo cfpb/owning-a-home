@@ -12,27 +12,48 @@
 {% set filter = 'parent:' + active_phase.id %}
 {% set steps = query.search_with_url_arguments(size=100,q=filter) %}
 
-<main class="know-the-process content content__1-3" id="main" role="main">
-  <div class="wrapper content_wrapper">
-    <aside class="content_sidebar content__flush-all-on-small">
-      {% with active_page = "process" %}
-      {% include "sidebar_nav.html" %}
-      {% endwith %}
-    </aside>
-    <section class="content_main content__flush-top-on-small">
-      <a class="list_link jump-link jump-link__left jump-link__before" href="">
-        Owning a Home
-      </a>
-      {% if active_phase.order %}
-      <div class="block block__bg block__flush-sides block__sub block__padded block__small-pad block__border-bottom">
-        <div class="content-l_col content-l_col-1 intro">Phase {{(active_phase.order)|int}} of Know the Process</div>
+<main class="know-the-process wrapper" id="main" role="main">
+  <div>
+ 
+    <section class="content_main">
+      <div class="u-mb15">
+        <a class="list_link jump-link jump-link__left jump-link__before" href="">
+          Owning a Home
+        </a>
       </div>
-      {% endif %}
+      
+      <ul class="block process-nav process-nav__top list__unstyled" style="display:none;">
+        <li>
+          Know the process
+        </li>
+          {% for item in vars.process_steps %}
+              {% if item.slug == active_phase.slug %}
+                  <li class="current-step">
+                      <span>{{loop.index}}</span>{{item.title}}
+                  </li>
+              {% else %}
+                  <li>
+                      <a href="/owning-a-home/process/{{'' if item.slug == 'prepare' else item.slug}}">
+                          <span class="nav-number circled">{{loop.index}}</span>{{item.title}}
+                      </a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
       
       <section class="overview content-l content-l__main">
           <div class="content-l_col content-l_col-5-8">
-              <h1>{{active_phase.title | safe if active_phase.title}}</h1>
-              <div class="phase-content short-desc">{{active_phase.content | safe if active_phase.content}}</div>
+              {% if active_phase.title %}
+              <h1>
+                {% if active_phase.order %}
+                  <span class="icon-round phase-number">
+                    {{active_phase.order|int}}
+                  </span>
+                {% endif %}
+                {{active_phase.title | safe if active_phase.title}}
+              </h1>
+              {% endif %}
+              <p class="short-desc">{{active_phase.content | safe if active_phase.content}}</p>
           </div>
           <div class="content-l_col content-l_col-3-8">
               Img placeholder
@@ -41,128 +62,137 @@
       
       
       {% if active_phase.milestones %}
-        <div class="block block__border-top block__border-bottom block__flush-top block__padded block__flush-bottom phase">
-          <h3>During this phase, you will:</h3>
-          <div class="content-l">
+        <div class="block block__border-top block__padded-top block__padded-bottom block__flush-bottom milestones">
+          <h3 class="char-icon char-icon__checked char-icon__branded-light">During this phase, you will:</h3>
+          <ul class="content-l">
             {% for milestone in active_phase.milestones %}
-            <div class="content-l_col content-l_col-1-3">
-              <p class="checked">{{milestone}}</p>
-            </div>
+            <li class="content-l_col content-l_col-1-3 short-desc">
+              {{ milestone|safe }}
+            </li>
             {% endfor %}
-          </div>
+          </ul>
         </div>
       {% endif %}
       
-      
-      {% if steps|list|length > 0 %}
-        <div class="steps block">
-          <h1 class="h3">Action steps</h1>
-          <div class="expandable-group" data-accordion="true">
-
-
-            {% for step in steps %}            
-              <div class="expandable expandable__padded">
-                  <button class="expandable_header expandable_target">
-                      <span class="expandable_header-left expandable_label">
-                          {{step.title|safe}}
-                      </span>
-                      <span class="expandable_header-right expandable_link">
-                          <span class="expandable_cue-open">
-                              <span class="u-visually-hidden">Show</span>
-                              <span class="cf-icon cf-icon-plus-round"></span>
-                          </span>
-                          <span class="expandable_cue-close">
-                              <span class="u-visually-hidden">Hide</span>
-                              <span class="cf-icon cf-icon-minus-round"></span>
-                          </span>
-                      </span>
-                  </button>
-                  <div class="expandable_content">
-                    <div class="content-l content-l__main">
-
-                      {% if step.content %}
-                      <section class="content-l_col-2-3 content-l_col short-desc">
-                        <p>
-                        {{step.content|safe}}          
-                        </p>
-                      </section>
-                      {% endif %}
-                    
-                      {% if step.key_tool %}
-                      <section class="content-l_col-1-3 content-l_col block block__sub">
-                        <h4 class="h6 u-mb10">
-                          <span class="cf-icon cf-icon-attach"></span>&nbsp;Key tool
-                        </h4>
-                        <a class="jump-link jump-link__right" href="{{step.key_tool.url}}">
-                          <span class="jump-link_text">{{step.key_tool.text}}</span>
-                        </a>
-                      </section>
-                      {% endif %}
-
-                    </div><!-- .content-l__main -->
-                    
-                  
-                    {% if step.how_to_take_action %}
-                    <section class="content-l__main content-l">
-                      <h4 class="content-l_col-1-4 content-l_col h6 u-mb10">
-                        How to take action
-                      </h4>
-                      <article class="content-l_col-3-4 content-l_col ">                        
-                      {{step.how_to_take_action|safe}}
-                      </article>
-                    </section>
-                    {% endif %}
-                  
-                    {% if step.what_to_know %}
-                    <section class="content-l__main content-l">
-                      <h4 class="content-l_col-1-4 content-l_col h6 u-mb10">
-                        What to know
-                      </h4>
-                      <article class="content-l_col-3-4 content-l_col">                        
-                      {{step.what_to_know|safe}}
-                      </article>
-                    </section>
-                    {% endif %}
-                  
-                  </div>
-              </div>
-         {% endfor %} 
-         </div>
+      <div class="phase-data">
+        <div class="{% if active_phase.tools %} content-l {% endif %}">
           
-        </div>
-      {% endif %}  
-        
-      {% if active_phase.tools %}
-        <section class="explore block block__bg block__padded-top ">
-            <h3 class="h6 u-mb15">Tools for this Phase</h3>
-            <div class="content-l">
-            {% for tool in active_phase.tools %}
-              <div class="content-l_col
-                              content-l_col-1-2
-                              {% if loop.index is divisibleby 2 %}
-                              content-l_col__before-divider
-                              {% endif %}">
-                {% if tool.description %}
-                  <p class="short-desc">{{tool.description}}</p>
-                {% endif %}
-                <a class="list_link jump-link jump-link__right" href="tool.url">
-                  {{tool.text}}
-                </a>
-              </div>
-            {% endfor %}
-          </div>
-        </section>
-      {% endif %}
+          {% if active_phase.tools %}
+            <div class="tools-col">
+              <section class="explore block block__bg block__padded-top ">
+                  <h3 class="h6 u-mb15">Tools for this Phase</h3>
+                  {% for tool in active_phase.tools %}
+                    <div class="tool">
+                      {% if tool.text %}
+                        <p class="short-desc">{{tool.description}}</p>
+                      {% endif %}
+                      <a class="list_link jump-link jump-link__right" href="tool.url">
+                        {{tool.text}}
+                      </a>
+                    </div>
+                  {% endfor %}
+              </section>
+            </div>
+          {% endif %}
+          
+          {% if steps|list|length %}
+            <div class="{% if active_phase.tools %}steps-col{% endif %}">
+              <section class="steps">
+                <h1 class="h3">Action steps</h1>
+                <div class="expandable-group" data-accordion="true">
+                  {% for step in steps %}            
+                    <div class="expandable expandable__padded">
+                        <button class="expandable_header expandable_target">
+                            <span class="expandable_header-left expandable_label">
+                                {{step.title|safe}}
+                            </span>
+                            <span class="expandable_header-right expandable_link">
+                                <span class="expandable_cue-open">
+                                    <span class="u-visually-hidden">Show</span>
+                                    <span class="cf-icon cf-icon-plus-round"></span>
+                                </span>
+                                <span class="expandable_cue-close">
+                                    <span class="u-visually-hidden">Hide</span>
+                                    <span class="cf-icon cf-icon-minus-round"></span>
+                                </span>
+                            </span>
+                        </button>
+                        <div class="expandable_content">
+
+                          <div class="content-l content-l__main">
+
+                            {% if step.content %}
+                            <section class="content-l_col-2-3 content-l_col short-desc">
+                              <p>
+                              {{step.content|safe}}          
+                              </p>
+                            </section>
+                            {% endif %}
+                    
+                            {% if step.key_tool %}
+                            <section class="content-l_col-1-3 content-l_col block block__sub">
+                              <h4 class="h6 u-mb10">
+                                <span class="cf-icon cf-icon-attach"></span>&nbsp;Key tool
+                              </h4>
+                              <a class="jump-link jump-link__right" href="{{step.key_tool.url}}">
+                                <span class="jump-link_text">{{step.key_tool.text}}</span>
+                              </a>
+                            </section>
+                            {% endif %}
+
+                          </div><!-- .content-l__main -->
+                    
+                  
+                          {% if step.how_to_take_action %}
+                          <section class="content-l__main content-l step">
+                            <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
+                              How to take action
+                            </h1>
+                            <article class="content-l_col-3-4 content-l_col ">                        
+                            {{step.how_to_take_action|safe}}
+                            </article>
+                          </section>
+                          {% endif %}
+                  
+                          {% if step.what_to_know %}
+                          <section class="content-l__main content-l step">
+                            <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
+                              What to know
+                            </h1>
+                            <article class="content-l_col-3-4 content-l_col">                        
+                            {{step.what_to_know|safe}}
+                            </article>
+                          </section>
+                          {% endif %}
+                  
+                        </div>
+                    </div>
+               {% endfor %} 
+               </div>
+          
+              </section>
+            </div>
+          {% endif %} 
+        </div> 
+      </div>
       
-      {% if active_phase.order %}
-      <h4>Ready for the next phase?</h4>
-      <a href="#" class="btn btn__primary">
-        {% set next_step =  vars.process_steps[(active_phase.order|int) + 1] %}
-        {{next_step.title}}
-        
-        <span class="btn_icon__right cf-icon cf-icon-right"></span>
-      </a>
-      {% endif %}
+      <h4>Ready for more? Explore another phase in the mortgage process.</h4>
+      
+      <ul class="block block__border-top block__border-bottom block__padded-top block__padded-bottom process-nav process-nav__bottom list__unstyled" style="display:none;">
+          {% for item in vars.process_steps %}
+              {% if item.slug == active_phase.slug %}
+                  <li class="current-step">
+                      <span class="nav-number circled">{{loop.index}}</span>{{item.title}}
+                  </li>
+              {% else %}
+                  <li>
+                      <a href="/owning-a-home/process/{{'' if item.slug == 'prepare' else item.slug}}" class="jump-link">
+                          <span>{{loop.index}}</span>{{item.title}}
+                      </a>
+                  </li>
+              {% endif %}
+          {% endfor %}
+      </ul>
     </section> <!-- /.content_main -->
   </div>
 </main>
