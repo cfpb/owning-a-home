@@ -5,13 +5,14 @@
 {% block title %}Owning a Home: Know the Process{% endblock title %}
 
 {% block content %}
-{% set active_phase = get_document("journey", "prepare-to-shop") %}
+{% set active_phase = get_document("journey", phase_name) %}
 {# set active_phase = get_document("journey", "test") #}
 
+{% if active_phase.id %}
 {% set query = queries.journey %}
 {% set filter = 'parent:' + active_phase.id %}
 {% set steps = query.search_with_url_arguments(size=100,q=filter) %}
-
+{% endif %}
 
 <main class="know-the-process content content__1-3" id="main" role="main">
   <div class="wrapper content_wrapper">
