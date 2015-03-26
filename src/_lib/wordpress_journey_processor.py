@@ -77,6 +77,4 @@ def process_journey(item):
         if milestones:     
             item['milestones'] = milestones
        
-    print item
-
     return item
