@@ -22,7 +22,7 @@
         </a>
       </div>
       
-      <ul class="block process-nav process-nav__top list__unstyled" style="display:none;">
+      <ul class="block process-nav process-nav__top list__unstyled">
         <li>
           Know the process
         </li>
@@ -46,11 +46,7 @@
               {% if active_phase.title %}
               <h1>
                 {% if active_phase.order %}
-                  <span class="icon-round phase-number">
-                    {{active_phase.order|int}}
-                  </span>
-                {% endif %}
-                {{active_phase.title | safe if active_phase.title}}
+                    <span class="icon-round phase-number">{{active_phase.order|int}}</span>{% endif %}{{active_phase.title | safe if active_phase.title}}
               </h1>
               {% endif %}
               <p class="short-desc">{{active_phase.content | safe if active_phase.content}}</p>
@@ -178,7 +174,7 @@
       
       <h4>Ready for more? Explore another phase in the mortgage process.</h4>
       
-      <ul class="block block__border-top block__border-bottom block__padded-top block__padded-bottom process-nav process-nav__bottom list__unstyled" style="display:none;">
+      <ul class="block process-nav process-nav__bottom list__unstyled">
           {% for item in vars.process_steps %}
               {% if item.slug == active_phase.slug %}
                   <li class="current-step">

@@ -90,30 +90,37 @@
 
 .know-the-process {
   .process-nav {
-    
-    .respond-to-min(800px, {
-      .content-l;
-      text-align: center;
-    });
-    .respond-to-max(799px, {
-      .block-link;
-    });
-    
-    &__top {
-      li {
-        .respond-to-min(800px, {
-          .grid_column(1,6);
-        });
-      }
+
+  .respond-to-min(600px, {
+    .content-l;
+    text-align: center;
+
+  });
+  .respond-to-max(599px, {
+    .jump-link;
+  });
+
+  &__top {
+    li {
+      .respond-to-min(600px, {
+        .grid_column(1,6);
+      });
     }
-    
-    &__bottom {
+  }
+
+  &__bottom {
+    .respond-to-min(600px, {
       li {
-        .respond-to-min(800px, {
-          .grid_column(1,5);
-        });
+        .grid_column(1,5);
+        border-right-width: @grid_gutter-width/2;
       }
-    }
+      li + li {
+        .grid_column__left-divider;
+        border-left-width: @grid_gutter-width/2;
+      }
+    });
+
+  }
   }
   
   .intro {
