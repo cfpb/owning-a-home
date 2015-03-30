@@ -13,7 +13,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 ## Dependencies
 
 - Unix-based OS (including Macs). Windows is not supported at this time.
-- [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
+- [Virtualenv](https://virtualenv.pypa.io/en/latest/), a Python module that keeps dependencies  project specific and in their own virtual environments.
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
@@ -23,13 +23,18 @@ We are working under an agile framework, and plan to use this repo to publish, r
 - [Capital Framework](http://cfpb.github.io/capital-framework/)
 - [LESS](http://lesscss.org/)
 
-### Virtualenv & Virtualenvwrapper Python modules
+### Virtualenv Python module
 
 If you already have these modules installed, [skip ahead to Sheer](#sheer-elasticsearch).
 
+1. Run: 
+	```
+	$ easy_install pip
+	```
+
 1. Run:
 	```
-	$ pip install virtualenv virtualenvwrapper
+	$ pip install virtualenv
 	```
 
 ### Sheer & Elasticsearch
@@ -48,10 +53,17 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 
 3. Create a virtualenv for sheer, which you'll name `OAH`:
 	```
-	$ mkvirtualenv OAH
+	$ virtualenv OAH
 	```
 
-	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
+	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session), navigate to the parent directory where OAH lives, and run the command `source OAH/bin/activate`.
+
+	If the virtualenv did not activate right away, run this command from the directory above where the OAH directory lives:
+	```
+	$ source OAH/bin/activate
+	```
+
+	To deactivate, use the command `deactivate`.
 
 4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 	```
