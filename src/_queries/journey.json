@@ -1,0 +1,8 @@
+{
+  "name": "OAH Journeys",
+  "query": {
+    "doc_type": "journey",
+    "size": 500,
+    "sort": "order:asc"
+  }
+}

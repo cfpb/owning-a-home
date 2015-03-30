@@ -100,13 +100,13 @@ def step(context):
 
 @then(u'the response should state that required parameter "{param_name}" is missing')
 def step(context, param_name):
-    expected_reponse = "Required parameter '" + param_name + "' is missing"
     context.json_data = json.loads(context.response.text)
 
-    context.logger.debug("JSON detail is: %s" % context.json_data['detail'])
-    context.logger.debug("JSON text is: %s" % context.response.text)
-
-    assert_that(context.json_data['detail'], equal_to(expected_reponse))
+    #context.logger.debug("JSON detail is: %s" % context.json_data['detail'])
+    #context.logger.debug("JSON text is: %s" % context.response.text)
+    assert_that(context.json_data['detail'], contains_string('Required parameter'))
+    assert_that(context.json_data['detail'], contains_string(param_name))
+    assert_that(context.json_data['detail'], contains_string('is missing'))
 
 @then(u'the response should NOT include "{html_text}"')
 def step(context, html_text):
