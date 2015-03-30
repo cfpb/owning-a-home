@@ -23,17 +23,17 @@ LOAN_AMOUNT = "loan-amount-value"
 INTEREST_RATE = "loan-interest-value"
 
 # ELEMENT CSS SELECTOR
-LOAN_TERM_EXPAND = "#expandable__loan-term .expandable_target"
+LOAN_TERM_EXPAND = "#expandable__loan-term .expandable_cue-open .expandable_cue_text"
 LOAN_TERM_COLLAPSE = "#expandable__loan-term .expandable_cue-close .expandable_cue_text"
-LOAN_TERM_SUBSECTION = "#expandable__loan-term .expandable_content .tight-heading"
+LOAN_TERM_SUBSECTION = "#expandable__loan-term .expandable_content"
 
-INTEREST_RATE_EXPAND = "#expandable__interest-rate"
+INTEREST_RATE_EXPAND = "#expandable__interest-rate .expandable_cue-open .expandable_cue_text"
 INTEREST_RATE_COLLAPSE = "#expandable__interest-rate .expandable_cue-close .expandable_cue_text"
-INTEREST_RATE_SUBSECTION = "#expandable__interest-rate .expandable_content .tight-heading"
+INTEREST_RATE_SUBSECTION = "#expandable__interest-rate .expandable_content"
 
-LOAN_TYPE_EXPAND = "#expandable__loan-type"
+LOAN_TYPE_EXPAND = "#expandable__loan-type .expandable_cue-open .expandable_cue_text"
 LOAN_TYPE_COLLAPSE = "#expandable__loan-type .expandable_cue-close .expandable_cue_text"
-LOAN_TYPE_SUBSECTION = "#expandable__loan-type .expandable_content .tight-heading"
+LOAN_TYPE_SUBSECTION = "#expandable__loan-type .expandable_content"
 
 SELECTED_TERM = ".term-timeline a.current .loan-length"
 
@@ -152,6 +152,28 @@ class LoanOptions(Base):
         local_wait = 2
 
         if(page_section == 'Loan term'):
+            e_css = LOAN_TERM_SUBSECTION + " .tight-heading"
+        elif(page_section == 'Interest rate type'):
+            e_css = INTEREST_RATE_SUBSECTION + " .tight-heading"
+        elif(page_section == 'Loan type'):
+            e_css = LOAN_TYPE_SUBSECTION + " .tight-heading"
+        else:
+            raise Exception(page_section + " is NOT a valid section")
+
+        msg = 'Element %s was not found after %s seconds' % (e_css, local_wait)
+        try:
+            # Wait for the subsection to expand
+            element = WebDriverWait(self.driver, local_wait)\
+                .until(EC.visibility_of_element_located((By.CSS_SELECTOR,
+                                                        e_css)), msg)
+            return element.text
+        except TimeoutException:
+            return 'Section NOT visible'
+
+    def get_subsection_visibility(self, page_section):
+        local_wait = 2
+
+        if(page_section == 'Loan term'):
             e_css = LOAN_TERM_SUBSECTION
         elif(page_section == 'Interest rate type'):
             e_css = INTEREST_RATE_SUBSECTION
@@ -166,17 +188,18 @@ class LoanOptions(Base):
             element = WebDriverWait(self.driver, local_wait)\
                 .until(EC.visibility_of_element_located((By.CSS_SELECTOR,
                                                         e_css)), msg)
-            return element.text
+            eVisibility = element.get_attribute("aria-expanded")
+            return "element %s visible = %s" % (page_section, eVisibility)
         except TimeoutException:
-            return 'Section NOT visible'
+            return msg
 
     def get_expand_button_caption(self, page_section):
         if(page_section == 'Loan term'):
-            e_css = LOAN_TERM_EXPAND
+            e_css = LOAN_TERM_COLLAPSE
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_EXPAND
+            e_css = INTEREST_RATE_COLLAPSE
         elif(page_section == 'Loan type'):
-            e_css = LOAN_TYPE_EXPAND
+            e_css = LOAN_TYPE_COLLAPSE
         else:
             raise Exception(page_section + " is NOT a valid section")
 

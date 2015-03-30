@@ -33,8 +33,9 @@ def step(context, expected_text, section_name):
 
 @then(u'I should NOT see the "{section_name}" section expanded')
 def step(context, section_name):
-    actual_text = context.loan_options.get_subsection_text(section_name)
-    assert_that(actual_text, equal_to('Section NOT visible'))
+    actual_text = context.loan_options.get_subsection_visibility(section_name)
+    expected_state = "element " + section_name + " visible = false"
+    assert_that(actual_text, equal_to(expected_state))
 
 
 @then(u'I should see "{loan_amount}" as the default loan amount')

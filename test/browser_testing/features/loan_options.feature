@@ -10,39 +10,39 @@ Background:
 
 @smoke_testing @loan_options @loan_options_expandable
 Scenario Outline: Click 'Learn More' to expand sections
-	When I click Learn More to expand the "<section_name>" section
-	Then I should see a collapse link for the "<section_name>" section
-		And I should see "<expected_text>" inside the "<section_name>" section
+  When I click Learn More to expand the "<section_name>" section
+  Then I should see a collapse link for the "<section_name>" section
+    And I should see "<expected_text>" inside the "<section_name>" section
 
 Examples:
-  | section_name        	  | expected_text 				 	            |
-  | Loan term 				      | Compare your loan term options 	    |
+  | section_name            | expected_text                       |
+  | Loan term               | Compare your loan term options      |
   | Interest rate type      | Compare your interest rate options  |
-  | Loan type 				      | Choosing the right loan type 		    |
+  | Loan type               | Choosing the right loan type        |
 
 @loan_options @loan_options_expandable
 Scenario Outline: Click 'Collapse' button to collapse sections
-	When I click Learn More to expand the "<section_name>" section
-		And I collapse the "<section_name>" section
-	Then I should NOT see the "<section_name>" section expanded
+  When I click Learn More to expand the "<section_name>" section
+    And I collapse the "<section_name>" section
+  Then I should NOT see the "<section_name>" section expanded
 
 Examples:
-  | section_name        	   |
-  | Loan term 				       |
+  | section_name             |
+  | Loan term                |
   | Interest rate type       |
-  | Loan type 				       |
+  | Loan type                |
 
 @loan_options @loan_options_expandable
 Scenario Outline: Click 'Collapse <section_name>' link to collapse sections
   When I click Learn More to expand the "<section_name>" section
-    And I click on the "<link_name>" link
+    And I collapse the "<section_name>" section
   Then I should NOT see the "<section_name>" section expanded
 
 Examples:
   | section_name             | link_name                    |
   | Loan term                | Collapse loan terms          |
   | Interest rate type       | Collapse interest rate type  |
-  | Loan type                | Collapse loan programs       |
+  | Loan type                | Collapse loan type       |
 
 @smoke_testing @loan_options
 Scenario Outline: Test inbound links in the Loan Options page
