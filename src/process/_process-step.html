@@ -35,7 +35,10 @@
               <div class="phase-content short-desc">{{active_phase.content | safe if active_phase.content}}</div>
           </div>
           <div class="content-l_col content-l_col-3-8">
-              Img placeholder
+            {% if vars.process_steps %}
+              {% set active_phase_slug =  vars.process_steps[(active_phase.order|int)]['slug'] %}
+              <img src="../static/img/process_{{active_phase_slug}}.png" alt="Illustration of the home-buying process">
+            {% endif %}
           </div>
       </section>
       
