@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "process" %}
-{% import "_vars-process.html" as vars with context %}
+{% import "nav-macro.html" as nav_macro with context %}
 
 {% block title %}Owning a Home: Know the Process{% endblock title %}
 
@@ -15,43 +15,22 @@
 <main class="know-the-process wrapper" id="main" role="main">
   <div>
  
-    <section class="content_main">
+    <section class="content_main phase">
       <div class="u-mb15">
         <a class="list_link jump-link jump-link__left jump-link__before" href="">
           Owning a Home
         </a>
       </div>
       
-      <ul class="process-nav process-nav__top list__unstyled">
-        <li class="process-nav_header">
-          <span class="process-nav_wrapper">
-          Know <br/>the process
-          </span>
-        </li>
-          {% for item in vars.process_steps %}
-              {% if item.slug == active_phase.slug %}
-                  <li class="current-step step-{{loop.index}}">
-                    <span class="process-nav_wrapper jump-link">
-                      <span class="process-nav_number">{{item.title|safe}}</span>
-                    </span>
-                  </li>
-              {% else %}
-                  <li class="step-{{loop.index}}">
-                      <a href="/owning-a-home/process/item.url" class="jump-link process-nav_wrapper">
-                          <span class="process-nav_number">{{item.title|safe}}</span>
-                      </a>
-                  </li>
-              {% endif %}
-          {% endfor %}
-      </ul>
+      {{ nav_macro.render("top", active_phase.slug) }}
       
       <section class="overview content-l content-l__main">
           <div class="content-l_col content-l_col-5-8">
               {% if active_phase.title %}
-              <h1 class="phase-title">
-                {% if active_phase.order %}
-                    <span class="icon-round phase-number">
-                      {{active_phase.order|int}}
+              <h1 class="phase_title">
+                {% if phase_index %}
+                    <span class="icon-round phase_number">
+                      {{phase_index}}
                     </span>
                 {% endif %}
                 {{active_phase.title | safe if active_phase.title}}
@@ -59,15 +38,13 @@
               {% endif %}
               <p class="short-desc">{{active_phase.content | safe if active_phase.content}}</p>
           </div>
-          <div class="content-l_col content-l_col-3-8">
-              Img placeholder
-          </div>
+          <div class="content-l_col content-l_col-3-8 phase_image"></div>
       </section>
       
       
       {% if active_phase.milestones %}
         <div class="block block__border-top block__padded-top block__padded-bottom block__flush-bottom milestones">
-          <h3 class="char-icon char-icon__checked char-icon__branded-light">During this phase, you will:</h3>
+          <h3 class="milestones_header char-icon char-icon__checked">During this phase, you will:</h3>
           <ul class="content-l">
             {% for milestone in active_phase.milestones %}
             <li class="content-l_col content-l_col-1-3 short-desc">
@@ -78,12 +55,12 @@
         </div>
       {% endif %}
       
-      <div class="phase-data">
+      <div class="phase_data">
         <div class="{% if active_phase.tools %} content-l {% endif %}">
           
           {% if active_phase.tools %}
             <div class="tools-col">
-              <section class="explore block block__bg block__padded-top ">
+              <section class="tools block block__bg block__padded-top ">
                   <h3 class="h6 u-mb15">Tools for this Phase</h3>
                   {% for tool in active_phase.tools %}
                     <div class="tool">
@@ -163,7 +140,7 @@
                             <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
                               What to know
                             </h1>
-                            <article class="content-l_col-3-4 content-l_col">                        
+                            <article class="content-l_col-3-4 content-l_col">               
                             {{step.what_to_know|safe}}
                             </article>
                           </section>
@@ -182,23 +159,8 @@
       
       <h4>Ready for more? Explore another phase in the mortgage process.</h4>
       
-      <ul class="process-nav process-nav__bottom list__unstyled">
-          {% for item in vars.process_steps %}
-              {% if item.slug == active_phase.slug %}
-                  <li class="current-step step-{{loop.index}}">
-                    <span class="process-nav_wrapper jump-link">
-                      <span class="process-nav_number">{{item.title|safe}}</span>
-                    </span>
-                  </li>
-              {% else %}
-                  <li class="step-{{loop.index}}">
-                      <a href="/owning-a-home/process/item.url" class="jump-link process-nav_wrapper">
-                          <span class="process-nav_number">{{item.title|safe}}</span>
-                      </a>
-                  </li>
-              {% endif %}
-          {% endfor %}
-      </ul>
+      {{ nav_macro.render("bottom", active_phase.slug) }}
+      
     </section> <!-- /.content_main -->
   </div>
 </main>
