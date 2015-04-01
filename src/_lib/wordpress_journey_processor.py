@@ -76,5 +76,5 @@ def process_journey(item):
 
         if milestones:     
             item['milestones'] = milestones
-       
+
     return item
