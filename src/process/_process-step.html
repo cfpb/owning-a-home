@@ -26,7 +26,7 @@
       {{ nav_macro.render("top", active_phase.slug) }}
       
       <section class="overview content-l content-l__main u-mt45">
-          <div class="content-l_col content-l_col-5-8">
+          <div class="content-l_col content-l_col-3-4">
               {% if active_phase.title %}
               <h1 class="phase_title">
                 {% if phase_index %}
@@ -39,9 +39,9 @@
               {% endif %}
               <div class="lead u-mb0">{{active_phase.content | safe if active_phase.content}}</div>
           </div>
-          <div class="content-l_col content-l_col-3-8 phase_image">
-            {% if vars.process_steps %}
-              {% set active_phase_short_name =  vars.process_steps[(active_phase.order|int) - 1]['url'] %}
+          <div class="content-l_col content-l_col-1-4 phase_image">
+            {% if vars.process_steps and phase_index %}
+              {% set active_phase_short_name =  vars.process_steps[phase_index - 1]['url'] %}
               <img src="{{base_url}}static/img/process_{{active_phase_short_name}}.png" alt="Illustration of the home-buying process">
             {% endif %}
           </div>
