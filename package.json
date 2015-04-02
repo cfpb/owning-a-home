@@ -76,6 +76,7 @@
     "is-money-usd": "0.1.2",
     "jquery": "1.11.0",
     "jquery.scrollto": "1.4.14",
+    "jsdom": "git://github.com/contolini/jsdom",
     "jumbo-mortgage": "0.3.3",
     "loan-calc": "0.2.1",
     "median": "0.0.2",
