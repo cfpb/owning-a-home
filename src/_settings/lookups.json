@@ -1,7 +1,7 @@
 {
   "journey": {
     "url":       "/process/<id>/",
-    "type":      "oah-journey-step",
+    "type":      "journey",
     "permalink": true
   }
 }
