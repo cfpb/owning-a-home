@@ -100,20 +100,24 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 	```
 	$ npm install -g grunt-cli bower browserify
 	```
+
 3. Navigate to the cloned `owning-a-home` directory and install the project's node dependencies:
 	```
 	$ npm install
 	```
+
 4. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
 	```
 	$ cd config
 	$ cp example-config.json config.json
 	```
+
 5. Run grunt to build the site:
 	```
 	$ grunt
 	```
 
+[npm-shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) is used to lock down dependencies. If you add any dependencies to package.json, re-run `npm shrinkwrap` to generate a new `npm-shrinkwrap.json` file.
 
 ## Configuration
 
