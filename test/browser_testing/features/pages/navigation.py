@@ -1,5 +1,6 @@
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 
@@ -29,8 +30,15 @@ class Navigation(Base):
         # observed with SauceLabs screencast
         script = "arguments[0].scrollIntoView(true);"
         self.driver.execute_script(script, element)
-        action = webdriver.ActionChains(self.driver).move_to_element_with_offset(element, 0, 20).click()
-        action.perform()
+        
+        # element.click()
+
+        try:
+            element.click()
+        except WebDriverException:
+            action = webdriver.ActionChains(self.driver)\
+                .move_to_element_with_offset(element, 0, 20).click()
+            action.perform()
 
     def click_learn_more_link(self, section_name):
         xpath = "//h3[text()='"+ section_name + "']/../p/a/span[text()='Learn more']"
