@@ -31,7 +31,7 @@ def step(context, page_name):
         context.base.go(RC)
         # Wait for the chart to load
         context.base.sleep(1)
-        assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+        assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
     elif (page_name == 'Conventional Loan'):
         context.base.go(CONV)
     elif (page_name == 'FHA Loan'):
@@ -90,6 +90,7 @@ def step(context):
 def step(context, relative_url, page_title):
     title = context.base.switch_to_new_tab(relative_url)
     assert_that(title, contains_string(page_title))
+
 
 @when(u'I click on the Learn more link inside "{section_name}"')
 def step(context, section_name):
