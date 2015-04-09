@@ -264,7 +264,7 @@ class RateChecker(Base):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT)
         element.send_keys(Keys.ENTER)
 
-        self.logger.info("Actual downpayment percent is: %s" % element.text)
+        self.logger.info("Actual downpayment percent is: %s" % element.get_attribute("value"))
 
     # DOWN PAYMENT AMOUNT
     def get_down_payment_amount(self):
