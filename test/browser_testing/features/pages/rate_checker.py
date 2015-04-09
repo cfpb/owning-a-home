@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base import Base
+from pages.screenshot import Screenshot
 
 # ELEMENT ID'S FOR TEXTBOXES
 DOWN_PAYMENT_AMOUNT_TBOX = "down-payment"  # DOWN PAYMENT AMOUNT TEXTBOX
@@ -55,6 +56,7 @@ class RateChecker(Base):
                                           driver, driver_wait, delay_secs)
         self.logger = logger
         self.driver_wait = driver_wait
+        self.screenshot = Screenshot(self, Base)
 
     # ALERTS
     def get_warning_button_class(self):
@@ -328,6 +330,7 @@ class RateChecker(Base):
                        css)), msg)
             return True
         except TimeoutException:
+            self.screenshot.save()
             return False
 
     def set_county(self, county_name):
