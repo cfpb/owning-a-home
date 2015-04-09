@@ -51,6 +51,11 @@ def step(context):
 def step(context, link_name):
     # Click the requested tab
     context.navigation.click_link(link_name)
+    
+@when(u'I click on the link with id "{link_id}"')
+def step(context, link_id):
+    # Click the requested tab
+    context.navigation.click_link_with_id(link_id)
 
 
 @then(u'I should see "{link_name}" displayed in the page title')
@@ -91,7 +96,3 @@ def step(context, relative_url, page_title):
     title = context.base.switch_to_new_tab(relative_url)
     assert_that(title, contains_string(page_title))
 
-@when(u'I click on the Learn more link inside "{section_name}"')
-def step(context, section_name):
-    # Click the learn more link inside "section_name"
-    context.navigation.click_learn_more_link(section_name)
