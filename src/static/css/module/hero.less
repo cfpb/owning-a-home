@@ -15,10 +15,13 @@
 
 .subsection-hero {
   .webfont-medium();
+  margin-bottom: @grid_gutter-width;
   padding: 30px 0;
   border-top: 1px solid @gray-50;
   border-bottom: 1px solid @gray-50;
-
+  .respond-to-min(800px, {
+    margin-bottom: @grid_gutter-width*2;
+  });
   p {
     font-size: 1.125em;
   }

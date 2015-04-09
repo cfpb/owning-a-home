@@ -18,6 +18,13 @@
   });
 }
 
+.content_wrapper__narrow-with-sidebar { // Matches 1060px wide current CF.gov grid when page has left nav sidebar
+  .respond-to-min(801px, {
+    max-width: 1100px;
+    padding: @grid_gutter-width;
+  });
+}
+
 // Ghost Grid classes
 
 @media (min-width: 720px) {

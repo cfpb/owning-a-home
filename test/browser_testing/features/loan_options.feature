@@ -8,41 +8,41 @@ Feature: verify the Loan Options page works according to requirements
 Background:
    Given I navigate to the "Loan Options" page
 
-@smoke_testing @loan_options
+@smoke_testing @loan_options @loan_options_expandable
 Scenario Outline: Click 'Learn More' to expand sections
-	When I click Learn More to expand the "<section_name>" section
-	Then I should see a collapse link for the "<section_name>" section
-		And I should see "<expected_text>" inside the "<section_name>" section
+  When I click Learn More to expand the "<section_name>" section
+  Then I should see a collapse link for the "<section_name>" section
+    And I should see "<expected_text>" inside the "<section_name>" section
 
 Examples:
-  | section_name        	  | expected_text 				 	            |
-  | Loan term 				      | Compare your loan term options 	    |
+  | section_name            | expected_text                       |
+  | Loan term               | Compare your loan term options      |
   | Interest rate type      | Compare your interest rate options  |
-  | Loan type 				      | Choosing the right loan type 		    |
+  | Loan type               | Choosing the right loan type        |
 
-@loan_options
+@loan_options @loan_options_expandable
 Scenario Outline: Click 'Collapse' button to collapse sections
-	When I click Learn More to expand the "<section_name>" section
-		And I collapse the "<section_name>" section
-	Then I should NOT see the "<section_name>" section expanded
+  When I click Learn More to expand the "<section_name>" section
+    And I collapse the "<section_name>" section
+  Then I should NOT see the "<section_name>" section expanded
 
 Examples:
-  | section_name        	   |
-  | Loan term 				       |
+  | section_name             |
+  | Loan term                |
   | Interest rate type       |
-  | Loan type 				       |
+  | Loan type                |
 
-@loan_options
+@loan_options @loan_options_expandable
 Scenario Outline: Click 'Collapse <section_name>' link to collapse sections
   When I click Learn More to expand the "<section_name>" section
-    And I click on the "<link_name>" link
+    And I collapse the "<section_name>" section
   Then I should NOT see the "<section_name>" section expanded
 
 Examples:
   | section_name             | link_name                    |
   | Loan term                | Collapse loan terms          |
   | Interest rate type       | Collapse interest rate type  |
-  | Loan type                | Collapse loan programs       |
+  | Loan type                | Collapse loan type       |
 
 @smoke_testing @loan_options
 Scenario Outline: Test inbound links in the Loan Options page
@@ -62,7 +62,7 @@ Scenario: Test OAH link in the Loan Options page
    Then I should be directed to the OAH Landing page
 
 
-@loan_options
+@loan_options @loan_options_expandable
 Scenario Outline: Expand 'Loan Types' section then click links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click Get all the details for "<loan_type>" loans
@@ -75,7 +75,7 @@ Examples:
   | FHA              | loan-options/FHA-loans/             |
   | Special programs | loan-options/special-loan-programs/ |
 
-@loan_options @prod_only
+@loan_options @prod_only @loan_options_expandable
 Scenario Outline: Expand 'Loan Types' section then click Non-Navigational links inside the expanded section
   When I click Learn More to expand the "Loan type" section
     And I click on the "<link_name>" link
@@ -85,7 +85,7 @@ Examples:
   | link_name          | relative_url                                  | page_title                     |
   | Qualified Mortgage | /askcfpb/1789/what-qualified-mortgage.html    | What is a Qualified Mortgage?  |
 
-@loan_options @prod_only
+@loan_options @prod_only @loan_options_expandable
 Scenario Outline: Expand 'Loan Term' section then click Non-Navigational links inside the expanded section
   When I click Learn More to expand the "Loan term" section
     And I click on the "<link_name>" link
@@ -100,7 +100,7 @@ Examples:
   | Good Faith Estimates                      | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html                                                                |
   | Learn more about balloon loans            | /askcfpb/104/what-is-a-balloon-loan.html                                                                                     |
 
-@loan_options @prod_only
+@loan_options @prod_only @loan_options_expandable
 Scenario Outline: Expand 'Interest rate type' section then click links inside the expanded section
   When I click Learn More to expand the "Interest rate type" section
     And I click on the "<link_name>" link

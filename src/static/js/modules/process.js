@@ -1,3 +1,2 @@
 var $ = require('jquery');
-require('jquery-easing');
-require('cf-expandables');
+require('./secondary-nav');
