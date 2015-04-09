@@ -144,7 +144,7 @@
   --------------------------- */
 
 .lc-inputs {
-  background: @gray-10;
+  background: @gray-5;
   width: 100%;
   .webfont-regular();
   position: relative;
@@ -409,7 +409,7 @@
     position: relative;
     margin-bottom: @grid_gutter-width/2;
     z-index: 2;
-    background: rgba(0,0,0,0.05);
+    background-color: @gray-5;
     .respond-to-min(1000px, {
       margin-bottom: @grid_gutter-width;
     });
@@ -535,6 +535,7 @@
 
 
 .feedback-block {
+  background-color: @gray-5;
   .respond-to-range(@tablet-min, 767px, {
     margin-right: -(@grid_gutter-width) !important;
     margin-left: -(@grid_gutter-width) !important;

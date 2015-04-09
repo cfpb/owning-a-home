@@ -141,8 +141,8 @@ a.list_link {
     }
 
     &.process-nav_header {
-      background-color: @gray-10;
-      border-color: @gray-10;
+      background-color: @gray-5;
+      border-color: @gray-5;
     }
     
     .process-nav_step-number {
@@ -348,15 +348,23 @@ a.list_link {
   .step {
     h2 {
       .h4;
-      margin-bottom: 10px;
+      margin-bottom: @grid_gutter-width / 3;
+      margin-top: @grid_gutter-width;
+    }
+    
+    .content-l_col h2:first-child {
+      margin-top: 0px;
     }
     
     ul {
-      .list__branded;
       padding-left: 20px;
     }
 
     li {
+      @font-size: 22px;
+      @offset: unit(19px / @font-size, em);
+      @size: unit(22px / @base-font-size-px, em);
+      .custom-bullet(@text:"\25AA", @color: @list__branded-bullet, @offset: @offset, @size: @size);
       .list_item__spaced;
     }
     

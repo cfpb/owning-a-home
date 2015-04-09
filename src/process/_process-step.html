@@ -20,7 +20,7 @@
  
     <section class="content_main phase">
       <div class="u-mb15">
-        <a class="list_link jump-link jump-link__left jump-link__before" href="">
+        <a class="list_link jump-link jump-link__left jump-link__before" href="/owning-a-home/">
           Owning a Home
         </a>
       </div>
@@ -44,7 +44,7 @@
           <div class="content-l_col content-l_col-1-4 phase_image">
             {% if vars.process_steps and phase_index %}
               {% set active_phase_short_name =  vars.process_steps[phase_index - 1]['url'] %}
-              <img src="{{base_url}}static/img/process_{{active_phase_short_name}}.png" alt="Illustration of the home-buying process">
+              <img src="{{url_for('static', filename='img/process_' + active_phase_short_name + '.png')}}" alt="Illustration of the home-buying process">
             {% endif %}
           </div>
       </section>
@@ -93,7 +93,7 @@
                     <div class="expandable expandable__padded">
                       <button class="expandable_header expandable_target">
                         <span class="expandable_header-left expandable_label">
-                          {{step.title|safe}}
+                          {{step.order|int}}. {{step.title|safe}}
                         </span>
                         <span class="expandable_header-right expandable_link">
                           <span class="expandable_cue-open">
