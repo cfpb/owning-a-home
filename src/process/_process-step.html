@@ -42,9 +42,8 @@
               <div class="lead u-mb0">{{active_phase.content | safe if active_phase.content}}</div>
           </div>
           <div class="content-l_col content-l_col-1-4 phase_image">
-            {% if vars.process_steps and phase_index %}
-              {% set active_phase_short_name =  vars.process_steps[phase_index - 1]['url'] %}
-              <img src="{{url_for('static', filename='img/process_' + active_phase_short_name + '.png')}}" alt="Illustration of the home-buying process">
+            {% if active_phase.thumbnail %}
+              <img src="{{active_phase.thumbnail.images.full.url}}" alt="Illustration of the home-buying process">
             {% endif %}
           </div>
       </section>
@@ -75,7 +74,7 @@
                     {% if tool.text %}
                     <p class="short-desc">{{tool.description}}</p>
                     {% endif %}
-                    <a class="list_link jump-link jump-link__right" href="tool.url">
+                    <a class="list_link jump-link jump-link__right" href="{{tool.url}}">
                       {{tool.text}}
                     </a>
                   </div>
@@ -110,7 +109,7 @@
                         <div class="content-l content-l__main">
 
                           {% if step.content %}
-                          <section class="content-l_col-2-3 content-l_col short-desc">
+                          <section class="{% if not active_phase.tools or step.key_tool%}content-l_col-2-3{% else %} step-content-full {% endif %} content-l_col short-desc">
                             <p>
                             {{step.content|safe}}          
                             </p>
