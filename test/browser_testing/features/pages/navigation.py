@@ -40,9 +40,8 @@ class Navigation(Base):
                 .move_to_element_with_offset(element, 0, 20).click()
             action.perform()
 
-    def click_learn_more_link(self, section_name):
-        xpath = "//h3[text()='"+ section_name + "']/../p/a/span[text()='Learn more']"
-        element = self.driver.find_element_by_xpath(xpath)
+    def click_link_with_id(self, link_id):
+        element = self.driver.find_element_by_id(link_id)
 
          # scroll the element into view so it can be
         # observed with SauceLabs screencast

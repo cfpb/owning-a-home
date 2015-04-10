@@ -15,11 +15,11 @@ from pages.screenshot import Screenshot
 @when(u'I change the House Price amount to $"{house_price}"')
 def step(context, house_price):
     # Wait for the chart to load
-    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
-    
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
+    # Set House Price
     context.rate_checker.set_house_price(house_price)
     # Wait for the chart to load
-    # assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    # assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
 
 
 @then(u'I should see $"{house_price}" as the House price')

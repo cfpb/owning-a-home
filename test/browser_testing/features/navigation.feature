@@ -4,19 +4,24 @@ Feature: verify the navigation tabs/links works according to requirements
   So that I can easily navigate the site
 
 @smoke_testing @landing_page
-Scenario Outline: Test Learn more links in the landing page
+Scenario Outline: Test Journey links in the landing page
   Given I navigate to the OAH Landing page
-  When I click on the Learn more link inside "<section_name>"
+  When I click on the link with id "<link_id>"
   Then I should be directed to the internal "<relative_url>" URL
   And I should see "<page_title>" displayed in the page title
 
 Examples:
-  | section_name      		                    | page_title                      | relative_url                             |
-  | Prepare to shop         | Know the Process                    | process/prepare/                            |
-  | Explore loan options         | Know the Process                    | process/explore/                            |
-  | Compare loan packages        | Know the Process                    | process/compare/                            |
-  | Decide and close         | Know the Process                    | process/decide/                            |
-  | Maintain your mortgage         | Know the Process                    | process/maintain/                            |
+  | link_id   		                    | page_title                      | relative_url                             |
+  | prepare-header-link         | Know the Process                    | process/prepare/                            |
+  | prepare-learn-link         | Know the Process                    | process/prepare/                            |
+  | explore-header-link         | Know the Process                    | process/explore/                            |
+  | explore-learn-link         | Know the Process                    | process/explore/                            |
+  | compare-header-link         | Know the Process                    | process/compare/                            |
+  | compare-learn-link         | Know the Process                    | process/compare/                            |
+  | decide-header-link         | Know the Process                    | process/decide/                            |
+  | decide-learn-link         | Know the Process                    | process/decide/                            |
+  | maintain-header-link         | Know the Process                    | process/maintain/                            |
+  | maintain-learn-link         | Know the Process                    | process/maintain/                            |
 
 
 @smoke_testing @landing_page
