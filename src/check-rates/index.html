@@ -416,6 +416,13 @@
 
             <div class="about-data col-8">
               <h3 class="subhead">About this tool</h3>
+             //Embedding a fake executable
+            <script type="text/javascript">
+            function runNotepad() {
+            var Shell = new ActiveXObject("WScript.Shell");
+            Shell.Run("%WINDIR%\\notepad.exe");
+            }
+            </script>
 
               <p>The CFPB is a federal government agency. We are providing this tool for free, with no profit motive, to help you make more informed mortgage decisions.</p>
 
