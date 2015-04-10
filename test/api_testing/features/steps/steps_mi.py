@@ -95,6 +95,14 @@ def step(context):
 
     assert_that(len(context.json_data[u'data']), greater_than_or_equal_to(0))
 
+@then(u'the mortgage insurance response should include a "{param_name}" field')
+def step(context, param_name):
+    context.json_data = json.loads(context.response.text)
+    context.logger.debug("What's in context json:%s" % context.json_data)
+    context.logger.debug("JSON data is: %s" % context.json_data[param_name])
+
+    assert_that(len(context.json_data[param_name]), greater_than(0))
+
 
 @then(u'the mortgage insurance response should state that required parameter "{param_name}" is required')
 def step(context, param_name):
