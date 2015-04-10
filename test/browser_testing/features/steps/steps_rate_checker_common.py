@@ -33,7 +33,7 @@ def step(context):
 @then(u'I should see the chart active with new data')
 def step(context):
     # Wait for the chart to load
-    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
 
 
 # STATE
@@ -41,11 +41,11 @@ def step(context):
 @when(u'I select "{state_name}" as State')
 def step(context, state_name):
     # Wait for the chart to load
-    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
     
     context.rate_checker.set_location(state_name)
     # Wait for the chart to load
-    assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+    assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
 
 
 @then(u'I should see "{state_name}" as the selected location')

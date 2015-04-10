@@ -30,8 +30,8 @@ def step(context, page_name):
     elif (page_name == 'Rate Checker'):
         context.base.go(RC)
         # Wait for the chart to load
-        context.base.sleep(1)
-        assert_that(context.rate_checker.is_chart_loaded(), equal_to(True))
+        context.base.sleep(2)
+        assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
     elif (page_name == 'Conventional Loan'):
         context.base.go(CONV)
     elif (page_name == 'FHA Loan'):

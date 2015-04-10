@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base import Base
+from pages.screenshot import Screenshot
 
 # ELEMENT ID'S FOR TEXTBOXES
 DOWN_PAYMENT_AMOUNT_TBOX = "down-payment"  # DOWN PAYMENT AMOUNT TEXTBOX
@@ -38,7 +39,7 @@ SLIDER_RANGE_LABEL = "slider-range"
 COUNTY_HIDDEN = ".county.hidden"
 ARM_TYPE_HIDDEN = ".arm-type.hidden"
 CHART_FADED = ".chart.wrapper .data-enabled.loading"
-CHART_NOT_FADED = ".chart.wrapper .data-enabled.loaded"
+CHART_LOADED = ".chart.wrapper .data-enabled.loaded"
 
 # XPATH LOCATORS
 RATE_LOCATION = "//h2/*[@class ='location']"
@@ -55,6 +56,7 @@ class RateChecker(Base):
                                           driver, driver_wait, delay_secs)
         self.logger = logger
         self.driver_wait = driver_wait
+        self.screenshot = Screenshot(self, Base)
 
     # ALERTS
     def get_warning_button_class(self):
@@ -149,10 +151,10 @@ class RateChecker(Base):
         try:
             WebDriverWait(self.driver, l_wait)\
                 .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                       CHART_NOT_FADED)))
-            return True
+                       CHART_LOADED)))
+            return "Chart is loaded"
         except TimeoutException:
-            return False
+            return "Chart is NOT loaded"
 
     # CREDIT SCORE RANGE
     def get_credit_score_range(self):
@@ -203,14 +205,14 @@ class RateChecker(Base):
 
     def set_location(self, state_name):
         l_wait = 5
-        msg = '%s not found after %s seconds' % (CHART_NOT_FADED, l_wait)
+        msg = '%s not found after %s seconds' % (CHART_LOADED, l_wait)
 
         select = Select(self.driver.find_element_by_id(LOCATION_DDL))
         select.select_by_visible_text(state_name)
 
         WebDriverWait(self.driver, l_wait)\
             .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   CHART_NOT_FADED)), msg)
+                   CHART_LOADED)), msg)
 
     # HOUSE PRICE
     def get_house_price(self):
@@ -264,6 +266,8 @@ class RateChecker(Base):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_PERCENT)
         element.send_keys(Keys.ENTER)
 
+        self.logger.info("Actual downpayment percent is: %s" % element.get_attribute("value"))
+
     # DOWN PAYMENT AMOUNT
     def get_down_payment_amount(self):
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
@@ -285,10 +289,15 @@ class RateChecker(Base):
     def set_down_payment_amount(self, down_payment):
         # Clear any existing text
         script = "document.getElementById('down-payment').value=''"
-        self.driver.execute_script(script)
         element = self.driver.find_element_by_id(DOWN_PAYMENT_AMOUNT_TBOX)
+        self.driver.execute_script(script)
         element.clear()
         element.send_keys(down_payment)
+
+        # If the API overwrites the DP value we entered, we try one more time
+        if(element.text != down_payment):
+            element.clear()
+            element.send_keys(down_payment)
 
     # LOAN AMOUNT
     def get_loan_amount(self):
@@ -321,6 +330,7 @@ class RateChecker(Base):
                        css)), msg)
             return True
         except TimeoutException:
+            self.screenshot.save()
             return False
 
     def set_county(self, county_name):
