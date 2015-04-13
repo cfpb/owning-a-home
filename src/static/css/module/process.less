@@ -406,8 +406,9 @@ a.list_link {
         .serif;
       }
       .content-l__main {
+        .u-mb30;
         .respond-to-min(@tablet-min, {
-          .u-mb20;
+          .u-mb30;
         });
         .respond-to-min(800px, {
           .u-mb45;
@@ -452,7 +453,12 @@ a.list_link {
       padding-left: 20px;
       list-style-type: none;
       .respond-to-max(@mobile-max, {
-        .list__branded;
+        li {
+          @font-size: 22px;
+          @offset: unit(19px / @font-size, em);
+          @size: unit(22px / @base-font-size-px, em);
+          .custom-bullet(@text:"\25AA", @color: @list__branded-bullet, @offset: @offset, @size: @size);
+        }
       });
       
       .respond-to-min(800px, {
