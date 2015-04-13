@@ -1,5 +1,5 @@
 from behave import given, when, then
-from hamcrest.core import assert_that, equal_to, is_not
+from hamcrest.core import assert_that, equal_to, is_not, none
 from hamcrest.library.number.ordering_comparison import greater_than, greater_than_or_equal_to
 from hamcrest.library.text.stringcontains import contains_string
 import requests
@@ -12,7 +12,7 @@ def step(context, mortgage_house_price):
     context.query.mortgage_house_price = mortgage_house_price
 
 
-@given(u'I omit the "{mortgage_param_name}" Mortgage Insurance field')
+@given(u'I omit the mortgage insurance "{mortgage_param_name}" field')
 def step(context, mortgage_param_name):
     if(mortgage_param_name == "House Price"):
         context.query.mortgage_house_price = "missing"
@@ -31,9 +31,9 @@ def step(context, mortgage_param_name):
     elif(mortgage_param_name == "ARM Type"):
         context.query.mortgage_arm_type = "missing"
     elif(mortgage_param_name == "VA Status"):
-        context.query.mortgage_arm_type = "missing"
+        context.query.va_status = "missing"
     elif(mortgage_param_name == "First Time VA Loan Use"):
-        context.query.mortgage_arm_type = "missing"
+        context.query.va_first_use = "missing"
 
 @given(u'I select "{mortgage_loan_amount}" as Mortgage Insurance Loan Amount')
 def step(context, mortgage_loan_amount):
@@ -107,7 +107,15 @@ def step(context, param_name):
 @then(u'the mortgage insurance response should state that required parameter "{param_name}" is required')
 def step(context, param_name):
     context.json_data = json.loads(context.response.text)
-    assert_that(context.json_data[param_name], contains_string('required'))
+    assert_that(context.json_data.get(param_name), is_not(none()))
+    assert_that(context.json_data[param_name][0], contains_string('required'))
+
+@then(u'the mortgage insurance response should include error stating "{html_text}"')
+def step(context, html_text):
+    context.json_data = json.loads(context.response.text)
+    context.logger.debug("json_data html_text: %s" % context.json_data)
+    assert_that(context.json_data.get('non_field_errors'), is_not(none()))
+    assert_that(context.json_data['non_field_errors'][0], contains_string(html_text))
 
 @then(u'the mortgage insurance response should NOT include "{html_text}"')
 def step(context, html_text):
