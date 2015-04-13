@@ -198,13 +198,19 @@ a.list_link {
     
   });
   
-  a.process-nav_step-contents:hover {
-    .process-nav_step-number {
-      background-color: @gray-50;
+  a.process-nav_step-contents {
+    &:visited {
+      border-color: @link-underline;
+      color: @link-text;
     }
-    color: @black;
-    &:after {
+    &:hover {
+      .process-nav_step-number {
+        background-color: @gray-50;
+      }
       color: @black;
+      &:after {
+        color: @black;
+      }
     }
   }
   
