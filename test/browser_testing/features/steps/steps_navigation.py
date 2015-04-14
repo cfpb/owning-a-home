@@ -2,6 +2,7 @@
 from behave import given, when, then
 from hamcrest.core import assert_that, equal_to
 from hamcrest.library.text.stringcontains import contains_string
+from decorators import *
 
 from pages.home import Home
 from pages.base import Base
@@ -20,6 +21,7 @@ SPECIAL = 'loan-options/special-loan-programs'
 
 
 @given(u'I navigate to the "{page_name}" page')
+@handle_error
 def step(context, page_name):
     if (page_name == 'Owning a Home'):
         context.base.go(HOME)
