@@ -207,7 +207,7 @@ $ mkvirtualenv oah-tests
 $ pip install -r requirements.txt
 ```
 
-Rename `test/browser_testing/features/example-environment.cfg` to `environtment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
+Rename `test/browser_testing/features/example-environment.cfg` to `test/browser_testing/features/environment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
 
 ### Running browser tests
 
@@ -223,10 +223,10 @@ Before running tests, you will need to set up a Python virtual environment, inst
 ```bash
 $ cd test/api_testing/
 $ mkvirtualenv oah-tests
-$ pip install -r requests
+$ pip install requests
 ```
 
-Rename `test/api_testing/features/example-environment.cfg` to `environtment.cfg` and edit the file to point `base_url` to the environment you wish to test.
+Rename `test/api_testing/features/example-environment.cfg` to `test/api_testing/features/environment.cfg` and edit the file to point `ratechecker_url` and `mortgageinsurance_url` to the environment you wish to test.
 
 ```bash
 $ workon oah-tests

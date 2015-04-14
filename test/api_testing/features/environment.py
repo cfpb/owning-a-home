@@ -21,10 +21,10 @@ def before_all(context):
     setup_config(context)
     setup_logger(context)
 
-    context.query = QueryHelper(context.logger, context.base_url)
+    context.query = QueryHelper(context.logger, context.base_url, context.mortgage_url)
     context.utils = Utils(context.query)
 
-    context.logger.info('TEST ENVIRONMENT = %s' % context.base_url)
+    context.logger.info('TEST ENVIRONMENT = %s, %s' % (context.base_url, context.mortgage_url))
 
 
 def before_feature(context, feature):
@@ -99,10 +99,15 @@ def setup_config(context):
     else:
         context.delay_secs = 5
 
-    if config.has_option('browser_testing', 'base_url'):
-        context.base_url = config.get('browser_testing', 'base_url')
+    if config.has_option('browser_testing', 'ratechecker_url'):
+        context.base_url = config.get('browser_testing', 'ratechecker_url')
     else:
         context.base_url = 'http://localhost'
+
+    if config.has_option('browser_testing', 'mortgageinsurance_url'):
+        context.mortgage_url = config.get('browser_testing', 'mortgageinsurance_url')
+    else:
+        context.mortgage_url = 'http://localhost'
 
     if config.has_option('browser_testing', 'browser'):
         context.browser = config.get('browser_testing', 'browser')
