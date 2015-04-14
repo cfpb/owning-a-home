@@ -8,6 +8,7 @@ from hamcrest.library.text.stringcontains import contains_string
 from pages.rate_checker import RateChecker
 from pages.base import Base
 from pages.screenshot import Screenshot
+from decorators import *
 
 
 # CHART AREA
@@ -25,6 +26,7 @@ def step(context, state_name):
 
 
 @then(u'I should see the chart faded out to indicate the data is out of date')
+@handle_error
 def step(context):
     is_faded = context.rate_checker.is_chart_faded()
     assert_that(is_faded, equal_to(True))
@@ -39,6 +41,7 @@ def step(context):
 # STATE
 @given(u'I select "{state_name}" as State')
 @when(u'I select "{state_name}" as State')
+@handle_error
 def step(context, state_name):
     # Wait for the chart to load
     assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
