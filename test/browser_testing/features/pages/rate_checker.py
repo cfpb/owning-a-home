@@ -209,10 +209,12 @@ class RateChecker(Base):
 
         select = Select(self.driver.find_element_by_id(LOCATION_DDL))
         select.select_by_visible_text(state_name)
-
-        WebDriverWait(self.driver, l_wait)\
-            .until(EC.presence_of_element_located((By.CSS_SELECTOR,
-                   CHART_LOADED)), msg)
+        try:
+            WebDriverWait(self.driver, l_wait)\
+                .until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                       CHART_LOADED)), msg)
+        except TimeoutException:
+            self.screenshot.save()
 
     # HOUSE PRICE
     def get_house_price(self):
