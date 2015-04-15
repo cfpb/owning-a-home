@@ -42,7 +42,7 @@
               <div class="lead u-mb0">{{active_phase.content | safe if active_phase.content}}</div>
           </div>
           <div class="content-l_col content-l_col-1-4 phase_image">
-            {% if active_phase.thumbnail %}
+            {% if active_phase.thumbnail.images %}
               <img src="{{active_phase.thumbnail.images.full.url}}" alt="Illustration of the home-buying process">
             {% endif %}
           </div>
@@ -62,8 +62,8 @@
         </div>
       {% endif %}
       
-      <div class="phase_data">
-        <div class="{% if active_phase.tools %} content-l {% endif %}">
+      <div class="phase_data u-inline-block">
+        <div class="u-inline-block {% if active_phase.tools %} content-l {% endif %}">
           
           {% if active_phase.tools %}
             <div class="tools-col">
@@ -84,10 +84,10 @@
           {% endif %}
           
           {% if steps|list|length %}
-            <div class="{% if active_phase.tools %}steps-col{% endif %}">
-              <section class="steps">
+            <div class="{% if active_phase.tools %}steps-col{% endif %} u-inline-block">
+              <section class="steps u-inline-block">
                 <h1 class="h3">Action steps</h1>
-                <div class="expandable-group">
+                <div class="expandable-group u-inline-block">
                   {% for step in steps %}            
                     <div class="expandable expandable__padded">
                       <button class="expandable_header expandable_target">
