@@ -43,7 +43,7 @@ def before_all(context):
             'command-timeout': int(os.getenv('SELENIUM_CMD_TIMEOUT', 30)),
             'idle-timeout': int(os.getenv('SELENIUM_IDLE_TIMEOUT', 10)),
             'tunnel-identifier': os.getenv('SELENIUM_TUNNEL'),
-            'screen-resolution' : '1280x1024'
+            'screen-resolution' : os.getenv('SELENIUM_RESOLUTION')
         }
 
         context.logger.info("Running Sauce with capabilities: %s" %
