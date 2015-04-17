@@ -61,6 +61,9 @@ function fitAndStickToWindow( id ) {
       // To fix this we will give it its own width that is equal to the parent.
       $imageMapImage.css( 'width', $imageMap.width() );
       $imageMapWrapper.sticky({ topSpacing: 30 });
+      if (id > 1) {
+          $currentPage.hide();
+      }
     });
 }
 
@@ -140,6 +143,10 @@ function initPage( id ) {
   if ( $WINDOW.width() >= 600 ) {
     // Resize the image, terms and pagination columns
     fitAndStickToWindow( id );
+  } else {
+      if ( id > 1 ) {
+         $currentPage.hide();
+      }
   }
   // Some form pages don't have content for every category so we need to create
   // placeholders for those categories informing the user.
@@ -197,9 +204,6 @@ $(document).ready(function(){
   $WRAPPER.find('.explain_page').each(function( index ) {
     var src = $( this ).find('.image-map_image').attr('src');
     initPage( index + 1 );
-    if ( index > 0 ) {
-      $( this ).hide();
-    }
   });
 
   if ( $WINDOW.width() >= 600 ) {
