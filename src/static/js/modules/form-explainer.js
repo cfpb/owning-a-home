@@ -38,7 +38,6 @@ function fitAndStickToWindow( id ) {
       $terms =            $currentPage.find('.terms');
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
-    .attr( 'src', $imageMapImage.attr('src') )
     .load( function() {
       // In order to make the image map sticky we must first make sure it will fit
       // completely within the window.
@@ -59,12 +58,19 @@ function fitAndStickToWindow( id ) {
       // When the sticky plugin is applied to the image, it adds position fixed,
       // and the image's width is no longer constrained to its parent.
       // To fix this we will give it its own width that is equal to the parent.
-      $imageMapImage.css( 'width', $imageMap.width() );
+      var containerWidth = $imageMap.width();
+      // IE8 wants a width on the wrapper too
+      $imageMapWrapper.width(containerWidth);
+      $imageMapImage.width(containerWidth);
       $imageMapWrapper.sticky({ topSpacing: 30 });
       if (id > 1) {
           $currentPage.hide();
       }
-    });
+    })
+    // This order is necessary so that IE8 doesn't fire the onload event
+    // before the src is set for cached images
+    // http://stackoverflow.com/questions/14429656/onload-callback-on-image-not-called-in-ie8
+    .attr( 'src', $imageMapImage.attr('src') );
 }
 
 /**
