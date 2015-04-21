@@ -44,7 +44,7 @@ class JMeterInstaller(object):
         if not os.path.exists(self.jmeter_dir):
             print("Download JMeter")
 
-            jmeter_file = "http://apache.mirrors.tds.net/jmeter/binaries/apache-jmeter-%s.zip" % self.jmeter_version
+            jmeter_file = "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-%s.zip" % self.jmeter_version
             self.get_file(jmeter_file, "jmeter.zip")
 
             with(zipfile.ZipFile(self.download_dir + "jmeter.zip", "r")) as z:
