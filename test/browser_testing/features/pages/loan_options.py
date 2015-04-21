@@ -23,25 +23,17 @@ LOAN_AMOUNT = "loan-amount-value"
 INTEREST_RATE = "loan-interest-value"
 
 # ELEMENT CSS SELECTOR
-LOAN_TERM_EXPAND = "#loan-term-expand-toggle"
-LOAN_TERM_COLLAPSE = "#loan-term-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .expand-close-link"
-LOAN_TERM_SUBSECTION = "#loan-term-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .tight-heading"
+LOAN_TERM_EXPAND = "#expandable__loan-term .expandable_cue-open .expandable_cue_text"
+LOAN_TERM_COLLAPSE = "#expandable__loan-term .expandable_cue-close .expandable_cue_text"
+LOAN_TERM_SUBSECTION = "#expandable__loan-term .expandable_content"
 
-INTEREST_RATE_EXPAND = "#interest-rate-expand-toggle"
-INTEREST_RATE_STRUCTURE_SUBSECTION = "#interest-rate-expand-header + " + \
-    ".expandable-content.expandable-hidden[style='display: block;'] " + \
-    ".tight-heading"
-INTEREST_RATE_STRUCTURE_COLLAPSE = "#interest-rate-expand-header + " + \
-    ".expandable-content.expandable-hidden[style='display: block;'] " + \
-    ".expand-close-link"
+INTEREST_RATE_EXPAND = "#expandable__interest-rate .expandable_cue-open .expandable_cue_text"
+INTEREST_RATE_COLLAPSE = "#expandable__interest-rate .expandable_cue-close .expandable_cue_text"
+INTEREST_RATE_SUBSECTION = "#expandable__interest-rate .expandable_content"
 
-LOAN_TYPE_EXPAND = "#loan-programs-expand-toggle"
-LOAN_TYPE_SUBSECTION = "#loan-programs-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] h3"
-LOAN_TYPE_COLLAPSE = "#loan-programs-expand-header + .expandable-content" + \
-    ".expandable-hidden[style='display: block;'] .expand-close-link"
+LOAN_TYPE_EXPAND = "#expandable__loan-type .expandable_cue-open .expandable_cue_text"
+LOAN_TYPE_COLLAPSE = "#expandable__loan-type .expandable_cue-close .expandable_cue_text"
+LOAN_TYPE_SUBSECTION = "#expandable__loan-type .expandable_content"
 
 SELECTED_TERM = ".term-timeline a.current .loan-length"
 
@@ -63,7 +55,7 @@ class LoanOptions(Base):
             e_collapse = LOAN_TERM_COLLAPSE
         elif(page_section == 'Interest rate type'):
             e_expand = INTEREST_RATE_EXPAND
-            e_collapse = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_collapse = INTEREST_RATE_COLLAPSE
         elif(page_section == 'Loan type'):
             e_expand = LOAN_TYPE_EXPAND
             e_collapse = LOAN_TYPE_COLLAPSE
@@ -98,7 +90,7 @@ class LoanOptions(Base):
             e_css = LOAN_TERM_COLLAPSE
             e_expand = LOAN_TERM_EXPAND
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_STRUCTURE_COLLAPSE
+            e_css = INTEREST_RATE_COLLAPSE
             e_expand = INTEREST_RATE_EXPAND
         elif(page_section == 'Loan type'):
             e_css = LOAN_TYPE_COLLAPSE
@@ -160,11 +152,11 @@ class LoanOptions(Base):
         local_wait = 2
 
         if(page_section == 'Loan term'):
-            e_css = LOAN_TERM_SUBSECTION
+            e_css = LOAN_TERM_SUBSECTION + " .tight-heading"
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_STRUCTURE_SUBSECTION
+            e_css = INTEREST_RATE_SUBSECTION + " .tight-heading"
         elif(page_section == 'Loan type'):
-            e_css = LOAN_TYPE_SUBSECTION
+            e_css = LOAN_TYPE_SUBSECTION + " .tight-heading"
         else:
             raise Exception(page_section + " is NOT a valid section")
 
@@ -178,17 +170,39 @@ class LoanOptions(Base):
         except TimeoutException:
             return 'Section NOT visible'
 
-    def get_expand_button_caption(self, page_section):
+    def get_subsection_visibility(self, page_section):
+        local_wait = 2
+
         if(page_section == 'Loan term'):
-            e_css = LOAN_TERM_EXPAND
+            e_css = LOAN_TERM_SUBSECTION
         elif(page_section == 'Interest rate type'):
-            e_css = INTEREST_RATE_EXPAND
+            e_css = INTEREST_RATE_SUBSECTION
         elif(page_section == 'Loan type'):
-            e_css = LOAN_TYPE_EXPAND
+            e_css = LOAN_TYPE_SUBSECTION
         else:
             raise Exception(page_section + " is NOT a valid section")
 
-        e_css = e_css + " .expandable-text"
+        msg = 'Element %s was not found after %s seconds' % (e_css, local_wait)
+        try:
+            # Wait for the subsection to expand
+            element = WebDriverWait(self.driver, local_wait)\
+                .until(EC.visibility_of_element_located((By.CSS_SELECTOR,
+                                                        e_css)), msg)
+            eVisibility = element.get_attribute("aria-expanded")
+            return "element %s visible = %s" % (page_section, eVisibility)
+        except TimeoutException:
+            return msg
+
+    def get_expand_button_caption(self, page_section):
+        if(page_section == 'Loan term'):
+            e_css = LOAN_TERM_COLLAPSE
+        elif(page_section == 'Interest rate type'):
+            e_css = INTEREST_RATE_COLLAPSE
+        elif(page_section == 'Loan type'):
+            e_css = LOAN_TYPE_COLLAPSE
+        else:
+            raise Exception(page_section + " is NOT a valid section")
+
         caption = self.driver.find_element_by_css_selector(e_css).text
         return caption
 

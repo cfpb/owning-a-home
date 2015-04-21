@@ -60,7 +60,7 @@ def process_journey(item):
                 if field_name in custom_fields:
                     if field == 'link':
                         tool['url'] = custom_fields[field_name][0]
-                        tool['text'] = custom_fields[field_name][0]
+                        tool['text'] = custom_fields[field_name][1]
                     else:
                         tool[field] = custom_fields[field_name][0]
 

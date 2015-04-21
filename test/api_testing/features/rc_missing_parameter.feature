@@ -1,7 +1,7 @@
 Feature: Negative tests for the rate checker API 
   As an API client
   I want to query the Rate Checker API
-  So that I can ensure that the errors codes are returned properly when a parameter is missing
+  So that I can ensure that the errors codes are returned properly when a parameter is required
 
 @smoke_testing
 Scenario Outline: Omit the House Price parameter
@@ -15,7 +15,7 @@ Scenario Outline: Omit the House Price parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "price" is missing
+        Then the response should state that required parameter "price" is required
 
   Examples:
   | parameter_name | loan_amount | minfico | maxfico | state | rate_structure | loan_term | loan_type | arm_type |
@@ -33,7 +33,7 @@ Scenario Outline: Omit the Loan Amount parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "loan_amount" is missing
+        Then the response should state that required parameter "loan_amount" is required
 
   Examples:
   | parameter_name | house_price | minfico | maxfico | state | rate_structure | loan_term | loan_type | arm_type |
@@ -51,7 +51,7 @@ Scenario Outline: Omit the Minimum Credit Score parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "minfico" is missing
+        Then the response should state that required parameter "minfico" is required
 
   Examples:
   | parameter_name        | house_price | loan_amount | maxfico | state | rate_structure | loan_term | loan_type | arm_type |
@@ -69,7 +69,7 @@ Scenario Outline: Omit the Maximum Credit Score parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "maxfico" is missing
+        Then the response should state that required parameter "maxfico" is required
 
   Examples:
   | parameter_name        | house_price | loan_amount | minfico | state | rate_structure | loan_term | loan_type | arm_type |
@@ -87,7 +87,7 @@ Scenario Outline: Omit the State parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "state" is missing
+        Then the response should state that required parameter "state" is required
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | rate_structure | loan_term | loan_type | arm_type |
@@ -105,7 +105,7 @@ Scenario Outline: Omit the Rate Structure parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "rate_structure" is missing
+        Then the response should state that required parameter "rate_structure" is required
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | loan_term | loan_type | arm_type |
@@ -123,7 +123,7 @@ Scenario Outline: Omit the Loan Term parameter
           And I select "<loan_type>" as Loan Type
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "loan_term" is missing
+        Then the response should state that required parameter "loan_term" is required
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_type | arm_type |
@@ -141,7 +141,7 @@ Scenario Outline: Omit the Loan Type parameter
           And I omit the "<parameter_name>" field 
           And I select "<arm_type>" as ARM Type 
         When I send the request
-        Then the response should state that required parameter "loan_type" is missing
+        Then the response should state that required parameter "loan_type" is required
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_term | arm_type |

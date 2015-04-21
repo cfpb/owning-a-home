@@ -15,6 +15,7 @@ describe('Prepare worksheets', function() {
 
   before(function () {
     $ = require('jquery');
+    jQuery = require('jquery');
     worksheets = require('../../src/static/js/modules/prepare-worksheets/prepare-worksheets.js');
   });
 
