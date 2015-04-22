@@ -239,19 +239,23 @@ Run `behave -k -t=~prod_only` to omit production environment tests.
 
 ### Installing Jmeter
 
-Run "jmeter-bootstrap/bin/JMeterInstaller.py" which will install Jmeter 2.11 and required plugins to run Jmeter locally
+Run `python jmeter-bootstrap/bin/JMeterInstaller.py` in the `test` folder which will install Jmeter 2.11 and required plugins to run Jmeter locally
 
 ### Running load tests locally from the command line:
 
+```
 apache-jmeter-2.11/bin/jmeter.sh -t owning-a-home/test/load_testing/RateChecker.jmx -Jserver_url oah.fake.demo.domain -Jthreads=8
+```
 
--t : this tells Jmeter where the test lives, relative to where Jmeter us running from
--Jserver URL : this is the URL to runs load tests against
--Jthreads : this is the maximum number of concurrent users for the load test
+`-t owning-a-home/test/load_testing/RateChecker.jmx`: this tells Jmeter where the test lives, relative to where Jmeter us running from
+`-Jserver_url oah.fake.demo.domain`: this is the URL to runs load tests against.  Replace `oah.fake.demo.domain` with the URL you want
+`-Jthreads=8` : this is the maximum number of concurrent users for the load test
 
 OaH.jmx - this test is for the landing pages using all default settings (loan-options, rate-checker, etc)
 
-Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test for Rate Checker API. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+
+Mortgage_Insurance.jmx - this test uses the queries listed inside "MI.csv" to run the load test for Mortgage Insurance API.  Additional queries can just be added as rows in "MI.csv" and the test will pick them up.
 
 If the number of threads is 6 and the there are 3 rows of queries the test will execute in this order:
 ```
