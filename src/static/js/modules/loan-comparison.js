@@ -10,6 +10,7 @@ var objectify = require('objectified');
 require('./object.observe-polyfill');
 require('jquery-easing');
 require('cf-expandables');
+require('tooltips');
 
 var loans = {};
 
@@ -23,6 +24,11 @@ var $container = $('.lc-inputs .form-container'),
     $mobileLoanB,
     formIDs = ['a', 'b', 'c'],
     currentForm = 0;
+   
+$('.help').tooltip({
+    placement: "bottom",
+    title: "hi"
+})
 
 $container.append( templates.form({form_id: formIDs[currentForm]}) )
           .append( templates.button() );

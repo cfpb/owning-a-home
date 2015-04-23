@@ -104,6 +104,7 @@
     "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
     "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
+    "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
     "oah-config": "./config/config.json"
   },
   "browserify-shim": "./config/shim.js"
