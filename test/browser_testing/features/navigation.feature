@@ -29,5 +29,5 @@ Examples:
   | Find a HUD-approved housing counselor           | Find a housing counselor | /find-a-housing-counselor/                                 |
   | Get answers to common questions                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
   | Submit a mortgage complaint                     | Submit a complaint       | /complaint/#mortgage                                       |
-  | Check the loan originator database | Consumer Access | http://www.nmlsconsumeraccess.org/ |
+  | Most are listed in this loan originator database | Consumer Access | http://www.nmlsconsumeraccess.org/ |
   | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/ |
