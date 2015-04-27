@@ -409,7 +409,7 @@
     position: relative;
     margin-bottom: @grid_gutter-width/2;
     z-index: 2;
-    background-color: @gray-5;
+    background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
     .respond-to-min(1000px, {
       margin-bottom: @grid_gutter-width;
     });
