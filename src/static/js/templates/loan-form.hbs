@@ -4,21 +4,30 @@
 
   <div class="input-subsection pricing">
     <div class="calc-content">
-      <h5 class="lc-subhead label-float">Loan amount</h5>            <div class="help" role="tooltip" data-original-title="" title=""><i class="icon-help-alt"></i></div>
+      <h5 class="lc-subhead label-float">Loan amount</h5>            
+      
       <div class="input-wrap"> <!-- use with columns with floated labels -->
         <span class="loan-amount-display-{{form_id}}">$180,000</span>
       </div> <!-- /.input-wrap -->
     </div> <!-- ./calc-content-->
 
     <div class="input-content">
-      <label for="house-price-input-{{form_id}}" class="label-float ">House price</label>
+      <label for="house-price-input-{{form_id}}" class="label-float ">
+        House price
+        <span class="help" data-toggle="tooltip" role="tooltip" data-original-title="" title=""><span class="cf-icon cf-icon-help-round"></span></span>
+        <span class="help-text">This is some helpful information about house prices</span>
+      </label>
       <div class="input-wrap"> <!-- use with columns with floated labels -->
         <input type="text" placeholder="$200,000" name="house-price-input" id="house-price-input-{{form_id}}" class="recalc">
       </div> <!-- /.input-wrap -->
     </div> <!-- ./input-content-->
 
     <div class="input-content">
-      <label for="percent-down-input-{{form_id}}" class="label-float ">Down payment <span class="u-visually-hidden">Percentage</span></label>
+      <label for="percent-down-input-{{form_id}}" class="label-float ">
+        Down payment <span class="u-visually-hidden">Percentage</span>
+        <span class="help" data-toggle="tooltip" role="tooltip" data-original-title="" title=""><span class="cf-icon cf-icon-help-round"></span></span>
+        <span class="help-text">This is some helpful information about downpayments</span>
+      </label>
       <div class="input-wrap"> <!-- use with columns with floated labels -->
         <div class="percent-input small-input">
           <span class="unit">%</span>
