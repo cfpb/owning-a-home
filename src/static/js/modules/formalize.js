@@ -269,7 +269,7 @@ function createNewForm( id, loanData ) {
     }
     
     $form.removeClass('update').addClass('updating');
-    
+
     currentRequest = fetchRates({
       price: loan['price'],
       loan_amount: loan['amount-borrowed'],
@@ -279,7 +279,8 @@ function createNewForm( id, loanData ) {
       rate_structure: loan['rate-structure'],
       loan_term: loan['loan-term'],
       loan_type: loan['loan-type'],
-      arm_type: loan['arm-type']
+      arm_type: loan['arm-type'],
+      points: loan['raw-discount']
     })
     .done(function (results) {
         currentRequest = null;
