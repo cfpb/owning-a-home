@@ -7,4 +7,9 @@ if [ ! -f config/config.json ]; then
 fi
 
 npm install
-grunt build
+
+if [ $DEPLOY_ENV = "PROD" ]; then
+  grunt production-deploy
+elif [ $DEPLOY_ENV = "DEV" ]; then
+  grunt dev-deploy
+fi
