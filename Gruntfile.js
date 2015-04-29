@@ -446,7 +446,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['build']
+        tasks: ['dev-deploy']
       },
       css: {
         options: {
@@ -460,7 +460,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/**/*.html', '_layouts/*'],
-        tasks: ['build']
+        tasks: ['dev-deploy']
       }
     }
 
@@ -486,11 +486,11 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
+  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('deploy', ['release', 'ship']);
-  grunt.registerTask('default', ['build', 'ship']);
+  grunt.registerTask('production-deploy', ['release', 'ship']);
+  grunt.registerTask('default', ['dev-deploy', 'ship']);
 
 };
