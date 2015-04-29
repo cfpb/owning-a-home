@@ -22,7 +22,8 @@
     "Placeholders.js": "jamesallardice/Placeholders.js#~3.0.2",
     "es5-shim": "~4.0.3",
     "aight": "~1.2.5",
-    "sticky": "~1.0.1"
+    "sticky": "~1.0.1",
+    "bootstrap": "~3.0.0"
   },
   "exportsOverride": {
     "cf-*": {
@@ -30,6 +31,10 @@
       "less": "src/**/*.less",
       "fonts": "src/fonts/*.*",
       "js": "src/**/*.js"
+    },
+    "bootstrap": {
+      "js": "js/*.js",
+      "less": "less/*.less"
     }
   }
 }

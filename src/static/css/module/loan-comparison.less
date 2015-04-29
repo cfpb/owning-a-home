@@ -74,8 +74,8 @@
     
     .label-float {
       width: 15em;
-      .h3;
       .u-mb0;
+      .h3;
     }
 
     .input-wrap {
@@ -156,6 +156,14 @@
   .comparison-header {
     .u-hide-on-mobile;
   }
+  
+  .help-text {
+    display: none;
+  }
+  
+  .cf-icon-help-round {
+    color: @pacific;
+  }
 
   input[type="text"] {
     width: 100%;
@@ -209,6 +217,10 @@
   
 }
 
+.label-float h4 {
+  display: inline;
+}
+
 .input-headers {
   text-align: center;
   
@@ -256,10 +268,6 @@
     display: none;
   }
 });
-
-.lc-subhead {
-  .allcaps-demi;
-}
 
 .small-input {
   display: inline-block;
@@ -544,4 +552,10 @@
     margin-right: -(@grid_gutter-width / 2);
     margin-left: -(@grid_gutter-width / 2);
   });
+}
+
+
+.lc-tooltip .cf-icon-help-round {
+  font-size: unit( 14px / @base-font-size-px, em );
+  padding-left: 3px;
 }
