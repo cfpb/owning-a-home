@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy'],
+          transform: ['browserify-shim', 'hbsfy', 'reactify'],
           plugin: [
             ['factor-bundle', {
               entries: [
@@ -159,7 +159,7 @@ module.exports = function(grunt) {
         options: {
           watch: true,
           debug: true,
-          transform: ['browserify-shim', 'hbsfy']
+          transform: ['browserify-shim', 'hbsfy', 'reactify']
         }
       }
     },
