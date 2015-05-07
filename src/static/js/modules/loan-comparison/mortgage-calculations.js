@@ -56,13 +56,6 @@ mortgage['monthly-hoa-dues'] = function (loan) {
 };
 
 mortgage['monthly-principal-interest'] = function (loan) {
-    console.log(loan)
-    console.log(amortize({
-      amount: positive(loan['loan-amount']),
-      rate: loan['interest-rate'],
-      totalTerm: loan['loan-term'] * 12,
-      amortizeTerm: 60 // @todo loan term * 12?
-    }));
     return amortize({
       amount: positive(loan['loan-amount']),
       rate: loan['interest-rate'],
@@ -87,7 +80,7 @@ mortgage['closing-costs'] = function (loan) {
             + loan['discount']
             + loan['processing']
             + loan['third-party-services']
-            + loan['mortgage-insurance']
+            + loan['insurance']
             + loan['taxes-gov-fees']
             + loan['prepaid-expenses']
             + loan['initial-escrow'];

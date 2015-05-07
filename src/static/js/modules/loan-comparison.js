@@ -3,6 +3,9 @@ var debounce = require('debounce');
 var formatUSD = require('format-usd');
 require('tooltips');
 var loanService = require('./loan-comparison/loan');
+var loanUI = require('./loan-comparison/loan-ui');
+var common = require('./loan-comparison/common');
+
 
 var React = require('react');
 var defaultLoan = {
@@ -22,26 +25,29 @@ loanService.updateLoanCalculations (loanA)
 loanService.updateLoanCalculations (loanA, true);
 var loanB = $.extend({}, defaultLoan);
 loanService.updateLoanCalculations (loanB)
-
 loanService.updateLoanCalculations (loanB, true);
+
+var scenario;
 
 loanOutputs = [
     {
         prop: 'closing-costs',
-        title: 'Estimated cash to close'
+        title: 'Estimated cash to close',
+        tooltip: 'Tooltip!'
     },
     {
         prop: 'downpayment',
-        title: 'Down payment'
+        title: 'Down payment',
+        tooltip: 'Tooltip!'
     }
 ];
 
 var LoanItemDisplay = React.createClass({
   render: function() {
-      // todo: this could be a callback to process loan data
+     var prop = this.props.output.prop;
     return (
         <td>
-            {this.props.loan[this.props.loanProp]}
+            <td>{loanUI.formatOutput(prop, this.props.loan[prop])}</td>
         </td>
     );
   }
@@ -49,10 +55,10 @@ var LoanItemDisplay = React.createClass({
 
 var LoanOutputRow = React.createClass({
   render: function() {
-      var that = this;
+      var output = this.props.output;
       var tableCells = this.props.loans.map(function (loan) {
           return (
-              <td><LoanItemDisplay loanProp={that.props.output.prop} loan={loan} /></td>
+              <LoanItemDisplay loan={loan} output={output}/>
           );
       });
     return (
@@ -77,7 +83,7 @@ var LoanOutputsSection = React.createClass({
         <table className="unstyled">
             <thead>
                 <tr>
-                  <th>Outputs</th>
+                  <th></th>
                   <th>Scenario A</th>
                   <th>Scenario B</th>
                 </tr>
@@ -90,7 +96,57 @@ var LoanOutputsSection = React.createClass({
   }
 });
 
+var LoanComparisonScenarioSection = React.createClass({
+    getInitialState: function () {
+        return {
+            scenario: undefined
+        }
+    },
+    handleChange: function (e) {
+        this.setState({
+            scenario: e.target.value
+        });
+    },
+    render: function () {
+        var scenarioData = this.props.scenarios;
+        var scenarios= this.props.scenarioList.map(function (key) {
+            var scenario = scenarioData[key];
+            return (
+                <option value={key}>{scenario.title}</option>
+            );
+        });
+        return (
+            <div id="scenarios">
+              <div className="content-l_col content-l_col-1-2">
+                  <div className="select-content">
+                    <select 
+                        name="input-scenario"
+                        className="recalc" 
+                        id="input-scenario"
+                        value={this.state.scenario}
+                        onChange={this.handleChange}>
+                      {scenarios}
+                    </select>
+                  </div>
+                  <div>{this.state.scenario}</div>
+              </div>
+            </div>
+        )
+    }
+})
+
+var LoanComparisonContainer = React.createClass({
+  render: function() {   
+    return (
+        <div>
+            <LoanComparisonScenarioSection scenarios={this.props.scenarios} scenarioList={this.props.scenarioList}/>
+            <LoanOutputsSection outputs={this.props.outputs} loans={this.props.loans}/>
+        </div>
+    );
+  }
+});
+
 React.render(
-  <LoanOutputsSection outputs={loanOutputs} loans={[loanA, loanB]}/>,
+  <LoanComparisonContainer outputs={loanOutputs} loans={[loanA, loanB]} scenarios={common.scenarios} scenarioList={common.scenarioList}/>,
   document.getElementById('app-container')
 );

@@ -141,7 +141,6 @@ function interestRate (loan) {
 
 // Make sure UI reflects refreshed loan state.
 function resetLoanUI (loan) {
-    console.log(loan)
     // update inputs with new loan values
     utils.updateInputs($loanInputEls[loan.id], loan);
     
@@ -150,9 +149,21 @@ function resetLoanUI (loan) {
 }
 
 function updateDownpaymentUI (loan, prop) {
-    console.log($loanInputEls);
     var $input = $loanInputEls[loan.id][prop];
     $input.val(loan[prop]);
+}
+
+function formatOutput(prop, val) {
+    console.log(prop);
+    console.log(val);
+    if (prop === 'loan-amount') {
+        val = formatUSD(positive(val), {decimalPlaces:0})
+    } else if ($.inArray(prop, ['loan-summary', 'loan-term'])) {
+        val = formatUSD(val, {decimalPlaces:0});
+    }
+    console.log(val);
+    
+    return val;
 }
 
 // Update the outputs for a loan when a loan property changes.
@@ -162,13 +173,8 @@ function updateLoanOutputs (loan, rateChange) {
     var $els = $loanOutputEls[loan.id];
         
     $.each(outputs, function (ind, prop) {
-        var val = loan[prop];
-        if (prop === 'loan-amount') {
-            val = formatUSD(positive(val), {decimalPlaces:0})
-        } else if ($.inArray(prop, ['loan-summary', 'loan-term'])) {
-            val = formatUSD(val, {decimalPlaces:0});
-        } 
         $els[prop].each(function (i, el) {
+            var val = formatOutput(prop, loan[prop]);
             $(this).text(val);
         });
     });
@@ -288,5 +294,6 @@ module.exports = {
     $loanInputRows: $loanInputRows,
     loanSelectInputs: loanSelectInputs,
     loanTextInputs: loanTextInputs,
-    loanRadioInputs: loanRadioInputs
+    loanRadioInputs: loanRadioInputs,
+    formatOutput: formatOutput
 };

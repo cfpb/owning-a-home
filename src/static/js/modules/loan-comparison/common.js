@@ -8,7 +8,7 @@ common.minDownpaymentPcts = {
     conf: .05,
     confPercent: 5
 };
-
+common.scenarioList = ['downpayment', 'other']
 common.scenarios = {
     'downpayment': {
         'title': 'Down Payment',
@@ -29,6 +29,9 @@ common.scenarios = {
             }
         }
         
+    },
+    'other': {
+        'title': 'Other'
     }
 }
 
