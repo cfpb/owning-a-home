@@ -559,3 +559,65 @@
   font-size: unit( 14px / @base-font-size-px, em );
   padding-left: 3px;
 }
+
+.lc-subhead {
+  display: inline;
+}
+
+.lc-inputs {
+  h3 {
+    margin-bottom: 0;
+  }
+  
+  table.unstyled {
+    background: none;
+    width: 100%;
+  
+    tr.highlight {
+      td {
+        background-color: @green-tint;
+      }
+    }
+  
+    thead {
+      background: none;
+    
+      th {
+        color: @black;
+        background: none;
+      }
+    }
+    
+    & > tbody:nth-child(odd) {
+        background-color: @gray-10;
+    }
+  
+    th,
+    td {
+        width: 33%;
+        padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
+        background: none;
+
+        tbody > tr:nth-child(odd) > & {
+            background: none;
+        }
+    }
+  
+    td {
+      vertical-align: middle;
+    
+      &.label-cell {
+        text-align: right;
+      }
+      
+      &.header-cell, 
+      &.label-cell {
+        padding-left: @grid_gutter-width;
+      }
+    }
+  
+    tbody tr {
+      border: none;
+    }
+  }
+}
