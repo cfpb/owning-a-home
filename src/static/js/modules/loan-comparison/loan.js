@@ -201,5 +201,6 @@ module.exports = {
     updateLoanProperty: updateLoanProperty,
     resetLoans: resetLoans,
     resetLoan: resetLoan,
-    loans: loans
+    loans: loans,
+    updateLoanCalculations: updateLoanCalculations
 };
