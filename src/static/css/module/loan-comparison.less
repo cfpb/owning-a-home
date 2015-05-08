@@ -401,6 +401,159 @@
   Loan Comparison Results
   --------------------------- */
 
+  .lc-results-table {
+    margin: 0;
+    width: 100%;
+    th,
+    thead td {
+      background: transparent;
+      color: @body-text-color;
+    }
+    tbody {
+      td,
+      > tr:nth-child(odd) > td,
+      > tr:nth-child(odd) > th {
+        background: transparent;
+      }
+    }
+    .callout-educational {
+      display: none; // hide until js hover/click
+      // .u-visually-hidden;
+    }
+    thead.expandable_header {
+      background: transparent;
+      th {
+        background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
+      }
+      .respond-to-min(@tablet-min, {
+        background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
+        th {
+          background: transparent;
+        }
+      });
+    }
+    tbody.expandable_content {
+      display: block;
+    }
+    th:first-child,
+    td,
+    tr {
+      display: block;
+      .respond-to-min(@tablet-min, {
+        text-align: right;
+      });
+    }
+    tr {
+      .respond-to-min(@tablet-min, {
+        display: table-row;
+      });
+    }
+    th:first-child,
+    td {
+      .respond-to-min(@tablet-min, {
+        display: table-cell;
+      });
+    }
+    .expandable_header {
+      display: block;
+    }
+    .expandable_content {
+      th > * {
+        display: inline-block;
+      }
+      th {
+        .respond-to-min(@tablet-min, {
+          width: 50%;
+        });
+      }
+    }
+    .lc-primary-result {
+      // display: inline-block;
+      // width: 50%;
+      .grid_column(1,2);
+      padding: @grid_gutter-width/2;
+    }
+    .lc-result {
+      // display: inline-block;
+      // width: 50%;
+      .grid_column(1,2);
+      .respond-to-min(@tablet-min, {
+        display: table-cell;
+        width: 25%;
+      });
+    }
+    .lc-result-b {
+      .respond-to-min(@tablet-min, {
+        padding-right: @grid_gutter-width*1.5;
+      });
+    }
+    .result__main {
+      th {
+        border-bottom: 1px solid @gray-50;
+        .respond-to-min(@tablet-min, {
+          border-bottom: 0;
+        });
+      }
+    }
+    .result__main {
+      .respond-to-min(@tablet-min, {
+          border-top: 1px solid @gray-50;
+          &:first-child {
+            border-top: 0;
+          }  
+      });
+    }
+    .result__sub {
+      th {
+        padding-bottom: 0;
+      }
+      h6 {
+        margin-bottom: 0;
+        margin-left: @grid_gutter-width/2;
+        .respond-to-min(@tablet-min, {
+          margin-left: 0;
+        });
+      }
+    }
+  }
+
+
+    .expandable__table {      
+      .expandable_header-right {
+        position: absolute;
+        right: @grid_gutter-width/2;
+        .respond-to-min(@tablet-min, {
+          top: 18px;
+        });
+        .respond-to-min(800px, {
+          right: @grid_gutter-width;
+        });
+      }
+    }
+
+    .thead__results {
+      th {
+        text-align: left;
+      }
+      h3 {
+        margin: 0;
+        padding-left: @grid_gutter-width/2;
+        border-left: 1px dashed @gray-80;
+        color: @gray-80;
+      }
+    }
+
+.comparison-results {
+  .content-l_col.content-l_col-3-4 {
+    .respond-to-min(@tablet-min, {
+      .grid_column(4,4);
+    });
+    .respond-to-min(800px, {
+      .grid_column(3,4);
+    });
+  }
+}
+
 .comparison-results {
   .comparison-input-column {
     padding-left: @grid_gutter-width/2;
@@ -451,12 +604,12 @@
 }
   .results-section-heading {
     margin: 0;
-    .cf-icon {
+    > .cf-icon {
       color: @navy;
     }
-    .respond-to-min(@tablet-min, {
-      font-size: 1.375em;
-    });
+    // .respond-to-min(@tablet-min, {
+    //   font-size: 1.375em;
+    // });
   }
 
   .primary-results-row {
