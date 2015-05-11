@@ -559,6 +559,11 @@
     text-align: left;
     border-left: 1px dashed @gray-80;
     color: @gray-80;
+    &:first-child {
+      .respond-to-min(800px, {
+        .grid_column(1,2);
+      });
+    }
   }
   .expandable {
     .respond-to-min(@tablet-min, {
