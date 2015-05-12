@@ -560,7 +560,7 @@
     border-left: 1px dashed @gray-80;
     color: @gray-80;
     &:first-child {
-      .respond-to-min(800px, {
+      .respond-to-min(@tablet-min, {
         .grid_column(1,2);
       });
     }
@@ -575,17 +575,12 @@
     margin-bottom: @grid_gutter-width/2;
     z-index: 2;
     background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
-    .respond-to-min(1000px, {
+    .respond-to-min(@tablet-min, {
       margin-bottom: @grid_gutter-width;
     });
-  }
-  .expandable__padded .expandable_content {
-    margin-right: 0;
-    margin-left: 0;
-    &:before,
-    &:hover {
-      display: none;      
-    }
+    // .respond-to-min(1000px, {
+    //   margin-bottom: @grid_gutter-width;
+    // });
   }
 }
 
@@ -598,68 +593,15 @@
   }
 }
 
-.result-heading {
-  color: @gray;
-}
-
-.results-section {
-  position: relative;
-  margin-bottom: 60px;
-}
   .results-section-heading {
     margin: 0;
     > .cf-icon {
       color: @navy;
     }
-    // .respond-to-min(@tablet-min, {
-    //   font-size: 1.375em;
-    // });
-  }
-
-  .primary-results-row {
-    margin-bottom: @grid_gutter-width;
-    .respond-to-min(1000px, {
-      position: absolute;
-      top: 8px;
-      z-index: 1;
-    });
-  }
-
-  .detail-results-row {
-    padding: 0 0 25px; // magic numberssssss
     .respond-to-min(@tablet-min, {
-      padding-left: @grid_gutter-width/2;
-    });
-    .h6 {
-      color: @darkgray;
-    }
-    h6 {
-      padding: 0 @grid_gutter-width/2;
-      .respond-to-min(@tablet-min, {
-        .meta-header;
-        padding-right: 0;
-        padding-left: 0;
-        margin-right: @grid_gutter-width/2;
-        margin-left: @grid_gutter-width/2;
-        color: @darkgray;
-      });
-    }
-  }
-
-  .detail-results-row__nested {
-    .respond-to-min(@tablet-min, {
-      padding-left: @grid_gutter-width;
+      margin-top: @grid_gutter-width/3;
     });
   }
-
-  .primary-results-row,
-  .detail-results-row {
-    width: 100%;
-    .respond-to-min(@tablet-min, {
-      margin-left: 25%;
-    });
-  }
-
     .closing-cost-result,
     .monthly-payment-result,
     .overall-costs-result,
