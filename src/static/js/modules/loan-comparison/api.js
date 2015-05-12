@@ -21,11 +21,12 @@ api.stopRequest = function (dfd) {
 }
 
 function prepLoanData(loan) {
+    var minfico = parseInt(loan['credit-score']) || 0;
     return {
         price: loan['price'],
         loan_amount: loan['loan-amount'],
-        minfico: loan['minfico'],
-        maxfico: loan['maxfico'],
+        minfico: minfico,
+        maxfico: minfico + (minfico === 840 ? 10 : 19),
         state: loan['state'],
         rate_structure: loan['rate-structure'],
         loan_term: loan['loan-term'],

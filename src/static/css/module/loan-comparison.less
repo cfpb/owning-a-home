@@ -604,7 +604,7 @@
     }
   
     td {
-      vertical-align: middle;
+      vertical-align: top;
     
       &.label-cell {
         text-align: right;
@@ -620,4 +620,10 @@
       border: none;
     }
   }
+}
+
+.content-l_col-1-8 {
+    .respond-to-min(@tablet-min, {
+        .grid_column(1, 8);
+    });
 }
