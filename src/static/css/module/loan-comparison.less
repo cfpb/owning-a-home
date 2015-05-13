@@ -586,7 +586,10 @@
     h3 {
       display: inline-block;
       border-left: 1px dashed @gray-80;
-      padding: 0 @grid_gutter-width/2;  
+      padding: 0 @grid_gutter-width/2;
+      .respond-to-min(1000px, {
+        padding-right: 0;
+      });
     }
   }
   .comparison-input-column-b {
