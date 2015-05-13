@@ -42,21 +42,25 @@ var App = React.createClass({
         scenarioHeader = (
             <div>
                 <h2>{this.state.scenario.title}</h2>
-                <p>{this.state.scenario.intro}</p>
+                <p className="short-desc">{this.state.scenario.intro}</p>
             </div>
         )
     }  
     return (
         <div>
             <ScenarioSection scenario={this.state.scenario}/>
-            <div className="content-l_col content-l_col-3-4">
-                {scenarioHeader}
-                <div className="lc-inputs" id="loan-input-container">
-                    <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
-                        <span className="cf-icon cf-icon-save"></span> 
-                        Save inputs
-                    </a>
-                    <LoanInputsSection loans={this.state.loans} scenario={this.state.scenario}/>
+            <div className="block block__border-top block__padded-top">
+                <div className="content-l">
+                    <div className="content-l_col content-l_col-3-4">
+                        {scenarioHeader}
+                        <div className="lc-inputs" id="loan-input-container">
+                            <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
+                                <span className="cf-icon cf-icon-save"></span> 
+                                Save inputs
+                            </a>
+                            <LoanInputsSection loans={this.state.loans} scenario={this.state.scenario}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

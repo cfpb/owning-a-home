@@ -6,6 +6,7 @@ var assign = require('object-assign');
 var jumbo = require('jumbo-mortgage');
 var mortgageCalculations = require('../mortgage-calculations');
 var common = require('../common');
+var utils = require('../utils');
 var api = require('../api');
 var $ = jQuery = require('jquery');
 var ScenarioStore = require('./scenario-store');
@@ -36,19 +37,26 @@ var defaultLoanData = {
 var _loans = [];
 
 function resetLoans (keepLoanData) {
-    var i = 0;
     var len = _loans.length || common.loanCount;
     var scenario = ScenarioStore.getScenario();
     var scenarioLoanData = scenario ? scenario.loanProps : {};
     
-    for (i; i < len; i ++) {
-        var currentLoanData = keepLoanData ? _loans[i] : {};
+    for (i = 0; i < len; i++) {
+        var currentLoanData = (!scenario && keepLoanData) ? _loans[i] : {edited: false};
         var loan = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
         
-        var dependencies = updateDependentProperties(loan);
-        var calculatedProps = calculateLoanProperties(loan);
-        var loanState = getLoanState(loan);
+        var dependencies = updateDependencies(loan);
+        var calculatedProps = generateCalculatedProperties(loan);
+        var loanState = getInitialLoanState(loan);
         _loans[i] = assign(loan, dependencies, calculatedProps, loanState);
+    }
+    
+    if (scenario) {
+        updateRates();
+    } else if (!keepLoanData) {
+        for (i = 0; i < len; i++) {
+            updateRates(i);
+        }
     }
 }
 
@@ -59,39 +67,67 @@ function updateAll(prop, val) {
 }
 
 function update(id, prop, val) {
-    var rateChange = (prop === 'interest-rate' || prop === 'rate-request');
     var loan = _loans[id];
+    var rateChange = (prop === 'interest-rate');
     
     loan[prop] = val;
     
-    if (rateChange) {
-        loan['edited'] = false;
-        // reset interest-rate??
-    } else {
-        loan['edited'] = true;
-        if (loan['rate-request']) {
-            
-            // 
-            //api.fetchRateData(loan);
-        }
+    loan['edited'] = rateChange ? false : true;
+    
+    if (loan['rate-request']) {
+        updateRates(id);
     }
     
-    assign(loan, updateDependentProperties(loan, prop));
-    var calculatedProps = calculateLoanProperties(loan, rateChange);
-    var loanState = updateLoanState(loan, prop);
-    _loans[id] = assign(loan, calculatedProps, loanState);
+    assign(loan, updateDependencies(loan, prop));
+    _loans[id] = assign(loan, generateCalculatedProperties(loan, rateChange), updateLoanState(loan, prop));
 }
 
-function updateRates() {
-    if (isPropLinked('interest-rate')) {
-        
-    } else {
-        
+function fetchRates(loan) {
+    if (loan['rate-request']) {
+        api.stopRequest(loan['rate-request']);
+    }   
+    console.log(loan);
+    return api.fetchRateData(loan);
+}
+
+function processRatesResults(results) {
+    var rates = [];
+    for ( key in results.data ) {
+        if ( results.data.hasOwnProperty( key ) ) {
+            rates.push(key);
+        }
+    }
+    return rates;
+}
+
+function updateRates(id) {
+    console.log('update')
+    var loans = ScenarioStore.getScenario() ? _loans : [_loans[id]];
+    var dfd = fetchRates(loans[0])
+                .done(function(results) {
+                    var rates = processRatesResults(results);
+                    var medianRate = utils.median(rates);
+                    for (var i=0; i< loans.length; i++) {
+                        loans[i]['edited'] = false;
+                        loans[i]['rates'] = rates;
+                        loans[i]['interest-rate'] = medianRate;
+                    }
+                })
+                .always(function() {
+                    for (var i=0; i< loans.length; i++) {
+                        loans[i]['rate-request'] = null;
+                    }
+                    // TODO: maybe this fetch should be an api action?
+                    LoanStore.emitChange();
+                });
+    
+    for (var i=0; i< loans.length; i++) { 
+        loans[i]['rate-request'] = dfd;
     }
 }
 
 
-function updateDependentProperties (loan, prop) {
+function updateDependencies (loan, prop) {
     var obj = {};
     if (!prop || prop === 'price' || prop === 'downpayment') {
         obj['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
@@ -101,7 +137,7 @@ function updateDependentProperties (loan, prop) {
     return obj;
 }
 
-function calculateLoanProperties (loan, rateChange) {
+function generateCalculatedProperties (loan, rateChange) {
     var calcs = {};
     var props = rateChange 
                 ? calculatedPropertiesBasedOnIR 
@@ -113,7 +149,7 @@ function calculateLoanProperties (loan, rateChange) {
     return calcs;
 }
 
-function getLoanState (loan) {
+function getInitialLoanState (loan) {
     var obj = {};
     assign(obj, isArm(loan));
     //obj['is-jumbo'] = isJumbo(loan);

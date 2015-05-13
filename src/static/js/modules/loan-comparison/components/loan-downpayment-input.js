@@ -14,7 +14,6 @@ var LoanDownpaymentInput = React.createClass({
     componentWillMount: function() {
       var self = this;
       this.handleChangeDebounced = debounce(function () {
-          console.log('called');
           var changed = self.state.changed;
           LoanActions.update(self.props.loan.id, changed, self.state[changed]);
       }, 500);

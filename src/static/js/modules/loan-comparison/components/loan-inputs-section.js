@@ -99,7 +99,8 @@ var loanInputGroups = [
         {
             label: 'Discount points and credits',
             prop: 'points',
-            component: PointsInput
+            component: PointsInput,
+            type: 'radio'
         },
         {
             label: 'Interest Rate',
@@ -158,25 +159,33 @@ var LoanInputsRowGroup = React.createClass({
 var LoanInputRow = React.createClass({
 
   render: function() {
-      var rowData = this.props.row;
+      var row = this.props.row;
+      var InputComponent = row.component;
+      var className = (row.type || 'select') + '-row';
       var scenario = this.props.scenario;
-      var note = scenario ? scenario.inputNotes[rowData.prop] : '';
-      var noteSpan = note ? (<span className="hidden">{note}</span>) : null;
-      var InputComponent = rowData.component;
+      var note;
+      var noteSpan;
+      if (scenario) {
+          var note = (scenario || {}).inputNotes[row.prop];
+          if (note) {
+              className += ' highlight';
+              noteSpan = (<span className="hidden">{note}</span>);
+          }
+      }
       var tableCells = this.props.loans.map(function (loan) {
           return (
-              <td><InputComponent loan={loan} prop={rowData.prop} opts={rowData.opts}/></td>
+              <td><InputComponent loan={loan} prop={row.prop} scenario={scenario} opts={row.opts}/></td>
           );
       }, this);
     
     return (
-        <tr className={note ? 'highlight' : ''}>
+        <tr className={className}>
             <td className="label-cell">
-                <span className="label-text">{rowData.label}</span>
+                <span className="label-text">{row.label}</span>
                 <span className="lc-tooltip" data-toggle="tooltip" role="tooltip" data-original-title="" title="">
                     <span className="cf-icon cf-icon-help-round"></span>
                 </span>
-                <span className="help-text">{rowData.tooltip}</span>
+                <span className="help-text">{row.tooltip}</span>
                 {noteSpan}
             </td>
             {tableCells}

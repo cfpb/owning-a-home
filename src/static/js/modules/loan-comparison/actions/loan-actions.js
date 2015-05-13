@@ -15,6 +15,13 @@ var LoanActions = {
       val: val
     });
   },
+  
+  fetchRates: function(id) {
+      AppDispatcher.dispatch({
+        actionType: LoanConstants.UPDATE_RATES,
+        id: id
+      });
+  }
 
  
 

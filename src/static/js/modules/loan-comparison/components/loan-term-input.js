@@ -8,7 +8,7 @@ var LoanTermInput = React.createClass({
   render: function() {
       // option disabled check
       // error state check
-      var loan = this.props.loan;
+    var loan = this.props.loan;
     var prop = this.props.prop;
     var val = loan[prop];
     var isArm = loan['is-arm'];
