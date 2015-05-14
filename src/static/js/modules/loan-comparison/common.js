@@ -139,6 +139,11 @@ var typeOptions = [
     {val: 'va', label: 'VA'}
 ]
 
+var propLabels = {
+    'price': 'House Price',
+    'downpayment': 'Down Payment'
+}
+
 var errorMessages = {
     'downpayment-too-high': 'Your down payment cannot be more than your house price.',
     'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + minDownpaymentPcts.fhaPercent + '%.',
@@ -164,5 +169,6 @@ module.exports = {
     armOptions: armOptions,
     armDisallowedTypes: armDisallowedTypes, 
     armDisallowedTerms: armDisallowedTerms,
-    inputTooltips: inputTooltips
+    inputTooltips: inputTooltips,
+    propLabels: propLabels
 };

@@ -2,6 +2,7 @@ var React = require('react');
 var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
 var LoanInputTable = require('./loan-input-table');
+var LoanOutputTable = require('./loan-output-table');
 var ScenarioPicker = require('./scenario-picker');
 var ScenarioHeader = require('./scenario-header');
 
@@ -39,6 +40,7 @@ var App = React.createClass({
 
   render: function() {
     return (
+      <div>
         <div>
             <ScenarioPicker scenario={this.state.scenario}/>
             <div className="block block__border-top block__padded-top">
@@ -56,6 +58,10 @@ var App = React.createClass({
                 </div>
             </div>
         </div>
+        <div>
+            <LoanOutputTable loans={this.state.loans} />
+        </div>
+      </div>
     );
   },
  
