@@ -10,6 +10,7 @@ var components = {
     'downpayment': require('./loan-input-downpayment'),
     'interest-rate': require('./loan-input-interest-rate')
 }
+var Tooltip = require('./tooltip');
 
 var rowData = {
     'state': {
@@ -111,10 +112,7 @@ var LoanInputRow = React.createClass({
             <tr className={className}>
                 <td className="label-cell">
                     <span className="label-text">{data.title}</span>
-                    <span className="lc-tooltip" data-toggle="tooltip" role="tooltip" data-original-title="" title="">
-                        <span className="cf-icon cf-icon-help-round"></span>
-                    </span>
-                    <span className="help-text">{common.inputTooltips[this.props.prop]}</span>
+                    <Tooltip text={common.inputTooltips[this.props.prop]}/>
                 </td>
                 {tableCells}
             </tr>

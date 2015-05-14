@@ -64,6 +64,7 @@
     "mocha-jsdom": "^0.2.0",
     "mochify-istanbul": "^2.1.1",
     "object-assign": "^2.0.0",
+    "react": "^0.13.2",
     "react-templates": "^0.1.14",
     "react-tools": "~0.13.1",
     "reactify": "^1.1.0",
@@ -87,7 +88,6 @@
     "median": "0.0.2",
     "objectified": "0.4.5",
     "overall-loan-cost": "0.3.4",
-    "react": "^0.13.2",
     "stay-positive": "0.3.0",
     "unformat-usd": "0.1.1"
   },
