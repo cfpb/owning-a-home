@@ -7,10 +7,14 @@ var minDownpaymentPcts = {
     confPercent: 5
 };
 
-var scenarios = {
-    'downpayment': {
-        id: 'downpayment',
+armDisallowedTypes = [ 'fha', 'va', 'va-hb', 'fha-hb'];
+armDisallowedTerms = ['15'];
+
+var scenarios = [
+    {
+        val: 'downpayment',
         title: 'Down Payment',
+        label: 'down payment',
         intro: "Your down payment affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you'll have a larger loan to pay off over time. In general, that means that you'll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in cost is likely to be, so you can make tradeoffs.",
         loanProps: [{downpayment: 40000}, {downpayment: 20000}],
         inputNotes: {
@@ -21,227 +25,71 @@ var scenarios = {
         independentInputs: ['downpayment', 'downpayment-percent'],
         outputNotes: {
             'cash-to-close': "A lower down payment means you'll need less cash at the closing table, but you may pay more in fees.", 
-            'insurance': "With a conventional loan, mortgage insurcance is typically paid as part of your monthly payment, not upfront.", 
+            'insurance': "With a conventional loan, mortgage insurance is typically paid as part of your monthly payment, not upfront.", 
             'monthly-principal-interest': "With a lower down payment, you have more to pay back each month, and you're paying interest on a larger loan amount.", 
             'monthly-mortgage-insurance': "With a low down payment loan (typically less than 20%), you'll need to pay for mortgage insurance.", 
             'overall-cost': "Overall, you'll pay more in interest and fees with a low down payment loan."
         }
-    },
-    'other': {
-        'title': 'Other'
     }
+];
+
+var inputTooltips = {
+    'state': 'State tooltip'
 }
 
-
 var stateOptions = [
-    {
-        "label": "Alabama",
-        "val": "AL"
-    },
-    {
-        "label": "Alaska",
-        "val": "AK"
-    },
-    {
-        "label": "Arizona",
-        "val": "AZ"
-    },
-    {
-        "label": "Arkansas",
-        "val": "AR"
-    },
-    {
-        "label": "California",
-        "val": "CA"
-    },
-    {
-        "label": "Colorado",
-        "val": "CO"
-    },
-    {
-        "label": "Connecticut",
-        "val": "CT"
-    },
-    {
-        "label": "Delaware",
-        "val": "DE"
-    },
-    {
-        "label": "District Of Columbia",
-        "val": "DC"
-    },
-    {
-        "label": "Florida",
-        "val": "FL"
-    },
-    {
-        "label": "Georgia",
-        "val": "GA"
-    },
-    {
-        "label": "Hawaii",
-        "val": "HI"
-    },
-    {
-        "label": "Idaho",
-        "val": "ID"
-    },
-    {
-        "label": "Illinois",
-        "val": "IL"
-    },
-    {
-        "label": "Indiana",
-        "val": "IN"
-    },
-    {
-        "label": "Iowa",
-        "val": "IA"
-    },
-    {
-        "label": "Kansas",
-        "val": "KS"
-    },
-    {
-        "label": "Kentucky",
-        "val": "KY"
-    },
-    {
-        "label": "Louisiana",
-        "val": "LA"
-    },
-    {
-        "label": "Maine",
-        "val": "ME"
-    },
-    {
-        "label": "Maryland",
-        "val": "MD"
-    },
-    {
-        "label": "Massachusetts",
-        "val": "MA"
-    },
-    {
-        "label": "Michigan",
-        "val": "MI"
-    },
-    {
-        "label": "Minnesota",
-        "val": "MN"
-    },
-    {
-        "label": "Mississippi",
-        "val": "MS"
-    },
-    {
-        "label": "Missouri",
-        "val": "MO"
-    },
-    {
-        "label": "Montana",
-        "val": "MT"
-    },
-    {
-        "label": "Nebraska",
-        "val": "NE"
-    },
-    {
-        "label": "Nevada",
-        "val": "NV"
-    },
-    {
-        "label": "New Hampshire",
-        "val": "NH"
-    },
-    {
-        "label": "New Jersey",
-        "val": "NJ"
-    },
-    {
-        "label": "New Mexico",
-        "val": "NM"
-    },
-    {
-        "label": "New York",
-        "val": "NY"
-    },
-    {
-        "label": "North Carolina",
-        "val": "NC"
-    },
-    {
-        "label": "North Dakota",
-        "val": "ND"
-    },
-    {
-        "label": "Ohio",
-        "val": "OH"
-    },
-    {
-        "label": "Oklahoma",
-        "val": "OK"
-    },
-    {
-        "label": "Oregon",
-        "val": "OR"
-    },
-    {
-        "label": "Pennsylvania",
-        "val": "PA"
-    },
-    {
-        "label": "Puerto Rico",
-        "val": "PR"
-    },
-    {
-        "label": "Rhode Island",
-        "val": "RI"
-    },
-    {
-        "label": "South Carolina",
-        "val": "SC"
-    },
-    {
-        "label": "South Dakota",
-        "val": "SD"
-    },
-    {
-        "label": "Tennessee",
-        "val": "TN"
-    },
-    {
-        "label": "Texas",
-        "val": "TX"
-    },
-    {
-        "label": "Utah",
-        "val": "UT"
-    },
-    {
-        "label": "Vermont",
-        "val": "VT"
-    },
-    {
-        "label": "Virginia",
-        "val": "VA"
-    },
-    {
-        "label": "Washington",
-        "val": "WA"
-    },
-    {
-        "label": "West Virginia",
-        "val": "WV"
-    },
-    {
-        "label": "Wisconsin",
-        "val": "WI"
-    },
-    {
-        "label": "Wyoming",
-        "val": "WY"
-    }
+    {"label": "Alabama", "val": "AL"},
+    {"label": "Alaska", "val": "AK"},
+    {"label": "Arizona", "val": "AZ"},
+    {"label": "Arkansas", "val": "AR"},
+    {"label": "California", "val": "CA"},
+    {"label": "Colorado", "val": "CO"},
+    {"label": "Connecticut", "val": "CT"},
+    {"label": "Delaware", "val": "DE"},
+    {"label": "District Of Columbia", "val": "DC"},
+    {"label": "Florida", "val": "FL"},
+    {"label": "Georgia", "val": "GA"},
+    {"label": "Hawaii", "val": "HI"},
+    {"label": "Idaho", "val": "ID"},
+    {"label": "Illinois", "val": "IL"},
+    {"label": "Indiana", "val": "IN"},
+    {"label": "Iowa", "val": "IA"},
+    {"label": "Kansas", "val": "KS"},
+    {"label": "Kentucky", "val": "KY"},
+    {"label": "Louisiana", "val": "LA"},
+    {"label": "Maine", "val": "ME"},
+    {"label": "Maryland", "val": "MD"},
+    {"label": "Massachusetts", "val": "MA"},
+    {"label": "Michigan", "val": "MI"},
+    {"label": "Minnesota", "val": "MN"},
+    {"label": "Mississippi", "val": "MS"},
+    {"label": "Missouri", "val": "MO"},
+    {"label": "Montana", "val": "MT"},
+    {"label": "Nebraska", "val": "NE"},
+    {"label": "Nevada", "val": "NV"},
+    {"label": "New Hampshire", "val": "NH"},
+    {"label": "New Jersey", "val": "NJ"},
+    {"label": "New Mexico", "val": "NM"},
+    {"label": "New York", "val": "NY"},
+    {"label": "North Carolina", "val": "NC"},
+    {"label": "North Dakota", "val": "ND"},
+    {"label": "Ohio", "val": "OH"},
+    {"label": "Oklahoma", "val": "OK"},
+    {"label": "Oregon", "val": "OR"},
+    {"label": "Pennsylvania", "val": "PA"},
+    {"label": "Puerto Rico", "val": "PR"},
+    {"label": "Rhode Island", "val": "RI"},
+    {"label": "South Carolina", "val": "SC"},
+    {"label": "South Dakota", "val": "SD"},
+    {"label": "Tennessee", "val": "TN"},
+    {"label": "Texas", "val": "TX"},
+    {"label": "Utah", "val": "UT"},
+    {"label": "Vermont", "val": "VT"},
+    {"label": "Virginia", "val": "VA"},
+    {"label": "Washington", "val": "WA"},
+    {"label": "West Virginia", "val": "WV"},
+    {"label": "Wisconsin", "val": "WI"},
+    {"label": "Wyoming", "val": "WY"}
 ];
 
 var creditScoreOptions = [
@@ -265,6 +113,32 @@ var rateStructureOptions = [
     {label: 'Adjustable', val: 'arm'}
 ];
 
+var armOptions = [
+    {label: '3/1', val: '3-1'},
+    {label: '5/1', val: '5-1'},
+    {label: '7/1', val: '7-1'},
+    {label: '10/1', val: '10-1'}    
+];
+
+var termsOptions = [
+    {label: '30 years', val: '30'},
+    {label: '15 years', val: '15'}
+];
+
+var pointsOptions = [
+    {val: -2, label: '-2'},
+    {val: -1, label: '-1'},
+    {val: 0, label: '0'},
+    {val: 1, label: '1'},
+    {val: 2, label: '2'}
+];
+
+var typeOptions = [
+    {val: 'conf', label: 'Conventional'},
+    {val: 'fha', label: 'FHA'},
+    {val: 'va', label: 'VA'}
+]
+
 var errorMessages = {
     'downpayment-too-high': 'Your down payment cannot be more than your house price.',
     'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + minDownpaymentPcts.fhaPercent + '%.',
@@ -273,7 +147,7 @@ var errorMessages = {
 }
 
 
-var defaultScenario = scenarios['downpayment'];
+var defaultScenario = scenarios[0];
 
 module.exports = {
     scenarios: scenarios,
@@ -283,5 +157,12 @@ module.exports = {
     stateOptions: stateOptions,
     errorMessages: errorMessages,
     creditScoreOptions: creditScoreOptions,
-    rateStructureOptions: rateStructureOptions
+    rateStructureOptions: rateStructureOptions,
+    pointsOptions: pointsOptions,
+    termsOptions: termsOptions,
+    typeOptions: typeOptions,
+    armOptions: armOptions,
+    armDisallowedTypes: armDisallowedTypes, 
+    armDisallowedTerms: armDisallowedTerms,
+    inputTooltips: inputTooltips
 };

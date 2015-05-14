@@ -9,8 +9,18 @@ var CHANGE_EVENT = 'change';
 
 var _activeScenario = common.defaultScenario;
 
+function findScenario (id) {
+    var scenario;
+    for (var i = 0; i < common.scenarios.length; i++) {
+        if (common.scenarios[i].val === id) {
+            scenario = common.scenarios[i];
+        }
+    }
+    return scenario;
+}
+
 function update(scenario) {
-    _activeScenario = scenario ? common.scenarios[scenario] : null;
+    _activeScenario = scenario ? findScenario(scenario) : null;
 }
 
 var ScenarioStore = assign({}, EventEmitter.prototype, {

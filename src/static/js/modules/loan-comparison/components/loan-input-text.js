@@ -2,7 +2,7 @@ var React = require('react');
 var LoanActions = require('../actions/loan-actions');
 var debounce = require('debounce');
 
-var LoanPriceInput = React.createClass({
+var LoanTextInput = React.createClass({
     getInitialState: function () {
         return {val: this.props.loan[this.props.prop]};
     },
@@ -22,13 +22,15 @@ var LoanPriceInput = React.createClass({
         });
     },
     render: function() {
+        // TODO: label
         return (
-            <div className="dollar-input">
-                <span className="unit">$</span>
+            <div className={this.props.className}>
+                <span className="unit"></span>
                 <input type="text" 
-                placeholder="$200,000" 
-                name="input-price-0" 
+                placeholder={this.props.placeholder}
+                name="input-price" 
                 className="recalc"
+                maxLength={this.props.maxLength}
                 value={this.state.val}
                 onChange={this.handleChange}/>
             </div>
@@ -36,4 +38,4 @@ var LoanPriceInput = React.createClass({
     }
 });
 
-module.exports = LoanPriceInput;
+module.exports = LoanTextInput;

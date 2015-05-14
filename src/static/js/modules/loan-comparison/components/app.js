@@ -1,8 +1,9 @@
 var React = require('react');
 var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
-var LoanInputsSection = require('./loan-inputs-section');
-var ScenarioSection = require('./scenario-section');
+var LoanInputTable = require('./loan-input-table');
+var ScenarioPicker = require('./scenario-picker');
+var ScenarioHeader = require('./scenario-header');
 
 var $ = jQuery = require('jquery');
 require('tooltips');
@@ -37,28 +38,19 @@ var App = React.createClass({
   },
 
   render: function() {
-    var scenarioHeader;
-    if (this.state.scenario) {
-        scenarioHeader = (
-            <div>
-                <h2>{this.state.scenario.title}</h2>
-                <p className="short-desc">{this.state.scenario.intro}</p>
-            </div>
-        )
-    }  
     return (
         <div>
-            <ScenarioSection scenario={this.state.scenario}/>
+            <ScenarioPicker scenario={this.state.scenario}/>
             <div className="block block__border-top block__padded-top">
+                <ScenarioHeader scenario={this.state.scenario}/>
                 <div className="content-l">
                     <div className="content-l_col content-l_col-3-4">
-                        {scenarioHeader}
                         <div className="lc-inputs" id="loan-input-container">
                             <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
                                 <span className="cf-icon cf-icon-save"></span> 
                                 Save inputs
                             </a>
-                            <LoanInputsSection loans={this.state.loans} scenario={this.state.scenario}/>
+                            <LoanInputTable loans={this.state.loans} scenario={this.state.scenario}/>
                         </div>
                     </div>
                 </div>

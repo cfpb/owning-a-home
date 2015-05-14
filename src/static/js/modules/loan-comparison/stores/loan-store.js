@@ -86,7 +86,6 @@ function fetchRates(loan) {
     if (loan['rate-request']) {
         api.stopRequest(loan['rate-request']);
     }   
-    console.log(loan);
     return api.fetchRateData(loan);
 }
 
@@ -97,20 +96,24 @@ function processRatesResults(results) {
             rates.push(key);
         }
     }
-    return rates;
+    var medianRate = utils.median(rates);
+    var processedRates = $.map(rates, function( rate, i ) {
+      return {val: rate, label: rate + '%'};
+    });
+    return {vals: processedRates, median: medianRate};
 }
 
 function updateRates(id) {
-    console.log('update')
     var loans = ScenarioStore.getScenario() ? _loans : [_loans[id]];
     var dfd = fetchRates(loans[0])
                 .done(function(results) {
                     var rates = processRatesResults(results);
-                    var medianRate = utils.median(rates);
+                    console.log(rates);
                     for (var i=0; i< loans.length; i++) {
                         loans[i]['edited'] = false;
-                        loans[i]['rates'] = rates;
-                        loans[i]['interest-rate'] = medianRate;
+                        loans[i]['rates'] = rates.vals;
+                        loans[i]['interest-rate'] = rates.median;
+                        console.log(loans[i]);
                     }
                 })
                 .always(function() {
@@ -181,19 +184,17 @@ function updateLoanState (loan, prop) {
 }
 
 function isArm (loan) {
-    var disallowedTypes = [ 'fha', 'va', 'va-hb', 'fha-hb'];
-    var disallowedTerms = ['15'];
     var obj = {
         'term-error': false, 
         'type-error': false,
         'is-arm': loan['rate-structure'] === 'arm'
     };
     if (obj['is-arm']) {
-        if ($.inArray(loan['loan-term'], disallowedTerms) !== -1) {
+        if ($.inArray(loan['loan-term'], common.armDisallowedTerms) !== -1) {
             obj['term-error'] = loan['loan-term'];
             obj['loan-term'] = '30';
         }
-        if ($.inArray(loan['loan-type'], disallowedTypes) !== -1) {            
+        if ($.inArray(loan['loan-type'], common.armDisallowedTypes) !== -1) {            
             obj['type-error'] = loan['loan-type'];
             obj['loan-type'] = 'conf';
         }

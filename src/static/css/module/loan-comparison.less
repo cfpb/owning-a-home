@@ -210,7 +210,7 @@
   }
   .update,
   .updating {
-    .interest-rate-content {
+    .select-content {
       display: none;
     }
   }
@@ -577,6 +577,18 @@
     top: 20%;
   }
   
+  .dollar-input {
+    .unit:before  {
+      content: "\0024"; 
+    }
+  }
+
+  .percent-input {
+    .unit:before  {
+      content: "\0025"; 
+    }
+  }
+  
   table.unstyled {
     background: none;
     width: 100%;
@@ -593,7 +605,7 @@
       }
     }
     
-    tr.select-row {
+    tr.input-row {
       td.label-cell {
         padding-top: 1em;
       }

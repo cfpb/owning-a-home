@@ -6,30 +6,26 @@ var ScenarioSelect = React.createClass({
     handleChange: function (e) {
         ScenarioActions.update(e.target.value);
     },
+    generateOptions: function () {
+        var scenarioItems = common.scenarios.map(function (opt) {
+            return (
+                <option value={opt.val}>{opt.label}</option>
+            );
+        });
+        scenarioItems.unshift(<option disabled selected={this.props.scenario ? false : true}>{'Select a scenario'}</option>);
+        return scenarioItems;
+    },
     render: function () {
-        var scenarioItems = [];
-        var scenarios = common.scenarios;
-        var id = (this.props.scenario || {}).id;
-        if (!id) {
-            scenarioItems.push(<option disabled>{'Select a scenario'}</option>);
-        }
-        
-        for (var key in scenarios) {
-            if (scenarios.hasOwnProperty(key)) {
-                var scenario = scenarios[key];
-                scenarioItems.push(<option value={key}>{scenario.title}</option>);
-            }
-        }
-        
+        var currentScenario = (this.props.scenario || {}).val;
         return (
               <div className="select-content">
                 <select 
                     name="input-scenario"
                     className="recalc" 
                     id="input-scenario"
-                    value={id}
+                    value={currentScenario}
                     onChange={this.handleChange}>
-                  {scenarioItems}
+                  {this.generateOptions()}
                 </select>
               </div>
         )

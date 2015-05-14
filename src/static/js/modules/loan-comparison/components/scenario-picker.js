@@ -5,6 +5,7 @@ var ScenarioButton = require('./scenario-button');
 var ScenarioSection = React.createClass({
     
     render: function () {
+        var scenario = this.props.scenario;
         return (
             <div id="scenarios" className="block block__border-top block__padded-top">
                 <div className="content-l">
@@ -20,7 +21,7 @@ var ScenarioSection = React.createClass({
                     </div>
                     <div className="content-l_col content-l_col-3-8">
                         <h3 className="h4">Compare the costs of different loan options with your own information.</h3>
-                        <ScenarioButton/>
+                        <ScenarioButton title="Enter your own information" reset='true'/>
                     </div>
                 </div>
             </div>
