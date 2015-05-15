@@ -11,14 +11,14 @@ var LoanInputTable = React.createClass({
     render: function() { 
         return (
             <table className="unstyled">
-                <tr className="header-row"><td colSpan="3">1. About you</td></tr>
-                <tr><td></td><td>Scenario A</td><td>Scenario B</td></tr>
+                <tr className="header-row"><th colSpan="3">1. About you</th></tr>
+                <tr><th></th><th>Scenario A</th><th>Scenario B</th></tr>
                 {this.inputRows(['state', 'county', 'credit-score'])}
                 
-                <tr className="header-row"><td colSpan="3">2. About the home</td></tr>
+                <tr className="header-row"><th colSpan="3">2. About the home</th></tr>
                 {this.inputRows(['price', 'downpayment', 'loan-amount'])}
                 
-                <tr className="header-row"><td colSpan="3">3. About the loan</td></tr>
+                <tr className="header-row"><th colSpan="3">3. About the loan</th></tr>
                 {this.inputRows(['rate-structure', 'arm-type', 'loan-term', 'loan-type', 'loan-summary', 'points'])}     
                 
                 {this.inputRows(['interest-rate'])}     

@@ -49,7 +49,7 @@ var LoanInputRow = React.createClass({
         var Component = components[prop] || SelectInput;
         var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
         var notes = (this.props.scenario || {}).inputNotes;
-        var educationalNote = notes[prop];
+        var educationalNote = (notes  || {})[prop];
         var className = '';
         className += educationalNote ? ' highlight' : '';
         className += ($.inArray(prop, ['loan-amount', 'loan-summary', 'points']) >= 0) ? '' : ' padded-row';
