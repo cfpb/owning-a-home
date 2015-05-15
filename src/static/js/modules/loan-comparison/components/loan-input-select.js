@@ -9,7 +9,7 @@ var SelectInput = React.createClass({
         var opts = this.props.opts || {};
         var className = "select-content ";
         if (opts.classCheck && typeof(opts.classCheck) === "function") {
-            className += opts.classCheck(this.props.loan);
+            className += opts.classCheck(this.props.loan, this.props.prop);
         }
         return className;
     },
@@ -17,12 +17,12 @@ var SelectInput = React.createClass({
         var opts = this.props.opts || {};
         var disabled;
         if (opts.disabledOptionCheck && typeof(opts.disabledOptionCheck) === "function") {
-            disabled = opts.disabledOptionCheck(this.props.loan, option);
+            disabled = opts.disabledOptionCheck(this.props.loan, this.props.prop, option);
         }
         return disabled;
     },
     generateOptions: function () {
-        var options = (this.props.opts || {}).options;
+        var options = this.props.options;
         if (typeof options == 'string') {
             options = this.props.loan[options];
         }

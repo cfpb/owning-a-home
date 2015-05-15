@@ -7,7 +7,7 @@ var LoanRadioInput = React.createClass({
         LoanActions.update(this.props.loan.id, this.props.prop, e.target.value);
     },
     render: function() {
-        var buttons = this.props.opts.options.map(function(radio){
+        var buttons = this.props.options.map(function(radio){
             var radioID = 'radio-group-' + this.props.prop + '-' + this.props.loan.id;
             return (
                 <div className="inline-radio lc-radio">

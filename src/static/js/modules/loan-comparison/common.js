@@ -1,16 +1,20 @@
-var loanCount = 2;
+var common = {};
 
-var minDownpaymentPcts = {
+common.loanCount = 2;
+
+common.minDownpaymentPcts = {
     fha: .035,
     fhaPercent: 3.5,
     conf: .05,
     confPercent: 5
 };
 
-armDisallowedTypes = [ 'fha', 'va', 'va-hb', 'fha-hb'];
-armDisallowedTerms = ['15'];
+common.armDisallowedOptions = {
+    'loan-term': ['15'],
+    'loan-type': [ 'fha', 'va', 'va-hb', 'fha-hb']
+};
 
-var scenarios = [
+common.scenarios = [
     {
         val: 'downpayment',
         title: 'Down Payment',
@@ -33,136 +37,123 @@ var scenarios = [
     }
 ];
 
-var inputTooltips = {
+common.defaultScenario = common.scenarios[0];
+
+common.inputTooltips = {
     'state': 'State tooltip'
 }
 
-var stateOptions = [
-    {"label": "Alabama", "val": "AL"},
-    {"label": "Alaska", "val": "AK"},
-    {"label": "Arizona", "val": "AZ"},
-    {"label": "Arkansas", "val": "AR"},
-    {"label": "California", "val": "CA"},
-    {"label": "Colorado", "val": "CO"},
-    {"label": "Connecticut", "val": "CT"},
-    {"label": "Delaware", "val": "DE"},
-    {"label": "District Of Columbia", "val": "DC"},
-    {"label": "Florida", "val": "FL"},
-    {"label": "Georgia", "val": "GA"},
-    {"label": "Hawaii", "val": "HI"},
-    {"label": "Idaho", "val": "ID"},
-    {"label": "Illinois", "val": "IL"},
-    {"label": "Indiana", "val": "IN"},
-    {"label": "Iowa", "val": "IA"},
-    {"label": "Kansas", "val": "KS"},
-    {"label": "Kentucky", "val": "KY"},
-    {"label": "Louisiana", "val": "LA"},
-    {"label": "Maine", "val": "ME"},
-    {"label": "Maryland", "val": "MD"},
-    {"label": "Massachusetts", "val": "MA"},
-    {"label": "Michigan", "val": "MI"},
-    {"label": "Minnesota", "val": "MN"},
-    {"label": "Mississippi", "val": "MS"},
-    {"label": "Missouri", "val": "MO"},
-    {"label": "Montana", "val": "MT"},
-    {"label": "Nebraska", "val": "NE"},
-    {"label": "Nevada", "val": "NV"},
-    {"label": "New Hampshire", "val": "NH"},
-    {"label": "New Jersey", "val": "NJ"},
-    {"label": "New Mexico", "val": "NM"},
-    {"label": "New York", "val": "NY"},
-    {"label": "North Carolina", "val": "NC"},
-    {"label": "North Dakota", "val": "ND"},
-    {"label": "Ohio", "val": "OH"},
-    {"label": "Oklahoma", "val": "OK"},
-    {"label": "Oregon", "val": "OR"},
-    {"label": "Pennsylvania", "val": "PA"},
-    {"label": "Puerto Rico", "val": "PR"},
-    {"label": "Rhode Island", "val": "RI"},
-    {"label": "South Carolina", "val": "SC"},
-    {"label": "South Dakota", "val": "SD"},
-    {"label": "Tennessee", "val": "TN"},
-    {"label": "Texas", "val": "TX"},
-    {"label": "Utah", "val": "UT"},
-    {"label": "Vermont", "val": "VT"},
-    {"label": "Virginia", "val": "VA"},
-    {"label": "Washington", "val": "WA"},
-    {"label": "West Virginia", "val": "WV"},
-    {"label": "Wisconsin", "val": "WI"},
-    {"label": "Wyoming", "val": "WY"}
-];
+common.options = {
+    'state': [
+        {"label": "Alabama", "val": "AL"},
+        {"label": "Alaska", "val": "AK"},
+        {"label": "Arizona", "val": "AZ"},
+        {"label": "Arkansas", "val": "AR"},
+        {"label": "California", "val": "CA"},
+        {"label": "Colorado", "val": "CO"},
+        {"label": "Connecticut", "val": "CT"},
+        {"label": "Delaware", "val": "DE"},
+        {"label": "District Of Columbia", "val": "DC"},
+        {"label": "Florida", "val": "FL"},
+        {"label": "Georgia", "val": "GA"},
+        {"label": "Hawaii", "val": "HI"},
+        {"label": "Idaho", "val": "ID"},
+        {"label": "Illinois", "val": "IL"},
+        {"label": "Indiana", "val": "IN"},
+        {"label": "Iowa", "val": "IA"},
+        {"label": "Kansas", "val": "KS"},
+        {"label": "Kentucky", "val": "KY"},
+        {"label": "Louisiana", "val": "LA"},
+        {"label": "Maine", "val": "ME"},
+        {"label": "Maryland", "val": "MD"},
+        {"label": "Massachusetts", "val": "MA"},
+        {"label": "Michigan", "val": "MI"},
+        {"label": "Minnesota", "val": "MN"},
+        {"label": "Mississippi", "val": "MS"},
+        {"label": "Missouri", "val": "MO"},
+        {"label": "Montana", "val": "MT"},
+        {"label": "Nebraska", "val": "NE"},
+        {"label": "Nevada", "val": "NV"},
+        {"label": "New Hampshire", "val": "NH"},
+        {"label": "New Jersey", "val": "NJ"},
+        {"label": "New Mexico", "val": "NM"},
+        {"label": "New York", "val": "NY"},
+        {"label": "North Carolina", "val": "NC"},
+        {"label": "North Dakota", "val": "ND"},
+        {"label": "Ohio", "val": "OH"},
+        {"label": "Oklahoma", "val": "OK"},
+        {"label": "Oregon", "val": "OR"},
+        {"label": "Pennsylvania", "val": "PA"},
+        {"label": "Puerto Rico", "val": "PR"},
+        {"label": "Rhode Island", "val": "RI"},
+        {"label": "South Carolina", "val": "SC"},
+        {"label": "South Dakota", "val": "SD"},
+        {"label": "Tennessee", "val": "TN"},
+        {"label": "Texas", "val": "TX"},
+        {"label": "Utah", "val": "UT"},
+        {"label": "Vermont", "val": "VT"},
+        {"label": "Virginia", "val": "VA"},
+        {"label": "Washington", "val": "WA"},
+        {"label": "West Virginia", "val": "WV"},
+        {"label": "Wisconsin", "val": "WI"},
+        {"label": "Wyoming", "val": "WY"}
+    ],
+    'credit-score': [
+        {label: '600 - 619', val: '600'}, 
+        {label: '620 - 639', val: '620'},
+        {label: '640 - 659', val: '640'},
+        {label: '660 - 679', val: '660'},
+        {label: '680 - 699', val: '680'},
+        {label: '700 - 719', val: '700'},
+        {label: '720 - 739', val: '720'},
+        {label: '740 - 759', val: '740'},
+        {label: '760 - 779', val: '760'},
+        {label: '780 - 799', val: '780'},
+        {label: '800 - 819', val: '800'},
+        {label: '820 - 839', val: '820'},
+        {label: '840+', val: '840'}
+    ],
+    'rate-structure': [
+        {label: 'Fixed', val: 'fixed'}, 
+        {label: 'Adjustable', val: 'arm'}
+    ],
+    'arm-type': [
+        {label: '3/1', val: '3-1'},
+        {label: '5/1', val: '5-1'},
+        {label: '7/1', val: '7-1'},
+        {label: '10/1', val: '10-1'}    
+    ],
+    'loan-term': [
+        {label: '30 years', val: '30'},
+        {label: '15 years', val: '15'}
+    ],
+    'points': [
+        {val: -2, label: '-2'},
+        {val: -1, label: '-1'},
+        {val: 0, label: '0'},
+        {val: 1, label: '1'},
+        {val: 2, label: '2'}
+    ],
+    'loan-type': [
+        {val: 'conf', label: 'Conventional'},
+        {val: 'fha', label: 'FHA'},
+        {val: 'va', label: 'VA'}
+    ],
+    'interest-rate': 'rates',
+    'county': 'counties'
+}
 
-var creditScoreOptions = [
-    {label: '600 - 619', val: '600'}, 
-    {label: '620 - 639', val: '620'},
-    {label: '640 - 659', val: '640'},
-    {label: '660 - 679', val: '660'},
-    {label: '680 - 699', val: '680'},
-    {label: '700 - 719', val: '700'},
-    {label: '720 - 739', val: '720'},
-    {label: '740 - 759', val: '740'},
-    {label: '760 - 779', val: '760'},
-    {label: '780 - 799', val: '780'},
-    {label: '800 - 819', val: '800'},
-    {label: '820 - 839', val: '820'},
-    {label: '840+', val: '840'}
-];
-
-var rateStructureOptions = [
-    {label: 'Fixed', val: 'fixed'}, 
-    {label: 'Adjustable', val: 'arm'}
-];
-
-var armOptions = [
-    {label: '3/1', val: '3-1'},
-    {label: '5/1', val: '5-1'},
-    {label: '7/1', val: '7-1'},
-    {label: '10/1', val: '10-1'}    
-];
-
-var termsOptions = [
-    {label: '30 years', val: '30'},
-    {label: '15 years', val: '15'}
-];
-
-var pointsOptions = [
-    {val: -2, label: '-2'},
-    {val: -1, label: '-1'},
-    {val: 0, label: '0'},
-    {val: 1, label: '1'},
-    {val: 2, label: '2'}
-];
-
-var typeOptions = [
-    {val: 'conf', label: 'Conventional'},
-    {val: 'fha', label: 'FHA'},
-    {val: 'va', label: 'VA'}
-]
-
-var errorMessages = {
+common.errorMessages = {
     'downpayment-too-high': 'Your down payment cannot be more than your house price.',
-    'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + minDownpaymentPcts.fhaPercent + '%.',
-    'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + minDownpaymentPcts.confPercent + '%.',
+    'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + common.minDownpaymentPcts.fhaPercent + '%.',
+    'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + common.minDownpaymentPcts.confPercent + '%.',
     'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
 }
 
-
-var defaultScenario = scenarios[0];
-
-module.exports = {
-    scenarios: scenarios,
-    loanCount: loanCount,
-    defaultScenario: defaultScenario,
-    minDownpaymentPcts: minDownpaymentPcts,
-    stateOptions: stateOptions,
-    errorMessages: errorMessages,
-    creditScoreOptions: creditScoreOptions,
-    rateStructureOptions: rateStructureOptions,
-    pointsOptions: pointsOptions,
-    termsOptions: termsOptions,
-    typeOptions: typeOptions,
-    armOptions: armOptions,
-    armDisallowedTypes: armDisallowedTypes, 
-    armDisallowedTerms: armDisallowedTerms,
-    inputTooltips: inputTooltips
+common.propLabels = {
+    'downpayment': 'Down payment',
+    'points':      'Discount point and credits',
+    'arm-type':    'ARM type'
 };
+
+module.exports = common;

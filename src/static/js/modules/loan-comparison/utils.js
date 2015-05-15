@@ -1,9 +1,13 @@
-function median(values) {
-    values.sort( function(a,b) {return a - b;} );
-    var half = Math.floor(values.length / 2);
-    return values[half];
+var utils = {};
+
+utils.median = function (arr) {
+    arr.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(arr.length / 2);
+    return arr[half];
 }
 
-module.exports = {
-    median: median
+utils.capitalizeFirst = function (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+module.exports = utils;

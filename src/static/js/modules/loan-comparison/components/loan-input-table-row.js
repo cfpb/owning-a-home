@@ -1,120 +1,71 @@
 var $ = jQuery = require('jquery');
-
 var React = require('react');
 var common = require('../common');
-var components = {
-    'select': require('./loan-input-select'),
-    'text': require('./loan-input-text'),
-    'output': require('./loan-output'),
-    'radio': require('./loan-input-radio'),
-    'downpayment': require('./loan-input-downpayment'),
-    'interest-rate': require('./loan-input-interest-rate')
-}
+var utils = require('../utils');
 var Tooltip = require('./tooltip');
+var SelectInput = require('./loan-input-select');
+var Output = require('./loan-output');
+var TextInput = require('./loan-input-text');
+var RadioInput = require('./loan-input-radio');
+var DownpaymentInput = require('./loan-input-downpayment');
+var InterestRateInput = require('./loan-input-interest-rate');
 
-var rowData = {
-    'state': {
-        title: 'State', 
-        opts: {options: common.stateOptions}
-    },
-    'county': {
-        title: 'County', 
-        opts: {options: 'counties'}
-    },
-    'credit-score': {
-        title: 'Credit Score', 
-        opts: {options: common.creditScoreOptions}
-    },
-    'price': {
-        title: 'House price', 
-        type: 'text', 
-        opts: {className: 'dollar-input'}
-    },
-    'downpayment': {
-        title: 'Down payment', 
-        type: 'downpayment'
-    },
-    'loan-amount': {
-        title: 'Loan Amount', 
-        type: 'output'
-    },
-    'rate-structure': {
-        title: 'Rate structure',
-        opts: {options: common.rateStructureOptions}
-    },
+var components = {
+    'price': TextInput,
+    'points': RadioInput,
+    'downpayment': DownpaymentInput,
+    'interest-rate': InterestRateInput,
+    'loan-amount': Output,
+    'loan-summary': Output
+};
+
+var opts = {
+    'loan-type': armChecks,
+    'loan-term': armChecks,
     'arm-type': {
-        title: 'ARM type',
-        opts: {
-            options: common.armOptions,
-            classCheck: function (loan) {
-                return loan['is-arm'] ? '' : 'hidden';
-            }
+        classCheck: function (loan, prop) {
+            return prop === 'arm-type' && !loan['is-arm'];
         }
-    },
-    'loan-term': {
-        title: 'Loan term',
-        opts: {
-            options: common.termsOptions,
-            classCheck: function (loan) {
-                return loan['term-error'] ? 'highlight-dropdown' : '';
-            },
-            disabledOptionCheck: function (loan, option) {
-                return (loan['is-arm'] && $.inArray(option.val, common.armDisallowedTerms) !== -1);
-            }
-        }
-    },
-    'loan-type': {
-        title: 'Loan type',
-        opts: {
-            options: common.typeOptions,
-            classCheck: function (loan) {
-                return loan['type-error'] ? 'highlight-dropdown' : '';
-            },
-            disabledOptionCheck: function (loan, option) {
-                // TODO: is in disallowed terms
-                return (loan['is-arm'] && $.inArray(option.val, common.armDisallowedTypes) !== -1);
-            }
-        }
-    },
-    'loan-summary': {
-        title: 'Loan Option', 
-        type: 'output'
-    },
-    'points': {
-        title: 'Discount points and credits', 
-        type: 'radio',
-        opts: {options: common.pointsOptions}
-    },
-    'interest-rate': {
-        title: 'Interest Rate', 
-        type: 'interest-rate',
-        opts: {options: 'rates'}
     }
-    
+};
+
+var armChecks = {
+    classCheck: function (loan, prop) {
+        return loan.errors[prop];
+    },
+    disabledOptionCheck: function (loan, prop, opt) {
+        return (loan['is-arm'] && $.inArray(opt, common.armDisallowedOptions[prop]) >= 0);
+    }
 }
 
 var LoanInputRow = React.createClass({
-    render: function() {
-        var data = rowData[this.props.prop];
-        var type = data.type || 'select';
-        var Component = components[type];
-        var className = (type === 'radio' || type === 'output') ? '' : 'input-row';
+    propTypes: {
+        prop: React.PropTypes.string.isRequired,
+        loans: React.PropTypes.array.isRequired,
+        scenario: React.PropTypes.object // or null
+    },
+    render: function () {
+        var prop = this.props.prop;
+        var Component = components[prop] || SelectInput;
+        var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
         var notes = (this.props.scenario || {}).inputNotes;
-        if (notes && notes[this.props.prop]) {
-            className += ' highlight';
-        }
-        var tableCells = this.props.loans.map(function (loan) {
+        var educationalNote = notes[prop];
+        var className = '';
+        className += educationalNote ? ' highlight' : '';
+        className += ($.inArray(prop, ['loan-amount', 'loan-summary', 'points']) >= 0) ? '' : ' padded-row';
+        var loanCells = this.props.loans.map(function (loan) {
           return (
-              <td><Component loan={loan} prop={this.props.prop} scenario={this.props.scenario} opts={data.opts}/></td>
+              <td><Component loan={loan} prop={prop} scenario={this.props.scenario} options={common.options[prop]} opts={opts[prop]}/></td>
           );
         }, this);
+        
         return (
             <tr className={className}>
                 <td className="label-cell">
-                    <span className="label-text">{data.title}</span>
-                    <Tooltip text={common.inputTooltips[this.props.prop]}/>
+                    <span className="label-text">{label}</span>
+                    <Tooltip text={common.inputTooltips[prop]}/>
                 </td>
-                {tableCells}
+                {loanCells}
             </tr>
         );
     }

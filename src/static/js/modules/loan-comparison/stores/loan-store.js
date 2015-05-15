@@ -108,12 +108,10 @@ function updateRates(id) {
     var dfd = fetchRates(loans[0])
                 .done(function(results) {
                     var rates = processRatesResults(results);
-                    console.log(rates);
                     for (var i=0; i< loans.length; i++) {
                         loans[i]['edited'] = false;
                         loans[i]['rates'] = rates.vals;
                         loans[i]['interest-rate'] = rates.median;
-                        console.log(loans[i]);
                     }
                 })
                 .always(function() {
@@ -185,17 +183,16 @@ function updateLoanState (loan, prop) {
 
 function isArm (loan) {
     var obj = {
-        'term-error': false, 
-        'type-error': false,
+        'errors': {},
         'is-arm': loan['rate-structure'] === 'arm'
     };
     if (obj['is-arm']) {
-        if ($.inArray(loan['loan-term'], common.armDisallowedTerms) !== -1) {
-            obj['term-error'] = loan['loan-term'];
+        if ($.inArray(loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
+            obj.errors['loan-term'] = loan['loan-term'];
             obj['loan-term'] = '30';
         }
-        if ($.inArray(loan['loan-type'], common.armDisallowedTypes) !== -1) {            
-            obj['type-error'] = loan['loan-type'];
+        if ($.inArray(loan['loan-type'], common.armDisallowedOptions['loan-type']) >= 0) {            
+            obj.errors['loan-type'] = loan['loan-type'];
             obj['loan-type'] = 'conf';
         }
     }
