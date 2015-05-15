@@ -29,31 +29,83 @@
           img placeholder
         </div>
       </div>
-        
+     
+        <div class="mobile-overview">
+          <h3 class="comparison-header">Loan A</h3>
+          <h4>Loan Amount</h4>
+          <p class="loan-amount-display-a">$180,000</p>
+
+          <h4>Loan Type</h4>
+          <p><span class="lc-summary-year-a">30</span> year <span class="lc-summary-structure-a">fixed</span> <span class="lc-summary-type-a">conventional</span></p>
+
+          <h4>Points or Credits</h4>
+          <p class="discount-a">0</p>
+
+          <h4>Interest Rate</h4>
+          <p> <span class="interest-rate-display-a">3.25</span>%</p>
+
+          <a href='#lc-input-a' class="lc-edit-link lc-toggle">Edit<span class="cf-icon cf-icon-edit"></span></a>
+        </div> <!-- /.mobile-overview -->
+
+        <div class="mobile-overview loan-b inactive">
+          <h3 class="comparison-header">Loan B</h3>
+          <div id="mobile-lc-add-button" class="mobile-add-btn">
+            <p>Compare loans to better understand your options.</p>
+              <a class="btn btn-secondary lc-add-btn">Add another loan</a>
+          </div> <!-- /.mobile-add-btn -->
+
+          <div id="mobile-loanb-details" class="hidden">
+            <h4>Loan Amount</h4>
+            <p class="loan-amount-display-b">$180,000</p>
+
+            <h4>Loan Type</h4>
+            <p><span class="lc-summary-year-b">30</span> year <span class="lc-summary-structure-b">fixed</span> <span class="lc-summary-type-b">conventional</span></p>
+
+            <h4>Points or Credits</h4>
+            <p class="discount-b">0</p>
+
+            <h4>Interest Rate</h4>
+            <p> <span class="interest-rate-display-b">3.25</span>%</p>
+
+            <a href='#lc-input-b' class="lc-edit-link lc-toggle">Edit <span class="cf-icon cf-icon-edit"></span></a>
+          </div><!-- /.mobile-loanb-details-->
+
+        </div><!-- /.mobile-overview -->
+      </div> <!-- /.mobile-comparison-overviews -->
+
       <div id="app-container"></div>
+    </section> <!-- ./comparisons -->
+
+  <div class="content_wrapper content_wrapper__narrow u-pb0">
     
-      <div class="block block__border-top block__flush-top block__flush-bottom">
+    {% include "_results.html" %}
 
-        <div class="content-l content-l__full">
-          <div class="content-l_col content-l_col-2-3">
-            <h3 class="subhead">About our data source</h3>
+    <div class="content_main u-pb0">
+       <div class="block block__border-top block__flush-top block__flush-bottom">
 
-            <p>Our data is provided by real lenders and is updated daily.  The lenders in our data include a mix of large banks, regional banks, and credit unions.</p>
+          <div class="content-l content-l__full">
+            <div class="content-l_col content-l_col-2-3">
+              <h3 class="subhead">About our data source</h3>
 
-            <p>The data is provided by Informa Research Services, Inc., Calabasas, CA. <a id="informars" href="http://www.informars.com">www.informars.com</a>.  Informa collects the data directly from lenders and every effort is made to collect the most accurate data possible, but they cannot guarantee the data’s accuracy.</p>
-          </div>
+              <p>Our data is provided by real lenders and is updated daily.  The lenders in our data include a mix of large banks, regional banks, and credit unions.</p>
 
-          <div class="content-l_col content-l_col-1-3 u-mt0">
-            <div class="feedback-block block block__bg block__flush-top block__flush-bottom">
-              <div class="tabbed-header">
-                <h3 class="subhead tabbed-heading">Feedback</h3>
+              <p>The data is provided by Informa Research Services, Inc., Calabasas, CA. <a id="informars" href="http://www.informars.com">www.informars.com</a>.  Informa collects the data directly from lenders and every effort is made to collect the most accurate data possible, but they cannot guarantee the data’s accuracy.</p>
+            </div>
+
+            <div class="content-l_col content-l_col-1-3 u-mt0">
+              <div class="feedback-block block block__bg block__flush-top block__flush-bottom">
+                <div class="tabbed-header">
+                  <h3 class="subhead tabbed-heading">Feedback</h3>
+                </div>
+                
+                
+
+                <h4>How do we improve this tool?</h4>
+
+                <p>We're always looking to make our tools and resources better for you. Tell us how!</p>
+
+                <p>Email us at <a id="about-email-link" href="mailto:owning-a-home@cfpb.gov">owning-a-home@cfpb.gov</a></p>
               </div>
-
-              <h4>How do we improve this tool?</h4>
-
-              <p>We're always looking to make our tools and resources better for you. Tell us how!</p>
-
-              <p>Email us at <a id="about-email-link" href="mailto:owning-a-home@cfpb.gov">owning-a-home@cfpb.gov</a></p>
             </div>
           </div>
 

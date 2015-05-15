@@ -53,6 +53,7 @@ var LoanInputRow = React.createClass({
         var className = '';
         className += educationalNote ? ' highlight' : '';
         className += ($.inArray(prop, ['loan-amount', 'loan-summary', 'points']) >= 0) ? '' : ' padded-row';
+        className += (' ' + prop + '-row');
         var loanCells = this.props.loans.map(function (loan) {
           return (
               <td><Component loan={loan} prop={prop} scenario={this.props.scenario} options={common.options[prop]} opts={opts[prop]}/></td>

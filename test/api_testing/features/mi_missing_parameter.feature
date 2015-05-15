@@ -20,7 +20,7 @@ Scenario Outline: Omit the House Price parameter
 
   Examples:
   | parameter_name | loan_amount | minfico | maxfico | state | rate_structure | loan_term | loan_type | arm_type | va_status | va_first_use |
-  | House Price    | 180000      | 700     | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | n            |
+  | House Price    | 180000      | 700     | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | 0            |
 
 @smoke_testing
 Scenario Outline: Omit the Loan Amount parameter
@@ -39,7 +39,7 @@ Scenario Outline: Omit the Loan Amount parameter
 
   Examples:
   | parameter_name | house_price | minfico | maxfico | state | rate_structure | loan_term | loan_type | arm_type | va_status | va_first_use |
-  | Loan Amount    | 200000      | 700     | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | n            |
+  | Loan Amount    | 200000      | 700     | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | 0            |
 
 @smoke_testing
 Scenario Outline: Omit the Minimum Credit Score parameter
@@ -58,7 +58,7 @@ Scenario Outline: Omit the Minimum Credit Score parameter
 
   Examples:
   | parameter_name        | house_price | loan_amount | maxfico | state | rate_structure | loan_term | loan_type | arm_type | va_status | va_first_use |
-  | Minimum Credit Score  | 200000      | 180000      | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | n            |
+  | Minimum Credit Score  | 200000      | 180000      | 720     | AL    | fixed          | 30        | conf      | 5-1      | regular   | 0            |
 
 
 @smoke_testing
@@ -78,7 +78,7 @@ Scenario Outline: Omit the Maximum Credit Score parameter
 
   Examples:
   | parameter_name        | house_price | loan_amount | minfico | state | rate_structure | loan_term | loan_type | arm_type | va_status | va_first_use |
-  | Maximum Credit Score  | 200000      | 180000      | 700     | AL    | fixed          | 30        | conf      | 5-1      | regular   | n            |  
+  | Maximum Credit Score  | 200000      | 180000      | 700     | AL    | fixed          | 30        | conf      | 5-1      | regular   | 0            |  
 
 
 @smoke_testing
@@ -98,7 +98,7 @@ Scenario Outline: Omit the Rate Structure parameter
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | loan_term | loan_type | arm_type | va_status | va_first_use |
-  | Rate Structure  | 200000      | 180000      | 700     | 720     | NV    | 30        | conf      | 5-1      | regular   | n            |  
+  | Rate Structure  | 200000      | 180000      | 700     | 720     | NV    | 30        | conf      | 5-1      | regular   | 0            |  
 
 @smoke_testing
 Scenario Outline: Omit the Loan Term parameter
@@ -117,7 +117,7 @@ Scenario Outline: Omit the Loan Term parameter
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_type | arm_type | va_status | va_first_use |
-  | Loan Term       | 200000      | 180000      | 700     | 720     | NV    | fixed          | conf      | 5-1      | regular   | n            |  
+  | Loan Term       | 200000      | 180000      | 700     | 720     | NV    | fixed          | conf      | 5-1      | regular   | 0            |  
 
 @smoke_testing
 Scenario Outline: Omit the Loan Type parameter
@@ -136,7 +136,7 @@ Scenario Outline: Omit the Loan Type parameter
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_term | arm_type | va_status | va_first_use |
-  | Loan Type       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | 5-1      | regular   | n            |
+  | Loan Type       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | 5-1      | regular   | 0            |
 
 @smoke_testing
 Scenario Outline: Omit the ARM Type parameter
@@ -155,7 +155,7 @@ Scenario Outline: Omit the ARM Type parameter
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_term | loan_type | va_status | va_first_use |
-  | ARM Type        | 200000      | 180000      | 700     | 720     | NV    | arm            | 30        | conf      | regular   | n            |
+  | ARM Type        | 200000      | 180000      | 700     | 720     | NV    | arm            | 30        | conf      | regular   | 0            |
 
 @smoke_testing
 Scenario Outline: Omit the VA Status parameter
@@ -174,8 +174,8 @@ Scenario Outline: Omit the VA Status parameter
 
   Examples:
   | parameter_name  | house_price | loan_amount | minfico | maxfico | state | rate_structure | loan_term | loan_type | arm_type | va_first_use |
-  | VA Status       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | va        | 5-1      | n            |
-  | VA Status       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | va-hb     | 5-1      | n            |
+  | VA Status       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | va        | 5-1      | 0            |
+  | VA Status       | 200000      | 180000      | 700     | 720     | NV    | fixed          | 30        | va-hb     | 5-1      | 0            |
 
 @smoke_testing @amy
 Scenario Outline: Omit the VA First Use parameter
