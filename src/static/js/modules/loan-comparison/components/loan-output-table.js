@@ -9,7 +9,7 @@ var LoanOutputTableGroup = React.createClass({
                 <div>
                     <h1>{prop}</h1>
                     <div>
-                        <LoanOutputTable result={prop} prop={this.props.prop} loans={this.props.loans} />
+                        <LoanOutputTable result={prop} prop={this.props.prop} loans={this.props.loans} results={['interest-fees-paid','monthly-hoa-dues']}/>
                     </div>
                 </div>
             )
@@ -26,7 +26,7 @@ var LoanOutputTableGroup = React.createClass({
 
 var LoanOutputTable = React.createClass({
     render: function() {
-        var rows = ['price', 'downpayment'].map(function (prop) {
+        var rows = this.props.results.map(function (prop) {
             return (
                 <LoanOutputRow prop={prop} loans={this.props.loans} label={common.propLabels[prop]} />
             )
