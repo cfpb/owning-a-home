@@ -104,7 +104,7 @@ mortgage['interest-fees-paid'] = function (loan) {
     return mortgage['get-cost'](loan).totalCost;
 };
 
-mortgage['overall-cost'] = function (loan) {
+mortgage['overall-costs'] = function (loan) {
     return mortgage['get-cost'](loan).overallCost;
 }
 

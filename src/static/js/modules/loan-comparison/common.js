@@ -28,7 +28,7 @@ var scenarios = [
             'insurance': "With a conventional loan, mortgage insurance is typically paid as part of your monthly payment, not upfront.", 
             'monthly-principal-interest': "With a lower down payment, you have more to pay back each month, and you're paying interest on a larger loan amount.", 
             'monthly-mortgage-insurance': "With a low down payment loan (typically less than 20%), you'll need to pay for mortgage insurance.", 
-            'overall-cost': "Overall, you'll pay more in interest and fees with a low down payment loan."
+            'overall-costs': "Overall, you'll pay more in interest and fees with a low down payment loan."
         }
     }
 ];
@@ -140,11 +140,12 @@ var typeOptions = [
 ]
 
 var propLabels = {
-    'price': 'House Price',
-    'downpayment': 'Down Payment',
-    'closing': 'Projected cash to close',
-    'monthly': 'Projected monthly payment',
-    'overall': 'Projected overall costs'
+    'price': 'House price',
+    'downpayment': 'Down payment',
+    'third-party-services': 'Third party services',
+    'closing-costs': 'Projected cash to close',
+    'monthly-payment': 'Projected monthly payment',
+    'overall-cost': 'Projected overall costs'
 }
 
 var errorMessages = {

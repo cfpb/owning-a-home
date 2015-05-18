@@ -18,7 +18,7 @@ var calculatedPropertiesBasedOnIR = [
     'insurance', 'taxes-gov-fees', 'prepaid-expenses', 'initial-escrow',        
     'monthly-taxes-insurance', 'monthly-hoa-dues', 'monthly-principal-interest',
     'monthly-mortgage-insurance', 'monthly-payment', 'closing-costs', 
-    'principal-paid', 'interest-fees-paid', 'overall-cost'
+    'principal-paid', 'interest-fees-paid', 'overall-costs'
 ];
 var CHANGE_EVENT = 'change';
 
@@ -113,7 +113,6 @@ function updateRates(id) {
                         loans[i]['edited'] = false;
                         loans[i]['rates'] = rates.vals;
                         loans[i]['interest-rate'] = rates.median;
-                        console.log('hiya');
                         assign(loans[i], generateCalculatedProperties(loans[i], true));
                         console.log(loans[i]);
                     }
@@ -143,12 +142,10 @@ function updateDependencies (loan, prop) {
 }
 
 function generateCalculatedProperties (loan, rateChange) {
-    console.log('generateCalculatedProperties');
     var calcs = {};
     var props = rateChange 
                 ? calculatedPropertiesBasedOnIR 
                 : calculatedProperties;
-    console.log(props);
     for (var i = 0; i < props.length; i++) {
         var prop = props[i];
         calcs[prop] = mortgageCalculations[prop](loan);
