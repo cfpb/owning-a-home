@@ -210,7 +210,7 @@
   }
   .update,
   .updating {
-    .interest-rate-content {
+    .select-content {
       display: none;
     }
   }
@@ -661,4 +661,110 @@
 .lc-tooltip .cf-icon-help-round {
   font-size: unit( 14px / @base-font-size-px, em );
   padding-left: 3px;
+}
+
+.lc-subhead {
+  display: inline;
+}
+
+.lc-inputs {
+  h3 {
+    margin-bottom: 0;
+  }
+  .dollar-input .unit {
+      top: 17%;
+  }
+  
+  .percent-input .unit {
+    right: 20%;
+    top: 17%;
+  }
+  
+  .dollar-input {
+    .unit:before  {
+      content: "\0024"; 
+    }
+  }
+
+  .percent-input {
+    .unit:before  {
+      content: "\0025"; 
+    }
+  }
+  
+  table.unstyled {
+    background: none;
+    width: 100%;
+  
+    tr.highlight {
+      td {
+        background-color: @green-tint;
+        
+        .select-content,
+        input[type="text"] {
+          border-width: 2px;
+          border-color: @green;
+        }
+      }
+    }
+    
+    tr.padded-row {
+      td.label-cell {
+        padding-top: 1em;
+      }
+    }
+  
+    thead {
+      background: none;
+    
+      th {
+        color: @black;
+        background: none;
+      }
+    }
+    
+    
+  
+    th,
+    td {
+        width: 33%;
+        padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
+        background-color: @gray-5;
+
+        tbody > tr:nth-child(odd) > & {
+            background: none;
+        }
+    }
+  
+    td {
+      vertical-align: top;
+    
+      &.label-cell {
+        text-align: right;
+      }
+      
+      &.header-cell, 
+      &.label-cell {
+        padding-left: @grid_gutter-width;
+      }
+    }
+  
+    tbody tr {
+      border: none;
+    }
+  }
+}
+
+.scenario-alternates {
+    .h4;
+    .respond-to-min(@tablet-min, {
+        .grid_column(1, 8);
+        text-align: center;
+        padding-top: @grid_gutter-width;
+    });
+}
+
+#scenarios.block {
+    border-top-width: 2px;
+    border-top-color: @green;
 }
