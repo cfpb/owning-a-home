@@ -141,7 +141,10 @@ var typeOptions = [
 
 var propLabels = {
     'price': 'House Price',
-    'downpayment': 'Down Payment'
+    'downpayment': 'Down Payment',
+    'closing': 'Projected cash to close',
+    'monthly': 'Projected monthly payment',
+    'overall': 'Projected overall costs'
 }
 
 var errorMessages = {
