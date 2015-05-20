@@ -14,11 +14,22 @@ var ScenarioStore = require('./scenario-store');
 
 var calculatedProperties = ['loan-summary', 'loan-amount'];
 var calculatedPropertiesBasedOnIR = [
-    'discount', 'processing', 'third-party-services',
-    'insurance', 'taxes-gov-fees', 'prepaid-expenses', 'initial-escrow',        
-    'monthly-taxes-insurance', 'monthly-hoa-dues', 'monthly-principal-interest',
-    'monthly-mortgage-insurance', 'monthly-payment', 'closing-costs', 
-    'principal-paid', 'interest-fees-paid', 'overall-costs'
+    'discount', 
+    'processing', 
+    'third-party-services',
+    'insurance', 
+    'taxes-gov-fees', 
+    'prepaid-expenses', 
+    'initial-escrow',
+    'monthly-taxes-insurance', 
+    'monthly-hoa-dues', 
+    'monthly-principal-interest',
+    'monthly-mortgage-insurance', 
+    'monthly-payment', 
+    'closing-costs', 
+    'principal-paid', 
+    'interest-fees-paid', 
+    'overall-costs'
 ];
 var CHANGE_EVENT = 'change';
 
@@ -113,7 +124,6 @@ function updateRates(id) {
                         loans[i]['rates'] = rates.vals;
                         loans[i]['interest-rate'] = rates.median;
                         assign(loans[i], generateCalculatedProperties(loans[i], true));
-                        console.log(loans[i]);
                     }
                 })
                 .always(function() {
@@ -141,15 +151,14 @@ function updateDependencies (loan, prop) {
 }
 
 function generateCalculatedProperties (loan, rateChange) {
-    var calcs = {};
     var props = rateChange 
                 ? calculatedPropertiesBasedOnIR 
                 : calculatedProperties;
     for (var i = 0; i < props.length; i++) {
         var prop = props[i];
-        calcs[prop] = mortgageCalculations[prop](loan);
+        loan[prop] = mortgageCalculations[prop](loan);
     }
-    return calcs;
+    return loan;
 }
 
 function getInitialLoanState (loan) {

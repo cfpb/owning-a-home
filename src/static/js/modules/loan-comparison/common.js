@@ -158,7 +158,7 @@ common.propLabels = {
     'third-party-services': 'Third party services',
     'closing-costs': 'Projected cash to close',
     'monthly-payment': 'Projected monthly payment',
-    'overall-cost': 'Projected overall costs'
+    'overall-costs': 'Projected overall costs'
 };
 
 module.exports = common;

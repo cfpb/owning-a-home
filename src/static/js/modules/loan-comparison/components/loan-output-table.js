@@ -1,31 +1,30 @@
-require('jquery-easing');
-require('cf-expandables');
 var React = require('react');
 var common = require('../common');
+var LoanOutput = require('./loan-output');
 var LoanOutputRow = require('./loan-output-table-row');
 
 var LoanOutputTableGroup = React.createClass({
     render: function() {
         var results = ['closing-costs','monthly-payment','overall-costs'].map(function (prop) {
             return (
-                <div>
-                    <header className="u-mb20 u-mt20">
-                        <div className="input-headers" aria-hidden="true">
-                            <div className="comparison-input-column"></div>
-                            <div className="comparison-input-column comparison-input-column-a"><h3>Scenario A</h3></div>
-                            <div className="comparison-input-column comparison-input-column-b"><h3>Scenario B</h3></div>
-                        </div>
-                    </header>
-                    <div>
-                        <LoanOutputTable result={prop} prop={this.props.prop} loans={this.props.loans} />
-                    </div>
-                </div>
+                <LoanOutputTable result={prop} prop={this.props.prop} loans={this.props.loans} />
             )
         }, this);
         return (
             <section className="comparison-results content-l">
                 <div className="content-l_col-3-4 content-l_col">
-                {results}
+                    <div>
+                        <header className="u-mb20 u-mt20">
+                            <div className="input-headers" aria-hidden="true">
+                                <div className="comparison-input-column"></div>
+                                <div className="comparison-input-column comparison-input-column-a"><h3>Scenario A</h3></div>
+                                <div className="comparison-input-column comparison-input-column-b"><h3>Scenario B</h3></div>
+                            </div>
+                        </header>
+                        <div>
+                            {results}
+                        </div>
+                    </div>
                 </div>
             </section>
         );
@@ -67,6 +66,11 @@ var LoanOutputTableHead = React.createClass({
                 
         //     )
         // }, this);
+        var loans = this.props.loans.map(function (loan) {
+            return (
+                <td className="lc-primary-result closing-costs-display-a lc-result-a lc-result"><LoanOutput loan={loan} prop={this.props.result}/></td>
+            )
+        }, this);
         return (
             <tr>
                 <th scope="row" className="lc-primary-result-heading">
@@ -85,11 +89,12 @@ var LoanOutputTableHead = React.createClass({
                         </span>
                     </span>
                 </th>
-                <td className="lc-primary-result closing-costs-display-a lc-result-a lc-result">
-                    $3,000
-                </td>
-                <td className="lc-primary-result closing-costs-display-b lc-result-b lc-result">
-                </td>
+                {/*<td className="lc-primary-result closing-costs-display-a lc-result-a lc-result">
+                                    $3,000
+                                </td>
+                                <td className="lc-primary-result closing-costs-display-b lc-result-b lc-result">
+                                </td>*/}
+                    {loans}
                 <td className="callout-educational">
                     Educational callout
                 </td>
