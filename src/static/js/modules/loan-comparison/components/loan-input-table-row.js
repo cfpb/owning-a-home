@@ -20,6 +20,15 @@ var components = {
     'loan-summary': Output
 };
 
+function armErrorClassCheck (loan, prop) {
+    return loan.errors[prop] ? 'highlight-dropdown' : '';
+}
+
+function armDisabledOptionCheck (loan, prop, option) {
+    var disallowedOptions = common.armDisallowedOptions[prop];
+    return (loan['is-arm'] && $.inArray(option.val, disallowedOptions) >= 0);
+}
+
 var classNames = {
     'arm-type': function (loan, prop) {
         return (loan['is-arm'] ? '' : 'hidden');
@@ -31,15 +40,6 @@ var classNames = {
 var disabledOptionChecks = {
     'loan-term': armDisabledOptionCheck,
     'loan-type': armDisabledOptionCheck
-}
-
-var armErrorClassCheck = function (loan, prop) {
-    return loan.errors[prop] ? 'highlight-dropdown' : '';
-}
-
-var armDisabledOptionCheck = function (loan, prop, option) {
-    var disallowedOptions = common.armDisallowedOptions[prop];
-    return (loan['is-arm'] && $.inArray(option, disallowedOptions) >= 0);
 }
 
 var LoanInputRow = React.createClass({
