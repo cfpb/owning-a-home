@@ -35,7 +35,7 @@ var LoanOutputTable = React.createClass({
     render: function() {
         var rows = ['downpayment','third-party-services'].map(function (prop) {
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.propLabels[prop]} />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.propLabels[prop]} resultType='main' />
             )
         }, this);
         return (
@@ -60,22 +60,39 @@ var LoanOutputTable = React.createClass({
 });
 
 var LoanOutputTableHead = React.createClass({
+    headingIcon: function(result) {
+        var icon = 'cf-icon cf-icon-';
+        if (result === 'closing-costs') {
+            icon += 'mortgage';
+        } else if (result === 'monthly-payment') {
+            icon += 'date';
+        } else if (result === 'overall-costs') {
+            icon += 'owning-home';
+        }
+        return icon;
+    },
     render: function() {
-        // var summaryHeading = [this.props.result].map(function (prop) {
+        // var summaryHeading = this.props.result.map(function (prop) {
         //     return (
                 
         //     )
         // }, this);
         var loans = this.props.loans.map(function (loan) {
+            var loanID = loan['id'] === 0 ? 'a' : 'b',
+                propResult = this.props.result + '-display-' + loanID,
+                loanScenario = 'lc-result-' + loanID;
+
+            var classes = 'lc-primary-result ' + propResult + ' ' + loanScenario + ' lc-result';
+
             return (
-                <td className="lc-primary-result closing-costs-display-a lc-result-a lc-result"><LoanOutput loan={loan} prop={this.props.result}/></td>
+                <td className={classes}><LoanOutput loan={loan} prop={this.props.result}/></td>
             )
         }, this);
         return (
             <tr>
                 <th scope="row" className="lc-primary-result-heading">
                     <h4 className="results-section-heading">
-                        <span className="cf-icon cf-icon-mortgage"></span>&nbsp;
+                        <span className={this.headingIcon(this.props.result)}></span>&nbsp;
                         {this.props.label}
                     </h4>
                     <span className="expandable_header-right expandable_link">
@@ -89,12 +106,8 @@ var LoanOutputTableHead = React.createClass({
                         </span>
                     </span>
                 </th>
-                {/*<td className="lc-primary-result closing-costs-display-a lc-result-a lc-result">
-                                    $3,000
-                                </td>
-                                <td className="lc-primary-result closing-costs-display-b lc-result-b lc-result">
-                                </td>*/}
                     {loans}
+                    {/*<LoanOutputRow prop={this.props.result} loans={this.props.loans} label={this.props.label} resultType='primary' />*/}
                 <td className="callout-educational">
                     Educational callout
                 </td>
