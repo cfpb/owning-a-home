@@ -1,6 +1,6 @@
 var React = require('react');
 var LoanActions = require('../actions/loan-actions');
-var LoanSelect = require('./loan-input-select');
+var StyledSelect = require('./styled-select');
 
 var InterestRateInput = React.createClass({
     fetchRates: function () {
@@ -18,7 +18,9 @@ var InterestRateInput = React.createClass({
     render: function() {
         return (
             <div className={this.setClass()}>
-                <LoanSelect prop='interest-rate' loan={this.props.loan} opts={this.props.opts} options={this.props.options}/>
+                <StyledSelect val={this.props.loan[this.props.prop]} 
+                             options={this.props.options}
+                             handleChange={this.props.handleChange}/>
                 <button className='btn btn__primary interest-rate-update' onClick={this.fetchRates}>
                     Update rates and costs
                 </button>

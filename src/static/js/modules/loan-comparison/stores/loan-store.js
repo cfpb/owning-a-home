@@ -31,7 +31,7 @@ var defaultLoanData = {
     'loan-term': 30,
     'loan-type': 'conf',
     'arm-type': '5-1',
-    'state': 'CA'
+    'state': 'AL'
 };
 
 var _loans = [];
@@ -45,10 +45,9 @@ function resetLoans (keepLoanData) {
         var currentLoanData = (!scenario && keepLoanData) ? _loans[i] : {edited: false};
         var loan = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
         
-        var dependencies = updateDependencies(loan);
-        var calculatedProps = generateCalculatedProperties(loan);
+        generateCalculatedProperties(loan);
         var loanState = getInitialLoanState(loan);
-        _loans[i] = assign(loan, dependencies, calculatedProps, loanState);
+        _loans[i] = assign(loan, loanState);
     }
     
     if (scenario) {
@@ -78,8 +77,8 @@ function update(id, prop, val) {
         updateRates(id);
     }
     
-    assign(loan, updateDependencies(loan, prop));
-    _loans[id] = assign(loan, generateCalculatedProperties(loan, rateChange), updateLoanState(loan, prop));
+    generateCalculatedProperties(loan, rateChange);
+    _loans[id] = assign(loan, updateLoanState(loan, prop));
 }
 
 function fetchRates(loan) {
@@ -111,7 +110,7 @@ function updateRates(id) {
                     for (var i=0; i< loans.length; i++) {
                         loans[i]['edited'] = false;
                         loans[i]['rates'] = rates.vals;
-                        loans[i]['interest-rate'] = rates.median;
+                        update(i, 'interest-rate', rates.median);
                     }
                 })
                 .always(function() {
@@ -127,27 +126,14 @@ function updateRates(id) {
     }
 }
 
-
-function updateDependencies (loan, prop) {
-    var obj = {};
-    if (!prop || prop === 'price' || prop === 'downpayment') {
-        obj['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
-    } else if (prop === 'downpayment-percent') {
-        obj['downpayment'] = mortgageCalculations['downpayment'](loan);
-    }
-    return obj;
-}
-
 function generateCalculatedProperties (loan, rateChange) {
-    var calcs = {};
     var props = rateChange 
                 ? calculatedPropertiesBasedOnIR 
                 : calculatedProperties;
     for (var i = 0; i < props.length; i++) {
         var prop = props[i];
-        calcs[prop] = mortgageCalculations[prop](loan);
+        loan[prop] = mortgageCalculations[prop](loan);
     }
-    return calcs;
 }
 
 function getInitialLoanState (loan) {
@@ -213,7 +199,7 @@ function isJumbo (loan) {
 }
 
 function isDownpaymentTooHigh (loan) {
-    return loan['downpayment'] > loan['price'];
+    return +loan['downpayment'] > +loan['price'];
 }
 
 function isDownpaymentTooLow (loan) {

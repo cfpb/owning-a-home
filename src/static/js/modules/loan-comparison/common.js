@@ -43,6 +43,9 @@ common.inputTooltips = {
     'state': 'State tooltip'
 }
 
+// Options can be an array of objects with "label" & "val" properties,
+// or a string representing a property on another object (prob. loan)
+// that will return such an array.
 common.options = {
     'state': [
         {"label": "Alabama", "val": "AL"},
