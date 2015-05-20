@@ -3,6 +3,9 @@ var cost = require('overall-loan-cost');
 var amortize = require('amortize');
 var humanizeLoanType = require('../humanize-loan-type');
 
+var TAX_RATE = 0.01;
+var INSURANCE_RATE = 0.005;
+
 var mortgage = {};
 
 mortgage['loan-amount'] = function (loan) {
@@ -38,11 +41,16 @@ mortgage['taxes-gov-fees'] = function (loan) {
 };
 
 mortgage['prepaid-expenses'] = function (loan) {
-    return 500;
+    var prepaidInterest = loan['loan-amount'] * (loan['interest-rate'] / 100) / 365 * 15;
+        prepaidInsurance = INSURANCE_RATE * loan['price'] / 12 * 6;
+    return +(prepaidInterest + prepaidInsurance).toFixed(2);
 };
 
+
 mortgage['initial-escrow'] = function (loan) {
-    return 500;
+    var initialTaxes = TAX_RATE * loan['price'] / 12 * 2;
+        initialInsurance = INSURANCE_RATE * loan['price'] / 12 * 2;
+    return +(initialTaxes + initialInsurance).toFixed(2);
 };
 
 mortgage['monthly-taxes-insurance'] = function (loan) {
