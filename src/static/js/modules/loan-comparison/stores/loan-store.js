@@ -50,13 +50,13 @@ function resetLoans (keepLoanData) {
         _loans[i] = assign(loan, loanState);
     }
     
-    if (scenario) {
-        updateRates();
-    } else if (!keepLoanData) {
+    //if (scenario) {
+    //    updateRates();
+    //} else if (!keepLoanData) {
         for (i = 0; i < len; i++) {
             updateRates(i);
         }
-    }
+    //}
 }
 
 function updateAll(prop, val) {
@@ -73,7 +73,7 @@ function update(id, prop, val) {
     
     loan['edited'] = rateChange ? false : true;
     
-    if (loan['rate-request']) {
+    if (!rateChange && loan['rate-request']) {
         updateRates(id);
     }
     
@@ -90,40 +90,41 @@ function fetchRates(loan) {
 
 function processRatesResults(results) {
     var rates = [];
+    var totalRates = [];
     for ( key in results.data ) {
         if ( results.data.hasOwnProperty( key ) ) {
             rates.push(key);
+            var len = results.data[key];
+            for (var i=0; i<len; i++){
+                totalRates.push(key)
+            }
         }
     }
-    var medianRate = utils.median(rates);
+    rates = rates.sort();
+    var medianRate = utils.median(totalRates);
     var processedRates = $.map(rates, function( rate, i ) {
-      return {val: rate, label: rate + '%'};
+        return {val: rate, label: rate + '%'};
     });
     return {vals: processedRates, median: medianRate};
 }
 
 function updateRates(id) {
-    var loans = ScenarioStore.getScenario() ? _loans : [_loans[id]];
-    var dfd = fetchRates(loans[0])
-                .done(function(results) {
-                    var rates = processRatesResults(results);
-                    for (var i=0; i< loans.length; i++) {
-                        loans[i]['edited'] = false;
-                        loans[i]['rates'] = rates.vals;
-                        update(i, 'interest-rate', rates.median);
-                    }
-                })
-                .always(function() {
-                    for (var i=0; i< loans.length; i++) {
-                        loans[i]['rate-request'] = null;
-                    }
-                    // TODO: maybe this fetch should be an api action?
-                    LoanStore.emitChange();
-                });
-    
-    for (var i=0; i< loans.length; i++) { 
-        loans[i]['rate-request'] = dfd;
-    }
+    var loans = $.isNumeric(id) ? [_loans[id]] : _loans;
+    $.each(loans, function (ind, loan) {
+        var dfd = fetchRates(loan)
+                    .done(function(results) {
+                        var rates = processRatesResults(results);
+                        loan['edited'] = false;
+                        loan['rates'] = rates.vals;
+                        update(loan.id, 'interest-rate', rates.median);
+                    })
+                    .always(function() {
+                        loan['rate-request'] = null;
+                        // TODO: maybe this fetch should be an api action?
+                        LoanStore.emitChange();
+                    });
+        loan['rate-request'] = dfd;
+    });   
 }
 
 function generateCalculatedProperties (loan, rateChange) {
@@ -273,7 +274,13 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
             break;
             
         case LoanConstants.UPDATE_RATES:
-            updateRates(action.id);
+            // update both loans if both are edited
+            var id = action.id;
+            var otherLoan = _loans[id == 1 ? 0 : 1];
+            if (otherLoan.edited) {
+                id = null;
+            }
+            updateRates(id);
             LoanStore.emitChange();
             break;
         

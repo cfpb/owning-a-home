@@ -156,7 +156,9 @@ common.errorMessages = {
 common.propLabels = {
     'downpayment': 'Down payment',
     'points':      'Discount point and credits',
-    'arm-type':    'ARM type'
+    'arm-type':    'ARM type',
+    'price':       'Home price',
+    'rate-structure': 'Rate type'
 };
 
 module.exports = common;
