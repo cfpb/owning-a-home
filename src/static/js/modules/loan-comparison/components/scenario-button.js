@@ -7,7 +7,7 @@ var ScenarioButton = React.createClass({
     },
     render: function () {
         return (
-            <a className="btn btn-primary" 
+            <a className="btn btn-primary scenario-picker-button"
              onClick={this.handleChange}>
                 {this.props.title}
             </a>

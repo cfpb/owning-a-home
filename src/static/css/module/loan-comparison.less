@@ -764,7 +764,23 @@
     });
 }
 
-#scenarios.block {
-    border-top-width: 2px;
-    border-top-color: @green;
+#scenarios {
+  .respond-to-min(@tablet-min, {
+      .block;
+      padding-top: unit(30px / @base-font-size-px, em);
+      margin-top: unit(30px / @base-font-size-px, em);
+      border-top: 2px solid @green;
+  });
+}
+
+.scenario-picker-select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.scenario-picker-button {
+  .respond-to-max(@mobile-max, {
+      width: 100%;
+      text-align: center;
+  });
 }
