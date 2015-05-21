@@ -36,49 +36,57 @@ var defaultLoanData = {
 
 var _loans = [];
 
-function resetLoans (keepLoanData) {
+function init () {
+    resetLoans(true);
+}
+
+function resetLoans (init) {
     var len = _loans.length || common.loanCount;
     var scenario = ScenarioStore.getScenario();
-    var scenarioLoanData = scenario ? scenario.loanProps : {};
     
-    for (i = 0; i < len; i++) {
-        var currentLoanData = (!scenario && keepLoanData) ? _loans[i] : {edited: false};
-        var loan = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
-        
-        generateCalculatedProperties(loan);
-        var loanState = getInitialLoanState(loan);
-        _loans[i] = assign(loan, loanState);
-    }
-    
-    //if (scenario) {
-    //    updateRates();
-    //} else if (!keepLoanData) {
+    // if initial setup or a new scenario has been chosen, 
+    // set data on loans
+    if (init || scenario) {
+        // get scenario-specific loan data
+        var scenarioLoanData = scenario ? scenario.loanProps : {};
+
+        // create each loan from default, existing, and scenario-specific data,
+        // then generate the calculated & state-related properties
+        // and fetch interest rates 
         for (i = 0; i < len; i++) {
-            updateRates(i);
+            var loan = assign({id: i}, defaultLoanData, _loans[i], scenarioLoanData[i]);
+            generateCalculatedProperties(loan);
+            updateLoanState(loan);
+            _loans[i] = loan;
+            updateLoanRates(i);
         }
-    //}
+    }
 }
 
+// update all the loans
 function updateAll(prop, val) {
     for (var id in _loans) {
-        update(id, prop, val);
+        updateLoan(id, prop, val);
     }
 }
 
-function update(id, prop, val) {
+// update a single loan
+function updateLoan(id, prop, val) {
     var loan = _loans[id];
     var rateChange = (prop === 'interest-rate');
     
     loan[prop] = val;
     
-    loan['edited'] = rateChange ? false : true;
-    
-    if (!rateChange && loan['rate-request']) {
-        updateRates(id);
+    if (rateChange) {
+        loan['edited'] = false;
+    } else {
+        loan['edited'] = true;
+        if (loan['rate-request']) {
+            updateLoanRates(id);
+        }
     }
-    
     generateCalculatedProperties(loan, rateChange);
-    _loans[id] = assign(loan, updateLoanState(loan, prop));
+    updateLoanState(loan);
 }
 
 function fetchRates(loan) {
@@ -108,7 +116,7 @@ function processRatesResults(results) {
     return {vals: processedRates, median: medianRate};
 }
 
-function updateRates(id) {
+function updateLoanRates(id) {
     var loans = $.isNumeric(id) ? [_loans[id]] : _loans;
     $.each(loans, function (ind, loan) {
         var dfd = fetchRates(loan)
@@ -116,7 +124,7 @@ function updateRates(id) {
                         var rates = processRatesResults(results);
                         loan['edited'] = false;
                         loan['rates'] = rates.vals;
-                        update(loan.id, 'interest-rate', rates.median);
+                        updateLoan(loan.id, 'interest-rate', rates.median);
                     })
                     .always(function() {
                         loan['rate-request'] = null;
@@ -137,53 +145,30 @@ function generateCalculatedProperties (loan, rateChange) {
     }
 }
 
-function getInitialLoanState (loan) {
-    var obj = {};
-    assign(obj, isArm(loan));
-    //obj['is-jumbo'] = isJumbo(loan);
-    obj['downpayment-too-high'] = isDownpaymentTooHigh(loan);
-    obj['downpayment-too-low'] = isDownpaymentTooLow(loan);
-    return obj;
-}
-
-function updateLoanState (loan, prop) {
-    var obj = {};
-    switch (prop) {
-        case 'edited': 
-            obj['interest-rate'] = null;
-            break;
-        case 'rate-structure':
-            assign(obj, isArm(loan));
-            break;
-        case 'loan-type':
-        case 'loan-amount':
-            obj['is-jumbo'] = isJumbo(loan);
-        case 'loan-type':
-        case 'downpayment':
-        case 'downpayment-percent':
-        case 'price':
-            obj['downpayment-too-high'] = isDownpaymentTooHigh(loan);
-            obj['downpayment-too-low'] = isDownpaymentTooLow(loan);
-    }
-    return obj;
+function updateLoanState (loan) {
+    isArm(loan);
+    //loan['is-jumbo'] = isJumbo(loan);
+    loan['downpayment-too-high'] = isDownpaymentTooHigh(loan);
+    loan['downpayment-too-low'] = isDownpaymentTooLow(loan);
+    return loan;
 }
 
 function isArm (loan) {
-    var obj = {
-        'errors': {},
-        'is-arm': loan['rate-structure'] === 'arm'
-    };
-    if (obj['is-arm']) {
+    loan['errors'] || (loan['errors'] = {});
+    loan['is-arm'] = loan['rate-structure'] === 'arm';
+    if (loan['is-arm']) {
         if ($.inArray(loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
-            obj.errors['loan-term'] = loan['loan-term'];
-            obj['loan-term'] = '30';
+            loan.errors['loan-term'] = loan['loan-term'];
+            loan['loan-term'] = '30';
         }
         if ($.inArray(loan['loan-type'], common.armDisallowedOptions['loan-type']) >= 0) {            
-            obj.errors['loan-type'] = loan['loan-type'];
-            obj['loan-type'] = 'conf';
+            loan.errors['loan-type'] = loan['loan-type'];
+            loan['loan-type'] = 'conf';
         }
+    } else {
+        loan['errors']['loan-term'] = null;
+        loan['errors']['loan-type'] = null;
     }
-    return obj;
 }
 
 function isJumbo (loan) {
@@ -250,9 +235,6 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     }
 });
 
-// Initial setup on loans, using default scenario.
-resetLoans();
-
 // Register callback to handle all updates
 LoanStore.dispatchToken = AppDispatcher.register(function(action) {
     switch(action.actionType) {
@@ -263,7 +245,7 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
             if (isPropLinked(action.prop)) {
                 updateAll(action.prop, action.val);
             } else {
-                update(action.id, action.prop, action.val);
+                updateLoan(action.id, action.prop, action.val);
             }
             LoanStore.emitChange();
             break;
@@ -280,21 +262,13 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
             if (otherLoan.edited) {
                 id = null;
             }
-            updateRates(id);
+            updateLoanRates(id);
             LoanStore.emitChange();
             break;
         
         case ScenarioConstants.UPDATE_SCENARIO:
-
             AppDispatcher.waitFor([ScenarioStore.dispatchToken]);
-            resetLoans(action.keepLoanData);
-            LoanStore.emitChange();
-            break;
-            
-        case ScenarioConstants.CUSTOM_SCENARIO:
-        
-            AppDispatcher.waitFor([ScenarioStore.dispatchToken]);
-            resetLoans(action.keepLoanData);
+            resetLoans();
             LoanStore.emitChange();
             break;
         
@@ -302,5 +276,8 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
         // no op
     }
 });
+
+// INITIAL SETUP
+init(true);
 
 module.exports = LoanStore;

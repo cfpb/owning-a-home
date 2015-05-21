@@ -6,16 +6,23 @@ var mortgageCalculations = require('../mortgage-calculations');
 
 var LoanDownpaymentInput = React.createClass({
     getInitialState: function () {
-        return {
-            'downpayment': this.props.loan['downpayment'],
-            'downpayment-percent': this.setDownpaymentPercent(this.props.loan)
-        };
+        return this.getDownpaymentState(this.props.loan);
     },
     componentWillReceiveProps: function (nextProps) {
+        this.setState(this.getDownpaymentState(nextProps.loan));
+    },
+    getDownpaymentState: function (loan) {
+        return {
+            'downpayment': loan['downpayment'],
+            'downpayment-percent': mortgageCalculations['downpayment-percent'](loan)
+        };
+    },
+    updateDownpayment: function (percent) {
         this.setState({
-            'downpayment': nextProps.loan['downpayment'],
-            'downpayment-percent': this.setDownpaymentPercent(nextProps.loan)
+            'downpayment-percent': percent,
+            'downpayment': mortgageCalculations['downpayment'](assign({}, this.props.loan, {'downpayment-percent': percent}))
         });
+        this.props.handleChange(this.state.downpayment);
     },
     // TODO: move error display to table-row?
     showError: function() {
@@ -26,16 +33,6 @@ var LoanDownpaymentInput = React.createClass({
             return 'downpayment-too-low-' + loan['loan-type'].split('-')[0];
         }
         return false;
-    },
-    updateDownpayment: function (percent) {
-        this.setState({
-            'downpayment-percent': percent,
-            'downpayment': mortgageCalculations['downpayment'](assign({}, this.props.loan, {'downpayment-percent': percent}))
-        });
-        this.props.handleChange(this.state.downpayment);
-    },
-    setDownpaymentPercent: function (loan) {
-        return mortgageCalculations['downpayment-percent'](loan);
     },
     render: function() {
         return (

@@ -6,7 +6,8 @@ var ScenarioActions = require('../actions/scenario-actions');
 
 var ScenarioSection = React.createClass({
     changeScenario: function (event) {
-        ScenarioActions.update(event.target.value);
+        var val = event ? event.target.value : null;
+        ScenarioActions.update(val);
     },
     render: function () {
         var scenario = this.props.scenario;
@@ -22,11 +23,11 @@ var ScenarioSection = React.createClass({
                             Explore how <span className="u-visually-hidden">this scenario will affect your loan costs.</span>
                         </label>   
                         <StyledSelect val={(scenario || {}).val}
-                                     options={common.scenarios}
-                                     handleChange={this.changeScenario}
-                                     title='Select a scenario'
-                                     componentId="scenario-picker-select"
-                                     className="scenario-picker-select"/>
+                                      options={common.scenarios}
+                                      handleChange={this.changeScenario}
+                                      title='Select a scenario'
+                                      componentId="scenario-picker-select"
+                                      className="scenario-picker-select"/>
                         <div className="short-desc" aria-hidden={true}>will affect your loan costs.</div>
                     </div>
                     <div className="content-l_col scenario-alternates">
