@@ -55,7 +55,7 @@ mortgage['initial-escrow'] = function (loan) {
 
 mortgage['monthly-taxes-insurance'] = function (loan) {
     var propertyTaxes = (loan['price'] / 100) / 12,
-        homeInsurance = (.05 * loan['price']) / 12;
+        homeInsurance = (INSURANCE_RATE * loan['price']) / 12;
     return propertyTaxes + homeInsurance;
 };
 
@@ -64,12 +64,12 @@ mortgage['monthly-hoa-dues'] = function (loan) {
 };
 
 mortgage['monthly-principal-interest'] = function (loan) {
-    return amortize({
-      amount: positive(loan['loan-amount']),
-      rate: loan['interest-rate'],
-      totalTerm: loan['loan-term'] * 12,
-      amortizeTerm: 60 // @todo loan term * 12?
-    }).payment;
+    return Math.round(amortize({
+                  amount: positive(loan['loan-amount']),
+                  rate: loan['interest-rate'],
+                  totalTerm: loan['loan-term'] * 12,
+                  amortizeTerm: 60 // @todo loan term * 12?
+                }).payment);
 };
 
 mortgage['monthly-mortgage-insurance'] = function (loan) {

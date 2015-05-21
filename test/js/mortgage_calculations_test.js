@@ -3,44 +3,6 @@ var mortgage = require('../../src/static/js/modules/loan-comparison/mortgage-cal
 var chai = require('chai');
 var expect = chai.expect;
 
-    var loan = {
-        // "arm-type": "5-1",
-        // "closing-costs": NaN,
-        // "credit-score": 700,
-        // "discount": 0,
-        "downpayment": 40000,
-        // "downpayment-percent": 18,
-        // "downpayment-too-high": false,
-        // "downpayment-too-low": false,
-        // "edited": false,
-        // "id": 0,
-        // "initial-escrow": 550,
-        // "insurance": 0,
-        // "interest-fees-paid": 148332.08,
-        // "interest-rate": "4.500",
-        // "is-arm": false,
-        // "loan-amount": 180000,
-        // "loan-summary": "30-year fixed conventional",
-        // "loan-term": 30,
-        // "loan-type": "conf",
-        // "monthly-hoa-dues": 0,
-        // "monthly-mortgage-insurance": 0,
-        // "monthly-payment": NaN,
-        // "monthly-principal-interest": 912.0335576865941,
-        // "monthly-taxes-insurance": 1100,
-        // "overall-cost": 368332.08,
-        // "points": 0,
-        // "prepaid-expenses": 882.88,
-        "price": "220000",
-        // "principal-paid": 220000,
-        // "processing": 1800,
-        // "rate-request": null,
-        // "rate-structure": "fixed",
-        // "state": "CA",
-        // "taxes-gov-fees": 1000,
-        // "third-party-services": 3000,
-    };
-
 describe('Calculates mortgage', function() {
 
   describe('loan amount', function() {
@@ -70,58 +32,128 @@ describe('Calculates mortgage', function() {
   });
 
   describe('downpayment', function() {
-
+    it('Positive test - should return the correct downpayment with the given data', function() {
+      expect(mortgage['downpayment']({'downpayment-percent': 10, 'price': 200000})).to.equal(20000);
+    });
   });
 
   describe('processing', function() {
-
+    it('Positive test - should return the correct processing with the given data', function() {
+      expect(mortgage['processing']({'loan-amount': 180000})).to.equal(1800);
+    });
   });
 
   describe('third-party-services', function() {
-
+    it('Positive test - should return third-party-services - placeholder 3000', function() {
+      expect(mortgage['third-party-services']({})).to.equal(3000);
+    });
   });
 
   describe('insurance', function() {
-
+    it('Positive test - should return insurance - placeholder 0', function() {
+      expect(mortgage['insurance']({})).to.equal(0);
+    });
   });
 
   describe('taxes-gov-fees', function() {
-
+    it ('Positive test - should return taxes-gov-fees - placeholder 1000', function() {
+      expect(mortgage['taxes-gov-fees']({})).to.equal(1000);
+    });
   });
 
   describe('prepaid-expenses', function() {
-    it('Postive test - should return the correct prepaid-expenses with the given loan amount, interest rate and price', function() {
-      expect(mortgage['prepaid-expenses']({"price": 200000, "interest-rate": 4, "loan-amount": 160000})).to.equal(763.01);
+    it('Positive test - should return the correct prepaid-expenses with the given loan amount, interest rate and price', function() {
+      expect(mortgage['prepaid-expenses']({"price": 200000, "interest-rate": 4, "loan-amount": 160000})).to.equal(763.00);
+    });
+
+    it('Positive test - should return the correct prepaid-expenses with the given loan amount, interest rate and price', function() {
+      expect(mortgage['prepaid-expenses']({"price": 200000, "interest-rate": 4.25, "loan-amount": 180000})).to.equal(814.00);
     });
   });
 
   describe('initial-escrow', function() {
-    it('Positive test - shuold return the correct initial-escrow with the given price', function() {
+    it('Positive test - should return the correct initial-escrow with the given price', function() {
       expect(mortgage['initial-escrow']({"price": 200000})).to.equal(500);
     });
   });
 
-  // it('Positive test - correctly calculates a the total interest over the life of a 20 year loan', function() {
-  //   expect(payment(5, 240, 200000)).to.equal('$116,778.75');
-  // });
-
-  // it('Positive test - correctly calculates a the total interest over the life of a 30 year loan', function() {
-  //   expect(payment(3.5, 360, 400000)).to.equal('$246,624.35');
-  // });
-
-  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
-  // This test should catch the exception: Error: Please specify a loan rate as a number
-  /* it('Negative test - passes a *Negative* loan rate', function() {
-    expect(payment(-3.5, 360, 400000)).to.equal('$246,624.35');
+  describe('monthly-taxes-insurance', function() {
+    it('Positive test - should return the correct monthly-taxes-insurance with the given price', function() {
+      expect(mortgage['monthly-taxes-insurance']({"price": 200000})).to.equal(250);
+    });
   });
-    */
 
-  // --- GH Issue 278 - https://fake.ghe.domain/OAH/OAH-notes/issues/278 --- //
-  // This test should catch the exception: Error: Please specify a loan rate as a number
- /* it('Negative test - passes an *Invalid* loan rate', function() {
-    expect(payment('*', 360, 400000)).to.equal('$246,624.35');
+  describe('monthly-hoa-dues', function() {
+    it('Positive test - should return the correct monthly-hoa-dues', function() {
+      expect(mortgage['monthly-hoa-dues']({})).to.equal(0);
+    });
   });
-  */
+
+  describe('monthly-principal-interest', function() {
+    it('Positive test - should return the correct monthly-principal-interest', function() {
+      expect(mortgage['monthly-principal-interest']({"loan-amount": 180000, 
+        "interest-rate": 4.25, 
+        "loan-term": 30})).to.equal(885);
+    });
+  });
+
+  describe('monthly-mortgage-insurance', function() {
+    it ('Positive test - should return the correct monthly-mortgage-insurance', function() {
+      expect(mortgage['monthly-mortgage-insurance']({})).to.equal(0);
+    });
+  });
+
+  describe('monthly-payment', function() {
+    it ('Positive test - should return the correct monthly-payment with given data', function() {
+      expect(mortgage['monthly-payment']({'monthly-taxes-insurance': 250, 
+        'monthly-mortgage-insurance': 86, 
+        'monthly-hoa-dues': 0, 
+        'monthly-principal-interest': 885})).to.equal(1221);
+    });
+  });
+
+  describe('closing-costs', function() {
+    // it ('Positive test - should return the correct closing costs', function() {
+    //   expect(mortgage['closing-costs']({'downpayment': 20000,
+    //     'discount': 0,
+    //     'processing': 831,
+    //     'third-party-services': 3000,
+    //     'insurance': x,
+    //     'taxes-gov-fees': 1000,
+    //     'prepaid-expenses': 814,
+    //     'initial-escrow': 500})).to.equal(26000);
+    // });
+  });
+
+  describe('get-cost', function() {
+
+  });
+
+  describe('principal-paid', function() {
+
+  });
+
+  describe('interest-fees-paid', function() {
+
+  });
+
+  describe('overall-cost', function() {
+
+  });
+
+  describe('loan-summary', function() {
+    it ('Positive test - should return the correct loan-summary for ARM', function() {
+      expect(mortgage['loan-summary']({'arm-type': '3-1',
+        'rate-structure': 'arm'})).to.equal("3/1 ARM");
+    });
+
+    it ('Positive test - should return the correct loan-summary for Fixed', function() {
+      expect(mortgage['loan-summary']({'loan-term': 30,
+        'rate-structure': 'fixed',
+        'loan-type': 'va'})).to.equal("30-year fixed VA");
+    });
+  });
+
 });
 
 
