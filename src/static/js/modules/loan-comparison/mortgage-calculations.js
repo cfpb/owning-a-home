@@ -43,14 +43,14 @@ mortgage['taxes-gov-fees'] = function (loan) {
 mortgage['prepaid-expenses'] = function (loan) {
     var prepaidInterest = loan['loan-amount'] * (loan['interest-rate'] / 100) / 365 * 15;
         prepaidInsurance = INSURANCE_RATE * loan['price'] / 12 * 6;
-    return +(prepaidInterest + prepaidInsurance).toFixed(2);
+    return Math.round(prepaidInterest + prepaidInsurance);
 };
 
 
 mortgage['initial-escrow'] = function (loan) {
     var initialTaxes = TAX_RATE * loan['price'] / 12 * 2;
         initialInsurance = INSURANCE_RATE * loan['price'] / 12 * 2;
-    return +(initialTaxes + initialInsurance).toFixed(2);
+    return Math.round(initialTaxes + initialInsurance);
 };
 
 mortgage['monthly-taxes-insurance'] = function (loan) {
