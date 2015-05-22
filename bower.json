@@ -30,7 +30,8 @@
       "css": "src/**/*.css",
       "less": "src/**/*.less",
       "fonts": "src/fonts/*.*",
-      "js": "src/**/*.js"
+      "js": "src/**/*.js",
+      "jsx": "src/**/*.jsx"
     },
     "bootstrap": {
       "js": "js/*.js",
