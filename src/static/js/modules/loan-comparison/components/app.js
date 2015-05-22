@@ -2,8 +2,9 @@ var React = require('react');
 var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
 var LoanInputTable = require('./loan-input-table');
-var ScenarioPicker = require('./scenario-picker');
+var ScenarioSection = require('./scenario-section');
 var ScenarioHeader = require('./scenario-header');
+var NextSteps = require('./next-steps');
 
 var $ = jQuery = require('jquery');
 require('tooltips');
@@ -40,8 +41,8 @@ var App = React.createClass({
   render: function() {
     return (
         <div>
-            <ScenarioPicker scenario={this.state.scenario}/>
-            <div className="block block__border-top block__padded-top">
+            <ScenarioSection scenario={this.state.scenario}/>
+            <div className="block block__border-top block__padded-top" id="loans-container">
                 <ScenarioHeader scenario={this.state.scenario}/>
                 <div className="content-l">
                     <div className="content-l_col content-l_col-3-4">
@@ -55,6 +56,7 @@ var App = React.createClass({
                     </div>
                 </div>
             </div>
+            <NextSteps scenario={this.state.scenario}/>
         </div>
     );
   },

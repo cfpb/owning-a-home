@@ -50,9 +50,9 @@ function resetLoans (init) {
         // get scenario-specific loan data
         var scenarioLoanData = scenario ? scenario.loanProps : {};
 
-        // create each loan from default, existing, and scenario-specific data,
-        // then generate the calculated & state-related properties
-        // and fetch interest rates 
+        // create each loan from default + existing + scenario-specific data,
+        // then generate loan's calculated & state-based properties,
+        // and finally fetch interest rates 
         for (i = 0; i < len; i++) {
             var loan = assign({id: i}, defaultLoanData, _loans[i], scenarioLoanData[i]);
             generateCalculatedProperties(loan);
@@ -64,7 +64,7 @@ function resetLoans (init) {
 }
 
 // update all the loans
-function updateAll(prop, val) {
+function updateAllLoans(prop, val) {
     for (var id in _loans) {
         updateLoan(id, prop, val);
     }
@@ -243,7 +243,7 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
             // update both loans or single loan, dep. on whether the prop changed
             // is independent or linked in the current scenario
             if (isPropLinked(action.prop)) {
-                updateAll(action.prop, action.val);
+                updateAllLoans(action.prop, action.val);
             } else {
                 updateLoan(action.id, action.prop, action.val);
             }
@@ -251,7 +251,7 @@ LoanStore.dispatchToken = AppDispatcher.register(function(action) {
             break;
         
         case LoanConstants.UPDATE_ALL:
-            updateAll(action.prop, action.val);
+            updateAllLoans(action.prop, action.val);
             LoanStore.emitChange();
             break;
             
