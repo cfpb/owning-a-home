@@ -1,4 +1,5 @@
 var React = require('react');
+var CFButton = require('CFButton');
 var ScenarioActions = require('../actions/scenario-actions');
 
 var ScenarioButton = React.createClass({
