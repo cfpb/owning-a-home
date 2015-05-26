@@ -161,6 +161,7 @@ common.propLabels = {
     'overall-costs': 'Projected overall costs',
     'discount': 'Discount points or credits',
     'processing': 'Origination and processing fees',
+    'lender-fees': 'Lender fees',
     'third-party-services': 'Third party services',
     'insurance': 'Mortgage insurance', 
     'taxes-gov-fees': 'Taxes and government fees', 

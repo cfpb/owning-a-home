@@ -3,53 +3,42 @@ var LoanOutputCell = require('./loan-output-table-cell');
 
 var LoanOutputRow = React.createClass({
     render: function () {
+        var headingType = function (prop, type, label) {
+            if (type === 'primary') {
+                return (
+                    <LoanOutputRowPrimaryHeading prop={prop} label={label} />
+                );
+            } else {
+                return (
+                    <th>{label}</th>
+                );
+            }
+        };
         var loans = this.props.loans.map(function (loan) {
             return (
                 <LoanOutputCell loan={loan} prop={this.props.prop} resultType={this.props.resultType} />
             )
         }, this);
         return (
-          <tr>
-            <th>{this.props.label}</th>
-            {loans}
-          </tr>
+            <tr>
+                {headingType(this.props.prop, this.props.resultType, this.props.label)}
+                {loans}
+            </tr>
         );
     }
 });
 
 var LoanOutputRowPrimaryHeading = React.createClass({
-    headingIcon: function(result) {
+    headingIcon: function(prop) {
         var icon = 'cf-icon cf-icon-';
-        if (result === 'closing-costs') {
+        if (prop === 'closing-costs') {
             icon += 'mortgage';
-        } else if (result === 'monthly-payment') {
+        } else if (prop === 'monthly-payment') {
             icon += 'date';
-        } else if (result === 'overall-costs') {
+        } else if (prop === 'overall-costs') {
             icon += 'owning-home';
         }
         return icon;
-    },
-    outputType: function(label, type) {
-        var th,
-            expandable = false;
-        if (type === 'primary') {
-            th = ''
-        } else {
-            th ='<th>' + label + '</th>'
-        }
-        // } else if (type === 'main') {
-        //     classes = 'result__main',
-        //     heading = 'h5',
-        //     expandable = false;
-        // } else if (type === 'sub') {
-        //     classes = 'result__sub',
-        //     heading = 'h5',
-        //     expandable = false;
-        // }
-
-        // classes + heading + expandable;
-
-        return th;
     },
     render: function() {
         return (
