@@ -10,7 +10,12 @@ var LoanOutputRow = React.createClass({
                 );
             } else {
                 return (
-                    <th>{label}</th>
+                    <th scope="row">
+                        <h5>
+                            {label}&nbsp;
+                            <span className="lc-tooltip" data-toggle="tooltip" role="tooltip" data-original-title="" title=""><span className="cf-icon cf-icon-help-round"></span></span>
+                        </h5>
+                    </th>
                 );
             }
         };
