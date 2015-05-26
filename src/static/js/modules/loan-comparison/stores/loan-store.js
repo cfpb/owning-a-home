@@ -15,7 +15,8 @@ var ScenarioStore = require('./scenario-store');
 var calculatedProperties = ['loan-summary', 'loan-amount'];
 var calculatedPropertiesBasedOnIR = [
     'discount', 
-    'processing', 
+    'processing',
+    'lender-fees', 
     'third-party-services',
     'insurance', 
     'taxes-gov-fees', 

@@ -25,6 +25,10 @@ mortgage['processing'] = function (loan) {
     return loan['loan-amount'] / 100;
 };
 
+mortgage['lender-fees'] = function (loan) {
+    return loan['processing'] + loan['discount'] || 0;
+};
+
 mortgage['third-party-services'] = function (loan) {
     return 3000;
 };

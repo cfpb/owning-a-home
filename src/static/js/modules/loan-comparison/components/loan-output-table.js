@@ -3,11 +3,17 @@ var common = require('../common');
 var LoanOutput = require('./loan-output');
 var LoanOutputRow = require('./loan-output-table-row');
 
+var resultsTables = {
+    'closing-costs': ['downpayment','lender-fees','discount','processing'],
+    'monthly-payment': ['monthly-principal-interest','monthly-mortgage-insurance','monthly-hoa-dues','monthly-taxes-insurance'],
+    'overall-costs': ['loan-term','principal-paid','interest-fees-paid']
+}
+
 var LoanOutputTableGroup = React.createClass({
     render: function() {
         var results = ['closing-costs','monthly-payment','overall-costs'].map(function (prop) {
             return (
-                <LoanOutputTable result={prop} prop={this.props.prop} loans={this.props.loans} />
+                <LoanOutputTable result={prop} prop={prop} loans={this.props.loans} />
             )
         }, this);
         return (
@@ -33,13 +39,14 @@ var LoanOutputTableGroup = React.createClass({
 
 var LoanOutputTable = React.createClass({
     render: function() {
-        var rows = ['downpayment','third-party-services'].map(function (prop) {
+        var tableRows = resultsTables[this.props.prop];
+        var rows = tableRows.map(function (prop) {
             return (
                 <LoanOutputRow prop={prop} loans={this.props.loans} label={common.propLabels[prop]} resultType='main' />
             )
         }, this);
         return (
-            <table className="lc-results-table expandable expandable__table expandable__no-bg expandable__expanded" loans={this.props.loans}>
+            <table className="lc-results-table expandable expandable__table expandable__no-bg expandable__expanded" loans={this.props.loans} prop={this.props.prop}>
                 <thead className="u-visually-hidden">
                     <tr>
                         <th>Costs</th>
@@ -49,7 +56,7 @@ var LoanOutputTable = React.createClass({
                     </tr>
                 </thead>
                 <thead className="expandable_target expandable_header">
-                    <LoanOutputTableHead loans={this.props.loans} result={this.props.result}  label={common.propLabels[this.props.result]}/>
+                    <LoanOutputTableHead loans={this.props.loans} prop={this.props.prop}  label={common.propLabels[this.props.prop]}/>
                 </thead>
                 <tbody className="expandable_content">
                     {rows}
@@ -60,54 +67,10 @@ var LoanOutputTable = React.createClass({
 });
 
 var LoanOutputTableHead = React.createClass({
-    headingIcon: function(result) {
-        var icon = 'cf-icon cf-icon-';
-        if (result === 'closing-costs') {
-            icon += 'mortgage';
-        } else if (result === 'monthly-payment') {
-            icon += 'date';
-        } else if (result === 'overall-costs') {
-            icon += 'owning-home';
-        }
-        return icon;
-    },
     render: function() {
-        // var summaryHeading = this.props.result.map(function (prop) {
-        //     return (
-                
-        //     )
-        // }, this);
-        var loans = this.props.loans.map(function (loan) {
-            var loanID = loan['id'] === 0 ? 'a' : 'b',
-                propResult = this.props.result + '-display-' + loanID,
-                loanScenario = 'lc-result-' + loanID;
-
-            var classes = 'lc-primary-result ' + propResult + ' ' + loanScenario + ' lc-result';
-
-            return (
-                <td className={classes}><LoanOutput loan={loan} prop={this.props.result}/></td>
-            )
-        }, this);
         return (
             <tr>
-                <th scope="row" className="lc-primary-result-heading">
-                    <h4 className="results-section-heading">
-                        <span className={this.headingIcon(this.props.result)}></span>&nbsp;
-                        {this.props.label}
-                    </h4>
-                    <span className="expandable_header-right expandable_link">
-                        <span className="expandable_cue-open">
-                            <span className="u-visually-hidden">Show</span>
-                            <span className="cf-icon cf-icon-plus-round"></span>
-                        </span>
-                        <span className="expandable_cue-close">
-                            <span className="u-visually-hidden">Hide</span>
-                            <span className="cf-icon cf-icon-minus-round"></span>
-                        </span>
-                    </span>
-                </th>
-                    {loans}
-                    {/*<LoanOutputRow prop={this.props.result} loans={this.props.loans} label={this.props.label} resultType='primary' />*/}
+                <LoanOutputRow prop={this.props.prop} loans={this.props.loans} label={this.props.label} resultType='primary' />
                 <td className="callout-educational">
                     Educational callout
                 </td>

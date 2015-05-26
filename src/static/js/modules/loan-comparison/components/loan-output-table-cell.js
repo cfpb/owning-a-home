@@ -3,22 +3,23 @@ var common = require('../common');
 var LoanOutput = require('./loan-output');
 
 var LoanOutputCell = React.createClass({
-    // displayClassNames: function(loan, result, type) {
-    //     var //loanID = this.props.loans.loan['id'] === 0 ? 'a' : 'b',
-    //         loanID = 'a',
-    //         propResult = result + '-display-' + loanID,
-    //         loanScenario = 'lc-result-' + loanID,
-    //         classes = propResult + ' ' + loanScenario + ' lc-result';
-    //     if (type === 'primary') {
-    //         classes += ' lc-primary-result';
-    //     }
-    //     return classes;
-    // },
+    displayClassNames: function(loan, prop, type) {
+        var loanID = loan['id'] === 0 ? 'a' : 'b',
+            propResult = prop + '-display-' + loanID,
+            loanScenario = 'lc-result-' + loanID,
+            classes = propResult + ' ' + loanScenario + ' lc-result';
+        if (type === 'primary') {
+            classes += ' lc-primary-result';
+        }
+        return classes;
+    },
     render: function () {
+        var loan = this.props.loan,
+            prop = this.props.prop,
+            resultType = this.props.resultType;
         return (
-            <td>
-            {/*<td className={this.displayClassNames(this.props.loan,prop,this.props.resultType)}>*/}
-                <LoanOutput loan={this.props.loan} prop={this.props.prop}/>
+            <td className={this.displayClassNames(loan,prop,resultType)}>
+                <LoanOutput loan={loan} prop={prop}/>
             </td>
         );
     }

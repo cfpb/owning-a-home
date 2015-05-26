@@ -158,7 +158,21 @@ common.propLabels = {
     'third-party-services': 'Third party services',
     'closing-costs': 'Projected cash to close',
     'monthly-payment': 'Projected monthly payment',
-    'overall-costs': 'Projected overall costs'
+    'overall-costs': 'Projected overall costs',
+    'discount': 'Discount points or credits',
+    'processing': 'Origination and processing fees',
+    'third-party-services': 'Third party services',
+    'insurance': 'Mortgage insurance', 
+    'taxes-gov-fees': 'Taxes and government fees', 
+    'prepaid-expenses': 'Prepaid expenses',
+    'initial-escrow': 'Initial escrow deposit',
+    'monthly-taxes-insurance': 'Monthly taxes and insurance',
+    'monthly-hoa-dues': 'Monthly HOA dues', 
+    'monthly-principal-interest': "Monthly principal and interest",
+    'monthly-mortgage-insurance': 'Monthly mortgage insurance',
+    'loan-term': 'Loan term',
+    'principal-paid': 'Principal paid',
+    'interest-fees-paid': 'Interest and fees paid'
 };
 
 module.exports = common;
