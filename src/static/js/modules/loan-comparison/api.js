@@ -52,8 +52,9 @@ function prepLoanDataForMtgIns(loan) {
         loan_term: loan['loan-term'],
         loan_type: loan['loan-type'],
         arm_type: loan['arm-type'],
-        va_status: loan['va-status'],
-        va_first_use: loan['va-first-use']
+        //@TODO: These are placeholders for the VA parameters, need to revisit
+        va_status: 'REGULAR',
+        va_first_use: 1
     }
 }
 module.exports = api;

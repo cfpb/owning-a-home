@@ -89,6 +89,13 @@ function fetchRates(loan) {
     return api.fetchRateData(loan);
 }
 
+function fetchIns(loan) {
+    if (loan['mtg-ins-request']) {
+        api.stopRequest(loan['mtg-ins-request']);
+    }
+    return api.fetchMortgageInsuranceData(loan);
+}
+
 function processRatesResults(results) {
     var rates = [];
     for ( key in results.data ) {
@@ -105,8 +112,11 @@ function processRatesResults(results) {
 
 function updateRates(id) {
     var loans = ScenarioStore.getScenario() ? _loans : [_loans[id]];
-    var dfd = fetchRates(loans[0])
+    var dfd = fetchRates(loans[0]);
+    var insDfd = fetchIns(loans[0]);
+    dfd
                 .done(function(results) {
+                    console.log('rates');
                     var rates = processRatesResults(results);
                     for (var i=0; i< loans.length; i++) {
                         loans[i]['edited'] = false;
@@ -114,9 +124,26 @@ function updateRates(id) {
                         loans[i]['interest-rate'] = rates.median;
                     }
                 })
+           insDfd
+                .done(function(results) {
+                    console.log(results);
+                    for (var i=0; i< loans.length; i++) {
+                        loans[i]['mtg-ins-data'] = results.data;
+                    }
+                })      
+        $.when(dfd, insDfd)
+                .done(function () {
+                    console.log('both');
+                    for (var i=0; i< loans.length; i++) {
+                        console.log(loans[i]);
+                        assign(loans[i], generateCalculatedProperties(loans[i], true));
+                        console.log(loans[i]);
+                    }
+                })
                 .always(function() {
                     for (var i=0; i< loans.length; i++) {
                         loans[i]['rate-request'] = null;
+                        loans[i]['mtg-ins-request'] = null;
                     }
                     // TODO: maybe this fetch should be an api action?
                     LoanStore.emitChange();
@@ -124,6 +151,7 @@ function updateRates(id) {
     
     for (var i=0; i< loans.length; i++) { 
         loans[i]['rate-request'] = dfd;
+        loans[i]['mtg-ins-request'] = insDfd;
     }
 }
 
