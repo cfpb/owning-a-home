@@ -68,7 +68,10 @@ mortgage['monthly-principal-interest'] = function (loan) {
                   amount: positive(loan['loan-amount']),
                   rate: loan['interest-rate'],
                   totalTerm: loan['loan-term'] * 12,
-                  amortizeTerm: 60 // @todo loan term * 12?
+                  // since we are starting a new loan, 
+                  // amortizeTerm is 0, since we haven't make
+                  // any payment yet
+                  amortizeTerm: 0
                 }).payment);
 };
 
