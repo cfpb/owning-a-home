@@ -820,14 +820,17 @@
   }
 }
 
+#next-steps,
+#scenario-section {
+  .btn {
+    .respond-to-max(@mobile-max, {
+      width: 100%;
+      text-align: center;
+    });
+  }
+}
+
 .scenario-picker-select {
   margin-top: 5px;
   margin-bottom: 5px;
-}
-
-.scenario-picker-button {
-  .respond-to-max(@mobile-max, {
-    width: 100%;
-    text-align: center;
-  });
 }

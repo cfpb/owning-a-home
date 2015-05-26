@@ -41,7 +41,7 @@ function init () {
 }
 
 function resetLoans (init) {
-    var len = _loans.length || common.loanCount;
+    var len = _loans.length || 2;
     var scenario = ScenarioStore.getScenario();
     
     // if initial setup or a new scenario has been chosen, 
@@ -49,7 +49,15 @@ function resetLoans (init) {
     if (init || scenario) {
         // get scenario-specific loan data
         var scenarioLoanData = scenario ? scenario.loanProps : {};
-
+        
+        // If we're moving into a scenario with existing loans,
+        // make sure they have matching values by copying A's vals to B.
+        // The scenario-specific differences will be set below.
+        if (scenario && _loans[0] && _loans[1]) {
+            assign(_loans[1], _loans[0]);
+            _loans[1].id = 1;
+        }
+        
         // create each loan from default + existing + scenario-specific data,
         // then generate loan's calculated & state-based properties,
         // and finally fetch interest rates 
@@ -60,7 +68,7 @@ function resetLoans (init) {
             _loans[i] = loan;
             updateLoanRates(i);
         }
-    }
+    }    
 }
 
 // update all the loans
@@ -99,8 +107,8 @@ function fetchRates(loan) {
 function processRatesResults(results) {
     var rates = [];
     var totalRates = [];
-    for ( key in results.data ) {
-        if ( results.data.hasOwnProperty( key ) ) {
+    for (key in results.data) {
+        if (results.data.hasOwnProperty(key)) {
             rates.push(key);
             var len = results.data[key];
             for (var i=0; i<len; i++){
