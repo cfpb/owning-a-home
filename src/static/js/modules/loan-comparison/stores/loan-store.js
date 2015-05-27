@@ -6,7 +6,6 @@ var assign = require('object-assign');
 var jumbo = require('jumbo-mortgage');
 var mortgageCalculations = require('../mortgage-calculations');
 var common = require('../common');
-var utils = require('../utils');
 var api = require('../api');
 var $ = jQuery = require('jquery');
 var ScenarioStore = require('./scenario-store');
@@ -129,7 +128,7 @@ function processRatesResults(results) {
         }
     }
     rates = rates.sort();
-    var medianRate = utils.median(totalRates);
+    var medianRate = common.median(rates);
     var processedRates = $.map(rates, function( rate, i ) {
         return {val: rate, label: rate + '%'};
     });

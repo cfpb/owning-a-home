@@ -2,7 +2,6 @@ var $ = jQuery = require('jquery');
 var React = require('react');
 var common = require('../common');
 var LoanActions = require('../actions/loan-actions');
-var utils = require('../utils');
 var Tooltip = require('./tooltip');
 var StyledSelect = require('./styled-select');
 var Output = require('./loan-output');
