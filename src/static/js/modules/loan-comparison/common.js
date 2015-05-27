@@ -1,3 +1,5 @@
+var utils = require('./utils');
+
 var common = {};
 
 common.loanCount = 2;
@@ -153,12 +155,32 @@ common.errorMessages = {
     'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
 }
 
+
+utils.capitalizeFirst = function (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+common.getPropLabel = function (prop) {
+    label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
+    return label;    
+}
+
 common.propLabels = {
     'downpayment': 'Down payment',
     'points':      'Discount point and credits',
     'arm-type':    'ARM type',
-    'price':       'Home price',
-    'rate-structure': 'Rate type'
+    'rate-structure': 'Rate type',
+    'price': 'House price',
+    'closing-costs': 'Cash to close',
+    'discount': 'Discount points or credits',
+    'processing': 'Origination and processing fees',
+    'insurance': 'Mortgage insurance', 
+    'taxes-gov-fees': 'Taxes and government fees', 
+    'initial-escrow': 'Initial escrow deposit',
+    'monthly-taxes-insurance': 'Monthly taxes and insurance',
+    'monthly-hoa-dues': 'Monthly HOA dues', 
+    'monthly-principal-interest': "Monthly principal and interest",
+    'interest-fees-paid': 'Interest and fees paid'
 };
 
 module.exports = common;

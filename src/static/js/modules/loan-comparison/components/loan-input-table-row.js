@@ -96,7 +96,6 @@ var LoanInputRow = React.createClass({
     },
     render: function () {
         var prop = this.props.prop;
-        var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
         var notes = (this.props.scenario || {}).inputNotes;
         var educationalNote = (notes  || {})[prop];
         var className = '';
@@ -105,7 +104,7 @@ var LoanInputRow = React.createClass({
         return (
             <tr className={className}>
                 <td className="label-cell">
-                    <span className="label-text">{label}</span>
+                    <span className="label-text">{common.getPropLabel(prop)}</span>
                     <Tooltip text={common.inputTooltips[prop]}/>
                 </td>
                 {this.generateCells()}

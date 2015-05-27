@@ -3,6 +3,8 @@ var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
 var LoanInputTable = require('./loan-input-table');
 var ScenarioSection = require('./scenario-section');
+var LoanOutputTableGroup = require('./loan-output-table');
+var LoanOutputTableMobileGroup = require('./loan-output-table-mobile');
 var ScenarioHeader = require('./scenario-header');
 var NextSteps = require('./next-steps');
 
@@ -40,6 +42,10 @@ var App = React.createClass({
 
   render: function() {
     return (
+      <div>
+        <div>
+            <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
+        </div>
         <div>
             <ScenarioSection scenario={this.state.scenario}/>
             <div className="block block__border-top block__padded-top" id="loans-container">
@@ -56,8 +62,14 @@ var App = React.createClass({
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <LoanOutputTableGroup loans={this.state.loans} scenario={this.state.scenario} />
+        </div>
+        <div>
             <NextSteps scenario={this.state.scenario}/>
         </div>
+      </div>
     );
   },
  

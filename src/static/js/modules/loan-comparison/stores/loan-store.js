@@ -14,11 +14,23 @@ var ScenarioStore = require('./scenario-store');
 
 var calculatedProperties = ['loan-summary', 'loan-amount'];
 var calculatedPropertiesBasedOnIR = [
-    'discount', 'processing', 'third-party-services',
-    'insurance', 'taxes-gov-fees', 'prepaid-expenses', 'initial-escrow',        
-    'monthly-taxes-insurance', 'monthly-hoa-dues', 'monthly-principal-interest',
-    'monthly-mortgage-insurance', 'monthly-payment', 'closing-costs', 
-    'principal-paid', 'interest-fees-paid', 'overall-cost'
+    'discount', 
+    'processing',
+    'lender-fees', 
+    'third-party-services',
+    'insurance', 
+    'taxes-gov-fees', 
+    'prepaid-expenses', 
+    'initial-escrow',
+    'monthly-taxes-insurance', 
+    'monthly-hoa-dues', 
+    'monthly-principal-interest',
+    'monthly-mortgage-insurance', 
+    'monthly-payment', 
+    'closing-costs', 
+    'principal-paid', 
+    'interest-fees-paid', 
+    'overall-costs'
 ];
 var CHANGE_EVENT = 'change';
 
@@ -63,9 +75,9 @@ function resetLoans (init) {
         // and finally fetch interest rates 
         for (i = 0; i < len; i++) {
             var currentLoanData = _loans[i];
-            loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
-            generateCalculatedProperties(loan);
-            updateLoanState(loan);
+            _loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
+            generateCalculatedProperties(_loans[i]);
+            updateLoanState(_loans[i]);
             updateLoanRates(i);
         }
     }    
@@ -152,6 +164,7 @@ function generateCalculatedProperties (loan, rateChange) {
         var prop = props[i];
         loan[prop] = mortgageCalculations[prop](loan);
     }
+    return loan;
 }
 
 function updateLoanState (loan) {

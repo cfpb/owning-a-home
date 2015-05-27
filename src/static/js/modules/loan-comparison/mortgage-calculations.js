@@ -3,6 +3,9 @@ var cost = require('overall-loan-cost');
 var amortize = require('amortize');
 var humanizeLoanType = require('../humanize-loan-type');
 
+var TAX_RATE = 0.01;
+var INSURANCE_RATE = 0.005;
+
 var mortgage = {};
 
 mortgage['loan-amount'] = function (loan) {
@@ -27,6 +30,10 @@ mortgage['processing'] = function (loan) {
     return loan['loan-amount'] / 100;
 };
 
+mortgage['lender-fees'] = function (loan) {
+    return loan['processing'] + loan['discount'] || 0;
+};
+
 mortgage['third-party-services'] = function (loan) {
     return 3000;
 };
@@ -40,16 +47,21 @@ mortgage['taxes-gov-fees'] = function (loan) {
 };
 
 mortgage['prepaid-expenses'] = function (loan) {
-    return 500;
+    var prepaidInterest = loan['loan-amount'] * (loan['interest-rate'] / 100) / 365 * 15,
+        prepaidInsurance = INSURANCE_RATE * loan['price'] / 12 * 6;
+    return Math.round(prepaidInterest + prepaidInsurance);
 };
 
+
 mortgage['initial-escrow'] = function (loan) {
-    return 500;
+    var initialTaxes = TAX_RATE * loan['price'] / 12 * 2,
+        initialInsurance = INSURANCE_RATE * loan['price'] / 12 * 2;
+    return Math.round(initialTaxes + initialInsurance);
 };
 
 mortgage['monthly-taxes-insurance'] = function (loan) {
     var propertyTaxes = (loan['price'] / 100) / 12,
-        homeInsurance = (.05 * loan['price']) / 12;
+        homeInsurance = (INSURANCE_RATE * loan['price']) / 12;
     return propertyTaxes + homeInsurance;
 };
 
@@ -58,23 +70,30 @@ mortgage['monthly-hoa-dues'] = function (loan) {
 };
 
 mortgage['monthly-principal-interest'] = function (loan) {
-    return amortize({
-      amount: positive(loan['loan-amount']),
-      rate: loan['interest-rate'],
-      totalTerm: loan['loan-term'] * 12,
-      amortizeTerm: 60 // @todo loan term * 12?
-    }).payment;
+    return Math.round(amortize({
+                  amount: positive(loan['loan-amount']),
+                  rate: loan['interest-rate'],
+                  totalTerm: loan['loan-term'] * 12,
+                  // since we are starting a new loan, 
+                  // amortizeTerm is 0, since we haven't make
+                  // any payment yet
+                  amortizeTerm: 0
+                }).payment);
 };
 
 mortgage['monthly-mortgage-insurance'] = function (loan) {
     return 0;
 };
 
-mortgage['monthly-payment'] = function (loan) {
+// this has to be calculated after the other calculations that it uses - need to provide default data for these amounts before interest rate changes.
+// OR we need to perform calculations using the default data, not just on change!
+// loan edited should be true when page loads and rates load for first time, but it's not.
+// edited is for user interactions but we want to run the same calculations on page load
+mortgage['monthly-payment'] = function (loan) {        
     return loan['monthly-taxes-insurance']
-            + loan['monthly-mortgage-insurance']
-            + loan['monthly-hoa-dues']
-            + loan['monthly-principal-interest'];
+        + loan['monthly-mortgage-insurance']
+        + loan['monthly-hoa-dues']
+        + loan['monthly-principal-interest'];
 };
 
 mortgage['closing-costs'] = function (loan) {
@@ -106,7 +125,7 @@ mortgage['interest-fees-paid'] = function (loan) {
     return mortgage['get-cost'](loan).totalCost;
 };
 
-mortgage['overall-cost'] = function (loan) {
+mortgage['overall-costs'] = function (loan) {
     return mortgage['get-cost'](loan).overallCost;
 }
 
