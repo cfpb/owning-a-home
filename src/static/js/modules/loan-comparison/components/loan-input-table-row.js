@@ -1,7 +1,6 @@
 var $ = jQuery = require('jquery');
 var React = require('react');
 var common = require('../common');
-var utils = require('../utils');
 var Tooltip = require('./tooltip');
 var SelectInput = require('./loan-input-select');
 var Output = require('./loan-output');
@@ -48,7 +47,6 @@ var LoanInputRow = React.createClass({
         var prop = this.props.prop;
         var Component = components[prop] || SelectInput;
         var label = common.getPropLabel(prop);
-        // var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
         var notes = (this.props.scenario || {}).inputNotes;
         var educationalNote = (notes  || {})[prop];
         var className = '';
