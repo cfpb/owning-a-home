@@ -1,5 +1,3 @@
-var utils = require('./utils');
-
 var common = {};
 
 common.loanCount = 2;
@@ -152,13 +150,18 @@ common.errorMessages = {
     'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
 }
 
+common.median = function (arr) {
+    arr.sort( function(a,b) {return a - b;} );
+    var half = Math.floor(arr.length / 2);
+    return arr[half];
+}
 
-utils.capitalizeFirst = function (str) {
+common.capitalizeFirst = function (str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 common.getPropLabel = function (prop) {
-    label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
+    label = common.propLabels[prop] || common.capitalizeFirst(prop.split('-').join(' '));
     return label;    
 }
 
