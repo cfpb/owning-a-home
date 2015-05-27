@@ -159,7 +159,6 @@ utils.capitalizeFirst = function (str) {
 
 common.getPropLabel = function (prop) {
     label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
-
     return label;    
 }
 

@@ -42,7 +42,7 @@ var LoanOutputTable = React.createClass({
         var tableRows = resultsTables[this.props.prop];
         var rows = tableRows.map(function (prop) {
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(this.props.prop)} resultType='main' />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType='main' />
             )
         }, this);
         return (
