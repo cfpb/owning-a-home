@@ -1,4 +1,5 @@
 var React = require('react');
+var CFButton = require('cf-button');
 var ScenarioActions = require('../actions/scenario-actions');
 
 var ScenarioButton = React.createClass({
@@ -7,10 +8,7 @@ var ScenarioButton = React.createClass({
     },
     render: function () {
         return (
-            <a className="btn btn-primary" 
-             onClick={this.handleChange}>
-                {this.props.title}
-            </a>
+            <CFButton config="primary" onClick={this.handleChange}>{this.props.title}</CFButton>
         )
     }
 })
