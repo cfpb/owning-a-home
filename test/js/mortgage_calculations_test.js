@@ -43,6 +43,12 @@ describe('Calculates mortgage', function() {
     });
   });
 
+  describe('lender-fees', function() {
+    it('Positive test - should return lender fees total equal to processing plus discount points', function() {
+      expect(mortgage['lender-fees']({'processing': 1800, 'discount': 3600})).to.equal(5400);
+    });
+  });
+
   describe('third-party-services', function() {
     it('Positive test - should return third-party-services - placeholder 3000', function() {
       expect(mortgage['third-party-services']({})).to.equal(3000);
@@ -137,7 +143,7 @@ describe('Calculates mortgage', function() {
 
   });
 
-  describe('overall-cost', function() {
+  describe('overall-costs', function() {
 
   });
 

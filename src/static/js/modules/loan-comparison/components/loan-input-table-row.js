@@ -47,7 +47,8 @@ var LoanInputRow = React.createClass({
     render: function () {
         var prop = this.props.prop;
         var Component = components[prop] || SelectInput;
-        var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
+        var label = common.getPropLabel(prop);
+        // var label = common.propLabels[prop] || utils.capitalizeFirst(prop.split('-').join(' '));
         var notes = (this.props.scenario || {}).inputNotes;
         var educationalNote = (notes  || {})[prop];
         var className = '';
