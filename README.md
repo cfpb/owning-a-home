@@ -131,20 +131,21 @@ To index your content from WordPress:
 1. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
 
 
-### Rate Checker
-The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
+### Rate Checker and Mortgage Insurance
+The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premium. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premium. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
 
-**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker app.**
+**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker and Loan Comparison apps.**
 
 #### Private API Users
 
-To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
+To configure the Rate Checker and Loan Comparison you will need to point to the required API URLs in `config/config.json`. 
 
-1. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+1. In `config/config.json`, change lines to point to the API URLs, respectively:
 	```json
 	{
-	    "rateCheckerAPI": "YOUR API URL HERE",
-	    "countyAPI": "YOUR COUNTY API URL HERE"
+	    "rateCheckerAPI": "YOUR RATE CHECKER API URL HERE",
+	    "countyAPI": "YOUR COUNTY API URL HERE",
+		"mortgageInsuranceAPI": "YOUR MORTGAGE INSURANCE API URL HERE",
 	}
 	```
 
