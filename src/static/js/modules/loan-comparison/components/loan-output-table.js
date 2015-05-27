@@ -42,7 +42,7 @@ var LoanOutputTable = React.createClass({
         var tableRows = resultsTables[this.props.prop];
         var rows = tableRows.map(function (prop) {
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.propLabels[prop]} resultType='main' />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(this.props.prop)} resultType='main' />
             )
         }, this);
         return (
@@ -56,7 +56,7 @@ var LoanOutputTable = React.createClass({
                     </tr>
                 </thead>
                 <thead className="expandable_target expandable_header">
-                    <LoanOutputTableHead loans={this.props.loans} prop={this.props.prop}  label={common.propLabels[this.props.prop]}/>
+                    <LoanOutputTableHead loans={this.props.loans} prop={this.props.prop}  label={common.getPropLabel(this.props.prop)}/>
                 </thead>
                 <tbody className="expandable_content">
                     {rows}
