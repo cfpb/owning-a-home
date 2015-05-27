@@ -58,14 +58,14 @@ function resetLoans (init) {
             _loans[1].id = 1;
         }
         
-        // create each loan from default + existing + scenario-specific data,
+        // create each loan from default + current + scenario loan data,
         // then generate loan's calculated & state-based properties,
         // and finally fetch interest rates 
         for (i = 0; i < len; i++) {
-            var loan = assign({id: i}, defaultLoanData, _loans[i], scenarioLoanData[i]);
+            var currentLoanData = _loans[i];
+            loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
             generateCalculatedProperties(loan);
             updateLoanState(loan);
-            _loans[i] = loan;
             updateLoanRates(i);
         }
     }    
@@ -132,7 +132,8 @@ function updateLoanRates(id) {
                         var rates = processRatesResults(results);
                         loan['edited'] = false;
                         loan['rates'] = rates.vals;
-                        updateLoan(loan.id, 'interest-rate', rates.median);
+                        loan['interest-rate'] = rates.median;
+                        generateCalculatedProperties(loan, true);
                     })
                     .always(function() {
                         loan['rate-request'] = null;
