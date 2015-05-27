@@ -39,7 +39,7 @@ mortgage['third-party-services'] = function (loan) {
 mortgage['insurance'] = function (loan) {
     var upfront = loan['mtg-ins-data'].upfront;
     if (upfront) {
-        return Math.round((upfront / 100) * loan['price']);
+        return Math.round((upfront / 100) * loan['loan-amount']);
     }
     return 0;
 };
@@ -86,7 +86,7 @@ mortgage['monthly-principal-interest'] = function (loan) {
 mortgage['monthly-mortgage-insurance'] = function (loan) {
     var monthly = loan['mtg-ins-data'].monthly;
     if (monthly) {
-        return Math.round((monthly / 100) * loan['price']);
+        return Math.round((monthly / 100) * loan['loan-amount'] / 12);
     }
     return 0;
 };
