@@ -127,40 +127,36 @@ function updateRates(id) {
     var dfd = fetchRates(loans[0]);
     var insDfd = fetchIns(loans[0]);
     dfd
-                .done(function(results) {
-                    console.log('rates');
-                    var rates = processRatesResults(results);
-                    for (var i=0; i< loans.length; i++) {
-                        loans[i]['edited'] = false;
-                        loans[i]['rates'] = rates.vals;
-                        loans[i]['interest-rate'] = rates.median;
-                        assign(loans[i], generateCalculatedProperties(loans[i], true));
-                    }
-                })
-           insDfd
-                .done(function(results) {
-                    console.log(results);
-                    for (var i=0; i< loans.length; i++) {
-                        loans[i]['mtg-ins-data'] = results.data;
-                    }
-                })      
-        $.when(dfd, insDfd)
-                .done(function () {
-                    console.log('both');
-                    for (var i=0; i< loans.length; i++) {
-                        console.log(loans[i]);
-                        assign(loans[i], generateCalculatedProperties(loans[i], true));
-                        console.log(loans[i]);
-                    }
-                })
-                .always(function() {
-                    for (var i=0; i< loans.length; i++) {
-                        loans[i]['rate-request'] = null;
-                        loans[i]['mtg-ins-request'] = null;
-                    }
-                    // TODO: maybe this fetch should be an api action?
-                    LoanStore.emitChange();
-                });
+        .done(function(results) {
+            var rates = processRatesResults(results);
+            for (var i=0; i< loans.length; i++) {
+                loans[i]['edited'] = false;
+                loans[i]['rates'] = rates.vals;
+                loans[i]['interest-rate'] = rates.median;
+                assign(loans[i], generateCalculatedProperties(loans[i], true));
+            }
+        })
+    insDfd
+        .done(function(results) {
+            for (var i=0; i< loans.length; i++) {
+                loans[i]['mtg-ins-data'] = results.data;
+            }
+        })      
+    $.when(dfd, insDfd)
+        .done(function () {
+            for (var i=0; i< loans.length; i++) {
+                console.log(loans[i]);
+                assign(loans[i], generateCalculatedProperties(loans[i], true));
+            }
+        })
+        .always(function() {
+            for (var i=0; i< loans.length; i++) {
+                loans[i]['rate-request'] = null;
+                loans[i]['mtg-ins-request'] = null;
+            }
+            // TODO: maybe this fetch should be an api action?
+            LoanStore.emitChange();
+        });
     
     for (var i=0; i< loans.length; i++) { 
         loans[i]['rate-request'] = dfd;
