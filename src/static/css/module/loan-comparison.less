@@ -623,15 +623,19 @@
   }
 }
 
-  .results-section-heading {
-    margin: 0;
-    > .cf-icon {
-      color: @navy;
-    }
-    .respond-to-min(@tablet-min, {
-      margin-top: 7px;
-    });
+.outputs-heading {
+  margin-left: @grid_gutter-width*2;
+}
+
+.results-section-heading {
+  margin: 0;
+  > .cf-icon {
+    color: @navy;
   }
+  .respond-to-min(@tablet-min, {
+    margin-top: 7px;
+  });
+}
 
 
 .lc-result {

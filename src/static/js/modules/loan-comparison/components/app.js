@@ -13,71 +13,75 @@ require('tooltips');
 
 var App = React.createClass({
 
-  getInitialState: function() {
-    return this.getAppState();
-  },
+    getInitialState: function() {
+        return this.getAppState();
+    },
   
-  getAppState: function () {
-      return {
-          loans: LoanStore.getAll(),
-          scenario: ScenarioStore.getScenario()
-      }
-  },
-
-  componentDidMount: function() {
-    LoanStore.addChangeListener(this._onChange);
-    // tooltips
-    $(this.getDOMNode()).tooltip({
-        selector: '[data-toggle="tooltip"]',
-        'placement': 'bottom', 
-        title: function getTooltipTitle(){
-            return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
+    getAppState: function () {
+        return {
+            loans: LoanStore.getAll(),
+            scenario: ScenarioStore.getScenario()
         }
-    });
-  },
-  
-  componentWillUnmount: function() {
-    LoanStore.removeChangeListener(this._onChange);
-  },
+    },
 
-  render: function() {
-    return (
-      <div>
-        <div>
-            <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
-        </div>
-        <div>
-            <ScenarioSection scenario={this.state.scenario}/>
-            <div className="block block__border-top block__padded-top" id="loans-container">
-                <ScenarioHeader scenario={this.state.scenario}/>
-                <div className="content-l">
-                    <div className="content-l_col content-l_col-3-4">
-                        <div className="lc-inputs" id="loan-input-container">
-                            <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
-                                <span className="cf-icon cf-icon-save"></span> 
-                                Save inputs
-                            </a>
-                            <LoanInputTable loans={this.state.loans} scenario={this.state.scenario}/>
+    componentDidMount: function() {
+        LoanStore.addChangeListener(this._onChange);
+        // tooltips
+        $(this.getDOMNode()).tooltip({
+            selector: '[data-toggle="tooltip"]',
+            'placement': 'bottom', 
+            title: function getTooltipTitle(){
+                return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
+            }
+        });
+    },
+  
+    componentWillUnmount: function() {
+        LoanStore.removeChangeListener(this._onChange);
+    },
+
+    render: function() {
+        return (
+          <div>
+            
+            <div>
+                <ScenarioSection scenario={this.state.scenario}/>
+                <div className="block block__border-top block__padded-top" id="loans-container">
+                    <ScenarioHeader scenario={this.state.scenario}/>
+                    <div className="content-l">
+                        <div className="content-l_col content-l_col-3-4">
+                            <div>
+                                <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
+                            </div>
+                            <div className="lc-inputs" id="loan-input-container">
+                                <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
+                                    <span className="cf-icon cf-icon-save"></span> 
+                                    Save inputs
+                                </a>
+                                <LoanInputTable loans={this.state.loans} scenario={this.state.scenario}/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <LoanOutputTableGroup loans={this.state.loans} scenario={this.state.scenario} />
-        </div>
-        <div>
-            <NextSteps scenario={this.state.scenario}/>
-        </div>
-      </div>
-    );
-  },
+            <div>
+                <div className="content-l content-l__large-gutters">
+                    <h3 className="content-l_col content-l_col-1-2 outputs-heading">Based on the information above, here are the projected costs.</h3>
+                </div>
+                <LoanOutputTableGroup loans={this.state.loans} scenario={this.state.scenario} />
+            </div>
+            <div>
+                <NextSteps scenario={this.state.scenario}/>
+            </div>
+          </div>
+        );
+    },
  
   /**
    * Event handler for 'change' events coming from the Stores
    */
-  _onChange: function() {
-    this.setState(this.getAppState());
+    _onChange: function() {
+        this.setState(this.getAppState());
   }
 
 });
