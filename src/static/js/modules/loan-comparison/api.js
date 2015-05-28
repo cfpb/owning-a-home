@@ -25,36 +25,34 @@ api.stopRequest = function (dfd) {
     }
 }
 
-function prepLoanData(loan) {
+function prepBaseLoanData(loan) {
     var minfico = parseInt(loan['credit-score']) || 0;
     return {
         price: loan['price'],
         loan_amount: loan['loan-amount'],
         minfico: minfico,
         maxfico: minfico + (minfico === 840 ? 10 : 19),
-        state: loan['state'],
         rate_structure: loan['rate-structure'],
         loan_term: loan['loan-term'],
         loan_type: loan['loan-type'],
-        arm_type: loan['arm-type'],
-        points: loan['points']
-    }
+        arm_type: loan['arm-type']
+    }  
+}
+function prepLoanData(loan) {
+    var loandata = prepBaseLoanData(loan);
+    loandata.state = loan['state'];
+    loandata.points = loan['points'];
+
+    return loandata;
 }
 
 function prepLoanDataForMtgIns(loan) {
-    var minfico = parseInt(loan['credit-score']) || 0;
-    return {
-        price: loan['price'],
-        loan_amount: loan['loan-amount'],
-        minfico: minfico,
-        maxfico: minfico + (minfico === 840 ? 10 : 19),
-        rate_structure: loan['rate-structure'],
-        loan_term: loan['loan-term'],
-        loan_type: loan['loan-type'],
-        arm_type: loan['arm-type'],
-        //@TODO: These are placeholders for the VA parameters, need to revisit
-        va_status: 'REGULAR',
-        va_first_use: 1
-    }
+    var loandata = prepBaseLoanData(loan);
+    //@TODO: These are placeholders for the VA parameters, need to revisit
+    loandata.va_status = 'REGULAR';
+    loandata.va_first_use = 1;
+
+    return loandata;
 }
+
 module.exports = api;
