@@ -12,9 +12,17 @@ var LoanOutputRow = React.createClass({
                 return (
                     <LoanOutputRowPrimaryHeading prop={prop} label={label} />
                 );
-            } else {
+            } else if (type === 'sub') {
                 return (
                     <th scope="row">
+                        <h6>
+                            {label}
+                        </h6>
+                    </th>
+                );
+            } else {
+                return (
+                    <th scope="colgroup">
                         <h5>
                             {label}&nbsp;
                             <span className="lc-tooltip" data-toggle="tooltip" role="tooltip" data-original-title="" title=""><span className="cf-icon cf-icon-help-round"></span></span>
@@ -28,12 +36,12 @@ var LoanOutputRow = React.createClass({
                 <LoanOutputCell loan={loan} prop={this.props.prop} resultType={this.props.resultType} />
             )
         }, this);
-        // var resultType = this.props.resultType,
-        //     prop = this.props.prop,
-        //     label = this.props.label;
+        var resultType = this.props.resultType,
+            prop = this.props.prop,
+            label = this.props.label;
         return (
-            <tr className={this.displayClassNames(this.props.resultType)}>
-                {headingType(this.props.prop, this.props.resultType, this.props.label)}
+            <tr className={this.displayClassNames(resultType)}>
+                {headingType(prop, resultType, label)}
                 {loans}
             </tr>
         );

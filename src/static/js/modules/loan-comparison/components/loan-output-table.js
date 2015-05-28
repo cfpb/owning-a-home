@@ -9,6 +9,8 @@ var resultsTables = {
     'overall-costs': ['loan-term','principal-paid','interest-fees-paid']
 }
 
+var resultsSub = ['discount','processing','third-party-services','insurance'];
+
 var LoanOutputTableGroup = React.createClass({
     render: function() {
         var results = ['closing-costs','monthly-payment','overall-costs'].map(function (prop) {
@@ -41,8 +43,9 @@ var LoanOutputTable = React.createClass({
     render: function() {
         var tableRows = resultsTables[this.props.prop];
         var rows = tableRows.map(function (prop) {
+            var type = jQuery.inArray(prop, resultsSub) !== -1 ? 'sub' : 'main';
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType='main' />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType={type} />
             )
         }, this);
         return (
