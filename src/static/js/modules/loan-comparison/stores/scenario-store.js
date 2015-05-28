@@ -4,7 +4,6 @@ var ScenarioConstants = require('../constants/scenario-constants');
 var assign = require('object-assign');
 var common = require('../common');
 
-
 var CHANGE_EVENT = 'change';
 
 var _activeScenario = common.defaultScenario;
@@ -58,11 +57,6 @@ ScenarioStore.dispatchToken = AppDispatcher.register(function(action) {
 
         case ScenarioConstants.UPDATE_SCENARIO:
             update(action.id);
-            ScenarioStore.emitChange();
-            break;
-        
-        case ScenarioConstants.CUSTOM_SCENARIO:
-            update();
             ScenarioStore.emitChange();
             break;
 
