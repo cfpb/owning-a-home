@@ -17,11 +17,13 @@ mortgage['discount'] = function (loan) {
 };
 
 mortgage['downpayment-percent'] = function (loan) {
-  return Math.round(+loan['downpayment'] / +loan['price'] * 100) || 0;
+    var dp = +loan['downpayment'];
+    var price = +loan['price'];
+    return (dp && price) ? Math.round(dp / price * 100) : 0;
 };
 
 mortgage['downpayment'] = function (loan) {
-  return Math.round((+loan['downpayment-percent'] / 100) * +loan['price']);
+    return Math.round((+loan['downpayment-percent'] / 100) * +loan['price']);
 };
 
 mortgage['processing'] = function (loan) {
