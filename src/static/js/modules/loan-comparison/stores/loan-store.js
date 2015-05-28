@@ -115,6 +115,13 @@ function fetchRates(loan) {
     return api.fetchRateData(loan);
 }
 
+function fetchIns(loan) {
+    if (loan['mtg-ins-request']) {
+        api.stopRequest(loan['mtg-ins-request']);
+    }
+    return api.fetchMortgageInsuranceData(loan);
+}
+
 function processRatesResults(results) {
     var rates = [];
     var totalRates = [];
@@ -138,21 +145,33 @@ function processRatesResults(results) {
 function updateLoanRates(id) {
     var loans = $.isNumeric(id) ? [_loans[id]] : _loans;
     $.each(loans, function (ind, loan) {
-        var dfd = fetchRates(loan)
-                    .done(function(results) {
-                        var rates = processRatesResults(results);
-                        loan['edited'] = false;
-                        loan['rates'] = rates.vals;
-                        loan['interest-rate'] = rates.median;
-                        generateCalculatedProperties(loan, true);
-                    })
-                    .always(function() {
-                        loan['rate-request'] = null;
-                        // TODO: maybe this fetch should be an api action?
-                        LoanStore.emitChange();
-                    });
+        var dfd = fetchRates(loan);
+        var insDfd = fetchIns(loan);
+        dfd
+            .done(function(results) {
+                var rates = processRatesResults(results);
+                loan['edited'] = false;
+                loan['rates'] = rates.vals;
+                loan['interest-rate'] = rates.median;
+                generateCalculatedProperties(loan, true);
+            });
+        insDfd
+            .done(function(results) {
+                loan['mtg-ins-data'] = results.data;
+             });
+        $.when(dfd, insDfd)
+            .done(function () {
+                generateCalculatedProperties(loan, true);
+            })
+            .always(function() {
+                    loan['rate-request'] = null;
+                    loan['mtg-ins-request'] = null;
+                // TODO: maybe this fetch should be an api action?
+                LoanStore.emitChange();
+            });
         loan['rate-request'] = dfd;
-    });   
+        loan['mtg-ins-request'] = insDfd;
+    });  
 }
 
 function generateCalculatedProperties (loan, rateChange) {

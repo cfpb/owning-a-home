@@ -56,8 +56,8 @@ describe('Calculates mortgage', function() {
   });
 
   describe('insurance', function() {
-    it('Positive test - should return insurance - placeholder 0', function() {
-      expect(mortgage['insurance']({})).to.equal(0);
+    it('Positive test - should return insurance with the given loan-amount and mortgage insurance data', function() {
+      expect(mortgage['insurance']({'loan-amount': 180000, 'mtg-ins-data': {'upfront': 1}})).to.equal(1800);
     });
   });
 
@@ -105,7 +105,7 @@ describe('Calculates mortgage', function() {
 
   describe('monthly-mortgage-insurance', function() {
     it ('Positive test - should return the correct monthly-mortgage-insurance', function() {
-      expect(mortgage['monthly-mortgage-insurance']({})).to.equal(0);
+      expect(mortgage['monthly-mortgage-insurance']({'loan-amount': 180000, 'mtg-ins-data': {'monthly': 0.57}})).to.equal(85);
     });
   });
 
