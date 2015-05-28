@@ -2,6 +2,10 @@ var React = require('react');
 var LoanOutputCell = require('./loan-output-table-cell');
 
 var LoanOutputRow = React.createClass({
+    displayClassNames: function(type) {
+        var typeClass = 'result__' + type;
+        return typeClass;
+    },
     render: function () {
         var headingType = function (prop, type, label) {
             if (type === 'primary') {
@@ -24,8 +28,11 @@ var LoanOutputRow = React.createClass({
                 <LoanOutputCell loan={loan} prop={this.props.prop} resultType={this.props.resultType} />
             )
         }, this);
+        // var resultType = this.props.resultType,
+        //     prop = this.props.prop,
+        //     label = this.props.label;
         return (
-            <tr>
+            <tr className={this.displayClassNames(this.props.resultType)}>
                 {headingType(this.props.prop, this.props.resultType, this.props.label)}
                 {loans}
             </tr>
