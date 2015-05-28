@@ -132,7 +132,7 @@ To index your content from WordPress:
 
 
 ### Rate Checker and Mortgage Insurance
-The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premium. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premium. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
+The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premiums. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premiums. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
 
 **The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker and Loan Comparison apps.**
 
