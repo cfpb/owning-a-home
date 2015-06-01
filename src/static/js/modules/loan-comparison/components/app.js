@@ -34,6 +34,7 @@ var App = React.createClass({
             return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
         }
     });
+    $('.expandable').expandable();
   },
   
   componentWillUnmount: function() {

@@ -49,7 +49,7 @@ var LoanOutputTable = React.createClass({
             )
         }, this);
         return (
-            <table className="lc-results-table expandable expandable__table expandable__no-bg expandable__expanded" loans={this.props.loans} prop={this.props.prop}>
+            <table className="lc-results-table expandable expandable__table expandable__no-bg" loans={this.props.loans} prop={this.props.prop}>
                 <thead className="u-visually-hidden">
                     <tr>
                         <th>Costs</th>
