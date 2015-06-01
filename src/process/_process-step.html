@@ -152,6 +152,17 @@
                         </section>
                         {% endif %}
 
+                        {% if step.pitfalls_to_avoid %}
+                        <section class="content-l__main content-l step">
+                          <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
+                            Pitfalls to avoid
+                          </h1>
+                          <article class="content-l_col-3-4 content-l_col ">
+                          {{step.pitfalls_to_avoid|safe}}
+                          </article>
+                        </section>
+                        {% endif %}
+
                         <div>
                           <a class="expandable_target">
                             <span class="expandable_header-right expandable_link">
