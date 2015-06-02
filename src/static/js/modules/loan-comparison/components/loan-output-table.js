@@ -15,7 +15,7 @@ var LoanOutputTableGroup = React.createClass({
     render: function() {
         var results = ['closing-costs','monthly-payment','overall-costs'].map(function (prop) {
             return (
-                <LoanOutputTable result={prop} prop={prop} loans={this.props.loans} />
+                <LoanOutputTable result={prop} prop={prop} loans={this.props.loans}  scenario={this.props.scenario} />
             )
         }, this);
         return (
@@ -45,7 +45,7 @@ var LoanOutputTable = React.createClass({
         var rows = tableRows.map(function (prop) {
             var type = jQuery.inArray(prop, resultsSub) !== -1 ? 'sub' : 'main';
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType={type} />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} scenario={this.props.scenario} resultType={type} />
             )
         }, this);
         return (
@@ -59,7 +59,7 @@ var LoanOutputTable = React.createClass({
                     </tr>
                 </thead>
                 <thead className="expandable_target expandable_header">
-                    <LoanOutputTableHead loans={this.props.loans} prop={this.props.prop}  label={common.getPropLabel(this.props.prop)}/>
+                    <LoanOutputTableHead loans={this.props.loans} prop={this.props.prop}  label={common.getPropLabel(this.props.prop)} scenario={this.props.scenario} />
                 </thead>
                 <tbody className="expandable_content">
                     {rows}
@@ -73,7 +73,7 @@ var LoanOutputTableHead = React.createClass({
     render: function() {
         return (
             <tr>
-                <LoanOutputRow prop={this.props.prop} loans={this.props.loans} label={this.props.label} resultType='primary' />
+                <LoanOutputRow prop={this.props.prop} loans={this.props.loans} label={this.props.label} scenario={this.props.scenario} resultType='primary' />
                 <td className="callout-educational">
                     Educational callout
                 </td>

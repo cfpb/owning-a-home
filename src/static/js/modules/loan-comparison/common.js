@@ -28,7 +28,7 @@ common.scenarios = [
         },
         independentInputs: ['downpayment', 'downpayment-percent', 'interest-rate'],
         outputNotes: {
-            'cash-to-close': "A lower down payment means you'll need less cash at the closing table, but you may pay more in fees.", 
+            'closing-costs': "A lower down payment means you'll need less cash at the closing table, but you may pay more in fees.", 
             'insurance': "With a conventional loan, mortgage insurance is typically paid as part of your monthly payment, not upfront.", 
             'monthly-principal-interest': "With a lower down payment, you have more to pay back each month, and you're paying interest on a larger loan amount.", 
             'monthly-mortgage-insurance': "With a low down payment loan (less than 20%), you'll need to pay for mortgage insurance. Learn more.", 
