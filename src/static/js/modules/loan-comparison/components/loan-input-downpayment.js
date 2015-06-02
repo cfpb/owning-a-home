@@ -1,6 +1,6 @@
 var React = require('react');
 var ErrorMessage = require('./error-message');
-var TextInput = require('./input-text');
+var TextInput = require('./styled-text-input');
 var assign = require('object-assign');
 var mortgageCalculations = require('../mortgage-calculations');
 
@@ -38,13 +38,13 @@ var LoanDownpaymentInput = React.createClass({
         return (
             <div>
                 <TextInput
-                    val={this.state['downpayment-percent']}
+                    value={this.state['downpayment-percent']}
                     className='small-input percent-input' 
                     maxLength='2' 
                     placeholder='10' 
                     handleChange={this.updateDownpayment}/>
                 <TextInput 
-                    val={this.state['downpayment']}
+                    value={this.state['downpayment']}
                     className='mid-input dollar-input' 
                     placeholder='20,000' 
                     handleChange={this.props.handleChange}/>

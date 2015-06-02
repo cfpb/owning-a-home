@@ -153,6 +153,19 @@ common.errorMessages = {
     'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
 }
 
+common.omit = function (obj) {
+  var omitted = Array.prototype.slice.call(arguments, 1);
+  var out = {};
+  var props = Object.getOwnPropertyNames(obj);
+  for (var i=0;i<props.length;i++) {
+    var prop = props[i];
+    if (omitted.indexOf(prop) < 0) {
+      out[prop] = obj[prop];
+    }
+  }
+  return out;
+}
+
 common.median = function (arr) {
     arr.sort( function(a,b) {return a - b;} );
     var half = Math.floor(arr.length / 2);

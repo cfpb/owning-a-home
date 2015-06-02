@@ -1,45 +1,10 @@
 var $ = jQuery = require('jquery');
 var React = require('react');
 var common = require('../common');
-var LoanActions = require('../actions/loan-actions');
+var LoanInputCell = require('./loan-input-table-cell');
 var Tooltip = require('./tooltip');
-var StyledSelect = require('./styled-select');
-var Output = require('./loan-output');
-var TextInput = require('./input-text');
-var RadioInput = require('./input-radio');
-var DownpaymentInput = require('./loan-input-downpayment');
-var InterestRateInput = require('./loan-input-interest-rate');
+var outputs = ['loan-amount', 'loan-summary'];
 
-var components = {
-    'price': TextInput,
-    'points': RadioInput,
-    'downpayment': DownpaymentInput,
-    'interest-rate': InterestRateInput,
-    'loan-amount': Output,
-    'loan-summary': Output
-};
-
-function armErrorClassCheck (loan, prop) {
-    return loan.errors[prop] ? 'highlight-dropdown' : '';
-}
-
-function armDisabledOptionCheck (loan, prop, option) {
-    var disallowedOptions = common.armDisallowedOptions[prop];
-    return (loan['is-arm'] && $.inArray(option.val, disallowedOptions) >= 0);
-}
-
-var classNames = {
-    'arm-type': function (loan, prop) {
-        return (loan['is-arm'] ? '' : 'hidden');
-    },
-    'loan-term': armErrorClassCheck,
-    'loan-type': armErrorClassCheck
-}
-
-var disabledOptionChecks = {
-    'loan-term': armDisabledOptionCheck,
-    'loan-type': armDisabledOptionCheck
-}
 
 var LoanInputRow = React.createClass({
     propTypes: {
@@ -47,66 +12,73 @@ var LoanInputRow = React.createClass({
         loans: React.PropTypes.array.isRequired,
         scenario: React.PropTypes.object // or null
     },
-    handleChange: function (loanId, prop, eventOrVal) {
-        var val;
-        if (typeof eventOrVal === 'object' && eventOrVal) {
-            val = eventOrVal.target.value;
-        } else {
-            val = eventOrVal;
-        }
-        LoanActions.update(loanId, prop, val);
-    },
-    generateCells: function () {
-        var Component = components[this.props.prop] || StyledSelect;
-        var prop = this.props.prop;
-        
-        return this.props.loans.map(function (loan) {
-            // Different props for different components:
-            // generic input components get the value of the specified loan prop;
-            // loan outputs & loan-specific components get loan data
-            var props;
-            if ($.inArray(prop, ['loan-amount', 'loan-summary', 'downpayment', 'interest-rate']) >= 0) {
-                props = {loan: loan, prop: prop, scenario: this.props.scenario};
-            } else {
-                props = {val: loan[prop]};
-            }
-            
-            // Pass in options, className, & disabledOptionCheck function if they exist.                                      
-            var options = common.options[prop];
-            if (options) {
-                props.options = typeof options === 'string' ? loan[options] : options;
-            }
-            var disabledOptionCheck = disabledOptionChecks[prop];
-            if (disabledOptionCheck) {
-                props.disabledOptionCheck = disabledOptionCheck.bind(this, loan, prop);
-            }
-            var className = classNames[prop];
-            if (className) {
-                props.className = className(loan, prop);
-            }  
     
-            return (
-                <td>
-                      <Component componentId={prop + '-' + loan.id} handleChange={this.handleChange.bind(this, loan.id, prop)} {...props}/>
-                </td>
-              );
-        }, this);
+    generateClassName: function (rowType) {
+        // shows 'linked' or 'independent' state of row's prop in UI
+        var className = rowType;
         
+        // adds extra top padding to labels on rows with inputs
+        if ($.inArray(this.props.prop, outputs.concat(['points'])) < 0) {
+            className += ' padded-row';
+        }
+        
+        // hides the ARM input row if neither of the loans is adjustable
+        if (this.props.prop === 'arm-type') {
+            var armLoan = this.props.loans[0]['is-arm'] || this.props.loans[1]['is-arm'];
+            className += armLoan ? '' : ' hidden';
+        }
+        
+        return className;
     },
+    
+    generateCells: function (rowType) {
+        var loans = this.props.loans;
+        var cells = [];
+        var outputRow = $.inArray(this.props.prop, outputs) >= 0;
+        
+        for (var i=0; i< loans.length; i++) {
+            
+            // add a component cell for each loan
+            var componentCell = (
+                <LoanInputCell prop={this.props.prop} loan={loans[i]} scenario={this.props.scenario} rowType={rowType}/>
+            );
+            cells.push(componentCell);
+            
+            // add a link cell after 1st loan cell
+            // output rows don't need to display the icon
+            if (i === 0) {
+                cells.push(
+                    <td className="link">
+                        <span className={outputRow ? "" : "cf-icon cf-icon-link"}></span>
+                    </td>
+                );
+            }
+        }
+        
+        return cells;
+    },
+    
     render: function () {
-        var prop = this.props.prop;
-        var notes = (this.props.scenario || {}).inputNotes;
-        var educationalNote = (notes  || {})[prop];
-        var className = '';
-        className += educationalNote ? ' highlight' : '';
-        className += ($.inArray(prop, ['loan-amount', 'loan-summary', 'points']) >= 0) ? '' : ' padded-row';
+        var note,
+            rowType,
+            prop = this.props.prop,
+            scenario = this.props.scenario;
+        
+        if (scenario) {
+            // If there's a scenario, an educational note will be associated with all the
+            // independent inputs. Get the note for this row's prop, if one exists, & use
+            // the note's existence to determine a type, linked or independent, for the row.
+            note = (scenario.inputNotes || {})[prop];
+            rowType = note ? 'independent' : 'linked';
+        }
+        
         return (
-            <tr className={className}>
+            <tr className={this.generateClassName(rowType)}>
                 <td className="label-cell">
                     <span className="label-text">{common.getPropLabel(prop)}</span>
                     <Tooltip text={common.inputTooltips[prop]}/>
                 </td>
-                {this.generateCells()}
+                {this.generateCells(rowType)}
             </tr>
         );
     }

@@ -695,25 +695,7 @@
   table.unstyled {
     background: none;
     width: 100%;
-  
-    tr.highlight {
-      td {
-        background-color: @green-tint;
-        
-        .select-content,
-        input[type="text"] {
-          border-width: 2px;
-          border-color: @green;
-        }
-      }
-    }
-    
-    tr.padded-row {
-      td.label-cell {
-        padding-top: 1em;
-      }
-    }
-  
+      
     thead {
       background: none;
     
@@ -721,18 +703,32 @@
         color: @black;
         background: none;
       }
-    }
-    
-    
+    }    
   
     th,
     td {
         width: 33%;
         padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
         background-color: @gray-5;
+        
+        &.input-0 {
+          padding-right: unit(8px / @base-font-size-px, em);
+        }
+        
+        &.input-1 {
+          padding-left: unit(8px / @base-font-size-px, em);
+        }
 
         tbody > tr:nth-child(odd) > & {
             background: none;
+        }
+        
+        &.link {
+          width: 20px;
+          padding-left: 0;
+          padding-right: 0;
+          font-size: unit(20px / @base-font-size-px, em);
+          color: @gray;
         }
     }
   
@@ -747,11 +743,66 @@
       &.label-cell {
         padding-left: @grid_gutter-width;
       }
+      
+      &.link {
+        span {
+          display: none;
+        }
+      }
     }
   
-    tbody tr {
+    tr {
       border: none;
+      
+      &.padded-row {
+        td.label-cell {
+          padding-top: 1em;
+        }
+        td.link {
+          padding-top: .9em;
+        }
+      }
+      
+      &.linked {
+        td.input-1 {
+          color: @gray-80;
+
+          .select-content,
+          input[type="text"] {
+            border-color: @gray-20;
+          }
+
+          .select-content {
+            background: #fff url('../img/select.png') no-repeat right -63px;
+          }
+
+          select {
+            color: @gray-80;
+            font-style: normal !important;
+          }        
+        }
+        td.link {
+          span {
+            display: block;
+          }
+        }
+      }
+      
+      &.independent {
+        td {
+          background-color: @green-tint;
+
+          .select-content,
+          input[type="text"] {
+            border-width: 2px;
+            border-color: @green;
+          }
+        }
+      }
+      
     }
+    
+   
   }
 }
 
@@ -834,3 +885,5 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+

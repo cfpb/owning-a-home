@@ -26,11 +26,11 @@ var ScenarioPicker = React.createClass({
                     <label forHtml="scenario-picker-select" className="scenario-picker-label">
                         Explore how <span className="u-visually-hidden">a scenario will affect your loan costs.</span>
                     </label>   
-                    <StyledSelect val={(scenario || {}).val}
-                                  options={common.scenarios}
-                                  handleChange={this.changeScenario}
+                    <StyledSelect value={(scenario || {}).val}
+                                  items={common.scenarios}
+                                  onChange={this.changeScenario}
                                   title='Select a scenario'
-                                  componentId="scenario-picker-select"
+                                  id="scenario-picker-select"
                                   className="scenario-picker-select"/>
                     <div className="short-desc" aria-hidden={true}>will affect your loan costs.</div>
                 </div>
