@@ -50,9 +50,7 @@ var App = React.createClass({
                     <ScenarioHeader scenario={this.state.scenario}/>
                     <div className="content-l">
                         <div className="content-l_col content-l_col-3-4">
-                            <div>
-                                <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
-                            </div>
+                            <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
                             <div className="lc-inputs" id="loan-input-container">
                                 <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
                                     <span className="cf-icon cf-icon-save"></span> 
