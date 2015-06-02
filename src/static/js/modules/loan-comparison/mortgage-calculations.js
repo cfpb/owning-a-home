@@ -74,8 +74,6 @@ mortgage['monthly-hoa-dues'] = function (loan) {
 };
 
 mortgage['monthly-principal-interest'] = function (loan) {
-    console.log("LOAN: ", loan);
-    console.log(loan['interest-rate']);
     return Math.round(amortize({
                   amount: positive(loan['loan-amount']),
                   rate: loan['interest-rate'],
