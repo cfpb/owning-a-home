@@ -548,6 +548,11 @@
         top: 14px;
         left: @grid_gutter-width/2;
       }
+      .tooltip {
+        .webfont-regular();
+        letter-spacing: 0;
+        text-transform: none;
+      }
     });
     th {
       border-bottom: 1px solid @gray-50;
@@ -583,10 +588,8 @@
         position: absolute;
         right: @grid_gutter-width/2;
         .respond-to-min(@tablet-min, {
-          top: 18px;
-        });
-        .respond-to-min(800px, {
-          right: @grid_gutter-width;
+          top: @grid_gutter-width/2;
+          font-size: 22px;
         });
       }
     }
