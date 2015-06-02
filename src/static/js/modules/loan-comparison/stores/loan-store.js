@@ -16,6 +16,7 @@ var calculatedPropertiesBasedOnIR = [
     'discount', 
     'processing',
     'lender-fees', 
+    'third-party-fees',
     'third-party-services',
     'insurance', 
     'taxes-gov-fees', 
@@ -182,6 +183,7 @@ function generateCalculatedProperties (loan, rateChange) {
         var prop = props[i];
         loan[prop] = mortgageCalculations[prop](loan);
     }
+    console.log(loan['third-party-fees']);
     return loan;
 }
 

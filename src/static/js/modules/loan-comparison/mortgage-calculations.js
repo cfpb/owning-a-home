@@ -46,6 +46,10 @@ mortgage['insurance'] = function (loan) {
     return 0;
 };
 
+mortgage['third-party-fees'] = function (loan) {
+    return loan['third-party-services'];
+}
+
 mortgage['taxes-gov-fees'] = function (loan) {
     return 1000;
 };
@@ -93,10 +97,6 @@ mortgage['monthly-mortgage-insurance'] = function (loan) {
     return 0;
 };
 
-// this has to be calculated after the other calculations that it uses - need to provide default data for these amounts before interest rate changes.
-// OR we need to perform calculations using the default data, not just on change!
-// loan edited should be true when page loads and rates load for first time, but it's not.
-// edited is for user interactions but we want to run the same calculations on page load
 mortgage['monthly-payment'] = function (loan) {        
     return loan['monthly-taxes-insurance']
         + loan['monthly-mortgage-insurance']

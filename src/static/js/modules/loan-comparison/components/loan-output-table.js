@@ -4,7 +4,7 @@ var LoanOutput = require('./loan-output');
 var LoanOutputRow = require('./loan-output-table-row');
 
 var resultsTables = {
-    'closing-costs': ['downpayment','lender-fees','discount','processing','third-party-services','insurance','taxes-gov-fees','prepaid-expenses','initial-escrow'],
+    'closing-costs': ['downpayment','lender-fees','discount','processing','third-party-fees','third-party-services','insurance','taxes-gov-fees','prepaid-expenses','initial-escrow'],
     'monthly-payment': ['monthly-principal-interest','monthly-mortgage-insurance','monthly-hoa-dues','monthly-taxes-insurance'],
     'overall-costs': ['loan-term','principal-paid','interest-fees-paid']
 }
