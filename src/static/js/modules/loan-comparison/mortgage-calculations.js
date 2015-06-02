@@ -47,7 +47,7 @@ mortgage['insurance'] = function (loan) {
 };
 
 mortgage['third-party-fees'] = function (loan) {
-    return loan['third-party-services'];
+    return loan['third-party-services'] + loan['insurance'];
 }
 
 mortgage['taxes-gov-fees'] = function (loan) {
