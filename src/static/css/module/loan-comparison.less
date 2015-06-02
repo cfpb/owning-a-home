@@ -402,9 +402,16 @@
   Loan Comparison Results
   --------------------------- */
 
+.comparison-results {
+  margin-bottom: @grid_gutter-width;  
+}
+
 .lc-results-table {
-  margin: 0;
+  margin: 0 0 @grid_gutter-width/2;
   width: 100%;
+  .respond-to-min(@tablet-min, {
+    margin-bottom: @grid_gutter-width;
+  });
   th,
   thead td {
     background: transparent;
@@ -434,14 +441,13 @@
   }
   tbody.expandable_content {
     display: block;
-    margin-bottom: @grid_gutter-width;
-    .respond-to-min(@tablet-min, {
-      margin-bottom: @grid_gutter-width*2;
-    });
   }
   th {
     .respond-to-min(@tablet-min, {
       .grid_column(1,3);
+      padding-left: @grid_gutter-width/3;
+      padding-right: 0;
+      border-width: 0;
     });
   }
   td,
@@ -474,13 +480,16 @@
   }
   .lc-primary-result {
     .grid_column(1,2);
-    padding: @grid_gutter-width/2;
     .webfont-demi();
+    padding: @grid_gutter-width/2;
   }
   .lc-result {
     .grid_column(1,2);
     .respond-to-min(@tablet-min, {
       .grid_column(1,3);
+      &.lc-primary-result {
+        vertical-align: bottom;
+      }
     });
     .respond-to-min(1000px, {
       padding-right: @grid_gutter-width;
@@ -507,7 +516,32 @@
       padding-top: @grid_gutter-width/2;
       border-top: 1px solid @gray-50;
       &:first-child {
+        padding-top: 0;
         border-top: 0;
+      }
+      &:last-child {
+        padding-bottom: @grid_gutter-width/2;
+        border-bottom: 1px solid @gray-50;
+      }
+      &.highlight {
+        position: relative;
+      }
+      &.highlight:before,
+      &.highlight:last-child:after { // hack for highlighted design to cover padding of row
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: @grid_gutter-width/2;
+        background: white;
+      }
+      &.highlight:last-child:after {
+        top: initial;
+        bottom: 0;
+      }
+      &.highlight:first-child:before {
+        display: none;
       }
       .lc-tooltip {
         position: absolute;
@@ -611,7 +645,6 @@
   }
   .expandable_header {
     position: relative;
-    margin-bottom: @grid_gutter-width/2;
     z-index: 2;
     background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
   }
@@ -635,9 +668,6 @@
     > .cf-icon {
       color: @black;
     }
-    .respond-to-min(@tablet-min, {
-      margin-top: 7px;
-    });
   }
 
 
@@ -651,6 +681,7 @@
 .lc-primary-result,
 .lc-primary-result-heading  {
   font-size: 1.375em;
+  font-weight: 700;
 }
 
 .feedback-block {
