@@ -510,6 +510,20 @@
     });
   }
 
+  .result__primary {
+    &.highlight:before {
+      .respond-to-min(795px, { // hack for the highlighted main result row width
+        content: '';
+        display: block;
+        position: absolute;
+        left: -200%;
+        width: 200%;
+        height: 100%;
+        background-color: @green-tint;
+      });
+    }
+  }
+
   .result__main {
     .respond-to-min(@tablet-min, {
       margin-top: @grid_gutter-width/2;
