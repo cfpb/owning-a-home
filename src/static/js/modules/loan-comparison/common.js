@@ -180,9 +180,10 @@ common.propLabels = {
     'insurance': 'Mortgage insurance', 
     'taxes-gov-fees': 'Taxes and government fees', 
     'initial-escrow': 'Initial escrow deposit',
-    'monthly-taxes-insurance': 'Monthly taxes and insurance',
-    'monthly-hoa-dues': 'Monthly HOA dues', 
-    'monthly-principal-interest': "Monthly principal and interest",
+    'monthly-taxes-insurance': 'Taxes and insurance',
+    'monthly-hoa-dues': 'HOA dues', 
+    'monthly-principal-interest': "Principal and interest",
+    'monthly-mortgage-insurance': "Mortgage insurance",
     'interest-fees-paid': 'Interest and fees paid'
 };
 
