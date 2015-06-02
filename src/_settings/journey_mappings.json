@@ -1,5 +1,4 @@
 {
-"journey": {
   "properties": {
     "author": {
       "properties": {
@@ -61,11 +60,7 @@
       }
     },
     "milestones": {
-      "properties": {
-        "milestone": {
-          "type": "string"
-        }
-      }
+      "type": "string"
     },
     "modified": {
       "type": "date",
