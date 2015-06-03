@@ -1,3 +1,8 @@
+.loan-comparison {
+  .cf-icon-help-round {
+    color: @pacific;
+  }
+}
 
 .calc-content {
   .webfont-medium();
@@ -159,10 +164,6 @@
   
   .help-text {
     display: none;
-  }
-  
-  .cf-icon-help-round {
-    color: @pacific;
   }
 
   input[type="text"] {
@@ -443,7 +444,6 @@
       .grid_column(1,3);
     });
   }
-  th:first-child,
   td,
   tr {
     display: block;
@@ -463,9 +463,10 @@
   .expandable_content {
     th > * {
       display: inline-block;
+      text-align: left;
     }
     th {
-      
+      text-align: left;
     }
   }
   .lc-primary-result-heading {
@@ -507,11 +508,18 @@
       border-top: 1px solid @gray-50;
       &:first-child {
         border-top: 0;
-      } 
+      }
+      .lc-tooltip {
+        position: absolute;
+        top: 14px;
+        left: @grid_gutter-width/2;
+      }
     });
     th {
       border-bottom: 1px solid @gray-50;
       .respond-to-min(@tablet-min, {
+        position: relative;
+        padding-left: @grid_gutter-width*1.333;
         border-bottom: 0;
       });
     }
@@ -531,7 +539,7 @@
       margin-bottom: 0;
       margin-left: @grid_gutter-width/2;
       .respond-to-min(@tablet-min, {
-        margin-left: 0;
+        margin-left: @grid_gutter-width;
       });
     }
   }
@@ -601,11 +609,6 @@
       right: @grid_gutter-width*1.5;
     });
   }
-  .expandable {
-    .respond-to-min(@tablet-min, {
-      overflow: hidden;
-    });
-  }
   .expandable_header {
     position: relative;
     margin-bottom: @grid_gutter-width/2;
@@ -627,15 +630,15 @@
   margin-left: @grid_gutter-width*2;
 }
 
-.results-section-heading {
-  margin: 0;
-  > .cf-icon {
-    color: @navy;
+  .results-section-heading {
+    margin: 0;
+    > .cf-icon {
+      color: @black;
+    }
+    .respond-to-min(@tablet-min, {
+      margin-top: 7px;
+    });
   }
-  .respond-to-min(@tablet-min, {
-    margin-top: 7px;
-  });
-}
 
 
 .lc-result {
@@ -645,7 +648,8 @@
   });
 }
 
-.lc-primary-result {
+.lc-primary-result,
+.lc-primary-result-heading  {
   font-size: 1.375em;
 }
 
@@ -663,7 +667,7 @@
 
 
 .lc-tooltip .cf-icon-help-round {
-  font-size: unit( 14px / @base-font-size-px, em );
+  font-size: 14px;
   padding-left: 3px;
 }
 

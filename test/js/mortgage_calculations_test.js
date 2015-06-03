@@ -49,6 +49,12 @@ describe('Calculates mortgage', function() {
     });
   });
 
+  describe('third-party-fees', function() {
+    it('Positive test - should return third-party-fees equal to third-party-services plus mortgage insurance', function() {
+      expect(mortgage['third-party-fees']({"third-party-services": 3000, "insurance": 0})).to.equal(3000);
+    });
+  });
+
   describe('third-party-services', function() {
     it('Positive test - should return third-party-services - placeholder 3000', function() {
       expect(mortgage['third-party-services']({})).to.equal(3000);

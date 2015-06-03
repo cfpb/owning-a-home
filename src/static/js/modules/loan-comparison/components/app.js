@@ -23,7 +23,7 @@ var App = React.createClass({
             scenario: ScenarioStore.getScenario()
         }
     },
-
+    
     componentDidMount: function() {
         LoanStore.addChangeListener(this._onChange);
         // tooltips
@@ -34,6 +34,7 @@ var App = React.createClass({
                 return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
             }
         });
+        $('.expandable').expandable();
     },
   
     componentWillUnmount: function() {

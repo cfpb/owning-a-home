@@ -4,10 +4,12 @@ var LoanOutput = require('./loan-output');
 var LoanOutputRow = require('./loan-output-table-row');
 
 var resultsTables = {
-    'closing-costs': ['downpayment','lender-fees','discount','processing','third-party-services','insurance','taxes-gov-fees','prepaid-expenses','initial-escrow'],
+    'closing-costs': ['downpayment','lender-fees','discount','processing','third-party-fees','third-party-services','insurance','taxes-gov-fees','prepaid-expenses','initial-escrow'],
     'monthly-payment': ['monthly-principal-interest','monthly-mortgage-insurance','monthly-hoa-dues','monthly-taxes-insurance'],
     'overall-costs': ['loan-term','principal-paid','interest-fees-paid']
 }
+
+var resultsSub = ['discount','processing','third-party-services','insurance'];
 
 var LoanOutputTableGroup = React.createClass({
     render: function() {
@@ -41,12 +43,13 @@ var LoanOutputTable = React.createClass({
     render: function() {
         var tableRows = resultsTables[this.props.prop];
         var rows = tableRows.map(function (prop) {
+            var type = jQuery.inArray(prop, resultsSub) !== -1 ? 'sub' : 'main';
             return (
-                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType='main' />
+                <LoanOutputRow prop={prop} loans={this.props.loans} label={common.getPropLabel(prop)} resultType={type} />
             )
         }, this);
         return (
-            <table className="lc-results-table expandable expandable__table expandable__no-bg expandable__expanded" loans={this.props.loans} prop={this.props.prop}>
+            <table className="lc-results-table expandable expandable__table expandable__no-bg" loans={this.props.loans} prop={this.props.prop}>
                 <thead className="u-visually-hidden">
                     <tr>
                         <th>Costs</th>
