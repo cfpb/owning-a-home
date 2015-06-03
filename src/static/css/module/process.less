@@ -37,6 +37,20 @@
   .list_link {
     .respond-to-max(@mobile-max, {
       .block-link();
+      border-color: @link-underline;
+
+       &:visited {
+         border-color: @link-underline-visited;
+       }
+
+       &:hover {
+         border-color: @link-underline-hover;
+         z-index: 10;
+       }
+
+       &:active{
+         border-color: @link-underline-active;
+       }
 
       &.icon-link:after {
         position: absolute;
