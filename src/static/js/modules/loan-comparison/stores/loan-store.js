@@ -183,7 +183,6 @@ function generateCalculatedProperties (loan, rateChange) {
         var prop = props[i];
         loan[prop] = mortgageCalculations[prop](loan);
     }
-    console.log(loan['third-party-fees']);
     return loan;
 }
 
