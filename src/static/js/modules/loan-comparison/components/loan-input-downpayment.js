@@ -22,7 +22,7 @@ var LoanDownpaymentInput = React.createClass({
             'downpayment-percent': percent,
             'downpayment': mortgageCalculations['downpayment'](assign({}, this.props.loan, {'downpayment-percent': percent}))
         });
-        this.props.handleChange(this.state.downpayment);
+        this.props.onChange(this.state.downpayment);
     },
     // TODO: move error display to table-row?
     showError: function() {
@@ -42,12 +42,12 @@ var LoanDownpaymentInput = React.createClass({
                     className='small-input percent-input' 
                     maxLength='2' 
                     placeholder='10' 
-                    handleChange={this.updateDownpayment}/>
+                    onChange={this.updateDownpayment}/>
                 <TextInput 
                     value={this.state['downpayment']}
                     className='mid-input dollar-input' 
                     placeholder='20,000' 
-                    handleChange={this.props.handleChange}/>
+                    onChange={this.props.onChange}/>
                 <ErrorMessage opts={{showMessage: this.showError}}/>
             </div>
         );

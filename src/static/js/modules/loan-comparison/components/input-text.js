@@ -21,16 +21,16 @@ var DebouncedTextInput = React.createClass({
     componentWillMount: function () {
         var self = this;
         this.handleChangeDebounced = debounce(function () {
-            self.props.handleChange(self.state.value);
+            self.props.onChange(self.state.value);
         }, 500);
     },
     componentWillReceiveProps: function (nextProps) {
         this.setState({value: nextProps.value});
     },
     render: function() {
-        var props = common.omit(this.props, 'val');
+        var props = common.omit(this.props, 'value', 'onChange');
         return (
-            <input type="text" value={this.state.value} {...props}/>
+            <input type="text" value={this.state.value} onChange={this.handleChange} {...props}/>
         );
     }
 });

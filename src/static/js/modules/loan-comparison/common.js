@@ -20,7 +20,11 @@ common.scenarios = [
         title: 'Down Payment',
         label: 'down payment',
         intro: "Your down payment amount affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you’ll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in costs is likely to be, so you can make tradeoffs.",
-        loanProps: [{downpayment: 40000}, {downpayment: 20000}],
+        loanProps: [
+            {downpayment: 40000}, 
+            {downpayment: 20000}
+        ],
+        sharedProps: {},
         inputNotes: {
             'downpayment': "We've chosen two common down payment amounts. Feel free to adjust these numbers.", 
             'loan-amount': "The lower your down payment, the higher the amount you need to borrow.", 
