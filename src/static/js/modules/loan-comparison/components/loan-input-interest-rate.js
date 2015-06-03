@@ -5,6 +5,7 @@ var StyledSelect = require('./styled-select');
 var InterestRateInput = React.createClass({
     disableRates: function (option) {
         //return (this.props.scenario && this.props.loan['interest-rate'] != option.val);
+        //disabledItemCheck={this.disableRates}
     },
     fetchRates: function () {
         LoanActions.fetchRates(this.props.loan.id);
@@ -21,10 +22,9 @@ var InterestRateInput = React.createClass({
     render: function() {
         return (
             <div className={this.setClass()}>
-                <StyledSelect val={this.props.loan[this.props.prop]} 
-                             options={this.props.options}
-                             handleChange={this.props.handleChange}
-                             disabledOptionCheck={this.disableRates}/>
+                <StyledSelect value={this.props.loan[this.props.prop]} 
+                              items={this.props.items}
+                              onChange={this.props.onChange}/>
                 <button className='btn btn__primary interest-rate-update' onClick={this.fetchRates}>
                     Update rates and costs
                 </button>

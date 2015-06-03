@@ -1,6 +1,6 @@
 var React = require('react');
 var ErrorMessage = require('./error-message');
-var TextInput = require('./input-text');
+var TextInput = require('./styled-text-input');
 var assign = require('object-assign');
 var mortgageCalculations = require('../mortgage-calculations');
 
@@ -22,7 +22,7 @@ var LoanDownpaymentInput = React.createClass({
             'downpayment-percent': percent,
             'downpayment': mortgageCalculations['downpayment'](assign({}, this.props.loan, {'downpayment-percent': percent}))
         });
-        this.props.handleChange(this.state.downpayment);
+        this.props.onChange(this.state.downpayment);
     },
     // TODO: move error display to table-row?
     showError: function() {
@@ -38,16 +38,16 @@ var LoanDownpaymentInput = React.createClass({
         return (
             <div>
                 <TextInput
-                    val={this.state['downpayment-percent']}
+                    value={this.state['downpayment-percent']}
                     className='small-input percent-input' 
                     maxLength='2' 
                     placeholder='10' 
-                    handleChange={this.updateDownpayment}/>
+                    onChange={this.updateDownpayment}/>
                 <TextInput 
-                    val={this.state['downpayment']}
+                    value={this.state['downpayment']}
                     className='mid-input dollar-input' 
                     placeholder='20,000' 
-                    handleChange={this.props.handleChange}/>
+                    onChange={this.props.onChange}/>
                 <ErrorMessage opts={{showMessage: this.showError}}/>
             </div>
         );

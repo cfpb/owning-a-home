@@ -1,36 +1,36 @@
 var React = require('react');
 var debounce = require('debounce');
+var common = require('../common');
 
 var DebouncedTextInput = React.createClass({
+    // TODO: make debounce optional
+    propTypes: {
+        value: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+            React.PropTypes.bool
+        ])
+    },
     getInitialState: function () {
-        return {val: this.props.val};
+        return {value: this.props.value};
     },
     handleChange: function (e) {
-        this.setState({val: e.target.value});
+        this.setState({value: e.target.value});
         this.handleChangeDebounced();
     },
     componentWillMount: function () {
         var self = this;
         this.handleChangeDebounced = debounce(function () {
-            self.props.handleChange(self.state.val);
+            self.props.onChange(self.state.value);
         }, 500);
     },
     componentWillReceiveProps: function (nextProps) {
-        this.setState({val: nextProps.val});
+        this.setState({value: nextProps.value});
     },
     render: function() {
-        // TODO: label
+        var props = common.omit(this.props, 'value', 'onChange');
         return (
-            <div className={this.props.className}>
-                <span className="unit"></span>
-                <input type="text" 
-                    placeholder={this.props.placeholder}
-                    name="input-price" 
-                    className="recalc"
-                    maxLength={this.props.maxLength}
-                    value={this.state.val}
-                    onChange={this.handleChange}/>
-            </div>
+            <input type="text" value={this.state.value} onChange={this.handleChange} {...props}/>
         );
     }
 });

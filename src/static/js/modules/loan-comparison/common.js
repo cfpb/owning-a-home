@@ -20,7 +20,11 @@ common.scenarios = [
         title: 'Down Payment',
         label: 'down payment',
         intro: "Your down payment amount affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you’ll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in costs is likely to be, so you can make tradeoffs.",
-        loanProps: [{downpayment: 40000}, {downpayment: 20000}],
+        loanProps: [
+            {downpayment: 40000}, 
+            {downpayment: 20000}
+        ],
+        sharedProps: {},
         inputNotes: {
             'downpayment': "We've chosen two common down payment amounts. Feel free to adjust these numbers.", 
             'loan-amount': "The lower your down payment, the higher the amount you need to borrow.", 
@@ -151,6 +155,19 @@ common.errorMessages = {
     'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + common.minDownpaymentPcts.fhaPercent + '%.',
     'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + common.minDownpaymentPcts.confPercent + '%.',
     'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
+}
+
+common.omit = function (obj) {
+  var omitted = Array.prototype.slice.call(arguments, 1);
+  var out = {};
+  var props = Object.getOwnPropertyNames(obj);
+  for (var i=0;i<props.length;i++) {
+    var prop = props[i];
+    if (omitted.indexOf(prop) < 0) {
+      out[prop] = obj[prop];
+    }
+  }
+  return out;
 }
 
 common.median = function (arr) {
