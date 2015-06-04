@@ -4,13 +4,13 @@ var LoanOutputCell = require('./loan-output-table-cell');
 var LoanOutputRow = React.createClass({
     displayClassNames: function(type) {
         var typeClass = 'result__' + type;
-        return typeClass;
+        return typeClass;        
     },
     render: function () {
-        var headingType = function (prop, type, label) {
+        var headingType = function (prop, type, label, scenario) {
             if (type === 'primary') {
                 return (
-                    <LoanOutputRowPrimaryHeading prop={prop} label={label} />
+                    <LoanOutputRowPrimaryHeading prop={prop} label={label} scenario={scenario} />
                 );
             } else if (type === 'sub') {
                 return (
@@ -38,10 +38,17 @@ var LoanOutputRow = React.createClass({
         }, this);
         var resultType = this.props.resultType,
             prop = this.props.prop,
-            label = this.props.label;
+            label = this.props.label,
+            scenario = this.props.scenario,
+            className = this.displayClassNames(resultType),
+            notes = (scenario || {}).outputNotes,
+            educationalNote = (notes  || {})[prop];
+        
+        className += educationalNote ? ' highlight' : '';
+
         return (
-            <tr className={this.displayClassNames(resultType)}>
-                {headingType(prop, resultType, label)}
+            <tr className={className}>
+                {headingType(prop, resultType, label, scenario)}
                 {loans}
             </tr>
         );
@@ -61,10 +68,17 @@ var LoanOutputRowPrimaryHeading = React.createClass({
         return icon;
     },
     render: function() {
+        var prop = this.props.prop,
+            notes = (this.props.scenario || {}).outputNotes,
+            educationalNote = (notes  || {})[prop],
+            className = 'lc-primary-result-heading';
+
+        className += educationalNote ? ' highlight' : '';
+
         return (
-            <th scope="row" className="lc-primary-result-heading">
+            <th scope="row" className={className}>
                 <h4 className="results-section-heading">
-                    <span className={this.headingIcon(this.props.prop)}></span>&nbsp;
+                    <span className={this.headingIcon(prop)}></span>&nbsp;
                     {this.props.label}
                 </h4>
                 <span className="expandable_header-right expandable_link">
