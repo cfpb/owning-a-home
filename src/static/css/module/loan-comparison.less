@@ -746,7 +746,6 @@
   
   table.unstyled {
     background: none;
-    width: 100%;
       
     thead {
       background: none;
@@ -755,106 +754,7 @@
         color: @black;
         background: none;
       }
-    }    
-  
-    th,
-    td {
-        width: 33%;
-        padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
-        background-color: @gray-5;
-        
-        &.input-0 {
-          padding-right: unit(8px / @base-font-size-px, em);
-        }
-        
-        &.input-1 {
-          padding-left: unit(8px / @base-font-size-px, em);
-        }
-
-        tbody > tr:nth-child(odd) > & {
-            background: none;
-        }
-        
-        &.link {
-          width: 20px;
-          padding-left: 0;
-          padding-right: 0;
-          font-size: unit(20px / @base-font-size-px, em);
-          color: @gray;
-        }
-    }
-  
-    td {
-      vertical-align: top;
-    
-      &.label-cell {
-        text-align: right;
-      }
-      
-      &.header-cell, 
-      &.label-cell {
-        padding-left: @grid_gutter-width;
-      }
-      
-      &.link {
-        span {
-          display: none;
-        }
-      }
-    }
-  
-    tr {
-      border: none;
-      
-      &.padded-row {
-        td.label-cell {
-          padding-top: 1em;
-        }
-        td.link {
-          padding-top: .9em;
-        }
-      }
-      
-      &.linked {
-        td.input-1 {
-          color: @gray-80;
-
-          .select-content,
-          input[type="text"] {
-            border-color: @gray-20;
-          }
-
-          .select-content {
-            background: #fff url('../img/select.png') no-repeat right -63px;
-          }
-
-          select {
-            color: @gray-80;
-            font-style: normal !important;
-          }        
-        }
-        td.link {
-          span {
-            display: block;
-          }
-        }
-      }
-      
-      &.highlight {
-        td {
-          background-color: @green-tint;
-
-          .select-content,
-          input[type="text"] {
-            border-width: 2px;
-            border-color: @green;
-          }
-        }
-      }
-      
-    }
-    
-   
+    }  
   }
 }
 
@@ -937,9 +837,143 @@
   margin-bottom: 5px;
 }
 
-/* Makes loan input table background appear flush
-   with left side of screen on desktop */
+
 #loan-input-table {
+  width: 100%;
+  position: relative;
+  
+  select {
+    font-size: unit(14px / @base-font-size-px, em);
+  }
+
+  th,
+  td {
+      width: 33%;
+      padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
+      background-color: @gray-5;
+      
+      &.input-0 {
+        padding-right: unit(8px / @base-font-size-px, em);
+      }
+      
+      &.input-1 {
+        padding-left: unit(8px / @base-font-size-px, em);
+      }
+
+      tbody > tr:nth-child(odd) > & {
+          background: none;
+      }
+      
+      &.link {
+        width: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: unit(20px / @base-font-size-px, em);
+        color: @gray;
+      }
+  }
+
+  td {
+    vertical-align: top;
+  
+    &.label-cell {
+      text-align: right;
+    }
+    
+    &.header-cell, 
+    &.label-cell {
+      padding-left: @grid_gutter-width;
+    }
+    
+    &.link {
+      span {
+        display: none;
+      }
+    }
+  }
+  
+  .label-text {
+    .webfont-medium();
+    .u-inline-block;
+    padding-right: 3px;
+  }
+
+  tr {
+    border: none;
+    
+    &.header-row {
+      h3 {
+        padding-left: @grid_gutter-width * 1.5;
+        padding-top: @grid_gutter-width;
+      }
+    }
+    
+    &.subhead-row {
+      padding-bottom: 0;
+      
+      h4 {
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+    
+    &.output-row {
+      .label-text {
+        .h5;
+        border-bottom: none;
+      }
+    }
+    
+    &.padded-row {
+      td.label-cell {
+        padding-top: 1em;
+      }
+      td.link {
+        padding-top: .9em;
+      }
+    }
+    
+    &.linked {
+      td.input-1 {
+        color: @gray-80;
+
+        .select-content,
+        input[type="text"] {
+          border-color: @gray-20;
+        }
+
+        .select-content {
+          background: #fff url('../img/select.png') no-repeat right -63px;
+        }
+
+        select {
+          color: @gray-80;
+          font-style: normal !important;
+        }        
+      }
+      td.link {
+        span {
+          display: block;
+        }
+      }
+    }
+    
+    &.highlight {
+      td {
+        background-color: @green-tint;
+
+        .select-content,
+        input[type="text"] {
+          border-width: 2px;
+          border-color: @green;
+        }
+      }
+    }
+    
+  }
+  
+  /* Makes loan input table background appear flush
+     with left side of screen on desktop */
   .respond-to-min(795px, { 
     td:first-child,
     th:first-child {
@@ -964,4 +998,47 @@
       }
     }
   });
+}
+
+.educational-note {
+  .respond-to-min(795px, { 
+  
+    padding: 0;
+    height: 0;
+    width: 0;
+  
+    div {
+      position: absolute;
+      margin-left: @grid_gutter-width;
+      width: 33%;
+      border: 2px solid @green-tint;
+      padding: @grid_gutter-width/2;
+      text-align: left;
+    }
+  
+    p {
+      color: @text;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: unit(@base-font-size-px / 16 * 100, %);
+      line-height: @base-line-height;
+      text-align: left;
+    }
+  
+    .lc-results-table & {
+      div {
+         top: 0;
+         margin-left: @grid_gutter-width/2;
+       }
+    }
+  });
+}
+
+.lc-results-table {
+  tr {
+    position: relative;
+  }
+}
+
+.tooltip {
+  .webfont-regular();
 }

@@ -1,4 +1,6 @@
 var React = require('react');
+var debounce = require('debounce');
+
 var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
 var LoanInputTable = require('./loan-input-table');
@@ -7,6 +9,7 @@ var LoanOutputTableGroup = require('./loan-output-table');
 var LoanOutputTableMobileGroup = require('./loan-output-table-mobile');
 var ScenarioHeader = require('./scenario-header');
 var NextSteps = require('./next-steps');
+var positionNotes = require('../position-notes');
 
 var $ = jQuery = require('jquery');
 require('tooltips');
@@ -30,11 +33,34 @@ var App = React.createClass({
         $(this.getDOMNode()).tooltip({
             selector: '[data-toggle="tooltip"]',
             'placement': 'bottom', 
+            container: 'body',
             title: function getTooltipTitle(){
                 return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
             }
         });
         $('.expandable').expandable();
+        
+        var animating;
+        // initial positioning of educational notes
+        positionNotes();
+        
+        $(window).resize(debounce(function () {
+            positionNotes(animating);
+        }, 100));
+        
+        // reposition notes on start of expand event
+        // and (approximate) completion of expandable animation
+        // (could also update cf-expandable to allow callbacks)
+        $('.expandable_target').click(function () {
+            var $parent = $(this).closest('.expandable');
+            animating = true;
+            positionNotes(animating, $parent);
+            
+            setTimeout(function () {
+                animating = false;
+                positionNotes(animating, $parent);
+            }, 1000)
+        });
     },
   
     componentWillUnmount: function() {
@@ -69,9 +95,7 @@ var App = React.createClass({
                 </div>
                 <LoanOutputTableGroup loans={this.state.loans} scenario={this.state.scenario} />
             </div>
-            <div>
-                <NextSteps scenario={this.state.scenario}/>
-            </div>
+            <NextSteps scenario={this.state.scenario}/>
           </div>
         );
     },

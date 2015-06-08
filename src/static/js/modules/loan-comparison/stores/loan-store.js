@@ -146,7 +146,7 @@ function processRatesResults(results) {
         }
     }
     rates = rates.sort();
-    var medianRate = common.median(rates) || 0;
+    var medianRate = common.median(totalRates) || 0;
     var processedRates = $.map(rates, function( rate, i ) {
         return {val: Number(rate), label: rate + '%'};
     });

@@ -187,7 +187,7 @@ common.getPropLabel = function (prop) {
 
 common.propLabels = {
     'downpayment': 'Down payment',
-    'points':      'Discount point and credits',
+    'points':      '<span>Discount points<br/>and credits</span>',
     'arm-type':    'ARM type',
     'rate-structure': 'Rate type',
     'price': 'House price',

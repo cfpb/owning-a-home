@@ -1,5 +1,6 @@
 var React = require('react');
 var LoanOutputCell = require('./loan-output-table-cell');
+var EducationalNote = require('./educational-note');
 
 var LoanOutputRow = React.createClass({
     displayClassNames: function(type) {
@@ -41,15 +42,20 @@ var LoanOutputRow = React.createClass({
             label = this.props.label,
             scenario = this.props.scenario,
             className = this.displayClassNames(resultType),
-            notes = (scenario || {}).outputNotes,
-            educationalNote = (notes  || {})[prop];
+            note,
+            noteHtml;
+                    
+        if (scenario) {
+            note = (this.props.scenario.outputNotes || {})[prop];
+            noteHtml = note ? (<EducationalNote label={label} note={note} type="output"/>) : null;
+            className += note ? ' highlight' : '';
+        }
         
-        className += educationalNote ? ' highlight' : '';
-
         return (
             <tr className={className}>
                 {headingType(prop, resultType, label, scenario)}
                 {loans}
+                <td className="educational-note">{noteHtml}</td>
             </tr>
         );
     }
