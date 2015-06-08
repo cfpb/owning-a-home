@@ -40,31 +40,44 @@ var App = React.createClass({
         });
         $('.expandable').expandable();
         
-        var animating;
+        var animating, scenario = this.state.scenario;
+
         // initial positioning of educational notes
-        positionNotes();
+        if (scenario) {
+            positionNotes();
+        }
         
         $(window).resize(debounce(function () {
-            positionNotes(animating);
+            if (scenario) {
+                positionNotes(animating);
+            }
         }, 100));
         
         // reposition notes on start of expand event
         // and (approximate) completion of expandable animation
         // (could also update cf-expandable to allow callbacks)
         $('.expandable_target').click(function () {
-            var $parent = $(this).closest('.expandable');
-            animating = true;
-            positionNotes(animating, $parent);
-            
-            setTimeout(function () {
-                animating = false;
+            if (scenario) {
+                var $parent = $(this).closest('.expandable');
+                animating = true;
                 positionNotes(animating, $parent);
-            }, 1000)
+
+                setTimeout(function () {
+                    animating = false;
+                    positionNotes(animating, $parent);
+                }, 1000);
+            }
         });
     },
   
     componentWillUnmount: function() {
         LoanStore.removeChangeListener(this._onChange);
+    },
+    
+    componentDidUpdate: function () {
+        if (this.state.scenario) {
+            positionNotes();
+        }
     },
 
     render: function() {

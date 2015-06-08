@@ -1,25 +1,17 @@
 var $ = jQuery = require('jquery');
 
-var $allNotes, $outputNotes;
-
-function cacheNotes() {
-    $allNotes = $('.educational-note div');
-    $outputNotes = $allNotes.not('.input');
-}
-
-var positionNotes = function (animating, expandable) {
-    if (!$allNotes) {cacheNotes();}
-    
-    $notes = expandable ? $outputNotes : $allNotes;
+var positionNotes = function (animating, expandable) {    
+    $notes = expandable 
+             ? $('.educational-note div.output') 
+             : $('.educational-note div');
     
     // Check that we're on desktop
-    if ($notes.css('position') === 'absolute') {
+    if ($notes.css('position') == 'absolute') {
         var notePositions = [];
         
         $notes.each(function (i) {
             var $this = $(this);
             var $parent = $this.closest('tr');  
-               
             // Don't need to position hidden notes (ones in collapsed expandables)
             if ($parent.is(":visible")) {
                 

@@ -21,8 +21,8 @@ common.scenarios = [
         label: 'down payment',
         intro: "Your down payment amount affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you’ll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in costs is likely to be, so you can make tradeoffs.",
         loanProps: [
-            {downpayment: 40000}, 
-            {downpayment: 20000}
+            {'downpayment-percent': 20},
+            {'downpayment-percent': 10}
         ],
         sharedProps: {},
         inputNotes: {
@@ -44,7 +44,29 @@ common.scenarios = [
 common.defaultScenario = common.scenarios[0];
 
 common.inputTooltips = {
-    'state': 'State tooltip'
+    'state': 'The state where the home is located',
+    'county': 'The county where the home is located',
+    'credit-score': 'A number that is used to predict how likely you are to pay back a loan on time. You can find out how to get this number here: http://www.consumerfinance.gov/askcfpb/316/where-can-i-get-my-credit-score.html',
+    'price': 'The price of the home',
+    'downpayment': 'The initial, upfront payment you make toward the total cost of the home. ',
+    'loan-amount': 'The amount of money borrowed to pay for the home. Calculated by subtracting the down payment from the home price.',
+    'rate-structure': 'Choose between a fixed rate, where your interest rate does not change over the term of your loan, or adjustable rate where it can change.',
+    'arm-type': 'Adjustable Rate Mortgages have both fixed periods and adjustable periods. The top number is the fixed period. The bottom number is the adjustable period. Learn more here:http://www.consumerfinance.gov/owning-a-home/loan-options/',
+    'loan-term': 'The amount of time the borrower has to repay the loan.',
+    'loan-type': 'Loans are categorized based on the size of the loan and whether they are part of a government program. Learn more here: http://www.consumerfinance.gov/owning-a-home/loan-options/',
+    'loan-summary': 'This field summarizes your loan type, term, and rate type.',
+    'points': 'Points lower the interest rate by closing costs. Credits lower closing costs by increasing the interest rate. Learn more here: http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html',
+    'interest-rate': 'The cost paid each year to borrow the money, expressed as a percentage rate. It does not reflect fees or any other charges paid for the loan.'
+};
+common.outputTooltips = {
+    'downpayment': 'The amount paid upfront for the home.',
+    'lender-fees': 'Fees paid to the lender to process the mortgage. Paid as part of the closing costs.',
+    'third-party-fees': 'Fees paid for services provided by a third party, not your lender. Includes title insurance fees, appraisal fees, and homeowner’s insurance. Paid as part of the closing costs.',
+    'taxes-gov-fees': 'Includes fees paid to the government, transfer taxes, and property taxes. Paid as part of the closing costs.',
+    'prepaid-expenses': 'Fees required to be paid at closing, before they are due, such as accrued interest.',
+    'initial-escrow': 'The amount paid at closing to start your escrow account, if required by your lender. Learn more: http://www.consumerfinance.gov/askcfpb/160/what-is-an-initial-escrow-deposit.html',
+    'monthly-principal-interest': 'The amount paid each month toward the loan balance combined with the amount paid each month in interest costs.',
+    'monthly-mortgage-insurance': 'A monthly fee paid to the lender if the down payment was less than 20 percent. Mortgage insurance protects the lender, not the borrower.'
 }
 
 // Options can be an array of objects with "label" & "val" properties,

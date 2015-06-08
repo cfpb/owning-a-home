@@ -1,6 +1,8 @@
 var React = require('react');
 var LoanOutputCell = require('./loan-output-table-cell');
 var EducationalNote = require('./educational-note');
+var common = require('../common');
+var Tooltip = require('./tooltip');
 
 var LoanOutputRow = React.createClass({
     displayClassNames: function(type) {
@@ -8,6 +10,9 @@ var LoanOutputRow = React.createClass({
         return typeClass;        
     },
     render: function () {
+        var tooltipHtml = common.outputTooltips[this.props.prop]
+                          ? <Tooltip text={common.outputTooltips[this.props.prop]}/>
+                          : null;
         var headingType = function (prop, type, label, scenario) {
             if (type === 'primary') {
                 return (
@@ -19,6 +24,7 @@ var LoanOutputRow = React.createClass({
                         <h6>
                             {label}
                         </h6>
+                        {tooltipHtml}
                     </th>
                 );
             } else {
@@ -26,7 +32,7 @@ var LoanOutputRow = React.createClass({
                     <th scope="colgroup">
                         <h5>
                             {label}&nbsp;
-                            <span className="lc-tooltip" data-toggle="tooltip" role="tooltip" data-original-title="" title=""><span className="cf-icon cf-icon-help-round"></span></span>
+                            {tooltipHtml}
                         </h5>
                     </th>
                 );
