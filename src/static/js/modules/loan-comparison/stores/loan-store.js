@@ -76,8 +76,7 @@ function resetLoans (init) {
         for (i = 0; i < len; i++) {
             var currentLoanData = _loans[i];
             _loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
-            generateCalculatedProperties(_loans[i]);
-            updateLoanState(_loans[i]);
+            updateLoan(i);
             updateLoanRates(i);
         }
     }    
@@ -92,21 +91,32 @@ function updateAllLoans(prop, val) {
 
 // update a single loan
 function updateLoan(id, prop, val) {
+    prop || (prop = null);
+    
     var loan = _loans[id];
     var rateChange = (prop === 'interest-rate');
     
-    loan[prop] = val;
-    
-    if (rateChange) {
-        loan['edited'] = false;
-    } else {
-        loan['edited'] = true;
-        if (loan['rate-request']) {
-            updateLoanRates(id);
-        }
+    if (prop && val) {
+        loan[prop] = val;
     }
+    
+    loan['edited'] = !rateChange;
+    updateDependencies(loan, prop);
     generateCalculatedProperties(loan, rateChange);
     updateLoanState(loan);
+    
+    if (loan['edited'] && loan['rate-request']) {
+        updateLoanRates(id);
+    }
+}
+
+function updateDependencies (loan, prop) {
+    if (!prop || prop === 'price' || prop === 'downpayment') {
+        loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
+    } else if (prop === 'downpayment-percent') {
+        loan['downpayment'] = mortgageCalculations['downpayment'](loan);        
+    }
+    return loan;
 }
 
 function fetchRates(loan) {
@@ -138,9 +148,9 @@ function processRatesResults(results) {
     rates = rates.sort();
     var medianRate = common.median(rates) || 0;
     var processedRates = $.map(rates, function( rate, i ) {
-        return {val: rate, label: rate + '%'};
+        return {val: Number(rate), label: rate + '%'};
     });
-    return {vals: processedRates, median: medianRate};
+    return {vals: processedRates, median: Number(medianRate)};
 }
 
 function updateLoanRates(id) {

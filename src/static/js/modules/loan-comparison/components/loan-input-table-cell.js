@@ -1,5 +1,7 @@
 var $ = jQuery = require('jquery');
 var React = require('react');
+var assign = require('object-assign');
+
 var common = require('../common');
 var LoanActions = require('../actions/loan-actions');
 
@@ -19,95 +21,99 @@ var components = {
     'loan-summary': Output
 };
 
-function armErrorClassCheck (loan, prop) {
-    return loan.errors[prop] ? 'highlight-dropdown' : '';
+// props for a specific loan property's component
+var customProps = {
+    'arm-type': function (loan) {
+        return {className: loan['is-arm'] ? '' : 'hidden'}
+    },
+    'downpayment': function (loan) {
+        return {onChange: handleChange.bind(null, loan.id)}
+    },
+    'loan-term': function (loan) {
+        return {
+            disabledItemCheck: armDisabledItemCheck.bind(null, loan, 'loan-term'),
+            className: loan.errors['loan-term'] ? 'highlight-dropdown' : ''
+        }
+    },
+    'loan-type': function (loan) {
+        return {
+            disabledItemCheck: armDisabledItemCheck.bind(null, loan, 'loan-type'),
+            className: loan.errors['loan-type'] ? 'highlight-dropdown' : ''
+        }
+    },
+    'points': {
+        childClassName: 'inline-radio lc-radio',
+        className: 'radio-fieldset input-content'
+    }
 }
 
+// Checks to see if a loan type or term select option should be disabled
+// because the loan is adjustable & the option is disallowed
 function armDisabledItemCheck (loan, prop, option) {
     var disallowedOptions = common.armDisallowedOptions[prop];
     return (loan['is-arm'] && $.inArray(option.val, disallowedOptions) >= 0);
 }
 
-var classNames = {
-    'arm-type': function (loan, prop) {
-        return (loan['is-arm'] ? '' : 'hidden');
+// Sends loan update action when a loan prop changes
+function handleChange (loanId, prop, changeVal) {
+    // we expect either a change event with a target.value,
+    // or the value itself, returned from a debounced function
+    var val;
+    if (changeVal && typeof changeVal === 'object') {
+        val = changeVal.target.value;
+    } else {
+        val = changeVal;
+    }
+    LoanActions.update(loanId, prop, val);
+}
+
+
+var LoanInputTableCell = React.createClass({    
+    coreProps: function (loan, prop) {
+        // core props differ dep. on whether component is a simple input,
+        // which just needs a value, or an output/custom component,
+        // which needs the loan/prop/scenario
+        var outputOrCustomComponents = ['downpayment', 'interest-rate', 'loan-amount', 'loan-summary'];
+        var props = $.inArray(prop, outputOrCustomComponents) !== -1 
+                    ? {loan: loan, prop: prop, scenario: this.props.scenario}
+                    : {value: loan[prop]};
+        return props;
     },
-    'loan-term': armErrorClassCheck,
-    'loan-type': armErrorClassCheck
-}
-
-var disabledItemChecks = {
-    'loan-term': armDisabledItemCheck,
-    'loan-type': armDisabledItemCheck
-}
-
-var LoanInputTableCell = React.createClass({
-    
-    handleChange: function (changeVal) {
-        // we expect either a change event with a target.value,
-        // or the value itself, returned from a debounced function
-        var val;
-        if (changeVal && typeof changeVal === 'object') {
-            val = changeVal.target.value;
-        } else {
-            val = changeVal;
+    optionProps: function (loan, prop) {
+        // adds options arrays to dropdowns & radio groups
+        var items = common.options[prop];
+        if (items) {
+            // options might be a static array stored in common, 
+            // or a dynamic array stored on the loan
+            return {items: typeof items === 'string' ? loan[items] : items};
         }
-        LoanActions.update(this.props.loan.id, this.props.prop, val);
     },
-    
+    customProps: function (loan, prop) {
+        // custom props for a particular component
+        var custom = customProps[prop];
+        if (custom) {
+            return typeof custom === 'function' ? custom(loan) : custom;
+        }
+    },
     generateComponentProps: function () {
         var prop = this.props.prop;
         var loan = this.props.loan;
-        var scenario = this.props.scenario;
-        var rowType = this.props.rowType;
-        var props;
         
-        // base props differ dep. on type of component
-        if ($.inArray(prop, ['loan-amount', 'loan-summary', 'downpayment', 'interest-rate']) >= 0) {
-            // custom components & outputs need the loan, prop, & scenario data
-            props = {loan: loan, prop: prop, scenario: scenario};
-        } else {
-            // input components need the value of this loan's prop
-            props = {value: loan[prop]};
-        }
+        // base component props for all components
+        var componentProps = {
+            id: 'inputs-' + prop + '-' + loan.id,
+            onChange: handleChange.bind(null, loan.id, prop),
+            disabled: this.props.rowType === 'linked' && loan.id > 0
+        };
         
-        // common props
-        props.id = 'inputs-' + prop + '-' + loan.id;
-        props.onChange = this.handleChange;
-        
-        // optional props: 
-        // pass in options, className, & disabledItemCheck function, if they exist.                                      
-        var items = common.options[prop];
-        if (items) {
-            props.items = typeof items === 'string' ? loan[items] : items;
-        }
-        var disabledItemCheck = disabledItemChecks[prop];
-        if (disabledItemCheck) {
-            props.disabledItemCheck = disabledItemCheck.bind(this, loan, prop);
-        }
-        var className = classNames[prop];
-        if (className) {
-            props.className = typeof className === 'function' ? className(loan, prop) : className;
-        }
-        
-        // scenario-based props: 
-        // if this prop is linked, the second loan's inputs will be disabled
-        if (rowType === 'linked' && loan.id > 0) {
-            props.disabled = true;
-        }
-        
-        // points radio group props
-        // TODO: improve this
-        if (prop == 'points') {
-            props.childClassName = 'inline-radio lc-radio';
-            props.className = 'radio-fieldset input-content';
-        }
-        
-        return props;
+        // configure additional props
+        assign(componentProps, this.coreProps(loan, prop), this.optionProps(loan, prop), this.customProps(loan, prop));
+    
+        return componentProps;
     },
     
     render: function () {
-        var Component = components[this.props.prop] || StyledSelect;
+        var Component = components[this.props.prop] || StyledSelect;        
         var props = this.generateComponentProps();
         
         return (

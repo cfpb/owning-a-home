@@ -9,7 +9,7 @@ var INSURANCE_RATE = 0.005;
 var mortgage = {};
 
 mortgage['loan-amount'] = function (loan) {
-    return loan['price'] - loan['downpayment'] || 0;
+    return +loan['price'] - +loan['downpayment'] || 0;
 };
 
 mortgage['discount'] = function (loan) {
@@ -105,7 +105,7 @@ mortgage['monthly-payment'] = function (loan) {
 };
 
 mortgage['closing-costs'] = function (loan) {
-    return loan['downpayment']
+    return +loan['downpayment']
             + loan['discount']
             + loan['processing']
             + loan['third-party-services']
@@ -120,7 +120,7 @@ mortgage['get-cost'] = function (loan) {
         amountBorrowed: positive(loan['loan-amount']),
         rate: loan['interest-rate'],
         totalTerm: loan['loan-term'] * 12,
-        downPayment: loan['downpayment'],
+        downPayment: +loan['downpayment'],
         closingCosts: loan['closing-costs']
     });
 };
