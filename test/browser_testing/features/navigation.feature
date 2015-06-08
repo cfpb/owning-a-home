@@ -20,8 +20,6 @@ Examples:
   | compare-learn-link         | Know the Process                    | process/compare/                            |
   | decide-header-link         | Know the Process                    | process/decide/                            |
   | decide-learn-link         | Know the Process                    | process/decide/                            |
-  | maintain-header-link         | Know the Process                    | process/maintain/                            |
-  | maintain-learn-link         | Know the Process                    | process/maintain/                            |
 
 
 @smoke_testing @landing_page
