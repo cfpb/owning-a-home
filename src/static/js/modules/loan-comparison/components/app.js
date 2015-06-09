@@ -28,6 +28,9 @@ var App = React.createClass({
     },
     
     componentDidMount: function() {
+        var scenario = this.state.scenario;
+        var animating; 
+        
         LoanStore.addChangeListener(this._onChange);
         // tooltips
         $(this.getDOMNode()).tooltip({
@@ -38,9 +41,7 @@ var App = React.createClass({
                 return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
             }
         });
-        $('.expandable').expandable();
-        
-        var animating, scenario = this.state.scenario;
+        $('.expandable').expandable();        
 
         // initial positioning of educational notes
         if (scenario) {

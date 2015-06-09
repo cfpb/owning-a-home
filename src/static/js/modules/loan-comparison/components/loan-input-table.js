@@ -10,7 +10,7 @@ var LoanInputTable = React.createClass({
     },
     render: function() { 
         return (
-            <table className="unstyled" id="loan-input-table">
+            <table className="unstyled loan-input-table">
                 <tr className="header-row"><th colSpan="4"><h3>1. About you</h3></th></tr>
                 <tr className="subhead-row">
                     <th></th>

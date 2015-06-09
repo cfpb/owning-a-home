@@ -740,18 +740,23 @@
     }
   }
   
-  table.unstyled {
-    background: none;
-      
-    thead {
-      background: none;
+}
+
+table.unstyled {
+  background: none;
     
-      th {
-        color: @black;
-        background: none;
-      }
-    }  
-  }
+  thead {
+    background: none;
+  
+    th {
+      color: @black;
+      background: none;
+    }
+  } 
+  tbody > tr:nth-child(odd) > th,
+  tbody > tr:nth-child(odd) > td {
+      background: none;
+  } 
 }
 
 .scenario-alternates {
@@ -834,14 +839,14 @@
 }
 
 
-#loan-input-table {
+.loan-input-table {
   width: 100%;
   position: relative;
   
   select {
     font-size: unit(14px / @base-font-size-px, em);
   }
-
+  
   th,
   td {
       width: 33%;
@@ -854,11 +859,7 @@
       
       &.input-1 {
         padding-left: unit(8px / @base-font-size-px, em);
-      }
-
-      tbody > tr:nth-child(odd) > & {
-          background: none;
-      }
+      }      
       
       &.link {
         width: 20px;
