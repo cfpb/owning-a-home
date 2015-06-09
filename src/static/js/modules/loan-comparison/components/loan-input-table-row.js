@@ -69,7 +69,7 @@ var LoanInputRow = React.createClass({
             // independent inputs. Get the note for this row's prop, if one exists, & use
             // the note's existence to determine a type, linked or independent, for the row.
             note = (scenario.inputNotes || {})[prop];
-            rowType = note ? 'independent' : 'linked';
+            rowType = note ? 'highlight' : 'linked';
         }
         
         return (
