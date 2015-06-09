@@ -1,9 +1,7 @@
 var $ = jQuery = require('jquery');
 
 var positionNotes = function (animating, expandable) {    
-    $notes = expandable 
-             ? $('.educational-note div.output') 
-             : $('.educational-note div');
+    var $notes = $('.educational-note div');
     
     // Check that we're on desktop
     if ($notes.css('position') == 'absolute') {
@@ -16,29 +14,8 @@ var positionNotes = function (animating, expandable) {
             if ($parent.is(":visible")) {
                 
                 // Get the parent table row's offset from the top of the page 
-                var parentOffsetTop = $parent.offset().top;
+                var parentOffsetTop = $parent.offset().top;                
                                 
-                if (expandable) {
-                    var expandableOffsetTop = expandable.offset().top;
-                    // Skip any notes above the triggered expandable
-                    // on an expand/collapse event
-                    if (expandableOffsetTop > parentOffsetTop) {
-                        return;
-                    }
-                    // While animating, hide triggered expandable's child notes
-                    // (except for first row's), and skip repositioning notes
-                    // in or below this expandable until animation stops.
-                    if (animating && expandableOffsetTop <= parentOffsetTop) {
-                        if (expandable.has($this).length > 0 && expandableOffsetTop < parentOffsetTop) {
-                            $this.hide()
-                        }
-                        return;
-                    }
-                }
-                
-                // Get the height of this note
-                var height = $this.height() + 30 // 30 = top + bottom padding;
-                
                 // Get prev note's bottom offset
                 var prevNoteBottom = notePositions[notePositions.length - 1];
             
@@ -49,6 +26,38 @@ var positionNotes = function (animating, expandable) {
                 if (i > 0 && parentOffsetTop < (prevNoteBottom + 15)) {
                     offsetFromPrev = (prevNoteBottom - parentOffsetTop) + 15;
                 }  
+                
+                // Store the bottom position of the note for use
+                // in positioning following notes.
+                // (30 = top + bottom note padding)
+                notePositions.push(parentOffsetTop + offsetFromPrev + $this.outerHeight());
+                
+                if (expandable) {
+                    var expandableOffsetTop = expandable.offset().top;
+                    
+                    // Don't actually reposition any notes above
+                    // the animating expandable -- just store their positions
+                    if (expandableOffsetTop > parentOffsetTop) {
+                        return;
+                    }
+                    
+                    // While animating, hide triggered expandable's child notes
+                    // (except for first row's), and skip repositioning notes
+                    // in or below this expandable until animation stops.
+                    if (animating && expandableOffsetTop <= parentOffsetTop) {
+                        if (expandable.has($this).length > 0 && expandableOffsetTop < parentOffsetTop) {
+                            $this.hide()
+                        }
+                        return;
+                    }
+                    
+                    // TODO: If there is a header note on both the closing
+                    // expandable & the one following it, they will probably
+                    // overlap during animation. 
+                    // poss. solution: proactively reposition second note at start of
+                    // animation, based on calculating
+                    // height of prev note - height of prev note's row
+                }
                 
                 // Notes are absolutely positioned, so we adjust their position
                 // via top attribute.
@@ -63,14 +72,13 @@ var positionNotes = function (animating, expandable) {
                    $this.css({'top': offsetFromPrev + 'px'}).show();
                 }
                 
-                // Store the bottom position of the note for use
-                // in positioning following notes.
-                notePositions.push(parentOffsetTop + offsetFromPrev + height);
             } 
         });
+        
         if (!animating) {
             // Make sure we're not overlapping the next section,
             // (but not while we're animating an expandable)
+            // TODO: may need proactive offset with closing expandables
             var lastNoteOffset = notePositions[notePositions.length - 1];
             var $nextSection = $('.next-steps-container');
             var nextSectionOffset = $nextSection.offset().top;
