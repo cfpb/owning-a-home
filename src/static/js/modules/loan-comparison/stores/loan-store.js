@@ -111,9 +111,9 @@ function updateLoan(id, prop, val) {
 }
 
 function updateDependencies (loan, prop) {
-    if (!prop || prop === 'price' || prop === 'downpayment') {
+    if (prop === 'price' || prop === 'downpayment') {
         loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
-    } else if (prop === 'downpayment-percent') {
+    } else if (!prop || prop === 'downpayment-percent') {
         loan['downpayment'] = mortgageCalculations['downpayment'](loan);        
     }
     return loan;
@@ -146,7 +146,7 @@ function processRatesResults(results) {
         }
     }
     rates = rates.sort();
-    var medianRate = common.median(rates) || 0;
+    var medianRate = common.median(totalRates) || 0;
     var processedRates = $.map(rates, function( rate, i ) {
         return {val: Number(rate), label: rate + '%'};
     });

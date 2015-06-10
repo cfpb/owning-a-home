@@ -4,7 +4,7 @@ var ScenarioPicker = require('./scenario-picker');
 var NextSteps = React.createClass({
     render: function () {
         return (
-            <div>
+            <div className="next-steps-container">
                 <div className="content-l content-l__main">
                     <div className="content-l_col content-l_col-1">
                         <h2 className="u-mb-0">Next Steps</h2>

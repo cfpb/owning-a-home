@@ -40,7 +40,7 @@ var ScenarioPicker = React.createClass({
                 <div className="content-l_col scenario-block">
                     <h4 className="h4">Design your own scenarios.</h4>
                     <p className="short-desc">Adjust the factors that affect loan costs to compare two options of your choosing.</p>
-                    <ScenarioButton title="Design my own scenario" handleChange={this.changeScenario}/>
+                    <ScenarioButton title="Design my own scenario" scenario={this.props.scenario} handleChange={this.changeScenario}/>
                 </div>
             </div>
         )
