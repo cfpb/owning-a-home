@@ -18,8 +18,9 @@ Examples:
   | explore-learn-link         | Know the Process                    | process/explore/                            |
   | compare-header-link         | Know the Process                    | process/compare/                            |
   | compare-learn-link         | Know the Process                    | process/compare/                            |
-  | decide-header-link         | Know the Process                    | process/decide/                            |
-  | decide-learn-link         | Know the Process                    | process/decide/                            |
+  | close-header-link         | Know the Process                    | process/close/                            |
+  | close-learn-link         | Know the Process                    | process/close/                            |
+
 
 
 @smoke_testing @landing_page
