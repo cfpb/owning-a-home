@@ -36,7 +36,7 @@ def process_journey(item):
     if item['parent'] != 0:
         # This is a step item
         item['has_parent'] = True
-        for name in ['what_to_know', 'how_to_take_action', 'pitfalls_to_avoid']:
+        for name in ['what_to_know', 'what_to_do_now', 'pitfalls_to_avoid']:
             if custom_fields.get(name):
                 item[name] = custom_fields[name]
         if custom_fields.get('key_tool'):
