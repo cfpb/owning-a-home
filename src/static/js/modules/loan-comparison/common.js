@@ -17,7 +17,7 @@ common.armDisallowedOptions = {
 common.scenarios = [
     {
         val: 'downpayment',
-        title: 'Down Payment',
+        title: 'Down payment',
         label: 'down payment',
         intro: "Your down payment amount affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you’ll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in costs is likely to be, so you can make tradeoffs.",
         loanProps: [
