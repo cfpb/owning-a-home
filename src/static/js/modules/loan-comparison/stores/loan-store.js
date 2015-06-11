@@ -210,8 +210,8 @@ validators = {
         }
     },
     'loan-term': function (loan) {
-        if (loan['rate-structure'] === 'arm' && $.inArray(loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
-            loan['loan-term'] = 30;
+        if (loan['rate-structure'] === 'arm' && $.inArray(+loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
+            loan['loan-term'] = 30;        
             return common.errorMessages['loan-term'];
         }
     },
@@ -226,10 +226,13 @@ validators = {
 
 function validateLoan (loan) {
     loan['errors'] = {};
-    
     $.each(validators, function (prop, validator) {
-        loan['errors'][prop] = validator(loan);
+        var err = validator(loan);
+        if (err) {
+            loan['errors'][prop] = err;
+        }
     });
+    
     //loan['is-jumbo'] = isJumbo(loan);    
     return loan;
 }
