@@ -10,7 +10,6 @@ var api = require('../api');
 var $ = jQuery = require('jquery');
 var ScenarioStore = require('./scenario-store');
 
-
 var calculatedProperties = ['loan-summary', 'loan-amount'];
 var calculatedPropertiesBasedOnIR = [
     'discount', 
@@ -45,6 +44,8 @@ var defaultLoanData = {
     'arm-type': '5-1',
     'state': 'AL'
 };
+
+var validators;
 
 var _loans = [];
 
@@ -90,21 +91,26 @@ function updateAllLoans(prop, val) {
 }
 
 // update a single loan
-function updateLoan(id, prop, val) {
-    prop || (prop = null);
-    
+function updateLoan(id, prop, val) {    
     var loan = _loans[id];
     var rateChange = (prop === 'interest-rate');
     
-    if (prop && val) {
-        loan[prop] = val;
+    // If a prop was passed in, update it on the loan
+    if (prop) {
+        loan[prop] = val || null;
     }
     
+    // Changing any loan property but interest-rate
+    // will prompt user to request new rates.
     loan['edited'] = !rateChange;
-    updateDependencies(loan, prop);
-    generateCalculatedProperties(loan, rateChange);
-    updateLoanState(loan);
     
+    // Update dependencies & calculated properties
+    // and validate loan based on changed prop.
+    updateDependencies(loan, prop);
+    validateLoan(loan);
+    generateCalculatedProperties(loan, rateChange);
+    
+    // If a rate request is in progress, update it.
     if (loan['edited'] && loan['rate-request']) {
         updateLoanRates(id);
     }
@@ -196,29 +202,52 @@ function generateCalculatedProperties (loan, rateChange) {
     return loan;
 }
 
-function updateLoanState (loan) {
-    isArm(loan);
-    //loan['is-jumbo'] = isJumbo(loan);
-    loan['downpayment-too-high'] = isDownpaymentTooHigh(loan);
-    loan['downpayment-too-low'] = isDownpaymentTooLow(loan);
+validators = {
+    'loan-type': function (loan) {
+        if (loan['rate-structure'] === 'arm' && $.inArray(loan['loan-type'], common.armDisallowedOptions['loan-type']) >= 0) {
+            loan['loan-type'] = 'conf';
+            return common.errorMessages['loan-type'];
+        }
+    },
+    'loan-term': function (loan) {
+        if (loan['rate-structure'] === 'arm' && $.inArray(loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
+            loan['loan-term'] = 30;
+            return common.errorMessages['loan-term'];
+        }
+    },
+    'downpayment': function (loan) {
+        if (isDownpaymentTooHigh(loan)) {
+            return common.errorMessages['downpayment-too-high'];
+        } else if (isDownpaymentTooLow(loan)) {
+            return common.errorMessages['downpayment-too-low' + '-' + loan['loan-type']];
+        }
+    }
+}
+
+function validateLoan (loan) {
+    loan['errors'] = {};
+    
+    $.each(validators, function (prop, validator) {
+        loan['errors'][prop] = validator(loan);
+    });
+    //loan['is-jumbo'] = isJumbo(loan);    
     return loan;
 }
 
-function isArm (loan) {
-    loan['errors'] || (loan['errors'] = {});
-    loan['is-arm'] = loan['rate-structure'] === 'arm';
-    if (loan['is-arm']) {
-        if ($.inArray(loan['loan-term'], common.armDisallowedOptions['loan-term']) >= 0) {
-            loan.errors['loan-term'] = loan['loan-term'];
-            loan['loan-term'] = '30';
-        }
-        if ($.inArray(loan['loan-type'], common.armDisallowedOptions['loan-type']) >= 0) {            
-            loan.errors['loan-type'] = loan['loan-type'];
-            loan['loan-type'] = 'conf';
-        }
-    } else {
-        loan['errors']['loan-term'] = null;
-        loan['errors']['loan-type'] = null;
+function isDownpaymentTooHigh (loan) {
+    return +loan['downpayment'] > +loan['price'];
+}
+
+function isDownpaymentTooLow (loan) {
+    switch (loan['loan-type']) {
+        case 'conf':                
+            return loan['downpayment'] < common.minDownpaymentPcts.conf * loan['price'];
+            break;
+        case 'fha':
+            return loan['downpayment'] < common.minDownpaymentPcts.fha * loan['price'];
+            break;
+        default:
+            return false;
     }
 }
 
@@ -233,24 +262,6 @@ function isJumbo (loan) {
     });
         
     return false;
-}
-
-function isDownpaymentTooHigh (loan) {
-    return +loan['downpayment'] > +loan['price'];
-}
-
-function isDownpaymentTooLow (loan) {
-    switch (loan['loan-type']) {
-        case 'conf':                
-            return loan['downpayment'] < common.minDownpaymentPcts.conf * loan['price'];
-            break;
-        case 'fha':
-        case 'fha-hb':
-            return loan['downpayment'] < common.minDownpaymentPcts.fha * loan['price'];
-            break;
-        default:
-            return false;
-    }
 }
 
 function isPropLinked(prop) {
@@ -283,7 +294,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     */
     removeChangeListener: function(callback) {
         this.removeListener(CHANGE_EVENT, callback);
-    }
+    },
+    validators: validators
 });
 
 // Register callback to handle all updates
