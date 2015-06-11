@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var config = require('oah-config');
+var config = require('../../../../config/config.json');
 
 
 /**

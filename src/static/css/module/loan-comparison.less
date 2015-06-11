@@ -158,7 +158,8 @@
     .u-hide-on-mobile;
   }
 
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     width: 100%;
     border: 1px solid @gray-50;
   }
@@ -804,7 +805,7 @@ table.unstyled {
 #scenario-section {
   .respond-to-min(@tablet-min, {
     .block;
-    padding-top: unit(30px / @base-font-size-px, em);
+    padding-top: @grid_gutter-width;
     margin-top: 0px;
   });
   
@@ -812,7 +813,7 @@ table.unstyled {
     .respond-to-min(@tablet-min, {
       .grid_column(1, 8);
       text-align: center;
-      padding-top: @grid_gutter-width;
+      padding-top: @grid_gutter-width * 1.5;
     });
   }
   
@@ -887,12 +888,24 @@ table.unstyled {
         display: none;
       }
     }
+    
+    &.error {
+      .select-content {
+        .highlight-dropdown;
+      }
+    }
   }
   
   .label-text {
     .webfont-medium();
     .u-inline-block;
     padding-right: 3px;
+  }
+  
+  .alert-alt {
+    margin-left: 1.4em;
+    font-size: 0.875em;
+    padding-top: 10px;
   }
 
   tr {
@@ -935,7 +948,8 @@ table.unstyled {
         color: @gray-80;
 
         .select-content,
-        input[type="text"] {
+        input[type="text"],
+        input[type="number"] {
           border-color: @gray-20;
         }
 
@@ -960,7 +974,8 @@ table.unstyled {
         background-color: @green-tint;
 
         .select-content,
-        input[type="text"] {
+        input[type="text"],
+        input[type="number"] {
           border-width: 2px;
           border-color: @green;
         }
