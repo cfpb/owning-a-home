@@ -58,7 +58,13 @@
    }
 });
 
+.lc-ill {
+ height: 200px;
+ width: 200px;
+   .respond-to-min(@tablet-min, {
 
+   })
+}
 .onboarding {
   background-color: @green-tint;
   border-top: 2px solid @green;
@@ -818,6 +824,12 @@ table.unstyled {
   .scenario-block {
     .respond-to-min(@tablet-min, {
       .grid_column(3, 8);
+    });
+  }
+
+  .content-l_col + .content-l_col {
+  .respond-to-min(@tablet-min, {
+      margin-top: 0;
     });
   }
 }
