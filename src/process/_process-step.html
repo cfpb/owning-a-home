@@ -72,11 +72,11 @@
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
                   <div class="tool">
-                    {% if tool.text %}
+                    {% if tool.link.label %}
                     <p class="short-desc">{{tool.description}}</p>
                     {% endif %}
-                    <a class="list_link jump-link jump-link__right" href="{{tool.url}}">
-                      {{tool.text}}
+                    <a class="list_link jump-link jump-link__right" href="{{tool.link.url}}">
+                      {{tool.link.label}}
                     </a>
                   </div>
                 {% endfor %}
