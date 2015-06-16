@@ -121,7 +121,7 @@ mortgage['get-cost'] = function (loan) {
         rate: loan['interest-rate'],
         totalTerm: loan['loan-term'] * 12,
         downPayment: +loan['downpayment'],
-        closingCosts: loan['closing-costs']
+        closingCosts: +loan['closing-costs'] - +loan['downpayment']
     });
 };
 
