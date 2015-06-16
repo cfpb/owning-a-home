@@ -49,6 +49,8 @@ var validators;
 
 var _loans = [];
 
+var downpaymentPercentMode = true;
+
 function init () {
     resetLoans(true);
 }
@@ -60,7 +62,7 @@ function resetLoans (init) {
     // if initial setup or a new scenario has been chosen, 
     // set data on loans
     if (init || scenario) {
-        // get scenario-specific loan data
+        // get scenario-specific loan data        
         var scenarioLoanData = scenario ? scenario.loanProps : {};
         
         // If we're moving into a scenario with existing loans,
@@ -71,12 +73,17 @@ function resetLoans (init) {
             _loans[1].id = 1;
         }
         
+        // Make sure downpaymentPercentMode is triggered on start of the
+        // downpayment scenario since it compares two common dp percentages.
+        if (scenario && scenario.val === 'downpayment') {
+            downpaymentPercentMode = true;
+        }
+        
         // create each loan from default + current + scenario loan data,
         // then generate loan's calculated & state-based properties,
         // and finally fetch interest rates 
         for (i = 0; i < len; i++) {
-            var currentLoanData = _loans[i];
-            _loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
+            _loans[i] = assign({id: i}, defaultLoanData, _loans[i], scenarioLoanData[i]);
             updateLoan(i);
             updateLoanRates(i);
         }
@@ -117,10 +124,20 @@ function updateLoan(id, prop, val) {
 }
 
 function updateDependencies (loan, prop) {
-    if (prop === 'price' || prop === 'downpayment') {
-        loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
-    } else if (!prop || prop === 'downpayment-percent') {
-        loan['downpayment'] = mortgageCalculations['downpayment'](loan);        
+    var dependentProp;
+    if (prop === 'downpayment') {
+        dependentProp = 'downpayment-percent';
+        downpaymentPercentMode = false;
+    } else if (prop === 'downpayment-percent') {
+        dependentProp = 'downpayment';
+        downpaymentPercentMode = true;
+    } else if (prop === 'price' || !prop) {
+        dependentProp = downpaymentPercentMode && typeof loan['downpayment-percent'] !== 'undefined'
+                        ? 'downpayment' 
+                        : 'downpayment-percent';
+    }
+    if (dependentProp) {
+        loan[dependentProp] = mortgageCalculations[dependentProp](loan)
     }
     return loan;
 }
