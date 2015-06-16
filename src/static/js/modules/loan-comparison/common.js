@@ -10,15 +10,25 @@ common.minDownpaymentPcts = {
 };
 
 common.armDisallowedOptions = {
-    'loan-term': ['15'],
+    'loan-term': [15],
     'loan-type': [ 'fha', 'va', 'va-hb', 'fha-hb']
 };
+
+var armMessage = 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.';
+
+common.errorMessages = {
+    'downpayment-too-high': 'Your down payment cannot be more than your house price.',
+    'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + common.minDownpaymentPcts.fhaPercent + '%.',
+    'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + common.minDownpaymentPcts.confPercent + '%.',
+    'loan-type': armMessage,
+    'loan-term': armMessage
+}
 
 common.scenarios = [
     {
         val: 'downpayment',
-        title: 'Down payment',
-        label: 'down payment',
+        title: 'Down Payment',
+        label: 'Down payment',
         intro: "Your down payment amount affects all aspects of your costs. Putting down less up front can be a good option for home buyers without a lot of cash on hand, but you’ll have higher monthly payments and pay more in interest and fees. This tool will help you get a sense of how much the difference in costs is likely to be, so you can make tradeoffs.",
         loanProps: [
             {'downpayment-percent': 20},
@@ -153,8 +163,8 @@ common.options = {
         {label: '10/1', val: '10-1'}    
     ],
     'loan-term': [
-        {label: '30 years', val: '30'},
-        {label: '15 years', val: '15'}
+        {label: '30 years', val: 30},
+        {label: '15 years', val: 15}
     ],
     'points': [
         {val: -2, label: '-2'},
@@ -170,13 +180,6 @@ common.options = {
     ],
     'interest-rate': 'rates',
     'county': 'counties'
-}
-
-common.errorMessages = {
-    'downpayment-too-high': 'Your down payment cannot be more than your house price.',
-    'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + common.minDownpaymentPcts.fhaPercent + '%.',
-    'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + common.minDownpaymentPcts.confPercent + '%.',
-    'is-arm': 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.'
 }
 
 common.omit = function (obj) {

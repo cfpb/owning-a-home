@@ -11,17 +11,25 @@ var DebouncedTextInput = React.createClass({
             React.PropTypes.bool
         ])
     },
+    getDefaultProps: function() {
+        return {
+            type: 'text'
+        };
+    },
     getInitialState: function () {
         return {value: this.props.value};
     },
     handleChange: function (e) {
-        this.setState({value: e.target.value});
+        var val = typeof this.props.validator == 'function'
+                  ? this.props.validator(e.target.value)
+                  : e.target.value;
+        this.setState({value: val});
         this.handleChangeDebounced();
     },
     componentWillMount: function () {
         var self = this;
         this.handleChangeDebounced = debounce(function () {
-            self.props.onChange(self.state.value);
+            self.props.onChange(this.state.value);
         }, 500);
     },
     componentWillReceiveProps: function (nextProps) {
@@ -30,7 +38,7 @@ var DebouncedTextInput = React.createClass({
     render: function() {
         var props = common.omit(this.props, 'value', 'onChange');
         return (
-            <input type="text" value={this.state.value} onChange={this.handleChange} {...props}/>
+            <input value={this.state.value} onChange={this.handleChange} {...props}/>
         );
     }
 });

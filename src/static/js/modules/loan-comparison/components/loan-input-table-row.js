@@ -31,7 +31,7 @@ var LoanInputRow = React.createClass({
                 
         // hides the ARM input row if neither of the loans is adjustable
         if (this.props.prop === 'arm-type') {
-            var armLoan = this.props.loans[0]['is-arm'] || this.props.loans[1]['is-arm'];
+            var armLoan = this.props.loans[0]['rate-structure'] === 'arm' || this.props.loans[1]['rate-structure'] === 'arm';
             className += armLoan ? '' : ' hidden';
         }
         
