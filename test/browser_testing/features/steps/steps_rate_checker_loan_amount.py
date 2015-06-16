@@ -7,6 +7,7 @@ from hamcrest.library.text.stringcontains import contains_string
 from pages.rate_checker import RateChecker
 from pages.base import Base
 from pages.screenshot import Screenshot
+from decorators import *
 
 
 # HOUSE PRICE
@@ -70,8 +71,9 @@ def step(context, expected_loan_amount):
 # COUNTY
 @given(u'I select {county_name} County')
 @when(u'I select {county_name} County')
+@handle_error
 def step(context, county_name):
-    context.base.sleep(2)
+    #context.base.sleep(2)
     context.rate_checker.set_county(county_name)
 
 
@@ -82,6 +84,7 @@ def step(context):
 
 
 @then(u'I should see a County alert "{alert_text}"')
+@handle_error
 def step(context, alert_text):
     actual_text = context.rate_checker.get_county_alert_text(alert_text)
     assert_that(actual_text, equal_to(True))

@@ -95,7 +95,12 @@ If you run into problems or have any questions about Sheer, check out [Sheer on 
 
 ### Node, Grunt, Bower, Browserify
 
-1. Install [node.js](http://nodejs.org/) however you'd like.
+1. Install [node.js](http://nodejs.org/), either v0.12 or io.js. If you're using the default version that comes with Mac OSX, you'll need to upgrade - first [install NVM](https://github.com/creationix/nvm).
+1. If you installed with NVM, then you can install and set io.js as your default node version:
+	```
+	$ nvm install iojs
+	$ nvm alias default iojs
+	```
 2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 	```
 	$ npm install -g grunt-cli bower browserify
@@ -129,22 +134,28 @@ To index your content from WordPress:
 	$ cp .evn_SAMPLE .env
 	```
 1. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
+1. Run the following command inside the `/src/ folder:
+	```
+	$ cd src
+	$ workon OAH
+	$ sheer index
 
 
-### Rate Checker
-The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
+### Rate Checker and Mortgage Insurance
+The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premiums. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premiums. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
 
-**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker app.**
+**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker and Loan Comparison apps.**
 
 #### Private API Users
 
-To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
+To configure the Rate Checker and Loan Comparison you will need to point to the required API URLs in `config/config.json`. 
 
-1. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+1. In `config/config.json`, change lines to point to the API URLs, respectively:
 	```json
 	{
-	    "rateCheckerAPI": "YOUR API URL HERE",
-	    "countyAPI": "YOUR COUNTY API URL HERE"
+	    "rateCheckerAPI": "YOUR RATE CHECKER API URL HERE",
+	    "countyAPI": "YOUR COUNTY API URL HERE",
+		"mortgageInsuranceAPI": "YOUR MORTGAGE INSURANCE API URL HERE",
 	}
 	```
 
@@ -239,19 +250,23 @@ Run `behave -k -t=~prod_only` to omit production environment tests.
 
 ### Installing Jmeter
 
-Run "jmeter-bootstrap/bin/JMeterInstaller.py" which will install Jmeter 2.11 and required plugins to run Jmeter locally
+Run `python jmeter-bootstrap/bin/JMeterInstaller.py` in the `test` folder which will install Jmeter 2.11 and required plugins to run Jmeter locally
 
 ### Running load tests locally from the command line:
 
+```
 apache-jmeter-2.11/bin/jmeter.sh -t owning-a-home/test/load_testing/RateChecker.jmx -Jserver_url oah.fake.demo.domain -Jthreads=8
+```
 
--t : this tells Jmeter where the test lives, relative to where Jmeter us running from
--Jserver URL : this is the URL to runs load tests against
--Jthreads : this is the maximum number of concurrent users for the load test
+`-t owning-a-home/test/load_testing/RateChecker.jmx`: this tells Jmeter where the test lives, relative to where Jmeter us running from
+`-Jserver_url oah.fake.demo.domain`: this is the URL to runs load tests against.  Replace `oah.fake.demo.domain` with the URL you want
+`-Jthreads=8` : this is the maximum number of concurrent users for the load test
 
 OaH.jmx - this test is for the landing pages using all default settings (loan-options, rate-checker, etc)
 
-Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test for Rate Checker API. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+
+Mortgage_Insurance.jmx - this test uses the queries listed inside "MI.csv" to run the load test for Mortgage Insurance API.  Additional queries can just be added as rows in "MI.csv" and the test will pick them up.
 
 If the number of threads is 6 and the there are 3 rows of queries the test will execute in this order:
 ```

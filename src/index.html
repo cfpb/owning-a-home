@@ -3,14 +3,14 @@
 
 {% block title %}Owning a Home{% endblock title %}
 
-{% block content %}    
+{% block content %}
 <main class="content content__2-1 content__bleedbar" id="main" role="main">
 
     <section class="content_hero">
-      
+
       <!-- BACKGROUND IMAGE FOR THE HERO -->
       <div id="hero-bg-image"></div>
-      
+
        <!-- HERO -->
       <div class="content_wrapper content_no-sidebar">
           <section class="content_main">
@@ -23,13 +23,13 @@
     <div class="content_wrapper">
         <section class="content_main">
 
-          <section class="section__intro content-l">      
+          <section class="section__intro content-l">
             <div class="content-l_col content-l_col-1-2">
               <h2>Know the process</h2>
               <p>Buying a home can be a daunting process. If you're feeling overwhelmed, you're not alone. We've got tools and resources to help you every step of the way.</p>
             </div>
 
-            <div class="content-l_col content-l_col-1-2">
+            <div class="content-l_col content-l_col-1-2 oah-illu">
               <img src="{{url_for('static', filename='img/process.png')}}" alt="Illustration of the home-buying process">
           </div>
           </section>
@@ -56,12 +56,12 @@
                <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__unstyled list__spaced">
-                  <li class="list_item"><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+                  <li class="list_item"><a href="{{ base_url }}check-rates">Explore interest rates for your situation</a></li>
                 </ul>
               </div>
 
             </div><!-- .content-l -->
-            
+
           </section>
 
           <section class="section__phase block__border-top block__padded-top block__sub">
@@ -87,13 +87,13 @@
               <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__unstyled list__spaced">
-                  <li class="list_item"><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+                  <li class="list_item"><a href="{{ base_url }}check-rates">Explore interest rates for your situation</a></li>
                   <li class="list_item"><a href="{{ base_url }}loan-options">Understand loan options</a></li>
                 </ul>
               </div>
 
             </div><!-- .content-l -->
-  
+
           </section>
 
             <section class="section__phase block__border-top block__padded-top block__sub">
@@ -106,7 +106,7 @@
 
               <div class="phase_intro content-l_col content-l_col-1-2">
                 <div class="content-l_col content-l_col-1 content-l__large-gutters">
-                <h3 class="u-mb15"><a href="{{ base_url }}process/compare" class="heading_link" id="compare-header-link">Compare loan packages</a></h3>
+                <h3 class="u-mb15"><a href="{{ base_url }}process/compare" class="heading_link" id="compare-header-link">Compare loan offers</a></h3>
                 <p>You've made an offer on a home. Congratulations! Now is the time to get official loan offers from lenders, compare your options, and negotiate.</p>
                 <p>
                   <a class="icon-link icon-link__right" href="{{ base_url }}process/compare" id="compare-learn-link">
@@ -119,7 +119,7 @@
                <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__unstyled list__spaced">
-                  <li class="list_item"><a href="{{ base_url }}check-rates">Check interest rates for your situation</a></li>
+                  <li class="list_item"><a href="{{ base_url }}check-rates">Explore interest rates for your situation</a></li>
                 </ul>
               </div>
 
@@ -127,19 +127,19 @@
           </section>
 
           <section class="section__phase block__border-top block__padded-top block__sub">
-              
-              <div class="content-l">  
+
+              <div class="content-l">
 
                 <figure class="phase_illu content-l_col content-l_col-1-4">
-                  <img src="{{url_for('static', filename='img/process_decide-small.png')}}" alt="Illustration of the home-buying process">
+                  <img src="{{url_for('static', filename='img/process_close-small.png')}}" alt="Illustration of the home-buying process">
                 </figure>
 
                 <div class="phase_intro content-l_col content-l_col-1-2">
                   <div class="content-l_col content-l_col-1 content-l__large-gutters">
-                  <h3 class="u-mb15"><a href="{{ base_url }}process/decide" class="heading_link" id="decide-header-link">Decide and close</a></h3>
+                  <h3 class="u-mb15"><a href="{{ base_url }}process/close" class="heading_link" id="close-header-link">Get ready to close</a></h3>
                   <p>You're ready to choose a specific loan package and move forwards to closing. There will be lots of paperwork to submit and things to keep track of. We lay it out for you step by step.</p>
                   <p>
-                    <a class="icon-link icon-link__right" href="{{ base_url }}process/decide" id="decide-learn-link">
+                    <a class="icon-link icon-link__right" href="{{ base_url }}process/close" id="close-learn-link">
                       <span class="icon-link_text">Learn more</span>
                     </a>
                   </p>
@@ -155,38 +155,6 @@
                 </div>
 
             </div><!-- .content-l -->
-          </section>
-
-          <section class="section__phase block__border-top block__padded-top block__sub">
-            
-            <div class="content-l">  
-
-              <figure class="phase_illu content-l_col content-l_col-1-4">
-                <img src="{{url_for('static', filename='img/process_maintain-small.png')}}" alt="Illustration of the home-buying process">
-              </figure>
-
-              <div class="phase_intro content-l_col content-l_col-1-2">
-                <div class="content-l_col content-l_col-1 content-l__large-gutters">
-                <h3 class="u-mb15"><a href="{{ base_url }}process/maintain" class="heading_link" id="maintain-header-link">Maintain your mortgage</a></h3>
-                <p>Congratulations! You've closed on your new home. Get tips for how to manage your mortgage to your advantage, and what to do if you're struggling to make your payments.</p>
-                <p>
-                  <a class="icon-link icon-link__right" href="{{ base_url }}process/maintain" id="maintain-learn-link">
-                    <span class="icon-link_text">Learn more</span>
-                  </a>
-                </p>
-                </div>
-              </div>
-
-               <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
-                <h6 class="block__sub block__flush-top">Key tools</h6>
-                <ul class="list__unstyled list__spaced">
-                  <li class="list_item"><a href="/complaint">Submit a complaint</a></li>
-                  <li class="list_item"><a href="/find-a-housing-counselor/">Find a housing counselor</a></li>
-                </ul>
-              </div>          
-
-            </div><!-- .content-l -->
-
           </section>
 
         </section><!-- .content_main -->
@@ -229,6 +197,13 @@
                 <span class="jump-link_text">Submit a mortgage complaint</span>
               </a>
             </li>
+            <li class="list_item">
+              <span class="jump-link_intro">Want to see if a loan officer or broker is authorized in your state?</span>
+              <a class="list_link jump-link jump-link__external-link jump-link__bg" href="http://www.nmlsconsumeraccess.org/" target="_blank">
+                <span class="jump-link_text">Most are listed in this loan originator database</span>
+              </a>
+            </li>
+       
             <li class="list_item">
               <span class="jump-link_intro">Wondering about our other mortgage work?</span>
               <a class="list_link jump-link jump-link__right jump-link__bg" href="/mortgage/" target="_blank">

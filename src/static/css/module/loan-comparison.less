@@ -1,3 +1,8 @@
+.loan-comparison {
+  .cf-icon-help-round {
+    color: @pacific;
+  }
+}
 
 .calc-content {
   .webfont-medium();
@@ -53,7 +58,13 @@
    }
 });
 
+.lc-ill {
+ height: 200px;
+ width: 200px;
+   .respond-to-min(@tablet-min, {
 
+   })
+}
 .onboarding {
   background-color: @green-tint;
   border-top: 2px solid @green;
@@ -74,8 +85,8 @@
     
     .label-float {
       width: 15em;
-      .h3;
       .u-mb0;
+      .h3;
     }
 
     .input-wrap {
@@ -149,10 +160,6 @@
   .webfont-regular();
   position: relative;
   
-  .respond-to-min(@tablet-min, {
-    padding-bottom: unit(@grid_gutter-width / @base-font-size-px, em);
-  });
-  
   .comparison-header {
     .u-hide-on-mobile;
   }
@@ -202,11 +209,15 @@
   }
   .update,
   .updating {
-    .interest-rate-content {
+    .select-content {
       display: none;
     }
   }
   
+}
+
+.label-float h4 {
+  display: inline;
 }
 
 .input-headers {
@@ -256,10 +267,6 @@
     display: none;
   }
 });
-
-.lc-subhead {
-  .allcaps-demi;
-}
 
 .small-input {
   display: inline-block;
@@ -394,33 +401,267 @@
   --------------------------- */
 
 .comparison-results {
-  .comparison-input-column {
-    padding-left: @grid_gutter-width/2;
-    text-align: left;
-    border-left: 1px dashed @gray-80;
-    color: @gray-80;
+  margin-bottom: @grid_gutter-width;  
+}
+
+.lc-results-table {
+  margin: 0 0 @grid_gutter-width/2;
+  width: 100%;
+  .respond-to-min(@tablet-min, {
+    margin-bottom: @grid_gutter-width;
+  });
+  th,
+  thead td {
+    background: transparent;
+    color: @body-text-color;
   }
-  .expandable {
+  tbody {
+    td,
+    > tr:nth-child(odd) > td,
+    > tr:nth-child(odd) > th {
+      background: transparent;
+    }
+  }
+  .callout-educational {
+    display: none; // hide until js hover/click
+  }
+  thead.expandable_header {
+    background: transparent;
+    th {
+      background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
+    }
     .respond-to-min(@tablet-min, {
-      overflow: hidden;
+      background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
+      th {
+        background: transparent;
+      }
+    });
+  }
+  tbody.expandable_content {
+    display: block;
+  }
+  th {
+    .respond-to-min(@tablet-min, {
+      .grid_column(1,3);
+      padding-left: @grid_gutter-width/3;
+      padding-right: 0;
+      border-width: 0;
+    });
+  }
+  td,
+  tr {
+    display: block;
+    .respond-to-min(@tablet-min, {
+      text-align: right;
+    });
+  }
+  th:first-child,
+  td {
+    .respond-to-min(@tablet-min, {
+      display: inline-block;
+    });
+  }
+  .expandable_header {
+    display: block;
+  }
+  .expandable_content {
+    th > * {
+      display: inline-block;
+      text-align: left;
+    }
+    th {
+      text-align: left;
+    }
+  }
+  .lc-primary-result-heading {
+    .webfont-demi();
+  }
+  .lc-primary-result {
+    .grid_column(1,2);
+    .webfont-demi();
+    padding: @grid_gutter-width/2;
+  }
+  .lc-result {
+    .grid_column(1,2);
+    .respond-to-min(@tablet-min, {
+      .grid_column(1,3);
+      &.lc-primary-result {
+        vertical-align: bottom;
+      }
+    });
+    .respond-to-min(1000px, {
+      padding-right: @grid_gutter-width;
+    });
+    .respond-to-min(1200px, {
+      padding-right: @grid_gutter-width*2;
+    });
+  }
+}
+
+  .lc-result-b {
+    .respond-to-min(@tablet-min, {
+      position: relative;
+      right: @grid_gutter-width*.75;
+    });
+    .respond-to-min(750px, {
+      right: @grid_gutter-width*1.5;
+    });
+  }
+
+  .result__primary {
+    &.highlight:before {
+      .respond-to-min(795px, { // hack for the highlighted main result row width
+        content: '';
+        display: block;
+        position: absolute;
+        left: -200%;
+        width: 200%;
+        height: 100%;
+        background-color: @green-tint;
+      });
+    }
+  }
+
+  .result__main {
+    .respond-to-min(@tablet-min, {
+      margin-top: @grid_gutter-width/2;
+      padding-top: @grid_gutter-width/2;
+      border-top: 1px solid @gray-50;
+      &:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+      &:last-child {
+        padding-bottom: @grid_gutter-width/2;
+        border-bottom: 1px solid @gray-50;
+      }
+      &.highlight {
+        position: relative;
+      }
+      &.highlight:before,
+      &.highlight:last-child:after { // hack for highlighted design to cover padding of row
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: @grid_gutter-width/2;
+        background: white;
+      }
+      &.highlight:last-child:after {
+        top: initial;
+        bottom: 0;
+      }
+      &.highlight:first-child:before {
+        display: none;
+      }
+      .lc-tooltip {
+        position: absolute;
+        top: 14px;
+        left: @grid_gutter-width/2;
+      }
+      .tooltip {
+        .webfont-regular();
+        letter-spacing: 0;
+        text-transform: none;
+      }
+    });
+    th {
+      border-bottom: 1px solid @gray-50;
+      .respond-to-min(@tablet-min, {
+        position: relative;
+        padding-left: @grid_gutter-width*1.333;
+        border-bottom: 0;
+      });
+    }
+    .lc-result {
+      .webfont-demi();
+    }
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+
+  .result__sub {
+    th {
+      padding-bottom: 0;
+    }
+    h6 {
+      margin-bottom: 0;
+      margin-left: @grid_gutter-width/2;
+      .respond-to-min(@tablet-min, {
+        margin-left: @grid_gutter-width;
+      });
+    }
+  }
+
+    .expandable__table {      
+      .expandable_header-right {
+        position: absolute;
+        right: @grid_gutter-width/2;
+        .respond-to-min(@tablet-min, {
+          top: @grid_gutter-width/2;
+          font-size: 22px;
+        });
+      }
+    }
+
+    .thead__results {
+      th {
+        text-align: left;
+      }
+      h3 {
+        margin: 0;
+        padding-left: @grid_gutter-width/2;
+        border-left: 1px dashed @gray-80;
+        color: @gray-80;
+      }
+    }
+
+.comparison-results {
+  .content-l_col.content-l_col-3-4 {
+    .respond-to-min(@tablet-min, {
+      .grid_column(4,4);
+    });
+    .respond-to-min(800px, {
+      .grid_column(3,4);
+    });
+  }
+}
+
+.comparison-results {
+  .comparison-input-column {
+    text-align: right;
+    color: @gray-80;
+    .grid_column(1,3);
+    .respond-to-min(1000px, {
+      padding-right: @grid_gutter-width;
+    });
+    .respond-to-min(1200px, {
+      padding-right: @grid_gutter-width*2;
+    });
+    h3 {
+      display: inline-block;
+      border-left: 1px dashed @gray-80;
+      padding: 0 @grid_gutter-width/2;
+      .respond-to-min(1000px, {
+        padding-right: 0;
+      });
+    }
+  }
+  .comparison-input-column-b {
+    .respond-to-min(@tablet-min, {
+      position: relative;
+      right: @grid_gutter-width*.75;
+    });
+    .respond-to-min(750px, {
+      right: @grid_gutter-width*1.5;
     });
   }
   .expandable_header {
     position: relative;
-    margin-bottom: @grid_gutter-width/2;
     z-index: 2;
-    background-color: @gray-5;
-    .respond-to-min(1000px, {
-      margin-bottom: @grid_gutter-width;
-    });
-  }
-  .expandable__padded .expandable_content {
-    margin-right: 0;
-    margin-left: 0;
-    &:before,
-    &:hover {
-      display: none;      
-    }
+    background-color: rgba(0,0,0,0.025); // transparency hack to make the expandables clickable and the costs text visible
   }
 }
 
@@ -433,85 +674,17 @@
   }
 }
 
-.result-heading {
-  color: @gray;
+.outputs-heading {
+  margin-left: @grid_gutter-width*2;
 }
 
-.results-section {
-  position: relative;
-  margin-bottom: 60px;
-}
   .results-section-heading {
     margin: 0;
-    .cf-icon {
-      color: @navy;
-    }
-    .respond-to-min(@tablet-min, {
-      font-size: 1.375em;
-    });
-  }
-
-  .primary-results-row {
-    margin-bottom: @grid_gutter-width;
-    .respond-to-min(1000px, {
-      position: absolute;
-      top: 8px;
-      z-index: 1;
-    });
-  }
-
-  .detail-results-row {
-    padding: 0 0 25px; // magic numberssssss
-    .respond-to-min(@tablet-min, {
-      padding-left: @grid_gutter-width/2;
-    });
-    .h6 {
-      color: @darkgray;
-    }
-    h6 {
-      padding: 0 @grid_gutter-width/2;
-      .respond-to-min(@tablet-min, {
-        .meta-header;
-        padding-right: 0;
-        padding-left: 0;
-        margin-right: @grid_gutter-width/2;
-        margin-left: @grid_gutter-width/2;
-        color: @darkgray;
-      });
+    > .cf-icon {
+      color: @black;
     }
   }
 
-  .detail-results-row__nested {
-    .respond-to-min(@tablet-min, {
-      padding-left: @grid_gutter-width;
-    });
-  }
-
-  .primary-results-row,
-  .detail-results-row {
-    width: 100%;
-    .respond-to-min(@tablet-min, {
-      margin-left: 25%;
-    });
-  }
-
-    .closing-cost-result,
-    .monthly-payment-result,
-    .overall-costs-result,
-    .lc-result-detail {
-      .grid_column(1,2);
-    }
-
-    .loan-term-result {
-      .respond-to-min(@tablet-min, {
-        position: relative;
-        left: -@grid_gutter-width/2;
-      });
-    }
-
-  .result-detail-heading {
-    margin-top: @grid_gutter-width/3;
-  }
 
 .lc-result {
   .webfont-regular();
@@ -520,19 +693,11 @@
   });
 }
 
-.lc-primary-result {
+.lc-primary-result,
+.lc-primary-result-heading  {
   font-size: 1.375em;
+  font-weight: 700;
 }
-
-  // we never want to show loan c on small screens
-  .lc-result-c,
-  .result-heading {
-    display: none;
-    .respond-to-min(@tablet-min, {
-      display: inline-block;
-    });
-  }
-
 
 .feedback-block {
   background-color: @gray-5;
@@ -544,4 +709,353 @@
     margin-right: -(@grid_gutter-width / 2);
     margin-left: -(@grid_gutter-width / 2);
   });
+}
+
+
+.lc-tooltip .cf-icon-help-round {
+  font-size: 14px;
+  padding-left: 3px;
+}
+
+.lc-subhead {
+  display: inline;
+}
+
+.lc-inputs {
+  h3 {
+    margin-bottom: 0;
+  }
+  .dollar-input .unit {
+      top: 17%;
+  }
+  
+  .percent-input .unit {
+    right: 20%;
+    top: 17%;
+  }
+  
+  .dollar-input {
+    .unit:before  {
+      content: "\0024"; 
+    }
+  }
+
+  .percent-input {
+    .unit:before  {
+      content: "\0025"; 
+    }
+  }
+  
+}
+
+table.unstyled {
+  background: none;
+    
+  thead {
+    background: none;
+  
+    th {
+      color: @black;
+      background: none;
+    }
+  } 
+  tbody > tr:nth-child(odd) > th,
+  tbody > tr:nth-child(odd) > td {
+      background: none;
+  } 
+}
+
+.scenario-alternates {
+  .h4;
+}
+#next-steps {
+  .respond-to-max(@mobile-max, {
+    margin: 0 -@grid_gutter-width/2;
+      
+    .step-block {
+      margin-left: @grid_gutter-width/2;
+      margin-right: @grid_gutter-width/2;
+    }
+  });
+  
+  background-color: @gray-5;
+  .respond-to-min(@tablet-min, {
+    display: table;
+  });
+  
+  .step-block {
+      border-top: 1px solid @gray-50;
+      padding-top: @grid_gutter-width;
+      padding-bottom: @grid_gutter-width * 1.5;
+      
+      &:first-child {
+        border-top-width: 0px
+      }
+      
+      .respond-to-min(@tablet-min, {
+        border-top-width: 0px;
+        display: table-cell;
+        width: 33%;
+        padding: @grid_gutter-width;
+        border-left: @grid_gutter-width solid white;
+         
+        &:first-child {
+          border-left-width: 0px;
+        }
+      });      
+  }
+}
+
+
+#scenario-section {
+  .respond-to-min(@tablet-min, {
+    .block;
+    margin-top: 0px;
+  });
+  
+  .scenario-alternates {
+    .respond-to-min(@tablet-min, {
+      .grid_column(1, 8);
+      text-align: center;
+      padding-top: @grid_gutter-width;
+    });
+  }
+  
+  .scenario-block {
+    .respond-to-min(@tablet-min, {
+      .grid_column(3, 8);
+    });
+  }
+
+  .content-l_col + .content-l_col {
+  .respond-to-min(@tablet-min, {
+      margin-top: 0;
+    });
+  }
+}
+
+#next-steps,
+#scenario-section {
+  .btn {
+    .respond-to-max(@mobile-max, {
+      width: 100%;
+      text-align: center;
+    });
+  }
+}
+
+.scenario-picker-select {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.loan-input-table {
+  width: 100%;
+  position: relative;
+  
+  select {
+    font-size: unit(14px / @base-font-size-px, em);
+  }
+  
+  th,
+  td {
+      width: 33%;
+      padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
+      background-color: @gray-5;
+      
+      &.input-0 {
+        padding-right: unit(8px / @base-font-size-px, em);
+      }
+      
+      &.input-1 {
+        padding-left: unit(8px / @base-font-size-px, em);
+      }      
+      
+      &.link {
+        width: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: unit(20px / @base-font-size-px, em);
+        color: @gray;
+      }
+  }
+
+  td {
+    vertical-align: top;
+  
+    &.label-cell {
+      text-align: right;
+    }
+    
+    &.header-cell, 
+    &.label-cell {
+      padding-left: @grid_gutter-width;
+    }
+    
+    &.link {
+      span {
+        display: none;
+      }
+    }
+  }
+  
+  .label-text {
+    .webfont-medium();
+    .u-inline-block;
+    padding-right: 3px;
+  }
+
+  tr {
+    border: none;
+    
+    &.header-row {
+      h3 {
+        padding-left: @grid_gutter-width * 1.5;
+        padding-top: @grid_gutter-width;
+      }
+    }
+    
+    &.subhead-row {
+      padding-bottom: 0;
+      
+      h4 {
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+    
+    &.output-row {
+      .label-text {
+        .h5;
+        border-bottom: none;
+      }
+    }
+    
+    &.padded-row {
+      td.label-cell {
+        padding-top: 1em;
+      }
+      td.link {
+        padding-top: .9em;
+      }
+    }
+    
+    &.linked {
+      td.input-1 {
+        color: @gray-80;
+
+        .select-content,
+        input[type="text"] {
+          border-color: @gray-20;
+        }
+
+        .select-content {
+          background: #fff url('../img/select.png') no-repeat right -63px;
+        }
+
+        select {
+          color: @gray-80;
+          font-style: normal !important;
+        }        
+      }
+      td.link {
+        span {
+          display: block;
+        }
+      }
+    }
+    
+    &.highlight {
+      td {
+        background-color: @green-tint;
+
+        .select-content,
+        input[type="text"] {
+          border-width: 2px;
+          border-color: @green;
+        }
+      }
+    }
+    
+  }
+  
+  /* Makes loan input table background appear flush
+     with left side of screen on desktop */
+  .respond-to-min(795px, { 
+    td:first-child,
+    th:first-child {
+      position: relative;
+      border-width: 0;
+      &:before{
+          position:absolute;
+          content: '';
+          top: 0;
+          left: -200%;
+          height: 100%;
+          background-color: @gray-5;
+          width: 200%;
+      }
+    }
+    tr.highlight {
+      td:first-child {
+        border-width: 0;
+        &:before {
+          background-color: @green-tint;
+        }
+      }
+    }
+  });
+}
+
+.educational-note {
+  .respond-to-min(795px, { 
+  
+    padding: 0;
+    height: 0;
+    width: 0;
+  
+    div {
+      position: absolute;
+      margin-left: @grid_gutter-width;
+      width: 33%;
+      border: 2px solid @green-tint;
+      padding: @grid_gutter-width/2;
+      text-align: left;
+    }
+  
+    p {
+      color: @text;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: unit(@base-font-size-px / 16 * 100, %);
+      line-height: @base-line-height;
+      text-align: left;
+    }
+  
+    .lc-results-table & {
+      div {
+         top: 0;
+         margin-left: @grid_gutter-width/2;
+       }
+    }
+  });
+}
+
+.lc-results-table {
+  tr {
+    position: relative;
+  }
+}
+
+/* Tooltips */
+.tooltip {
+  .webfont-regular();
+  .tooltip-inner {
+    max-width: 325px;
+  }
+}
+
+
+.help-text {
+  display: none;
 }

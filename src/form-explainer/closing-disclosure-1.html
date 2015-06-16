@@ -1,6 +1,6 @@
 {% set data = {
 
-"img": "/owning-a-home/static/img/closing-disclosure-H25B-1.gif",
+"img": url_for('static', filename='img/closing-disclosure-H25B-1.gif'),
 "terms":
 [
     {
@@ -25,7 +25,7 @@
     },
     {
         "term": "Check that the loan amount matches your Loan Estimate",
-        "definition": "<p>If it has increased, ask your lender why. Possible reasons could be that closing costs have been rolled into your loan. This reduces your upfront costs at closing, but adds to your overall costs because of the added interest you will pay.</p>",
+        "definition": "<p>If it has increased, ask your lender why. A possible reason could be that closing costs have been rolled into your loan. This reduces your upfront costs at closing, but adds to your overall costs because of the added interest you will pay.</p>",
         "id": "loan-amount",
         "category": "checklist",
         "left": "5.96%",
@@ -35,7 +35,7 @@
     },
     {
         "term": "Check your interest rate",
-        "definition": "<p><a href=\"http://www.consumerfinance.gov/askcfpb/143/whats-a-lock-in-or-a-rate-lock.html\">If it doesn't reflect what you were expecting, ask your lender why. If you locked your rate, your lender is only allowed to change it under limited circumstances.</a></p>",
+        "definition": "<p>If it doesn't reflect what you were expecting, ask your lender why. If you locked your rate, your lender is only allowed to change it under limited circumstances.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/143/whats-a-lock-in-or-a-rate-lock.html\">Learn more</a></p>",
         "id": "interest-rate",
         "category": "checklist",
         "left": "5.96%",
@@ -45,7 +45,7 @@
     },
     {
         "term": "Monthly Principal & Interest",
-        "definition": "<p>Principal (repaying what you borrowed) and interest (the lender's charge for lending you money) make up the main components of your monthly mortgage payment.</p><p>Your total monthly payment will typically be more than this amount. See your Estimated Total Monthly Payment.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html\">Learn about the difference</a></p>",
+        "definition": "<p>Principal (what you borrowed) and interest (the lender's charge for lending you money) usually make up the main components of your monthly mortgage payment.</p><p>Your total monthly payment will typically be more than this amount. See your Estimated Total Monthly Payment.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html\">Learn about the difference</a></p>",
         "id": "monthly-principle-interest",
         "category": "definitions",
         "left": "5.96%",
@@ -55,7 +55,7 @@
     },
     {
         "term": "Does your loan have a prepayment penalty?",
-        "definition": "<p>This feature is risky. If your loan includes one, learn more and ask your lender or broker what other options exist.</p>",
+        "definition": "<p>This feature is risky. If your loan includes one, learn more and ask your lender or broker what other options exist.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1957/what-is-a-prepayment-penalty.html\">Learn more</a></p>",
         "id": "prepayment-penalty",
         "category": "alerts",
         "left": "29.50%",
@@ -65,7 +65,7 @@
     },
     {
         "term": "Does your loan have a balloon payment?",
-        "definition": "<p>This feature is risky. If your loan includes one, learn more and ask your lender or broker what other options exist.</p>",
+        "definition": "<p>This feature is risky. If your loan includes one, learn more and ask your lender or broker what other options exist.</p> <p><a href=\"http://www.consumerfinance.gov/askcfpb/104/what-is-a-balloon-loan.html\">Learn more</a></p>",
         "id": "balloon-payment",
         "category": "alerts",
         "left": "29.50%",
@@ -85,7 +85,7 @@
     },
     {
         "term": "Balloon payment",
-        "definition": "<p><a href=\"http://www.consumerfinance.gov/askcfpb/104/what-is-a-balloon-loan.html\">When the final payment of your mortgage is much larger than your monthly payments, often tens of thousands of dollars.</a></p>",
+        "definition": "<p>When the final payment of your mortgage is much larger than your monthly payments, often tens of thousands of dollars.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/104/what-is-a-balloon-loan.html\">Learn more</a></p>",
         "id": "balloon-payment",
         "category": "definitions",
         "left": "5.96%",
@@ -95,7 +95,7 @@
     },
     {
         "term": "Principal & Interest",
-        "definition": "<p>Principal: repays what you borrowed.<br>Interest: the lender's charge for lending you money</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html\">Learn more</a></p>",
+        "definition": "<p>Principal: amount you borrowed.<br>Interest: the lender's charge for lending you money</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1943/how-does-paying-down-a-mortgage-work.html\">Learn more</a></p>",
         "id": "principle-interest",
         "category": "definitions",
         "left": "5.96%",
@@ -116,7 +116,7 @@
     {
         "term": "Estimated Escrow",
         "term": "Estimated Escrow",
-        "definition": "<p>Additional charges related to home ownership, such as property taxes and homeowners' insurance, that are bundled with your monthly payment.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/140/what-is-an-escrow-or-impound-account.html\">Learn more</a></p>",
+        "definition": "<p>Additional charges related to home ownership, such as property taxes and homeowners' insurance, that are bundled with principal and interest charges to make up your monthly payment.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/140/what-is-an-escrow-or-impound-account.html\">Learn more</a></p>",
         "id": "estimated-escrow",
         "category": "definitions",
         "left": "5.96%",
@@ -126,7 +126,7 @@
     },
     {
         "term": "Estimated Total Monthly Payment",
-        "definition": "<p>The total payment you will make each month, includes mortgage insurance and escrow if applicable.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html\">Learn more</a></p>",
+        "definition": "<p>The total payment you will make each month, including mortgage insurance and escrow if applicable.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html\">Learn more</a></p>",
         "id": "estimated-total-monthly",
         "category": "definitions",
         "left": "5.96%",
@@ -136,7 +136,7 @@
     },
     {
         "term": "Check that your Estimated Total Monthly Payment matches your Loan Estimate",
-        "definition": "<p>If this number doesn't reflect what you were expecting, ask your lender why it has changed.  Make sure you can comfortably afford to pay this amount every month.</p>",
+        "definition": "<p>Make sure you can comfortably afford to pay this amount every month. If this number doesn't reflect what you were expecting, ask your lender why it has changed.</p>",
         "id": "estimated-total-monthly",
         "category": "checklist",
         "left": "29.50%",

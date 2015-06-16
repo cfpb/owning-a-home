@@ -18,10 +18,9 @@ Examples:
   | explore-learn-link         | Know the Process                    | process/explore/                            |
   | compare-header-link         | Know the Process                    | process/compare/                            |
   | compare-learn-link         | Know the Process                    | process/compare/                            |
-  | decide-header-link         | Know the Process                    | process/decide/                            |
-  | decide-learn-link         | Know the Process                    | process/decide/                            |
-  | maintain-header-link         | Know the Process                    | process/maintain/                            |
-  | maintain-learn-link         | Know the Process                    | process/maintain/                            |
+  | close-header-link         | Know the Process                    | process/close/                            |
+  | close-learn-link         | Know the Process                    | process/close/                            |
+
 
 
 @smoke_testing @landing_page
@@ -35,4 +34,5 @@ Examples:
   | Find a HUD-approved housing counselor           | Find a housing counselor | /find-a-housing-counselor/                                 |
   | Get answers to common questions                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
   | Submit a mortgage complaint                     | Submit a complaint       | /complaint/#mortgage                                       |
-  | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/                                                 |
+  | Most are listed in this loan originator database | Consumer Access | http://www.nmlsconsumeraccess.org/ |
+  | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/ |
