@@ -49,6 +49,8 @@ var validators;
 
 var _loans = [];
 
+var downpaymentConstant = 'downpayment-percent';
+
 function init () {
     resetLoans(true);
 }
@@ -60,7 +62,7 @@ function resetLoans (init) {
     // if initial setup or a new scenario has been chosen, 
     // set data on loans
     if (init || scenario) {
-        // get scenario-specific loan data
+        // get scenario-specific loan data        
         var scenarioLoanData = scenario ? scenario.loanProps : {};
         
         // If we're moving into a scenario with existing loans,
@@ -71,12 +73,17 @@ function resetLoans (init) {
             _loans[1].id = 1;
         }
         
+        // Make sure downpaymentConstant is set to downpayment-percent in
+        // downpayment scenario, since it compares two common dp percentages.
+        if (scenario && scenario.val === 'downpayment') {
+            downpaymentConstant = 'downpayment-percent';
+        }
+        
         // create each loan from default + current + scenario loan data,
         // then generate loan's calculated & state-based properties,
         // and finally fetch interest rates 
         for (i = 0; i < len; i++) {
-            var currentLoanData = _loans[i];
-            _loans[i] = assign({id: i}, defaultLoanData, currentLoanData, scenarioLoanData[i]);
+            _loans[i] = assign({id: i}, defaultLoanData, _loans[i], scenarioLoanData[i]);
             updateLoan(i);
             updateLoanRates(i);
         }
@@ -117,12 +124,15 @@ function updateLoan(id, prop, val) {
 }
 
 function updateDependencies (loan, prop) {
-    if (prop === 'price' || prop === 'downpayment') {
-        loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
-    } else if (!prop || prop === 'downpayment-percent') {
-        loan['downpayment'] = mortgageCalculations['downpayment'](loan);        
+    if (prop === 'downpayment' || prop === 'downpayment-percent') {
+        downpaymentConstant = prop;
     }
-    return loan;
+
+    if (downpaymentConstant === 'downpayment-percent' && loan['downpayment-percent']) {
+        loan['downpayment'] = mortgageCalculations['downpayment'](loan);
+    } else {
+        loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
+    }
 }
 
 function fetchRates(loan) {
