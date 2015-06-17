@@ -33,7 +33,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     resetAllLoans: function () {
         var len = this._loans.length || common.loanCount;
         var scenario = ScenarioStore.getScenario();
-        
+              
         if (this._loans.length == 0 || scenario) {
             this.updateDownpaymentConstant(scenario);
             for (i = 0; i < len; i++) {
