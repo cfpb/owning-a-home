@@ -49,7 +49,7 @@ var validators;
 
 var _loans = [];
 
-var downpaymentPercentMode = true;
+var downpaymentConstant = 'downpayment-percent';
 
 function init () {
     resetLoans(true);
@@ -73,10 +73,10 @@ function resetLoans (init) {
             _loans[1].id = 1;
         }
         
-        // Make sure downpaymentPercentMode is triggered on start of the
-        // downpayment scenario since it compares two common dp percentages.
+        // Make sure downpaymentConstant is set to downpayment-percent in
+        // downpayment scenario, since it compares two common dp percentages.
         if (scenario && scenario.val === 'downpayment') {
-            downpaymentPercentMode = true;
+            downpaymentConstant = 'downpayment-percent';
         }
         
         // create each loan from default + current + scenario loan data,
@@ -124,22 +124,15 @@ function updateLoan(id, prop, val) {
 }
 
 function updateDependencies (loan, prop) {
-    var dependentProp;
-    if (prop === 'downpayment') {
-        dependentProp = 'downpayment-percent';
-        downpaymentPercentMode = false;
-    } else if (prop === 'downpayment-percent') {
-        dependentProp = 'downpayment';
-        downpaymentPercentMode = true;
-    } else if (prop === 'price' || !prop) {
-        dependentProp = downpaymentPercentMode && typeof loan['downpayment-percent'] !== 'undefined'
-                        ? 'downpayment' 
-                        : 'downpayment-percent';
+    if (prop === 'downpayment' || prop === 'downpayment-percent') {
+        downpaymentConstant = prop;
     }
-    if (dependentProp) {
-        loan[dependentProp] = mortgageCalculations[dependentProp](loan)
+
+    if (downpaymentConstant === 'downpayment-percent' && loan['downpayment-percent']) {
+        loan['downpayment'] = mortgageCalculations['downpayment'](loan);
+    } else {
+        loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
     }
-    return loan;
 }
 
 function fetchRates(loan) {
