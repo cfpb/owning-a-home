@@ -15,8 +15,12 @@ var $ = jQuery = require('jquery');
 require('tooltips');
 
 var App = React.createClass({
+    init: function () {
+        LoanStore.init();
+    },
 
     getInitialState: function() {
+        this.init();
         return this.getAppState();
     },
   

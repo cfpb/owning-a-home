@@ -14,6 +14,41 @@ common.armDisallowedOptions = {
     'loan-type': [ 'fha', 'va', 'va-hb', 'fha-hb']
 };
 
+common.calculatedProperties = ['loan-summary', 'loan-amount'];
+
+common. calculatedPropertiesBasedOnIR = [
+    'discount', 
+    'processing',
+    'lender-fees', 
+    'third-party-fees',
+    'third-party-services',
+    'insurance', 
+    'taxes-gov-fees', 
+    'prepaid-expenses', 
+    'initial-escrow',
+    'monthly-taxes-insurance', 
+    'monthly-hoa-dues', 
+    'monthly-principal-interest',
+    'monthly-mortgage-insurance', 
+    'monthly-payment', 
+    'closing-costs', 
+    'principal-paid', 
+    'interest-fees-paid', 
+    'overall-costs'
+];
+
+common.defaultLoanData = {
+    'credit-score': 700,
+    'downpayment': 20000,
+    'price': 200000,
+    'rate-structure': 'fixed',
+    'points': 0,
+    'loan-term': 30,
+    'loan-type': 'conf',
+    'arm-type': '5-1',
+    'state': 'AL'
+};
+
 var armMessage = 'While some lenders may offer FHA, VA, or 15-year adjustable-rate mortgages, they are rare. We don’t have enough data to display results for these combinations. Choose a fixed rate if you’d like to try these options.';
 
 common.errorMessages = {
