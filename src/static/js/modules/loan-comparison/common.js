@@ -26,6 +26,29 @@ common.errorMessages = {
 
 common.scenarios = [
     {
+        val: 'credit-score',
+        title: 'Credit Score',
+        label: 'Credit Score',
+        intro: "Your credit score is a significant driver of your loan costs. Borrowers with lower credit scores receive higher interest rates and often pay more in other loan costs. This tool will help you get a sense of how much the difference in costs is likely to be, so you can decide whether now is the right time for you to buy.",
+        loanProps: [
+            // TODO: move dp percent to sharedProps
+            {'credit-score': 760, 'downpayment-percent': 10},
+            {'credit-score': 660, 'downpayment-percent': 10}
+        ],
+        sharedProps: {},
+        inputNotes: {
+            'credit-score': "We’ve chosen two credit score ranges, one above average and one below average. Feel free to adjust these numbers.", 
+            'interest-rate': "You'll generally receive a higher interest rate with a lower credit score."
+        },
+        independentInputs: ['credit-score', 'interest-rate'],
+        outputNotes: {
+            'closing-costs': "Generally, your credit score shouldn't affect your closing costs too much with a conventional loan.", 
+            'monthly-principal-interest': "With a higher interest rate, you'll have a higher monthly payment and you'll build equity more slowly.", 
+            'monthly-mortgage-insurance': "Mortgage insurance costs usually increase with a lower credit score when you have a conventional loan.", 
+            'overall-costs': "Overall, you’ll pay more in interest and fees with a lower credit score."
+        }
+    },
+    {
         val: 'downpayment',
         title: 'Down Payment',
         label: 'Down payment',
@@ -48,33 +71,9 @@ common.scenarios = [
             'monthly-mortgage-insurance': "With a low down payment loan (less than 20%), you'll need to pay for mortgage insurance. Learn more.", 
             'overall-costs': "Overall, you'll pay more in interest and fees with a low down payment loan."
         }
-    },
-    {
-        val: 'credit-score',
-        title: 'Credit Score',
-        label: 'Credit Score',
-        intro: "Your credit score is a significant driver of your loan costs. Borrowers with lower credit scores receive higher interest rates and often pay more in other loan costs. This tool will help you get a sense of how much the difference in costs is likely to be, so you can decide whether now is the right time for you to buy.",
-        loanProps: [
-            // TODO: move dp percent to sharedProps
-            {'credit-score': 760, 'downpayment-percent': 10},
-            {'credit-score': 660, 'downpayment-percent': 10}
-        ],
-        sharedProps: {},
-        inputNotes: {
-            'credit-score': "We’ve chosen two credit score ranges, one above average and one below average. Feel free to adjust these numbers.", 
-            'interest-rate': "You'll generally receive a higher interest rate with a lower credit score."
-        },
-        independentInputs: ['credit-score', 'interest-rate'],
-        outputNotes: {
-            'closing-costs': "Generally, your credit score shouldn't affect your closing costs too much with a conventional loan.", 
-            'monthly-principal-interest': "With a higher interest rate, you'll have a higher monthly payment and you'll build equity more slowly.", 
-            'monthly-mortgage-insurance': "Mortgage insurance costs usually increase with a lower credit score when you have a conventional loan.", 
-            'overall-costs': "Overall, you’ll pay more in interest and fees with a lower credit score."
-        }
     }
+    
 ];
-
-common.defaultScenario = common.scenarios[0];
 
 common.inputTooltips = {
     'state': 'The state where the home is located',
