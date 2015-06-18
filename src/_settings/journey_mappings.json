@@ -43,7 +43,7 @@
     "has_parent": {
       "type": "boolean"
     },
-    "how_to_take_action": {
+    "what_to_do_now": {
       "type": "string"
     },
     "id": {
