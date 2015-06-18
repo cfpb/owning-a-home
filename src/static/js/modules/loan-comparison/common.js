@@ -28,7 +28,7 @@ common.scenarios = [
     {
         val: 'credit-score',
         title: 'Credit Score',
-        label: 'Credit Score',
+        label: 'Credit score',
         intro: "Your credit score is a significant driver of your loan costs. Borrowers with lower credit scores receive higher interest rates and often pay more in other loan costs. This tool will help you get a sense of how much the difference in costs is likely to be, so you can decide whether now is the right time for you to buy.",
         loanProps: [
             // TODO: move dp percent to sharedProps
