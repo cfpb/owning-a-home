@@ -6,7 +6,8 @@ So that I can find the information I'm looking for
 @process_page @check_urls
 Scenario Outline: Testing availability of all pages
   Given I navigate to the "<page_name>" page
-  Then I see navbar-header loaded
+  Then I see page loaded
+    and All local links are working
 
 Examples:
   | page_name             |
