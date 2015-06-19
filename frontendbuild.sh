@@ -10,6 +10,6 @@ npm install
 
 if [ $DEPLOY_ENV = "PROD" ]; then
   grunt production-deploy
-elif [ $DEPLOY_ENV = "DEV" ]; then
+else
   grunt dev-deploy
 fi
