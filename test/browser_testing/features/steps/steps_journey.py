@@ -16,6 +16,6 @@ def navbar_is_loaded(context):
 
 @then(u'All links are working')
 def all_links_working(context):
-    assert_that( context.journey.check_all_links_on_page(),
+    assert_that( context.journey.check_all_links_on_page(context.base_url + '/process'),
                 equal_to([]),
                 'Broken links on <%s>' % context.base.get_current_url() )
