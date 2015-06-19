@@ -21,7 +21,7 @@ SPECIAL = 'loan-options/special-loan-programs'
 # Journey links
 KP = 'process'
 PP = 'process/prepare'
-PE = 'process/prepare'
+PE = 'process/explore'
 PC = 'process/compare'
 PF = 'process/close'
 
