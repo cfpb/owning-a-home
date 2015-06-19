@@ -31,7 +31,6 @@ class Journey(Base):
     def check_link_status_code(self, link):
         try:
             r = requests.head(link)
-            return r.status_code
             return r.status_code > 199 and r.status_code < 300
         except requests.ConnectionError:
             return False
