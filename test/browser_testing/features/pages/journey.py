@@ -31,16 +31,16 @@ class Journey(Base):
     def check_link_status_code(self, link):
         try:
             r = requests.head(link)
-            return r.status_code > 199 and r.status_code < 300
+            return r.status_code > 199 and r.status_code < 400
         except requests.ConnectionError:
             return False
 
-    def check_all_links_on_page(self, base_url):
+    def check_all_links_on_page(self):
         results = []
         link_elements = self.driver.find_elements_by_tag_name( LINK_TAG )
         for elem in link_elements:
             link = elem.get_attribute('href')
-            if link and link.startswith(base_url) and not self.check_link_status_code(link):
+            if link and not link.startswith('tel') and not self.check_link_status_code(link):
                 results.append(link)
 
         return results

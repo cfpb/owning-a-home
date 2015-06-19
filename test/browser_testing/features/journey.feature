@@ -7,7 +7,7 @@ So that I can find the information I'm looking for
 Scenario Outline: Testing availability of all pages
   Given I navigate to the "<page_name>" page
   Then I see page loaded
-    and All local links are working
+    and All links are working
 
 Examples:
   | page_name             |
