@@ -16,7 +16,7 @@ common.armDisallowedOptions = {
 
 common.calculatedProperties = ['loan-summary', 'loan-amount'];
 
-common. calculatedPropertiesBasedOnIR = [
+common.calculatedPropertiesBasedOnIR = [
     'discount', 
     'processing',
     'lender-fees', 

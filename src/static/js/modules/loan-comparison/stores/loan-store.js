@@ -270,7 +270,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * was just updated.
      * 
      * @param  {object} loan
-     * @return {bool} rateChange true if insurance rate has just changed
+     * @return {bool} rateChange true if interest rate has just changed
      */
     updateLoanCalculatedProperties: function (loan, rateChange) {
         var props = rateChange 
