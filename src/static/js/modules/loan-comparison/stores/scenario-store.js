@@ -6,7 +6,7 @@ var common = require('../common');
 
 var CHANGE_EVENT = 'change';
 
-var _activeScenario = common.defaultScenario;
+var _activeScenario = findScenario('downpayment');
 
 function findScenario (id) {
     var scenario;
