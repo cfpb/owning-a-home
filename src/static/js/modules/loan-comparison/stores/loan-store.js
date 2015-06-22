@@ -136,7 +136,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
            this.downpaymentConstant = prop;
         }
         
-        if (this.downpaymentConstant === 'downpayment-percent' && loan['downpayment-percent']) {
+        if (this.downpaymentConstant === 'downpayment-percent' && 
+            typeof loan['downpayment-percent'] != 'undefined') {
             loan['downpayment'] = mortgageCalculations['downpayment'](loan);
         } else {
             loan['downpayment-percent'] = mortgageCalculations['downpayment-percent'](loan);
