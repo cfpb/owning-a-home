@@ -93,7 +93,7 @@
                     <div class="expandable expandable__padded">
                       <button class="expandable_header expandable_target">
                         <span class="expandable_header-left expandable_label">
-                          {{step.order|int}}. {{step.title|safe}}
+                          {{loop.index}}. {{step.title|safe}}
                         </span>
                         <span class="expandable_header-right expandable_link">
                           <span class="expandable_cue-open">
