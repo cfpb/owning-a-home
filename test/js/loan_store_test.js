@@ -120,82 +120,45 @@ describe('Loan store tests', function() {
     describe('update loan calculated properties', function() {
 
         it('should call to recalculate all output properties when rate changed', function() {
-            // var mortgageCalculations = {
-            //     'discount' : function (loan) { return 1; }, 
-            //     'processing' : function (loan) { return 1; },
-            //     'lender-fees' : function (loan) { return 1; }, 
-            //     'third-party-fees' : function (loan) { return 1; },
-            //     'third-party-services' : function (loan) { return 1; },
-            //     'insurance' : function (loan) { return 1; }, 
-            //     'taxes-gov-fees' : function (loan) { return 1; }, 
-            //     'prepaid-expenses' : function (loan) { return 1; }, 
-            //     'initial-escrow' : function (loan) { return 1; },
-            //     'monthly-taxes-insurance' : function (loan) { return 1; }, 
-            //     'monthly-hoa-dues' : function (loan) { return 1; }, 
-            //     'monthly-principal-interest' : function (loan) { return 1; },
-            //     'monthly-mortgage-insurance' : function (loan) { return 1; }, 
-            //     'monthly-payment' : function (loan) { return 1; }, 
-            //     'closing-costs' : function (loan) { return 1; }, 
-            //     'principal-paid' : function (loan) { return 1; }, 
-            //     'interest-fees-paid' : function (loan) { return 1; }, 
-            //     'overall-costs' : function (loan) { return 1; }              
-            // };
+            var sandbox = sinon.sandbox.create();
+            sandbox.stub(mortgageCalculations);
 
-            // var mock = sinon.mock(mortgageCalculations);
-
-            // mock.expects('discount').once();//.withExactArgs({'test': 1});
-
-            // loanStore.updateLoanCalculatedProperties({'test': 1}, true);
-
-            // mock.verify();
-
-            // mock.restore();
-
-            // var stub = sinon.stub(mortgageCalculations);
-
-            // // var mcstub = function(loan) { return 1; }
-
-            // loanStore.updateLoanCalculatedProperties({}, true);
-
-            // sinon.assert.calledOnce(mortgageCalculations['discount']);
-            // stub.restore();
-
-
-            // manually create and restore the sandbox
-            var sandbox;
-            //beforeEach(function () {
-            sandbox = sinon.sandbox.create();
-            //});
-
-
-
-        //it('should restore all mocks stubs and spies between tests', function() {
-            sandbox.stub(mortgageCalculations); // note the use of "sandbox"
-        //}
             loanStore.updateLoanCalculatedProperties({}, true);
 
             sinon.assert.calledOnce(mortgageCalculations['discount']);
+            sinon.assert.calledOnce(mortgageCalculations['processing']);
+            sinon.assert.calledOnce(mortgageCalculations['lender-fees']);
+            sinon.assert.calledOnce(mortgageCalculations['third-party-fees']);
+            sinon.assert.calledOnce(mortgageCalculations['third-party-services']);
+            sinon.assert.calledOnce(mortgageCalculations['insurance']);
+            sinon.assert.calledOnce(mortgageCalculations['taxes-gov-fees']);
+            sinon.assert.calledOnce(mortgageCalculations['prepaid-expenses']);
+            sinon.assert.calledOnce(mortgageCalculations['initial-escrow']);
+            sinon.assert.calledOnce(mortgageCalculations['monthly-taxes-insurance']);
+            sinon.assert.calledOnce(mortgageCalculations['monthly-hoa-dues']);
+            sinon.assert.calledOnce(mortgageCalculations['monthly-principal-interest']);
+            sinon.assert.calledOnce(mortgageCalculations['monthly-mortgage-insurance']);
+            sinon.assert.calledOnce(mortgageCalculations['monthly-payment']);
+            sinon.assert.calledOnce(mortgageCalculations['closing-costs']);
+            sinon.assert.calledOnce(mortgageCalculations['principal-paid']);
+            sinon.assert.calledOnce(mortgageCalculations['interest-fees-paid']);
+            sinon.assert.calledOnce(mortgageCalculations['overall-costs']);
 
-        //afterEach(function () {
             sandbox.restore();
-        //});
 
-            // var common = { 
-            //                 calculatedPropertiesBasedOnIR: ['test1', 'test2'],
-            //                 calculatedProperties: ['test3', 'test4', 'test5']
-            // };
+        });
 
-            // var mortgageCalculations = {
-            //     'test1': function (loan) { return 1; }
-            //     'test2': function (loan) { return 2; }
-            //     'test3': function (loan) { return 3; }
-            //     'test4': function (loan) { return 4; }
-            //     'test5': function (loan) { return 5; }
+        it('should call to recalculate all output properties when rate is not changed', function() {
+            var sandbox = sinon.sandbox.create();
+            sandbox.stub(mortgageCalculations);
 
-            // };
+            var result = loanStore.updateLoanCalculatedProperties({}, false);
 
-            // var mortgageCalculations = 
-            // loanStore.updateLoanCalculatedProperties(loan, true);
+            sinon.assert.calledOnce(mortgageCalculations['loan-summary']);
+            sinon.assert.calledOnce(mortgageCalculations['loan-amount']);
+
+            sandbox.restore();
+
         });
     });
 
