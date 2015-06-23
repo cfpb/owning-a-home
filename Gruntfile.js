@@ -392,6 +392,7 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
+          excludes: ['src/static/vendor/**/*'],
           check: {
             lines: 50,
             statements: 50
