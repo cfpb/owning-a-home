@@ -93,7 +93,7 @@
                     <div class="expandable expandable__padded">
                       <button class="expandable_header expandable_target">
                         <span class="expandable_header-left expandable_label">
-                          {{step.order|int}}. {{step.title|safe}}
+                          {{loop.index}}. {{step.title|safe}}
                         </span>
                         <span class="expandable_header-right expandable_link">
                           <span class="expandable_cue-open">
@@ -130,13 +130,13 @@
 
                         </div><!-- .content-l__main -->
 
-                        {% if step.how_to_take_action %}
+                        {% if step.what_to_do_now %}
                         <section class="content-l__main content-l step">
                           <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
                             What to do now
                           </h1>
                           <article class="content-l_col-3-4 content-l_col ">
-                          {{step.how_to_take_action|safe}}
+                          {{step.what_to_do_now|safe}}
                           </article>
                         </section>
                         {% endif %}

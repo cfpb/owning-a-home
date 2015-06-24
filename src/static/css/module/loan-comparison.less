@@ -995,32 +995,7 @@ table.unstyled {
     
   }
   
-  /* Makes loan input table background appear flush
-     with left side of screen on desktop */
-  .respond-to-min(795px, { 
-    td:first-child,
-    th:first-child {
-      position: relative;
-      border-width: 0;
-      &:before{
-          position:absolute;
-          content: '';
-          top: 0;
-          left: -200%;
-          height: 100%;
-          background-color: @gray-5;
-          width: 200%;
-      }
-    }
-    tr.highlight {
-      td:first-child {
-        border-width: 0;
-        &:before {
-          background-color: @green-tint;
-        }
-      }
-    }
-  });
+
 }
 
 .educational-note {
@@ -1066,7 +1041,7 @@ table.unstyled {
 .tooltip {
   .webfont-regular();
   .tooltip-inner {
-    max-width: 325px;
+    /*max-width: 325px;*/
   }
 }
 
