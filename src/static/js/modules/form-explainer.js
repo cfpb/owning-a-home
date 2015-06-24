@@ -7,6 +7,12 @@ require('cf-expandables');
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
 
+// TODO: define category list in calling page, and
+// also pass it to form-explainer.html to construct tabs
+var CATEGORIES = ['checklist', 'definitions'];
+var DEFAULT_TYPE = 'checklist';
+var $INITIAL_TAB;
+
 /**
  * Get the currently displayed form page as a number.
  * Grabs the number from the currently displayed .explain_page element ID.
@@ -195,6 +201,24 @@ function setCategoryPlaceholders( id ) {
   }
 }
 
+function filterExplainers ($currentTab, type) {
+    // Update the tab state
+    $('.explain_tabs .tab-list').removeClass('active-tab');
+    $currentTab.addClass('active-tab');
+    
+    // Filter the expandables
+    if (type === 'all') {
+      $WRAPPER.find('.expandable__form-explainer').show();
+      $WRAPPER.find('.image-map_overlay').show();
+      $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
+    } else {
+      $WRAPPER.find('.expandable__form-explainer').hide();
+      $WRAPPER.find('.image-map_overlay').hide();
+      $WRAPPER.find('.expandable__form-explainer-' + type).show();
+      $WRAPPER.find('.image-map_overlay__' + type).show();
+    }
+}
+
 // Kick things off on document ready.
 $(document).ready(function(){
 
@@ -216,10 +240,17 @@ $(document).ready(function(){
     // As the page scrolls, watcht he current page and update its stickiness.
     $WINDOW.on( 'scroll', updateStickiness );
   }
+  
+  // get initial tab
+  $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
+  // filter initial state
+  filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
 
   // The "All" tab is the default tab. We don't want placeholders to be visible
   // in the "All" tab.
-  $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
+  if (DEFAULT_TYPE === 'all') {
+    $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
+  }
 
   // Pagination events
   $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
@@ -235,22 +266,11 @@ $(document).ready(function(){
 
   // Filter the expandables via the tabs
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
-    var target = $(this).find('[data-target]').data('target'),
-        $terms = $WRAPPER.find('.explain_terms');
-    // Update the tab state
-    $('.explain_tabs .tab-list').removeClass('active-tab');
-    $(this).addClass('active-tab');
-    // Filter the expandables
-    if ( target === 'all' ) {
-      $WRAPPER.find('.expandable__form-explainer').show();
-      $WRAPPER.find('.image-map_overlay').show();
-      $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
-    } else {
-      $WRAPPER.find('.expandable__form-explainer').hide();
-      $WRAPPER.find( '.expandable__form-explainer-' + target ).show();
-      $WRAPPER.find('.image-map_overlay').hide();
-      $WRAPPER.find( '.image-map_overlay__' + target ).show();
-    }
+    var $selectedTab = $(this);
+    var explainerType = $selectedTab.find('[data-target]').data('target');
+    
+    filterExplainers($selectedTab, explainerType);
+    
     $.scrollTo( $TABS, {
       duration: 200,
       offset: -30
