@@ -34,21 +34,8 @@
     transition: border 100ms ease-out;
 }
 
+
 .image-map_overlay__checklist {
-    & {
-        background: rgba(209,65,36,0.2);
-    }
-    &:hover,
-    &:focus,
-    &.has-attention  {
-        border-color: @redorange-80;
-    }
-    &:focus {
-        outline: 1px dotted @redorange;
-        outline-offset: 1px;
-    }
-}
-.image-map_overlay__alerts {
     & {
         background: rgba(255,147,27,0.2);
     }
@@ -116,14 +103,14 @@
     &:hover,
     &.expandable__expanded,
     &.has-attention {
-        background: @redorange-20;
+        background: @gold-20;
     }
     .expandable_category:before {
         content: "\e101"; // .cf-icon-approved-round
-        color: @redorange-80;
+        color: @gold-80;
     }
     .expandable_content:before {
-        background: @redorange-50;
+        background: @gold-50;
     }
 }
 
@@ -132,14 +119,14 @@
     &:hover,
     &.expandable__expanded,
     &.has-attention {
-        background: @gold-20;
+        background: @redorange-20;
     }
     .expandable_category:before {
         content: "\e103"; // .cf-icon-error-round
-        color: @gold-80;
+        color: @redorange-80;
     }
     .expandable_content:before {
-        background: @gold-50;
+        background: @redorange-50;
     }
 }
 
@@ -180,27 +167,37 @@
 
 .explain_tabs {
     margin: 0 0 unit(@grid_gutter-width / @base-font-size-px, em);
-
+    .tab-list button,
+    .tab-list a {
+      &.tab-link__checklist {
+        border-top-color: @gold-20;
+        .cf-icon {
+          color: @gold-50;
+        }
+      }
+      &.tab-link__definitions {
+        border-top-color: @navy-20;
+        .cf-icon {
+          color: @navy-50;
+        }
+      }
+      
+    }
     .active-tab button,
     .active-tab a,
     button:hover,
     a:hover,
     button:focus,
     a:focus {
+      
       &.tab-link__checklist {
-        border-top-color: @redorange-20;
-        .cf-icon {
-          color: @redorange-80;
-        }
-      }
-      &.tab-link__alerts {
-        border-top-color: @gold-20;
+        border-top-color: @gold-80;
         .cf-icon {
           color: @gold-80;
         }
       }
       &.tab-link__definitions {
-        border-top-color: @navy-20;
+        border-top-color: @navy-80;
         .cf-icon {
           color: @navy-80;
         }
