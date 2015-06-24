@@ -61,6 +61,29 @@ common.errorMessages = {
 
 common.scenarios = [
     {
+        val: 'credit-score',
+        title: 'Credit Score',
+        label: 'Credit score',
+        intro: "Your credit score is a significant driver of your loan costs. Borrowers with lower credit scores receive higher interest rates and often pay more in other loan costs. This tool will help you get a sense of how much the difference in costs is likely to be, so you can decide whether now is the right time for you to buy.",
+        loanProps: [
+            // TODO: move dp percent to sharedProps
+            {'credit-score': 760, 'downpayment-percent': 10},
+            {'credit-score': 660, 'downpayment-percent': 10}
+        ],
+        sharedProps: {},
+        inputNotes: {
+            'credit-score': "We’ve chosen two credit score ranges, one above average and one below average. Feel free to adjust these numbers.", 
+            'interest-rate': "You'll generally receive a higher interest rate with a lower credit score."
+        },
+        independentInputs: ['credit-score', 'interest-rate'],
+        outputNotes: {
+            'closing-costs': "Generally, your credit score shouldn't affect your closing costs too much with a conventional loan.", 
+            'monthly-principal-interest': "With a higher interest rate, you'll have a higher monthly payment and you'll build equity more slowly.", 
+            'monthly-mortgage-insurance': "Mortgage insurance costs usually increase with a lower credit score when you have a conventional loan.", 
+            'overall-costs': "Overall, you’ll pay more in interest and fees with a lower credit score."
+        }
+    },
+    {
         val: 'downpayment',
         title: 'Down Payment',
         label: 'Down payment',
@@ -84,23 +107,22 @@ common.scenarios = [
             'overall-costs': "Overall, you'll pay more in interest and fees with a low down payment loan."
         }
     }
+    
 ];
-
-common.defaultScenario = common.scenarios[0];
 
 common.inputTooltips = {
     'state': 'The state where the home is located',
     'county': 'The county where the home is located',
-    'credit-score': 'A number that is used to predict how likely you are to pay back a loan on time. You can find out how to get this number here: http://www.consumerfinance.gov/askcfpb/316/where-can-i-get-my-credit-score.html',
+    'credit-score': 'A number that is used to predict how likely you are to pay back a loan on time.',
     'price': 'The price of the home',
     'downpayment': 'The initial, upfront payment you make toward the total cost of the home. ',
     'loan-amount': 'The amount of money borrowed to pay for the home. Calculated by subtracting the down payment from the home price.',
     'rate-structure': 'Choose between a fixed rate, where your interest rate does not change over the term of your loan, or adjustable rate where it can change.',
-    'arm-type': 'Adjustable Rate Mortgages have both fixed periods and adjustable periods. The top number is the fixed period. The bottom number is the adjustable period. Learn more here:http://www.consumerfinance.gov/owning-a-home/loan-options/',
+    'arm-type': 'Adjustable Rate Mortgages have both fixed periods and adjustable periods. The top number is the fixed period. The bottom number is the adjustable period.',
     'loan-term': 'The amount of time the borrower has to repay the loan.',
-    'loan-type': 'Loans are categorized based on the size of the loan and whether they are part of a government program. Learn more here: http://www.consumerfinance.gov/owning-a-home/loan-options/',
+    'loan-type': 'Loans are categorized based on the size of the loan and whether they are part of a government program.',
     'loan-summary': 'This field summarizes your loan type, term, and rate type.',
-    'points': 'Points lower the interest rate by closing costs. Credits lower closing costs by increasing the interest rate. Learn more here: http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html',
+    'points': 'Points lower the interest rate by closing costs. Credits lower closing costs by increasing the interest rate.',
     'interest-rate': 'The cost paid each year to borrow the money, expressed as a percentage rate. It does not reflect fees or any other charges paid for the loan.'
 };
 common.outputTooltips = {
@@ -109,7 +131,7 @@ common.outputTooltips = {
     'third-party-fees': 'Fees paid for services provided by a third party, not your lender. Includes title insurance fees, appraisal fees, and homeowner’s insurance. Paid as part of the closing costs.',
     'taxes-gov-fees': 'Includes fees paid to the government, transfer taxes, and property taxes. Paid as part of the closing costs.',
     'prepaid-expenses': 'Fees required to be paid at closing, before they are due, such as accrued interest.',
-    'initial-escrow': 'The amount paid at closing to start your escrow account, if required by your lender. Learn more: http://www.consumerfinance.gov/askcfpb/160/what-is-an-initial-escrow-deposit.html',
+    'initial-escrow': 'The amount paid at closing to start your escrow account, if required by your lender.',
     'monthly-principal-interest': 'The amount paid each month toward the loan balance combined with the amount paid each month in interest costs.',
     'monthly-mortgage-insurance': 'A monthly fee paid to the lender if the down payment was less than 20 percent. Mortgage insurance protects the lender, not the borrower.'
 }
