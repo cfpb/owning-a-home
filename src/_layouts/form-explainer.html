@@ -21,21 +21,10 @@
 {% macro render( data ) %}
   <div class="explain" aria-controls="form-explainer">
     <ul class="tabs explain_tabs">
-      <li class="tab-list active-tab">
-        <button class="tab-link" data-target="all">
-          All
-        </button>
-      </li>
       <li class="tab-list">
         <button class="tab-link tab-link__checklist" data-target="checklist">
           <span class="cf-icon cf-icon-approved-round"></span>
           <span class="tab-label">Checklist</span>
-        </button>
-      </li>
-      <li class="tab-list">
-        <button class="tab-link tab-link__alerts" data-target="alerts">
-          <span class="cf-icon cf-icon-error-round"></span>
-          <span class="tab-label">Alerts</span>
         </button>
       </li>
       <li class="tab-list">
