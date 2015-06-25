@@ -18,6 +18,12 @@ CONV = 'loan-options/conventional-loans'
 RC = 'check-rates'
 FHA = 'loan-options/FHA-loans'
 SPECIAL = 'loan-options/special-loan-programs'
+# Journey links
+KP = 'process'
+PP = 'process/prepare'
+PE = 'process/explore'
+PC = 'process/compare'
+PF = 'process/close'
 
 
 @given(u'I navigate to the "{page_name}" page')
@@ -40,6 +46,16 @@ def step(context, page_name):
         context.base.go(FHA)
     elif (page_name == 'Special Loan Programs'):
         context.base.go(SPECIAL)
+    elif (page_name == 'Know the Process'):
+        context.base.go(KP)
+    elif (page_name == 'Prepare to Shop'):
+        context.base.go(PP)
+    elif (page_name == 'Explore Loan Options'):
+        context.base.go(PE)
+    elif (page_name == 'Compare Loan Options'):
+        context.base.go(PC)
+    elif (page_name == 'Get Ready to Close'):
+        context.base.go(PF)
     else:
         raise Exception(page_name + ' is NOT a valid page')
 

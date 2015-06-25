@@ -10,6 +10,7 @@ from selenium import webdriver
 from pages.screenshot import Screenshot
 from pages.base import Base
 from pages.home import Home
+from pages.journey import Journey
 from pages.loan_comparison import LoanComparison
 from pages.loan_options import LoanOptions
 from pages.navigation import Navigation
@@ -66,6 +67,9 @@ def before_all(context):
                         context.base_url, driver, 10, context.delay_secs)
     context.home = Home(context.logger, context.directory,
                         context.base_url, driver, 10, context.delay_secs)
+    context.journey = Journey(context.logger, context.directory,
+                                             context.base_url, driver, 10,
+                                             context.delay_secs)
     context.loan_comparison = LoanComparison(context.logger, context.directory,
                                              context.base_url, driver, 10,
                                              context.delay_secs)
