@@ -38,6 +38,5 @@ Examples:
   | Learn how the CFPB is protecting mortgage borrowers | Know before you owe                | /knowbeforeyouowe/ |
   | We can help | Mortgage help                | /mortgagehelp/ |
   | Get videos, compliance guides, and other resources | Regulatory implementation                | /regulatory-implementation/ |
-  | Learn how the new disclosure forms help you and your clients | Real estate professionals                | /#/ |
    | Your home loan toolkit: a step-by-step guide | Mortgage booklet                | /http://www.consumerfinance.gov/f/201503_cfpb_your-home-loan-toolkit-web.pdf/ |
   | More mortgage-related guides | Consumer Financial Protection Bureau publications                | http://promotions.usa.gov/cfpbpubs.html#mortgages |
