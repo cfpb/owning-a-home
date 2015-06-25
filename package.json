@@ -68,6 +68,7 @@
     "react-templates": "^0.1.14",
     "react-tools": "~0.13.1",
     "reactify": "^1.1.0",
+    "sinon": "^1.15.3",
     "time-grunt": "^1.0.0"
   },
   "keywords": [],
