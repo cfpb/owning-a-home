@@ -207,16 +207,10 @@ function filterExplainers ($currentTab, type) {
     $currentTab.addClass('active-tab');
     
     // Filter the expandables
-    if (type === 'all') {
-      $WRAPPER.find('.expandable__form-explainer').show();
-      $WRAPPER.find('.image-map_overlay').show();
-      $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
-    } else {
-      $WRAPPER.find('.expandable__form-explainer').hide();
-      $WRAPPER.find('.image-map_overlay').hide();
-      $WRAPPER.find('.expandable__form-explainer-' + type).show();
-      $WRAPPER.find('.image-map_overlay__' + type).show();
-    }
+    $WRAPPER.find('.expandable__form-explainer').hide();
+    $WRAPPER.find('.image-map_overlay').hide();
+    $WRAPPER.find('.expandable__form-explainer-' + type).show();
+    $WRAPPER.find('.image-map_overlay__' + type).show();
 }
 
 // Kick things off on document ready.
