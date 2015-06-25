@@ -69,10 +69,15 @@ function resizeImage (els, windowResize) {
     // determine new width
     newWidth = calculateNewImageWidth(currentWidth, currentHeight);
     if (newWidth > actualWidth) {
-      newWidth = calculateNewImageWidth(actualWidth, actualHeight);
+      newWidth = actualWidth;
     }
     // update element widths
     newWidthPercentage = newWidth / pageWidth * 100;
+    // on screen less than 800px wide, the terms need a minimum 33%
+    // width or they become too narrow to read
+    if ($WINDOW.width() <= 800 && newWidthPercentage > 67) {
+      newWidthPercentage = 67;
+    }
     els.$imageMap.css( 'width', newWidthPercentage + '%' );
     $PAGINATION.css( 'width', newWidthPercentage + '%' );
     els.$terms.css( 'width', (100 - newWidthPercentage) + '%' );
@@ -118,7 +123,7 @@ function fitAndStickToWindow(els, pageNum) {
       // set width values on image elements
       setImageElementWidths(els);
       
-      if (pageNum) {
+      if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
         stickImage(els.$imageMapWrapper);
       } else {
