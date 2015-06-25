@@ -240,12 +240,6 @@ $(document).ready(function(){
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
 
-  // The "All" tab is the default tab. We don't want placeholders to be visible
-  // in the "All" tab.
-  if (DEFAULT_TYPE === 'all') {
-    $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
-  }
-
   // Pagination events
   $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
     if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
