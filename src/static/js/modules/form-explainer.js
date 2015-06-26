@@ -274,7 +274,21 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
-    $( itemID ).get(0).toggle();
+    $( itemID )
+      .attr('tabindex', '0').attr('aria-hidden', 'false')
+      .focus()
+      .get(0).toggle();
+
+    // move focus to corresponding expandable text
+    $( itemID ).children('.expandable_content')
+      .attr('tabindex', '0');
+
+  });
+
+  $WRAPPER.on( 'click', '.expandable__form-explainer', function (event) {
+    // $('.expandable__form-explainer').attr('aria-hidden','true');
+    // $(this).attr('aria-hidden', 'false');
+    console.log($(this));
   });
 
   // Scroll to the proper item when the corresponding form dot is selected

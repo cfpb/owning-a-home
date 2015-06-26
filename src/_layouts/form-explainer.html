@@ -35,7 +35,7 @@
       </li>
     </ul>
     {% for page in data %}
-    <figure class="explain_page" id="explain_page-{{ loop.index }}">
+    <figure class="explain_page" id="explain_page-{{ loop.index }}" role="tablist" multiselectable="true">
       <div class="image-map explain_image-map">
         <div class="image-map_wrapper">
           <img class="image-map_image"
@@ -75,7 +75,13 @@
 {% for item in terms %}
   <a class="image-map_overlay image-map_overlay__{{ item.category }}"
      style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
-     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}">
+     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+     id="{{ 'image-map_overlay__' + page_num|string + '-' + item.category + '-' + item.id }}" 
+     aria-controls="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}" 
+     aria-expanded="false"
+     aria-selected="false" 
+     role="tab" 
+     tabindex="{{ loop.index }}">
     <span class="u-visually-hidden">{{ item.term }}</span>
  </a>
 {% endfor %}
@@ -133,7 +139,10 @@
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+       aria-labelledby="{{ 'image-map_overlay__' + page_num|string + '-' + item.category + '-' + item.id }}" 
+       role="tabpanel"
+       tabindex="0">
     <span class="expandable_header">
       <span class="expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
@@ -147,8 +156,10 @@
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
-    <button class="expandable_header expandable_target">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+       aria-labelledby="{{ 'image-map_overlay__' + page_num|string + '-' + item.category + '-' + item.id }}" 
+       role="tabpanel">
+    <button class="expandable_header expandable_target" tabindex="0">
       <span class="expandable_header-left expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
             <span class="u-visually-hidden">{{ item.category }}</span>
@@ -166,7 +177,7 @@
         </span>
       </span>
     </button>
-    <div class="expandable_content u-stick">
+    <div class="expandable_content u-stick" tabindex="0">
       {{ item.definition|safe }}
       {% if item.highlight -%}
         <img class="u-stick_bottom" src="{{ item.highlight }}" alt="">
