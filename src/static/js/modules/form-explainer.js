@@ -276,19 +276,16 @@ $(document).ready(function(){
     });
     $( itemID )
       .attr('tabindex', '0').attr('aria-hidden', 'false')
-      .focus()
       .get(0).toggle();
-
-    // move focus to corresponding expandable text
-    $( itemID ).children('.expandable_content')
-      .attr('tabindex', '0');
 
   });
 
-  $WRAPPER.on( 'click', '.expandable__form-explainer', function (event) {
-    // $('.expandable__form-explainer').attr('aria-hidden','true');
-    // $(this).attr('aria-hidden', 'false');
-    console.log($(this));
+  // Add tabindex to links inside of expandables, so they are tabbable in the correct order.
+  $WRAPPER.on( 'focus', '.expandable__form-explainer .expandable_target', function (event) {
+    var $this = $(this),
+        $content = $this.siblings('.expandable_content'),
+        $tabindex = $content.attr('tabindex');
+    $content.find('a').attr('tabindex', $tabindex);
   });
 
   // Scroll to the proper item when the corresponding form dot is selected
