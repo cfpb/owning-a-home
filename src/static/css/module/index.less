@@ -185,6 +185,11 @@ fieldset.submit_btn > p {
       margin-bottom: @grid_gutter-width/3;
     });
   }
+    .list_item {
+    .respond-to-min(@tablet-min, {
+      margin-bottom: unit(24px / @base-font-size-px, em)
+    });
+  }
 }
 
 #email{
@@ -199,5 +204,4 @@ fieldset.submit_btn > p {
 }
 
 .tabbed-pad-top {
-  margin-top: @grid_gutter-width;
-}
+  margin-top: @grid_gutter-width;}
