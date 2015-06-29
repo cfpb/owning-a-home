@@ -31,8 +31,12 @@ Scenario Outline: Test outbound links in the landing page
 
 Examples:
   | link_name                                       | page_title               | relative_url                                               |
-  | Find a HUD-approved housing counselor           | Find a housing counselor | /find-a-housing-counselor/                                 |
-  | Get answers to common questions                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
-  | Submit a mortgage complaint                     | Submit a complaint       | /complaint/#mortgage                                       |
+   | Get answers from AskCFPB                 | Mortgages                | /askcfpb/search/?selected_facets=category_exact:mortgages  |
+   | Submit it to the CFPB                     | Submit a complaint       | /complaint/#mortgage                                       |
+  | Find a HUD-certified housing counselor           | Find a housing counselor | /find-a-housing-counselor/                                 |
   | Most are listed in this loan originator database | Consumer Access | http://www.nmlsconsumeraccess.org/ |
-  | Learn how CFPB is protecting mortgage borrowers | Mortgages                | /mortgage/ |
+  | Learn how the CFPB is protecting mortgage borrowers | Know before you owe                | /knowbeforeyouowe/ |
+  | We can help | Mortgage help                | /mortgagehelp/ |
+  | Get videos, compliance guides, and other resources | Regulatory implementation                | /regulatory-implementation/ |
+   | Your home loan toolkit: a step-by-step guide | Mortgage booklet                | /http://www.consumerfinance.gov/f/201503_cfpb_your-home-loan-toolkit-web.pdf/ |
+  | More mortgage-related guides | Consumer Financial Protection Bureau publications                | http://promotions.usa.gov/cfpbpubs.html#mortgages |
