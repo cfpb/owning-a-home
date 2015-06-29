@@ -4,7 +4,7 @@ node_js:
 
 install:
   - npm install -g grunt-cli
-  - npm install
+  - ./frontendbuild.sh
 
 script:
   - bash test/test_artifacts.sh
