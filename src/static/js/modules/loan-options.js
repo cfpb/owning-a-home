@@ -72,12 +72,8 @@ $(document).ready( function() {
   var hash = window.location.hash.substr(1).toLowerCase(),
     $el = $( '#' + hash),
       $expandable = $el.closest('.expandable');
-    console.log($el);
-    console.log($expandable);
 
   if ( hash !== "" && $expandable.length && !$expandable.hasClass('expandable__expanded')) {
-    console.log("In here!");
-    console.log($expandable.find('.expandable_target'));
     $expandable.find('.expandable_target')[0].click();
     $.scrollTo( $el, {
       duration: 600,
