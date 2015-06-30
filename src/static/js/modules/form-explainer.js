@@ -3,15 +3,23 @@ require('sticky');
 require('jquery-easing');
 require('jquery.scrollto');
 require('cf-expandables');
+var debounce = require('debounce');
 
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
+
+// Keys to sections on page.
+var termsList = '.explain_terms';
 
 // TODO: define category list in calling page, and
 // also pass it to form-explainer.html to construct tabs
 var CATEGORIES = ['checklist', 'definitions'];
 var DEFAULT_TYPE = 'checklist';
 var $INITIAL_TAB;
+
+var resized;
+
+var stickBottom = 'js-sticky-bottom';
 
 /**
  * Get the currently displayed form page as a number.
@@ -22,13 +30,77 @@ function getCurrentPageNum() {
   return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
 }
 
-/**
- * Get the currently displayed form page as a jQuery object
- * Looks for a visible .explain_page element.
- * @return {object}
- */
-function getCurrentPage() {
-  return $WRAPPER.find( '#explain_page-' + getCurrentPageNum() );
+function getPageEl (pageNum) {
+  return $WRAPPER.find('#explain_page-' + pageNum);
+}
+
+function getPageElements (pageNum) {
+  var $page = getPageEl(pageNum);
+  return {
+    $page:             $page,
+    $imageMap:         $page.find('.image-map'),
+    $imageMapImage:    $page.find('.image-map_image'),
+    $imageMapWrapper:  $page.find('.image-map_wrapper'),
+    $terms:            $page.find('.terms')
+  }
+}
+
+function calculateNewImageWidth (imageWidth, imageHeight) {
+  var imageMapImageRatio = (imageWidth + 2) / (imageHeight + 2);
+  return ($WINDOW.height() - 60) * imageMapImageRatio + 30;
+}
+
+function resizeImage (els, windowResize) {
+  var pageWidth = els.$page.width();
+  var $image = els.$imageMapImage;
+  var currentHeight = $image.height();
+  var currentWidth = $image.width();
+  var actualWidth = $image.data("actual-width");
+  var actualHeight = $image.data("actual-height");
+  var windowHeight = $WINDOW.innerHeight() - 60;
+  var newWidth;
+  var newWidthPercentage;
+  
+  // If the image is too tall for the window, resize it proportionally,
+  // then update the adjacent terms column width to fit.
+  // On window resize, also check if image is now too small & resize,
+  // but only if we've stored the actual image dimensions for comparison.
+  if ( currentHeight > windowHeight || (windowResize && actualWidth && actualHeight)) {
+    // determine new width
+    newWidth = calculateNewImageWidth(currentWidth, currentHeight);
+    if (newWidth > actualWidth) {
+      newWidth = actualWidth;
+    }
+    // update element widths
+    newWidthPercentage = newWidth / pageWidth * 100;
+    // on screen less than 800px wide, the terms need a minimum 33%
+    // width or they become too narrow to read
+    if ($WINDOW.width() <= 800 && newWidthPercentage > 67) {
+      newWidthPercentage = 67;
+    }
+    els.$imageMap.css( 'width', newWidthPercentage + '%' );
+    $PAGINATION.css( 'width', newWidthPercentage + '%' );
+    els.$terms.css( 'width', (100 - newWidthPercentage) + '%' );
+  }
+}
+
+function setImageElementWidths (els) {
+  // When the sticky plugin is applied to the image, it adds position fixed,
+  // and the image's width is no longer constrained to its parent.
+  // To fix this we will give it its own width that is equal to the parent.
+  // (IE8 wants a width on the wrapper too)
+  var containerWidth = els.$imageMap.width();
+  els.$imageMapWrapper.width(containerWidth);
+  els.$imageMapImage.width(containerWidth);
+}
+
+function storeImageDimensions ($image) {
+  $image.data('actual-width', $image.width());
+  $image.data('actual-height', $image.height());
+}
+
+function stickImage($el) {
+  $el.sticky({ topSpacing: 30 });
 }
 
 /**
@@ -36,47 +108,36 @@ function getCurrentPage() {
  * columns to match.
  * @return {null}
  */
-function fitAndStickToWindow( id ) {
-  var $currentPage =      $WRAPPER.find( '#explain_page-' + id ),
-      $imageMap =         $currentPage.find('.image-map'),
-      $imageMapImage =    $currentPage.find('.image-map_image'),
-      $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
-      $terms =            $currentPage.find('.terms');
+function fitAndStickToWindow(els, pageNum) {
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
     .load( function() {
-      // In order to make the image map sticky we must first make sure it will fit
-      // completely within the window.
-      if ( $imageMapImage.height() > ($WINDOW.innerHeight() - 60) ) {
-        // Since the image map is too tall we need to proportionally shrink it to
-        // match the height of the window. It's new width will be represented as
-        // imageMapWidthNewPercent.
-        var imageMapImageRatio = (this.width + 2) / (this.height + 2),
-            imageMapWidthNewPx,
-            imageMapWidthNewPercent;
-        imageMapWidthNewPx = ($WINDOW.height() - 60) * imageMapImageRatio + 30;
-        imageMapWidthNewPercent = imageMapWidthNewPx / $currentPage.width() * 100;
-        $imageMap.css( 'width', imageMapWidthNewPercent + '%' );
-        $PAGINATION.css( 'width', imageMapWidthNewPercent + '%' );
-        // Then we need to adjust the second column to match the image map's new width.
-        $terms.css( 'width', (100 - imageMapWidthNewPercent) + '%' );
+      // store image width for use in calculations on window resize
+      if (pageNum) {
+        storeImageDimensions(els.$imageMapImage);
       }
-      // When the sticky plugin is applied to the image, it adds position fixed,
-      // and the image's width is no longer constrained to its parent.
-      // To fix this we will give it its own width that is equal to the parent.
-      var containerWidth = $imageMap.width();
-      // IE8 wants a width on the wrapper too
-      $imageMapWrapper.width(containerWidth);
-      $imageMapImage.width(containerWidth);
-      $imageMapWrapper.sticky({ topSpacing: 30 });
-      if (id > 1) {
-          $currentPage.hide();
+      
+      // if image is too tall/small, fit it to window dimensions
+      resizeImage(els, !pageNum);
+     
+      // set width values on image elements
+      setImageElementWidths(els);
+      
+      if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
+        // stick image to window
+        stickImage(els.$imageMapWrapper);
+      } else {
+        updateStickiness()
+      }
+      // hide pages except for first
+      if (pageNum > 1) {
+          els.$page.hide();
       }
     })
     // This order is necessary so that IE8 doesn't fire the onload event
     // before the src is set for cached images
     // http://stackoverflow.com/questions/14429656/onload-callback-on-image-not-called-in-ie8
-    .attr( 'src', $imageMapImage.attr('src') );
+    .attr( 'src', els.$imageMapImage.attr('src') );
 }
 
 /**
@@ -85,27 +146,21 @@ function fitAndStickToWindow( id ) {
  * @return {null}
  */
 function updateStickiness() {
-  var $currentPage =      getCurrentPage(),
-      $imageMap =         $currentPage.find('.image-map'),
-      $imageMapImage =    $currentPage.find('.image-map_image'),
-      $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
-      $terms =            $currentPage.find('.terms'),
-      max = $currentPage.offset().top + $currentPage.height() - $imageMapWrapper.height(),
-      stickBottom = 'js-sticky-bottom';
-  if ( $WINDOW.scrollTop() >= max && !$imageMapWrapper.hasClass( stickBottom ) ) {
-    $imageMapWrapper.addClass( stickBottom );
-  } else if ( $WINDOW.scrollTop() < max && $imageMapWrapper.hasClass( stickBottom ) ) {
-    $imageMapWrapper.removeClass( stickBottom );
+  var els =  getPageElements(getCurrentPageNum());
+  var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
+  if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
+    els.$imageMapWrapper.addClass(stickBottom);
+  } else if ($WINDOW.scrollTop() < max && els.$imageMapWrapper.hasClass(stickBottom)) {
+    els.$imageMapWrapper.removeClass(stickBottom);
   }
 }
 
 /**
- * Paginatie through the various form pages.
+ * Paginate through the various form pages.
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = getCurrentPageNum(),
-      newCurrentPage = currentPage;
+  var currentPage = getCurrentPageNum(), newCurrentPage;
   if ( direction === 'next' ) {
     newCurrentPage = currentPage + 1;
   } else if ( direction === 'prev' ) {
@@ -121,14 +176,17 @@ function paginate( direction ) {
     });
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getCurrentPage().fadeOut( 450 );
+      getPageEl(getCurrentPageNum()).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
     // After fading out the current page, fade in the new page.
     var fadeInTimeout = window.setTimeout(function () {
-      $WRAPPER.find( '#explain_page-' + newCurrentPage ).fadeIn( 700 );
+      getPageEl(newCurrentPage).fadeIn( 700 );
       stickyHack();
       window.clearTimeout( fadeInTimeout );
+      if (resized ) {
+        setupImage(newCurrentPage);
+      }
     }, 1050);
   }
   // Update the pagination numbers.
@@ -142,27 +200,43 @@ function paginate( direction ) {
   }
 }
 
+function setupImage (pageNum, pageLoad) {
+  var pageEls = getPageElements(pageNum);
+  if ($WINDOW.width() >= 600) {
+    // update widths & stickiness on larger screens
+    // we only pass in the pageNum on pageLoad, when
+    // pages after the first will be hidden once they're
+    // fully loaded & we've calculated their widths
+    fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
+  } else if (!pageLoad) {
+    // if this is called on screen resize instead of page load,
+    // remove width values & call unstick on the imageWrapper
+    pageEls.$imageMapWrapper.width('').removeClass(stickBottom);
+    pageEls.$imageMap.width('');
+    pageEls.$imageMapImage.width('');
+    pageEls.$terms.width('');
+    pageEls.$imageMapWrapper.unstick();
+  } else if (pageNum > 1) {
+    // on page load, hide pages except first
+    pageEls.$page.hide();
+  }
+}
+
+function initForm () {
+  // Loop through each page, setting its dimensions properly and activating the
+  // sticky() plugin.
+  $WRAPPER.find('.explain_page').each(function( index ) {
+    initPage(index + 1);
+  });
+}
+
 /**
  * Initialize a page.
  * @return {null}
  */
-function initPage( id ) {
-  var $currentPage =      $WRAPPER.find( '#explain_page-' + id ),
-      $imageMap =         $currentPage.find('.image-map'),
-      $imageMapImage =    $currentPage.find('.image-map_image'),
-      $imageMapWrapper =  $currentPage.find('.image-map_wrapper'),
-      $terms =            $currentPage.find('.terms');
-  if ( $WINDOW.width() >= 600 ) {
-    // Resize the image, terms and pagination columns
-    fitAndStickToWindow( id );
-  } else {
-      if ( id > 1 ) {
-         $currentPage.hide();
-      }
-  }
-  // Some form pages don't have content for every category so we need to create
-  // placeholders for those categories informing the user.
-  setCategoryPlaceholders( id );
+function initPage(id) {
+  setupImage(id, true);
+  setCategoryPlaceholders(id);
 }
 
 /**
@@ -181,24 +255,31 @@ function stickyHack() {
  * @return {null}
  */
 function setCategoryPlaceholders( id ) {
-  var $currentPage = $WRAPPER.find( '#explain_page-' + id ),
-      categories = [ 'checklist', 'alerts', 'definitions' ];
-  for ( var i = 0; i < categories.length; i++ ) {
-    var category = categories[i];
-    if ( $currentPage.find( '.expandable__form-explainer-' + category ).length === 0 ) {
-      placeholderHTML = '' +
-      '<div class="expandable expandable__padded expandable__form-explainer ' +
-                  'expandable__form-explainer-' + category + ' ' +
-                  'expandable__form-explainer-placeholder">' +
-        '<span class="expandable_header">' +
-          'No ' + category + ' on this page, ' +
-          'filter by another category above or page ahead to continue exploring ' +
-          category + '.' +
-        '</span>' +
-      '</div>';
-      $currentPage.find('.explain_terms').append( placeholderHTML );
+  var $page = getPageEl(id), placeholder;
+  for (var i = 0; i < CATEGORIES.length; i++) {
+    var category = CATEGORIES[i];
+    if (!categoryHasContent($page, category)) {
+      placeholder = generatePlaceholderHtml(category);
+      $page.find('.explain_terms').append(placeholder);
     }
   }
+}
+
+function generatePlaceholderHtml (category) {
+  return '' +
+  '<div class="expandable expandable__padded expandable__form-explainer ' +
+              'expandable__form-explainer-' + category + ' ' +
+              'expandable__form-explainer-placeholder">' +
+    '<span class="expandable_header">' +
+      'No ' + category + ' on this page. ' +
+      'Filter by another category above or page ahead to continue exploring ' +
+      category + '.' +
+    '</span>' +
+  '</div>';
+}
+
+function categoryHasContent ($page, category) {
+  return $page.find('.expandable__form-explainer-' + category).length;
 }
 
 function filterExplainers ($currentTab, type) {
@@ -219,30 +300,26 @@ function filterExplainers ($currentTab, type) {
     }
 }
 
+function toggleScrollWatch() {
+  $WINDOW.off('scroll.stickiness');
+  if ($WINDOW.width() >= 600) {
+    $WINDOW.on('scroll.stickiness', debounce(updateStickiness, 20));
+  }
+}
+
 // Kick things off on document ready.
 $(document).ready(function(){
-
-  // Set some constant variables
+  // cache elements
   $WRAPPER =    $('.explain'),
   $TABS =       $WRAPPER.find('.explain_tabs'),
   $PAGINATION = $WRAPPER.find('.explain_pagination'),
   $WINDOW =     $( window ),
   TOTAL =       parseInt( $PAGINATION.find('.pagination_total').text(), 10 );
-
-  // Loop through each page, setting its dimensions properly and activating the
-  // sticky() plugin.
-  $WRAPPER.find('.explain_page').each(function( index ) {
-    var src = $( this ).find('.image-map_image').attr('src');
-    initPage( index + 1 );
-  });
-
-  if ( $WINDOW.width() >= 600 ) {
-    // As the page scrolls, watcht he current page and update its stickiness.
-    $WINDOW.on( 'scroll', updateStickiness );
-  }
-  
-  // get initial tab
   $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
+
+  // set up the form pages for display
+  initForm();
+  
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
 
@@ -251,6 +328,34 @@ $(document).ready(function(){
   if (DEFAULT_TYPE === 'all') {
     $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
   }
+  
+  // add scroll listener for larger windows
+  toggleScrollWatch();
+  
+  // add resize listener
+  var prevWindowWidth = $WINDOW.width();
+  var prevWindowHeight = $WINDOW.height();
+  var isIE = $('html').hasClass('lt-ie9');
+  
+  $(window).on("resize",debounce(function(){ 
+    //resize things
+    // apparently IE fires a window resize event when anything in the page
+    // resizes, so for IE we need to check that the window dimensions have
+    // actually changed
+    if (isIE) {
+      var currWindowHeight = $WINDOW.height();
+      var currWindowWidth = $WINDOW.width();
+      if (currWindowHeight === prevWindowHeight && currWindowWidth === prevWindowWidth) {
+        return;
+      } else {
+        prevWindowWidth = currWindowWidth;
+        prevWindowHeight = currWindowHeight;
+      }
+    }
+    resized = true;
+    setupImage(getCurrentPageNum());
+    toggleScrollWatch();
+  }));
 
   // Pagination events
   $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
@@ -289,7 +394,8 @@ $(document).ready(function(){
     $( itemID ).get(0).toggle();
   });
 
-  // Scroll to the proper item when the corresponding form dot is selected
+  // When mousing over a term or highlighted area of the image map,
+  // call attention to the associated map area or term, respectively.
   $WRAPPER.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
     event.preventDefault();
     var $target;
