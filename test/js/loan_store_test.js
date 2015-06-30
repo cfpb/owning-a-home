@@ -5,11 +5,14 @@ var $;
 var sinon = require('sinon');
 var mortgageCalculations = require('../../src/static/js/modules/loan-comparison/mortgage-calculations.js');
 
+var api;
+
 
 describe('Loan store tests', function() {
     before(function () {
         $ = require('jquery');
         loanStore = require('../../src/static/js/modules/loan-comparison/stores/loan-store.js');
+        api = require('../../src/static/js/modules/loan-comparison/api.js');
     });
     
     describe('reset all loans', function() {
@@ -97,12 +100,111 @@ describe('Loan store tests', function() {
     });
 
  
-    describe('fetch loan data', function() {
+    describe('fetch rates', function() {
+
+        it('should call to update loan rates if fetch rate data was returned', function() {
+            var fetchRateDataStub = sinon.stub(api, 'fetchRateData');
+
+            function okResponse() {
+              var d = $.Deferred();
+              d.resolve( { "data": {"4.25": 3, "4.5": 2} } );
+              return d.promise();
+            };
+
+            fetchRateDataStub.returns(okResponse());
+
+            var updateLoanRatesStub = sinon.stub(loanStore, 'updateLoanRates');
+
+            // Just return true so it doesn't call to update loan
+            // TODO: May want to check what's in parameter lists
+            updateLoanRatesStub.returns(true);
+
+            loanStore.fetchRates({});
+
+            sinon.assert.calledOnce(loanStore.updateLoanRates);
+            //expect(loanStore.updateLoanRates).to.have.been.calledWith({}, {"4.25": 3, "4.5": 2});
+
+            api.fetchRateData.restore();
+            loanStore.updateLoanRates.restore();
+        });
+
+        it('should not call to update loan rates if fetch rate data was not returned', function() {
+            var fetchRateDataStub = sinon.stub(api, 'fetchRateData');
+
+            function errorResponse() {
+             var d = $.Deferred();
+             d.reject({},{},"could not complete");
+             return d.promise();
+            };
+
+            fetchRateDataStub.returns(errorResponse());
+
+            var updateLoanRatesStub = sinon.stub(loanStore, 'updateLoanRates');
+
+            // Just return true so it doesn't call to update loan
+            // TODO: May want to check what's in parameter lists
+            updateLoanRatesStub.returns(true);
+
+            loanStore.fetchRates({});
+
+            sinon.assert.notCalled(loanStore.updateLoanRates);
+
+            api.fetchRateData.restore();
+            loanStore.updateLoanRates.restore();
+        });
 
     });
 
     describe('fetch Insurance', function() {
+        it('should call to update loan insurance if fetch mortgage insurance data was returned', function() {
+            var fetchMIDataStub = sinon.stub(api, 'fetchMortgageInsuranceData');
 
+            function okResponse() {
+              var d = $.Deferred();
+              d.resolve( { "data": {} } );
+              return d.promise();
+            };
+
+            fetchMIDataStub.returns(okResponse());
+
+            var updateLoanInsStub = sinon.stub(loanStore, 'updateLoanInsurance');
+
+            // Just return true so it doesn't call to update loan
+            // TODO: May want to check what's in parameter lists
+            updateLoanInsStub.returns(true);
+
+            loanStore.fetchInsurance({});
+
+            sinon.assert.calledOnce(loanStore.updateLoanInsurance);
+
+            api.fetchMortgageInsuranceData.restore();
+            loanStore.updateLoanInsurance.restore();
+        });
+
+        it('should not call to update loan insurance if fetch mortgage insurance data was not returned', function() {
+            var fetchMIDataStub = sinon.stub(api, 'fetchMortgageInsuranceData');
+
+            function errorResponse() {
+             var d = $.Deferred();
+             d.reject({},{},"could not complete");
+             return d.promise();
+            };
+
+            fetchMIDataStub.returns(errorResponse());
+
+            var updateLoanInsStub = sinon.stub(loanStore, 'updateLoanInsurance');
+
+            // Just return true so it doesn't call to update loan
+            // TODO: May want to check what's in parameter lists
+            updateLoanInsStub.returns(true);
+
+            loanStore.fetchInsurance({});
+
+            sinon.assert.notCalled(loanStore.updateLoanInsurance);
+
+            api.fetchMortgageInsuranceData.restore();
+            loanStore.updateLoanInsurance.restore();
+        });
     });
 
     describe('update loan insurance', function() {

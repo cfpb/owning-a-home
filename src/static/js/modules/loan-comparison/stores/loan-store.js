@@ -348,10 +348,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         switch (loan['loan-type']) {
             case 'conf':                
                 return +loan['downpayment'] < common.minDownpaymentPcts.conf * +loan['price'];
-                break;
             case 'fha':
                 return +loan['downpayment'] < common.minDownpaymentPcts.fha * +loan['price'];
-                break;
             default:
                 return false;
         }
