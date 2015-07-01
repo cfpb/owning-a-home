@@ -32,7 +32,30 @@ describe('Loan store tests', function() {
     });
 
     describe('update downpayment constant', function() {
+        it('should set downpayment constant to downpayment-percent when scenario is downpayment', function() {
+            var scenario = {val: 'downpayment'};
+            var origDPConstant = loanStore.downpaymentConstant;
+            loanStore.downpaymentConstant = null;
 
+            loanStore.updateDownpaymentConstant(scenario);
+
+            expect(loanStore.downpaymentConstant).to.equal('downpayment-percent');
+
+            loanStore.downpaymentConstant = origDPConstant;
+        });
+
+        it('should not set downpayment constant when scenario is not downpayment', function() {
+            var scenario = {val: 'other'};
+            var origDPConstant = loanStore.downpaymentConstant;
+            loanStore.downpaymentConstant = "test";
+
+            loanStore.updateDownpaymentConstant(scenario);
+
+            expect(loanStore.downpaymentConstant).to.not.equal('downpayment-percent');
+            expect(loanStore.downpaymentConstant).to.equal("test");
+
+            loanStore.downpaymentConstant = origDPConstant;
+        });
     });
 
     describe('update loan dependencies', function() {
@@ -305,14 +328,19 @@ describe('Loan store tests', function() {
         });
     });
 
-    describe('update loan rates', function() {
-        // it('should update loan rate property given data', function() {
-        //     var loan = {};
-        //     loanStore.updateLoanRates(loan, )
-        // });
+    describe('process rate data', function() {
+        it ('should process rates data and returns a dictionary with processed rates and median rates', function() {
+            var data = { "4.5": 3, "4.25": 2,"4.75": 1};
+
+            var result = loanStore.processRatesData(data);
+            expect(result.median).to.equal(4.5);
+            expect(result.vals).to.deep.equal([ { val: 4.25, label: '4.25%' }, { val: 4.5, label: '4.5%' }, { val: 4.75, label: '4.75%' } ]);
+        });
+
+        // May need a case to show that if key in data but not in data.hasOwnProperty
     });
 
-    describe('process rate data', function() {
+    describe('update loan rates', function() {
         it('should fill out rate related properties in loan', function() {
             var loan = {};
             var procRatesDataStub = sinon.stub(loanStore, 'processRatesData');
@@ -325,7 +353,7 @@ describe('Loan store tests', function() {
             expect(loan['rates']).to.equal(1);
             expect(loan['interest-rate']).to.equal(2);
             expect(loan['edited']).to.equal(false);
-            
+
             loanStore.processRatesData.restore();
         });
     });
