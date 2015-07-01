@@ -92,7 +92,7 @@
                   {% for step in steps %}
                     <div class="expandable expandable__padded">
                       <button class="expandable_header expandable_target">
-                        <span class="expandable_header-left expandable_label">
+                        <span class="expandable_header-left expandable_label" {% if step.collapse_link %} id="{{step.collapse_link}}" {% endif %}>
                           {{loop.index}}. {{step.title|safe}}
                         </span>
                         <span class="expandable_header-right expandable_link">
