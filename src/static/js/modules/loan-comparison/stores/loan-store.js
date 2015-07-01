@@ -154,6 +154,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     fetchLoanData: function (id) {
         var loan = this._loans[id];
         
+        // Check to see if request is happening at this point, if so, abort them
+        // before starting this new request
         $.each(['rate-request', 'mtg-ins-request'], function (ind, req) {
             if (loan[req]) {
                 api.stopRequest(loan[req]);

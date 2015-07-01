@@ -99,6 +99,96 @@ describe('Loan store tests', function() {
 
     });
 
+    describe('fetch loan data', function() {
+
+        it ('should not needed to stop request when no current request, and will update calculated properties when new request finishes successfully',
+            function() {
+
+            var stopRequestStub = sinon.stub(api, 'stopRequest');
+            var fetchRatesStub = sinon.stub(loanStore, 'fetchRates');
+            var fetchInsuranceStub = sinon.stub(loanStore, 'fetchInsurance');
+            var updateLoanCalcPropStub = sinon.stub(loanStore, 'updateLoanCalculatedProperties');
+            var emitChangeStub = sinon.stub(loanStore, 'emitChange');
+
+            function okResponse() {
+              var d = $.Deferred();
+              d.resolve( {} );
+              return d.promise();
+            };
+
+            fetchRatesStub.returns(okResponse());
+            fetchInsuranceStub.returns(okResponse());
+
+            var origLoan0 = loanStore._loans[0];
+            loanStore._loans[0] = origLoan0 || {};
+
+            loanStore._loans[0]['rate-request'] = null;
+            loanStore._loans[0]['mtg-ins-request'] = null;
+
+            loanStore.fetchLoanData(0);
+
+            sinon.assert.notCalled(api.stopRequest);
+            sinon.assert.calledOnce(loanStore.fetchRates);
+            sinon.assert.calledOnce(loanStore.fetchInsurance);
+            sinon.assert.calledOnce(loanStore.updateLoanCalculatedProperties);
+            expect(loanStore._loans[0]['rate-request']).to.equal(null);
+            expect(loanStore._loans[0]['mtg-ins-request']).to.equal(null);
+
+            sinon.assert.calledOnce(loanStore.emitChange);
+
+            api.stopRequest.restore();
+            loanStore.fetchRates.restore();
+            loanStore.fetchInsurance.restore();
+            loanStore.updateLoanCalculatedProperties.restore();
+            loanStore.emitChange.restore();
+
+            loanStore._loans[0] = origLoan0;
+        });
+
+        it ('should stop request when no current request is pending, and will update calculated properties when new request finishes successfully',
+            function() {
+
+            var stopRequestStub = sinon.stub(api, 'stopRequest');
+            var fetchRatesStub = sinon.stub(loanStore, 'fetchRates');
+            var fetchInsuranceStub = sinon.stub(loanStore, 'fetchInsurance');
+            var updateLoanCalcPropStub = sinon.stub(loanStore, 'updateLoanCalculatedProperties');
+            var emitChangeStub = sinon.stub(loanStore, 'emitChange');
+
+            function okResponse() {
+              var d = $.Deferred();
+              d.resolve( {} );
+              return d.promise();
+            };
+
+            fetchRatesStub.returns(okResponse());
+            fetchInsuranceStub.returns(okResponse());
+
+            var origLoan0 = loanStore._loans[0];
+            loanStore._loans[0] = origLoan0 || {};
+
+            loanStore._loans[0]['rate-request'] = okResponse();
+            loanStore._loans[0]['mtg-ins-request'] = okResponse();
+
+            loanStore.fetchLoanData(0);
+
+            sinon.assert.calledTwice(api.stopRequest);
+            sinon.assert.calledOnce(loanStore.fetchRates);
+            sinon.assert.calledOnce(loanStore.fetchInsurance);
+            sinon.assert.calledOnce(loanStore.updateLoanCalculatedProperties);
+            expect(loanStore._loans[0]['rate-request']).to.equal(null);
+            expect(loanStore._loans[0]['mtg-ins-request']).to.equal(null);
+
+            sinon.assert.calledOnce(loanStore.emitChange);
+
+            api.stopRequest.restore();
+            loanStore.fetchRates.restore();
+            loanStore.fetchInsurance.restore();
+            loanStore.updateLoanCalculatedProperties.restore();
+            loanStore.emitChange.restore();
+
+            loanStore._loans[0] = origLoan0;
+        });
+    });
  
     describe('fetch rates', function() {
 
@@ -208,15 +298,36 @@ describe('Loan store tests', function() {
     });
 
     describe('update loan insurance', function() {
-
+        it('should update loan property mtg-ins-data given data', function() {
+            var loan = {};
+            loanStore.updateLoanInsurance(loan, "data");
+            expect(loan['mtg-ins-data']).to.equal("data");
+        });
     });
 
     describe('update loan rates', function() {
-
+        // it('should update loan rate property given data', function() {
+        //     var loan = {};
+        //     loanStore.updateLoanRates(loan, )
+        // });
     });
 
     describe('process rate data', function() {
+        it('should fill out rate related properties in loan', function() {
+            var loan = {};
+            var procRatesDataStub = sinon.stub(loanStore, 'processRatesData');
 
+            procRatesDataStub.returns({'vals': 1, 'median': 2});
+
+            loanStore.updateLoanRates(loan, 'data');
+
+            sinon.assert.calledOnce(loanStore.processRatesData);
+            expect(loan['rates']).to.equal(1);
+            expect(loan['interest-rate']).to.equal(2);
+            expect(loan['edited']).to.equal(false);
+            
+            loanStore.processRatesData.restore();
+        });
     });
 
     describe('update loan calculated properties', function() {
