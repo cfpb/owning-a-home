@@ -8,6 +8,7 @@ require('./local-storage-polyfill');
 require('./secondary-nav');
 require('./nemo');
 require('./nemo-shim');
+require('jquery.scrollto');
 
 var $timelineLinks = $('.term-timeline a');
 
@@ -65,3 +66,19 @@ var loanToggle = function() {
 
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
+
+$(document).ready( function() {
+  // check for hash value - hash is first priority
+  var hash = window.location.hash.substr(1).toLowerCase(),
+    $el = $( '#' + hash),
+      $expandable = $el.closest('.expandable');
+
+  if ( hash !== "" && $expandable.length && !$expandable.hasClass('expandable__expanded')) {
+    $expandable.find('.expandable_target')[0].click();
+    $.scrollTo( $el, {
+      duration: 600,
+      offset: -30
+    });
+  }
+
+});

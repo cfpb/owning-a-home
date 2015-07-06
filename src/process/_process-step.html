@@ -13,7 +13,7 @@
 {% set docsource = active_phase.hit_dict['_source'] %}
 {% set id_str = docsource['id']|string %}
 {% set filter = 'parent:' + id_str  %}
-{% set steps = query.search_with_url_arguments(size=100,q=filter) %}
+{% set steps = query.search(size=100,q=filter) %}
 
 <main class="know-the-process wrapper" id="main" role="main">
   <div>
