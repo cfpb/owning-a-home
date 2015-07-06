@@ -301,6 +301,11 @@ function toggleScrollWatch() {
   }
 }
 
+function addTabindex() {
+  var $link = $('.expandable__form-explainer .expandable_content a');
+  $link.attr('tabindex', 0);
+}
+
 // Kick things off on document ready.
 $(document).ready(function(){
   // cache elements
@@ -319,6 +324,9 @@ $(document).ready(function(){
   
   // add scroll listener for larger windows
   toggleScrollWatch();
+
+  // set tabindex for links in expandables content
+  addTabindex();
   
   // add resize listener
   var prevWindowWidth = $WINDOW.width();
@@ -379,18 +387,6 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
-    $( itemID )
-      .attr('tabindex', '0').attr('aria-hidden', 'false')
-      .get(0).toggle();
-
-  });
-
-  // Add tabindex to links inside of expandables, so they are tabbable in the correct order.
-  $WRAPPER.on( 'focus', '.expandable__form-explainer .expandable_target', function (event) {
-    var $this = $(this),
-        $content = $this.siblings('.expandable_content'),
-        $tabindex = $content.attr('tabindex');
-    $content.find('a').attr('tabindex', $tabindex);
   });
 
   // When mousing over a term or highlighted area of the image map,
