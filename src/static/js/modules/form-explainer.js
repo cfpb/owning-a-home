@@ -3,6 +3,8 @@ require('sticky');
 require('jquery-easing');
 require('jquery.scrollto');
 require('cf-expandables');
+require('./nemo');
+require('./nemo-shim');
 var debounce = require('debounce');
 
 // Constants. These variables should not change.
