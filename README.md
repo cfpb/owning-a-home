@@ -140,8 +140,10 @@ To index your content from WordPress:
 	```
 	$ cp .evn_SAMPLE .env
 	```
-1. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
-1. Run the following command inside the `/src/` or `/dist/` folder:
+
+2. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
+
+3. Run the following command inside the `/src/` or `/dist/` folder:
 	```
 	$ cd src
 	$ workon OAH
