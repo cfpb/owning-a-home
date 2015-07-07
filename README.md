@@ -146,6 +146,7 @@ To index your content from WordPress:
 	$ cd src
 	$ workon OAH
 	$ sheer index [--reindex]
+  ```
 
 
 ### Rate Checker and Mortgage Insurance
