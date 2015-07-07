@@ -21,13 +21,178 @@ describe('Loan store tests', function() {
 
     describe('reset loan', function() {
 
+        it('should reset loan but include existing data with id = 0', function() {
+            var updateLoanStub = sinon.stub(loanStore, 'updateLoan');
+            var fetchLDStub = sinon.stub(loanStore, 'fetchLoanData');
+
+            var scenario = {'loanProps': [{'scenario0': 0}, {'scenario0': 1}, {'scenario0': 2}, {'scenario0': 3}]};
+            var origLoans = loanStore._loans;
+
+            loanStore._loans = [
+                {'id': 0, 'rate-request': true, 'mtg-ins-request': false},
+                {'id': 1, 'rate-request': false, 'mtg-ins-request': true}];
+            loanStore.resetLoan(0, scenario);
+
+            console.log(loanStore._loans);
+            expect(loanStore._loans).to.deep.equal([
+                    {'id': 0, 'rate-request': true, 'mtg-ins-request': false,
+                    'credit-score': 700,
+                    'downpayment': 20000,
+                    'price': 200000,
+                    'rate-structure': 'fixed',
+                    'points': 0,
+                    'loan-term': 30,
+                    'loan-type': 'conf',
+                    'arm-type': '5-1',
+                    'state': 'AL',
+                    'scenario0': 0}, 
+                    {'id': 1, 'rate-request': false, 'mtg-ins-request': true}]);
+            sinon.assert.calledOnce(loanStore.updateLoan);
+            sinon.assert.calledOnce(loanStore.fetchLoanData);
+
+            loanStore.updateLoan.restore();
+            loanStore.fetchLoanData.restore();
+            loanStore._loans = origLoans;
+        });
+
+
+        it('should reset loan including existing data with id != 0', function() {
+            var updateLoanStub = sinon.stub(loanStore, 'updateLoan');
+            var fetchLDStub = sinon.stub(loanStore, 'fetchLoanData');
+
+            var scenario = {'loanProps': [{'scenario0': 0}, {'scenario0': 1}, {'scenario0': 2}, {'scenario0': 3}]};
+            var origLoans = loanStore._loans;
+
+            loanStore._loans = [
+                {'id': 0, 'rate-request': true, 'mtg-ins-request': false},
+                {'id': 1, 'rate-request': false, 'mtg-ins-request': true}];
+            loanStore.resetLoan(1, scenario);
+
+            console.log(loanStore._loans);
+            expect(loanStore._loans).to.deep.equal([
+                    {'id': 0, 'rate-request': true, 'mtg-ins-request': false},
+                    {'id': 1,
+                    'credit-score': 700,
+                    'downpayment': 20000,
+                    'price': 200000,
+                    'rate-structure': 'fixed',
+                    'points': 0,
+                    'loan-term': 30,
+                    'loan-type': 'conf',
+                    'arm-type': '5-1',
+                    'state': 'AL',
+                    'scenario0': 1}, 
+                    ]);
+            sinon.assert.calledOnce(loanStore.updateLoan);
+            sinon.assert.calledOnce(loanStore.fetchLoanData);
+
+            loanStore.updateLoan.restore();
+            loanStore.fetchLoanData.restore();
+            loanStore._loans = origLoans;
+        });
     });
 
     describe('update all loans', function() {
+        it('should update all loans', function() {
 
+            var updateLoanStub = sinon.stub(loanStore, 'updateLoan');
+
+            var origLoans = loanStore._loans;
+            loanStore._loans = [{}, {}, {}];
+
+            loanStore.updateAllLoans("test", 4);
+
+            sinon.assert.calledThrice(loanStore.updateLoan);
+            loanStore.updateLoan.restore();
+            loanStore._loans = origLoans;
+
+        });
     });
 
     describe('update loan', function() {
+
+        it('should update loan if rate has changed', function() {
+
+            var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
+            var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
+            var updateLCPropStub = sinon.stub(loanStore, 'updateLoanCalculatedProperties');
+            var fetchLDStub = sinon.stub(loanStore, 'fetchLoanData');
+
+            var origLoan0 = loanStore._loans[0];
+            loanStore._loans[0] = { 'rate-request': true };
+
+
+            loanStore.updateLoan(0, 'interest-rate', 4);
+
+            sinon.assert.calledOnce(loanStore.updateLoanDependencies);
+            sinon.assert.calledOnce(loanStore.validateLoan);
+            sinon.assert.calledOnce(loanStore.updateLoanCalculatedProperties);
+            sinon.assert.calledOnce(loanStore.fetchLoanData);
+            expect(loanStore._loans[0]).to.deep.equal({'interest-rate': 4, 'edited': false, 'rate-request': true});
+
+            loanStore.updateLoanDependencies.restore();
+            loanStore.validateLoan.restore();
+            loanStore.updateLoanCalculatedProperties.restore();
+            loanStore.fetchLoanData.restore();
+            loanStore._loans[0] = origLoan0;
+
+        });      
+
+        it('should update loan if rate has not changed', function() {
+
+            var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
+            var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
+            var updateLCPropStub = sinon.stub(loanStore, 'updateLoanCalculatedProperties');
+            var fetchLDStub = sinon.stub(loanStore, 'fetchLoanData');
+
+            var origLoan0 = loanStore._loans[0];
+            loanStore._loans[0] = { 'rate-request': false };
+
+
+            loanStore.updateLoan(0, 'other', 5);
+
+            sinon.assert.calledOnce(loanStore.updateLoanDependencies);
+            sinon.assert.calledOnce(loanStore.validateLoan);
+            sinon.assert.calledOnce(loanStore.updateLoanCalculatedProperties);
+            sinon.assert.notCalled(loanStore.fetchLoanData);
+            expect(loanStore._loans[0]).to.deep.equal({'other': 5, 'edited': true, 'rate-request': false});
+
+            loanStore.updateLoanDependencies.restore();
+            loanStore.validateLoan.restore();
+            loanStore.updateLoanCalculatedProperties.restore();
+            loanStore.fetchLoanData.restore();
+            loanStore._loans[0] = origLoan0;
+
+        });
+
+        it('should update loan if rate has not changed with no val', function() {
+
+            var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
+            var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
+            var updateLCPropStub = sinon.stub(loanStore, 'updateLoanCalculatedProperties');
+            var fetchLDStub = sinon.stub(loanStore, 'fetchLoanData');
+
+            var origLoan0 = loanStore._loans[0];
+            loanStore._loans[0] = { 'rate-request': false };
+
+
+            loanStore.updateLoan(0, 'other');
+
+            sinon.assert.calledOnce(loanStore.updateLoanDependencies);
+            sinon.assert.calledOnce(loanStore.validateLoan);
+            sinon.assert.calledOnce(loanStore.updateLoanCalculatedProperties);
+            sinon.assert.notCalled(loanStore.fetchLoanData);
+            expect(loanStore._loans[0]).to.deep.equal({'other': null, 'edited': true, 'rate-request': false});
+
+            loanStore.updateLoanDependencies.restore();
+            loanStore.validateLoan.restore();
+            loanStore.updateLoanCalculatedProperties.restore();
+            loanStore.fetchLoanData.restore();
+            loanStore._loans[0] = origLoan0;
+
+        });     
+
+    // @TODO: Will there ever be a case when prop is null/false?
 
     });
 
@@ -143,7 +308,7 @@ describe('Loan store tests', function() {
             fetchInsuranceStub.returns(okResponse());
 
             var origLoan0 = loanStore._loans[0];
-            loanStore._loans[0] = origLoan0 || {};
+            loanStore._loans[0] = {};
 
             loanStore._loans[0]['rate-request'] = null;
             loanStore._loans[0]['mtg-ins-request'] = null;
