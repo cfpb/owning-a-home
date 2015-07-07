@@ -394,7 +394,6 @@ $(document).ready(function(){
      itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
       $overlay = $('.image-map_overlay'),
       $target = $('a[href=#' + itemID + ']');
-    console.log(itemID);
     $overlay.removeClass('has-attention');
     $target.addClass('has-attention');
   });
