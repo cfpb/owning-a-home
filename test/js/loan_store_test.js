@@ -1,6 +1,7 @@
 var chai = require('chai');
 var expect = chai.expect;
 var loanStore;
+var scenarioStore;
 var $;
 var sinon = require('sinon');
 var mortgageCalculations = require('../../src/static/js/modules/loan-comparison/mortgage-calculations.js');
@@ -12,11 +13,20 @@ describe('Loan store tests', function() {
     before(function () {
         $ = require('jquery');
         loanStore = require('../../src/static/js/modules/loan-comparison/stores/loan-store.js');
+        scenarioStore = require('../../src/static/js/modules/loan-comparison/stores/scenario-store.js');
         api = require('../../src/static/js/modules/loan-comparison/api.js');
     });
     
     describe('reset all loans', function() {
+        it('should reset all loans', function() {
+            var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
+            var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
 
+            loanStore.resetAllLoans();
+            
+            scenarioStore.getScenario.restore();
+            loanStore.updateDownpaymentConstant.restore();
+        });
     });
 
     describe('reset loan', function() {
