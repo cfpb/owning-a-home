@@ -17,15 +17,82 @@ describe('Loan store tests', function() {
         api = require('../../src/static/js/modules/loan-comparison/api.js');
     });
     
+    describe('init', function() {
+        it('should reset all loans when init', function() {
+            var initStub = sinon.stub(loanStore, 'resetAllLoans');
+
+            loanStore.init();
+
+            sinon.assert.calledOnce(loanStore.resetAllLoans);
+            
+            loanStore.resetAllLoans.restore();
+        });
+    });
+
     describe('reset all loans', function() {
-        it('should reset all loans', function() {
+        it('should reset all loans when there are no loans', function() {
+
             var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
             var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
+            var resetLoanStub = sinon.stub(loanStore, 'resetLoan');
+            var origLoans = loanStore._loans;
+            loanStore._loans = []; // So this will use common.loanCount = 2
 
             loanStore.resetAllLoans();
-            
+
+            sinon.assert.calledOnce(scenarioStore.getScenario);
+            sinon.assert.calledOnce(loanStore.updateDownpaymentConstant);
+            sinon.assert.calledTwice(loanStore.resetLoan);
+
             scenarioStore.getScenario.restore();
             loanStore.updateDownpaymentConstant.restore();
+            loanStore.resetLoan.restore();
+            loanStore._loans = origLoans;
+
+        });
+
+        it('should reset all loans when there are one loan', function() {
+
+            var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
+            var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
+            var resetLoanStub = sinon.stub(loanStore, 'resetLoan');
+            var origLoans = loanStore._loans;
+            loanStore._loans = [{}]; // So this will not use common.loanCount = 2
+
+            getScenarioStub.returns({'downpayment': 'test'});
+            loanStore.resetAllLoans();
+
+            sinon.assert.calledOnce(scenarioStore.getScenario);
+            sinon.assert.calledOnce(loanStore.updateDownpaymentConstant);
+            sinon.assert.calledOnce(loanStore.resetLoan);
+
+            scenarioStore.getScenario.restore();
+            loanStore.updateDownpaymentConstant.restore();
+            loanStore.resetLoan.restore();
+            loanStore._loans = origLoans;
+
+        });
+
+        it('should not reset all loans when there are loans but no scenario', function() {
+
+            var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
+            var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
+            var resetLoanStub = sinon.stub(loanStore, 'resetLoan');
+            var origLoans = loanStore._loans;
+            loanStore._loans = [{}]; // So this will not use common.loanCount = 2
+
+            getScenarioStub.returns(null);
+            loanStore.resetAllLoans();
+
+            sinon.assert.calledOnce(scenarioStore.getScenario);
+            sinon.assert.notCalled(loanStore.updateDownpaymentConstant);
+            sinon.assert.notCalled(loanStore.resetLoan);
+
+            scenarioStore.getScenario.restore();
+            loanStore.updateDownpaymentConstant.restore();
+            loanStore.resetLoan.restore();
+            loanStore._loans = origLoans;
+
         });
     });
 
