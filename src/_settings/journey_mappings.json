@@ -59,6 +59,9 @@
         }
       }
     },
+    "collapse_link": {
+      "type": "string"
+    },
     "milestones": {
       "type": "string"
     },
