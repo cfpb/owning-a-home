@@ -18,19 +18,19 @@ describe('Loan store tests', function() {
     });
     
     describe('init', function() {
-        it('should reset all loans when init', function() {
+        it('should reset all loans to the default values when init', function() {
             var initStub = sinon.stub(loanStore, 'resetAllLoans');
 
             loanStore.init();
 
             sinon.assert.calledOnce(loanStore.resetAllLoans);
-            
+
             loanStore.resetAllLoans.restore();
         });
     });
 
     describe('reset all loans', function() {
-        it('should reset all loans when there are no loans', function() {
+        it('should initialize two loan scenarios to their default values when there are currently no loans in the store', function() {
 
             var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
             var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
@@ -51,7 +51,7 @@ describe('Loan store tests', function() {
 
         });
 
-        it('should reset all loans when there are one loan', function() {
+        it('should reset loan to its default value when there is one loan in the store', function() {
 
             var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
             var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
@@ -73,7 +73,7 @@ describe('Loan store tests', function() {
 
         });
 
-        it('should not reset all loans when there are loans but no scenario', function() {
+        it('should not reset all loans to their default values when scenario object is not available', function() {
 
             var getScenarioStub = sinon.stub(scenarioStore, 'getScenario');
             var updateDPConstStub = sinon.stub(loanStore, 'updateDownpaymentConstant');
@@ -110,7 +110,6 @@ describe('Loan store tests', function() {
                 {'id': 1, 'rate-request': false, 'mtg-ins-request': true}];
             loanStore.resetLoan(0, scenario);
 
-            console.log(loanStore._loans);
             expect(loanStore._loans).to.deep.equal([
                     {'id': 0, 'rate-request': true, 'mtg-ins-request': false,
                     'credit-score': 700,
@@ -145,7 +144,6 @@ describe('Loan store tests', function() {
                 {'id': 1, 'rate-request': false, 'mtg-ins-request': true}];
             loanStore.resetLoan(1, scenario);
 
-            console.log(loanStore._loans);
             expect(loanStore._loans).to.deep.equal([
                     {'id': 0, 'rate-request': true, 'mtg-ins-request': false},
                     {'id': 1,
@@ -170,7 +168,7 @@ describe('Loan store tests', function() {
     });
 
     describe('update all loans', function() {
-        it('should update all loans', function() {
+        it('should iterate through all loans and update them based on their inputs', function() {
 
             var updateLoanStub = sinon.stub(loanStore, 'updateLoan');
 
@@ -188,7 +186,7 @@ describe('Loan store tests', function() {
 
     describe('update loan', function() {
 
-        it('should update loan if rate has changed', function() {
+        it('should update loan dependencies/validate loan/calculate properties and fetch loan data if interest rate has changed', function() {
 
             var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
             var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
@@ -215,7 +213,7 @@ describe('Loan store tests', function() {
 
         });      
 
-        it('should update loan if rate has not changed', function() {
+        it('should update loan dependencies/validate loan/calculate properties but not fetch loan data if rate has not changed', function() {
 
             var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
             var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
@@ -242,7 +240,7 @@ describe('Loan store tests', function() {
 
         });
 
-        it('should update loan if rate has not changed with no val', function() {
+        it('should update loan dependencies/validate loan/calculate properties but not fetch loan data if rate has not changed with no val input', function() {
 
             var updateLDStub = sinon.stub(loanStore, 'updateLoanDependencies');
             var validateLoanStub = sinon.stub(loanStore, 'validateLoan');
