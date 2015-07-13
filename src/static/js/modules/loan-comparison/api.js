@@ -1,10 +1,11 @@
 var $ = jQuery = require('jquery');
 var fetchRates = require('../rates');
 var fetchMortgageInsurance = require('../mortgage-insurance');
+var config = require('../../../../../config/config.json');
 
 var api = {};
 
-api.fetchCounties = function (appState) {
+api.fetchCountyData = function (appState) {
     //dropdown('input-county').hideLoadingAnimation();
     return $.get(config.countyAPI, {
         state: appState['state']
@@ -27,7 +28,7 @@ api.stopRequest = function (dfd) {
 
 function prepBaseLoanData(loan) {
     var minfico = parseInt(loan['credit-score']) || 0;
-    return {
+    var obj = {
         price: loan['price'],
         loan_amount: loan['loan-amount'],
         minfico: minfico,
@@ -36,7 +37,8 @@ function prepBaseLoanData(loan) {
         loan_term: loan['loan-term'],
         loan_type: loan['loan-type'],
         arm_type: loan['arm-type']
-    }  
+    };
+    return obj;
 }
 function prepLoanData(loan) {
     var loandata = prepBaseLoanData(loan);

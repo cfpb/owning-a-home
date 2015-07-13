@@ -2,6 +2,7 @@ var positive = require('stay-positive');
 var cost = require('overall-loan-cost');
 var amortize = require('amortize');
 var humanizeLoanType = require('../humanize-loan-type');
+var common = require('./common');
 
 var TAX_RATE = 0.01;
 var INSURANCE_RATE = 0.005;
@@ -139,9 +140,19 @@ mortgage['overall-costs'] = function (loan) {
 
 mortgage['loan-summary'] = function (loan) {
     if (loan['rate-structure'] === 'arm') {
-        return loan['arm-type'].split('-').join('/') + ' ARM';
+        return (loan['arm-type'] || '').split('-').join('/') + ' ARM';
     } else {
-        return loan['loan-term'] + '-year ' + loan['rate-structure'] + ' ' + humanizeLoanType(loan['loan-type']);
+        var loanType = loan['loan-type'];
+        switch (loanType) {
+            case 'conf':                
+            case 'fha':
+            case 'va': 
+                loanType = humanizeLoanType(loan['loan-type']);
+                break;
+            default:
+                loanType = (common.jumboTypes[loanType] || {}).label;
+        }
+        return loan['loan-term'] + '-year ' + loan['rate-structure'] + ' ' + loanType;
     }
 };
 

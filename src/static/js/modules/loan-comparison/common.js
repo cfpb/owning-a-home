@@ -1,3 +1,4 @@
+
 var common = {};
 
 common.loanCount = 2;
@@ -13,8 +14,6 @@ common.armDisallowedOptions = {
     'loan-term': [15],
     'loan-type': [ 'fha', 'va', 'va-hb', 'fha-hb']
 };
-
-common.calculatedProperties = ['loan-summary', 'loan-amount'];
 
 common.calculatedPropertiesBasedOnIR = [
     'discount', 
@@ -36,6 +35,8 @@ common.calculatedPropertiesBasedOnIR = [
     'interest-fees-paid', 
     'overall-costs'
 ];
+
+common.numericLoanProps = ['downpayment', 'downpayment-percent', 'price', 'interest-rate', 'loan-term'];
 
 common.defaultLoanData = {
     'credit-score': 700,
@@ -239,17 +240,32 @@ common.options = {
     'county': 'counties'
 }
 
+common.jumboTypes = {
+    'agency': {val: 'agency', label: 'Conforming jumbo'}, 
+    'jumbo': {val:'jumbo', label: 'Jumbo (non-conforming)'}, 
+    'fha-hb': {val:'fha-hb', label: 'FHA high-balance'}, 
+    'va-hb': {val:'va-hb', label: 'VA high-balance'}
+};
+
+common.norms = ['conf', 'fha', 'va'];
+
+common.jumboMessages = {
+    'fha': 'Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.',
+    'va': 'Based on your loan amount, you may not be eligible for a regular VA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.',
+    'conf': 'Based on your loan amount, you may not be eligible for a regular (conforming) conventional loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.'
+}
+
 common.omit = function (obj) {
-  var omitted = Array.prototype.slice.call(arguments, 1);
-  var out = {};
-  var props = Object.getOwnPropertyNames(obj);
-  for (var i=0;i<props.length;i++) {
-    var prop = props[i];
-    if (omitted.indexOf(prop) < 0) {
-      out[prop] = obj[prop];
+    var omitted = Array.prototype.slice.call(arguments, 1);
+    var out = {};
+    var props = Object.getOwnPropertyNames(obj);
+    for (var i=0;i<props.length;i++) {
+        var prop = props[i];
+        if (omitted.indexOf(prop) < 0) {
+            out[prop] = obj[prop];
+        }
     }
-  }
-  return out;
+    return out;
 }
 
 common.median = function (arr) {
