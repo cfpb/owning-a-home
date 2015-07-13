@@ -48,7 +48,7 @@ Examples:
   | this tool                             | downpaymentresource.com/                                            | Down Payment Resource                             |
   | local housing counselor               | find-a-housing-counselor/                                           | Find a housing counselor                          |
   | Learn more about mortgage insurance   | askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html   | What is mortgage insurance and how does it work?  |
-  | Good Faith Estimates       | askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html   | What is a Good Faith Estimate?      |
+  | Loan Estimates                    | askcfpb/1995/what-is-a-loan-estimate.html    | Consumer Financial Protection Bureau                 |
 
 @smoke_testing @loan_options
 Scenario Outline: Test Related links in the Special Programs Loan page

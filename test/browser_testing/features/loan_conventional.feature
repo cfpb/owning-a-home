@@ -39,7 +39,7 @@ Examples:
   | Fannie Mae or Freddie Mac 										                    | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							                | What are Fannie Mae and Freddie Mac?                               |
   | unless you’re buying a home with multiple units                   | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
   | Maximum loan amount varies by county 					                    | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
-  | Good Faith Estimates 											                        | /askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html 					            | What is a Good Faith Estimate? What is a GFE?                      |
+  | Loan Estimates                    | askcfpb/1995/what-is-a-loan-estimate.html    | Consumer Financial Protection Bureau                |
   | Learn more about mortgage insurance 					                    | /askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html 				          | What is mortgage insurance and how does it work?                   |
   | What are Fannie Mae and Freddie Mac? 					                    | /askcfpb/1959/what-are-fannie-mae-and-freddie-mac.html 							                | What are Fannie Mae and Freddie Mac?                               |
   | How can I find the loan limit for a conforming loan in my county? | /askcfpb/1961/how-can-i-find-the-loan-limit-for-a-conforming-loan-in-my-county.html | How can I find the loan limit for a conforming loan in my county?  |
