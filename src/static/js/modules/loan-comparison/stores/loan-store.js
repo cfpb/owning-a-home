@@ -99,7 +99,6 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         this.validateLoan(loan);
         this.updateLoanCalculatedProperties(loan, rateChange);
         if (!rateChange) {
-            console.log('not rate change');
             this.fetchLoanData(id);
         }
     },
