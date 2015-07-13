@@ -93,14 +93,13 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         
         if (prop) {
             loan[prop] = val || null;
-            loan['edited'] = !rateChange;
         }
         
         this.updateLoanDependencies(loan, prop);
         this.validateLoan(loan);
         this.updateLoanCalculatedProperties(loan, rateChange);
-
-        if (loan['rate-request']) {
+        if (!rateChange) {
+            console.log('not rate change');
             this.fetchLoanData(id);
         }
     },
@@ -226,7 +225,6 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         var rates = this.processRatesData(data);
         loan['rates'] = rates.vals;
         loan['interest-rate'] = rates.median;
-        loan['edited'] = false;
     },
     
     /**
