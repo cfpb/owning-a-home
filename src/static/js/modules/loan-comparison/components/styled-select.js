@@ -9,6 +9,7 @@ var StyledSelectInput = React.createClass({
         if (this.props.className) {
             className += this.props.className;
         }
+        
         // pass everything through but className
         var props = common.omit(this.props, 'className');
         return (

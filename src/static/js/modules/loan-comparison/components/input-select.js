@@ -9,24 +9,32 @@ var SelectInput = React.createClass({
             React.PropTypes.number,
             React.PropTypes.bool
         ]),
-        title: React.PropTypes.string,
-        disabledItemCheck: React.PropTypes.func
+        //title: React.PropTypes.string,
+        //disabledItemCheck: React.PropTypes.func
     },
     getDefaultProps: function() {
         return {
-            disabledItemCheck: function () {}
+            disabledItemCheck: function () {},
+            config: {
+                valProp: 'val',
+                labelProp: 'label'
+            }
         };
     },
     generateOptions: function () {
+        var config = this.props.config;
+        var val = config.valProp;
+        var label = config.labelProp;
+    
         if (this.props.items) {
             var opts = this.props.items.map(function (opt) {
                 return (
-                    <option value={opt.val} disabled={this.props.disabledItemCheck(opt)}>{opt.label}</option>
+                    <option value={opt[val]} disabled={this.props.disabledItemCheck(opt)}>{opt[label]}</option>
                 );
             }, this);
 
-            if (this.props.title) {
-                opts.unshift(<option disabled value='selectTitle'>{this.props.title}</option>);
+            if (config.hasOwnProperty('title')) {
+                opts.unshift(<option disabled value='selectTitle'>{config.title}</option>);
             }
 
             return opts;
@@ -34,7 +42,7 @@ var SelectInput = React.createClass({
     },
     render: function() {
         // TODO: add 'children' option
-        var props = common.omit(this.props, 'value', 'disabledItemCheck', 'title', 'children');
+        var props = common.omit(this.props, 'value', 'disabledItemCheck', 'config', 'children');
         return (
             <select value={this.props.value || 'selectTitle'} {...props}>
                 {this.generateOptions()}

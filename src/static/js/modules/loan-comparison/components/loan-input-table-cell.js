@@ -26,6 +26,9 @@ var components = {
 // Checks for error messages that should be displayed
 // in a specific loan property's table cell.
 var errorMessages = {
+    'county': function (loan) {
+        return loan.errors['county'];
+    },
     'downpayment': function (loan) {
         return loan.errors['downpayment'];
     },
@@ -48,9 +51,31 @@ var customProps = {
         }
     },
     'loan-type': function (loan) {
-        return {
-            disabledItemCheck: armDisabledItemCheck.bind(null, loan, 'loan-type')
+        // if this is a jumbo loan type, get the dropdown menu 
+        // option data for this loan type
+        var jumboItem = common.jumboTypes[loan['loan-type']];
+        var obj = {
+            disabledItemCheck: loanTypeDisabledCheck.bind(null, loan, jumboItem),
         }
+        // copy loan type options & add this jumbo type to them
+        if (jumboItem) {
+            obj.items = common.options['loan-type'].slice(0);
+            obj.items.push(jumboItem);
+        }
+        return obj;
+    },
+    'county': function (loan) {
+        var obj =  {
+            config: {
+                labelProp: 'county',
+                valProp: 'complete_fips'
+                //title: 'Select a county'
+            }
+        }
+        if (loan['county-request']) {
+            obj.className = 'loading';
+        }
+        return obj;
     },
     'price': {className: 'dollar-input'},
     'points': {
@@ -66,6 +91,14 @@ function armDisabledItemCheck (loan, prop, option) {
     return (loan['rate-structure'] === 'arm' && $.inArray(option.val, disallowedOptions) >= 0);
 }
 
+function loanTypeDisabledCheck (loan, isJumbo, option) {
+    var disabled = armDisabledItemCheck(loan, 'loan-type', option);
+    if (!disabled) {
+        disabled = isJumbo && $.inArray(option, common.normTypes);
+    }
+    return disabled;
+}
+
 // Sends loan update action when a loan prop changes
 function handleChange (loanId, prop, val) {
     // val can either be an event object
@@ -75,7 +108,6 @@ function handleChange (loanId, prop, val) {
     } 
     LoanActions.update(loanId, prop, val);
 }
-
 
 var LoanInputTableCell = React.createClass({ 
        

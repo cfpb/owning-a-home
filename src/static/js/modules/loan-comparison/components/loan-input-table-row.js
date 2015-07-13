@@ -35,12 +35,6 @@ var LoanInputRow = React.createClass({
             className += armLoan ? '' : ' hidden';
         }
         
-        // hides the county input row if neither of the loans is jumbo & needs county
-        if (this.props.prop === 'county') {
-            var needsCounty = this.props.loans[0]['jumbo-county'] || this.props.loans[1]['jumbo-county'];
-            className += needsCounty ? '' : ' hidden';
-        }
-        
         return className;
     },
     
