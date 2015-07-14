@@ -143,6 +143,12 @@
             <span class="u-visually-hidden">{{ item.category }}</span>
           </span>
           {{ item.term }}
+          {% if item.new -%}
+            <strong class="item__new">  
+              <span class="cf-icon cf-icon-information"></span>
+              New
+            </strong>
+          {%- endif %}
       </span>
     </span>
   </div>
@@ -157,6 +163,12 @@
             <span class="u-visually-hidden">{{ item.category }}</span>
           </span>
           {{ item.term }}
+          {% if item.new -%}
+            <strong class="item__new">  
+              <span class="cf-icon cf-icon-information"></span>
+              New
+            </strong>
+          {%- endif %}
       </span>
       <span class="expandable_header-right expandable_link">
         <span class="expandable_cue-open">
