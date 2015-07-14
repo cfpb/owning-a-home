@@ -56,11 +56,11 @@ module.exports = function(grunt) {
         dest: 'src/static/vendor/cf-concat/cf.less'
       },
       ie9: {
-        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'node_modules/es5-shim/es5-sham.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js', 'src/static/vendor/console-polyfill/index.js'],
         dest: 'dist/static/js/ie9.js'
       },
       ie8: {
-        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'node_modules/es5-shim/es5-sham.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js', 'src/static/vendor/console-polyfill/index.js'],
         dest: 'dist/static/js/lte-ie8.js'
       }
     },
@@ -120,6 +120,7 @@ module.exports = function(grunt) {
           './src/static/js/modules/form-explainer.js',
           './src/static/js/modules/process.js',
           './src/static/js/modules/home.js'
+          
         ],
         dest: 'dist/static/js/main.js',
         options: {
@@ -136,6 +137,7 @@ module.exports = function(grunt) {
                 './src/static/js/modules/process.js',
                 './src/static/js/modules/home.js',
                 './src/static/js/modules/loan-options-subpage.js'
+                
               ],
               o: [
                 'dist/static/js/loan-options.js',
@@ -147,6 +149,7 @@ module.exports = function(grunt) {
                 'dist/static/js/process.js',
                 'dist/static/js/home.js',
                 'dist/static/js/loan-options-subpage.js'
+                
               ]
             }]
           ]
@@ -238,6 +241,7 @@ module.exports = function(grunt) {
             'process.js',
             'home.js',
             'loan-options-subpage.js'
+            
           ],
           dest: './dist/static/js'
         }]
