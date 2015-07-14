@@ -65,6 +65,7 @@
 }
 
 .expandable__form-explainer {
+    position: relative;
     margin: 0 0 unit(3px / @base-font-size-px, em);
     transition: transform 100ms ease-out;
     &.has-attention {
@@ -114,22 +115,6 @@
     }
 }
 
-.expandable__form-explainer-alerts {
-    &,
-    &:hover,
-    &.expandable__expanded,
-    &.has-attention {
-        background: @redorange-20;
-    }
-    .expandable_category:before {
-        content: "\e103"; // .cf-icon-error-round
-        color: @redorange-80;
-    }
-    .expandable_content:before {
-        background: @redorange-50;
-    }
-}
-
 .expandable__form-explainer-definitions {
     &,
     &:hover,
@@ -145,6 +130,18 @@
         background: @navy-50;
     }
 }
+
+    // "NEW" tag in expandables/terms content
+    .term-tag {
+        padding: 2px 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: @gray;
+        color: @white;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
 
 .explain {
     margin: 0 auto unit(60px / @base-font-size-px, em);

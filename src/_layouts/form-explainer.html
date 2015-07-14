@@ -149,10 +149,7 @@
       </span>
       {{ item.term }}
       {% if item.new -%}
-        <strong class="item__new">  
-          <span class="cf-icon cf-icon-information"></span>
-          New
-        </strong>
+        <span class="micro-copy term-tag"><em>New</em></span>
       {%- endif %}
   {% if item.definition == '' %}
     </span>
