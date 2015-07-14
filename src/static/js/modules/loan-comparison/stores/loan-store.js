@@ -224,6 +224,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         var rates = this.processRatesData(data);
         loan['rates'] = rates.vals;
         loan['interest-rate'] = rates.median;
+        LoanStore.updateLoanCalculatedProperties(loan, true);
     },
     
     /**
