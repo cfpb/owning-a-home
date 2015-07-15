@@ -50,17 +50,18 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @param  {number} id 
      * @param  {object} scenario optional
      */
-    resetLoan: function (id, scenario) {
-        var loan = LoanStore.setLoanData(id, scenario);
-        LoanStore.updateDownpaymentDependencies(loan);
-        LoanStore.updateCalculatedValues(loan, 'loan-summary');
-        LoanStore.validateLoan(loan);
-        LoanStore.fetchLoanData(loan);
-        // TODO: add county request as option to fetchLoanData?
-        // or do we not want to fail everything if we can't
-        // complete the county request?
-        LoanStore.fetchCounties(loan, true);
-    },
+     resetLoan: function (id, scenario) {
+         var loan = LoanStore.setLoanData(id, scenario);
+         // ensure downpayment percent because default data has downpayment
+         if (!loan['downpayment-percent']) {
+             LoanStore.updateCalculatedValues(loan, 'downpayment-percent');
+         }
+         LoanStore.updateCalculatedValues(loan, ['loan-amount', 'loan-summary']);
+         LoanStore.validateLoan(loan);
+         LoanStore.fetchLoanData(loan);
+         // TODO: add county request as option to fetchLoanData?
+         LoanStore.fetchCounties(loan, true);
+     },
     
     /**
      * Sets a loan's properties using a combination of default loan data,
@@ -103,20 +104,21 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @param  {string} prop loan prop to update
      * @param  {string|number} val new value
      */
-    updateLoan: function (loan, prop, val) {    
-        var rateChange = prop === 'interest-rate';
+    updateLoan: function (loan, prop, val) {   
+        // county data is not sent to api when requesting rates/ins data, 
+        // so we don't need to show update button when it changes
+        loan['edited'] = !(prop === 'interest-rate' || prop === 'county');
         
         loan[prop] = this.standardizeValue(prop, val);
-        loan['edited'] = !rateChange;
         
         this.updateLoanDependencies(loan, prop);
 
-        if (!rateChange) {
+        if (prop !== 'interest-rate') {
             this.validateLoan(loan);
-            
-            if (loan['rate-request']) {
-                this.fetchLoanData(loan);
-            }
+        }
+        
+        if (loan['edited'] && loan['rate-request']) {
+            this.fetchLoanData(loan);
         }
         
         this.updateLoanCalculations(loan, prop);        
@@ -154,6 +156,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     },
     
     /**
+     * Called when price or one of the downpayment values changes.
      * Updates global downpaymentConstant to reflect last changed
      * downpayment property, and updates dependent downpayment property
      * to reflect any changes to price or constant downpayment value.
@@ -163,15 +166,19 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @param  {string} prop changed prop
      */
     updateDownpaymentDependencies: function (loan, prop) {
+        // update downpaymentConstant when one of the downpayment values is changed
         if (prop === 'downpayment' || prop === 'downpayment-percent') {
            this.downpaymentConstant = prop;
         }
         
-        if (this.downpaymentConstant === 'downpayment-percent' && typeof loan['downpayment-percent'] != 'undefined') {
+        // update downpayment or downpayment-percent, dep. on downpaymentConstant
+        if (this.downpaymentConstant === 'downpayment-percent') {
             this.updateCalculatedValues(loan, 'downpayment');
         } else {
             this.updateCalculatedValues(loan, 'downpayment-percent');
         }
+        
+        // update loan amount
         this.updateCalculatedValues(loan, 'loan-amount');
     }, 
     
@@ -193,8 +200,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     
     /**
      * Targeted update of loan calculations based on the prop that has changed: 
-     * for loan type/term/rate-structure, calls updateCalculatedValues with 'loan-summary',
-     * and for interest-rate, calls updateCalculatedValues with calculatedPropertiesBasedOnIR.
+     * for loan type/term/rate-structure, calls updateCalculatedValues for 'loan-summary',
+     * and for interest-rate, calls updateCalculatedValues for calculatedPropertiesBasedOnIR.
      *
      * @param  {object} loan 
      * @param  {string} prop changed prop
@@ -227,6 +234,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @param  {object} loan loan to update 
      */
     fetchLoanData: function (loan) {        
+        // Check to see if request is happening at this point, if so, abort them
+        // before starting this new request
         $.each(['rate-request', 'mtg-ins-request'], function (ind, req) {
             if (loan[req]) {
                 api.stopRequest(loan[req]);
@@ -350,8 +359,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {bool} whether the current value for loan[prop] is disallowed in ARM scenarios
      */
     isDisallowedArmOption: function (prop, loan) {
-        var val = prop === 'loan-term' ? +loan[prop] : loan[prop];
-        return loan['rate-structure'] === 'arm' && $.inArray(val, common.armDisallowedOptions[prop]) >= 0;
+        return loan['rate-structure'] === 'arm' && $.inArray(loan[prop], common.armDisallowedOptions[prop]) >= 0;
     },
     
     /**
@@ -423,7 +431,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {bool} 
      */
     isDownpaymentTooHigh: function (loan) {
-        return +loan['downpayment'] > +loan['price'];
+        return loan['downpayment'] > loan['price'];
     },
     
     /**
@@ -436,11 +444,9 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     isDownpaymentTooLow: function (loan) {
         switch (loan['loan-type']) {
             case 'conf':                
-                return +loan['downpayment'] < common.minDownpaymentPcts.conf * +loan['price'];
-                break;
+                return loan['downpayment'] < common.minDownpaymentPcts.conf * loan['price'];
             case 'fha':
-                return +loan['downpayment'] < common.minDownpaymentPcts.fha * +loan['price'];
-                break;
+                return loan['downpayment'] < common.minDownpaymentPcts.fha * loan['price'];
             default:
                 return false;
         }
@@ -542,7 +548,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         return params;
     },
     
-    fetchCounties: function (loan, updateLoan) {
+    fetchCounties: function (loan) {
         if (loan['county-request']) {
             api.stopRequest(loan['county-request']);
         }
@@ -551,9 +557,6 @@ var LoanStore = assign({}, EventEmitter.prototype, {
                     .done(function(results) {
                        var counties = (results || {}).data;
                        LoanStore.updateLoanCounties(loan, counties);
-                       if (updateLoan) {
-                           LoanStore.fetchLoanData(loan);
-                       }
                        LoanStore.emitChange();
                     });
     },
@@ -566,7 +569,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
                 dict[i['complete_fips']] = i;
             });
             loan['county-dict'] = dict;
-            this.updateLoan(loan, 'county', data[0]['complete_fips'], true);
+            this.updateLoan(loan, 'county', data[0]['complete_fips']);
         }
         loan['county-request'] = null;
     },

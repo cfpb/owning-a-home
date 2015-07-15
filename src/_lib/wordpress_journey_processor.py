@@ -46,6 +46,12 @@ def process_journey(item):
             else:
                 item['key_tool'] = {'url': custom_fields['key_tool'][0],
                                     'label': custom_fields['key_tool'][1]}
+
+        if 'collapse_link' in custom_fields:
+            item['collapse_link'] = custom_fields['collapse_link']
+        else:
+            item['collapse_link'] = ''
+
     else:
         # This is a phase item
         item['has_parent'] = False

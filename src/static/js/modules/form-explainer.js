@@ -3,6 +3,8 @@ require('sticky');
 require('jquery-easing');
 require('jquery.scrollto');
 require('cf-expandables');
+require('./nemo');
+require('./nemo-shim');
 var debounce = require('debounce');
 
 // Constants. These variables should not change.
@@ -288,16 +290,10 @@ function filterExplainers ($currentTab, type) {
     $currentTab.addClass('active-tab');
     
     // Filter the expandables
-    if (type === 'all') {
-      $WRAPPER.find('.expandable__form-explainer').show();
-      $WRAPPER.find('.image-map_overlay').show();
-      $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
-    } else {
-      $WRAPPER.find('.expandable__form-explainer').hide();
-      $WRAPPER.find('.image-map_overlay').hide();
-      $WRAPPER.find('.expandable__form-explainer-' + type).show();
-      $WRAPPER.find('.image-map_overlay__' + type).show();
-    }
+    $WRAPPER.find('.expandable__form-explainer').hide();
+    $WRAPPER.find('.image-map_overlay').hide();
+    $WRAPPER.find('.expandable__form-explainer-' + type).show();
+    $WRAPPER.find('.image-map_overlay__' + type).show();
 }
 
 function toggleScrollWatch() {
@@ -305,6 +301,11 @@ function toggleScrollWatch() {
   if ($WINDOW.width() >= 600) {
     $WINDOW.on('scroll.stickiness', debounce(updateStickiness, 20));
   }
+}
+
+function addTabindex() {
+  var $link = $('.expandable__form-explainer .expandable_content a');
+  $link.attr('tabindex', 0);
 }
 
 // Kick things off on document ready.
@@ -322,15 +323,12 @@ $(document).ready(function(){
   
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
-
-  // The "All" tab is the default tab. We don't want placeholders to be visible
-  // in the "All" tab.
-  if (DEFAULT_TYPE === 'all') {
-    $WRAPPER.find('.expandable__form-explainer-placeholder').hide();
-  }
   
   // add scroll listener for larger windows
   toggleScrollWatch();
+
+  // set tabindex for links in expandables content
+  addTabindex();
   
   // add resize listener
   var prevWindowWidth = $WINDOW.width();
@@ -391,20 +389,31 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
-    $( itemID ).get(0).toggle();
+  });
+
+  $WRAPPER.on( 'focus', '.expandable__form-explainer, .expandable__form-explainer .expandable_target', function( ) {
+    var $this = $(this),
+     itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
+      $overlay = $('.image-map_overlay'),
+      $target = $('a[href=#' + itemID + ']');
+    $overlay.removeClass('has-attention');
+    $target.addClass('has-attention');
   });
 
   // When mousing over a term or highlighted area of the image map,
   // call attention to the associated map area or term, respectively.
   $WRAPPER.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
     event.preventDefault();
-    var $target;
-    if ( typeof $( this ).attr('href') !== 'undefined' ) {
-      $target = $( $(this).attr('href') );
-    } else  if ( typeof $( this ).attr('id') !== 'undefined' ) {
-      $target = $('[href=#'+$( this ).attr('id')+']');
+    var $target,
+        $this = $(this);
+    if ( typeof $this.attr('href') !== 'undefined' ) {
+      $target = $( $this.attr('href') );
+    } else  if ( typeof $this.attr('id') !== 'undefined' ) {
+      $target = $('[href=#'+$this.attr('id')+']');
     }
     if ( typeof $target !== 'undefined' ) {
+      // remove class from all
+      $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
       if ( $target.hasClass('has-attention') ) {
         $target.removeClass('has-attention');
       } else {

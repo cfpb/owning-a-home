@@ -51,6 +51,7 @@ function hideMenu() {
 
 /* trigger when page is ready */
 $(document).ready(function (){
+    skipNav();
     $("#header nav a").mouseenter(function() {
         window.clearTimeout(hidemenu);
         var target = $(this).attr("href");
@@ -165,6 +166,15 @@ $(document).ready(function (){
         $(this).addClass("pdf");
     });
 });
+
+/* Skip nav to primary content link */
+
+function skipNav() {
+    var $skipLink = $('#skip-link');
+    $skipLink.click(function() {
+        $('#primary-content').focus();
+    });
+}
 
 
 /* SEARCH BOX */

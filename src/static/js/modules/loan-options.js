@@ -67,7 +67,7 @@ var loanToggle = function() {
 // update values on keyup
 $('.value').on('keyup', debounce(loanToggle, 500));
 
-$(document).ready( function() {
+function jumpToAnchorLink() {
   // check for hash value - hash is first priority
   var hash = window.location.hash.substr(1).toLowerCase(),
     $el = $( '#' + hash),
@@ -80,5 +80,13 @@ $(document).ready( function() {
       offset: -30
     });
   }
+}
 
+$(document).ready( function() {
+
+  jumpToAnchorLink();
+
+  $(window).on('hashchange', function () {jumpToAnchorLink();});
 });
+
+
