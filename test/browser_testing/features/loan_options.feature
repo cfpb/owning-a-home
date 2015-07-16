@@ -44,17 +44,6 @@ Examples:
   | Interest rate type       | Collapse interest rate type  |
   | Loan type                | Collapse loan types       |
 
-@smoke_testing @loan_options
-Scenario Outline: Test inbound links in the Loan Options page
-   When I click on the "<link_name>" link
-   Then I should be directed to the internal "<relative_url>" URL
-      And I should see "<page_title>" displayed in the page title
-
-Examples:
-  | link_name                    | page_title                      | relative_url                              |
-  | Understand loan options      | Loan Options                    | /loan-options/                            |
-  | Closing checklist            | checklist_mortgage_closing.pdf  | /resources/checklist_mortgage_closing.pdf |
-  | Closing forms explainer      | mortgage_closing_forms.pdf      | /resources/mortgage_closing_forms.pdf     |
 
 @smoke_testing @loan_options
 Scenario: Test OAH link in the Loan Options page
