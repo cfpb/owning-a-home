@@ -69,10 +69,15 @@ var customProps = {
             config: {
                 labelProp: 'county',
                 valProp: 'complete_fips'
-                //title: 'Select a county'
+                
             }
+        };
+        // show a title if there are counties but no county is selected
+        if (loan['counties'] && !loan['county']) {
+            obj.config.title = 'Select a county'
         }
-        if (loan['county-request']) {
+        // ??? show loading only during initial request for counties on page load
+        if (loan['county-request'] && !loan['need-county']) {
             obj.className = 'loading';
         }
         return obj;
@@ -92,9 +97,11 @@ function armDisabledItemCheck (loan, prop, option) {
 }
 
 function loanTypeDisabledCheck (loan, isJumbo, option) {
-    var disabled = armDisabledItemCheck(loan, 'loan-type', option);
-    if (!disabled) {
-        disabled = isJumbo && $.inArray(option, common.normTypes);
+    var disabled;
+    if (isJumbo) {
+        disabled = $.inArray(option.val, loan['disallowed-types']) >= 0;
+    } else {
+        disabled = armDisabledItemCheck(loan, 'loan-type', option);
     }
     return disabled;
 }
@@ -171,7 +178,7 @@ var LoanInputTableCell = React.createClass({
         var Component = components[prop] || StyledSelect;        
         var props = this.generateComponentProps(loan, prop);
         var className = 'input-' + loan.id;
-        className += loan['errors'][prop] ? ' error' : '';
+        className += loan['errors'].hasOwnProperty(prop) ? ' error' : '';
     
         return (
             <td className={className}>

@@ -24,7 +24,7 @@ var LoanInputRow = React.createClass({
             className += ' padded-row';
         }
         
-        // styles label text
+        // styles label text on output rows
         if (outputRow) {
             className += ' output-row';
         }

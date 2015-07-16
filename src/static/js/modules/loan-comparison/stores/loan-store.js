@@ -37,7 +37,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         if (this._loans.length == 0 || scenario) {
             this.updateDownpaymentConstant(scenario);
             for (i = 0; i < len; i++) {
-                this.resetLoan(i, scenario);
+                this._loans[i] = this.resetLoan(i, this._loans[i], scenario);
             }
         }    
     },
@@ -48,11 +48,14 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * and initiates api requests.
      *
      * @param  {number} id 
+     * @param  {object} loan 
      * @param  {object} scenario optional
+     * @return  {object} loan
      */
-     resetLoan: function (id, scenario) {
-         var loan = LoanStore.setLoanData(id, scenario);
-         // ensure downpayment percent because default data has downpayment
+     resetLoan: function (id, loan, scenario) {
+         loan = LoanStore.setupLoanData(id, loan || {}, scenario);
+         
+         // ensure downpayment percent because default data only has downpayment
          if (!loan['downpayment-percent']) {
              LoanStore.updateCalculatedValues(loan, 'downpayment-percent');
          }
@@ -61,27 +64,30 @@ var LoanStore = assign({}, EventEmitter.prototype, {
          LoanStore.fetchLoanData(loan);
          // TODO: add county request as option to fetchLoanData?
          LoanStore.fetchCounties(loan, true);
+         
+         return loan;
      },
     
     /**
-     * Sets a loan's properties using a combination of default loan data,
+     * Sets up a loan object using a combination of default loan data,
      * existing loan data, and data specific to the current scenario.
      * If there's a scenario, loans will have the same values for 
      * all properties except scenario-specific ones, so we use the 
-     * first loan's data as existingData for loan 2 (omitting id & api requests)
+     * first loan's data as existingData for loan 2+ (omitting id & api requests)
      *
      * @param  {number} id 
+     * @param  {object} loan 
      * @param  {object} scenario optional
+     * @return  {object} loan
      */
-    setLoanData: function (id, scenario) {
+    setupLoanData: function (id, loan, scenario) {
         var defaultData = common.defaultLoanData;
         var scenarioData = scenario ? scenario.loanProps[id] : {};        
         var existingData = scenario && id > 0 
                            ? common.omit(this._loans[0], 'id', 'rate-request', 'mtg-ins-request', 'county-request')
-                           : this._loans[id];
+                           : loan;
         
-        this._loans[id] = assign({id: id}, defaultData, existingData, scenarioData);
-        return this._loans[id];
+        return assign({id: id}, defaultData, existingData, scenarioData);
     },
     
     /**
@@ -96,50 +102,36 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     },
     
     /**
-     * Updates an (optional) property on the loan.
-     * Also updates dependencies & calculated properties,
-     * validates the loan, and updates any current api requests 
-     * on the loan to include new data.
+     * Updates a property on the loan with value that has been standardized.
+     * Also updates dependencies & calculated properties.
+     * If the changed property is not 'interest-rate', validates the loan.
+     * If the changed prop is not 'interest-rate' or 'county', fetches loan data.
+     *
      * @param  {object} loan loan to update
      * @param  {string} prop loan prop to update
      * @param  {string|number} val new value
      */
-    updateLoan: function (loan, prop, val) {   
-        // county data is not sent to api when requesting rates/ins data, 
-        // so we don't need to show update button when it changes
-        loan['edited'] = !(prop === 'interest-rate' || prop === 'county');
-        
-        loan[prop] = this.standardizeValue(prop, val);
+    updateLoan: function (loan, prop, val) {           
+        loan[prop] = val;
+        loan['edited'] = prop !== 'interest-rate' && prop !== 'county';
         
         this.updateLoanDependencies(loan, prop);
 
         if (prop !== 'interest-rate') {
+            // validation needs to come before calculations, because some of the 
+            // validations change properties needed to calculate loan summary
             this.validateLoan(loan);
+            
+            if (prop !== 'county') {
+                if (loan['rate-request']) {
+                    this.fetchLoanData(loan);
+                }
+            }
         }
-        
-        if (loan['edited'] && loan['rate-request']) {
-            this.fetchLoanData(loan);
-        }
-        
+                
         this.updateLoanCalculations(loan, prop);        
     },
     
-    /**
-     * Standardizes input values: returns null in the absence
-     * of a value, and ensures numeric values for appropriate props.
-     *
-     * @param  {string} prop name of loan prop
-     * @param  {string|number} val value for loan prop
-     * @return  {string|number|null} standardized value
-     */
-    standardizeValue: function (prop, val) {
-        var numericVal;
-        if ($.inArray(prop, common.numericLoanProps) > -1) {
-            numericVal = Number(val);
-            return !isNaN(numericVal) ? numericVal : 0;
-        }
-        return val || null;
-    },
     
     /**
      * Downpayment scenario always needs to start with
@@ -184,8 +176,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     
     /**
      * Targeted update of loan dependencies based on the prop that has changed: 
-     * for downpayment/price props, calls updateDownpaymentDependencies,
-     * and for state, calls resetCounty.
+     * for downpayment/price props, calls updateDownpaymentDependencies;
+     * for state, calls resetCounty.
      *
      * @param  {object} loan 
      * @param  {string} prop changed prop
@@ -200,14 +192,14 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     
     /**
      * Targeted update of loan calculations based on the prop that has changed: 
-     * for loan type/term/rate-structure, calls updateCalculatedValues for 'loan-summary',
-     * and for interest-rate, calls updateCalculatedValues for calculatedPropertiesBasedOnIR.
+     * for loan type/term/rate-structure, calls updateCalculatedValues for 'loan-summary';
+     * for interest-rate, calls updateCalculatedValues for calculatedPropertiesBasedOnIR.
      *
      * @param  {object} loan 
      * @param  {string} prop changed prop
      */
     updateLoanCalculations: function (loan, prop) {
-        if ($.inArray(prop, ['loan-type', 'loan-term', 'rate-structure']) > -1) {
+        if ($.inArray(prop, ['loan-type', 'loan-term', 'rate-structure', 'arm-type']) > -1) {
             this.updateCalculatedValues(loan, 'loan-summary');
         } else if (prop === 'interest-rate') {
             this.updateCalculatedValues(loan, common.calculatedPropertiesBasedOnIR);
@@ -227,6 +219,20 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     },  
     
     /**
+     * Checks loan object for an existing request stored under requestName.
+     * If request is found, cancels request and sets requestName property to null.
+     *
+     * @param  {object} loan
+     * @param  {string} requestName 
+     */
+    cancelExistingRequest: function (loan, requestName) {
+        if (loan[requestName]) {
+            api.stopRequest(loan[requestName]);
+            loan[requestName] = null;
+        }
+    },
+    
+    /**
      * Cancels any existing requests on loan, then fetches
      * mortgage insurance & interest rate data from api and
      * handles success/failure when both requests have completed.
@@ -236,17 +242,15 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     fetchLoanData: function (loan) {        
         // Check to see if request is happening at this point, if so, abort them
         // before starting this new request
-        $.each(['rate-request', 'mtg-ins-request'], function (ind, req) {
-            if (loan[req]) {
-                api.stopRequest(loan[req]);
-            }
-        });
+        LoanStore.cancelExistingRequest('rate-request');
+        LoanStore.cancelExistingRequest('mtg-ins-request');
         
         loan['rate-request'] = LoanStore.fetchRates(loan);
         loan['mtg-ins-request'] = LoanStore.fetchInsurance(loan);
+        
         $.when(loan['rate-request'], loan['mtg-ins-request'])
             .done(function() {
-                LoanStore.updateLoanDependencies(loan, 'interest-rate');
+                LoanStore.updateLoanCalculations(loan, 'interest-rate');
             })
             .fail(function () {
                 // can't update calculated properties
@@ -294,15 +298,11 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         return api.fetchRateData(loan)
                    .done(function(results) {
                        LoanStore.updateLoanRates(loan, (results || {}).data);
-                   })
-                   .fail(function () {
-                       loan['edited'] = false;
-                   })
+                   });
     },
     
     /**
-     * Sets interest rate, array of rate options,
-     * and edited state on loan.
+     * Sets interest rate & array of rate options.
      * 
      * @param  {object} loan
      * @param  {object} data interest rates array from api
@@ -359,7 +359,10 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {bool} whether the current value for loan[prop] is disallowed in ARM scenarios
      */
     isDisallowedArmOption: function (prop, loan) {
-        return loan['rate-structure'] === 'arm' && $.inArray(loan[prop], common.armDisallowedOptions[prop]) >= 0;
+        var isArm = loan['rate-structure'] === 'arm';
+        var val = prop === 'loan-term' ? +loan[prop] : loan[prop];
+        var disallowedOpts = common.armDisallowedOptions[prop];
+        return isArm && $.inArray(val, disallowedOpts) >= 0;
     },
     
     /**
@@ -422,7 +425,6 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         
         this.jumboCheck(loan);
     },
-    
 
     /**
      * Checks whether loan downpayment is higher than price.
@@ -431,7 +433,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {bool} 
      */
     isDownpaymentTooHigh: function (loan) {
-        return loan['downpayment'] > loan['price'];
+        return +loan['downpayment'] > +loan['price'];
     },
     
     /**
@@ -444,9 +446,9 @@ var LoanStore = assign({}, EventEmitter.prototype, {
     isDownpaymentTooLow: function (loan) {
         switch (loan['loan-type']) {
             case 'conf':                
-                return loan['downpayment'] < common.minDownpaymentPcts.conf * loan['price'];
+                return +loan['downpayment'] < common.minDownpaymentPcts.conf * +loan['price'];
             case 'fha':
-                return loan['downpayment'] < common.minDownpaymentPcts.fha * loan['price'];
+                return +loan['downpayment'] < common.minDownpaymentPcts.fha * +loan['price'];
             default:
                 return false;
         }
@@ -459,8 +461,12 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {bool} 
      */
     jumboCheck: function (loan) {
-        var newType, loanType = loan['loan-type']; 
+        var newType, loanType = loan['loan-type'];
         
+        // make sure we have a previous type
+        loan['previous-type'] = common.jumboTypes[loanType] ? loan['previous-type'] : loanType;
+        
+        loan['disallowed-types'] = [];
         // run jumbo test
         var jumboTest = LoanStore.runJumboTest(loan);
         if (jumboTest.success) {
@@ -469,10 +475,10 @@ var LoanStore = assign({}, EventEmitter.prototype, {
             if (jumboTest.isJumbo) {
                 // if it is a jumbo loan, update the loan type based on the test results,
                 // and show the county dropdown & any error message the test returned
-                loan['previous-type'] = common.jumboTypes[loanType] ? loan['previous-type'] : loanType;
                 loan['need-county'] = true;
                 loan['errors']['loan-type'] = jumboTest.msg;
                 newType = (jumboTest.type != loanType) ? jumboTest.type : null;
+                loan['disallowed-types'] = [loan['previous-type']];
             } else if (common.jumboTypes[loanType]) {
                 // if it's not a jumbo loan, reset if it used to be a jumbo
                 // by hiding the county dropdown & changing the loan type --
@@ -487,11 +493,15 @@ var LoanStore = assign({}, EventEmitter.prototype, {
                 LoanStore.updateLoan(loan, 'loan-type', newType);
             }
         } else if (jumboTest.needCounty) {
-            // if the test fails because we need county data we don't have,
-            // update the error messaging & start fetching data if fetch not in progress
+            // If the test fails because we need county data we don't have,
+            // update the error messaging & start fetching data if fetch not in progress.
             loan['need-county'] = true;
-            loan['errors']['county'] = common.jumboMessages[loanType];
-            
+            loan['errors']['county'] = common.jumboMessages[loan['previous-type']];
+            if (common.jumboTypes[loanType]) {
+                // newType = loan['previous-type'] || conf;
+                // LoanStore.updateLoan(loan, 'loan-type', newType);
+            } 
+            // We probably want to handle county request failure in this scenario.
             if (!loan['counties'] && !loan['county-request']) {
                 LoanStore.fetchCounties(loan);
             }
@@ -520,8 +530,14 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      * @return {object} params object
      */
     getJumboParams: function (loan) {
+        var loanType = loan['loan-type'];
+        
+        if (common.jumboTypes[loanType]) {
+            loanType = loan['previous-type'] || 'conf';
+        }
+        
         var params = {
-            loanType: loan['loan-type'],
+            loanType: loanType,
             loanAmount: loan['loan-amount']
         };
         var countyParams = this.getCountyParams(loan);
@@ -531,6 +547,12 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         return params;
     },
 
+    /**
+     * Locates loan['county'] in loan['county-dict'], and
+     * generates a county params object using the county's data.
+     *
+     * @param  {object} loan
+     */
     getCountyParams: function (loan) {
         var params;
         var county = loan['county'];
@@ -548,30 +570,53 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         return params;
     },
     
-    fetchCounties: function (loan) {
-        if (loan['county-request']) {
-            api.stopRequest(loan['county-request']);
-        }
+    /**
+     * Fetches county data & on success calls updateLoanCounties.
+     *
+     * @param  {object} loan
+     */
+    fetchCounties: function (loan, initialRequest) {
+        LoanStore.cancelExistingRequest(loan, 'county-request');
         loan['county-request'] =  
             api.fetchCountyData(loan)
                     .done(function(results) {
-                       var counties = (results || {}).data;
-                       LoanStore.updateLoanCounties(loan, counties);
-                       LoanStore.emitChange();
+                        var counties = (results || {}).data;
+                        LoanStore.updateLoanCounties(loan, counties, initialRequest);
+                    })
+                    .always(function () {
+                        loan['county-request'] = null;
+                        LoanStore.emitChange();
                     });
     },
-        
-    updateLoanCounties: function (loan, data) {
+      
+    /**
+     * Updates loan county data.
+     *
+     * Stores county array as loan['counties'].
+     *
+     * Generates a county dict object using 'complete_fips' as key and
+     * stores this as loan['county-dict'] (Enables quick lookup of county
+     * data for jumbo loan check).
+     *
+     * Also sets first county in counties array as loan[county] 
+     * (via updateLoan so that validations will be run). 
+     * 
+     * @param  {object} loan
+     * @param  {array} data
+     */  
+    updateLoanCounties: function (loan, data, initialRequest) {
         var dict = {};
+        
         if ($.isArray(data)) {
-            loan['counties'] = data;
             $.each(data, function (num, i) {
                 dict[i['complete_fips']] = i;
             });
             loan['county-dict'] = dict;
-            this.updateLoan(loan, 'county', data[0]['complete_fips']);
+            loan['counties'] = data;
+            //if (initialRequest) {
+            //    this.updateLoan(loan, 'county', data[0]['complete_fips']);
+            //}
         }
-        loan['county-request'] = null;
     },
 
     /**
