@@ -11,6 +11,7 @@ from pages.screenshot import Screenshot
 from pages.base import Base
 from pages.home import Home
 from pages.journey import Journey
+from pages.closing_disclosure import ClosingDisclosure
 from pages.loan_comparison import LoanComparison
 from pages.loan_options import LoanOptions
 from pages.navigation import Navigation
@@ -44,7 +45,7 @@ def before_all(context):
             'command-timeout': int(os.getenv('SELENIUM_CMD_TIMEOUT', 30)),
             'idle-timeout': int(os.getenv('SELENIUM_IDLE_TIMEOUT', 10)),
             'tunnel-identifier': os.getenv('SELENIUM_TUNNEL'),
-            'screen-resolution' : os.getenv('SELENIUM_RESOLUTION')
+            'screen-resolution': os.getenv('SELENIUM_RESOLUTION')
         }
 
         context.logger.info("Running Sauce with capabilities: %s" %
@@ -70,6 +71,9 @@ def before_all(context):
     context.journey = Journey(context.logger, context.directory,
                                              context.base_url, driver, 10,
                                              context.delay_secs)
+    context.closing_disclosure = ClosingDisclosure(context.logger, context.directory,
+                                             context.base_url, driver, 10,
+                                             context.delay_secs)
     context.loan_comparison = LoanComparison(context.logger, context.directory,
                                              context.base_url, driver, 10,
                                              context.delay_secs)
@@ -87,6 +91,7 @@ def before_all(context):
     context.utils = Utils(context.base)
 
     context.logger.info('TEST ENVIRONMENT = %s' % context.base_url)
+
 
 def before_feature(context, feature):
     context.logger.info('STARTING FEATURE %s' % feature)
@@ -126,14 +131,14 @@ def after_all(context):
 
         body_content = json.dumps({"passed": not context.failed})
         context.logger.info("Updating sauce job with %s" % body_content)
-        
+
         # If a proxy is present then use it, otherwise connect directly to saucelabs
         http_proxy = os.getenv('http_proxy', None)
         if http_proxy:
             if http_proxy.startswith("http://"):
                 http_proxy = http_proxy[7:]
             connection = httplib.HTTPConnection(http_proxy)
-        else:    
+        else:
             connection = httplib.HTTPConnection("saucelabs.com")
 
         connection.request('PUT', 'http://saucelabs.com/rest/v1/%s/jobs/%s' %
