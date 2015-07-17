@@ -4,10 +4,15 @@ require('./secondary-nav');
 function jumpToAnchorLink() {
   // check for hash value - hash is first priority
   var hash = window.location.hash.substr(1).toLowerCase(),
-    $el = $( '#' + hash),
-      $expandable = $el.closest('.expandable');
+    re = /^[a-zA-Z0-9\-]*$/;
 
-  if ( hash !== "" && $expandable.length && !$expandable.hasClass('expandable__expanded')) {
+  // only allow letters, digits and - symbols in hashes
+  if (!re.test(hash)) return;
+
+  var $el = $( '#' + hash),
+    $expandable = $el.closest('.expandable');
+
+  if (hash !== "" && $expandable.length && !$expandable.hasClass('expandable__expanded')) {
     $expandable.find('.expandable_target')[0].click();
     $.scrollTo( $el, {
       duration: 600,
