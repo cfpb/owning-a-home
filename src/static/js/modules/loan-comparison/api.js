@@ -28,7 +28,7 @@ api.stopRequest = function (dfd) {
 
 function prepBaseLoanData(loan) {
     var minfico = parseInt(loan['credit-score']) || 0;
-    var obj = {
+    return {
         price: loan['price'],
         loan_amount: loan['loan-amount'],
         minfico: minfico,
@@ -38,7 +38,6 @@ function prepBaseLoanData(loan) {
         loan_type: loan['loan-type'],
         arm_type: loan['arm-type']
     };
-    return obj;
 }
 function prepLoanData(loan) {
     var loandata = prepBaseLoanData(loan);
