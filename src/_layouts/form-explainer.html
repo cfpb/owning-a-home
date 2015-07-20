@@ -148,8 +148,8 @@
         <span class="u-visually-hidden">{{ item.category }}</span>
       </span>
       {{ item.term }}
-      {% if item.new -%}
-        <span class="micro-copy term-tag"><em>New</em></span>
+      {% if item.tag -%}
+        <span class="micro-copy term-tag"><em>{{ item.tag }}</em></span>
       {%- endif %}
   {% if item.definition == '' %}
     </span>
