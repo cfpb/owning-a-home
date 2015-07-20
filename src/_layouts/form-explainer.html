@@ -131,52 +131,50 @@
 
 {% macro term( item, index, page_num ) %}
 {#- Some terms are not expandable -#}
-{% if item.definition == '' %}
-  <div class="expandable expandable__padded
-              expandable__form-explainer
-              expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}"
-       tabindex="0">
-    <span class="expandable_header">
-      <span class="expandable_label">
-          <span class="expandable_category expandable_category__{{ item.category }}">
-            <span class="u-visually-hidden">{{ item.category }}</span>
-          </span>
-          {{ item.term }}
+<div class="expandable expandable__padded
+            expandable__form-explainer
+            expandable__form-explainer-{{ item.category }}"
+     id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+     {% if item.definition == '' %}
+     tabindex="0"{% endif %}>
+  {% if item.definition == '' %}
+  <span class="expandable_header">
+    <span class="expandable_label">
+  {% else %}
+  <button class="expandable_header expandable_target" tabindex="0">
+    <span class="expandable_header-left expandable_label">
+  {% endif %}
+      <span class="expandable_category expandable_category__{{ item.category }}">
+        <span class="u-visually-hidden">{{ item.category }}</span>
+      </span>
+      {{ item.term }}
+      {% if item.tag -%}
+        <span class="micro-copy term-tag"><em>{{ item.tag }}</em></span>
+      {%- endif %}
+  {% if item.definition == '' %}
+    </span>
+  </span>
+  {% else %}
+  </span>
+    <span class="expandable_header-right expandable_link">
+      <span class="expandable_cue-open">
+        <span class="u-visually-hidden">Show</span>
+        <span class="cf-icon cf-icon-plus"></span>
+      </span>
+      <span class="expandable_cue-close">
+        <span class="u-visually-hidden">Hide</span>
+        <span class="cf-icon cf-icon-minus"></span>
       </span>
     </span>
+  </button>
+  <div class="expandable_content u-stick" tabindex="0">
+    {{ item.definition|safe }}
+    {% if item.highlight -%}
+      <img class="u-stick_bottom" src="{{ item.highlight }}" alt="">
+    {%- endif %}
   </div>
-{% else %}
-  <div class="expandable expandable__padded
-              expandable__form-explainer
-              expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
-    <button class="expandable_header expandable_target" tabindex="0">
-      <span class="expandable_header-left expandable_label">
-          <span class="expandable_category expandable_category__{{ item.category }}">
-            <span class="u-visually-hidden">{{ item.category }}</span>
-          </span>
-          {{ item.term }}
-      </span>
-      <span class="expandable_header-right expandable_link">
-        <span class="expandable_cue-open">
-          <span class="u-visually-hidden">Show</span>
-          <span class="cf-icon cf-icon-plus"></span>
-        </span>
-        <span class="expandable_cue-close">
-          <span class="u-visually-hidden">Hide</span>
-          <span class="cf-icon cf-icon-minus"></span>
-        </span>
-      </span>
-    </button>
-    <div class="expandable_content u-stick" tabindex="0">
-      {{ item.definition|safe }}
-      {% if item.highlight -%}
-        <img class="u-stick_bottom" src="{{ item.highlight }}" alt="">
-      {%- endif %}
-    </div>
-  </div>
-{% endif %}
+  {% endif %}
+</div>
 {% endmacro %}
 
 
