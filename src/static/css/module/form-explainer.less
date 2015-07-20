@@ -46,6 +46,7 @@
     & {
         background: rgba(255,147,27,0.2);
     }
+    
     &:hover,
     &:focus,
     &.has-attention  {
@@ -56,10 +57,19 @@
         outline-offset: 1px;
     }
 }
+
+.lt-ie9 .image-map_overlay__checklist {
+    background:none;
+    -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
+    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
+    zoom: 1;
+}
+
 .image-map_overlay__definitions {
     & {
         background: rgba(0,45,114,0.2);
     }
+    
     &:hover,
     &:focus,
     &.has-attention  {
@@ -69,6 +79,13 @@
         outline: 1px dotted @navy;
         outline-offset: 1px;
     }
+}
+
+.lt-ie9 .image-map_overlay__definitions {
+    background:none;
+    -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
+    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
+    zoom: 1;
 }
 
 .expandable__form-explainer {
