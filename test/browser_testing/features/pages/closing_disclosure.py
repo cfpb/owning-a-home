@@ -67,10 +67,16 @@ class ClosingDisclosure(Base):
             return False
         original_visibility = element.is_displayed()
         ActionChains(self.driver).move_to_element(parent_element).perform()
-        parent_element.click()
-        #time.sleep(1)
-        new_visibility = element.is_displayed()
-        return original_visibility != new_visibility
+        try:
+            parent_element.click()
+            #time.sleep(1)
+            new_visibility = element.is_displayed()
+            return original_visibility != new_visibility
+        except WebDriverException:
+            # sometimes elements don't have content, just the header
+            # in that case the header elements are span and not buttons
+            # and so are not clickable
+            return True
 
     def _click_tab(self, tab_name):
         css_selector = '.tab-link__%s' % tab_name.lower()
