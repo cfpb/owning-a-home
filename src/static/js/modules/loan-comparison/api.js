@@ -6,7 +6,6 @@ var config = require('../../../../../config/config.json');
 var api = {};
 
 api.fetchCountyData = function (appState) {
-    //dropdown('input-county').hideLoadingAnimation();
     return $.get(config.countyAPI, {
         state: appState['state']
     });

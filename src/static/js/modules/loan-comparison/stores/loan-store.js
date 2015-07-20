@@ -496,11 +496,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
             // If the test fails because we need county data we don't have,
             // update the error messaging & start fetching data if fetch not in progress.
             loan['need-county'] = true;
-            loan['errors']['county'] = common.jumboMessages[loan['previous-type']];
-            if (common.jumboTypes[loanType]) {
-                // newType = loan['previous-type'] || conf;
-                // LoanStore.updateLoan(loan, 'loan-type', newType);
-            } 
+            loan['errors']['county'] = common.errorMessages['need-county'];
             // We probably want to handle county request failure in this scenario.
             if (!loan['counties'] && !loan['county-request']) {
                 LoanStore.fetchCounties(loan);

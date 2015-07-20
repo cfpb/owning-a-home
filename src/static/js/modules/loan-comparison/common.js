@@ -57,7 +57,8 @@ common.errorMessages = {
     'downpayment-too-low-fha': 'FHA loans typically require a down payment of at least ' + common.minDownpaymentPcts.fhaPercent + '%.',
     'downpayment-too-low-conf': 'Conventional loans typically require a down payment of at least ' + common.minDownpaymentPcts.confPercent + '%.',
     'loan-type': armMessage,
-    'loan-term': armMessage
+    'loan-term': armMessage,
+    'need-county': 'Please enter your county so we can check what loan types are available at your loan amount and get you the most accurate rates.'
 }
 
 common.scenarios = [
@@ -249,11 +250,7 @@ common.jumboTypes = {
 
 common.norms = ['conf', 'fha', 'va'];
 
-common.jumboMessages = {
-    'fha': 'Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.',
-    'va': 'Based on your loan amount, you may not be eligible for a regular VA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.',
-    'conf': 'Based on your loan amount, you may not be eligible for a regular (conforming) conventional loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates.'
-}
+
 
 common.omit = function (obj) {
     var omitted = Array.prototype.slice.call(arguments, 1);

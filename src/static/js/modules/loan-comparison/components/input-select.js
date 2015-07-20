@@ -8,7 +8,8 @@ var SelectInput = React.createClass({
             React.PropTypes.string,
             React.PropTypes.number,
             React.PropTypes.bool
-        ]),
+        ])
+        // TODO: document optional props, including: 
         //title: React.PropTypes.string,
         //disabledItemCheck: React.PropTypes.func
     },
@@ -25,9 +26,10 @@ var SelectInput = React.createClass({
         var config = this.props.config;
         var val = config.valProp;
         var label = config.labelProp;
+        var items = this.props.items;
     
-        if (this.props.items) {
-            var opts = this.props.items.map(function (opt) {
+        if (items) {
+            var opts = items.map(function (opt) {
                 return (
                     <option value={opt[val]} disabled={this.props.disabledItemCheck(opt)}>{opt[label]}</option>
                 );

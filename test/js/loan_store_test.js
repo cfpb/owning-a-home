@@ -965,7 +965,7 @@ describe('Loan store tests', function() {
                     loanStore.jumboCheck(loan);        
                     sinon.assert.calledOnce(loanStore['runJumboTest']);
                     expect(loan['need-county']).to.be.true();
-                    expect(loan['errors']['county']).to.equal(common.jumboMessages[loan['loan-type']]);
+                    expect(loan['errors']['county']).to.equal(common.errorMessages['need-county']);
                     sinon.assert.calledOnce(loanStore['fetchCounties']);
                 });
             });
