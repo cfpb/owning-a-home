@@ -24,6 +24,9 @@ PP = 'process/prepare'
 PE = 'process/explore'
 PC = 'process/compare'
 PF = 'process/close'
+# FE
+CD = 'closing-disclosure'
+LE = 'loan-estimate'
 
 
 @given(u'I navigate to the "{page_name}" page')
@@ -56,6 +59,10 @@ def step(context, page_name):
         context.base.go(PC)
     elif (page_name == 'Get Ready to Close'):
         context.base.go(PF)
+    elif (page_name == 'Closing Disclosure'):
+        context.base.go(CD)
+    elif (page_name == 'Loan Estimate'):
+        context.base.go(LE)
     else:
         raise Exception(page_name + ' is NOT a valid page')
 
@@ -71,7 +78,8 @@ def step(context):
 def step(context, link_name):
     # Click the requested tab
     context.navigation.click_link(link_name)
-    
+
+
 @when(u'I click on the link with id "{link_id}"')
 @handle_error
 def step(context, link_id):
@@ -122,4 +130,3 @@ def step(context):
 def step(context, relative_url, page_title):
     title = context.base.switch_to_new_tab(relative_url)
     assert_that(title, contains_string(page_title))
-
