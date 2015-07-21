@@ -34,7 +34,7 @@ Scenario Outline: Test that resizing window size changes image size too
 
 Examples:
   | tab_name    | css_selector          |
-  | Checklist   | div.illustration img  |
+  | Checklist   | img.image-map_image   |
   | Definitions | img.image-map_image   |
 
 

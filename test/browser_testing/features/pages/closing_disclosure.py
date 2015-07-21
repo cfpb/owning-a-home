@@ -96,6 +96,7 @@ class ClosingDisclosure(Base):
     def hover_an_overlay(self):
         bad_elements = 0
         elements = self._element_found('a.image-map_overlay')
+        time.sleep(1)
         for element in elements:
             if element.is_displayed():
                 ActionChains(self.driver).move_to_element(element).perform()
