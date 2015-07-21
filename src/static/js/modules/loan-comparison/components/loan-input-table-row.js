@@ -24,7 +24,7 @@ var LoanInputRow = React.createClass({
             className += ' padded-row';
         }
         
-        // styles label text
+        // styles label text on output rows
         if (outputRow) {
             className += ' output-row';
         }
@@ -33,12 +33,6 @@ var LoanInputRow = React.createClass({
         if (this.props.prop === 'arm-type') {
             var armLoan = this.props.loans[0]['rate-structure'] === 'arm' || this.props.loans[1]['rate-structure'] === 'arm';
             className += armLoan ? '' : ' hidden';
-        }
-        
-        // hides the county input row if neither of the loans is jumbo & needs county
-        if (this.props.prop === 'county') {
-            var needsCounty = this.props.loans[0]['jumbo-county'] || this.props.loans[1]['jumbo-county'];
-            className += needsCounty ? '' : ' hidden';
         }
         
         return className;
