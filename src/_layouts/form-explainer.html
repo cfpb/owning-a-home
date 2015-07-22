@@ -45,7 +45,9 @@
         </div>
       </div>
       <figcaption class="terms explain_terms">
-        {{ render_terms( page.terms, loop.index ) }}
+          <div class="expandable-group expandable-group__form-explainer" data-accordion="true">
+              {{ render_terms( page.terms, loop.index ) }}
+          </div>
       </figcaption>
     </figure>
     {% endfor %}
