@@ -123,9 +123,8 @@ var LoanStore = assign({}, EventEmitter.prototype, {
             this.validateLoan(loan);
             
             if (prop !== 'county') {
-                if (loan['rate-request']) {
-                    this.fetchLoanData(loan);
-                }
+                // TODO: consider debouncing
+                this.fetchLoanData(loan);
             }
         }
                 

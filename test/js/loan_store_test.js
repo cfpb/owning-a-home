@@ -263,21 +263,7 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore.updateLoanCalculations);
         });
         
-        it('should update other property value & dependencies & calculations & validations, and not fetch loan data if there is no current rate request', function () {
-            var loan = {};
-            var prop = 'other';
-            
-            loanStore.updateLoan(loan, prop, 42);
-            
-            expect(loan[prop]).to.equal(42);
-            expect(loan['edited']).to.equal(true);
-            sinon.assert.calledOnce(loanStore.updateLoanDependencies);
-            sinon.assert.calledOnce(loanStore.validateLoan);
-            sinon.assert.notCalled(loanStore.fetchLoanData);
-            sinon.assert.calledOnce(loanStore.updateLoanCalculations);
-        });
-        
-        it('should update other property value & dependencies & calculations & validations, and fetch loan data if there is a current rate request', function () {
+        it('should update other property value & dependencies & calculations & validations, and fetch loan data', function () {
             var loan = {'rate-request': 'request'};
             var prop = 'other';
             
