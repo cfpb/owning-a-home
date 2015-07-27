@@ -7,7 +7,10 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
-var formExplainer = {};
+var formExplainer = {
+    pageCount: 0,
+    currentPage: 1
+};
 
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
@@ -24,15 +27,6 @@ var $INITIAL_TAB;
 var resized;
 
 var stickBottom = 'js-sticky-bottom';
-
-/**
- * Get the currently displayed form page as a number.
- * Grabs the number from the currently displayed .explain_page element ID.
- * @return {number}
- */
-formExplainer.getCurrentPageNum = function() {
-  return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
-};
 
 function getPageEl (pageNum) {
   return $WRAPPER.find('#explain_page-' + pageNum);
@@ -150,7 +144,7 @@ function fitAndStickToWindow(els, pageNum) {
  * @return {null}
  */
 function updateStickiness() {
-  var els =  getPageElements(formExplainer.getCurrentPageNum());
+  var els =  getPageElements(formExplainer.currentPage);
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
   if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
@@ -164,44 +158,53 @@ function updateStickiness() {
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = formExplainer.getCurrentPageNum(), newCurrentPage;
-  if ( direction === 'next' ) {
-    newCurrentPage = currentPage + 1;
-  } else if ( direction === 'prev' ) {
-    newCurrentPage = currentPage - 1;
-  }
+  var currentPage = formExplainer.currentPage,
+      increment = direction === 'next' ? 1 : -1,
+      newPage = currentPage + increment;
+  
   // Move to the next or previous page if it's not the first or last page.
-  if ( direction === 'next' && newCurrentPage <= TOTAL ||
-       direction === 'prev' && newCurrentPage >= 1 ) {
+  if ( direction === 'next' && newPage <= formExplainer.pageCount ||
+       direction === 'prev' && newPage >= 1 ) {
+    loadPage(currentPage, newPage);
+  }
+}
+
+function loadPage (lastPage, pageNum) {
+    formExplainer.currentPage = pageNum;
+    $('.form-explainer_page-link').removeClass('current-page');
+    $('.form-explainer_page-link[data-page=' + pageNum + ']').addClass('current-page');
+    
     // Scroll the window up to the tabs.
-    $.scrollTo( $TABS, {
+    $.scrollTo( $('.explain_pagination'), {
       duration: 600,
       offset: -30
     });
+    
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
+      getPageEl(lastPage).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
+    
     // After fading out the current page, fade in the new page.
     var fadeInTimeout = window.setTimeout(function () {
-      getPageEl(newCurrentPage).fadeIn( 700 );
+        
+      getPageEl(pageNum).fadeIn( 700 );
       stickyHack();
       window.clearTimeout( fadeInTimeout );
       if (resized ) {
-        setupImage(newCurrentPage);
+        setupImage(pageNum);
       }
+      // update paging buttons
+      if (formExplainer.pageCount > 1) {
+            $('.form-explainer_page-buttons button').removeClass('btn__disabled');
+            if (pageNum === 1) {
+              $('.form-explainer_page-buttons .prev').addClass('btn__disabled');
+            } else if (pageNum === formExplainer.pageCount) {
+              $('.form-explainer_page-buttons .next').addClass('btn__disabled');
+            }
+        }
     }, 1050);
-  }
-  // Update the pagination numbers.
-  $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
-  // Update the previous/next buttons if the new page is the first or last.
-  $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
-  if ( newCurrentPage === 1 ) {
-    $WRAPPER.find('.explain_pagination .pagination_prev').addClass('btn__disabled');
-  } else if ( newCurrentPage === TOTAL ) {
-    $WRAPPER.find('.explain_pagination .pagination_next').addClass('btn__disabled');
-  }
 }
 
 function setupImage (pageNum, pageLoad) {
@@ -229,9 +232,15 @@ function setupImage (pageNum, pageLoad) {
 formExplainer.initForm = function () {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
-  $WRAPPER.find('.explain_page').each(function( index ) {
-    formExplainer.initPage(index + 1);
-  });
+  
+  var $pages = $WRAPPER.find('.explain_page');
+    formExplainer.pageCount = $pages.length;
+    if (formExplainer.pageCount <= 1) {
+        $('.form-explainer_page-buttons').hide();
+    }
+    $pages.each(function( index ) {
+      formExplainer.initPage(index + 1);
+    });
 }
 
 /**
@@ -353,21 +362,28 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(formExplainer.getCurrentPageNum());
+    setupImage(formExplainer.currentPage);
     toggleScrollWatch();
   }));
 
   // Pagination events
-  $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('next');
-    }
-  });
-  $WRAPPER.find( '.explain_pagination .pagination_prev' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('prev');
-    }
-  });
+   $WRAPPER.find( '.form-explainer_page-buttons button' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget );
+     if ( !$target.hasClass('btn__disabled') ) {
+         var direction = $target.hasClass('prev') ? 'prev' : 'next';
+         paginate(direction);
+     }
+   });
+
+   $WRAPPER.find( '.form-explainer_page-link' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget ),
+           pageNum = +$target.data('page'),
+           currentPage = formExplainer.currentPage;
+
+       if (!$target.hasClass('disabled') && pageNum !== currentPage) {
+           loadPage(currentPage, pageNum);
+       }
+     });
 
   // Filter the expandables via the tabs
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {

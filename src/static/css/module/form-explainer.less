@@ -189,6 +189,7 @@
         }
         &_terms {
             .grid_column(4);
+            border-left-width: @grid_gutter-width;
         }
         &_pagination {
             .grid_column(8);
@@ -239,7 +240,9 @@
 .explain_page {
     // Position is needed to allow .explain_image-map to stick to the bottom of
     // .explain_page.
-    position: relative;
+    .respond-to-min(600px, {
+        position: relative;
+    });
 }
 
 .js-sticky-bottom {
@@ -251,10 +254,57 @@
 }
 
 .explain_pagination {
-    margin-top: unit(30px / @base-font-size-px, em);
+    margin-top: unit(15px / @base-font-size-px, em);
 }
 
 .explain_pagination .pagination_form {
     padding-top: unit(11px / @base-font-size-px, em);
     padding-bottom: unit(10px / @base-font-size-px, em);
 }
+
+.form-explainer_page-buttons {
+  button {
+    position: absolute;
+    top: 45%;
+    padding-left: unit( 10px / @btn-font-size, em );
+    padding-right: unit( 10px / @btn-font-size, em );
+    
+    &.prev {
+      left: -16px;
+    }
+    
+    &.next {
+      right: -16px;
+    }
+  }
+}
+
+.form-explainer_nav-label {
+  float: left;
+}
+.form-explainer_page-links {
+  margin-bottom: unit(10px / @base-font-size-px, em);
+  float: left;
+  li {
+    float: left;
+    a {
+      float: left;
+      display: block;
+      padding: 0 @grid_gutter-width/2;
+      cursor: pointer;
+      
+      &.current-page {
+        &,
+        &:focus,
+        &:hover,
+        &:active {
+          color: @black;
+        }
+        
+      }
+    }
+  }
+}
+
+
+
