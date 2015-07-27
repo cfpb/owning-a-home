@@ -1,8 +1,8 @@
 var $ = require('jquery');
-require('sticky');
-require('jquery-easing');
+var sticky = require('../../vendor/sticky/jquery.sticky.js');
+require('../../vendor/jquery.easing/jquery.easing.js');
 require('jquery.scrollto');
-require('cf-expandables');
+require('../../vendor/cf-expandables/cf-expandables.js');
 require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
@@ -62,7 +62,7 @@ function resizeImage (els, windowResize) {
   var windowHeight = $WINDOW.innerHeight() - 60;
   var newWidth;
   var newWidthPercentage;
-  
+
   // If the image is too tall for the window, resize it proportionally,
   // then update the adjacent terms column width to fit.
   // On window resize, also check if image is now too small & resize,
@@ -118,13 +118,13 @@ function fitAndStickToWindow(els, pageNum) {
       if (pageNum) {
         storeImageDimensions(els.$imageMapImage);
       }
-      
+
       // if image is too tall/small, fit it to window dimensions
       resizeImage(els, !pageNum);
-     
+
       // set width values on image elements
       setImageElementWidths(els);
-      
+
       if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
         stickImage(els.$imageMapWrapper);
@@ -288,7 +288,7 @@ function filterExplainers ($currentTab, type) {
     // Update the tab state
     $('.explain_tabs .tab-list').removeClass('active-tab');
     $currentTab.addClass('active-tab');
-    
+
     // Filter the expandables
     $WRAPPER.find('.expandable__form-explainer').hide();
     $WRAPPER.find('.image-map_overlay').hide();
@@ -320,22 +320,22 @@ $(document).ready(function(){
 
   // set up the form pages for display
   initForm();
-  
+
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
-  
+
   // add scroll listener for larger windows
   toggleScrollWatch();
 
   // set tabindex for links in expandables content
   addTabindex();
-  
+
   // add resize listener
   var prevWindowWidth = $WINDOW.width();
   var prevWindowHeight = $WINDOW.height();
   var isIE = $('html').hasClass('lt-ie9');
-  
-  $(window).on("resize",debounce(function(){ 
+
+  $(window).on("resize",debounce(function(){
     //resize things
     // apparently IE fires a window resize event when anything in the page
     // resizes, so for IE we need to check that the window dimensions have
@@ -371,9 +371,9 @@ $(document).ready(function(){
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
     var $selectedTab = $(this);
     var explainerType = $selectedTab.find('[data-target]').data('target');
-    
+
     filterExplainers($selectedTab, explainerType);
-    
+
     $.scrollTo( $TABS, {
       duration: 200,
       offset: -30
