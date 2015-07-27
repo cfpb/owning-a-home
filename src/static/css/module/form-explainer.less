@@ -46,6 +46,7 @@
     & {
         background: rgba(255,147,27,0.2);
     }
+    
     &:hover,
     &:focus,
     &.has-attention  {
@@ -56,10 +57,19 @@
         outline-offset: 1px;
     }
 }
+
+.lt-ie9 .image-map_overlay__checklist {
+    background:none;
+    -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
+    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
+    zoom: 1;
+}
+
 .image-map_overlay__definitions {
     & {
         background: rgba(0,45,114,0.2);
     }
+    
     &:hover,
     &:focus,
     &.has-attention  {
@@ -71,7 +81,15 @@
     }
 }
 
-.expandable__form-explainer {
+.lt-ie9 .image-map_overlay__definitions {
+    background:none;
+    -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
+    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
+    zoom: 1;
+}
+
+.expandable-group .expandable__form-explainer {
+    border-bottom: none;
     margin: 0 0 unit(3px / @base-font-size-px, em);
     transition: transform 100ms ease-out;
     &.has-attention {
@@ -81,11 +99,17 @@
         max-width: 90%;
     }
     .expandable_header {
-        // Eyeballed to 30px when including line-height
-        padding: unit((@grid_gutter-width - 3) / @base-font-size-px, em)
+        padding: unit((@grid_gutter-width/2) / @base-font-size-px, em)
                  unit(@grid_gutter-width / @base-font-size-px, em)
-                 unit((@grid_gutter-width - 4) / @base-font-size-px, em);
+                 unit((@grid_gutter-width/2) / @base-font-size-px, em);
+        border-bottom: none;
     }
+    
+    .expandable_label {
+      font-size: unit(@base-font-size-px / 16 * 100, %);
+      line-height: @base-line-height;
+    }
+    
     .expandable_link {
         color: @gray;
     }
@@ -105,7 +129,7 @@
     }
 }
 
-.expandable__form-explainer-checklist {
+.expandable-group .expandable__form-explainer-checklist {
     &,
     &:hover,
     &.expandable__expanded,
@@ -121,7 +145,7 @@
     }
 }
 
-.expandable__form-explainer-alerts {
+.expandable-group .expandable__form-explainer-alerts {
     &,
     &:hover,
     &.expandable__expanded,
@@ -137,7 +161,7 @@
     }
 }
 
-.expandable__form-explainer-definitions {
+.expandable-group .expandable__form-explainer-definitions {
     &,
     &:hover,
     &.expandable__expanded,
