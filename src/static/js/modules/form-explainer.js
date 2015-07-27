@@ -7,6 +7,8 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
+var formExplainer = {};
+
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
 
@@ -28,9 +30,9 @@ var stickBottom = 'js-sticky-bottom';
  * Grabs the number from the currently displayed .explain_page element ID.
  * @return {number}
  */
-function getCurrentPageNum() {
+formExplainer.getCurrentPageNum = function() {
   return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
-}
+};
 
 function getPageEl (pageNum) {
   return $WRAPPER.find('#explain_page-' + pageNum);
@@ -148,7 +150,7 @@ function fitAndStickToWindow(els, pageNum) {
  * @return {null}
  */
 function updateStickiness() {
-  var els =  getPageElements(getCurrentPageNum());
+  var els =  getPageElements(formExplainer.getCurrentPageNum());
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
   if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
@@ -162,7 +164,7 @@ function updateStickiness() {
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = getCurrentPageNum(), newCurrentPage;
+  var currentPage = formExplainer.getCurrentPageNum(), newCurrentPage;
   if ( direction === 'next' ) {
     newCurrentPage = currentPage + 1;
   } else if ( direction === 'prev' ) {
@@ -178,7 +180,7 @@ function paginate( direction ) {
     });
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(getCurrentPageNum()).fadeOut( 450 );
+      getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
     // After fading out the current page, fade in the new page.
@@ -224,11 +226,11 @@ function setupImage (pageNum, pageLoad) {
   }
 }
 
-function initForm () {
+formExplainer.initForm = function () {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
   $WRAPPER.find('.explain_page').each(function( index ) {
-    initPage(index + 1);
+    formExplainer.initPage(index + 1);
   });
 }
 
@@ -236,7 +238,7 @@ function initForm () {
  * Initialize a page.
  * @return {null}
  */
-function initPage(id) {
+formExplainer.initPage = function (id) {
   setupImage(id, true);
   setCategoryPlaceholders(id);
 }
@@ -319,7 +321,7 @@ $(document).ready(function(){
   $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
 
   // set up the form pages for display
-  initForm();
+  formExplainer.initForm();
 
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
@@ -351,7 +353,7 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(getCurrentPageNum());
+    setupImage(formExplainer.getCurrentPageNum());
     toggleScrollWatch();
   }));
 
@@ -423,3 +425,5 @@ $(document).ready(function(){
   });
 
 });
+
+module.exports = formExplainer;
