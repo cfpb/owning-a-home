@@ -8,7 +8,7 @@ Feature: test the Rate Checker inbound and outbound links
 Background:
   Given I navigate to the "Rate Checker" page
 
-@rate_checker1
+@rate_checker
 Scenario Outline: Click Non-Navigational links
   When I click on the "<link_name>" link in the Rate Checker page
   Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
