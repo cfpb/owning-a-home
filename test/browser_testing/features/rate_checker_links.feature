@@ -8,7 +8,7 @@ Feature: test the Rate Checker inbound and outbound links
 Background:
   Given I navigate to the "Rate Checker" page
 
-@rate_checker
+@rate_checker1
 Scenario Outline: Click Non-Navigational links
   When I click on the "<link_name>" link in the Rate Checker page
   Then I should see the "<relative_url>" URL with page title <page_title> open in a new tab
@@ -24,7 +24,7 @@ Examples:
   | kind of loan                            | owning-a-home/loan-options/                                     | Consumer Financial Protection Bureau           |
   | points | http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html | Consumer Financial Protection Bureau |
   | mortgage insurance | http://www.consumerfinance.gov/askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html | Consumer Financial Protection Bureau |
-  | closing costs | http://www.consumerfinance.gov/askcfpb/139/what-are-closing-costs.html | Consumer Financial Protection Bureau |
+  | closing costs  | http://www.consumerfinance.gov/askcfpb/1845/what-fees-or-charges-are-paid-closing-and-who-pays-them.html | Consumer Financial Protection Bureau |
   | Loan Estimates | http://www.consumerfinance.gov/askcfpb/1995/what-is-a-loan-estimate.html | Consumer Financial Protection Bureau |
 
 @rate_checker
