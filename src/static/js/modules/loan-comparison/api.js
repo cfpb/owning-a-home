@@ -1,11 +1,11 @@
 var $ = jQuery = require('jquery');
 var fetchRates = require('../rates');
 var fetchMortgageInsurance = require('../mortgage-insurance');
+var config = require('../../../../../config/config.json');
 
 var api = {};
 
-api.fetchCounties = function (appState) {
-    //dropdown('input-county').hideLoadingAnimation();
+api.fetchCountyData = function (appState) {
     return $.get(config.countyAPI, {
         state: appState['state']
     });
@@ -36,7 +36,7 @@ function prepBaseLoanData(loan) {
         loan_term: loan['loan-term'],
         loan_type: loan['loan-type'],
         arm_type: loan['arm-type']
-    }  
+    };
 }
 function prepLoanData(loan) {
     var loandata = prepBaseLoanData(loan);

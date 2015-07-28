@@ -24,13 +24,13 @@
       <li class="tab-list active-tab">
         <button class="tab-link tab-link__checklist" data-target="checklist" tabindex="0">
           <span class="cf-icon cf-icon-approved-round"></span>
-          <span class="tab-label">Checklist</span>
+          <span class="tab-label">Check details</span>
         </button>
       </li>
       <li class="tab-list">
         <button class="tab-link tab-link__definitions" data-target="definitions" tabindex="0">
           <span class="cf-icon cf-icon-help-round"></span>
-          <span class="tab-label">Definitions</span>
+          <span class="tab-label">Get definitions</span>
         </button>
       </li>
     </ul>
@@ -45,7 +45,9 @@
         </div>
       </div>
       <figcaption class="terms explain_terms">
-        {{ render_terms( page.terms, loop.index ) }}
+          <div class="expandable-group expandable-group__form-explainer" data-accordion="true">
+              {{ render_terms( page.terms, loop.index ) }}
+          </div>
       </figcaption>
     </figure>
     {% endfor %}

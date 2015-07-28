@@ -15,22 +15,22 @@ class Navigation(Base):
                                          driver, driver_wait, delay_secs)
 
     def click_link(self, link_text):
-        
+
         # this is a temporary fix to catch jump-links on loan options
         # page, since their text is wrapped in a span
         # TODO: consider using ids instead
         xpath_text = "//a[contains(text(),'" + link_text + "')]"
         xpath_span = "//a/span[contains(text(),'" + link_text + "')]/.."
         try:
-          element = self.driver.find_element_by_xpath(xpath_text)
+            element = self.driver.find_element_by_xpath(xpath_text)
         except NoSuchElementException:
-          element = self.driver.find_element_by_xpath(xpath_span)
-          
+            element = self.driver.find_element_by_xpath(xpath_span)
+
         # scroll the element into view so it can be
         # observed with SauceLabs screencast
         script = "arguments[0].scrollIntoView(true);"
         self.driver.execute_script(script, element)
-        
+
         # element.click()
 
         try:
@@ -47,4 +47,4 @@ class Navigation(Base):
         # observed with SauceLabs screencast
         script = "arguments[0].scrollIntoView(true);"
         self.driver.execute_script(script, element)
-        element.click()        
+        element.click()

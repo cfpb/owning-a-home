@@ -95,11 +95,11 @@ var LoanOutputRowPrimaryHeading = React.createClass({
                 </h4>
                 <span className="expandable_header-right expandable_link">
                     <span className="expandable_cue-open">
-                        <span className="u-visually-hidden">Show</span>
+                        <span>Show </span>
                         <span className="cf-icon cf-icon-plus-round"></span>
                     </span>
                     <span className="expandable_cue-close">
-                        <span className="u-visually-hidden">Hide</span>
+                        <span>Hide </span>
                         <span className="cf-icon cf-icon-minus-round"></span>
                     </span>
                 </span>
