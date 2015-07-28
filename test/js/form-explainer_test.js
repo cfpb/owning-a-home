@@ -104,8 +104,15 @@ describe('Form explainer tests', function() {
   });
 
   describe('getPageElements', function() {
-    it('should find and return an object containing the important elements on the page', function() {
-      formExplainer.getPageElements();
+    it('should find and return an object containing the important elements for a given page', function() {
+      var result = formExplainer.getPageElements(1);
+
+      expect(result).to.be.ok();
+      expect(result.$page.selector).to.equal('.explain #explain_page-1');
+      expect(result.$imageMap.selector).to.equal('.explain #explain_page-1 .image-map');
+      expect(result.$imageMapImage.selector).to.equal('.explain #explain_page-1 .image-map_image');
+      expect(result.$imageMapWrapper.selector).to.equal('.explain #explain_page-1 .image-map_wrapper');
+      expect(result.$terms.selector).to.equal('.explain #explain_page-1 .terms');
     });
   });
 
