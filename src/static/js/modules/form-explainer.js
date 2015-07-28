@@ -183,7 +183,7 @@ function paginate( direction ) {
     });
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      formExplainer.formExplainer.getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
+      formExplainer.getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
     // After fading out the current page, fade in the new page.
