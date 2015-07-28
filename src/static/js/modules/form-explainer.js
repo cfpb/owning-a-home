@@ -192,7 +192,7 @@ function paginate( direction ) {
       stickyHack();
       window.clearTimeout( fadeInTimeout );
       if (resized ) {
-        setupImage(newCurrentPage);
+        formExplainer.setupImage(newCurrentPage);
       }
     }, 1050);
   }
@@ -207,7 +207,7 @@ function paginate( direction ) {
   }
 }
 
-function setupImage (pageNum, pageLoad) {
+formExplainer.setupImage = function(pageNum, pageLoad) {
   var pageEls = formExplainer.getPageElements(pageNum);
   if ($WINDOW.width() >= 600) {
     // update widths & stickiness on larger screens
@@ -242,8 +242,8 @@ formExplainer.initForm = function () {
  * @return {null}
  */
 formExplainer.initPage = function (id) {
-  setupImage(id, true);
-  setCategoryPlaceholders(id);
+  formExplainer.setupImage(id, true);
+  formExplainer.setCategoryPlaceholders(id);
 }
 
 /**
@@ -261,7 +261,7 @@ function stickyHack() {
  * Set category placeholders
  * @return {null}
  */
-function setCategoryPlaceholders( id ) {
+formExplainer.setCategoryPlaceholders = function( id ) {
   var $page = formExplainer.getPageEl(id), placeholder;
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
@@ -356,7 +356,7 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(formExplainer.getCurrentPageNum());
+    formExplainer.setupImage(formExplainer.getCurrentPageNum());
     toggleScrollWatch();
   }));
 

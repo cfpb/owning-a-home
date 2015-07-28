@@ -69,13 +69,18 @@ describe('Form explainer tests', function() {
       formExplainer.initForm();
 
       expect(formExplainer.initPage).to.have.been.calledOnce;
-
     })
   });
 
   describe('initPage', function() {
-    it('init the page', function () {
-      formExplainer.initPage();
+    it('initialize a page, set up the image, and set categories', function () {
+      var setupImageStub = sandbox.stub(formExplainer, 'setupImage');
+      var setCategoryPlaceholdersStub = sandbox.stub(formExplainer, 'setCategoryPlaceholders');
+
+      formExplainer.initPage(1);
+
+      expect(formExplainer.setupImageStub).to.have.been.calledOnce;
+      expect(formExplainer.setCategoryPlaceholdersStub).to.have.been.calledOnce;
     })
   });
 
@@ -92,7 +97,9 @@ describe('Form explainer tests', function() {
 
   describe('getPageEl', function() {
     it('should find the DOM element for the specified form page number', function() {
-      formExplainer.getPageEl();
+      var result = formExplainer.getPageEl(1);
+      expect(result).to.be.ok();
+      expect(result.selector).to.equal('.explain #explain_page-1');
     });
   });
 
