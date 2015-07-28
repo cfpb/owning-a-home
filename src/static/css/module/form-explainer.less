@@ -51,6 +51,7 @@
     &:focus,
     &.has-attention  {
         border-color: @gold-80;
+        background: rgba(255,147,27,0.5);
     }
     &:focus {
         outline: 1px dotted @gold;
@@ -130,12 +131,25 @@
 }
 
 .expandable-group .expandable__form-explainer-checklist {
-    &,
-    &:hover,
-    &.expandable__expanded,
-    &.has-attention {
+    & {
         background: @gold-20;
     }
+    &:hover,
+    &.has-attention {
+        .expandable_header {
+            background: rgb(255,177,73);
+        }
+        &.expandable__expanded {
+
+            border: 3px solid;
+            border-color: rgb(255,177,73);
+        } 
+        .expandable_category:before {
+            content: "\e101"; // .cf-icon-approved-round
+            color: @black;
+        }              
+    }
+
     .expandable_category:before {
         content: "\e101"; // .cf-icon-approved-round
         color: @gold-80;
