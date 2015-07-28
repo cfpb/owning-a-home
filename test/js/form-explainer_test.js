@@ -47,10 +47,5 @@ describe('Form explainer tests', function() {
     })
   });
 
-  describe('getCurrentPageNum', function() {
-    it('should get the number from the currently displayed form page', function() {
-
-    });
-  });
 
 });
