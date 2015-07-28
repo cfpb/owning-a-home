@@ -30,16 +30,19 @@ var stickBottom = 'js-sticky-bottom';
  * Grabs the number from the currently displayed .explain_page element ID.
  * @return {number}
  */
-formExplainer.getCurrentPageNum = function() {
-  return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
+formExplainer.getCurrentPageNum = function(element) {
+  if (element === undefined) {
+    element = $WRAPPER;
+  }
+  return parseInt( element.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
 };
 
-function getPageEl (pageNum) {
+formExplainer.getPageEl = function(pageNum) {
   return $WRAPPER.find('#explain_page-' + pageNum);
 }
 
-function getPageElements (pageNum) {
-  var $page = getPageEl(pageNum);
+formExplainer.getPageElements = function(pageNum) {
+  var $page = formExplainer.getPageEl(pageNum);
   return {
     $page:             $page,
     $imageMap:         $page.find('.image-map'),
@@ -150,7 +153,7 @@ function fitAndStickToWindow(els, pageNum) {
  * @return {null}
  */
 function updateStickiness() {
-  var els =  getPageElements(formExplainer.getCurrentPageNum());
+  var els =  formExplainer.getPageElements(formExplainer.getCurrentPageNum());
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
   if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
@@ -180,12 +183,12 @@ function paginate( direction ) {
     });
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
+      formExplainer.formExplainer.getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
     // After fading out the current page, fade in the new page.
     var fadeInTimeout = window.setTimeout(function () {
-      getPageEl(newCurrentPage).fadeIn( 700 );
+      formExplainer.getPageEl(newCurrentPage).fadeIn( 700 );
       stickyHack();
       window.clearTimeout( fadeInTimeout );
       if (resized ) {
@@ -205,7 +208,7 @@ function paginate( direction ) {
 }
 
 function setupImage (pageNum, pageLoad) {
-  var pageEls = getPageElements(pageNum);
+  var pageEls = formExplainer.getPageElements(pageNum);
   if ($WINDOW.width() >= 600) {
     // update widths & stickiness on larger screens
     // we only pass in the pageNum on pageLoad, when
@@ -259,7 +262,7 @@ function stickyHack() {
  * @return {null}
  */
 function setCategoryPlaceholders( id ) {
-  var $page = getPageEl(id), placeholder;
+  var $page = formExplainer.getPageEl(id), placeholder;
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
     if (!categoryHasContent($page, category)) {
