@@ -1,105 +1,88 @@
-{% extends "layout-2-1-bleedbar.html" %}
+{% extends "base.html" %} {% block title %}Know before you owe: Questions about your Loan Estimate &gt; Consumer Financial Protection Bureau{% endblock title %} {% block content %}
+<main class="content content__2-1 content__bleedbar" id="main" role="main">
+  <section class="content_hero">
+    <!-- BACKGROUND IMAGE FOR THE HERO -->
+    <div id="hero-bg-image"></div>
+    <!-- HERO -->
+    <div class="content_wrapper content_no-sidebar">
+      <section class="content_main">
+        <h1>Questions about your Loan Estimate?</h1>
+        <h2>We can help. Explore our tips and resources below to make sure you're getting a mortgage that's right for you.</h2>
+      </section>
+    </div>
+  </section>
+  <!-- .content_hero -->
+  <div class="content_wrapper">
+    <section class="content_main">
+      <h2>What to do now</h2>
+      <h3 class="h4 u-mb5">Get more than one Loan Estimate</h3>
+      <p>It’s hard to know if you’re getting a good deal on your loan if you don’t have anything to compare it to. By getting Loan Estimates from more than one lender, you can compare your options and choose the best one.</p>
+      <p>
+        <a href="/owning-a-home/loan-options/compare/" class="icon-link icon-link__right">
+          <span class="icon-link_text">Shop for multiple Loan Estimates</span>
+        </a>
+      </p>
+      <h3 class="h4 u-mb5 u-mt45">Review your Loan Estimate</h3>
+      <p>Learn what to look out for, and what details to double check. We've also got definitions for unfamiliar </p>
+      <p>
+        <a href="/owning-a-home/form-explainer/" class="icon-link icon-link__right">
+          <span class="icon-link_text">Explore our Loan Estimate explainer</span>
+        </a>
+      </p>
+      <h3 class="h4 u-mb5 u-mt45">Explore interest rates</h3>
+      <p>We also have tools that can help you get a better sense of the range of interest rates you should expect and how your overall costs might change with different loan options. </p>
+      <p>
+        <a href="/owning-a-home/check-rates/" class="icon-link icon-link__right">
+          <span class="icon-link_text">Explore current interest rates</span>
+        </a>
+      </p>
+      <h2 class="u-mt60">What happens next</h2>
+      <h3 class="h4 u-mb5">You’re in control</h3>
+      <p>Once you’re ready, you need tell the lender you want to proceed with a particular loan offer. At that point, the lender will typically charge you an application and appraisal fee and request additional documentation like income statements and a list of assets. If you think you might need more than 10 days to decide to proceed with a loan offer, it’s a good idea to advise the loan officer so they don't close your loan application.</p>
+      <p>
+        <a href="#" class="icon-link icon-link__right">
+          <span class="icon-link_text">Learn more about intent to proceed</span>
+        </a>
+      </p>
+      <h3 class="h4 u-mb5 u-mt45">You might receive revised Loan Estimates if important numbers change</h3>
+      <p>If there are changes in your application—including your loan amount, credit score, or verified income—your rate and terms will probably change too. In those situations, the lender will give you a revised Loan Estimate. If your Loan Estimate is revised you should look it over to see what changed. Ask your lender: “Can you explain why I received a new Loan Estimate?” and “How is my loan transaction different from what I was originally expecting?”</p>
+      <p>
+        <a href="#" class="icon-link icon-link__right">
+          <span class="icon-link_text">Learn more about receiving a revised Loan Estimate</span>
+        </a>
+      </p>
+    </section>
+    <!-- .content_main -->
+    <aside class="content_sidebar">
+      <!-- STAY TUNED -->
+      <section class="block u-mt0">
+        <header class="tabbed-header tabbed-pad-top">
+          <h3 class="subhead tabbed-heading">Related questions</h3>
+        </header>
+        <p><a href="/askcfpb/145/what-happens-after-i-apply-for-a-mortgage.html">What happens after I apply for a mortgage?</a></p>
+        <p><a href="/askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html">How do mortgage lenders calculate monthly payments?</a></p>
+        <p><a href="/askcfpb/1943/how-does-paying-down-a-mortgage-work.html">How does paying down a mortgage work?</a></p>
+        <p><a href="/askcfpb/343/mortgage-lender-gave-me-a-higher-interest-rate-than-i-should-have-gotten-based-on-my-creditworthiness-what-can-i-do-if-i-think-the-lender-discriminated-against-me.html">What can I do if I think the lender discriminated against me?</a></p>
+        <p><a href="/askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html">What is a Good Faith Estimate (GFE)?</a></p>
+        <p><a href="/askcfpb/search/?selected_facets=category_exact:mortgages">Other questions about the mortgage process?</a></p>
+      </section>
+      <section class="block u-mt0">
+        <header class="tabbed-header tabbed-pad-top">
+          <h3 class="subhead tabbed-heading">Additional Resources</h3>
+        </header>
+        <p><a href="/owning-a-home/loan-options/">Compare loan options</a></p>
+        <p><a href="/owning-a-home/">More tools and resources for home buyers</a></p>
+        <p><a href="/complaint/#mortgage">Submit a complaint about your mortgage experience</a></p>
+      </section>
+    </aside>
+    <!-- .content_sidebar -->
+  </div>
+</main>
 
-{% set baseurl = "/know-before-you-owe" %}
-
-{% block content_modifiers -%}
-    {{ super() }} owning-a-home mortgage-estimate
-{%- endblock %}
-
-
-{% block title %}Know before you owe: Questions about your Loan Estimate &gt; Consumer Financial Protection Bureau{% endblock %}
-
-
-{% block desc %}{% endblock %}
-
-
-{% block hero %}
-
-    <section class="hero">
-
-        <div class="wrapper">
-
-            <div class="content_intro">
-
-                <div class="grid_nested-col-group">
-
-                    <div class="hero_content">
-
-                        <h1 class="hero_heading">Questions about your Loan Estimate?</h1>
-                        <p class="hero_subhead">
-                            We can help. Explore our tips and resources below to make sure you're getting a mortgage that's right for you.
-                        </p>
-
-                    </div><!-- /.grid_col-8 -->
-
-                    <div class="hero_image">
-
-                    </div><!-- /.grid_col-4 -->
-
-                </div>
-
-            </div><!-- /.content_intro -->
-
-        </div><!-- /.wrapper -->
-
-    </section><!-- /.hero -->
-
+<script type="text/javascript">
+// $(function(){
+  document.getElementById('primary-content').className += ' index';
+// });
+</script>
 
 {% endblock %}
-
-
-{% block content_main scoped %}
-
-    <h2 class="first-content-main-heading">What to do now</h2>
-
-    <h3 class="h4 u-mb5">Get more than one Loan Estimate</h3>
-    <p>It’s hard to know if you’re getting a good deal on your loan if you don’t have anything to compare it to. By getting Loan Estimates from more than one lender, you can compare your options and choose the best one.</p>
-    <p><a href="/owning-a-home/loan-options/compare/" class="icon-link icon-link__right"><span class="icon-link_text">Shop for multiple Loan Estimates</span></a></p>
-
-    <h3 class="h4 u-mb5 u-mt45">Review your Loan Estimate</h3>
-    <p>Learn what to look out for, and what details to double check. We've also got definitions for unfamiliar </p>
-    <p><a href="/owning-a-home/form-explainer/" class="icon-link icon-link__right"><span class="icon-link_text">Explore our Loan Estimate explainer</span></a></p>
-
-    <h3 class="h4 u-mb5 u-mt45">Explore interest rates</h3>
-    <p>We also have tools that can help you get a better sense of the range of interest rates you should expect and how your overall costs might change with different loan options. </p>
-    <p><a href="/owning-a-home/check-rates/" class="icon-link icon-link__right"><span class="icon-link_text">Explore current interest rates</span></a></p>
-
-    <h2 class="u-mt60">What happens next</h2>
-
-    <h3 class="h4 u-mb5">You’re in control</h3>
-    <p>Once you’re ready, you need tell the lender you want to proceed with a particular loan offer. At that point, the lender will typically charge you an application and appraisal fee and request additional documentation like income statements and a list of assets. If you think you might need more than 10 days to decide to proceed with a loan offer, it’s a good idea to advise the loan officer so they don't close your loan application.</p>
-    <p><a href="#" class="icon-link icon-link__right"><span class="icon-link_text">Learn more about intent to proceed</span></a></p>
-
-    <h3 class="h4 u-mb5 u-mt45">You might receive revised Loan Estimates if important numbers change</h3>
-    <p>If there are changes in your application—including your loan amount, credit score, or verified income—your rate and terms will probably change too. In those situations, the lender will give you a revised Loan Estimate. If your Loan Estimate is revised you should look it over to see what changed. Ask your lender: “Can you explain why I received a new Loan Estimate?” and “How is my loan transaction different from what I was originally expecting?”</p>
-    <p><a href="#" class="icon-link icon-link__right"><span class="icon-link_text">Learn more about receiving a revised Loan Estimate</span></a></p>
-
-{% endblock %}
-
-
-{% block content_sidebar %}
-
-    <h4 class="header-slug first-conent-sidebar-heading">
-        <span class="header-slug_inner">
-            Related questions
-        </span>
-    </h4>
-
-    <p><a href="/askcfpb/145/what-happens-after-i-apply-for-a-mortgage.html">What happens after I apply for a mortgage?</a></p>
-    <p><a href="/askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html">How do mortgage lenders calculate monthly payments?</a></p>
-    <p><a href="/askcfpb/1943/how-does-paying-down-a-mortgage-work.html">How does paying down a mortgage work?</a></p>
-    <p><a href="/askcfpb/343/mortgage-lender-gave-me-a-higher-interest-rate-than-i-should-have-gotten-based-on-my-creditworthiness-what-can-i-do-if-i-think-the-lender-discriminated-against-me.html">What can I do if I think the lender discriminated against me?</a></p>
-    <p><a href="/askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html">What is a Good Faith Estimate (GFE)?</a></p>
-    <p><a href="/askcfpb/search/?selected_facets=category_exact:mortgages">Other questions about the mortgage process?</a></p>
-
-    <h4 class="header-slug u-mt90">
-        <span class="header-slug_inner">
-            Additional Resources
-        </span>
-    </h4>
-
-    <p><a href="/owning-a-home/loan-options/">Compare loan options</a></p>
-    <p><a href="/owning-a-home/">More tools and resources for home buyers</a></p>
-    <p><a href="/complaint/#mortgage">Submit a complaint about your mortgage experience</a></p>
-
-{%- endblock %}
