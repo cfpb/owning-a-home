@@ -75,6 +75,7 @@
     &:focus,
     &.has-attention  {
         border-color: @navy-80;
+        background: rgba(0,45,114,0.5);
     }
     &:focus {
         outline: 1px dotted @navy;
@@ -133,17 +134,18 @@
 .expandable-group .expandable__form-explainer-checklist {
     & {
         background: @gold-20;
+        border: 3px solid;
+        border-color: @gold-20;
     }
     &:hover,
     &.has-attention {
+        & {
+            border-color: rgb(255,177,73);
+        }
         .expandable_header {
             background: rgb(255,177,73);
         }
-        &.expandable__expanded {
 
-            border: 3px solid;
-            border-color: rgb(255,177,73);
-        } 
         .expandable_category:before {
             content: "\e101"; // .cf-icon-approved-round
             color: @black;
@@ -176,11 +178,27 @@
 }
 
 .expandable-group .expandable__form-explainer-definitions {
-    &,
-    &:hover,
-    &.expandable__expanded,
-    &.has-attention {
+
+    & {
         background: @navy-20;
+        border: 3px solid;
+        border-color: @navy-20;
+    }
+    &:hover,
+    &.has-attention {
+
+        & {
+            border-color: rgb(127,150,184);
+        }
+
+        .expandable_header {
+            background: rgb(127,150,184);
+        }
+
+        .expandable_category:before {
+            content: "\e105"; // .cf-icon-help-round
+            color: @black;
+        }
     }
     .expandable_category:before {
         content: "\e105"; // .cf-icon-help-round
