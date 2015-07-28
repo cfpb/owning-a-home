@@ -1,11 +1,13 @@
 var $ = require('jquery');
-require('sticky');
-require('jquery-easing');
+var sticky = require('../../vendor/sticky/jquery.sticky.js');
+require('../../vendor/jquery.easing/jquery.easing.js');
 require('jquery.scrollto');
-require('cf-expandables');
+require('../../vendor/cf-expandables/cf-expandables.js');
 require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
+
+var formExplainer = {};
 
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
@@ -28,9 +30,9 @@ var stickBottom = 'js-sticky-bottom';
  * Grabs the number from the currently displayed .explain_page element ID.
  * @return {number}
  */
-function getCurrentPageNum() {
+formExplainer.getCurrentPageNum = function() {
   return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
-}
+};
 
 function getPageEl (pageNum) {
   return $WRAPPER.find('#explain_page-' + pageNum);
@@ -62,7 +64,7 @@ function resizeImage (els, windowResize) {
   var windowHeight = $WINDOW.innerHeight() - 60;
   var newWidth;
   var newWidthPercentage;
-  
+
   // If the image is too tall for the window, resize it proportionally,
   // then update the adjacent terms column width to fit.
   // On window resize, also check if image is now too small & resize,
@@ -118,13 +120,13 @@ function fitAndStickToWindow(els, pageNum) {
       if (pageNum) {
         storeImageDimensions(els.$imageMapImage);
       }
-      
+
       // if image is too tall/small, fit it to window dimensions
       resizeImage(els, !pageNum);
-     
+
       // set width values on image elements
       setImageElementWidths(els);
-      
+
       if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
         stickImage(els.$imageMapWrapper);
@@ -148,7 +150,7 @@ function fitAndStickToWindow(els, pageNum) {
  * @return {null}
  */
 function updateStickiness() {
-  var els =  getPageElements(getCurrentPageNum());
+  var els =  getPageElements(formExplainer.getCurrentPageNum());
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
   if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
@@ -162,7 +164,7 @@ function updateStickiness() {
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = getCurrentPageNum(), newCurrentPage;
+  var currentPage = formExplainer.getCurrentPageNum(), newCurrentPage;
   if ( direction === 'next' ) {
     newCurrentPage = currentPage + 1;
   } else if ( direction === 'prev' ) {
@@ -178,7 +180,7 @@ function paginate( direction ) {
     });
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(getCurrentPageNum()).fadeOut( 450 );
+      getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
     // After fading out the current page, fade in the new page.
@@ -224,11 +226,11 @@ function setupImage (pageNum, pageLoad) {
   }
 }
 
-function initForm () {
+formExplainer.initForm = function () {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
   $WRAPPER.find('.explain_page').each(function( index ) {
-    initPage(index + 1);
+    formExplainer.initPage(index + 1);
   });
 }
 
@@ -236,7 +238,7 @@ function initForm () {
  * Initialize a page.
  * @return {null}
  */
-function initPage(id) {
+formExplainer.initPage = function (id) {
   setupImage(id, true);
   setCategoryPlaceholders(id);
 }
@@ -288,7 +290,7 @@ function filterExplainers ($currentTab, type) {
     // Update the tab state
     $('.explain_tabs .tab-list').removeClass('active-tab');
     $currentTab.addClass('active-tab');
-    
+
     // Filter the expandables
     $WRAPPER.find('.expandable__form-explainer').hide();
     $WRAPPER.find('.image-map_overlay').hide();
@@ -319,23 +321,23 @@ $(document).ready(function(){
   $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
 
   // set up the form pages for display
-  initForm();
-  
+  formExplainer.initForm();
+
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
-  
+
   // add scroll listener for larger windows
   toggleScrollWatch();
 
   // set tabindex for links in expandables content
   addTabindex();
-  
+
   // add resize listener
   var prevWindowWidth = $WINDOW.width();
   var prevWindowHeight = $WINDOW.height();
   var isIE = $('html').hasClass('lt-ie9');
-  
-  $(window).on("resize",debounce(function(){ 
+
+  $(window).on("resize",debounce(function(){
     //resize things
     // apparently IE fires a window resize event when anything in the page
     // resizes, so for IE we need to check that the window dimensions have
@@ -351,7 +353,7 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(getCurrentPageNum());
+    setupImage(formExplainer.getCurrentPageNum());
     toggleScrollWatch();
   }));
 
@@ -371,9 +373,9 @@ $(document).ready(function(){
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
     var $selectedTab = $(this);
     var explainerType = $selectedTab.find('[data-target]').data('target');
-    
+
     filterExplainers($selectedTab, explainerType);
-    
+
     $.scrollTo( $TABS, {
       duration: 200,
       offset: -30
@@ -423,3 +425,5 @@ $(document).ready(function(){
   });
 
 });
+
+module.exports = formExplainer;
