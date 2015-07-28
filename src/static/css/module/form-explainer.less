@@ -292,6 +292,11 @@
       display: block;
       padding: 0 @grid_gutter-width/2;
       cursor: pointer;
+      .respond-to-min(600px, {
+          padding: 0;
+          border-bottom-width: 1px;
+          margin: 0 @grid_gutter-width/2;
+      });
       
       &.current-page {
         &,
@@ -299,6 +304,7 @@
         &:hover,
         &:active {
           color: @black;
+          border-bottom-width: 0;
         }
         
       }
