@@ -11,7 +11,6 @@ var NextSteps = React.createClass({
             <div className="next-steps-container">
                 <div className="content-l content-l__main">
                     <div className="content-l_col content-l_col-1">
-                        <h2 className="u-mb-0">Next steps</h2>
                         <div id="next-steps">
                             <div className="step-block">
                                 <h3 className="h4">Print your information</h3>
