@@ -52,12 +52,12 @@ formExplainer.getPageElements = function(pageNum) {
   }
 }
 
-function calculateNewImageWidth (imageWidth, imageHeight) {
+formExplainer.calculateNewImageWidth = function(imageWidth, imageHeight, windowHeight) {
   var imageMapImageRatio = (imageWidth + 2) / (imageHeight + 2);
-  return ($WINDOW.height() - 60) * imageMapImageRatio + 30;
+  return (windowHeight - 60) * imageMapImageRatio + 30;
 }
 
-function resizeImage (els, windowResize) {
+formExplainer.resizeImage = function(els, windowResize) {
   var pageWidth = els.$page.width();
   var $image = els.$imageMapImage;
   var currentHeight = $image.height();
@@ -74,7 +74,7 @@ function resizeImage (els, windowResize) {
   // but only if we've stored the actual image dimensions for comparison.
   if ( currentHeight > windowHeight || (windowResize && actualWidth && actualHeight)) {
     // determine new width
-    newWidth = calculateNewImageWidth(currentWidth, currentHeight);
+    newWidth = formExplainer.calculateNewImageWidth(currentWidth, currentHeight, $WINDOW.height());
     if (newWidth > actualWidth) {
       newWidth = actualWidth;
     }
@@ -91,7 +91,7 @@ function resizeImage (els, windowResize) {
   }
 }
 
-function setImageElementWidths (els) {
+formExplainer.setImageElementWidths = function(els) {
   // When the sticky plugin is applied to the image, it adds position fixed,
   // and the image's width is no longer constrained to its parent.
   // To fix this we will give it its own width that is equal to the parent.
@@ -101,12 +101,12 @@ function setImageElementWidths (els) {
   els.$imageMapImage.width(containerWidth);
 }
 
-function storeImageDimensions ($image) {
+formExplainer.storeImageDimensions = function($image) {
   $image.data('actual-width', $image.width());
   $image.data('actual-height', $image.height());
 }
 
-function stickImage($el) {
+formExplainer.stickImage = function($el) {
   $el.sticky({ topSpacing: 30 });
 }
 
@@ -115,26 +115,26 @@ function stickImage($el) {
  * columns to match.
  * @return {null}
  */
-function fitAndStickToWindow(els, pageNum) {
+formExplainer.fitAndStickToWindow = function(els, pageNum) {
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
     .load( function() {
       // store image width for use in calculations on window resize
       if (pageNum) {
-        storeImageDimensions(els.$imageMapImage);
+        formExplainer.storeImageDimensions(els.$imageMapImage);
       }
 
       // if image is too tall/small, fit it to window dimensions
-      resizeImage(els, !pageNum);
+      formExplainer.resizeImage(els, !pageNum);
 
       // set width values on image elements
-      setImageElementWidths(els);
+      formExplainer.setImageElementWidths(els);
 
       if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
-        stickImage(els.$imageMapWrapper);
+        formExplainer.stickImage(els.$imageMapWrapper);
       } else {
-        updateStickiness()
+        formExplainer.updateStickiness(formExplainer.getPageElements(formExplainer.getCurrentPageNum($WRAPPER)));
       }
       // hide pages except for first
       if (pageNum > 1) {
@@ -152,8 +152,7 @@ function fitAndStickToWindow(els, pageNum) {
  * the sticky element does not overlap content that comes after $currentPage.
  * @return {null}
  */
-function updateStickiness() {
-  var els =  formExplainer.getPageElements(formExplainer.getCurrentPageNum());
+formExplainer.updateStickiness = function(els) {
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
   if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
@@ -214,7 +213,7 @@ formExplainer.setupImage = function(pageNum, pageLoad) {
     // we only pass in the pageNum on pageLoad, when
     // pages after the first will be hidden once they're
     // fully loaded & we've calculated their widths
-    fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
+    formExplainer.fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
   } else if (!pageLoad) {
     // if this is called on screen resize instead of page load,
     // remove width values & call unstick on the imageWrapper
@@ -304,7 +303,10 @@ function filterExplainers ($currentTab, type) {
 function toggleScrollWatch() {
   $WINDOW.off('scroll.stickiness');
   if ($WINDOW.width() >= 600) {
-    $WINDOW.on('scroll.stickiness', debounce(updateStickiness, 20));
+    $WINDOW.on('scroll.stickiness', debounce(
+      formExplainer.updateStickiness(
+        formExplainer.getPageElements(formExplainer.getCurrentPageNum($WRAPPER))),
+      20));
   }
 }
 
