@@ -84,6 +84,23 @@ var App = React.createClass({
             positionNotes();
         }
     },
+    
+    startMobileEditing: function (loanName) {
+        // We use the alphabetical loan name instead of loan id to keep track
+        // of loan being edited for a couple of reasons: 
+        // 1. Testing for existence of 0 as a value is complicated, &
+        // 2. We need to show the name of the loan being edited in the input table section
+        this.setState({
+            editing: loanName
+        });
+    },
+    
+    stopMobileEditing: function (e) {
+        e.preventDefault();
+        this.setState({
+            editing: null
+        });
+    },
 
     render: function() {
         return (
@@ -95,14 +112,8 @@ var App = React.createClass({
                     <ScenarioHeader scenario={this.state.scenario}/>
                     <div className="content-l">
                         <div className="content-l_col content-l_col-3-4">
-                            <LoanOutputTableMobileGroup loans={this.state.loans} scenario={this.state.scenario} />
-                            <div className="lc-inputs" id="loan-input-container">
-                                <a href="#lc-input-0" className="lc-save-link lc-toggle first-save">
-                                    <span className="cf-icon cf-icon-save"></span> 
-                                    Save inputs
-                                </a>
-                                <LoanInputTable loans={this.state.loans} scenario={this.state.scenario}/>
-                            </div>
+                            <LoanOutputTableMobileGroup loans={this.state.loans} editing={this.state.editing} scenario={this.state.scenario} startEditing={this.startMobileEditing}/>
+                            <LoanInputTable loans={this.state.loans} scenario={this.state.scenario} editing={this.state.editing} stopEditing={this.stopMobileEditing}/>
                         </div>
                     </div>
                 </div>
