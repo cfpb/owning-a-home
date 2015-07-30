@@ -113,7 +113,6 @@ function fitAndStickToWindow(els, pageNum) {
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
     .on('load', function() {
-        console.log('load')
       // store image width for use in calculations on window resize
       if (pageNum) {
         storeImageDimensions(els.$imageMapImage);
