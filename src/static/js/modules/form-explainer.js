@@ -7,9 +7,12 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
+var formExplainer = {};
+
 var formExplainer = {
     pageCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    pageName: 'form'
 };
 
 // Constants. These variables should not change.
@@ -272,21 +275,18 @@ function setCategoryPlaceholders( id ) {
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
     if (!categoryHasContent($page, category)) {
-      placeholder = generatePlaceholderHtml(category);
+      placeholder = formExplainer.generatePlaceholderHtml(category);
       $page.find('.explain_terms').append(placeholder);
     }
   }
 }
 
-function generatePlaceholderHtml (category) {
-  return '' +
-  '<div class="expandable expandable__padded expandable__form-explainer ' +
+formExplainer.generatePlaceholderHtml = function (category) {
+  return '<div class="expandable expandable__padded expandable__form-explainer ' +
               'expandable__form-explainer-' + category + ' ' +
               'expandable__form-explainer-placeholder">' +
     '<span class="expandable_header">' +
-      'No ' + category + ' on this page. ' +
-      'Filter by another category above or page ahead to continue exploring ' +
-      category + '.' +
+      'Click on "Get Definitions" above or page ahead to continue checking your ' + this.pageName + '.' +
     '</span>' +
   '</div>';
 }
@@ -441,5 +441,7 @@ $(document).ready(function(){
   });
 
 });
+
+
 
 module.exports = formExplainer;
