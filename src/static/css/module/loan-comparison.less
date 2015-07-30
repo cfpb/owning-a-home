@@ -151,35 +151,6 @@
   }
 });
 
-.interest-rate-container {
-  .interest-rate-update,
-  .interest-rate-loading {
-    display: none;
-  }
-  &.update .interest-rate-update {
-    width: 100%;
-    display: block;
-    animation: fadein .5s;
-  }
-
-  &.updating .interest-rate-loading {
-    display: block;
-    width: 100%;
-    margin-left: 0;
-    height: 2em;
-    background-image: url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif);
-    background-attachment: scroll;
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
-  &.update,
-  &.updating {
-    .select-content {
-      display: none;
-    }
-  }
-  
-}
 
 /*
   Loan Comparison Inputs
@@ -216,6 +187,33 @@
     .respond-to-min(@tablet-min, {
       padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
     });
+  }
+  
+  .interest-rate-update,
+  .interest-rate-loading {
+    display: none;
+  }
+  .update .interest-rate-update {
+    width: 100%;
+    display: block;
+    animation: fadein .5s;
+  }
+
+  .updating .interest-rate-loading {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    height: 2em;
+    background-image: url(http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif);
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  .update,
+  .updating {
+    .select-content {
+      display: none;
+    }
   }
 }
 
