@@ -84,17 +84,6 @@ describe('Form explainer tests', function() {
     })
   });
 
-  describe('getCurrentPageNum', function() {
-    it('should get the number from the currently displayed form page', function() {
-      var $WRAPPER = $('.explain');
-      var result = formExplainer.getCurrentPageNum($WRAPPER);
-
-      expect(result).to.be.ok();
-      expect(result).to.equal(1);
-      expect(result).to.be.a('number');
-    });
-  });
-
   describe('getPageEl', function() {
     it('should find the DOM element for the specified form page number', function() {
       var result = formExplainer.getPageEl(1);

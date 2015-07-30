@@ -9,6 +9,12 @@ var debounce = require('debounce');
 
 var formExplainer = {};
 
+var formExplainer = {
+    pageCount: 0,
+    currentPage: 1,
+    pageName: 'form'
+};
+
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
 
@@ -24,18 +30,6 @@ var $INITIAL_TAB;
 var resized;
 
 var stickBottom = 'js-sticky-bottom';
-
-/**
- * Get the currently displayed form page as a number.
- * Grabs the number from the currently displayed .explain_page element ID.
- * @return {number}
- */
-formExplainer.getCurrentPageNum = function(element) {
-  if (element === undefined) {
-    element = $WRAPPER;
-  }
-  return parseInt( element.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
-};
 
 formExplainer.getPageEl = function(pageNum) {
   return $WRAPPER.find('#explain_page-' + pageNum);
@@ -134,7 +128,7 @@ formExplainer.fitAndStickToWindow = function(els, pageNum) {
         // stick image to window
         formExplainer.stickImage(els.$imageMapWrapper);
       } else {
-        formExplainer.updateStickiness(formExplainer.getPageElements(formExplainer.getCurrentPageNum($WRAPPER)));
+        formExplainer.updateStickiness(formExplainer.getPageElements(pageNum));
       }
       // hide pages except for first
       if (pageNum > 1) {
@@ -166,44 +160,52 @@ formExplainer.updateStickiness = function(els) {
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = formExplainer.getCurrentPageNum(), newCurrentPage;
-  if ( direction === 'next' ) {
-    newCurrentPage = currentPage + 1;
-  } else if ( direction === 'prev' ) {
-    newCurrentPage = currentPage - 1;
-  }
+  var currentPage = formExplainer.currentPage,
+      increment = direction === 'next' ? 1 : -1,
+      newPage = currentPage + increment;
+
   // Move to the next or previous page if it's not the first or last page.
-  if ( direction === 'next' && newCurrentPage <= TOTAL ||
-       direction === 'prev' && newCurrentPage >= 1 ) {
+  if ( direction === 'next' && newPage <= formExplainer.pageCount ||
+       direction === 'prev' && newPage >= 1 ) {
+    loadPage(currentPage, newPage);
+  }
+}
+
+function loadPage (lastPage, pageNum) {
+    formExplainer.currentPage = pageNum;
+    $('.form-explainer_page-link').removeClass('current-page');
+    $('.form-explainer_page-link[data-page=' + pageNum + ']').addClass('current-page');
+
     // Scroll the window up to the tabs.
-    $.scrollTo( $TABS, {
+    $.scrollTo( $('.explain_pagination'), {
       duration: 600,
       offset: -30
     });
+
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      formExplainer.getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
+      formExplainer.getPageEl(lastPage).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
+
     // After fading out the current page, fade in the new page.
     var fadeInTimeout = window.setTimeout(function () {
-      formExplainer.getPageEl(newCurrentPage).fadeIn( 700 );
+      formExplainer.getPageEl(pageNum).fadeIn( 700 );
       stickyHack();
       window.clearTimeout( fadeInTimeout );
       if (resized ) {
-        formExplainer.setupImage(newCurrentPage);
+        formExplainer.setupImage(pageNum);
       }
+      // update paging buttons
+      if (formExplainer.pageCount > 1) {
+            $('.form-explainer_page-buttons button').removeClass('btn__disabled');
+            if (pageNum === 1) {
+              $('.form-explainer_page-buttons .prev').addClass('btn__disabled');
+            } else if (pageNum === formExplainer.pageCount) {
+              $('.form-explainer_page-buttons .next').addClass('btn__disabled');
+            }
+        }
     }, 1050);
-  }
-  // Update the pagination numbers.
-  $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
-  // Update the previous/next buttons if the new page is the first or last.
-  $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
-  if ( newCurrentPage === 1 ) {
-    $WRAPPER.find('.explain_pagination .pagination_prev').addClass('btn__disabled');
-  } else if ( newCurrentPage === TOTAL ) {
-    $WRAPPER.find('.explain_pagination .pagination_next').addClass('btn__disabled');
-  }
 }
 
 formExplainer.setupImage = function(pageNum, pageLoad) {
@@ -231,9 +233,15 @@ formExplainer.setupImage = function(pageNum, pageLoad) {
 formExplainer.initForm = function () {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
-  $WRAPPER.find('.explain_page').each(function( index ) {
-    formExplainer.initPage(index + 1);
-  });
+
+  var $pages = $WRAPPER.find('.explain_page');
+    formExplainer.pageCount = $pages.length;
+    if (formExplainer.pageCount <= 1) {
+        $('.form-explainer_page-buttons').hide();
+    }
+    $pages.each(function( index ) {
+      formExplainer.initPage(index + 1);
+    });
 }
 
 /**
@@ -265,21 +273,18 @@ formExplainer.setCategoryPlaceholders = function( id ) {
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
     if (!categoryHasContent($page, category)) {
-      placeholder = generatePlaceholderHtml(category);
+      placeholder = formExplainer.generatePlaceholderHtml(category);
       $page.find('.explain_terms').append(placeholder);
     }
   }
 }
 
-function generatePlaceholderHtml (category) {
-  return '' +
-  '<div class="expandable expandable__padded expandable__form-explainer ' +
+formExplainer.generatePlaceholderHtml = function (category) {
+  return '<div class="expandable expandable__padded expandable__form-explainer ' +
               'expandable__form-explainer-' + category + ' ' +
               'expandable__form-explainer-placeholder">' +
     '<span class="expandable_header">' +
-      'No ' + category + ' on this page. ' +
-      'Filter by another category above or page ahead to continue exploring ' +
-      category + '.' +
+      'Click on "Get Definitions" above or page ahead to continue checking your ' + this.pageName + '.' +
     '</span>' +
   '</div>';
 }
@@ -304,9 +309,7 @@ function toggleScrollWatch() {
   $WINDOW.off('scroll.stickiness');
   if ($WINDOW.width() >= 600) {
     $WINDOW.on('scroll.stickiness', debounce(
-      formExplainer.updateStickiness(
-        formExplainer.getPageElements(formExplainer.getCurrentPageNum($WRAPPER))),
-      20));
+      formExplainer.updateStickiness(formExplainer.getPageElements(pageNum)), 20));
   }
 }
 
@@ -358,21 +361,28 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    formExplainer.setupImage(formExplainer.getCurrentPageNum());
+    formExplainer.setupImage(formExplainer.currentPage);
     toggleScrollWatch();
   }));
 
   // Pagination events
-  $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('next');
-    }
-  });
-  $WRAPPER.find( '.explain_pagination .pagination_prev' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('prev');
-    }
-  });
+   $WRAPPER.find( '.form-explainer_page-buttons button' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget );
+     if ( !$target.hasClass('btn__disabled') ) {
+         var direction = $target.hasClass('prev') ? 'prev' : 'next';
+         paginate(direction);
+     }
+   });
+
+   $WRAPPER.find( '.form-explainer_page-link' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget ),
+           pageNum = +$target.data('page'),
+           currentPage = formExplainer.currentPage;
+
+       if (!$target.hasClass('disabled') && pageNum !== currentPage) {
+           loadPage(currentPage, pageNum);
+       }
+     });
 
   // Filter the expandables via the tabs
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
@@ -430,5 +440,7 @@ $(document).ready(function(){
   });
 
 });
+
+
 
 module.exports = formExplainer;
