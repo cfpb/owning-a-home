@@ -7,8 +7,6 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
-var formExplainer = {};
-
 var formExplainer = {
     pageCount: 0,
     currentPage: 1,
@@ -128,7 +126,7 @@ formExplainer.fitAndStickToWindow = function(els, pageNum) {
         // stick image to window
         formExplainer.stickImage(els.$imageMapWrapper);
       } else {
-        formExplainer.updateStickiness(formExplainer.getPageElements(pageNum));
+        formExplainer.updateStickiness(els);
       }
       // hide pages except for first
       if (pageNum > 1) {
@@ -309,7 +307,10 @@ function toggleScrollWatch() {
   $WINDOW.off('scroll.stickiness');
   if ($WINDOW.width() >= 600) {
     $WINDOW.on('scroll.stickiness', debounce(
-      formExplainer.updateStickiness(formExplainer.getPageElements(pageNum)), 20));
+      function() {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els)
+      }, 20));
   }
 }
 
@@ -440,7 +441,5 @@ $(document).ready(function(){
   });
 
 });
-
-
 
 module.exports = formExplainer;
