@@ -7,5 +7,10 @@ module.exports = {
     depends: {
       jquery: 'jQuery',
     }
+  },
+  sticky: {
+    depends: {
+      jquery: 'jQuery',
+    }
   }
 };

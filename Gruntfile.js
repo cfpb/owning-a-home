@@ -105,14 +105,37 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js'],
+        src: [
+        './src/static/js/modules/loan-options.js', 
+        './src/static/js/modules/check-rates.js',
+        './src/static/js/modules/loan-comparison.js',
+        './src/static/js/modules/form-explainer.js',
+        './src/static/js/modules/closing-disclosure.js',
+        './src/static/js/modules/loan-estimate.js',
+        './src/static/js/modules/home.js'],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+              entries: [
+              './src/static/js/modules/loan-options.js',
+              './src/static/js/modules/check-rates.js',
+              './src/static/js/modules/loan-comparison.js',
+              './src/static/js/modules/form-explainer.js',
+              './src/static/js/modules/closing-disclosure.js',
+              './src/static/js/modules/loan-estimate.js',
+              './src/static/js/modules/home.js',
+              './src/static/js/modules/loan-options-subpage.js'],
+              o: [
+              'dist/static/js/loan-options.js',
+              'dist/static/js/check-rates.js',
+              'dist/static/js/loan-comparison.js',
+              'dist/static/js/form-explainer.js',
+              'dist/static/js/closing-disclosure.js',
+              'dist/static/js/loan-estimate.js',
+              'dist/static/js/home.js',
+              'dist/static/js/loan-options-subpage.js']
             }]
           ]
         }

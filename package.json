@@ -96,6 +96,7 @@
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js",
     "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
+    "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
     "oah-config": "./config/config.json"
   },
   "browserify-shim": "./config/shim.js"
