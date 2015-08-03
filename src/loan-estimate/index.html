@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% set active_page = "loan-estimate" %}
+
+{% block title %}Owning a Home: Loan Estimate Explainer{% endblock title %}
+{% block content %}
+<div class="form-explainer {% if subnav %}col-9{% endif %}" role="main">
+  <section class="wrap">
+    <div class="wrapper">
+
+      <div class="col-8 page-intro">
+        <div class="oah-title-tag">
+          <a href="/owning-a-home/" class="go-back-link l-back-link">Owning a Home</a>
+        </div>
+
+        <h1 class="page-title">Loan Estimate Explainer</h1>
+        <p class="lead">When you receive a Loan Estimate, it should reflect a particular loan you discussed with a lender. Check to see that everything matches your expectations. If something looks different from what you expected, ask why. This tool will help you review your Loan Estimate and get definitions for unfamiliar terms.</p>
+      </div><!-- /.page-intro -->
+
+      <div class="col-4">
+        <img src="../static/img/ill-form-explainer-loan-est.png" alt="" class="illustration">
+      </div><!-- /.col-4 -->
+
+      {# Import the form explainer macros #}
+      {% import "form-explainer.html" as form_explainer %}
+      {# Import the data to use with form explainer #}
+      {% from "loan-estimate-1.html" import data as page_1 %}
+      {% from "loan-estimate-2.html" import data as page_2 %}
+      {% from "loan-estimate-3.html" import data as page_3 %}
+      {# Render form explainer with the data for this form #}
+      <div class="col-12">
+        {{ form_explainer.render([ page_1, page_2, page_3 ]) }}
+      </div>
+
+    </div><!-- /.wrapper -->
+  </section><!-- /.wrap -->
+</div><!-- /.form-explainer -->
+{% endblock %}
