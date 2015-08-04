@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     concat: {
       'cf-less': {
         src: [
-        'src/static/vendor/fj-*/*.less', 
+        'src/static/vendor/fj-*/*.less',
         'src/static/vendor/cf-*/*.less',
         '!src/static/vendor/cf-core/*.less',
         'src/static/vendor/cf-core/cf-core.less',
@@ -122,8 +122,6 @@ module.exports = function(grunt) {
           './src/static/js/modules/process.js',
           './src/static/js/modules/home.js',
           './src/static/js/modules/loan-options-subpage.js'
-          
-          
         ],
         dest: 'dist/static/js/main.js',
         options: {
@@ -153,7 +151,7 @@ module.exports = function(grunt) {
                 'dist/static/js/process.js',
                 'dist/static/js/home.js',
                 'dist/static/js/loan-options-subpage.js'
-                
+
               ]
             }]
           ]
@@ -245,7 +243,7 @@ module.exports = function(grunt) {
             'process.js',
             'home.js',
             'loan-options-subpage.js'
-            
+
           ],
           dest: './dist/static/js'
         }]
