@@ -112,7 +112,9 @@ module.exports = function(grunt) {
         './src/static/js/modules/form-explainer.js',
         './src/static/js/modules/closing-disclosure.js',
         './src/static/js/modules/loan-estimate.js',
-        './src/static/js/modules/home.js'],
+        './src/static/js/modules/home.js',
+        './src/static/js/modules/loan-options-subpage.js'
+        ],
         dest: 'dist/static/js/main.js',
         options: {
           transform: ['browserify-shim', 'hbsfy'],
