@@ -110,8 +110,9 @@ var App = React.createClass({
             </div>
             <div className="block">
                 <div className="content-l">
-                    <div className="content-l_col content-l_col-3-4">
-                        <h3><span className="round-step">2</span>Choose <a href="/check-rates">interest rates</a> to use in your scenarios</h3>
+                    <div className="content-l_col content-l_col-3-4 with-link">
+                        <h3><span className="round-step">2</span>
+                            Choose <a class="jump-link" href="/check-rates"><span class="jump-link_text">interest rates</span></a> to use in your scenarios</h3>
                         <div className="lc-inputs" id="loan-interest-rate-container">
                             <InterestRateTable loans={this.state.loans} scenario={this.state.scenario}/>
                         </div>
