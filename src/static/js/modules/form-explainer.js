@@ -61,8 +61,6 @@ formExplainer.resizeImage = function(els, $window, windowResize) {
   var newWidth;
   var newWidthPercentage;
 
-console.log(currentHeight)
-console.log(windowHeight)
   // If the image is too tall for the window, resize it proportionally,
   // then update the adjacent terms column width to fit.
   // On window resize, also check if image is now too small & resize,
