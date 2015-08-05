@@ -412,6 +412,7 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
+    $(itemID).get(0).handleClick(event);
   });
 
   $WRAPPER.on( 'focus', '.expandable__form-explainer, .expandable__form-explainer .expandable_target', function( ) {
