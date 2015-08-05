@@ -377,7 +377,8 @@ module.exports = function(grunt) {
           check: {
             lines: 50,
             statements: 50
-          }
+          },
+          timeout:15000
         }
       }
     },
