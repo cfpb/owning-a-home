@@ -363,13 +363,19 @@ module.exports = function(grunt) {
       ]
     },
 
-    // run the mocha tests
-    'mochaTest': {
-      test: {
+    mocha_istanbul: {
+      coverage: {
+        src: ['test/js/*.js'], // multiple folders also works
         options: {
-          reporter: 'nyan'
-        },
-        src: ['test/js/*.js']
+          harmony: true,
+          coverageFolder: 'test/coverage',
+          coverage: true,
+          excludes: ['src/static/vendor/**/*'],
+          check: {
+            lines: 50,
+            statements: 50
+          }
+        }
       }
     },
 
@@ -451,9 +457,9 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
-  grunt.registerTask('test', ['browserify:tests', 'mochaTest']);
+  grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('deploy', ['release', 'ship']);
   grunt.registerTask('default', ['build', 'ship']);
