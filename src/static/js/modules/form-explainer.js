@@ -7,8 +7,6 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
-var formExplainer = {};
-
 var formExplainer = {
     pageCount: 0,
     currentPage: 1,
@@ -31,12 +29,12 @@ var resized;
 
 var stickBottom = 'js-sticky-bottom';
 
-function getPageEl (pageNum) {
-  return $WRAPPER.find('#explain_page-' + pageNum);
+formExplainer.getPageEl = function(pageNum) {
+  return $('#explain_page-' + pageNum);
 }
 
-function getPageElements (pageNum) {
-  var $page = getPageEl(pageNum);
+formExplainer.getPageElements = function(pageNum) {
+  var $page = formExplainer.getPageEl(pageNum);
   return {
     $page:             $page,
     $imageMap:         $page.find('.image-map'),
@@ -46,19 +44,20 @@ function getPageElements (pageNum) {
   }
 }
 
-function calculateNewImageWidth (imageWidth, imageHeight) {
+formExplainer.calculateNewImageWidth = function(imageWidth, imageHeight, windowHeight) {
   var imageMapImageRatio = (imageWidth + 2) / (imageHeight + 2);
-  return ($WINDOW.height() - 60) * imageMapImageRatio + 30;
+  return (windowHeight - 60) * imageMapImageRatio + 30;
 }
 
-function resizeImage (els, windowResize) {
+formExplainer.resizeImage = function(els, $window, windowResize) {
+
   var pageWidth = els.$page.width();
   var $image = els.$imageMapImage;
   var currentHeight = $image.height();
   var currentWidth = $image.width();
   var actualWidth = $image.data("actual-width");
   var actualHeight = $image.data("actual-height");
-  var windowHeight = $WINDOW.innerHeight() - 60;
+  var windowHeight = $window.innerHeight() - 60;
   var newWidth;
   var newWidthPercentage;
 
@@ -68,7 +67,7 @@ function resizeImage (els, windowResize) {
   // but only if we've stored the actual image dimensions for comparison.
   if ( currentHeight > windowHeight || (windowResize && actualWidth && actualHeight)) {
     // determine new width
-    newWidth = calculateNewImageWidth(currentWidth, currentHeight);
+    newWidth = formExplainer.calculateNewImageWidth(currentWidth, currentHeight, $window.height());
     if (newWidth > actualWidth) {
       newWidth = actualWidth;
     }
@@ -76,7 +75,7 @@ function resizeImage (els, windowResize) {
     newWidthPercentage = newWidth / pageWidth * 100;
     // on screen less than 800px wide, the terms need a minimum 33%
     // width or they become too narrow to read
-    if ($WINDOW.width() <= 800 && newWidthPercentage > 67) {
+    if ($window.width() <= 800 && newWidthPercentage > 67) {
       newWidthPercentage = 67;
     }
     els.$imageMap.css( 'width', newWidthPercentage + '%' );
@@ -85,7 +84,11 @@ function resizeImage (els, windowResize) {
   }
 }
 
-function setImageElementWidths (els) {
+formExplainer.test = function (el) {
+  el.width(200)
+}
+
+formExplainer.setImageElementWidths = function(els) {
   // When the sticky plugin is applied to the image, it adds position fixed,
   // and the image's width is no longer constrained to its parent.
   // To fix this we will give it its own width that is equal to the parent.
@@ -95,12 +98,12 @@ function setImageElementWidths (els) {
   els.$imageMapImage.width(containerWidth);
 }
 
-function storeImageDimensions ($image) {
+formExplainer.storeImageDimensions = function($image) {
   $image.data('actual-width', $image.width());
   $image.data('actual-height', $image.height());
 }
 
-function stickImage($el) {
+formExplainer.stickImage = function($el) {
   $el.sticky({ topSpacing: 30 });
 }
 
@@ -109,26 +112,26 @@ function stickImage($el) {
  * columns to match.
  * @return {null}
  */
-function fitAndStickToWindow(els, pageNum) {
+formExplainer.fitAndStickToWindow = function(els, pageNum) {
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
     .load( function() {
       // store image width for use in calculations on window resize
       if (pageNum) {
-        storeImageDimensions(els.$imageMapImage);
+        formExplainer.storeImageDimensions(els.$imageMapImage);
       }
 
       // if image is too tall/small, fit it to window dimensions
-      resizeImage(els, !pageNum);
+      formExplainer.resizeImage(els, $WINDOW, !pageNum);
 
       // set width values on image elements
-      setImageElementWidths(els);
+      formExplainer.setImageElementWidths(els);
 
       if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
-        stickImage(els.$imageMapWrapper);
+        formExplainer.stickImage(els.$imageMapWrapper);
       } else {
-        updateStickiness()
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
       }
       // hide pages except for first
       if (pageNum > 1) {
@@ -146,13 +149,12 @@ function fitAndStickToWindow(els, pageNum) {
  * the sticky element does not overlap content that comes after $currentPage.
  * @return {null}
  */
-function updateStickiness() {
-  var els =  getPageElements(formExplainer.currentPage);
+formExplainer.updateStickiness = function(els, windowScrollTop) {
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
-  if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
+  if (windowScrollTop >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
-  } else if ($WINDOW.scrollTop() < max && els.$imageMapWrapper.hasClass(stickBottom)) {
-    els.$imageMapWrapper.removeClass(stickBottom);
+  } else if (windowScrollTop < max && els.$imageMapWrapper.hasClass(stickBottom)) {
+    els.$imageMapWrapper.removeClass(stickBottom);    
   }
 }
 
@@ -164,7 +166,7 @@ function paginate( direction ) {
   var currentPage = formExplainer.currentPage,
       increment = direction === 'next' ? 1 : -1,
       newPage = currentPage + increment;
-  
+
   // Move to the next or previous page if it's not the first or last page.
   if ( direction === 'next' && newPage <= formExplainer.pageCount ||
        direction === 'prev' && newPage >= 1 ) {
@@ -176,27 +178,26 @@ function loadPage (lastPage, pageNum) {
     formExplainer.currentPage = pageNum;
     $('.form-explainer_page-link').removeClass('current-page');
     $('.form-explainer_page-link[data-page=' + pageNum + ']').addClass('current-page');
-    
+
     // Scroll the window up to the tabs.
     $.scrollTo( $('.explain_pagination'), {
       duration: 600,
       offset: -30
     });
-    
+
     // After scrolling the window, fade out the current page.
     var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(lastPage).fadeOut( 450 );
+      formExplainer.getPageEl(lastPage).fadeOut( 450 );
       window.clearTimeout( fadeOutTimeout );
     }, 600);
-    
+
     // After fading out the current page, fade in the new page.
     var fadeInTimeout = window.setTimeout(function () {
-        
-      getPageEl(pageNum).fadeIn( 700 );
+      formExplainer.getPageEl(pageNum).fadeIn( 700 );
       stickyHack();
       window.clearTimeout( fadeInTimeout );
       if (resized ) {
-        setupImage(pageNum);
+        formExplainer.setupImage(pageNum);
       }
       // update paging buttons
       if (formExplainer.pageCount > 1) {
@@ -210,14 +211,14 @@ function loadPage (lastPage, pageNum) {
     }, 1050);
 }
 
-function setupImage (pageNum, pageLoad) {
-  var pageEls = getPageElements(pageNum);
+formExplainer.setupImage = function(pageNum, pageLoad) {
+  var pageEls = formExplainer.getPageElements(pageNum);
   if ($WINDOW.width() >= 600) {
     // update widths & stickiness on larger screens
     // we only pass in the pageNum on pageLoad, when
     // pages after the first will be hidden once they're
     // fully loaded & we've calculated their widths
-    fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
+    formExplainer.fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
   } else if (!pageLoad) {
     // if this is called on screen resize instead of page load,
     // remove width values & call unstick on the imageWrapper
@@ -232,11 +233,11 @@ function setupImage (pageNum, pageLoad) {
   }
 }
 
-formExplainer.initForm = function () {
+formExplainer.initForm = function ($wrapper) {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
-  
-  var $pages = $WRAPPER.find('.explain_page');
+
+  var $pages = $wrapper.find('.explain_page');
     formExplainer.pageCount = $pages.length;
     if (formExplainer.pageCount <= 1) {
         $('.form-explainer_page-buttons').hide();
@@ -251,8 +252,8 @@ formExplainer.initForm = function () {
  * @return {null}
  */
 formExplainer.initPage = function (id) {
-  setupImage(id, true);
-  setCategoryPlaceholders(id);
+  formExplainer.setupImage(id, true);
+  formExplainer.setCategoryPlaceholders(id);
 }
 
 /**
@@ -270,8 +271,8 @@ function stickyHack() {
  * Set category placeholders
  * @return {null}
  */
-function setCategoryPlaceholders( id ) {
-  var $page = getPageEl(id), placeholder;
+formExplainer.setCategoryPlaceholders = function( id ) {
+  var $page = formExplainer.getPageEl(id), placeholder;
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
     if (!categoryHasContent($page, category)) {
@@ -310,7 +311,11 @@ function filterExplainers ($currentTab, type) {
 function toggleScrollWatch() {
   $WINDOW.off('scroll.stickiness');
   if ($WINDOW.width() >= 600) {
-    $WINDOW.on('scroll.stickiness', debounce(updateStickiness, 20));
+    $WINDOW.on('scroll.stickiness', debounce(
+      function() {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop())
+      }, 20));
   }
 }
 
@@ -330,7 +335,7 @@ $(document).ready(function(){
   $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
 
   // set up the form pages for display
-  formExplainer.initForm();
+  formExplainer.initForm($WRAPPER);
 
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
@@ -362,7 +367,7 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(formExplainer.currentPage);
+    formExplainer.setupImage(formExplainer.currentPage);
     toggleScrollWatch();
   }));
 
@@ -441,7 +446,5 @@ $(document).ready(function(){
   });
 
 });
-
-
 
 module.exports = formExplainer;
