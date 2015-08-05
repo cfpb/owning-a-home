@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-  - '0.10'
+  - iojs
 
 install:
   - npm install -g grunt-cli
-  - npm install
+  - ./frontendbuild.sh
 
 script:
-    - bash test/test_artifacts.sh
-    - grunt mochaTest
+  - bash test/test_artifacts.sh
+  - npm test

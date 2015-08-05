@@ -145,7 +145,8 @@ module.exports = function(grunt) {
         },
         options: {
           watch: true,
-          debug: true
+          debug: true,
+          transform: ['browserify-shim', 'hbsfy']
         }
       }
     },
@@ -444,6 +445,15 @@ module.exports = function(grunt) {
       }
     }
 
+  });
+
+  grunt.event.on('coverage', function( lcov, done ) {
+    require('coveralls').handleInput( lcov, function( err ) {
+      if ( err ) {
+        return done( err );
+      }
+      done();
+    });
   });
 
   /**
