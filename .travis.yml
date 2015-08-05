@@ -4,6 +4,7 @@ node_js:
 
 install:
   - npm install -g grunt-cli
+  - chmod +x frontendbuild.sh
   - ./frontendbuild.sh
 
 script:
