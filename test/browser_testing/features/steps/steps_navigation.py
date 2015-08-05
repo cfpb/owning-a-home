@@ -17,7 +17,9 @@ CONV = 'loan-options/conventional-loans'
 RC = 'check-rates'
 FHA = 'loan-options/FHA-loans'
 SPECIAL = 'loan-options/special-loan-programs'
-
+# FE
+CD = 'closing-disclosure'
+LE = 'loan-estimate'
 
 @given(u'I navigate to the "{page_name}" page')
 def step(context, page_name):
@@ -38,6 +40,10 @@ def step(context, page_name):
         context.base.go(FHA)
     elif (page_name == 'Special Loan Programs'):
         context.base.go(SPECIAL)
+    elif (page_name == 'Closing Disclosure'):
+        context.base.go(CD)
+    elif (page_name == 'Loan Estimate'):
+        context.base.go(LE)    
     else:
         raise Exception(page_name + ' is NOT a valid page')
 
