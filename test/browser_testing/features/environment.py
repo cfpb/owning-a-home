@@ -68,9 +68,6 @@ def before_all(context):
                         context.base_url, driver, 10, context.delay_secs)
     context.home = Home(context.logger, context.directory,
                         context.base_url, driver, 10, context.delay_secs)
-    context.journey = Journey(context.logger, context.directory,
-                                             context.base_url, driver, 10,
-                                             context.delay_secs)
     context.closing_disclosure = ClosingDisclosure(context.logger, context.directory,
                                              context.base_url, driver, 10,
                                              context.delay_secs)
