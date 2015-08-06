@@ -10,7 +10,6 @@ from selenium import webdriver
 from pages.screenshot import Screenshot
 from pages.base import Base
 from pages.home import Home
-from pages.journey import Journey
 from pages.closing_disclosure import ClosingDisclosure
 from pages.loan_estimate import LoanEstimate
 from pages.loan_comparison import LoanComparison
