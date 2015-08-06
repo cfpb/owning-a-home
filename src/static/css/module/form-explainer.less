@@ -60,10 +60,17 @@
 }
 
 .lt-ie9 .image-map_overlay__checklist {
-    background:none;
+   background:none;
     -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
     filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FF931B,endColorstr=#33FF931B)";
     zoom: 1;
+    
+    &:hover,
+    &:focus,
+    &.has-attention  {
+        -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7FFF931B,endColorstr=#7FFF931B)";
+        filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7FFF931B,endColorstr=#7FFF931B)";
+    }
 }
 
 .image-map_overlay__definitions {
@@ -84,12 +91,18 @@
 }
 
 .lt-ie9 .image-map_overlay__definitions {
-    background:none;
-    -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
-    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33002D72,endColorstr=#33002D72)";
-    zoom: 1;
+  background:none;
+  -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33005E5D,endColorstr=#33005E5D)";
+  filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33005E5D,endColorstr=#33005E5D)";
+  zoom: 1;
+  
+  &:hover,
+  &:focus,
+  &.has-attention  {
+      -ms-filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F005E5D,endColorstr=#7F005E5D)";
+      filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F005E5D,endColorstr=#7F005E5D)";
+  }
 }
-
 .expandable-group .expandable__form-explainer {
     border-bottom: none;
     margin: 0 0 unit(3px / @base-font-size-px, em);
