@@ -399,6 +399,7 @@ module.exports = function(grunt) {
           coverageFolder: 'test/coverage',
           coverage: true,
           excludes: ['src/static/vendor/**/*'],
+          reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,
             statements: 50

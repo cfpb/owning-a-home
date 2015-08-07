@@ -415,8 +415,6 @@ $(document).ready(function(){
     // it will be closed when this expandable opens, so we need
     // to subtract its height from this expandable's offset in order
     // to get a position to use in scrolling this expandable into view
-    // ALTERNATIVE, if this is buggy: if there's an expandable open above,
-    // just delay the scroll until we estimate the expandable has closed (maybe 500?)
     var prevExpanded = $targetExpandable.prevAll('.expandable__expanded');
     if (prevExpanded.length) {
       offset = $(prevExpanded[0]).find('.expandable_content').height();
