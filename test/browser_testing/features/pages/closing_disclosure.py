@@ -118,6 +118,9 @@ class ClosingDisclosure(Base):
         for element in elements:
             if element.get_attribute('data-page') == page_num:
                 print "Clicked %s" % page_num
+
+                script = "arguments[0].scrollIntoView(true);"
+                self.driver.execute_script(script, element)
                 element.click()
                 break
 
@@ -134,4 +137,8 @@ class ClosingDisclosure(Base):
     def click_prev_page(self, currrent_num):
         element = self.driver.find_element_by_css_selector('.prev.btn')
         print element.get_attribute('class')
+
+        script = "arguments[0].scrollIntoView(true);"
+        self.driver.execute_script(script, element)
+
         element.click()

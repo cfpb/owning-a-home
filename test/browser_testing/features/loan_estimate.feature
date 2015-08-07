@@ -72,7 +72,7 @@ Examples:
   | 3        |
   | 1        |
 
-  @loan_estimate @amy
+  @loan_estimate
   Scenario Outline: Test Next Page
     When I am currently on page "<current_num>" and I click next page
     Then page "<page_num>" is displayed
@@ -83,7 +83,7 @@ Examples:
   | 2           | 3        |
 
   @loan_estimate @amy
-  Scenario Outline: Test Next Page
+  Scenario Outline: Test Prev Page
     When I am currently on page "<current_num>" and I click previous page
     Then page "<page_num>" is displayed
 
