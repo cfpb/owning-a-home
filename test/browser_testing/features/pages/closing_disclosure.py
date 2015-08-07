@@ -112,3 +112,26 @@ class ClosingDisclosure(Base):
                         bad_elements += 1
 
         return bad_elements
+
+    def click_page(self, page_num):
+        elements = self.driver.find_elements_by_class_name('form-explainer_page-link')
+        for element in elements:
+            if element.get_attribute('data-page') == page_num:
+                print "Clicked %s" % page_num
+                element.click()
+                break
+
+
+    def current_page(self):
+        element = self.driver.find_element_by_class_name('current-page')
+        return element.get_attribute('data-page')
+
+    def click_next_page(self, current_num):
+        element = self.driver.find_element_by_css_selector('.btn.next')
+        print element.get_attribute('class')
+        element.click()
+
+    def click_prev_page(self, currrent_num):
+        element = self.driver.find_element_by_css_selector('.prev.btn')
+        print element.get_attribute('class')
+        element.click()

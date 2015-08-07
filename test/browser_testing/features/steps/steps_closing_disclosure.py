@@ -54,3 +54,27 @@ def click_tab(context, tab_name):
 def hover_an_overlay(context):
     result = context.closing_disclosure.hover_an_overlay()
     assert_that(result, equal_to(0), 'All overlays to explainers connections work')
+
+@when(u'I click on page "{page_num}"')
+def click_page(context, page_num):
+    context.closing_disclosure.click_page(page_num)
+
+@then(u'page "{page_num}" is displayed')
+def page_is_current(context, page_num):
+    a = context.closing_disclosure.current_page()
+
+    assert_that(a, equal_to(page_num),
+                'Page %s is current page' % a)
+
+@when(u'I am currently on page "{current_num}" and I click next page')
+def click_next_page(context, current_num):
+    context.closing_disclosure.click_page(current_num)
+    context.closing_disclosure.click_next_page(current_num)
+
+@when(u'I am currently on page "{current_num}" and I click previous page')
+def click_prev_page(context, current_num):
+    context.closing_disclosure.click_page(current_num)
+    p = context.closing_disclosure.current_page()
+    assert_that(p, current_num,
+        'Current Page number is %s' % p)
+    context.closing_disclosure.click_prev_page(current_num)
