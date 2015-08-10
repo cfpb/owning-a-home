@@ -37,48 +37,28 @@ fieldset.submit_btn > p {
   HERO
   ---------------------------- */
 
-.content-hero {
-    padding-top: 30px;
-    padding-bottom: 0px;
-    background-color: @teal-20;
-    background-image: none;
-    
+.content_hero {
+  padding: 30px 15px 0px;
+  .respond-to-min(600px, {
+  padding: 30px 30px 0px;
+  });
+  .respond-to-min(800px, {
+  padding: 30px 0px 0px;
+  });
 
-.content_main {
-    .respond-to-min(@grid_column-breakpoint, {
-      .grid_column(2,3);
-      padding-right: @grid_gutter-width;
-    });
-    .respond-to-min(900px, {
-      padding-right: @grid_gutter-width*2;
-    });
-  }
-
-  h1 {
-    font-size: 1.5em;
-    .respond-to-min(@grid_column-breakpoint, {
-      .h1;
-    });
-    .respond-to-min(900px, {
-      font-weight: bold;  
-    });
-  }
-  h2 {
-    font-size:1.375em;
-    .respond-to-min(1100px, {
-      .h2;
-    });
-  }
+  background-color: @teal-20;
+  background-image: none;
 }
 
 .hero-illu-inner {
-    padding: 0em 1.75em 0em 1.75em;
+  padding: 0em 1.75em 0em 1.75em;
+  .content-l_col + & {
+   margin-top: 0em;
   }
+}
 
-  .hero-illu {
-   .respond-to-max(719px, {
-            display: none;
-        });
+.hero-illu {
+    margin-bottom: 30px;
 }
 
 /*
