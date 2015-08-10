@@ -1,5 +1,8 @@
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
@@ -15,7 +18,8 @@ class ClosingDisclosure(Base):
     def __init__(self, logger, directory, base_url=r'http://localhost/',
                  driver=None, driver_wait=10, delay_secs=0):
         super(ClosingDisclosure, self).__init__(logger, directory, base_url,
-                                               driver, driver_wait, delay_secs)
+                                                driver, driver_wait,
+                                                delay_secs)
 
     # check that element(s) is on the page
     # @return: element or elements if there are many
@@ -51,13 +55,16 @@ class ClosingDisclosure(Base):
         self.driver.set_window_size(360, 640)
 
     def expandable_explainers_are_loaded(self, tab_name):
-        parent_css_selector = 'div.expandable__form-explainer-%s' % tab_name.lower()
+        parent_css_selector = 'div.expandable__form-explainer-%s'\
+            % tab_name.lower()
+
         elements = self._element_found(parent_css_selector)
         good_elements = 0
         for element in elements:
-            content_css_selector = '#%s .expandable_content' % element.get_attribute('id')
-            if element.is_displayed() and\
-                    self._expandable_explainer_content_is_loaded(content_css_selector, element):
+            content_css_selector = '#%s .expandable_content'\
+                % element.get_attribute('id')
+
+            if element.is_displayed() and self._expandable_explainer_content_is_loaded(content_css_selector, element):
                 good_elements += 1
         return good_elements
 
@@ -69,7 +76,7 @@ class ClosingDisclosure(Base):
         ActionChains(self.driver).move_to_element(parent_element).perform()
         try:
             parent_element.click()
-            #time.sleep(1)
+            # time.sleep(1)
             new_visibility = element.is_displayed()
             return original_visibility != new_visibility
         except WebDriverException:
@@ -107,7 +114,7 @@ class ClosingDisclosure(Base):
                     bad_elements += 1
                 else:
                     classes = filter(lambda x: x,
-                                    explainer_element.get_attribute('class').split(' '))
+                                     explainer_element.get_attribute('class').split(' '))
                     if 'has-attention' not in classes:
                         bad_elements += 1
 
@@ -124,21 +131,28 @@ class ClosingDisclosure(Base):
                 element.click()
                 break
 
-
     def current_page(self):
         element = self.driver.find_element_by_class_name('current-page')
         return element.get_attribute('data-page')
 
     def click_next_page(self, current_num):
-        element = self.driver.find_element_by_css_selector('.btn.next')
-        print element.get_attribute('class')
+        element_css = "#explain_page-" + current_num + " .next.btn"
+        msg = "Element " + element_css + " NOT found!"
+        script = "arguments[0].scrollIntoView(true);"
+
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.visibility_of_element_located((By.CSS_SELECTOR, element_css)), msg)
+
+        self.driver.execute_script(script, element)
         element.click()
 
-    def click_prev_page(self, currrent_num):
-        element = self.driver.find_element_by_css_selector('.prev.btn')
-        print element.get_attribute('class')
-
+    def click_prev_page(self, current_num):
+        element_css = "#explain_page-" + current_num + " .prev.btn"
+        msg = "Element " + element_css + " NOT found!"
         script = "arguments[0].scrollIntoView(true);"
-        self.driver.execute_script(script, element)
 
+        element = WebDriverWait(self.driver, self.driver_wait)\
+            .until(EC.visibility_of_element_located((By.CSS_SELECTOR, element_css)), msg)
+
+        self.driver.execute_script(script, element)
         element.click()

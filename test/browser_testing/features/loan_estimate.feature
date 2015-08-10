@@ -72,9 +72,10 @@ Examples:
   | 3        |
   | 1        |
 
-  @loan_estimate
+  @loan_estimate @amy
   Scenario Outline: Test Next Page
-    When I am currently on page "<current_num>" and I click next page
+    When I click page "<current_num>" in Loan Estimate
+      And I click the next button in page "<current_num>"
     Then page "<page_num>" is displayed
 
   Examples:
@@ -84,11 +85,11 @@ Examples:
 
   @loan_estimate @amy
   Scenario Outline: Test Prev Page
-    When I am currently on page "<current_num>" and I click previous page
+    When I click page "<current_num>" in Loan Estimate
+     And I click the previous button in page "<current_num>"
     Then page "<page_num>" is displayed
 
   Examples:
   | current_num | page_num |
   | 3           | 2        |
   | 2           | 1        |
-
