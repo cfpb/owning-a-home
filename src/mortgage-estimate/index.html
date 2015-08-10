@@ -1,20 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Mortgage Estimate &gt; Consumer Financial Protection Bureau{% endblock title %}
 {% block content %}
-<main class="content content__2-1 content__bleedbar" id="main" role="main">
-  <section class="content_hero">
-    <!-- BACKGROUND IMAGE FOR THE HERO -->
-    <div id="hero-bg-image"></div>
-    <!-- HERO -->
-    <div class="content_wrapper content_no-sidebar">
-      <section class="content_main">
-        <h1>Questions about your Loan Estimate?</h1>
-        <p><large></large>The Loan Estimate is a new government form designed to help you easily understand your mortgage offer. Our interactive sample form helps you double-check the details and get definitions for terms used on the Loan Estimate.</p>
-        <p><a href="/owning-a-home/loan-estimate/">Explore the Loan Estimate tool</a></p>
-      </section>
+<main class="content content__2-1 content__bleedbar form-resources" id="main" role="main">
+
+  <section class="content_hero hero">
+    <div class="hero_wrapper">
+      <a href="/events/fall-credit-union-advisory-council-meeting-in-washington-dc/" class="hero_card hero_card__events">
+        <article class="hero_preview">
+          <div class="summary">
+            <header class="summary_header">
+              <h1 class="summary_heading"> Questions about your Loan Estimate? </h1>
+            </header>
+            <p class="summary_text"> The Loan Estimate is a new government form designed to help you easily understand your mortgage offer. Our interactive sample form helps you double-check the details and get definitions for terms used on the Loan Estimate. </p>
+            <footer class="summary_footer">
+              <p><a href="/owning-a-home/loan-estimate/">Explore the Loan Estimate tool</a></p>
+            </footer>
+          </div>
+        </article>
+      </a>
+    </div>
+    <div class="hero_img-container hero_img-container__small">
+      <div class="hero_img" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=Washington%2C%20DC&amp;size=660x300&amp;zoom=12&amp;scale=2);"></div>
+    </div>
+    <div class="hero_img-container hero_img-container__large">
+      <div class="hero_img" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=Washington%2C%20DC&amp;size=1200x300&amp;zoom=12&amp;scale=2);"></div>
     </div>
   </section>
-  <!-- .content_hero -->
+
   <div class="content_wrapper">
     <section class="content_main">
       <h2 class="h1">Questions about the mortgage process?</h2>
@@ -70,7 +82,6 @@
         <p><a href="/f/201503_cfpb_your-home-loan-toolkit-web.pdf">Your home loan toolkit: A step by step guide</a></p>
         <p><a href="/find-a-housing-counselor/">Find a housing counselor</a></p>
         <p><a href="/complaint/#mortgage">Submit a complaint about problems with your mortgage lender</a></p>
-
       </section>
       <section class="block u-mt0">
         <header class="tabbed-header tabbed-pad-top u-mb45">
@@ -90,5 +101,4 @@
   // $(function(){
   document.getElementById('primary-content').className += ' index';
   // });
-
 </script> {% endblock %}
