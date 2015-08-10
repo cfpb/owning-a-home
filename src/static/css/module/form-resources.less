@@ -1,12 +1,13 @@
 .form-resources {
-    /*  This code was copied from:
+
+    /*  This code was copied from and then modified:
         https://github.com/cfpb/cfgov-refresh/blob/04de1f7b99999c73f412346a272664f24ed1e9c5/src/static/css/misc.less
     */
 
     .hero {
         position: relative;
-        overflow: hidden;
-        background-color: @gray;
+        //overflow: hidden;
+        background-color: #ccdfdf;
 
         &_wrapper {
             .wrapper();
@@ -16,7 +17,7 @@
         // they are needed. Research: http://timkadlec.com/2012/04/media-query-asset-downloading-results/
         &_img-container {
             display: none;
-            line-height: 1;
+            //line-height: 1;
         }
 
         // The small hero image container should scale proportionally to the image
@@ -31,17 +32,17 @@
 
         &_img {
             display: block;
-            height: 100%;
-            line-height: 1;
-            background-position: center center;
+            //height: 100%;
+            //line-height: 1;
+            background-position: left top;
             background-repeat: no-repeat;
-            background-size: cover;
+            //background-size: cover;
         }
 
         .respond-to-max(659px, {
             &_img-container__small {
                 .u-flexible-container-mixin(660,300);
-                display: block;
+                display: block; // show the small image
             }
         });
 
@@ -62,11 +63,11 @@
 
             &_img-container__large {
                 display: block;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                z-index: 1;
+                //width: 100%;
+                //height: 100%;
+                //position: absolute;
+                //top: 0;
+                //z-index: 1;
             }
 
             &_card {
