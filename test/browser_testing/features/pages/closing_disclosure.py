@@ -138,21 +138,17 @@ class ClosingDisclosure(Base):
     def click_next_page(self, current_num):
         element_css = "#explain_page-" + current_num + " .next.btn"
         msg = "Element " + element_css + " NOT found!"
-        script = "arguments[0].scrollIntoView(true);"
 
         element = WebDriverWait(self.driver, self.driver_wait)\
             .until(EC.visibility_of_element_located((By.CSS_SELECTOR, element_css)), msg)
 
-        self.driver.execute_script(script, element)
         element.click()
 
     def click_prev_page(self, current_num):
         element_css = "#explain_page-" + current_num + " .prev.btn"
         msg = "Element " + element_css + " NOT found!"
-        script = "arguments[0].scrollIntoView(true);"
 
         element = WebDriverWait(self.driver, self.driver_wait)\
             .until(EC.visibility_of_element_located((By.CSS_SELECTOR, element_css)), msg)
 
-        self.driver.execute_script(script, element)
         element.click()
