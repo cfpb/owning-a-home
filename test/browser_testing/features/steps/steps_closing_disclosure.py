@@ -63,10 +63,10 @@ def click_page(context, page_num):
 
 @then(u'page "{page_num}" is displayed')
 def page_is_current(context, page_num):
-    a = context.closing_disclosure.current_page()
+    current_page = context.closing_disclosure.current_page()
 
-    assert_that(a, equal_to(page_num),
-                'Page %s is current page' % a)
+    assert_that(current_page, equal_to(page_num),
+                'Page %s is current page' % current_page)
 
 
 @when(u'I click the next button in page "{current_num}"')
@@ -79,6 +79,6 @@ def click_prev_page(context, current_num):
     context.closing_disclosure.click_prev_page(current_num)
 
 
-@when(u'I click page "{current_num}" in Loan Estimate')
+@when(u'I click page "{current_num}" in Form Explainer')
 def click_page_number(context, current_num):
     context.closing_disclosure.click_page(current_num)

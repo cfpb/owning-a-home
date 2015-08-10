@@ -124,7 +124,6 @@ class ClosingDisclosure(Base):
         elements = self.driver.find_elements_by_class_name('form-explainer_page-link')
         for element in elements:
             if element.get_attribute('data-page') == page_num:
-                print "Clicked %s" % page_num
 
                 script = "arguments[0].scrollIntoView(true);"
                 self.driver.execute_script(script, element)
