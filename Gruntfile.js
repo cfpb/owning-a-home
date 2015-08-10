@@ -46,7 +46,13 @@ module.exports = function(grunt) {
      */
     concat: {
       'cf-less': {
-        src: ['src/static/vendor/fj-*/*.less', 'src/static/vendor/cf-*/*.less'],
+        src: [
+          'src/static/vendor/fj-*/*.less',
+          'src/static/vendor/cf-*/*.less',
+          '!src/static/vendor/cf-core/*.less',
+          'src/static/vendor/cf-core/cf-core.less',
+          '!src/static/vendor/cf-concat/cf.less'
+        ],
         dest: 'src/static/vendor/cf-concat/cf.less'
       },
       ie9: {
