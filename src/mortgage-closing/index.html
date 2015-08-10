@@ -2,49 +2,57 @@
 {% block title %}Mortgage Estimate &gt; Consumer Financial Protection Bureau{% endblock title %}
 {% block content %}
 <main class="content content__2-1 content__bleedbar form-resources" id="main" role="main">
-  <section class="content_hero">
-    <!-- BACKGROUND IMAGE FOR THE HERO -->
-    <div id="hero-bg-image"></div>
-    <!-- HERO -->
-    <div class="content_wrapper content_no-sidebar">
-      <section class="content_main">
-        <h1>Questions about your Closing Disclosure?</h1>
-        <p><large></large>Your Closing Disclosure is the official government form that lists all the final details about your mortgage loan. Our interactive sample Closing Disclosure helps you double-check the details and get definitions for terms used on the form.</p>
-        <p><a href="/owning-a-home/closing-disclosure/">Explore the Closing Disclosure tool</a></p>
-      </section>
+  <section class="hero hero__mortage-closing">
+    <div class="hero_wrapper">
+      <div class="hero_img-container">
+        <div class="hero_img"></div>
+      </div>
+      <div class="hero_card">
+        <article class="hero_preview">
+            <header>
+              <h1>Questions about your Closing Disclosure?</h1>
+            </header>
+            <p>Your Closing Disclosure is the official government form that lists all the final details about your mortgage loan. Our interactive sample Closing Disclosure helps you double-check the details and get definitions for terms used on the form.</p>
+            <footer>
+              <a class="jump-link jump-link__right" href="/owning-a-home/closing-disclosure/">
+                  <span class="jump-link_text">Explore the Closing Disclosure tool</span>
+              </a>
+            </footer>
+        </article>
+      </div>
     </div>
   </section>
-  <!-- .content_hero -->
+  <!-- .hero -->
   <div class="content_wrapper">
     <section class="content_main">
       <h2 class="h1">Questions about your closing?</h2>
-      <p class="short-desc short-desc__large">We can help. The Consumer Financial Protection Bureau (CFPB) is a government agency created to ensure that prices are clear upfront, risks are visible, and nothing is buried in fine print.</large></p>
+      <p class="short-desc short-desc__large">We can help. The Consumer Financial Protection Bureau (CFPB) is a government agency created to ensure that prices are clear upfront, risks are visible, and nothing is buried in fine print.</p>
       <p>Closing is one of the most important parts of the mortgage process. It’s where you legally commit to your mortgage loan. Our checklists and tools will help you close with confidence.</p>
       <h3 class="u-mt30 u-mb20">What to do now</h3>
       <h4 class="u-mb5">1. Review your Closing Disclosure</h4>
-      <p>It’s important to review your Closing Disclosure before closing. Make sure everything is as you expect in advance, while you still have time to ask questions and correct any errors.</p>
-      <p>
+      <p class="u-mb15">It’s important to review your Closing Disclosure before closing. Make sure everything is as you expect in advance, while you still have time to ask questions and correct any errors.</p>
+      <p class="u-mb30">
         <a href="/owning-a-home/closing-disclosure/" class="icon-link">
           <span class="icon-link_text">Review our interactive sample Closing Disclosure</span>
         </a>
       </p>
       <h4 class="u-mb5">2. Get ready for closing</h4>
-      <p>Our closing checklist lets you know what to expect at closing and what questions to ask so you will be prepared.</p>
-      <p>
+      <p class="u-mb15">Our closing checklist lets you know what to expect at closing and what questions to ask so you will be prepared.</p>
+      <p class="u-mb30">
         <a href="/owning-a-home/process/compare/" class="icon-link">
           <span class="icon-link_text">Get our closing checklist</span>
         </a>
       </p>
       <h4 class="u-mb5">3. Review the rest of your closing documents </h4>
-      <p>In addition to your Closing Disclosure, there are other important documents you will need to sign at closing, such as the promissory note and the deed of trust. Get a head start on reviewing these documents by asking your closing agent for a copy of your closing packet in advance. We can help you navigate these documents.</p>
-      <p>
+      <p class="u-mb15">In addition to your Closing Disclosure, there are other important documents you will need to sign at closing, such as the promissory note and the deed of trust. Get a head start on reviewing these documents by asking your closing agent for a copy of your closing packet in advance. We can help you navigate these documents.</p>
+      <p class="u-mb30">
         <a href="/owning-a-home/resources/mortgage_closing_forms.pdf" class="icon-link">
           <span class="icon-link_text">Navigate your closing documents</span>
         </a>
       </p>
       <h4 class="u-mb5">4. Get any errors fixed now, before closing. </h4>
-      <p>If you find an error in one of your closing documents, call your loan officer or settlement agent and get the error fixed right away. Even minor misspellings can delay your closing or cause big problems in the future.</p>
-      <p>
+      <p class="u-mb15">If you find an error in one of your closing documents, call your loan officer or settlement agent and get the error fixed right away. Even minor misspellings can delay your closing or cause big problems in the future.</p>
+      <p class="u-mb30">
         <a href="/askcfpb/1917/what-should-i-do-if-i-find-an-error-in-one-of-my-mortgage-closing-documents.html" class="icon-link">
           <span class="icon-link_text">Learn more about what to do if you find an error</span>
         </a>
@@ -75,9 +83,4 @@
     <!-- .content_sidebar -->
   </div>
 </main>
-<script type="text/javascript">
-  // $(function(){
-  document.getElementById('primary-content').className += ' index';
-  // });
-
-</script> {% endblock %}
+{% endblock %}
