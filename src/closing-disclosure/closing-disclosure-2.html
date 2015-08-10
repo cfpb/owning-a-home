@@ -1,6 +1,6 @@
 {% set data = {
 
-"img": url_for('static', filename='img/closing-disclosure-H25B-2.gif'),
+"img": url_for('static', filename='img/closing-disclosure-H25B-2.png'),
 "terms":
 [
     {
@@ -15,7 +15,7 @@
     },
     {
         "term": "Origination Charges",
-        "definition": "<p>Upfront charges from your lender. Together with your interest, these make up the price of borrowing money for your mortgage.</p>",
+        "definition": "<p>Upfront charges from your lender for making the loan.</p>",
         "id": "origination",
         "category": "definitions",
         "left": "5.96%",
@@ -25,7 +25,7 @@
     },
     {
         "term": "Points",
-        "definition": "<p>An upfront fee that you pay to your lender in exchange for a lower interest rate than you would pay otherwise.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html\" target=\"_blank\">Learn more</a></p>",
+        "definition": "<p>An upfront fee that you pay to your lender in exchange for a lower interest rate than you would pay otherwise.</p><p><a href=\"/askcfpb/136/what-are-discount-points-or-points.html\" target=\"_blank\">Learn more</a></p>",
         "id": "points",
         "category": "definitions",
         "left": "5.96%",
@@ -34,9 +34,9 @@
         "height": "1.32%"
     },
     {
-        "term": "Check that “Services Borrower Did Not Shop For” did not change more than 10 percent from your loan estimate.",
-        "definition": "<p>Compare with “Services You Cannot Shop For” on page 2, Section B of your Loan Estimate form. These are third-party services required by your lender in order to get a loan.</p>",
-        "highlight": "/owning-a-home/static/img/services-not-shopped-for-highlight.png",
+        "term": "Check that “Services Borrower Did Not Shop For” are similar to what was shown on your Loan Estimate",
+        "definition": "<p>These are third-party services required by your lender in order to get a loan. Compare with Section B, “Services You Cannot Shop For” and Section C, “Services You Can Shop For” on page 2 of your Loan Estimate form. Check to see that, overall, there are no new services listed that were not on your Loan Estimate form. The costs should be similar, but may be somewhat different from what was on your Loan Estimate form.</p><p><a href=\"/askcfpb/172/can-the-final-mortgage-costs-be-different-from-the-good-faith-estimate-gfe.html\" target=\"_blank\">Learn more about when these costs are allowed to change between Loan Estimate and closing</a></p><p>Compare to page 2 of your Loan Estimate</p>",
+        "highlight": url_for('static', filename='img/services-not-shopped-for-highlight.png'),
         "id": "services-did-not-shop",
         "category": "checklist",
         "left": "5.96%",
@@ -45,8 +45,8 @@
         "height": "14.14%"
     },
     {
-        "term": "Check that prices in “Services Borrower Did Shop For” match what you agreed to pay.",
-        "definition": "",
+        "term": "Check that prices in “Services Borrower Did Shop For” match what you agreed to pay",
+        "definition": "<p>These are services that you shopped for separately. If there are any services in this section that you do not recognize, or companies that you did not choose, ask your lender to explain what these charges are for and how the companies were chosen.</p>",
         "id": "services-did-shop",
         "category": "checklist",
         "left": "5.96%",
@@ -56,7 +56,7 @@
     },
     {
         "term": "Taxes and Other Government Fees",
-        "definition": "<p>Costs associated with registering your mortgage with the county records office.</p>",
+        "definition": "<p>Costs associated with transferring the property to you and registering your mortgage with the county records office.</p>",
         "id": "taxes-other-government",
         "category": "definitions",
         "left": "5.96%",
@@ -66,7 +66,7 @@
     },
     {
         "term": "Prepaids",
-        "definition": "<p>These payments cover interest on your loan between your closing date and your first monthly mortgage payment, as well as your first installment of property taxes, insurance, etc.</p>",
+        "definition": "<p>This category includes interest on your loan between the time you close and the end of that month. It’s also common to pay your first year’s homeowner’s insurance premium in advance at closing.</p>",
         "id": "prepaids",
         "category": "definitions",
         "left": "5.96%",
@@ -76,7 +76,7 @@
     },
     {
         "term": "Initial Escrow Payment at Closing",
-        "definition": "<p>This payment will establish a small initial balance in your escrow account.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/140/what-is-an-escrow-or-impound-account.html\" target=\"_blank\">Learn more</a></p>",
+        "definition": "<p>This payment will establish an initial balance in your escrow account.</p><p><a href=\"/askcfpb/160/what-is-an-initial-escrow-deposit.html\" target=\"_blank\">Learn more</a></p>",
         "id": "initial-escrow-payment",
         "category": "definitions",
         "left": "5.96%",
@@ -85,8 +85,8 @@
         "height": "1.43%"
     },
     {
-        "term": "Other",
-        "definition": "<p>Costs for optional services you have chosen. Review these amounts to make sure they match what you are expecting.</p>",
+        "term": "Other Costs",
+        "definition": "<p>Costs for other services you have chosen. Review these amounts to make sure they match what you are expecting.</p>",
         "id": "other",
         "category": "definitions",
         "left": "5.96%",
@@ -96,7 +96,7 @@
     },
     {
         "term": "Total Closing Costs",
-        "definition": "<p>Total upfront costs associated with your loan and real estate transaction, excluding your down payment.</p>",
+        "definition": "<p>Total upfront costs associated with your loan and real estate transaction, excluding your down payment. This is different from the actual amount of money you have to bring to closing, which is called “Cash to Close” on page 3.</p>",
         "id": "total-closing-costs",
         "category": "definitions",
         "left": "5.96%",
@@ -106,7 +106,7 @@
     },
     {
         "term": "Lender Credits",
-        "definition": "<p>A rebate from your lender to help lower your closing costs. In exchange, you pay a higher interest rate than you would have paid otherwise.</p><p><a href=\"http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html\" target=\"_blank\">Learn more</a></p>",
+        "definition": "<p>A rebate from your lender that offsets some of your closing costs. Lender credits are typically provided in exchange for a higher interest rate than you would have paid otherwise. Learn about lender credits.</p><!--<p><a href=\"/askcfpb/136/what-are-discount-points-or-points.html\" target=\"_blank\">Learn more</a></p>-->",
         "id": "lender-credits",
         "category": "definitions",
         "left": "5.96%",

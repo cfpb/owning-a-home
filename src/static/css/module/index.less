@@ -37,67 +37,28 @@ fieldset.submit_btn > p {
   HERO
   ---------------------------- */
 
-.hero_wrapper {
-  margin: 0 auto;
-  position: relative;
-  clear: both;
-  max-width: @grid_wrapper-width;
-}
-
-#hero-bg-image {
-  position: absolute;
-  width: 100%;
-  z-index: -1;
-
-  .respond-to-min(720px, {
-    background: @neutral-20 url('http://www.consumerfinance.gov/owning-a-home/static/img/oah-hero-image.png');
-    background-repeat: no-repeat;
-    background-size: auto 230px;
-    background-position: center top;
-    background-size: auto 240px;
-    height: 240px;
-  });
-}
-
 .content_hero {
-  // background image on the content element for small screens only, so we can have a flexible height
-  background: @neutral-20 url('http://www.consumerfinance.gov/owning-a-home/static/img/oah-hero-image.png');
-  background-position: 0 0;
-
-  .respond-to-min(720px, {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 240px;
-    min-height: 240px;
-    background-color: transparent;
-    background-image: none;
+  padding: 30px 15px 0px;
+  .respond-to-min(600px, {
+    padding: 30px 30px 0px;
+  });
+  .respond-to-min(800px, {
+    padding: 30px 0px 0px;
   });
 
-  .content_main {
-    .respond-to-min(@grid_column-breakpoint, {
-      .grid_column(2,3);
-      padding-right: @grid_gutter-width;
-    });
-    .respond-to-min(900px, {
-      padding-right: @grid_gutter-width*2;
-    });
-  }
+  background-color: @teal-20;
+  background-image: none;
+}
 
-  h1 {
-    font-size: 1.425em;
-    .respond-to-min(@grid_column-breakpoint, {
-      .h1;
-    });
-    .respond-to-min(900px, {
-      font-weight: bold;
-    });
+.hero-illu-inner {
+  padding: 0em 1.75em 0em 1.75em;
+  .content-l_col + & {
+    margin-top: 0em;
   }
-  h2 {
-    font-size:1.2em;
-    .respond-to-min(1100px, {
-      .h2;
-    });
-  }
+}
+
+.hero-illu {
+    margin-bottom: 30px;
 }
 
 /*
@@ -125,22 +86,22 @@ fieldset.submit_btn > p {
   text-align: center;
 }
 
-// Phases for Journey
+// Phases for Journey 
 .section__phase {
   .content-l_col {
     margin-top: 0;
   }
 }
-
+  
   .content-l_col {
     &.content-l_col-1-4  {
       .respond-to-min(@tablet-min, {
-        .grid_column(1, 4);
+        .grid_column(1, 4);    
       });
     }
     &.content-l_col-3-4  {
       .respond-to-min(@tablet-min, {
-        .grid_column(3, 4);
+        .grid_column(3, 4);    
       });
     }
   }
@@ -148,7 +109,7 @@ fieldset.submit_btn > p {
   .content-l__main {
     .content-l_col-1-4 + .content-l_col-3-4  {
       .respond-to-min(@tablet-min, {
-        margin-top: 0;
+        margin-top: 0;  
       });
     }
   }
@@ -162,7 +123,7 @@ fieldset.submit_btn > p {
   .phase_tools {
     position: relative;
   }
-
+  
   .respond-to-max(@mobile-max, {
     .phase_illu {
       text-align: center;
