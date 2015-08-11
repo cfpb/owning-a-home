@@ -121,7 +121,9 @@ module.exports = function(grunt) {
           './src/static/js/modules/closing-disclosure.js',
           './src/static/js/modules/process.js',
           './src/static/js/modules/home.js',
-          './src/static/js/modules/loan-options-subpage.js'
+          './src/static/js/modules/loan-options-subpage.js',
+          './src/static/js/modules/mortgage-closing.js',
+          './src/static/js/modules/mortgage-estimate.js'
         ],
         dest: 'dist/static/js/main.js',
         options: {
@@ -138,7 +140,9 @@ module.exports = function(grunt) {
                 './src/static/js/modules/closing-disclosure.js',
                 './src/static/js/modules/process.js',
                 './src/static/js/modules/home.js',
-                './src/static/js/modules/loan-options-subpage.js'
+                './src/static/js/modules/loan-options-subpage.js',
+                './src/static/js/modules/mortgage-closing.js',
+                './src/static/js/modules/mortgage-estimate.js'
               ],
               o: [
                 'dist/static/js/loan-options.js',
@@ -150,7 +154,9 @@ module.exports = function(grunt) {
                 'dist/static/js/closing-disclosure.js',
                 'dist/static/js/process.js',
                 'dist/static/js/home.js',
-                'dist/static/js/loan-options-subpage.js'
+                'dist/static/js/loan-options-subpage.js',
+                'dist/static/js/mortgage-closing.js',
+                'dist/static/js/mortgage-estimate.js'
 
               ]
             }]
@@ -242,7 +248,9 @@ module.exports = function(grunt) {
             'prepare-worksheets.js',
             'process.js',
             'home.js',
-            'loan-options-subpage.js'
+            'loan-options-subpage.js',
+            'mortgage-closing.js',
+            'mortgage-estimate.js'
 
           ],
           dest: './dist/static/js'
