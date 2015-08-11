@@ -118,7 +118,9 @@ module.exports = function(grunt) {
         './src/static/js/modules/closing-disclosure.js',
         './src/static/js/modules/loan-estimate.js',
         './src/static/js/modules/home.js',
-        './src/static/js/modules/loan-options-subpage.js'
+        './src/static/js/modules/loan-options-subpage.js',
+        './src/static/js/modules/mortgage-closing.js',
+        './src/static/js/modules/mortgage-estimate.js'
         ],
         dest: 'dist/static/js/main.js',
         options: {
@@ -132,7 +134,11 @@ module.exports = function(grunt) {
               './src/static/js/modules/closing-disclosure.js',
               './src/static/js/modules/loan-estimate.js',
               './src/static/js/modules/home.js',
-              './src/static/js/modules/loan-options-subpage.js'],
+              './src/static/js/modules/loan-options-subpage.js',
+              './src/static/js/modules/mortgage-closing.js',
+              './src/static/js/modules/mortgage-estimate.js'
+
+              ],
               o: [
               'dist/static/js/loan-options.js',
               'dist/static/js/check-rates.js',
@@ -140,7 +146,11 @@ module.exports = function(grunt) {
               'dist/static/js/closing-disclosure.js',
               'dist/static/js/loan-estimate.js',
               'dist/static/js/home.js',
-              'dist/static/js/loan-options-subpage.js']
+              'dist/static/js/loan-options-subpage.js',
+              'dist/static/js/mortgage-closing.js',
+              'dist/static/js/mortgage-estimate.js'
+
+              ]
             }]
           ]
         }
@@ -222,7 +232,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './dist/static/js',
-          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'home.js', 'loan-options-subpage.js'],
+          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'home.js', 'loan-options-subpage.js', 'mortgage-closing.js', 'mortgage-estimate.js'],
           dest: './dist/static/js'
         }]
       },
