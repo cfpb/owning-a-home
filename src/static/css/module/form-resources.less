@@ -2,6 +2,11 @@
 
     .webfont-regular();
 
+    .content_wrapper {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
     .content_main {
         .respond-to-min(@tablet-min, {
             padding-top: unit(@grid_gutter-width * 1.5, px);
@@ -26,6 +31,8 @@
 
         &_wrapper {
             .wrapper();
+            margin-right: auto;
+            margin-left: auto;
             padding: 0;
         }
 
