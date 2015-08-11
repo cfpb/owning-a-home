@@ -199,6 +199,7 @@
     animation: fadein .5s;
   }
   
+
   .updating .interest-rate-loading {
     display: block;
     width: 100%;
@@ -228,6 +229,26 @@
   h3 {
     .reset;
   }
+}
+
+.output-alert {
+  border: 1px solid @green;
+  background: #fff;
+  position: absolute;
+  top: 40%;
+  padding: 1em 2em 1em 3em;
+  .webfont-regular();
+  z-index: 1;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 300px;
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
 }
 
 /* labels and inputs are full width on small screens */
@@ -401,9 +422,11 @@
 /*
   Loan Comparison Results
   --------------------------- */
-
+.output-table {
+  position: relative;
+}
 .comparison-results {
-  margin-bottom: @grid_gutter-width;  
+  margin-bottom: @grid_gutter-width; 
 }
 
 .lc-results-table {

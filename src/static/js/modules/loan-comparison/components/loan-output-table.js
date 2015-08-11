@@ -2,6 +2,7 @@ var React = require('react');
 var common = require('../common');
 var LoanOutput = require('./loan-output');
 var LoanOutputRow = require('./loan-output-table-row');
+var OutputAlert = require('./output-alert');
 
 var resultsTables = {
     'closing-costs': ['downpayment','lender-fees','discount','processing','third-party-fees','third-party-services','insurance','taxes-gov-fees','prepaid-expenses','initial-escrow'],
@@ -12,16 +13,41 @@ var resultsTables = {
 var resultsSub = ['discount','processing','third-party-services','insurance'];
 
 var LoanOutputTableGroup = React.createClass({
+    isLoading: function () {
+        var loading;
+        for (var i = 0; i < this.props.loans.length; i++) {
+            var loan = this.props.loans[i];
+            if (loan['rate-request'] || loan['county-request'] || loan['mtg-ins-request']) {
+                loading = true;
+                break;
+
+            }            
+        }
+
+        return loading;
+    },
     render: function() {
+        var loading = "";
         var results = ['closing-costs','monthly-payment','overall-costs'].map(function (prop) {
             return (
                 <LoanOutputTable result={prop} prop={prop} loans={this.props.loans}  scenario={this.props.scenario} />
             )
         }, this);
+        var msg;
+        if (this.isLoading()) {
+            loading = "loading";
+            msg = <OutputAlert />;
+        }
+
+
         return (
-            <section className="comparison-results content-l">
-                <div className="content-l_col-3-4 content-l_col">
-                    <div>
+            <section className="comparison-results content-l">  
+                          
+                               
+                <div className="content-l_col-3-4 content-l_col output-table">
+                    {msg}
+
+                    <div className={loading}>
                         <header className="u-mb20 u-mt20">
                             <div className="input-headers" aria-hidden="true">
                                 <div className="comparison-input-column"></div>
@@ -34,6 +60,7 @@ var LoanOutputTableGroup = React.createClass({
                         </div>
                     </div>
                 </div>
+
             </section>
         );
     }
