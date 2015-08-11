@@ -677,10 +677,6 @@
   }
 }
 
-.outputs-heading {
-  margin-left: @grid_gutter-width*2;
-}
-
   .results-section-heading {
     margin: 0;
     > .cf-icon {
@@ -1052,3 +1048,26 @@ table.unstyled {
   display: none;
 }
 
+/* Title Heading */
+.round-step {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 1.5em;
+  line-height: 1.5;
+  text-align: center;
+  background-color: @green-tint;
+  float: left;
+  margin-top: -3px;
+  margin-right: 10px;
+
+}
+
+.with-link {
+    & a {
+    border-width: 0;
+    border-style: dotted;
+    border-color: #0072ce;
+    color: #0072ce;
+    text-decoration: none;
+  }
+}
