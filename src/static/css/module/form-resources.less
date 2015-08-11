@@ -59,7 +59,7 @@
         .respond-to-max(660px, {
 
             .hero_img {
-                height: 170px;
+                height: 180px;
                 background-repeat: no-repeat;
                 background-position: center center; //wrapper has 15px left padding
             }
@@ -68,7 +68,7 @@
 
         .respond-to-min(661px, {
             //padding: 40px 0 0 0;
-            padding-top: unit(30px / @base-font-size-px, em);
+            padding-top: unit(15px / @base-font-size-px, em);
 
             &_wrapper {
                 background-repeat: no-repeat;
@@ -85,6 +85,7 @@
 
             &_preview {
                 padding: @grid_gutter-width;
+                margin-top: unit(15px / @base-font-size-px, em);
             }
 
         });
@@ -147,5 +148,116 @@
         });
 
     }
+
+    /* Capital Framework styles from the Journey process.less */
+
+    /* temp. workaround for .block-link border-color issue */
+     a.jump-link,
+     a.list_link {
+       border-color: @link-underline;
+       
+       &:visited {
+         border-color: @link-underline-visited;
+       }
+       
+       &:hover {
+         border-color: @link-underline-hover;
+         z-index: 10;
+       }
+
+       &:active{
+         border-color: @link-underline-active;
+       }
+     }
+
+    /* Borrowed from flapjack.*/
+
+
+    ul > .list__links {
+      .list__unstyled();
+    }
+
+    .list__links {
+      .list__unstyled();
+
+
+      .list_item {
+        margin-bottom: unit(10x / @base-font-size-px, em);
+
+        .respond-to-max(@mobile-max, {
+          margin-bottom: -1px;
+        });
+      }
+
+      &.list__spaced .list_item + .list_item {
+        margin-top: 0;
+      }
+
+      .list_link {
+        .respond-to-max(@mobile-max, {
+          .block-link();
+          border-color: @link-underline;
+
+           &:visited {
+             border-color: @link-underline-visited;
+           }
+
+           &:hover {
+             border-color: @link-underline-hover;
+             z-index: 10;
+           }
+
+           &:active{
+             border-color: @link-underline-active;
+           }
+
+          &.icon-link:after {
+            position: absolute;
+            margin-bottom: -0.625em;
+            right: 0;
+            bottom: 50%;
+            text-align: right;
+          }
+
+          .icon-link_text {
+            border-bottom-width: 0;
+          }
+        });
+      }
+
+      &.list__icons {
+        .list_link {
+          position: relative;
+          left: -0.125em; // adjust for optical alignment of icons
+        }
+
+        .icon-link:before,
+        .icon-link:after {
+          width: 1.125em;
+          text-align: center;
+        }
+      }
+    }
+
+    /* temp. workaround for .block-link border-color issue */
+    a.jump-link,
+    a.list_link {
+     border-color: @link-underline;
+     
+     &:visited {
+       border-color: @link-underline-visited;
+     }
+     
+     &:hover {
+       border-color: @link-underline-hover;
+       z-index: 10;
+     }
+
+     &:active{
+       border-color: @link-underline-active;
+     }
+    }
+
+
 
 } //.form-resources
