@@ -132,7 +132,7 @@ class ClosingDisclosure(Base):
 
     def current_page(self):
         element = self.driver.find_element_by_class_name('current-page')
-        return element.get_attribute('data-page')
+        return element.text
 
     def click_next_page(self, current_num):
         element_css = "#explain_page-" + current_num + " .next.btn"
