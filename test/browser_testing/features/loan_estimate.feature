@@ -59,3 +59,37 @@ Examples:
   | tab_name    |
   | Checklist   |
   | Definitions |
+
+@loan_estimate
+Scenario Outline: Test pagination
+  When I click on page "<page_num>"
+  Then page "<page_num>" is displayed
+
+Examples:
+  | page_num |
+  | 1        |
+  | 2        |
+  | 3        |
+  | 1        |
+
+  @loan_estimate
+  Scenario Outline: Test Next Page
+    When I click page "<current_num>" in Form Explainer
+      And I click the next button in page "<current_num>"
+    Then page "<page_num>" is displayed
+
+  Examples:
+  | current_num | page_num |
+  | 1           | 2        |
+  | 2           | 3        |
+
+  @loan_estimate
+  Scenario Outline: Test Prev Page
+    When I click page "<current_num>" in Form Explainer
+     And I click the previous button in page "<current_num>"
+    Then page "<page_num>" is displayed
+
+  Examples:
+  | current_num | page_num |
+  | 3           | 2        |
+  | 2           | 1        |
