@@ -293,6 +293,8 @@ module.exports = function(grunt) {
               'closing-disclosure/**',
               'loan-estimate/**',
               'loan-options/**',
+              'mortgage-closing/**',
+              'mortgage-estimate/**',
               'resources/*',
               'index.html'
             ],
