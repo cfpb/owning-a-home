@@ -16,8 +16,6 @@ require('./highcharts-theme');
 require('../../vendor/rangeslider.js/rangeslider.js');
 require('./tab');
 require('./analytics/rc-analytics');
-require('./nemo');
-require('./nemo-shim');
 require('./placeholder-polyfill');
 
 // Load our handlebar templates.

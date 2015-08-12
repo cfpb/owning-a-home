@@ -6,8 +6,6 @@ var formatUSD = require('format-usd');
 var unformatUSD = require('unformat-usd')
 require('./local-storage-polyfill');
 require('./secondary-nav');
-require('./nemo');
-require('./nemo-shim');
 require('jquery.scrollto');
 
 var $timelineLinks = $('.term-timeline a');
