@@ -38,6 +38,15 @@ describe('Dropdown utils', function() {
     expect($('option')).to.have.length(4);
   });
 
+  it('should select several select elements', function() {
+    $('body').append('<select id="foo1"><option value="baz1"></option></select>');
+    $('body').append('<select id="foo2"><option value="baz1"></option></select>');
+    dd(['foo', 'foo2']).disable();
+    expect($('select :disabled')).to.have.length(2);
+    dd(['foo', 'foo1', 'foo2']).enable();
+    expect($('select :enabled')).to.have.length(3);
+  });
+
   it('should let methods be chainable', function() {
     dd('foo').addOption({label: 'foo', value: 'bar'}).addOption({label: 'foo1', value: 'bar1'}).addOption({label: 'foo2', value: 'bar2'});
     expect($('option')).to.have.length(4);
