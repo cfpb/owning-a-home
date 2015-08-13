@@ -126,6 +126,16 @@ module.exports = function(grunt) {
           transform: ['browserify-shim', 'hbsfy', 'reactify'],
           plugin: [
             ['factor-bundle', {
+              entries: [
+                './src/static/js/modules/base.js',
+                './src/static/js/modules/loan-options.js',
+                './src/static/js/modules/check-rates.js',
+                './src/static/js/modules/loan-estimate.js',
+                './src/static/js/modules/closing-disclosure.js',
+                './src/static/js/modules/process.js',
+                './src/static/js/modules/loan-comparison.js',
+                './src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
+              ],
               o: [
                 'dist/static/js/base.js',
                 'dist/static/js/loan-options.js',
