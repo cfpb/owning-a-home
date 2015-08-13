@@ -17,17 +17,17 @@ describe('Loan store tests', function() {
         $ = require('jquery');
         loanStore = require('../../src/static/js/modules/loan-comparison/stores/loan-store.js');
         scenarioStore = require('../../src/static/js/modules/loan-comparison/stores/scenario-store.js');
-        api = require('../../src/static/js/modules/loan-comparison/api.js');        
+        api = require('../../src/static/js/modules/loan-comparison/api.js');
     });
-    
+
     beforeEach(function () {
         sandbox = sinon.sandbox.create();
     });
-    
+
     afterEach(function () {
         sandbox.restore();
     });
-    
+
     describe('init', function() {
         it('should reset all loans to the default values when init', function() {
             var initStub = sinon.stub(loanStore, 'resetAllLoans');
@@ -39,10 +39,10 @@ describe('Loan store tests', function() {
             loanStore.resetAllLoans.restore();
         });
     });
-    
+
     describe('reset all loans', function() {
         var getScenarioStub, updateDPConstStub, resetLoanStub, origLoans, loan;
-        
+
         beforeEach(function () {
             getScenarioStub = sandbox.stub(scenarioStore, 'getScenario');
             updateDPConstStub = sandbox.stub(loanStore, 'updateDownpaymentConstant');
@@ -51,14 +51,14 @@ describe('Loan store tests', function() {
             loan = {'loan': 'value'};
             resetLoanStub.returns(loan);
         });
-        
+
         afterEach(function () {
             loanStore._loans = origLoans;
         });
-        
-        it('should initialize two loan scenarios to their default values when there are currently no loans in the store', function() {            
-            loanStore._loans = []; // So this will use common.loanCount = 2            
-            
+
+        it('should initialize two loan scenarios to their default values when there are currently no loans in the store', function() {
+            loanStore._loans = []; // So this will use common.loanCount = 2
+
             loanStore.resetAllLoans();
 
             sinon.assert.calledOnce(scenarioStore.getScenario);
@@ -69,7 +69,7 @@ describe('Loan store tests', function() {
 
         it('should reset loan to its default value when there is one loan in the store', function() {
             loanStore._loans = [{}]; // So this will not use common.loanCount = 2
-            
+
             getScenarioStub.returns({'downpayment': 'test'});
             loanStore.resetAllLoans();
 
@@ -77,7 +77,7 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore.updateDownpaymentConstant);
             sinon.assert.calledOnce(loanStore.resetLoan);
             expect(loanStore._loans).to.deep.equal([loan])
-            
+
         });
 
         it('should not reset all loans to their default values when scenario object is not available', function() {
@@ -88,24 +88,24 @@ describe('Loan store tests', function() {
 
             sinon.assert.calledOnce(scenarioStore.getScenario);
             sinon.assert.notCalled(loanStore.updateDownpaymentConstant);
-            sinon.assert.notCalled(loanStore.resetLoan);            
+            sinon.assert.notCalled(loanStore.resetLoan);
         });
     });
-    
-    describe('reset loan', function() {        
+
+    describe('reset loan', function() {
         it('should reset loan without downpayment-percent value', function() {
             var id = 1;
             var loan = {'loan': 'value'};
             var scenario = {'scenario': 'value'}
-            
+
             sandbox.stub(loanStore, 'setupLoanData', function () {return loan});
             sandbox.stub(loanStore, 'updateCalculatedValues');
             sandbox.stub(loanStore, 'validateLoan');
             sandbox.stub(loanStore, 'fetchLoanData');
-            sandbox.stub(loanStore, 'fetchCounties');            
-            
+            sandbox.stub(loanStore, 'fetchCounties');
+
             loanStore.resetLoan(id, loan, scenario);
-            
+
             sinon.assert.calledOnce(loanStore['setupLoanData']);
             sinon.assert.calledWith(loanStore['setupLoanData'], id, loan, scenario);
             sinon.assert.calledTwice(loanStore['updateCalculatedValues']);
@@ -118,20 +118,20 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore['fetchCounties']);
             sinon.assert.calledWith(loanStore['fetchCounties'], loan, true);
         });
-        
+
         it('should reset loan with downpayment-percent value', function() {
             var id = 1;
             var loan = {'loan': 'value', 'downpayment-percent': 'value'};
             var scenario = {'scenario': 'value'}
-            
+
             sandbox.stub(loanStore, 'setupLoanData', function () {return loan});
             sandbox.stub(loanStore, 'updateCalculatedValues');
             sandbox.stub(loanStore, 'validateLoan');
             sandbox.stub(loanStore, 'fetchLoanData');
-            sandbox.stub(loanStore, 'fetchCounties');            
-            
+            sandbox.stub(loanStore, 'fetchCounties');
+
             loanStore.resetLoan(id, loan, scenario);
-            
+
             sinon.assert.calledOnce(loanStore['setupLoanData']);
             sinon.assert.calledWith(loanStore['setupLoanData'], id, loan, scenario);
             sinon.assert.calledOnce(loanStore['updateCalculatedValues']);
@@ -143,25 +143,25 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore['fetchCounties']);
             sinon.assert.calledWith(loanStore['fetchCounties'], loan, true);
         });
-        
+
     });
-    
+
     // This suite is only needed if pre-pop scenarios are being used
     describe('setup loan data', function() {
         it('should setup loan data, including existing data with id = 0', function() {
             var scenario = {'loanProps': [{'scenario0': 0}, {'scenario0': 1}, {'scenario0': 2}, {'scenario0': 3}]};
             var origLoans = loanStore._loans;
-            
+
             loanStore._loans = [
                 {'id': 0, 'rate-request': true, 'mtg-ins-request': false, 'credit-score': 'score'},
                 {'id': 1, 'rate-request': false, 'mtg-ins-request': true}
             ];
-                
+
             var loan = loanStore.setupLoanData(0, loanStore._loans[0], scenario);
 
             expect(loan).to.deep.equal({
-                    'id': 0, 
-                    'rate-request': true, 
+                    'id': 0,
+                    'rate-request': true,
                     'mtg-ins-request': false,
                     'credit-score': 'score',
                     'downpayment': 20000,
@@ -174,11 +174,11 @@ describe('Loan store tests', function() {
                     'state': 'AL',
                     'scenario0': 0
             });
-            
+
             loanStore._loans = origLoans;
-            
+
         });
-        
+
         it('should setup loan data, including existing data from loan 0, for loan with id != 0', function() {
 
             var scenario = {'loanProps': [{'scenario0': 0}, {'scenario0': 1}, {'scenario0': 2}, {'scenario0': 3}]};
@@ -188,7 +188,7 @@ describe('Loan store tests', function() {
                 {'id': 0, 'rate-request': true, 'mtg-ins-request': false, 'credit-score': 'score'},
                 {'id': 1, 'rate-request': false, 'mtg-ins-request': true}
             ];
-                
+
             var loan = loanStore.setupLoanData(1, loanStore._loans[1], scenario);
 
             expect(loan).to.deep.equal({
@@ -208,7 +208,7 @@ describe('Loan store tests', function() {
             loanStore._loans = origLoans;
         });
     });
-    
+
     describe('update all loans', function() {
         it('should iterate through all loans and update them based on their inputs', function() {
 
@@ -224,23 +224,23 @@ describe('Loan store tests', function() {
 
         });
     });
-    
+
     describe('update loan', function() {
         // TODO: test update flow with all possible props in integration/flow tests file
-        
+
         beforeEach(function () {
             sandbox.stub(loanStore, 'updateLoanDependencies');
             sandbox.stub(loanStore, 'validateLoan');
             sandbox.stub(loanStore, 'fetchLoanData');
             sandbox.stub(loanStore, 'updateLoanCalculations');
         });
-        
+
         it('should update interest-rate value & dependencies & calculations, but not validate loan or fetch loan data', function () {
             var loan = {};
             var prop = 'interest-rate';
-            
+
             loanStore.updateLoan(loan, prop, 42);
-            
+
             expect(loan[prop]).to.equal(42);
             expect(loan['edited']).to.equal(false);
             sinon.assert.calledOnce(loanStore.updateLoanDependencies);
@@ -248,13 +248,13 @@ describe('Loan store tests', function() {
             sinon.assert.notCalled(loanStore.fetchLoanData);
             sinon.assert.calledOnce(loanStore.updateLoanCalculations);
         });
-        
+
         it('should update county value & dependencies & calculations & validations, but not fetch loan data', function () {
             var loan = {};
             var prop = 'county';
-            
+
             loanStore.updateLoan(loan, prop, 42);
-            
+
             expect(loan[prop]).to.equal(42);
             expect(loan['edited']).to.equal(false);
             sinon.assert.calledOnce(loanStore.updateLoanDependencies);
@@ -262,13 +262,13 @@ describe('Loan store tests', function() {
             sinon.assert.notCalled(loanStore.fetchLoanData);
             sinon.assert.calledOnce(loanStore.updateLoanCalculations);
         });
-        
+
         it('should update other property value & dependencies & calculations & validations, and fetch loan data', function () {
             var loan = {'rate-request': 'request'};
             var prop = 'other';
-            
+
             loanStore.updateLoan(loan, prop, 42);
-            
+
             expect(loan[prop]).to.equal(42);
             expect(loan['edited']).to.equal(true);
             sinon.assert.calledOnce(loanStore.updateLoanDependencies);
@@ -277,8 +277,8 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore.updateLoanCalculations);
         });
     });
-    
-    
+
+
     describe('update downpayment constant', function() {
 
         it('should set downpayment constant to downpayment-percent when scenario is downpayment', function() {
@@ -305,9 +305,9 @@ describe('Loan store tests', function() {
 
             loanStore.downpaymentConstant = origDPConstant;
         });
-        
+
     });
-    
+
     describe('update downpayment dependencies', function() {
         describe('changed downpayment value: ', function() {
             it('should update downpayment-percent, loan amount, and downpaymentConstant given updated downpayment argument', function() {
@@ -324,10 +324,10 @@ describe('Loan store tests', function() {
                 expect(loanStore.downpaymentConstant).to.equal('downpayment');
                 expect(loan['price']).to.equal(200000);
                 expect(loan['downpayment-percent']).to.equal(20);
-                expect(loan['downpayment']).to.equal(40000);  
-                expect(loan['loan-amount']).to.equal(160000);            
+                expect(loan['downpayment']).to.equal(40000);
+                expect(loan['loan-amount']).to.equal(160000);
             });
-            
+
             it('should update downpayment, downpaymentConstant, and loan amount given downpayment-percent argument', function() {
                 // given
                 var prop = 'downpayment-percent';
@@ -342,18 +342,18 @@ describe('Loan store tests', function() {
                 expect(loan['price']).to.equal(200000);
                 expect(loan['downpayment-percent']).to.equal(5);
                 expect(loan['downpayment']).to.equal(10000);
-                expect(loan['loan-amount']).to.equal(190000);            
+                expect(loan['loan-amount']).to.equal(190000);
             });
-        
+
         });
-        
+
         describe('changed price value: ', function() {
             it('should not change downpaymentConstant, but it should update loan amount and downpayment-percent (since constant is downpayment)', function() {
                 // given
                 var prop = 'price';
                 var loan = {'price': 200000, 'downpayment': 10000};
                 loanStore.downpaymentConstant = 'downpayment';
-                
+
                 // when
                 loanStore.updateDownpaymentDependencies(loan, prop);
 
@@ -370,7 +370,7 @@ describe('Loan store tests', function() {
                 var prop = 'price';
                 loanStore.downpaymentConstant = 'downpayment-percent';
                 var loan = {
-                    'price': 200000, 
+                    'price': 200000,
                     'downpayment-percent': 40
                 };
 
@@ -386,17 +386,17 @@ describe('Loan store tests', function() {
             });
         });
     });
-    
+
     describe('update loan dependencies', function() {
-        
+
         beforeEach(function () {
-            sandbox.stub(loanStore, 'updateDownpaymentDependencies');            
+            sandbox.stub(loanStore, 'updateDownpaymentDependencies');
             sandbox.stub(loanStore, 'resetCounty');
         });
-        
+
         describe('downpayment props', function() {
             var downpaymentValues = ['downpayment', 'downpayment-percent', 'price'];
-        
+
             function testDownpaymentDependencies(val) {
                 it('should call downpayment dependencies update function for param ' + val, function () {
                     loanStore.updateLoanDependencies({}, val);
@@ -404,45 +404,45 @@ describe('Loan store tests', function() {
                     sinon.assert.notCalled(loanStore['resetCounty']);
                 });
             }
-        
+
             for (var i = 0; i<downpaymentValues.length; i++) {
               testDownpaymentDependencies(downpaymentValues[i]);
             }
         });
-        
+
         describe('other props', function() {
             it('should call reset county function for param state', function() {
                 loanStore.updateLoanDependencies({}, 'state');
-            
+
                 sinon.assert.calledOnce(loanStore['resetCounty']);
-                sinon.assert.notCalled(loanStore['updateDownpaymentDependencies']);            
+                sinon.assert.notCalled(loanStore['updateDownpaymentDependencies']);
             });
-        
+
             it('should not update dependencies when called without designated params', function() {
                 loanStore.updateLoanDependencies({}, 'interest-rate');
-            
+
                 sinon.assert.notCalled(loanStore['resetCounty']);
                 sinon.assert.notCalled(loanStore['updateDownpaymentDependencies']);
             });
         });
     });
-    
+
     describe('update loan calculations', function() {
-        
-        describe('loan summary params: ', function() {            
+
+        describe('loan summary params: ', function() {
             var loanSummaryValues = ['loan-type', 'loan-term', 'rate-structure', 'arm-type'];
-            
+
             var defaultLoan = {
                 'loan-type': 'conf',
                 'loan-term': 30,
                 'rate-structure': 'fixed'
             };
-        
+
             function testLoanSummaryCalculations(val) {
                 it('should update loan summary calculation when called with param ' + val, function() {
                     var loan = assign({}, defaultLoan);
                     sandbox.spy(loanStore, 'updateCalculatedValues');
-                    
+
                     loanStore.updateLoanCalculations(loan, val);
 
                     sinon.assert.calledOnce(loanStore['updateCalculatedValues']);
@@ -450,42 +450,42 @@ describe('Loan store tests', function() {
                     expect(loan['loan-summary']).to.equal('30-year fixed conventional');
                 });
             }
-        
+
             for (var i = 0; i<loanSummaryValues.length; i++) {
               testLoanSummaryCalculations(loanSummaryValues[i]);
             }
         });
-        
+
         describe('interest rate param: ', function() {
             it('should update interest rate calculations when called with param interest rate', function() {
                 sandbox.stub(loanStore, 'updateCalculatedValues');
                 var loan = {};
                 loanStore.updateLoanCalculations(loan, 'interest-rate');
-            
+
                 sinon.assert.calledOnce(loanStore['updateCalculatedValues']);
                 sinon.assert.calledWith(loanStore['updateCalculatedValues'], loan, common.calculatedPropertiesBasedOnIR);
             });
-        
+
         });
-        
+
         it('should not update calculated values when called without designated params', function() {
             var loan = {};
             sandbox.stub(loanStore, 'updateCalculatedValues');
-            
+
             loanStore.updateLoanCalculations(loan, 'price');
-            
+
             sinon.assert.notCalled(loanStore['updateCalculatedValues']);
         });
-        
+
     });
-    
+
     describe('reset county', function() {
         it('should reset county values on loan & call method to fetch new county data', function() {
-            sandbox.stub(loanStore, 'fetchCounties', function () {});            
-            
+            sandbox.stub(loanStore, 'fetchCounties', function () {});
+
             var loan = {county: 2, counties: [{'complete_fips': 1}, {'complete_fips': 2}], 'county-dict': {2: {}}};
             loanStore.resetCounty(loan);
-            
+
             expect(loan['county']).not.to.exist();
             expect(loan['counties']).not.to.exist();
             expect(loan['county-dict']).not.to.exist();
@@ -493,37 +493,37 @@ describe('Loan store tests', function() {
             sinon.assert.calledWith(loanStore['fetchCounties'], loan);
         });
     });
-    
+
     describe('cancel an existing request', function() {
         beforeEach(function () {
             sandbox.stub(api, 'stopRequest')
         });
-        
+
         it('should cancel an existing request on a loan and set request prop to null', function () {
             var requestProp = 'test-req';
             var loan = {'test-req': 'test'};
-        
+
             loanStore.cancelExistingRequest(loan, requestProp);
-            
+
             sinon.assert.calledOnce(api['stopRequest']);
             expect(loan[requestProp]).to.equal(null);
         });
-        
+
         it('should do nothing if there is no existing request on the loan', function () {
             var requestProp = 'test-req';
             var loan = {};
-        
+
             loanStore.cancelExistingRequest(loan, requestProp);
-            
+
             sinon.assert.notCalled(api['stopRequest']);
             expect(loan[requestProp]).to.equal(undefined);
         });
-        
+
     });
-    
+
     describe('fetch loan data', function() {
         var stopExistingRequest, fetchRatesStub, fetchInsuranceStub, updateLoanCalcPropStub, emitChangeStub;
-        
+
         beforeEach(function () {
             stopExistingRequest = sandbox.stub(loanStore, 'cancelExistingRequest');
             fetchRatesStub = sandbox.stub(loanStore, 'fetchRates');
@@ -531,7 +531,7 @@ describe('Loan store tests', function() {
             updateLoanCalcPropStub = sandbox.stub(loanStore, 'updateLoanCalculations');
             emitChangeStub = sandbox.stub(loanStore, 'emitChange');
         });
-        
+
         it ('should succeed at fetching data', function() {
             function okResponse() {
               var d = $.Deferred();
@@ -550,12 +550,12 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore.fetchRates);
             sinon.assert.calledOnce(loanStore.fetchInsurance);
             sinon.assert.calledOnce(loanStore.updateLoanCalculations);
-            
+
             expect(loan['rate-request']).to.equal(null);
             expect(loan['mtg-ins-request']).to.equal(null);
             sinon.assert.calledOnce(loanStore.emitChange);
         });
-        
+
         it ('should fail at fetching data', function() {
             function failedResponse() {
               var d = $.Deferred();
@@ -574,21 +574,21 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(loanStore.fetchRates);
             sinon.assert.calledOnce(loanStore.fetchInsurance);
             sinon.assert.notCalled(loanStore.updateLoanCalculations);
-            
+
             expect(loan['rate-request']).to.equal(null);
             expect(loan['mtg-ins-request']).to.equal(null);
             sinon.assert.calledOnce(loanStore.emitChange);
         });
     });
-    
+
     describe('fetch rates', function() {
         var fetchRateDataStub, updateLoanRatesStub;
-        
+
         beforeEach(function () {
             fetchRateDataStub = sandbox.stub(api, 'fetchRateData');
             updateLoanRatesStub = sandbox.stub(loanStore, 'updateLoanRates');
         });
-        
+
         it('should call to update loan rates if fetch rate data was returned', function() {
             function okResponse() {
               var d = $.Deferred();
@@ -622,15 +622,15 @@ describe('Loan store tests', function() {
             sinon.assert.notCalled(loanStore.updateLoanRates);
         });
     });
-    
+
     describe('fetch insurance', function() {
         var fetchMIDataStub, updateLoanInsStub;
-        
+
         beforeEach(function () {
             fetchMIDataStub = sandbox.stub(api, 'fetchMortgageInsuranceData');
             updateLoanInsStub = sandbox.stub(loanStore, 'updateLoanInsurance');
         });
-        
+
         it('should call to update loan insurance if fetch mortgage insurance data was returned', function() {
             function okResponse() {
               var d = $.Deferred();
@@ -662,7 +662,7 @@ describe('Loan store tests', function() {
             sinon.assert.notCalled(loanStore.updateLoanInsurance);
         });
     });
-    
+
     describe('update loan insurance', function() {
         it('should update loan property mtg-ins-data given data', function() {
             var loan = {};
@@ -670,7 +670,7 @@ describe('Loan store tests', function() {
             expect(loan['mtg-ins-data']).to.equal("data");
         });
     });
-    
+
     describe('update loan rates', function() {
         it('should fill out rate related properties in loan', function() {
             var loan = {};
@@ -688,9 +688,9 @@ describe('Loan store tests', function() {
             expect(loan['interest-rate']).to.equal(2);
         });
     });
-    
+
     describe('process rate data', function () {
-        
+
         it ('should process rates data and return a dictionary with processed rates and median rates', function() {
             var data = { "4.5": 3, "4.25": 2,"4.75": 1};
 
@@ -701,13 +701,13 @@ describe('Loan store tests', function() {
 
         // May need a case to show that if key in data but not in data.hasOwnProperty
     });
-    
+
     describe('is disallowed ARM property', function () {
         describe('term values', function () {
-            var i = 0, 
-                disallowedTerms = common.armDisallowedOptions['loan-term'], 
+            var i = 0,
+                disallowedTerms = common.armDisallowedOptions['loan-term'],
                 len = disallowedTerms.length;
-            
+
             function testDisallowedTerms(val) {
                 it('should return true when loan is ARM for disallowed term ' + val, function () {
                     var loan = {'rate-structure': 'arm', 'loan-term': val};
@@ -718,27 +718,27 @@ describe('Loan store tests', function() {
                     expect(loanStore.isDisallowedArmOption('term', loan)).to.be.false;
                 });
             }
-        
+
             for (i; i < len; i++) {
                 testDisallowedTerms(disallowedTerms[i]);
             }
-            
+
             it('should return false when loan is ARM & term is not disallowed', function() {
                 var loan = {'rate-structure': 'arm', 'loan-term': 'not-disallowed'};
                 expect(loanStore.isDisallowedArmOption('loan-term', loan)).to.be.false;
             });
-            
+
             it('should return false when loan is not ARM & term is not disallowed', function() {
                 var loan = {'rate-structure': 'not-arm', 'loan-term': 'not-disallowed'};
                 expect(loanStore.isDisallowedArmOption('loan-term', loan)).to.be.false;
             });
         });
-        
+
         describe('type values', function () {
-            var i = 0, 
-                disallowedTypes = common.armDisallowedOptions['loan-type'], 
+            var i = 0,
+                disallowedTypes = common.armDisallowedOptions['loan-type'],
                 len = disallowedTypes.length;
-               
+
             function testDisallowedTypes(val) {
                 it('should return true when loan is ARM for disallowed type ' + val, function () {
                     var loan = {'rate-structure': 'arm', 'loan-type': val};
@@ -749,41 +749,41 @@ describe('Loan store tests', function() {
                     expect(loanStore.isDisallowedArmOption('loan-type', loan)).to.be.false;
                 });
             }
-        
+
             for (i; i < len; i++) {
                 testDisallowedTypes(disallowedTypes[i]);
             }
-            
+
             it('should return false when loan is ARM & type is not disallowed', function() {
                 var loan = {'rate-structure': 'arm', 'loan-type': 'not-disallowed'};
                 expect(loanStore.isDisallowedArmOption('loan-type', loan)).to.be.false;
             });
-            
+
             it('should return false when loan is not ARM & type is not disallowed', function() {
                 var loan = {'rate-structure': 'not-arm', 'loan-type': 'not-disallowed'};
                 expect(loanStore.isDisallowedArmOption('loan-type', loan)).to.be.false;
             });
         });
-        
+
     });
-    
+
     describe('update calculated values', function() {
         beforeEach(function () {
             sandbox.stub(mortgageCalculations);
         });
-        
+
         it('should update a single calculated value', function() {
             loanStore.updateCalculatedValues({}, 'loan-amount');
             sinon.assert.calledOnce(mortgageCalculations['loan-amount']);
         });
-        
+
         it('should update an array of calculated values', function() {
             loanStore.updateCalculatedValues({}, ['loan-summary', 'loan-amount']);
             sinon.assert.calledOnce(mortgageCalculations['loan-amount']);
             sinon.assert.calledOnce(mortgageCalculations['loan-summary']);
         });
     });
-    
+
     describe('validators', function() {
         describe('loan type validation', function() {
 
@@ -841,19 +841,19 @@ describe('Loan store tests', function() {
             });
 
             it('should not return an error if downpayment is not too high or too low for Conventional loan', function() {
-                expect(loanStore.validators['downpayment']({'downpayment': 11000, 'price': 200000, 'loan-type': 'conf'})).not.to.exist();           
+                expect(loanStore.validators['downpayment']({'downpayment': 11000, 'price': 200000, 'loan-type': 'conf'})).not.to.exist();
             });
 
             it('should not return an error if downpayment is not too high or too low for FHA loan', function() {
-                expect(loanStore.validators['downpayment']({'downpayment': 8000, 'price': 200000, 'loan-type': 'fha'})).not.to.exist();           
+                expect(loanStore.validators['downpayment']({'downpayment': 8000, 'price': 200000, 'loan-type': 'fha'})).not.to.exist();
             });
 
             it('should not return an error if downpayment is not too high or too low for non-FHA/Conventional loan', function() {
-                expect(loanStore.validators['downpayment']({'downpayment': 7000, 'price': 200000, 'loan-type': 'va'})).not.to.exist();           
+                expect(loanStore.validators['downpayment']({'downpayment': 7000, 'price': 200000, 'loan-type': 'va'})).not.to.exist();
             });
         });
     });
-    
+
     describe('validate loan', function() {
         it('should have an empty loan error property if all validators return no error', function() {
             var errors = {'downpayment': 'This will be removed.'};
@@ -861,7 +861,7 @@ describe('Loan store tests', function() {
                          'downpayment': 7000,
                          'price': 200000,
                          'loan-type': 'va',
-                         'rate-structure': 'fixed' 
+                         'rate-structure': 'fixed'
                         };
             loanStore.validateLoan(loan);
 
@@ -879,20 +879,20 @@ describe('Loan store tests', function() {
             expect(loan['errors']['downpayment']).to.equal('FHA loans typically require a down payment of at least 3.5%.');
         });
     });
-    
+
     describe('is downpayment too high', function() {
-    
+
     });
-    
+
     describe('is downpayment too low', function() {
-    
+
     });
-    
+
     describe('jumbo logic', function() {
         // TODO:
         // test previous type, disallowed type
         describe('jumbo check', function() {
-            describe('jumbo test success', function() {    
+            describe('jumbo test success', function() {
                 it('should update loan to jumbo if isJumbo is true', function() {
                     var loan = {
                         errors: {}
@@ -900,38 +900,38 @@ describe('Loan store tests', function() {
                     var jumboResults = {success: true, isJumbo: true, msg: 'msg', type: 'type'};
                     sandbox.stub(loanStore, 'runJumboTest', function () {return jumboResults});
                     sandbox.stub(loanStore, 'updateLoan', function () {});
-                    
-                    loanStore.jumboCheck(loan);        
+
+                    loanStore.jumboCheck(loan);
                     sinon.assert.calledOnce(loanStore['runJumboTest']);
                     expect(loan['need-county']).to.be.true();
                     expect(loan['errors']['loan-type']).to.equal(jumboResults.msg);
                     sinon.assert.calledOnce(loanStore['updateLoan']);
                     sinon.assert.calledWith(loanStore['updateLoan'], loan, 'loan-type', jumboResults.type);
                 });
-                
+
                 it('should change a jumbo loan back to conventional if isJumbo is false', function() {
                     var loan = {errors: {}, 'loan-type': 'jumbo'};
                     var jumboResults = {success: true, isJumbo: false};
                     sandbox.stub(loanStore, 'runJumboTest', function () {return jumboResults});
                     sandbox.stub(loanStore, 'updateLoan', function () {});
-                    
-                    loanStore.jumboCheck(loan);        
+
+                    loanStore.jumboCheck(loan);
                     sinon.assert.calledOnce(loanStore['runJumboTest']);
                     expect(loan['need-county']).to.be.false();
                     expect(loan['errors']['loan-type']).not.to.exist();
                     sinon.assert.calledOnce(loanStore['updateLoan']);
                     sinon.assert.calledWith(loanStore['updateLoan'], loan, 'loan-type', 'conf');
                 });
-                
+
                 // TODO: test negative scenarios: loan type doesn't change, etc
-                
+
                 it('should change a currently jumbo but previously fha loan back to fha if isJumbo is false', function() {
                     var loan = {errors: {}, 'loan-type': 'fha-hb', 'previous-type': 'fha'};
                     var jumboResults = {success: true, isJumbo: false};
                     sandbox.stub(loanStore, 'runJumboTest', function () {return jumboResults});
                     sandbox.stub(loanStore, 'updateLoan', function () {});
-                    
-                    loanStore.jumboCheck(loan);        
+
+                    loanStore.jumboCheck(loan);
                     sinon.assert.calledOnce(loanStore['runJumboTest']);
                     expect(loan['need-county']).to.be.false();
                     expect(loan['errors']['loan-type']).not.to.exist();
@@ -939,16 +939,16 @@ describe('Loan store tests', function() {
                     sinon.assert.calledWith(loanStore['updateLoan'], loan, 'loan-type', 'fha');
                 });
             });
-            
-            describe('jumbo test failure', function() {   
-                // TODO: this needs more tests 
+
+            describe('jumbo test failure', function() {
+                // TODO: this needs more tests
                 it('should handle needing county data to complete jumbo check', function() {
                     var loan = {errors: {}, 'loan-type': 'fha'};
                     var jumboResults = {success: false, needCounty: true};
                     sandbox.stub(loanStore, 'runJumboTest', function () {return jumboResults});
                     sandbox.stub(loanStore, 'fetchCounties', function () {});
-                    
-                    loanStore.jumboCheck(loan);        
+
+                    loanStore.jumboCheck(loan);
                     sinon.assert.calledOnce(loanStore['runJumboTest']);
                     expect(loan['need-county']).to.be.true();
                     expect(loan['errors']['county']).to.equal(common.errorMessages['need-county']);
@@ -956,14 +956,14 @@ describe('Loan store tests', function() {
                 });
             });
         });
-        
+
         describe('run jumbo test', function() {
 
         });
-        
+
         describe('get jumbo params', function() {
             it('should return default params if there are no county params', function() {
-                sandbox.stub(loanStore, 'getCountyParams', function () {});      
+                sandbox.stub(loanStore, 'getCountyParams', function () {});
 
                 var loan = {'loan-amount': 200000, 'loan-type': 'conf'};
                 var jumboParams = loanStore.getJumboParams(loan);
@@ -975,43 +975,43 @@ describe('Loan store tests', function() {
             it('should include county params when they are available', function() {
                 var county = {gseCountyLimit: 1, fhaCountyLimit: 1, vaCountyLimit: 1};
                 var loan = {'loan-amount': 200000, 'loan-type': 'conf', 'other': 'something'};
-                sandbox.stub(loanStore, 'getCountyParams', function () {return county});      
+                sandbox.stub(loanStore, 'getCountyParams', function () {return county});
 
                 var jumboParams = loanStore.getJumboParams(loan);
 
                 sinon.assert.calledOnce(loanStore['getCountyParams']);
 
                 expect(jumboParams).to.deep.equal({
-                    loanType: loan['loan-type'], 
+                    loanType: loan['loan-type'],
                     loanAmount: loan['loan-amount'],
                     gseCountyLimit: county.gseCountyLimit,
                     fhaCountyLimit: county.fhaCountyLimit,
                     vaCountyLimit: county.vaCountyLimit
                 });
             });
-            
+
         });
-        
+
         describe('get county params', function() {
             it('should return null if county or county-dict does not exist on loan', function() {
                 expect(loanStore.getCountyParams({})).not.to.exist();
                 expect(loanStore.getCountyParams({'county-dict': {1: {'complete_fips': 1}, 2: {'complete_fips': 2}}})).not.to.exist();
                 expect(loanStore.getCountyParams({county: 1})).not.to.exist();
             });
-            
+
             it('should return correctly configured county params if county & county-dict exist on loan', function() {
                 var loan = {county: 1, 'county-dict': {1: {'gse_limit': 1, 'fha_limit': 1, 'va_limit': 1}}};
                 var countyParams = {gseCountyLimit: 1, fhaCountyLimit: 1, vaCountyLimit: 1};
-                
+
                 expect(loanStore.getCountyParams(loan)).to.deep.equal(countyParams);
             });
         });
     });
 
     describe('fetch counties', function() {
-        
+
         var loan, dfd, promise, stopExistingRequest, fetchCountiesStub, updateLoanCounties, emitChangeStub;
-        
+
         beforeEach(function () {
             loan = {};
             dfd = $.Deferred();
@@ -1021,7 +1021,7 @@ describe('Loan store tests', function() {
             updateLoanCounties = sandbox.stub(loanStore, 'updateLoanCounties');
             emitChangeStub = sandbox.stub(loanStore, 'emitChange');
         });
-        
+
         it ('should update loan counties on success', function() {
             loanStore.fetchCounties(loan);
 
@@ -1029,9 +1029,9 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(api.fetchCountyData);
             sinon.assert.notCalled(loanStore.updateLoanCounties);
             expect(loan['county-request']).to.equal(promise);
-            
+
             dfd.resolve({});
-            
+
             sinon.assert.calledOnce(loanStore.updateLoanCounties);
             sinon.assert.calledOnce(loanStore.emitChange);
             expect(loan['county-request']).to.equal(null);
@@ -1044,15 +1044,15 @@ describe('Loan store tests', function() {
             sinon.assert.calledOnce(api.fetchCountyData);
             sinon.assert.notCalled(loanStore.updateLoanCounties);
             expect(loan['county-request']).to.equal(promise);
-            
+
             dfd.reject({});
-            
+
             sinon.assert.notCalled(loanStore.updateLoanCounties);
             sinon.assert.calledOnce(loanStore.emitChange);
             expect(loan['county-request']).to.equal(null);
         });
     });
-    
+
     describe('update loan counties', function() {
         it('should update counties and county-dict on loan', function() {
             var loan = {};
@@ -1060,14 +1060,14 @@ describe('Loan store tests', function() {
             var county2 = {'complete_fips': 2, 'other': 2};
             var data = [county1, county2];
             var dict = {1: county1, 2: county2};
-            
-            sandbox.spy(loanStore, 'updateLoan'); 
-            
+
+            sandbox.spy(loanStore, 'updateLoan');
+
             loanStore.updateLoanCounties(loan, data);
-            
+
             expect(loan.counties).to.equal(data);
             expect(loan['county-dict']).to.deep.equal(dict);
-            
+
         });
     });
 
