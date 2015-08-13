@@ -47,6 +47,10 @@ describe('Calculates mortgage', function() {
     it('Positive test - should return lender fees total equal to processing plus discount points', function() {
       expect(mortgage['lender-fees']({'processing': 1800, 'discount': 3600})).to.equal(5400);
     });
+
+    it('Positive test - should return 0 lender fees with no processing and discount', function() {
+      expect(mortgage['lender-fees']({})).to.equal(0);
+    });
   });
 
   describe('third-party-fees', function() {
@@ -64,6 +68,10 @@ describe('Calculates mortgage', function() {
   describe('insurance', function() {
     it('Positive test - should return insurance with the given loan-amount and mortgage insurance data', function() {
       expect(mortgage['insurance']({'loan-amount': 180000, 'mtg-ins-data': {'upfront': 1}})).to.equal(1800);
+    });
+
+    it('Positive test - should return 0 for insurance with no mtg-ins-data', function() {
+      expect(mortgage['insurance']({})).to.equal(0);
     });
   });
 
@@ -103,66 +111,117 @@ describe('Calculates mortgage', function() {
 
   describe('monthly-principal-interest', function() {
     it('Positive test - should return the correct monthly-principal-interest', function() {
-      expect(mortgage['monthly-principal-interest']({"loan-amount": 180000, 
-        "interest-rate": 4.25, 
+      expect(mortgage['monthly-principal-interest']({"loan-amount": 180000,
+        "interest-rate": 4.25,
         "loan-term": 30})).to.equal(885);
     });
   });
 
   describe('monthly-mortgage-insurance', function() {
-    it ('Positive test - should return the correct monthly-mortgage-insurance', function() {
+    it('Positive test - should return the correct monthly-mortgage-insurance', function() {
       expect(mortgage['monthly-mortgage-insurance']({'loan-amount': 180000, 'mtg-ins-data': {'monthly': 0.57}})).to.equal(85);
+    });
+
+    it('Positive test - should return 0 for monthly-mortgage-insurance with no mtg-ins-data', function() {
+      expect(mortgage['monthly-mortgage-insurance']({})).to.equal(0);
     });
   });
 
   describe('monthly-payment', function() {
-    it ('Positive test - should return the correct monthly-payment with given data', function() {
-      expect(mortgage['monthly-payment']({'monthly-taxes-insurance': 250, 
-        'monthly-mortgage-insurance': 86, 
-        'monthly-hoa-dues': 0, 
+    it('Positive test - should return the correct monthly-payment with given data', function() {
+      expect(mortgage['monthly-payment']({'monthly-taxes-insurance': 250,
+        'monthly-mortgage-insurance': 86,
+        'monthly-hoa-dues': 0,
         'monthly-principal-interest': 885})).to.equal(1221);
     });
   });
 
   describe('closing-costs', function() {
-    // it ('Positive test - should return the correct closing costs', function() {
-    //   expect(mortgage['closing-costs']({'downpayment': 20000,
-    //     'discount': 0,
-    //     'processing': 831,
-    //     'third-party-services': 3000,
-    //     'insurance': x,
-    //     'taxes-gov-fees': 1000,
-    //     'prepaid-expenses': 814,
-    //     'initial-escrow': 500})).to.equal(26000);
-    // });
+    it('Positive test - should return the correct closing costs', function() {
+       expect(mortgage['closing-costs']({'downpayment': 20000,
+         'discount': 0,
+         'processing': 831,
+         'third-party-services': 3000,
+         'insurance': 10,
+         'taxes-gov-fees': 1000,
+         'prepaid-expenses': 814,
+         'initial-escrow': 500})).to.equal(26155);
+     });
   });
 
   describe('get-cost', function() {
-
+    it('Positive test - it should return the correct cost for get-cost', function() {
+    });
   });
 
   describe('principal-paid', function() {
-
+    it('Positive test - should return the correct principal-paid', function() {
+      var loan = {
+        'loan-amount': 200000,
+        'interest-rate': 5,
+        'loan-term': 15,
+        'downpayment': 100000,
+        'closing-costs': 12000
+      };
+      var cost = mortgage['get-cost'](loan);
+      expect(cost['totalEquity']).to.equal(300000);
+    });
   });
 
   describe('interest-fees-paid', function() {
-
+    it('Positive test - should return the correct interest-fees-paid', function() {
+      var loan = {
+        'loan-amount': 200000,
+        'interest-rate': 5,
+        'loan-term': 15,
+        'downpayment': 100000,
+        'closing-costs': 12000
+      };
+      var cost = mortgage['get-cost'](loan);
+      expect(cost['totalCost']).to.equal(-3314.29);
+    });
   });
 
   describe('overall-costs', function() {
-
+    it('Positive test - should return the correct overall-costs', function() {
+      var loan = {
+        'loan-amount': 200000,
+        'interest-rate': 5,
+        'loan-term': 15,
+        'downpayment': 100000,
+        'closing-costs': 12000
+      };
+      var cost = mortgage['get-cost'](loan);
+      expect(cost['overallCost']).to.equal(296685.71);
+    });
   });
 
   describe('loan-summary', function() {
-    it ('Positive test - should return the correct loan-summary for ARM', function() {
+    it('Positive test - should return the correct loan-summary for ARM', function() {
       expect(mortgage['loan-summary']({'arm-type': '3-1',
         'rate-structure': 'arm'})).to.equal("3/1 ARM");
     });
 
-    it ('Positive test - should return the correct loan-summary for Fixed', function() {
+    it('Positive test - should return somewhat correct loan-summary for ARM when arm-type is missing', function() {
+      expect(mortgage['loan-summary']({'rate-structure': 'arm'})).to.equal(' ARM');
+    });
+
+    it('Positive test - should return the correct loan-summary for Fixed', function() {
       expect(mortgage['loan-summary']({'loan-term': 30,
         'rate-structure': 'fixed',
         'loan-type': 'va'})).to.equal("30-year fixed VA");
+    });
+
+    it('Positive test - should return a somewhat correct loan-summary for Fixed, v2', function() {
+      expect(mortgage['loan-summary']({'loan-term': 15,
+        'rate-structure': 'fixed',
+        'loan-type': 'FHA'})).to.equal("15-year fixed undefined");
+    });
+
+    it('Positive test - should return the correct loan-summary for Fixed, v3', function() {
+      expect(mortgage['loan-summary']({'loan-term': 15,
+        'rate-structure': 'fixed',
+        'loan-type': 'jumbo'})).to.equal("15-year fixed Jumbo (non-conforming)");
     });
   });
 
