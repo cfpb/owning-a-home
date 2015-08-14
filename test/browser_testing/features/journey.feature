@@ -17,8 +17,8 @@ Examples:
   | Compare Loan Options  |
   | Get Ready to Close    |
 
-@check_urls @amy
-Scenario Outline: Testing availability of pages that don't are not part of journey steps
+@check_urls
+Scenario Outline: Testing availability of pages that are not part of journey steps
   Given I navigate to the "<page_name>" page
   Then All links are working
 
