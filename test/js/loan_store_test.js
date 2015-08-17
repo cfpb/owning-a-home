@@ -9,6 +9,7 @@ var mortgageCalculations = require('../../src/static/js/modules/loan-comparison/
 var common = require('../../src/static/js/modules/loan-comparison/common.js');
 var sandbox;
 var assign = require('object-assign');
+var jumbo = require('jumbo-mortgage');
 
 var api;
 
@@ -1078,48 +1079,52 @@ describe('Loan store tests', function() {
         });
 
         describe('run jumbo test', function() {
+          it('should return {} if jumbo() fails', function()  {
+            var result = loanStore.runJumboTest({dummy:'loan'});
+            expect(result).to.deep.equal({});
+          });
+        });
+
+        describe('get jumbo params', function() {
+          it('should return default params if there are no county params', function() {
+              sandbox.stub(loanStore, 'getCountyParams', function () {});
+
+              var loan = {'loan-amount': 200000, 'loan-type': 'conf'};
+              var jumboParams = loanStore.getJumboParams(loan);
+              expect(jumboParams).to.deep.equal({loanType: loan['loan-type'], loanAmount: loan['loan-amount']});
+
+              sinon.assert.calledOnce(loanStore['getCountyParams']);
+          });
+
+          it('should include county params when they are available', function() {
+              var county = {gseCountyLimit: 1, fhaCountyLimit: 1, vaCountyLimit: 1};
+              var loan = {'loan-amount': 200000, 'loan-type': 'conf', 'other': 'something'};
+              sandbox.stub(loanStore, 'getCountyParams', function () {return county});
+
+              var jumboParams = loanStore.getJumboParams(loan);
+
+              sinon.assert.calledOnce(loanStore['getCountyParams']);
+
+              expect(jumboParams).to.deep.equal({
+                  loanType: loan['loan-type'],
+                  loanAmount: loan['loan-amount'],
+                  gseCountyLimit: county.gseCountyLimit,
+                  fhaCountyLimit: county.fhaCountyLimit,
+                  vaCountyLimit: county.vaCountyLimit
+              });
+          });
+
           it('should assign previous-type to loanType when common.jumboTypes[loanType] exists', function() {
             var loan = {'loan-type': 'jumbo', 'previous-type': 'test', 'loan-amount': 20000};
             var results = loanStore.getJumboParams(loan);
             expect(results.loanType).to.equal(loan['previous-type']);
           });
 
-          it('should assign "conf" to loanType when exists common.jumboTypes[loanType] exists and loan[previous-type] doesnt', function() {
+          it('should assign "conf" to loanType when common.jumboTypes[loanType] exists and loan[previous-type] doesnt', function() {
             var loan = {'loan-type': 'jumbo', 'loan-amount': 20000};
             var results = loanStore.getJumboParams(loan);
             expect(results.loanType).to.equal("conf");
           });
-        });
-
-        describe('get jumbo params', function() {
-            it('should return default params if there are no county params', function() {
-                sandbox.stub(loanStore, 'getCountyParams', function () {});
-
-                var loan = {'loan-amount': 200000, 'loan-type': 'conf'};
-                var jumboParams = loanStore.getJumboParams(loan);
-                expect(jumboParams).to.deep.equal({loanType: loan['loan-type'], loanAmount: loan['loan-amount']});
-
-                sinon.assert.calledOnce(loanStore['getCountyParams']);
-            });
-
-            it('should include county params when they are available', function() {
-                var county = {gseCountyLimit: 1, fhaCountyLimit: 1, vaCountyLimit: 1};
-                var loan = {'loan-amount': 200000, 'loan-type': 'conf', 'other': 'something'};
-                sandbox.stub(loanStore, 'getCountyParams', function () {return county});
-
-                var jumboParams = loanStore.getJumboParams(loan);
-
-                sinon.assert.calledOnce(loanStore['getCountyParams']);
-
-                expect(jumboParams).to.deep.equal({
-                    loanType: loan['loan-type'],
-                    loanAmount: loan['loan-amount'],
-                    gseCountyLimit: county.gseCountyLimit,
-                    fhaCountyLimit: county.fhaCountyLimit,
-                    vaCountyLimit: county.vaCountyLimit
-                });
-            });
-
         });
 
         describe('get county params', function() {
