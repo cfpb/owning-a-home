@@ -1267,5 +1267,19 @@ describe('Loan store tests', function() {
       });
     });
 
+    describe('get prop label from common module', function() {
+      it('should return a correct prop name', function() {
+        var prop = 'arm-type';
+        var result = common.getPropLabel(prop);
+        expect(result).to.equal('ARM type');
+      });
+
+      it('should generate the correct prop name', function() {
+        var prop = 'test-prop-name';
+        var result = common.getPropLabel(prop);
+        expect(result).to.equal('Test prop name');
+      });
+    });
+
 });
 
