@@ -163,8 +163,8 @@ describe('Calculates mortgage', function() {
         'downpayment': 100000,
         'closing-costs': 12000
       };
-      var cost = mortgage['get-cost'](loan);
-      expect(cost['totalEquity']).to.equal(300000);
+      var cost = mortgage['principal-paid'](loan);
+      expect(cost).to.equal(300000);
     });
   });
 
@@ -177,8 +177,8 @@ describe('Calculates mortgage', function() {
         'downpayment': 100000,
         'closing-costs': 12000
       };
-      var cost = mortgage['get-cost'](loan);
-      expect(cost['totalCost']).to.equal(-3314.29);
+      var cost = mortgage['interest-fees-paid'](loan);
+      expect(cost).to.equal(-3314.29);
     });
   });
 
@@ -191,8 +191,8 @@ describe('Calculates mortgage', function() {
         'downpayment': 100000,
         'closing-costs': 12000
       };
-      var cost = mortgage['get-cost'](loan);
-      expect(cost['overallCost']).to.equal(296685.71);
+      var cost = mortgage['overall-costs'](loan);
+      expect(cost).to.equal(296685.71);
     });
   });
 
