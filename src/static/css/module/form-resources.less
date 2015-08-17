@@ -52,7 +52,7 @@
         .respond-to-max(660px, {
 
             .hero_img {
-                height: 170px;
+                height: 180px;
                 background-repeat: no-repeat;
                 background-position: center center; //wrapper has 15px left padding
             }
@@ -61,7 +61,7 @@
 
         .respond-to-min(661px, {
             //padding: 40px 0 0 0;
-            padding-top: unit(30px / @base-font-size-px, em);
+            padding-top: unit(15px / @base-font-size-px, em);
 
             &_wrapper {
                 background-repeat: no-repeat;
@@ -78,6 +78,7 @@
 
             &_preview {
                 padding: @grid_gutter-width;
+                margin-top: unit(15px / @base-font-size-px, em);
             }
 
         });
