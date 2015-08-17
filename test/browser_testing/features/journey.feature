@@ -16,3 +16,13 @@ Examples:
   | Explore Loan Options  |
   | Compare Loan Options  |
   | Get Ready to Close    |
+
+@check_urls
+Scenario Outline: Testing availability of pages that are not part of journey steps
+  Given I navigate to the "<page_name>" page
+  Then All links are working
+
+Examples:
+  | page_name             |
+  | Sources               |
+

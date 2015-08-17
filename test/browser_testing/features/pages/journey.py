@@ -46,5 +46,4 @@ class Journey(Base):
                 # and there are too many of them
                 if is_local and link.startswith(base_url):
                     results.append(link)
-
         return results

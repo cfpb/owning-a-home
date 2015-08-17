@@ -24,6 +24,7 @@ PP = 'process/prepare'
 PE = 'process/explore'
 PC = 'process/compare'
 PF = 'process/close'
+PS = 'process/sources'
 # FE
 CD = 'closing-disclosure'
 LE = 'loan-estimate'
@@ -59,6 +60,8 @@ def step(context, page_name):
         context.base.go(PC)
     elif (page_name == 'Get Ready to Close'):
         context.base.go(PF)
+    elif (page_name == 'Sources'):
+        context.base.go(PS)
     elif (page_name == 'Closing Disclosure'):
         context.base.go(CD)
     elif (page_name == 'Loan Estimate'):
