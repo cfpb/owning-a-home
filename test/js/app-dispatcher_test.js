@@ -2,7 +2,7 @@ var dispatcher = require('../../src/static/js/modules/loan-comparison/dispatcher
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var sanbox, dispatch;
+var sandbox, dispatch;
 
 describe('App dispatcher tests', function() {
 
