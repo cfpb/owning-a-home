@@ -311,6 +311,8 @@ module.exports = function(grunt) {
               'index.html',
               'loan-options/**',
               'check-rates/**',
+              'process/**',
+              'form-explainer/**',
               '_*/*',
               'resources/*'
             ],
