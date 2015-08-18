@@ -38,6 +38,31 @@ describe('Dropdown utils', function() {
     expect($('option')).to.have.length(4);
   });
 
+  it('should not add options with same values', function() {
+    dd('foo').addOption({label: 'first', value: 'bar'});
+    dd('foo').addOption({label: 'second', value: 'bar'});
+    expect($('option')).to.have.length(2);
+  });
+
+  it('should select the option when values.select', function() {
+    dd('foo').addOption({label: 'Foo', value: 'BAR', select: 1});
+    expect( $('#foo')[0].selectedIndex ).to.equal(1);
+  });
+
+  it('should create option with value/name of ""', function() {
+    dd('foo').addOption(null);
+    $('#foo')[0].selectedIndex = 1;
+    expect($('#foo').val()).to.equal('');
+  });
+
+  it('should disable several options', function() {
+    dd('foo').addOption({value: 'value1', label: 'label1'});
+    dd('foo').addOption({value: 'value2', label: 'label2'});
+    expect($('option:disabled')).to.have.length(0);
+    dd('foo').disable(['value1', 'value2']);
+    expect($('option:disabled').length).to.equal(2);
+  });
+
   it('should select several select elements', function() {
     $('body').append('<select id="foo1"><option value="baz1"></option></select>');
     $('body').append('<select id="foo2"><option value="baz1"></option></select>');
