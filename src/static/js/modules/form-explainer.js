@@ -465,15 +465,13 @@ $(document).ready(function(){
   var expandableTimeout;
   var delay = isIE ? 1000 : 700;
   $('.expandable_target').on( 'click', function( event ) {
-    var $expandable = $(this).closest('.expandable');
     window.clearTimeout( expandableTimeout );
-      setTimeout(function () {
-        if ($WINDOW.width() > 600) {
-          var els =  formExplainer.getPageElements(formExplainer.currentPage);
-          formExplainer.updateStickiness(els, $WINDOW.scrollTop())
-
-        }
-      }, delay)
+    setTimeout(function () {
+      if ($WINDOW.width() > 600) {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
+      }
+    }, delay)
   });
 
 });
