@@ -459,6 +459,20 @@ $(document).ready(function(){
       }
     }
   });
+  
+  // Check image position after expandable animation to make sure it is not
+  // overlapping the footer.
+  var expandableTimeout;
+  var delay = isIE ? 1000 : 700;
+  $('.expandable_target').on( 'click', function( event ) {
+    window.clearTimeout( expandableTimeout );
+    setTimeout(function () {
+      if ($WINDOW.width() > 600) {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
+      }
+    }, delay)
+  });
 
 });
 
