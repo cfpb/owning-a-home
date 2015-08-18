@@ -463,6 +463,7 @@ $(document).ready(function(){
   // Check image position after expandable animation to make sure it is not
   // overlapping the footer.
   var expandableTimeout;
+  var delay = isIE ? 1000 : 700;
   $('.expandable_target').on( 'click', function( event ) {
     var $expandable = $(this).closest('.expandable');
     window.clearTimeout( expandableTimeout );
@@ -472,7 +473,7 @@ $(document).ready(function(){
           formExplainer.updateStickiness(els, $WINDOW.scrollTop())
 
         }
-      }, 700)
+      }, delay)
   });
 
 });
