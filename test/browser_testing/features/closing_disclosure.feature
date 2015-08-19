@@ -53,7 +53,17 @@ Examples:
 @closing_disclosure
 Scenario Outline: Test overlays/highlights
   When I click the tab "<tab_name>"
-    When I hover over an overlay the corresponding explainer has class has-attention
+    When I hover over an overlay the corresponding explainer has class hover-has-attention
+
+Examples:
+  | tab_name    |
+  | Checklist   |
+  | Definitions |
+
+@closing_disclosure
+Scenario Outline: Test overlays/highlights
+  When I click the tab "<tab_name>"
+    When I click an overlay the corresponding explainer has class has-attention
 
 Examples:
   | tab_name    |
