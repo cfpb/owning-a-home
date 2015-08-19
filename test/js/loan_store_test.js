@@ -11,6 +11,9 @@ var sandbox;
 var assign = require('object-assign');
 var jumbo = require('jumbo-mortgage');
 
+var appDispatcher = require('../../src/static/js/modules/loan-comparison/dispatcher/app-dispatcher.js');
+var LoanConstants = require('../../src/static/js/modules/loan-comparison/constants/loan-constants.js');
+
 var api;
 
 describe('Loan store tests', function() {
@@ -1268,7 +1271,7 @@ describe('Loan store tests', function() {
 
     describe('dispatch token', function() {
       it('should do something magical', function() {
-        // TODO: later
+        appDispatcher.handleServerAction({actionType: null, prop: 'test'});
       });
     });
 
