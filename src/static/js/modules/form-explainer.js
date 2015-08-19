@@ -434,6 +434,9 @@ $(document).ready(function(){
      itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
       $overlay = $('.image-map_overlay'),
       $target = $('a[href=#' + itemID + ']');
+      $('.expandable__form-explainer').removeClass('hover-has-attention');
+    var $expandable = $this.hasClass('expandable__form-explainer') ? $this : $this.closest('.expandable__form-explainer');
+    $expandable.addClass('hover-has-attention');
     $overlay.removeClass('hover-has-attention');
     $target.addClass('hover-has-attention');
   });
@@ -468,7 +471,6 @@ $(document).ready(function(){
   // call attention to the associated map area or term, respectively.
   $WRAPPER.on( 'keypress click', '.image-map_overlay, .expandable__form-explainer', function( event ) {
     if (event.which === 13 || event.type === 'click') {
-      event.preventDefault();
       var $target,
           $this = $(this);
       if ( typeof $this.attr('href') !== 'undefined' ) {
