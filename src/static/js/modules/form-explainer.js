@@ -434,8 +434,8 @@ $(document).ready(function(){
      itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
       $overlay = $('.image-map_overlay'),
       $target = $('a[href=#' + itemID + ']');
-    $overlay.removeClass('has-attention');
-    $target.addClass('has-attention');
+    $overlay.removeClass('hover-has-attention');
+    $target.addClass('hover-has-attention');
   });
 
   // When mousing over a term or highlighted area of the image map,
@@ -451,14 +451,45 @@ $(document).ready(function(){
     }
     if ( typeof $target !== 'undefined' ) {
       // remove class from all
-      $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
-      if ( $target.hasClass('has-attention') ) {
+      $('.expandable__form-explainer, .image-map_overlay').removeClass('hover-has-attention');
+
+      if ( $target.hasClass('hover-has-attention') ) {
+        $target.removeClass('hover-has-attention');
+      if ( $target.hasClass('has-attention')) {
         $target.removeClass('has-attention');
+      }
       } else {
-        $target.addClass('has-attention');
+        $target.addClass('hover-has-attention');
       }
     }
   });
+
+  // When mousing over a term or highlighted area of the image map,
+  // call attention to the associated map area or term, respectively.
+  $WRAPPER.on( 'keypress click', '.image-map_overlay, .expandable__form-explainer', function( event ) {
+    if (event.which === 13 || event.type === 'click') {
+      event.preventDefault();
+      var $target,
+          $this = $(this);
+      if ( typeof $this.attr('href') !== 'undefined' ) {
+        $target = $( $this.attr('href') );
+      } else  if ( typeof $this.attr('id') !== 'undefined' ) {
+        $target = $('[href=#'+$this.attr('id')+']');
+      }
+      if ( typeof $target !== 'undefined' ) {
+        // remove class from all
+        $('.expandable__form-explainer, .image-map_overlay').removeClass('hover-has-attention');
+        $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
+        if ( $target.hasClass('has-attention') ) {
+          $target.removeClass('has-attention');
+        } else {
+          $target.addClass('has-attention');
+        }
+      }
+    }
+  });
+
+
 
 });
 
