@@ -114,7 +114,7 @@ module.exports = function(grunt) {
         src: [
           './src/static/js/modules/loan-options.js',
           './src/static/js/modules/rates.js',
-          './src/static/js/modules/check-rates.js',
+          './src/static/js/modules/explore-rates.js',
           './src/static/js/modules/loan-comparison.js',
           './src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
           './src/static/js/modules/loan-estimate.js',
@@ -133,7 +133,7 @@ module.exports = function(grunt) {
               entries: [
                 './src/static/js/modules/loan-options.js',
                 './src/static/js/modules/rates.js',
-                './src/static/js/modules/check-rates.js',
+                './src/static/js/modules/explore-rates.js',
                 './src/static/js/modules/loan-comparison.js',
                 './src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
                 './src/static/js/modules/loan-estimate.js',
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
               o: [
                 'dist/static/js/loan-options.js',
                 'dist/static/js/rates.js',
-                'dist/static/js/check-rates.js',
+                'dist/static/js/explore-rates.js',
                 'dist/static/js/loan-comparison.js',
                 'dist/static/js/prepare-worksheets.js',
                 'dist/static/js/loan-estimate.js',
@@ -243,7 +243,7 @@ module.exports = function(grunt) {
           src: [
             'rates.js',
             'loan-options.js',
-            'check-rates.js',
+            'explore-rates.js',
             'loan-comparison.js',
             'prepare-worksheets.js',
             'process.js',
@@ -310,7 +310,7 @@ module.exports = function(grunt) {
               // Move html & template files new template folders need to be added here.
               'index.html',
               'loan-options/**',
-              'check-rates/**',
+              'explore-rates/**',
               '_*/*',
               'resources/*'
             ],
