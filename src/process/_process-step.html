@@ -110,7 +110,7 @@
                         <div class="content-l content-l__main">
 
                           {% if step.content %}
-                          <section class="{% if not active_phase.tools or step.key_tool%}content-l_col-2-3{% else %} step-content-full {% endif %} content-l_col short-desc">
+                          <section class="{% if not active_phase.tools or step.key_tool%}content-l_col-2-3{% else %} content-l_col-1 {% endif %} content-l_col short-desc">
                             <p>
                             {{step.content|safe}}
                             </p>
