@@ -311,6 +311,11 @@ module.exports = function(grunt) {
               'index.html',
               'loan-options/**',
               'check-rates/**',
+              'closing-disclosure/**',
+              'loan-estimate/**',
+              'mortgage-closing/**',
+              'mortgage-estimate/**',
+              'process/**',
               '_*/*',
               'resources/*'
             ],
