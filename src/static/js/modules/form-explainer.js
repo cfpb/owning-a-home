@@ -431,10 +431,11 @@ $(document).ready(function(){
 
   $WRAPPER.on( 'focus', '.expandable__form-explainer, .expandable__form-explainer .expandable_target', function( ) {
     var $this = $(this),
-     itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
-      $overlay = $('.image-map_overlay'),
-      $target = $('a[href=#' + itemID + ']');
-      $('.expandable__form-explainer').removeClass('hover-has-attention');
+    itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
+    $overlay = $('.image-map_overlay'),
+    $target = $('a[href=#' + itemID + ']');
+    $('.expandable__form-explainer').removeClass('hover-has-attention');
+
     var $expandable = $this.hasClass('expandable__form-explainer') ? $this : $this.closest('.expandable__form-explainer');
     $expandable.addClass('hover-has-attention');
     $overlay.removeClass('hover-has-attention');
@@ -458,9 +459,10 @@ $(document).ready(function(){
 
       if ( $target.hasClass('hover-has-attention') ) {
         $target.removeClass('hover-has-attention');
-      if ( $target.hasClass('has-attention')) {
-        $target.removeClass('has-attention');
-      }
+      
+        if ( $target.hasClass('has-attention')) {
+          $target.removeClass('has-attention');
+        }
       } else {
         $target.addClass('hover-has-attention');
       }
@@ -480,8 +482,7 @@ $(document).ready(function(){
       }
       if ( typeof $target !== 'undefined' ) {
         // remove class from all
-        $('.expandable__form-explainer, .image-map_overlay').removeClass('hover-has-attention');
-        $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
+        $('.expandable__form-explainer, .image-map_overlay').removeClass('hover-has-attention has-attention');
         if ( $target.hasClass('has-attention') ) {
           $target.removeClass('has-attention');
         } else {
