@@ -44,7 +44,7 @@ describe('Dropdown utils', function() {
     expect($('option')).to.have.length(2);
   });
 
-  it('should select the option when values.select', function() {
+  it('should select the option when values.select is true', function() {
     dd('foo').addOption({label: 'Foo', value: 'BAR', select: 1});
     expect( $('#foo')[0].selectedIndex ).to.equal(1);
   });
@@ -55,7 +55,7 @@ describe('Dropdown utils', function() {
     expect($('#foo').val()).to.equal('');
   });
 
-  it('should disable several options', function() {
+  it('should disable all given options', function() {
     dd('foo').addOption({value: 'value1', label: 'label1'});
     dd('foo').addOption({value: 'value2', label: 'label2'});
     expect($('option:disabled')).to.have.length(0);
