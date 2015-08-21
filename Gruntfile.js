@@ -406,7 +406,7 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
-          excludes: ['src/static/vendor/**/*'],
+          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],
           reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,
