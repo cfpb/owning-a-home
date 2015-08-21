@@ -70,6 +70,7 @@ describe('Dropdown utils', function() {
     expect($('select :disabled')).to.have.length(2);
     dd(['foo', 'foo1', 'foo2']).enable();
     expect($('select :enabled')).to.have.length(3);
+    expect($('select :disabled')).to.have.length(0);
   });
 
   it('should let methods be chainable', function() {
