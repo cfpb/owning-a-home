@@ -1271,7 +1271,7 @@ describe('Loan store tests', function() {
 
     describe('dispatch token', function() {
       it('should do something magical', function() {
-        appDispatcher.handleServerAction({actionType: null, prop: 'test'});
+        //appDispatcher.handleServerAction({actionType: null, prop: 'test'});
         // TODO: not sure how to test this one
       });
     });
