@@ -93,3 +93,12 @@ Examples:
   | current_num | page_num |
   | 3           | 2        |
   | 2           | 1        |
+
+@check_urls @loan_estimate
+Scenario Outline: Testing availability of pages on Loan Estimate
+  Given I navigate to the "<page_name>" page
+  Then All links are working
+
+Examples:
+  | page_name             |
+  | Loan Estimate         |
