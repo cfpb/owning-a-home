@@ -39,4 +39,3 @@ Examples:
   | We can help | Mortgage help                | /mortgagehelp/ |
   | Get videos, compliance guides, and other resources | Regulatory implementation                | /regulatory-implementation/ |
    | Your home loan toolkit: a step-by-step guide | http://www.consumerfinance.gov/f/201503_cfpb_your-home-loan-toolkit-web.pdf                | http://www.consumerfinance.gov/f/201503_cfpb_your-home-loan-toolkit-web.pdf |
-  | More mortgage-related guides | Consumer Financial Protection Bureau publications                | http://promotions.usa.gov/cfpbpubs.html#mortgages |
