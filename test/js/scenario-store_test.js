@@ -15,7 +15,7 @@ describe('Scenario store tests', function() {
   });
 
   describe('get scenario', function() {
-    it('should return the correct scenario and save the xx century fox studio', function() {
+    it('should return the correct scenario', function() {
       var result = scenarioStore.getScenario();
       // very weak test
       expect(result['val']).to.equal("downpayment");
