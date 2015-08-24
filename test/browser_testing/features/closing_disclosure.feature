@@ -100,4 +100,13 @@ Scenario Outline: Test Prev Page
   | 4           | 3        |
   | 3           | 2        |
   | 2           | 1        |
+
+@check_urls @closing_disclosure
+Scenario Outline: Testing availability of pages on Closing Disclosure
+  Given I navigate to the "<page_name>" page
+  Then All links are working
+
+Examples:
+  | page_name             |
+  | Closing Disclosure    |
  
