@@ -28,7 +28,9 @@ PS = 'process/sources'
 # FE
 CD = 'closing-disclosure'
 LE = 'loan-estimate'
-
+# Form Resources
+MC = 'mortgage-closing'
+ME = 'mortgage-estimate'
 
 @given(u'I navigate to the "{page_name}" page')
 @handle_error
@@ -66,6 +68,10 @@ def step(context, page_name):
         context.base.go(CD)
     elif (page_name == 'Loan Estimate'):
         context.base.go(LE)
+    elif (page_name == 'Mortgage Closing'):
+        context.base.go(MC)
+    elif (page_name == 'Mortgage Estimate'):
+        context.base.go(ME)
     else:
         raise Exception(page_name + ' is NOT a valid page')
 
