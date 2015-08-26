@@ -433,7 +433,7 @@ $(document).ready(function(){
       duration: 200,
       offset: -30
     });
-    $targetExpandable.get(0).handleClick(event);
+    $targetExpandable.find('.expandable_target').click();
   }
   
   // Update attention classes based on the expandable or image overlay 
