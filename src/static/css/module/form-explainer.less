@@ -48,6 +48,9 @@
     }
     
     &:hover,
+    &.hover-has-attention {
+        border-color: @gold-80;
+    }
     &:focus,
     &.has-attention  {
         border-color: @gold-80;
@@ -79,6 +82,9 @@
     }
     
     &:hover,
+    &.hover-has-attention {
+        border-color: @teal-80;
+    }
     &:focus,
     &.has-attention  {
         border-color: @teal-80;
@@ -107,6 +113,7 @@
     border-bottom: none;
     margin: 0 0 unit(3px / @base-font-size-px, em);
     transition: transform 100ms ease-out;
+    &.expandable__expanded,
     &.has-attention {
         transform: translateX(-(@grid_gutter-width / 2));
         .expandable_link {
@@ -159,10 +166,12 @@
         border-color: @gold-20;
     }
     &:hover,
+    &.hover-has-attention {
+        border-color: @gold-80;
+    }
+    &.expandable__expanded,
     &.has-attention {
-        & {
-            border-color: @gold-80;
-        }
+        border-color: @gold-80;
         .expandable_header {
             background: @gold-80;
         }
@@ -209,6 +218,12 @@
         border-color: @teal-20;
     }
     &:hover,
+    &.hover-has-attention {
+        border-color: @teal-50;
+
+    }
+
+    &.expandable__expanded,
     &.has-attention {
 
         & {
