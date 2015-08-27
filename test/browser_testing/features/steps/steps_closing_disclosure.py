@@ -50,11 +50,15 @@ def click_tab(context, tab_name):
     context.closing_disclosure._click_tab(tab_name)
 
 
-@when(u'I hover over an overlay the corresponding explainer has class has-attention')
+@when(u'I hover over an overlay the corresponding explainer has class hover-has-attention')
 def hover_an_overlay(context):
     result = context.closing_disclosure.hover_an_overlay()
     assert_that(result, equal_to(0), 'All overlays to explainers connections work')
 
+@when(u'I click an overlay the corresponding explainer has class has-attention')
+def hover_an_overlay(context):
+    result = context.closing_disclosure.click_an_overlay()
+    assert_that(result, equal_to(0), 'All overlays to explainers connections work')
 
 @when(u'I click on page "{page_num}"')
 def click_page(context, page_num):
