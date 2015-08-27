@@ -7,7 +7,7 @@
 
 
 <main class="content content__1-3" id="main" role="main">
-  <div class="wrapper content_wrapper content_wrapper__narrow-with-sidebar">
+  <div class="wrapper content_wrapper content_wrapper__narrow-with-sidebar u-pb0">
 
     <section class="content__loan-options content_main">
       <div class="oah-title-tag">
@@ -373,9 +373,33 @@
 
               
           </section> <!-- /.type-details -->
+          
     </section>
     <aside class="content_sidebar content__flush-all-on-small">
     </aside>
+    {% import "related-links.html" as related_links %}
+    <div class="content_intro related-links_container">
+      {% set process_links = [
+          { 
+            'desc': 'Still shopping for a home?',
+            'label': 'Explore loan choices', 
+            'url': '/owning-a-home/process/explore/'
+          },
+          { 
+            'desc': 'Already have a home in mind?',
+            'label': 'Compare loan offers', 
+            'url': '/owning-a-home/process/compare/'
+          }
+       ] %}
+       {% set tools_links = [
+           { 
+             'desc': 'Interest rates can differ based on the kind of loan you choose.',
+             'label': 'Explore interest rates', 
+             'url': '/owning-a-home/check-rates/'
+           }
+        ] %}
+      {{ related_links.render(process_links, tools_links) }}
+    </div>
   </div>
 </main>
 
