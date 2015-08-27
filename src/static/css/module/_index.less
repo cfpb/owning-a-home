@@ -1,0 +1,168 @@
+/* ==========================================================================
+   "Home Page" custom styles
+   ========================================================================== */
+
+/*
+  WRAPPERS & CONTAINERS
+  ---------------------------- */
+.index {
+  .webfont-regular();
+}
+
+fieldset.submit_btn,
+fieldset.submit_btn > p {
+  display:inline;
+  margin:0px;
+  padding:0px;
+}
+
+.index {
+  .content_main {
+    .respond-to-min(@tablet-min, {
+      padding-top: @grid_gutter-width;
+      padding-bottom: @grid_gutter-width;
+    });
+  }
+}
+
+.content__bleedbar.content__2-1 .content_no-sidebar {
+  &:after {
+    display: none;
+  }
+}
+
+
+
+/*
+  HERO
+  ---------------------------- */
+
+.content_hero {
+  padding: 30px 15px 0px;
+  .respond-to-min(600px, {
+    padding: 30px 30px 0px;
+  });
+  .respond-to-min(800px, {
+    padding: 30px 0px 0px;
+  });
+
+  background-color: @teal-20;
+  background-image: none;
+}
+
+.hero-illu-inner {
+  padding: 0em 1.75em 0em 1.75em;
+  .content-l_col + & {
+    margin-top: 0em;
+  }
+}
+
+.hero-illu {
+    margin-bottom: 30px;
+}
+
+/*
+  MAIN COLUMN CONTENT
+  ---------------------------- */
+
+.section__intro {
+  padding-bottom: @grid_gutter-width/3; // 10px
+  .respond-to-min(800px, {
+    padding-top: @grid_gutter-width/3; // 10px
+    padding-bottom: @grid_gutter-width;
+  });
+}
+
+.heading_link {
+  color: @black;
+  &:hover,
+  &:active,
+  &:focus {
+    color: @pacific;
+  }
+}
+
+.oah-illu {
+  text-align: center;
+}
+
+// Phases for Journey 
+.section__phase {
+  .content-l_col {
+    margin-top: 0;
+  }
+}
+  
+  .content-l_col {
+    &.content-l_col-1-4  {
+      .respond-to-min(@tablet-min, {
+        .grid_column(1, 4);    
+      });
+    }
+    &.content-l_col-3-4  {
+      .respond-to-min(@tablet-min, {
+        .grid_column(3, 4);    
+      });
+    }
+  }
+
+  .content-l__main {
+    .content-l_col-1-4 + .content-l_col-3-4  {
+      .respond-to-min(@tablet-min, {
+        margin-top: 0;  
+      });
+    }
+  }
+
+  .phase_intro {
+    .respond-to-min(@tablet-min, {
+      border-right: 0;
+    });
+  }
+
+  .phase_tools {
+    position: relative;
+  }
+  
+  .respond-to-max(@mobile-max, {
+    .phase_illu {
+      text-align: center;
+    }
+  });
+
+/*
+  SIDEBAR CONTENT
+  ---------------------------- */
+
+.list__links .list_link.jump-link__bg {
+  border-color: @gray-20;
+}
+
+.list__links.list__spaced {
+  .jump-link_intro + .list_link {
+    margin-top: @grid_gutter-width/3;
+    margin-bottom: @grid_gutter-width;
+    .respond-to-min(@mobile-max, {
+      margin-bottom: @grid_gutter-width/3;
+    });
+  }
+    .list_item {
+    .respond-to-min(@tablet-min, {
+      margin-bottom: unit(24px / @base-font-size-px, em)
+    });
+  }
+}
+
+#email{
+  width: 200px;
+}
+.input-with-btn > div{display: inline-block;}
+
+@media (max-width: 720px) {
+  .rc-home-illu {
+    display: none;
+  }
+}
+
+.tabbed-pad-top {
+  margin-top: @grid_gutter-width;}
