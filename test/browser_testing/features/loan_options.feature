@@ -95,8 +95,8 @@ Examples:
   | principal and interest                    | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
   | Learn why                                 | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html |
   | Learn more                                | /askcfpb/1965/how-do-mortgage-lenders-calculate-monthly-payments.html                                                        |
-  | Explore rates for different loan terms  | /check-rates/                                                                                                                |
-  | Loan Estimates                      |  askcfpb/1995/what-is-a-loan-estimate.html |                                                 
+  | Explore rates for different loan terms  | /explore-rates/                                                                                                                |
+  | Loan Estimates                      |  askcfpb/1995/what-is-a-loan-estimate.html |
   | Learn more about balloon loans            | /askcfpb/104/what-is-a-balloon-loan.html  |
 
 @loan_options @prod_only @loan_options_expandable
@@ -105,7 +105,7 @@ Scenario Outline: Expand 'Interest rate type' section then click links inside th
     And I click on the "<link_name>" link
   Then I should see the "<relative_url>" URL with page title Consumer Financial Protection Bureau open in a new tab
 
-Examples:   
+Examples:
   | link_name                                   | relative_url                                                                                                                                        |
   | principal and interest payment              | /askcfpb/1941/on-a-mortgage-whats-the-difference-between-my-principal-and-interest-payment-and-my-total-monthly-payment.html                        |
   | increase or decrease based on the market    | /askcfpb/1949/for-an-adjustable-rate-mortgage-arm-what-are-the-index-and-margin-and-how-do-they-work.html                                           |
