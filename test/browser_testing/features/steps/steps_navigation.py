@@ -139,3 +139,9 @@ def step(context):
 def step(context, relative_url, page_title):
     title = context.base.switch_to_new_tab(relative_url)
     assert_that(title, contains_string(page_title))
+
+@then(u'Links are working without 404 errors')
+def links_working_without_404s(context):
+    assert_that( context.navigation.check_links_for_404s(context.base_url),
+                equal_to([]),
+                'Broken links on <%s>' % context.base.get_current_url() )

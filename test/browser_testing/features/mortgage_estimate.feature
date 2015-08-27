@@ -3,7 +3,7 @@ As a first time visitor to the Owning a Home page
 I want to navigate the Mortgage Estimate page
 So that I can find the information I'm looking for
 
-@check_urls @404
+@404
 Scenario Outline: Testing availability of pages on Mortgage Estimate
   Given I navigate to the "<page_name>" page
   Then Links are working without 404 errors
