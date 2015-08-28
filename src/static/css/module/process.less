@@ -369,6 +369,9 @@ a.list_link {
   }
     
   .steps-col {
+    .respond-to-range(600px, 799px, {
+      .grid_column(12);
+    });
     .respond-to-min(800px, {
       .grid_column(2,3);
       .grid_pull(4);
@@ -505,8 +508,17 @@ a.list_link {
   
   .phase_data {
     margin-bottom: @grid_gutter-width;
+    
+    .tools {
+      margin-bottom: @grid_gutter-width;
+    }
+    
     .respond-to-min(800px, {
       .block;
+      
+      .tools {
+        margin-bottom: 0;
+      }
     });
   }
 

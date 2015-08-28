@@ -68,7 +68,7 @@
 
           {% if active_phase.tools %}
             <div class="tools-col">
-              <section class="tools block block__bg block__padded-top block__flush-bottom">
+              <section class="tools block block__bg block__padded-top">
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
                   <div class="tool">
@@ -110,7 +110,7 @@
                         <div class="content-l content-l__main">
 
                           {% if step.content %}
-                          <section class="{% if not active_phase.tools or step.key_tool%}content-l_col-2-3{% else %} step-content-full {% endif %} content-l_col short-desc">
+                          <section class="{% if not active_phase.tools or step.key_tool%}content-l_col-2-3{% else %} content-l_col-1 {% endif %} content-l_col short-desc">
                             <p>
                             {{step.content|safe}}
                             </p>
@@ -155,7 +155,7 @@
                         {% if step.pitfalls_to_avoid %}
                         <section class="content-l__main content-l step">
                           <h1 class="content-l_col-1-4 content-l_col h6 u-mb10">
-                            Pitfalls to avoid
+                            How to avoid pitfalls
                           </h1>
                           <article class="content-l_col-3-4 content-l_col ">
                           {{step.pitfalls_to_avoid|safe}}
@@ -178,9 +178,13 @@
                     </div>
                   {% endfor %}
                 </div>
-                <p class="short-desc block block__bg block__sub block__bg-small">
-                  Visit our <a href="/owning-a-home/process/sources/">sources page</a> to learn more about the facts and numbers we reference.
-                </p>
+                <aside class="short-desc block block__bg block__sub block__bg-small">
+                 <p> Visit our <a href="/owning-a-home/process/sources/">sources page</a> to learn more about the facts and numbers we reference.
+                 </p>
+                <p class="u-mb0">
+                 <i>Note: The process and forms described on this page reflect <a href="/know-before-you-owe/" target="_blank">new mortgage regulations</a> that take effect for most mortgages on October 3, 2015.</i>
+                 </p>
+                </aside>
               </section>
             </div>
           {% endif %}
