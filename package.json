@@ -33,12 +33,15 @@
     "chai": "^1.9.1",
     "coveralls": "^2.11.2",
     "debowerify": "~0.7.1",
+    "es5-shim": "^4.1.7",
+    "es6-promise": "^2.1.1",
     "factor-bundle": "~2.2.1",
+    "flux": "^2.0.1",
     "grunt": "latest",
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-task": "~0.4.0",
-    "grunt-browserify": "~3.0.1",
+    "grunt-browserify": "^3.6.0",
     "grunt-combine-media-queries": "~1.0.2",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "latest",
@@ -61,6 +64,13 @@
     "mocha": "^1.18.2",
     "mocha-jsdom": "^0.2.0",
     "mochify-istanbul": "^2.1.1",
+    "object-assign": "^2.0.0",
+    "react": "^0.13.2",
+    "react-templates": "^0.1.14",
+    "react-tools": "~0.13.1",
+    "reactify": "^1.1.0",
+    "sinon": "^1.15.3",
+    "sinon-chai": "^2.8.0",
     "time-grunt": "^1.0.0"
   },
   "keywords": [],
@@ -104,7 +114,8 @@
     "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
     "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
-    "oah-config": "./config/config.json"
+    "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
+    "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx"
   },
   "browserify-shim": "./config/shim.js"
 }

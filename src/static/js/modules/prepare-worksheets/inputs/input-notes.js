@@ -17,18 +17,18 @@ function InputNotes( options ) {
   // Load our handlebar templates.
   var _template = require( '../../../templates/prepare-worksheets/input-notes.hbs' );
   var data = {text: _row.text, altText: _row.altText, placeholder: options.data.placeholder};
-  
+
   var snippet = _template( data );
 
   // This appendChild could be replaced by jquery or similar if desired/needed.
   //var node = $(options.container).append($(snippet) );
   var node = _domHelper.appendChild( options.container, snippet, 'tbody' );
-  
+
 
   // DOM references.
   var _textDOM = node.querySelector('.text-col');
   var _altTextInputDOM = node.querySelector('textarea');
-  
+
 
   // Listen for updates to the text or grading buttons.
   _altTextInputDOM.addEventListener( 'keyup', _changedHandler );
@@ -50,7 +50,7 @@ function InputNotes( options ) {
   function setState(state) {
     var text = state.text === undefined ? '' : state.text;
     var altText = state.altText === undefined ? null : state.altText;
-    _textDOM.innerHTML = text;
+    _textDOM.innertext = text;
     _altTextInputDOM.value = altText;
   }
 

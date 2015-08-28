@@ -22,33 +22,34 @@
   <div class="explain" aria-controls="form-explainer">
     <ul class="tabs explain_tabs">
       <li class="tab-list active-tab">
-        <button class="tab-link" data-target="all">
-          All
-        </button>
-      </li>
-      <li class="tab-list">
-        <button class="tab-link tab-link__checklist" data-target="checklist">
+        <button class="tab-link tab-link__checklist" data-target="checklist" tabindex="0">
           <span class="cf-icon cf-icon-approved-round"></span>
-          <span class="tab-label">Checklist</span>
+          <span class="tab-label">Check details</span>
         </button>
       </li>
       <li class="tab-list">
-        <button class="tab-link tab-link__alerts" data-target="alerts">
-          <span class="cf-icon cf-icon-error-round"></span>
-          <span class="tab-label">Alerts</span>
-        </button>
-      </li>
-      <li class="tab-list">
-        <button class="tab-link tab-link__definitions" data-target="definitions">
+        <button class="tab-link tab-link__definitions" data-target="definitions" tabindex="0">
           <span class="cf-icon cf-icon-help-round"></span>
-          <span class="tab-label">Definitions</span>
+          <span class="tab-label">Get definitions</span>
         </button>
       </li>
     </ul>
+    {{ render_pagination( data ) }}
     {% for page in data %}
-    <figure class="explain_page" id="explain_page-{{ loop.index }}">
+    <figure class="explain_page" id="explain_page-{{ loop.index }}" role="tablist" multiselectable="true">
       <div class="image-map explain_image-map">
+          
         <div class="image-map_wrapper">
+            <div class="form-explainer_page-buttons">
+                  <button class="prev btn btn__disabled">
+                      <span class="u-visually-hidden">Prev page</span>
+                      <span class="cf-icon cf-icon-left"></span>
+                  </button>
+                  <button class="btn next">
+                    <span class="u-visually-hidden">Next page</span>
+                    <span class="cf-icon cf-icon-right"></span>
+                  </button>
+              </div>
           <img class="image-map_image"
                src="{{ page.img }}"
                alt="">
@@ -56,11 +57,13 @@
         </div>
       </div>
       <figcaption class="terms explain_terms">
-        {{ render_terms( page.terms, loop.index ) }}
+          <div class="expandable-group expandable-group__form-explainer" data-accordion="true">
+              {{ render_terms( page.terms, loop.index ) }}
+          </div>
       </figcaption>
     </figure>
     {% endfor %}
-    {{ render_pagination( loop.length ) }}
+    
   </div><!-- ./explain -->
 {% endmacro %}
 
@@ -86,7 +89,9 @@
 {% for item in terms %}
   <a class="image-map_overlay image-map_overlay__{{ item.category }}"
      style="{{ 'top:' + item.top + ';' 'left:' + item.left + ';' }}{{ 'width:' + item.width + ';' 'height:' + item.height + ';' if item.width and item.height }}"
-     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}">
+     href="{{ '#page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+     id="{{ 'image-map_overlay__' + page_num|string + '-' + item.category + '-' + item.id }}"
+     tabindex="-1">
     <span class="u-visually-hidden">{{ item.term }}</span>
  </a>
 {% endfor %}
@@ -144,7 +149,8 @@
   <div class="expandable expandable__padded
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
-       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
+       id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}"
+       tabindex="0">
     <span class="expandable_header">
       <span class="expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
@@ -159,7 +165,7 @@
               expandable__form-explainer
               expandable__form-explainer-{{ item.category }}"
        id="{{ 'page-' + page_num|string + '-' + item.category + '-' + item.id }}">
-    <button class="expandable_header expandable_target">
+    <button class="expandable_header expandable_target" tabindex="0">
       <span class="expandable_header-left expandable_label">
           <span class="expandable_category expandable_category__{{ item.category }}">
             <span class="u-visually-hidden">{{ item.category }}</span>
@@ -177,7 +183,7 @@
         </span>
       </span>
     </button>
-    <div class="expandable_content u-stick">
+    <div class="expandable_content u-stick" tabindex="0">
       {{ item.definition|safe }}
       {% if item.highlight -%}
         <img class="u-stick_bottom" src="{{ item.highlight }}" alt="">
@@ -190,7 +196,7 @@
 
 {# ==========================================================================
 
-   render_pagination( total )
+   render_pagination( pages )
 
    ==========================================================================
 
@@ -198,27 +204,19 @@
 
    Render pagination.
 
-   total:              The total number of pages in this form.
+   pages:              Pages in form
 
    ========================================================================== #}
 
-{% macro render_pagination( total ) %}
+{% macro render_pagination( pages ) %}
   <nav class="pagination explain_pagination">
-    <button class="btn btn__super btn__disabled pagination_prev">
-      <span class="btn_icon__left cf-icon cf-icon-left"></span>
-      Previous
-    </button>
-    <button class="btn btn__super pagination_next">
-      Next
-      <span class="btn_icon__right cf-icon cf-icon-right"></span>
-    </button>
-    <div class="pagination_form">
-      <span class="pagination_label">
-        Page
-        <span class="pagination_current">1</span>
-        of
-        <span class="pagination_total">{{ total }}</span>
-      </span>
-    </div>
+    <span class="form-explainer_nav-label">Viewing page:</span>
+    <ul class="form-explainer_page-links">
+        {% for page in pages %}
+            <li>
+                <a class="form-explainer_page-link {{' current-page' if loop.index == 1}}" data-page="{{loop.index}}">{{loop.index}}</a>
+            </li>
+        {% endfor %}
+    </ul>
   </nav>
 {% endmacro %}

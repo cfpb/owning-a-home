@@ -1,6 +1,7 @@
 # coding: utf-8
 from behave import given, when, then
 from hamcrest.core import assert_that, equal_to
+from hamcrest.library.text.stringcontains import contains_string
 
 from pages.base import Base
 from pages.loan_options import LoanOptions
@@ -20,7 +21,7 @@ def step(context, section_name):
 @then(u'I should see a collapse link for the "{section_name}" section')
 def step(context, section_name):
     caption = context.loan_options.get_expand_button_caption(section_name)
-    assert_that(caption, equal_to('Collapse'))
+    assert_that(caption, contains_string('Collapse'))
 
 
 # SUB-SECTIONS
@@ -32,8 +33,9 @@ def step(context, expected_text, section_name):
 
 @then(u'I should NOT see the "{section_name}" section expanded')
 def step(context, section_name):
-    actual_text = context.loan_options.get_subsection_text(section_name)
-    assert_that(actual_text, equal_to('Section NOT visible'))
+    actual_text = context.loan_options.get_subsection_visibility(section_name)
+    expected_state = "element " + section_name + " visible = false"
+    assert_that(actual_text, equal_to(expected_state))
 
 
 @then(u'I should see "{loan_amount}" as the default loan amount')

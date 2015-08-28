@@ -18,6 +18,21 @@
   });
 }
 
+.content_wrapper__narrow-with-sidebar { // Matches 1060px wide current CF.gov grid when page has left nav sidebar
+  .respond-to-min(801px, {
+    max-width: 1100px;
+    padding: @grid_gutter-width;
+  });
+}
+
+.content_wrapper__medium { // 1100px wide grid, Explore Interest Rates, Journey + Loan Comparison
+  .respond-to-min(801px, {
+    max-width: 1100px;
+    padding-left: 0;
+    padding-right: 0;
+  });
+}
+
 // Ghost Grid classes
 
 @media (min-width: 720px) {
@@ -314,7 +329,7 @@
 }
 .content__bleedbar .content_sidebar {
   padding: 1.875em 0.9375em;
-  background: #f1f2f2;
+  background: @gray-5;
 }
 @media only all and (min-width: 50.0625em) {
   .content__bleedbar {
@@ -329,7 +344,7 @@
   }
   .lt-ie8 .content__bleedbar .content_sidebar {
     padding-right: 30px;
-    background: #f1f2f2;
+    background: @gray-5;
   }
   .content__bleedbar .content_wrapper:after {
     content: '';
@@ -341,7 +356,7 @@
     top: 0;
     z-index: 0;
     margin-left: 10px;
-    background: #f1f2f2;
+    background: @gray-5;
   }
   .content__bleedbar.content__2-1 .content_wrapper:after {
     left: 66.666666667%;
