@@ -1,0 +1,7 @@
+{
+  "journey": {
+    "url":       "/process/<id>/",
+    "type":      "journey",
+    "permalink": true
+  }
+}

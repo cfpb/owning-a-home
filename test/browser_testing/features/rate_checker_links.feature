@@ -15,13 +15,17 @@ Scenario Outline: Click Non-Navigational links
 
 Examples:
   | link_name                               | relative_url                                                    | page_title                                  	 |
-  | Good Faith Estimates                    | askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html    | What is a Good Faith Estimate?              	 |
+  | Loan Estimates                    | askcfpb/1995/what-is-a-loan-estimate.html    | Consumer Financial Protection Bureau              	 |
   | discount points                         | askcfpb/136/what-are-discount-points-or-points.html             | What are discount points or points?         	 |
   | rate lock                               | askcfpb/143/whats-a-lock-in-or-a-rate-lock.html                 | What's a lock-in or a rate lock?            	 |
   | checked your credit report recently     | annualcreditreport.com                                          | Annual Credit Report.com                    	 |
   | get them corrected                      | askcfpb/314/how-do-i-dispute-an-error-on-my-credit-report.html  | How do I dispute an error on my credit report? |
   | www.informars.com                       | informars.com                                                   | Informa Research Services                      |
   | kind of loan                            | owning-a-home/loan-options/                                     | Consumer Financial Protection Bureau           |
+  | points | askcfpb/136/what-are-discount-points-or-points.html | Consumer Financial Protection Bureau |
+  | mortgage insurance | askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html | Consumer Financial Protection Bureau |
+  | closing costs  | askcfpb/1845/what-fees-or-charges-are-paid-closing-and-who-pays-them.html | Consumer Financial Protection Bureau |
+  | Loan Estimates | askcfpb/1995/what-is-a-loan-estimate.html | Consumer Financial Protection Bureau |
 
 @rate_checker
 Scenario Outline: Click Non-Navigational links inside tab page
@@ -31,6 +35,7 @@ Scenario Outline: Click Non-Navigational links inside tab page
 
 Examples:
   | link_name                                 | relative_url                                                    | page_title                                  |
+  | Loan Estimates                    | askcfpb/1995/what-is-a-loan-estimate.html    | Consumer Financial Protection Bureau                |
   | Learn more about credit scores            | askcfpb/315/what-is-my-credit-score.html                        | What is my credit score?                    |
   | Learn about improving your credit scores  | askcfpb/318/how-do-i-get-and-keep-a-good-credit-score.html      | How do I get and keep a good credit score?  |
   | Learn more about down payments            | askcfpb/120/what-kind-of-down-payment-do-i-need-how-does-the-amount-of-down-payment-i-make-affect-the-terms-of-my-mortgage-loan.html | What kind of down payment do I need?        |

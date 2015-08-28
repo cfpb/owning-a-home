@@ -253,11 +253,47 @@ object {
   margin-left: -1.2em;
 }
 
-.alert:before {
-  .cf-icon;
-  content: "\e103";
-  color:  @redorange;
-  text-indent: -1.4em;
+.checked {
+  position: relative;
+
+  &:before,
+  li&:before {
+    .cf-icon();
+    content: "\e100";
+    font-size: 17px;
+    color: @green;
+    left: -21px;
+  }
+  li&.list_item__spaced:before {
+    top: 3px;
+  }
+  p&:before {
+    text-indent: -1.4em;
+  }
+  li& {
+    list-style: none;
+  }
+}
+
+.alert {
+  &:before,
+  li&:before {
+    .cf-icon;
+    content: "\e103";
+    color:  @redorange;
+    font-size: 17px;
+    left: -21px;
+  }
+  li&.list_item__spaced:before {
+    top: 3px;
+  }
+  p&:before {
+    text-indent: -1.4em;
+  }
+  li& {
+    position: relative;
+    list-style: none;
+  }
 }
 
 .alert-alt:before {
@@ -319,4 +355,8 @@ object {
  */
 .group {
     *zoom: 1;
+}
+
+.u-pb0 {
+  padding-bottom: 0 !important;
 }

@@ -1,8 +1,9 @@
 <!-- NAVIGATION -->
 {% set navigation_bar = [
     ('../', 'index', 'Owning a Home'),
-    ('../check-rates/', 'check-rates', 'Check interest rates'),
+    ('../explore-rates/', 'explore-rates', 'Explore interest rates'),
     ('../loan-options/', 'loan-options', 'Understand loan options'),
+    ('../process/', 'process', 'Know the process'),
     ('../prepare-worksheets/', 'prepare-worksheets', 'Preparation worksheets'),
     ('../resources/checklist_mortgage_closing.pdf', 'closing-checklist', 'Closing checklist'),
     ('../resources/mortgage_closing_forms.pdf', 'closing-forms', 'Closing forms explainer')
@@ -17,30 +18,28 @@
     {% endif %}
 {%- endfor %}
     </h1>
-    <div class="expandable-header">
-        <button class="expandable-mainhead expandable_target nav-secondary_link nav-secondary_link__button">
-            <span class="expandable_header-left">
-        {%- for href, id, caption in navigation_bar %}
-            {% if id == active_page %}
-                {{ caption|e }}
-            {% endif %}
-        {%- endfor %}
+    <button class="expandable_header expandable-mainhead expandable_target nav-secondary_link nav-secondary_link__button">
+        <span class="expandable_header-left">
+    {%- for href, id, caption in navigation_bar %}
+        {% if id == active_page %}
+            {{ caption|e }}
+        {% endif %}
+    {%- endfor %}
+        </span>
+        <span class="expandable_header-right">
+            <span class="expandable_cue-open">
+                <span class="cf-icon cf-icon-down cf-icon__green"></span>
             </span>
-            <span class="expandable_header-right">
-                <span class="expandable_cue-open">
-                    <span class="cf-icon cf-icon-down cf-icon__green"></span>
-                </span>
-                <span class="expandable_cue-close">
-                    <span class="cf-icon cf-icon-up cf-icon__green"></span>
-                </span>
+            <span class="expandable_cue-close">
+                <span class="cf-icon cf-icon-up cf-icon__green"></span>
             </span>
-        </button>
-    </div>
-    <div class="expandable-content">
+        </span>
+    </button>
+    <div class="expandable_content">
         <ul class="nav-secondary_list">
         {%- for href, id, caption in navigation_bar %}
             <li class="nav-secondary_item">
-                {% if id == 'check-rates' %}
+                {% if id == 'explore-rates' %}
                     <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
                        href="{{ href|e }}">
                        {{ caption|e }}<sup>BETA</sup>

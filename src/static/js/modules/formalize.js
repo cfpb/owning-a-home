@@ -9,22 +9,16 @@ var positive = require('stay-positive');
 var amortize = require('amortize');
 var humanizeLoanType = require('./humanize-loan-type');
 var supportsAccessors = require('./supports-accessors');
+var fetchRates = require('./rates');
+
 
 var loans = {};
+var editableFields = ['location', 'minfico', 'maxfico', 'amount-borrowed', 'price', 'discount', 'down-payment', 'rate-structure', 'loan-term', 'loan-type', 'arm-type'];
 
-function createNewForm( id ) {
+function createNewForm( id, loanData ) {
 
   var loan = objectify('#lc-input-' + id, [
     {
-      name: 'location',
-      source: 'location'
-    },{
-      name: 'minfico',
-      source: 'credit-score-select'
-    },{
-      name: 'maxfico',
-      source: 'credit-score-select'
-    },{
       name: 'amount-borrowed',
       source: 'house-price-input - down-payment-input'
     },{
@@ -44,7 +38,9 @@ function createNewForm( id ) {
       source: 'loan-type-select'
     },{
       name: 'arm-type',
-      source: 'arm-type-select'
+      source: function() {
+        return $('#arm-type-select-' + id).val();
+      }
     },{
       name: 'interest-rate',
       source: 'interest-rate-select'
@@ -60,14 +56,105 @@ function createNewForm( id ) {
         return points * loan['amount-borrowed'];
       }
     },{
-      name: 'monthly-payment',
+      name: 'processing',
+      source: function() {
+        return loan['amount-borrowed'] / 100;
+      }
+    },{
+      name: 'third-party-services',
+      source: function() {
+        return 3000;
+      }
+    },{
+      name: 'mortgage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'taxes-gov-fees',
+      source: function() {
+        return 1000;
+      }
+    },{
+      name: 'prepaid-expenses',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'initial-escrow',
+      source: function() {
+        return 500;
+      }
+    },{
+      name: 'monthly-taxes-insurance',
+      source: function() {
+        var yearly = loan['price'] / 100,
+            propertyTaxes = yearly / 12,
+            homeInsurance = (.05 * loan['price']) / 12;
+        return propertyTaxes + homeInsurance;
+      }
+    },{
+      name: 'monthly-hoa-dues',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'monthly-principal-interest',
       source: function() {
         return amortize({
           amount: positive( loan['amount-borrowed'] ),
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
-          amortizeTerm: 60
+          amortizeTerm: 60 // @todo loan term * 12?
         }).payment;
+      }
+    },{
+      name: 'monthly-mortgage-insurance',
+      source: function() {
+        return 0;
+      }
+    },{
+      name: 'closing-costs',
+      source: function() {
+        return loan['down-payment'] 
+             + loan['discount']
+             + loan['processing'] 
+             + loan['third-party-services'] 
+             + loan['mortgage-insurance'] 
+             + loan['taxes-gov-fees'] 
+             + loan['prepaid-expenses'] 
+             + loan['initial-escrow'];
+      }
+    },{
+      name: 'monthly-payment',
+      source: function() {
+        var taxes = loan['monthly-taxes-insurance'],
+            insurance = loan['monthly-mortgage-insurance'],
+            hoa = loan['monthly-hoa-dues'],
+            monthlyPrincipalInterest = loan['monthly-principal-interest'];
+        return taxes + insurance + hoa + monthlyPrincipalInterest;
+      }
+    },{
+      name: 'principal-paid',
+      source: function() {
+        return cost({
+          amountBorrowed: positive( loan['amount-borrowed'] ),
+          rate: loan['interest-rate'],
+          totalTerm: loan['loan-term'] * 12,
+          downPayment: loan['down-payment'],
+          closingCosts: loan['closing-costs']
+        }).totalEquity;
+      }
+    },{
+      name: 'interest-fees-paid',
+      source: function() {
+        return cost({
+          amountBorrowed: positive( loan['amount-borrowed'] ),
+          rate: loan['interest-rate'],
+          totalTerm: loan['loan-term'] * 12,
+          downPayment: loan['down-payment'],
+          closingCosts: loan['closing-costs']
+        }).totalCost;
       }
     },{
       name: 'overall-cost',
@@ -77,66 +164,162 @@ function createNewForm( id ) {
           rate: loan['interest-rate'],
           totalTerm: loan['loan-term'] * 12,
           downPayment: loan['down-payment'],
-          closingCosts: 3000 + loan['discount'] // hard coded $3000 value for now
+          closingCosts: loan['closing-costs']
         }).overallCost;
       }
     }
   ]);
 
   // Cache these for later
-  var $amount = $('.loan-amount-display-' + id),
+  var $form = $('#lc-input-' + id),
+      $rateSelect = $('#interest-rate-select-' + id),
+      $amount = $('.loan-amount-display-' + id),
       $closing = $('.closing-costs-display-' + id),
+      $downPayment = $('.down-payment-display-' + id),
+      $lenderFees = $('.lender-fees-display-' + id),
+      $discountAmount = $('.discount-display-' + id),
+      $processing = $('.processing-fees-display-' + id),
+      $thirdPartyFees = $('.third-party-fees-display-' + id),
+      $thirdPartyServices = $('.third-party-services-display-' + id),
+      $mortgageInsurance = $('.mortgage-insurance-display-' + id),
+      $taxesGovFees = $('.taxes-gov-fees-display-' + id),
+      $prepaid = $('.prepaid-expenses-display-' + id),
+      $initialEscrow = $('.initial-escrow-display-' + id),
+      $monthlyPrincipalInterest = $('.monthly-principal-interest-display-' + id),
+      $monthlyMortgageInsurance = $('.monthly-mortgage-insurance-display-' + id),
+      $monthlyTaxes = $('.monthly-taxes-insurance-display-' + id),
+      $monthlyHOA = $('.monthly-hoa-dues-display-' + id),
       $monthly = $('.monthly-payment-display-' + id),
+      $loanTerm = $('.loan-term-display-' + id),
+      $principalPaid = $('.principal-paid-display-' + id),
+      $interestPaid = $('.interest-fees-paid-display-' + id),
       $overall = $('.overall-costs-display-' + id),
       $interest = $('.interest-rate-display-' + id),
       $percent = $('#percent-dp-input-' + id),
       $down = $('#down-payment-input-' + id),
       $discount = $('.discount-' + id),
-      $summaryYear = $('#lc-summary-year-' + id),
-      $summaryStruct = $('#lc-summary-structure-' + id),
-      $summaryType = $('#lc-summary-type-' + id);
+      $summaryYear = $('.lc-summary-year-' + id),
+      $summaryStruct = $('.lc-summary-structure-' + id),
+      $summaryType = $('.lc-summary-type-' + id);
 
   // Keep track of the last down payment field that was accessed.
   var percentDownAccessedLast;
+  
+  // Keep track of any api rate request in progress
+  var currentRequest;
 
   function updateComparisons( changes ) {
-
+    var loanDataChanged = false;
+    
     for ( var i = 0, len = changes.length; i < len; i++ ) {
       if ( changes[i].name == 'down-payment' && typeof percentDownAccessedLast !== 'undefined' && !percentDownAccessedLast ) {
         var val = loan['down-payment'] / loan['price'] * 100;
         $percent.val( Math.round(val) );
         percentDownAccessedLast = false;
       }
+      // If a user-editable field has changed, rate needs updating
+      if (!loanDataChanged && ($.inArray(changes[i].name, editableFields) !== -1)) {
+        loanDataChanged = true;
+      }
+    }
+    
+    if (loanDataChanged) {
+      if (currentRequest) {
+        getRateData();
+      } else {
+        $form.removeClass('updating').addClass('update');
+      }
     }
 
+    updateLoanDisplay();
+  }
+  
+  function updateLoanDisplay () {
     $amount.text( formatUSD(positive(loan['amount-borrowed']), {decimalPlaces:0}) );
-    $closing.text( formatUSD(3000 + parseInt(loan['down-payment'], 10) + loan['discount'], {decimalPlaces:0}) );
+    $closing.text( formatUSD(loan['closing-costs'], {decimalPlaces:0}) );
+    $downPayment.text( formatUSD(loan['down-payment'], {decimalPlaces:0}) );
+    $lenderFees.text( formatUSD(loan['discount'] + loan['processing'], {decimalPlaces:0}) );
+    $discountAmount.text( formatUSD(loan['discount'], {decimalPlaces:0}) );
+    $processing.text( formatUSD(loan['processing'], {decimalPlaces:0}) );
+    $thirdPartyFees.text( formatUSD(loan['third-party-services'] + loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $thirdPartyServices.text( formatUSD(loan['third-party-services'], {decimalPlaces:0}) );
+    $mortgageInsurance.text( formatUSD(loan['mortgage-insurance'], {decimalPlaces:0}) );
+    $taxesGovFees.text( formatUSD(loan['taxes-gov-fees'], {decimalPlaces:0}) );
+    $prepaid.text( formatUSD(loan['prepaid-expenses'], {decimalPlaces:0}) );
+    $initialEscrow.text( formatUSD(loan['initial-escrow'], {decimalPlaces:0}) );
+    $monthlyPrincipalInterest.text( formatUSD(loan['monthly-principal-interest'], {decimalPlaces:0}) );
+    $monthlyMortgageInsurance.text( formatUSD(loan['monthly-mortgage-insurance'], {decimalPlaces:0}) );
+    $monthlyTaxes.text( formatUSD(loan['monthly-taxes-insurance'], {decimalPlaces:0}) );
+    $monthlyHOA.text( formatUSD(loan['monthly-hoa-dues'], {decimalPlaces:0}) );
     $monthly.text( formatUSD(loan['monthly-payment'], {decimalPlaces:0}) );
+    $loanTerm.text( 'Costs at ' + loan['loan-term'] + ' years' );
+    $principalPaid.text( formatUSD(loan['principal-paid'], {decimalPlaces:0}) );
+    $interestPaid.text( formatUSD(loan['interest-fees-paid'], {decimalPlaces:0}) );
     $overall.text( formatUSD(loan['overall-cost'], {decimalPlaces:0}) );
     $interest.text( loan['interest-rate'] );
     $discount.text( loan['raw-discount']);
     $summaryYear.text( loan['loan-term'] );
     $summaryStruct.text( loan['rate-structure'] );
     $summaryType.text( humanizeLoanType(loan['loan-type']) );
-
   }
+  
+  function getRateData() {
+    if (currentRequest && typeof currentRequest === 'object') {
+      currentRequest.abort();
+    }
+    
+    $form.removeClass('update').addClass('updating');
 
-  // Observe the loan object for changes *only* if the browser supports it.
-  // If the browser doesn't support it, do some drrrrty checking.
-  if ( supportsAccessors ) {
-    Object.observe( loan, updateComparisons );
-  } else {
-    var oldLoan = $.extend( {}, loan );
-    setInterval(function(){
-      if ( JSON.stringify(loan) !== JSON.stringify(oldLoan) ) {
-        updateComparisons([]);
-        oldLoan = $.extend( {}, loan );
+    currentRequest = fetchRates({
+      price: loan['price'],
+      loan_amount: loan['amount-borrowed'],
+      minfico: loan['minfico'],
+      maxfico: loan['maxfico'],
+      state: loan['location'],
+      rate_structure: loan['rate-structure'],
+      loan_term: loan['loan-term'],
+      loan_type: loan['loan-type'],
+      arm_type: loan['arm-type'],
+      points: loan['raw-discount']
+    })
+    .done(function (results) {
+        currentRequest = null;
+        var rates = [];
+        for ( key in results.data ) {
+          if ( results.data.hasOwnProperty( key ) ) {
+            rates.push(key);
+          }
+        }
+        rates.sort();
+        updateRateSelect(rates);
+        loan.update();
+        $form.removeClass('updating');
+      })
+    .fail(function () {
+      currentRequest = null;
+      $form.removeClass('updating')
+           .addClass('update');
+    });
+  }
+  
+  function updateRateSelect(rates) {
+    rates || (rates = []);
+    var len = rates.length;
+    var half = Math.floor((len - 1) / 2);
+    
+    $rateSelect.empty();
+    $.each(rates, function(ind, rate) {
+      var opt = $("<option></option>")
+                  .attr("value", rate)
+                  .text(rate + '%');
+      if (ind === half) {
+          opt.attr('selected', 'selected');
       }
-    }, 500);
+      $rateSelect.append(opt);
+    });      
   }
 
   function _updateDownPayment( ev ) {
-
     var targetID = ev.target.id,
         val;
 
@@ -163,9 +346,8 @@ function createNewForm( id ) {
         loan.update();
       }
     }
-
   }
-
+  
   // The pricing fields (price, dp, dp %) are wonky and require special handling.
   $('#lc-input-' + id).on( 'keyup', '.pricing input', debounce(_updateDownPayment, 500) );
 
@@ -175,11 +357,42 @@ function createNewForm( id ) {
     loan.update();
   });
 
-  loan.update();
-  loans[ id ] = loan;
+  // refresh interest rates when update button is clicked
+  $('#interest-rate-update-' + id).click(function updateRates(e) {
+    e.preventDefault();
+    getRateData();
+  });
+  
+  
+  function init() {
+    // update the loan object with values from form
+    loan.update();
+    $.extend(loan, loanData);
+    loans[ id ] = loan;
+    
+    // make initial api request for rates
+    getRateData();
 
+    // Observe the loan object for changes *only* if the browser supports it.
+    // If the browser doesn't support it, do some drrrrty checking.
+    if ( supportsAccessors ) {
+      Object.observe( loan, updateComparisons );
+    } else {
+      var oldLoan = $.extend( {}, loan );
+      setInterval(function(){
+        // TODO: fix this
+        if ( JSON.stringify(loan) !== JSON.stringify(oldLoan) ) {
+          updateComparisons([]);
+          oldLoan = $.extend( {}, loan );
+        }
+      }, 500);
+    }
+    
+  }
+  
+  init();
+  
   return loans;
-
 }
 
 module.exports = createNewForm;

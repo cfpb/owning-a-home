@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set active_page = "closing-disclosure" %}
+
+{% block title %}Owning a Home: Closing Disclosure Explainer{% endblock title %}
+{% block content %}
+<div class="form-explainer {% if subnav %}col-9{% endif %}" role="main">
+  <section class="wrap">
+    <div class="wrapper">
+
+      <div class="col-8 page-intro">
+        <div class="oah-title-tag">
+          <a href="/owning-a-home/" class="go-back-link l-back-link">Owning a Home</a>
+        </div>
+
+        <h1 class="page-title">Closing Disclosure Explainer</h1>
+        <p class="lead">Lenders are required to provide your Closing Disclosure three business days before your scheduled closing. Use these days wisely. This tool will help you double-check that all the details are correct. If something looks different from what you expected, ask why. Now is the time to resolve problems&mdash;if the explanation you get isn’t satisfactory, keep asking questions.</p>
+        
+        
+      </div><!-- /.col-8.page-intro -->
+
+      <div class="col-4">
+        <img src="../static/img/ill-form-explainer-closing-disc.png" alt="" class="illustration">
+      </div><!-- /.col-4 -->
+
+      {# Import the form explainer macros #}
+      {% import "form-explainer.html" as form_explainer %}
+      {# Import the data to use with form explainer #}
+      {% from "closing-disclosure-1.html" import data as page_1 %}
+      {% from "closing-disclosure-2.html" import data as page_2 %}
+      {% from "closing-disclosure-3.html" import data as page_3 %}
+      {% from "closing-disclosure-4.html" import data as page_4 %}
+      {% from "closing-disclosure-5.html" import data as page_5 %}
+      {# Render form explainer with the data for this form #}
+      <div class="col-12">
+        {{ form_explainer.render([ page_1, page_2, page_3, page_4, page_5 ]) }}
+      </div>
+      
+      <div class="col-12">
+        {% import "related-links.html" as related_links %}
+        {% set process_links = [
+            { 
+              'desc': 'Already chosen a loan?',
+              'label': 'Get ready to close', 
+              'url': '/owning-a-home/process/close/'
+            }
+         ] %}
+         {% set tools_links = [
+             { 
+               'desc': 'Know what to expect at closing and what questions to ask.',
+               'label': 'Closing checklist', 
+               'type': 'download',
+               'url': '/owning-a-home/resources/checklist_mortgage_closing.pdf'
+             },
+             { 
+                'desc': 'Review other important documents you will need to sign at closing.',
+                'label': 'Guide to closing forms', 
+                'type': 'download',
+                'url': '/owning-a-home/resources/mortgage_closing_forms.pdf '
+              }
+          ] %}
+        {{ related_links.render(process_links, tools_links) }}
+      </div>
+
+    </div><!-- /.wrapper -->
+  </section><!-- /.wrap -->
+</div><!-- /.form-explainer -->
+{% endblock %}

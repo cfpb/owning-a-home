@@ -5,7 +5,6 @@ var _model = require( './worksheet-model' );
 var _worksheet = require( './worksheet-controller' );
 var config = require( './worksheet-config' );
 var Handlebars = require('hbsfy/runtime');
-require('../mega-expand');
 require('../secondary-nav');
 require('../nemo-shim');
 

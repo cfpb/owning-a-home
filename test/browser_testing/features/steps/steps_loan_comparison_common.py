@@ -27,16 +27,16 @@ def step(context):
 
 
 # STATE
-@then(u'I should see "{state_name}" as default State for "{loan_column}"')
-def step(context, state_name, loan_column):
-    selected_state = context.loan_comparison.get_location(loan_column)
+@then(u'I should see "{state_name}" as default State')
+def step(context, state_name):
+    selected_state = context.loan_comparison.get_location()
     assert_that(selected_state, equal_to(state_name))
 
 
 # CREDIT SCORE
-@then(u'I should see "{expected_score}" as default Credit Score for "{loan_column}"')
-def step(context, expected_score, loan_column):
-    selected_score = context.loan_comparison.get_credit_score(loan_column)
+@then(u'I should see "{expected_score}" as default Credit Score')
+def step(context, expected_score):
+    selected_score = context.loan_comparison.get_credit_score()
     assert_that(selected_score, equal_to(expected_score))
 
 

@@ -14,6 +14,7 @@ We are working under an agile framework, and plan to use this repo to publish, r
 
 - Unix-based OS (including Macs). Windows is not supported at this time.
 - [Virtualenv](https://virtualenv.pypa.io/en/latest/) and [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/#), Python modules that keep dependencies  project specific and in their own virtual environments.
+- [Autoenv](https://github.com/kennethreitz/autoenv)
 - [Sheer](https://github.com/cfpb/sheer)
 - [Elasticsearch](http://www.elasticsearch.org/)
 - [Node](http://nodejs.org/)
@@ -31,6 +32,16 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	```
 	$ pip install virtualenv virtualenvwrapper
 	```
+
+### Autoenv module
+
+If you already have [Autoenv](https://github.com/kennethreitz/autoenv) installed, [skip ahead to Sheer](#sheer-elasticsearch).
+
+1. Run:
+	```
+	$ pip install autoenv
+	```
+
 
 ### Sheer & Elasticsearch
 
@@ -51,7 +62,17 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	$ mkvirtualenv OAH
 	```
 
-	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`.
+	The new virtualenv will activate right away. To activate it later on (say, in a new terminal session) use the command `workon OAH`. You'll know you have a virtual environment activated if you see the name of it in parentheses before your terminal prompt. Ex:
+	```
+	(OAH)username$
+	```
+	
+	If the virtualenv did not activate right away, run this command from the directory above where the OAH directory lives:
+	```
+	$ source OAH/bin/activate
+	```
+	
+	To deactivate, use the command `deactivate`.
 
 4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
 	```
@@ -70,46 +91,81 @@ If you already have these modules installed, [skip ahead to Sheer](#sheer-elasti
 	sheer: error: too few arguments
 	```
 
+7. Populate Elasticsearch with content:
+  ```
+  $ [WORDPRESS=http://wordpress.uri] sheer index [--reindex]
+  ```
+  Make sure to be in the site's root folder and that Elasticsearch is running. The above
+  command will read all OaH content and save it in Elasticseach. [More information](#wordpress-indexing).
+
 If you run into problems or have any questions about Sheer, check out [Sheer on Github](https://github.com/cfpb/sheer) and the [Sheer Issue Tracker](https://github.com/cfpb/sheer/issues).
 
 ### Node, Grunt, Bower, Browserify
 
-1. Install [node.js](http://nodejs.org/) however you'd like.
+1. Install [node.js](http://nodejs.org/), either v0.12 or io.js. If you're using the default version that comes with Mac OSX, you'll need to upgrade - first [install NVM](https://github.com/creationix/nvm).
+1. If you installed with NVM, then you can install and set io.js as your default node version:
+	```
+	$ nvm install iojs
+	$ nvm alias default iojs
+	```
 2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 	```
 	$ npm install -g grunt-cli bower browserify
 	```
+
 3. Navigate to the cloned `owning-a-home` directory and install the project's node dependencies:
 	```
 	$ npm install
 	```
+
 4. Navigate to the `config` folder. In that folder, copy the `example-config.json` file and rename it `config.json`. This can be done from the command line with the following two commands:
 	```
 	$ cd config
 	$ cp example-config.json config.json
 	```
+
 5. Run grunt to build the site:
 	```
 	$ grunt
 	```
 
+[npm-shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) is used to lock down dependencies. If you add any dependencies to package.json, re-run `npm shrinkwrap` to generate a new `npm-shrinkwrap.json` file.
 
 ## Configuration
 
-### Rate Checker
-The Rate Checker is a JavaScript application for checking mortgage interest rates. Currently owning-a-home's Rate Checker is powered by two private APIs that returns mortgage rate and county data. **Without these APIs configured, the website will still load but the Rate Checker application will NOT be available.**
+### <a name="wordpress-indexing"></a>WordPress Indexing
+To index your content from WordPress:
 
-**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker app.**
+1. In the repo directory, copy the `.env_SAMPLE` file and name it `.env`. This can be done from the command line with the following command:
+	```
+	$ cp .evn_SAMPLE .env
+	```
+
+2. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
+
+3. Run the following command inside the `/src/` or `/dist/` folder:
+	```
+	$ cd src
+	$ workon OAH
+	$ sheer index [--reindex]
+  ```
+
+
+### Rate Checker and Mortgage Insurance
+The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premiums. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premiums. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
+
+**The following section is therefore only useful to users with access to the private APIs who are able to run the Rate Checker and Loan Comparison apps.**
 
 #### Private API Users
 
-To configure the Rate Checker you will need to point to the required API URLs in `config/config.json`. 
+To configure the Rate Checker and Loan Comparison you will need to point to the required API URLs in `config/config.json`. 
 
-1. In `config/config.json`, change line 2 and 3 to point to the mortgage rate and county API URLs, respectively:
+1. In `config/config.json`, change lines to point to the API URLs, respectively:
 	```json
 	{
-	    "rateCheckerAPI": "YOUR API URL HERE",
-	    "countyAPI": "YOUR COUNTY API URL HERE"
+	    "rateCheckerAPI": "YOUR RATE CHECKER API URL HERE",
+	    "countyAPI": "YOUR COUNTY API URL HERE",
+		"mortgageInsuranceAPI": "YOUR MORTGAGE INSURANCE API URL HERE",
 	}
 	```
 
@@ -172,7 +228,7 @@ $ mkvirtualenv oah-tests
 $ pip install -r requirements.txt
 ```
 
-Rename `test/browser_testing/features/example-environment.cfg` to `environtment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
+Rename `test/browser_testing/features/example-environment.cfg` to `test/browser_testing/features/environment.cfg` and edit the file to point the `chromedriver_path` to your local chromedriver file.
 
 ### Running browser tests
 
@@ -181,23 +237,46 @@ $ workon oah-tests
 $ behave -k
 ```
 
+## API tests
+
+Before running tests, you will need to set up a Python virtual environment, install dependencies, and create an `environment.cfg` file.
+
+```bash
+$ cd test/api_testing/
+$ mkvirtualenv oah-tests
+$ pip install requests
+```
+
+Rename `test/api_testing/features/example-environment.cfg` to `test/api_testing/features/environment.cfg` and edit the file to point `ratechecker_url` and `mortgageinsurance_url` to the environment you wish to test.
+
+```bash
+$ workon oah-tests
+$ behave -k
+```
+
+Run `behave -k -t=~prod_only` to omit production environment tests.
+
 ## Load tests
 
 ### Installing Jmeter
 
-Run "jmeter-bootstrap/bin/JMeterInstaller.py" which will install Jmeter 2.11 and required plugins to run Jmeter locally
+Run `python jmeter-bootstrap/bin/JMeterInstaller.py` in the `test` folder which will install Jmeter 2.11 and required plugins to run Jmeter locally
 
 ### Running load tests locally from the command line:
 
+```
 apache-jmeter-2.11/bin/jmeter.sh -t owning-a-home/test/load_testing/RateChecker.jmx -Jserver_url oah.fake.demo.domain -Jthreads=8
+```
 
--t : this tells Jmeter where the test lives, relative to where Jmeter us running from
--Jserver URL : this is the URL to runs load tests against
--Jthreads : this is the maximum number of concurrent users for the load test
+`-t owning-a-home/test/load_testing/RateChecker.jmx`: this tells Jmeter where the test lives, relative to where Jmeter us running from
+`-Jserver_url oah.fake.demo.domain`: this is the URL to runs load tests against.  Replace `oah.fake.demo.domain` with the URL you want
+`-Jthreads=8` : this is the maximum number of concurrent users for the load test
 
 OaH.jmx - this test is for the landing pages using all default settings (loan-options, rate-checker, etc)
 
-Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+Rate_Checker.jmx - this test uses the queries listed inside "RC.csv" to run the load test for Rate Checker API. Additional queries can just be added as rows in "RC.csv" and the test will pick them up.
+
+Mortgage_Insurance.jmx - this test uses the queries listed inside "MI.csv" to run the load test for Mortgage Insurance API.  Additional queries can just be added as rows in "MI.csv" and the test will pick them up.
 
 If the number of threads is 6 and the there are 3 rows of queries the test will execute in this order:
 ```

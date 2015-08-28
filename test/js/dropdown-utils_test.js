@@ -38,6 +38,41 @@ describe('Dropdown utils', function() {
     expect($('option')).to.have.length(4);
   });
 
+  it('should not add options with same values', function() {
+    dd('foo').addOption({label: 'first', value: 'bar'});
+    dd('foo').addOption({label: 'second', value: 'bar'});
+    expect($('option')).to.have.length(2);
+  });
+
+  it('should select the option when values.select is true', function() {
+    dd('foo').addOption({label: 'Foo', value: 'BAR', select: 1});
+    expect( $('#foo')[0].selectedIndex ).to.equal(1);
+  });
+
+  it('should create option with value/name of ""', function() {
+    dd('foo').addOption(null);
+    $('#foo')[0].selectedIndex = 1;
+    expect($('#foo').val()).to.equal('');
+  });
+
+  it('should disable all given options', function() {
+    dd('foo').addOption({value: 'value1', label: 'label1'});
+    dd('foo').addOption({value: 'value2', label: 'label2'});
+    expect($('option:disabled')).to.have.length(0);
+    dd('foo').disable(['value1', 'value2']);
+    expect($('option:disabled').length).to.equal(2);
+  });
+
+  it('should select several select elements', function() {
+    $('body').append('<select id="foo1"><option value="baz1"></option></select>');
+    $('body').append('<select id="foo2"><option value="baz1"></option></select>');
+    dd(['foo', 'foo2']).disable();
+    expect($('select :disabled')).to.have.length(2);
+    dd(['foo', 'foo1', 'foo2']).enable();
+    expect($('select :enabled')).to.have.length(3);
+    expect($('select :disabled')).to.have.length(0);
+  });
+
   it('should let methods be chainable', function() {
     dd('foo').addOption({label: 'foo', value: 'bar'}).addOption({label: 'foo1', value: 'bar1'}).addOption({label: 'foo2', value: 'bar2'});
     expect($('option')).to.have.length(4);

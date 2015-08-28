@@ -43,12 +43,12 @@ Examples:
   | Department of Veterans                | benefits.va.gov/homeloans/                                          | Home Loans Home                                   |
   | eligible                              | benefits.va.gov/homeloans/purchaseco_certificate.asp                | Certificate of Eligibility                        |
   | upfront fee                           | benefits.va.gov/homeloans/purchaseco_loan_fee.asp                   | Loan Fees                                         |
-  | US Department of Agriculture          | rurdev.usda.gov/had-guaranteed_housing_loans.html                   | Guaranteed Housing Loans                          |
+  | US Department of Agriculture          | http://www.rd.usda.gov/programs-services/single-family-housing-guaranteed-loan-program                   | Single Family Housing Guaranteed Loan Program                          |
   | Find out if you                       | eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do           | Welcome                                           |
   | this tool                             | downpaymentresource.com/                                            | Down Payment Resource                             |
   | local housing counselor               | find-a-housing-counselor/                                           | Find a housing counselor                          |
   | Learn more about mortgage insurance   | askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html   | What is mortgage insurance and how does it work?  |
-  | Good Faith Estimates       | askcfpb/146/what-is-a-good-faith-estimate-what-is-a-gfe.html   | What is a Good Faith Estimate?      |
+  | Loan Estimates                    | askcfpb/1995/what-is-a-loan-estimate.html    | Consumer Financial Protection Bureau                 |
 
 @smoke_testing @loan_options
 Scenario Outline: Test Related links in the Special Programs Loan page

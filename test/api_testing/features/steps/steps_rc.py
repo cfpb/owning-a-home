@@ -1,5 +1,5 @@
 from behave import given, when, then
-from hamcrest.core import assert_that, equal_to, is_not
+from hamcrest.core import assert_that, equal_to, is_not, none
 from hamcrest.library.number.ordering_comparison import greater_than
 from hamcrest.library.text.stringcontains import contains_string
 import requests
@@ -98,15 +98,11 @@ def step(context):
     assert_that(len(context.json_data[u'data']), greater_than(0))
 
 
-@then(u'the response should state that required parameter "{param_name}" is missing')
+@then(u'the response should state that required parameter "{param_name}" is required')
 def step(context, param_name):
-    expected_reponse = "Required parameter '" + param_name + "' is missing"
     context.json_data = json.loads(context.response.text)
-
-    context.logger.debug("JSON detail is: %s" % context.json_data['detail'])
-    context.logger.debug("JSON text is: %s" % context.response.text)
-
-    assert_that(context.json_data['detail'], equal_to(expected_reponse))
+    assert_that(context.json_data.get(param_name), is_not(none()))
+    assert_that(context.json_data[param_name][0], contains_string('required'))
 
 @then(u'the response should NOT include "{html_text}"')
 def step(context, html_text):

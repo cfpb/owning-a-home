@@ -3,3 +3,130 @@ ul.unindent-ul{
   padding-left: 1.2em;
 }
 
+.lt-icon-structure:before {
+  line-height: 1.4em;
+  color: @gray-5;
+}
+
+.content__loan-options {
+  &:after {
+    display: none;
+  }
+  .oah-title-tag {
+    margin-top: 0;
+  }
+  .content__1-3 & {
+    .respond-to-min(870px, {
+      border-right-width: 0;
+      border-left-width: 30px;
+    });
+  }
+}
+
+
+// Expandables
+
+.type-details {
+  .expandable_header {
+    background: @gray-5;
+  }
+  .expandable_content {
+  }
+  .expandable_cue_text {
+    .webfont-regular();
+    font-size: 1.1em;
+    border-bottom: 1px dotted @pacific;
+    .respond-to-max(800px, {
+      .u-visually-hidden;
+    });
+  }
+  .expandable_link {
+    margin-top: 5px;
+  }
+}
+  .expandable-heading {
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .expandable_subhead {
+    background: #fff;
+    padding-top: 20px;
+    .webfont-regular();
+  }
+
+  .list-heading {
+    .webfont-demi();
+    font-size: 1em;
+  }
+
+.expandable-subsection {
+  border-top: 1px solid  @gray-20;
+  padding: 1.375em 0;
+
+  .expandable-section-content {
+    font-size: .875em;
+  }
+}
+
+.expandable-subsection-title {
+  border-top: 1px solid  @gray-20;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+// internal collapse link
+
+.expand-close {
+  .webfont-regular();
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.expand-close-link:link,
+.expand-close-link:visited {
+  color: @pacific;
+  border-bottom: 1px dotted @pacific;
+}
+
+.expand-close-link:hover,
+.expand-close-link:active,
+.expand-close-link:focus {
+  border-bottom: 1px solid @pacific-50;
+  color: @pacific-50;
+}
+
+.expand-close-link {
+  display: inline-block;
+  position: relative;
+  margin-right: 1.25em;
+}
+
+.expand-close-link:after {
+  .cf-icon;
+  display: block;
+  position: absolute;
+  top: 18%;
+  right: -1em;
+  padding-left: .25em;
+  width: 1em;
+  content: "\e111";
+  border-bottom: none;
+}
+
+@media (max-width: 720px) {
+  .expandable-subhead {
+    .sub-demi {
+      color: @gray;
+    }
+  }
+}
+
+.related-links_container {
+  .respond-to-min(900px, {
+    border-left-width: @grid_gutter-width;
+  });
+  padding-bottom: 0;
+}

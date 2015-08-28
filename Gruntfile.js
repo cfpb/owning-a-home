@@ -46,15 +46,21 @@ module.exports = function(grunt) {
      */
     concat: {
       'cf-less': {
-        src: ['src/static/vendor/fj-*/*.less', 'src/static/vendor/cf-*/*.less'],
+        src: [
+        'src/static/vendor/fj-*/*.less',
+        'src/static/vendor/cf-*/*.less',
+        '!src/static/vendor/cf-core/*.less',
+        'src/static/vendor/cf-core/cf-core.less',
+        '!src/static/vendor/cf-concat/cf.less'
+        ],
         dest: 'src/static/vendor/cf-concat/cf.less'
       },
       ie9: {
-        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        src: ['src/static/js/legacy/ie9.js', 'node_modules/es5-shim/es5-shim.js', 'node_modules/es5-shim/es5-sham.js', 'src/static/vendor/polyfill/web.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js', 'src/static/vendor/console-polyfill/index.js'],
         dest: 'dist/static/js/ie9.js'
       },
       ie8: {
-        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js'],
+        src: ['src/static/vendor/html5shiv/html5shiv.js', 'src/static/vendor/respond/respond.src.js', 'src/static/js/legacy/lte-ie8.js', 'node_modules/es5-shim/es5-shim.js', 'node_modules/es5-shim/es5-sham.js', 'src/static/vendor/Placeholders.js/lib/utils.js', 'src/static/vendor/Placeholders.js/lib/main.js', 'src/static/vendor/console-polyfill/index.js'],
         dest: 'dist/static/js/lte-ie8.js'
       }
     },
@@ -105,14 +111,54 @@ module.exports = function(grunt) {
 
     browserify: {
       build: {
-        src: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js'],
+        src: [
+          './src/static/js/modules/loan-options.js',
+          './src/static/js/modules/rates.js',
+          './src/static/js/modules/explore-rates.js',
+          //'./src/static/js/modules/loan-comparison.js',
+          //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
+          './src/static/js/modules/loan-estimate.js',
+          './src/static/js/modules/closing-disclosure.js',
+          './src/static/js/modules/process.js',
+          './src/static/js/modules/home.js',
+          './src/static/js/modules/loan-options-subpage.js',
+          './src/static/js/modules/mortgage-closing.js',
+          './src/static/js/modules/mortgage-estimate.js'
+        ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy'],
+          transform: ['browserify-shim', 'hbsfy', 'reactify'],
           plugin: [
             ['factor-bundle', {
-              entries: ['./src/static/js/modules/loan-options.js', './src/static/js/modules/check-rates.js', './src/static/js/modules/loan-comparison.js', './src/static/js/modules/prepare-worksheets/prepare-worksheets.js', './src/static/js/modules/form-explainer.js', './src/static/js/modules/home.js', './src/static/js/modules/loan-options-subpage.js'],
-              o: ['dist/static/js/loan-options.js', 'dist/static/js/check-rates.js', 'dist/static/js/loan-comparison.js', 'dist/static/js/prepare-worksheets.js', 'dist/static/js/form-explainer.js', 'dist/static/js/home.js', 'dist/static/js/loan-options-subpage.js']
+              entries: [
+                './src/static/js/modules/loan-options.js',
+                './src/static/js/modules/rates.js',
+                './src/static/js/modules/explore-rates.js',
+                //'./src/static/js/modules/loan-comparison.js',
+                //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
+                './src/static/js/modules/loan-estimate.js',
+                './src/static/js/modules/closing-disclosure.js',
+                './src/static/js/modules/process.js',
+                './src/static/js/modules/home.js',
+                './src/static/js/modules/loan-options-subpage.js',
+                './src/static/js/modules/mortgage-closing.js',
+                './src/static/js/modules/mortgage-estimate.js'
+              ],
+              o: [
+                'dist/static/js/loan-options.js',
+                'dist/static/js/rates.js',
+                'dist/static/js/explore-rates.js',
+                //'dist/static/js/loan-comparison.js',
+                //'dist/static/js/prepare-worksheets.js',
+                'dist/static/js/loan-estimate.js',
+                'dist/static/js/closing-disclosure.js',
+                'dist/static/js/process.js',
+                'dist/static/js/home.js',
+                'dist/static/js/loan-options-subpage.js',
+                'dist/static/js/mortgage-closing.js',
+                'dist/static/js/mortgage-estimate.js'
+
+              ]
             }]
           ]
         }
@@ -124,7 +170,7 @@ module.exports = function(grunt) {
         options: {
           watch: true,
           debug: true,
-          transform: ['browserify-shim', 'hbsfy']
+          transform: ['browserify-shim', 'hbsfy', 'reactify']
         }
       }
     },
@@ -194,7 +240,19 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './dist/static/js',
-          src: ['loan-options.js', 'check-rates.js', 'loan-comparison.js', 'prepare-worksheets.js', 'home.js', 'loan-options-subpage.js'],
+          src: [
+            'rates.js',
+            'loan-options.js',
+            'explore-rates.js',
+            //'loan-comparison.js',
+            //'prepare-worksheets.js',
+            'process.js',
+            'home.js',
+            'loan-options-subpage.js',
+            'mortgage-closing.js',
+            'mortgage-estimate.js'
+
+          ],
           dest: './dist/static/js'
         }]
       },
@@ -235,7 +293,7 @@ module.exports = function(grunt) {
             src: [
               // move html & template files new template folders need to be added here
               '**/*.html',
-              '_layouts/*',
+              '_*/*',
               'resources/*'
             ],
             dest: 'dist/'
@@ -252,8 +310,13 @@ module.exports = function(grunt) {
               // Move html & template files new template folders need to be added here.
               'index.html',
               'loan-options/**',
-              'check-rates/**',
-              '_layouts/*',
+              'explore-rates/**',
+              'closing-disclosure/**',
+              'loan-estimate/**',
+              'mortgage-closing/**',
+              'mortgage-estimate/**',
+              'process/**',
+              '_*/*',
               'resources/*'
             ],
             dest: 'dist/'
@@ -348,6 +411,8 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
+          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],
+          reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,
             statements: 50
