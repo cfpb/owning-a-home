@@ -13,11 +13,11 @@
 
       <div class="content-l_col content-l_col-2-3">
           <h1 class="page-title">Owning a Home</h1>
-          <h2>We're here to help you with your home-buying process. Learn what to expect and what questions to ask, and get tools and resources to help you make decisions.</h2>
+          <h2>We're here to help you with buying and financing your home. Learn what to expect and what questions to ask, and get tools and resources to help you make decisions.</h2>
 
         </div>
         <div class="content-l_col content-l_col-1-3 hero-illu-inner">
-            <img class ="hero-illu" src="../static/img/hero-housekey.png" alt="">
+            <img class ="hero-illu" src="{{url_for('static', filename='img/hero-housekey.png')}}" alt="Illustration of house keys">
         </div> <!-- /.col-4 -->
       </div>
 
@@ -43,7 +43,7 @@
               <div class="phase_intro content-l_col content-l_col-1-2">
                 <div class="content-l_col content-l_col-1 content-l__large-gutters">
                 <h3 class="u-mb15"><a href="{{ base_url }}process/prepare" class="heading_link" id="prepare-header-link">Prepare to shop</a></h3>
-                <p>Not sure how to get started, how much you can afford, or what to expect when buying a home? Set yourself up for success with a little bit of preparation.</p>
+                <p>Not sure how to get started, how much you can afford, or what to expect when buying and financing a home? Set yourself up for success with a little bit of preparation.</p>
                 <p>
                   <a class="jump-link jump-link__right" href="{{ base_url }}process/prepare" id="prepare-learn-link">
                     <span class="jump-link_text">Learn more</span>
@@ -55,8 +55,8 @@
                <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__links list__unstyled list__spaced">
-                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}check-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
-                  <li class="list_item"><a class="list_link jump-link jump-link__download" href="{{ base_url }}resources/payment_worksheet.pdf"><span class="jump-link_text">Monthly payment worksheet</span>&nbsp;</a></li>
+                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}explore-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
+                  <li class="list_item"><a class="list_link jump-link jump-link__download" href="{{ base_url }}resources/monthly_payment_worksheet.pdf"><span class="jump-link_text">Monthly payment worksheet</span>&nbsp;</a></li>
                 </ul>
               </div>
 
@@ -74,8 +74,8 @@
 
               <div class="phase_intro content-l_col content-l_col-1-2">
                 <div class="content-l_col content-l_col-1 content-l__large-gutters">
-                <h3 class="u-mb15"><a href="{{ base_url }}process/explore" class="heading_link" id="explore-header-link">Explore loan options</a></h3>
-                <p>You've got a pretty good idea of your priorities and budget, and you're ready to start home shopping in earnest. Now is the time to start exploring loan options and meeting with lenders.</p>
+                <h3 class="u-mb15"><a href="{{ base_url }}process/explore" class="heading_link" id="explore-header-link">Explore loan choices</a></h3>
+                <p>You've got a pretty good idea of your priorities and budget, and you're ready to start home shopping in earnest. Now is the time to start exploring loan choices and meeting with lenders.</p>
                 <p>
                   <a class="jump-link jump-link__right" href="{{ base_url }}process/explore" id="explore-learn-link">
                     <span class="jump-link_text">Learn more</span>
@@ -87,8 +87,8 @@
               <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__links list__unstyled list__spaced">
-                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}check-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
                   <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}loan-options"><span class="jump-link_text">Understand loan options</span></a></li>
+                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}explore-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
                 </ul>
               </div>
 
@@ -119,7 +119,7 @@
                <div class="phase_tools content-l_col content-l_col-1-4 block__sub grid_column__left-divider">
                 <h6 class="block__sub block__flush-top">Key tools</h6>
                 <ul class="list__links list__unstyled list__spaced">
-                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}check-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
+                  <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}explore-rates"><span class="jump-link_text">Explore interest rates</span></a></li>
                   <li class="list_item"><a class="list_link jump-link" href="{{ base_url }}loan-estimate"><span class="jump-link_text">Loan Estimate explainer</span></a></li>
                 </ul>
               </div>
@@ -167,7 +167,7 @@
           <header class="tabbed-header tabbed-pad-top">
             <h3 class="subhead tabbed-heading">Stay tuned</h3>
           </header>
-          <p>We’re already working on more tools that make it easier to shop for a mortgage and help you understand the mortgage process. Sign up for our email list, and we’ll let you know when we add more resources.</p>
+          <p>Sign up for our email list, and we’ll let you know when we add more tools and resources.</p>
 
           <form class="signup2 inline-signup" id="signup" action="https://public.govdelivery.com/service/process_ss.xml" method="GET" data-thanks="Thanks, we’ll be in touch!">
             <input type="hidden" name="code" value="USCFPB_46">
@@ -186,7 +186,7 @@
           <ul class="list__unstyled list__spaced">
             <li class="list_item">
               <span class="jump-link_intro">Have a mortgage question?</span><br>
-              <a class="list_link jump-link" href="http://consumerfinance.gov/askcfpb/search/?selected_facets=category_exact:mortgages" target=\"_blank\">
+              <a class="list_link jump-link" href="/askcfpb/search/?selected_facets=category_exact:mortgages" target=\"_blank\">
                 <span class="jump-link_text">Get answers from AskCFPB</span>
               </a>
             </li>
@@ -238,14 +238,14 @@
 
           <ul class="list__unstyled list__spaced">
             <li class="list_item">
-              <span class="jump-link_intro">For lenders:</span><br>
+              <span class="jump-link_intro">Mortgage professionals</span><br>
               <a class="list_link jump-link" href="/regulatory-implementation/" target=\"_blank\">
                 <span class="jump-link_text">Get videos, compliance guides, and other resources</span>
               </a>
             </li>
 
             <li class="list_item">
-              <span class="jump-link_intro">For real estate professionals:</span><br>
+              <span class="jump-link_intro">Real estate professionals</span><br>
               <a class="list_link jump-link" href="/know-before-you-owe/real-estate-professionals/" target=\"_blank\">
                 <span class="jump-link_text">Learn how the new disclosure forms help you and your clients</span>
               </a>
@@ -261,14 +261,9 @@
 
           <ul class="list__unstyled list__spaced">
             <li class="list_item">
-                <a class="icon-link__no-wrap jump-link jump-link__download" href="http://www.consumerfinance.gov/f/201503_cfpb_your-home-loan-toolkit-web.pdf" target=\"_blank\">
+                <a class="icon-link__no-wrap jump-link jump-link__download" href="/f/201503_cfpb_your-home-loan-toolkit-web.pdf" target=\"_blank\">
                   <span class="jump-link_text">Your home loan toolkit: a step-by-step guide</span>
                 </a>
-            </li>
-            <li class="list_item">
-              <a class="jump-link jump-link__external-link" href="http://promotions.usa.gov/cfpbpubs.html#mortgages" target=\"_blank\">
-                <span class="jump-link_text">More mortgage-related guides</span>
-              </a>
             </li>
           </ul>
         </section>

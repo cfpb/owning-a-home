@@ -17,6 +17,7 @@ ul.unindent-ul{
   }
   .content__1-3 & {
     .respond-to-min(870px, {
+      border-right-width: 0;
       border-left-width: 30px;
     });
   }
@@ -121,4 +122,11 @@ ul.unindent-ul{
       color: @gray;
     }
   }
+}
+
+.related-links_container {
+  .respond-to-min(900px, {
+    border-left-width: @grid_gutter-width;
+  });
+  padding-bottom: 0;
 }

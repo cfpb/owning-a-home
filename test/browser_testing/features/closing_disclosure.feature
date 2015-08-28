@@ -53,7 +53,17 @@ Examples:
 @closing_disclosure
 Scenario Outline: Test overlays/highlights
   When I click the tab "<tab_name>"
-    When I hover over an overlay the corresponding explainer has class has-attention
+    When I hover over an overlay the corresponding explainer has class hover-has-attention
+
+Examples:
+  | tab_name    |
+  | Checklist   |
+  | Definitions |
+
+@closing_disclosure
+Scenario Outline: Test overlays/highlights
+  When I click the tab "<tab_name>"
+    When I click an overlay the corresponding explainer has class has-attention
 
 Examples:
   | tab_name    |
@@ -100,4 +110,13 @@ Scenario Outline: Test Prev Page
   | 4           | 3        |
   | 3           | 2        |
   | 2           | 1        |
+
+@check_urls @closing_disclosure
+Scenario Outline: Testing availability of pages on Closing Disclosure
+  Given I navigate to the "<page_name>" page
+  Then All links are working
+
+Examples:
+  | page_name             |
+  | Closing Disclosure    |
  

@@ -147,6 +147,15 @@ a.list_link {
 .phase {
   margin: 1em;
 }
+
+.block__bg-small {
+  padding: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
+  background: @gray-10;
+  .respond-to-min(600px, {
+    padding: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
+  });
+}
+
 /* Process-specific styles */
 
 .process-nav {
@@ -360,6 +369,9 @@ a.list_link {
   }
     
   .steps-col {
+    .respond-to-range(600px, 799px, {
+      .grid_column(12);
+    });
     .respond-to-min(800px, {
       .grid_column(2,3);
       .grid_pull(4);
@@ -495,8 +507,18 @@ a.list_link {
   }
   
   .phase_data {
+    margin-bottom: @grid_gutter-width;
+    
+    .tools {
+      margin-bottom: @grid_gutter-width;
+    }
+    
     .respond-to-min(800px, {
       .block;
+      
+      .tools {
+        margin-bottom: 0;
+      }
     });
   }
 
@@ -511,3 +533,18 @@ a.list_link {
   
 }
 
+.sources-step {
+  .u-mb60;
+  h4 {
+    font-size: 16px;
+    .u-mb15;
+    .webfont-demi();
+  }
+  p {
+    .short-desc;
+    .u-mb30;
+    a {
+      overflow-wrap: break-word;
+    }
+  }
+}

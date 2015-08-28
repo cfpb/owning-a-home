@@ -400,61 +400,92 @@ $(document).ready(function(){
       offset: -30
     });
   });
-
-  // When an overlay is clicked, toggle the corresponding expandable and scroll
-  // the page until it is in view.
-  $WRAPPER.on( 'click', '.image-map_overlay', function( event ) {
-    event.preventDefault();
-    var offset = 0;
-    var itemID = $( this ).attr('href');
-    var $targetExpandable = $(itemID);
-    
+  
+  var expandableTimeout;
+  var delay = isIE ? 1000 : 700;
+  
+  function updateImagePositionAfterAnimation () {
+    // Check image position after expandable animation to make sure it is not
+    // overlapping the footer.
+    window.clearTimeout( expandableTimeout );
+    setTimeout(function () {
+      if ($WINDOW.width() > 600) {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
+      }
+    }, delay)
+  }
+  
+  function openAndScrollToExpandable ($targetExpandable) {
     // If there's an expandable open above the targeted expandable,
     // it will be closed when this expandable opens, so we need
     // to subtract its height from this expandable's offset in order
     // to get a position to use in scrolling this expandable into view
     var prevExpanded = $targetExpandable.prevAll('.expandable__expanded');
+    var offset = 0;
     if (prevExpanded.length) {
       offset = $(prevExpanded[0]).find('.expandable_content').height();
     }
     var pos = $targetExpandable.offset().top - offset;
-    
     $.scrollTo( pos, {
       duration: 200,
       offset: -30
     });
-    $targetExpandable.get(0).handleClick(event);
-  });
+    $targetExpandable.find('.expandable_target').click();
+  }
   
-
-  $WRAPPER.on( 'focus', '.expandable__form-explainer, .expandable__form-explainer .expandable_target', function( ) {
-    var $this = $(this),
-     itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
-      $overlay = $('.image-map_overlay'),
-      $target = $('a[href=#' + itemID + ']');
-    $overlay.removeClass('has-attention');
-    $target.addClass('has-attention');
+  // Update attention classes based on the expandable or image overlay 
+  // that was targeted. 
+  // Remove the attention class from all the expandables/overlays,
+  // and then apply it to the target & its associated overlay
+  // or expandable.
+  function updateAttention ($target, className) {
+     var $associated;
+     
+     $('.expandable__form-explainer, .image-map_overlay').removeClass(className);
+     
+     if (typeof $target.attr('href') !== 'undefined') {
+       $associated = $( $target.attr('href') );
+     } else  if ( typeof $target.attr('id') !== 'undefined' ) {
+       $associated = $('[href=#'+$target.attr('id')+']');
+     }
+     
+     if (typeof $associated !== 'undefined') {
+       if (className === 'has-attention') {
+          $target.removeClass('hover-has-attention');
+          $associated.removeClass('hover-has-attention');
+       }
+       $target.addClass(className);
+       $associated.addClass(className);
+     }
+   }
+   
+  $WRAPPER.on( 'focus', '.expandable_target', function () {
+    var $expandable = $(this).closest('.expandable__form-explainer');
+    updateAttention($expandable, 'hover-has-attention')
   });
 
-  // When mousing over a term or highlighted area of the image map,
-  // call attention to the associated map area or term, respectively.
   $WRAPPER.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
     event.preventDefault();
-    var $target,
-        $this = $(this);
-    if ( typeof $this.attr('href') !== 'undefined' ) {
-      $target = $( $this.attr('href') );
-    } else  if ( typeof $this.attr('id') !== 'undefined' ) {
-      $target = $('[href=#'+$this.attr('id')+']');
-    }
-    if ( typeof $target !== 'undefined' ) {
-      // remove class from all
-      $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
-      if ( $target.hasClass('has-attention') ) {
-        $target.removeClass('has-attention');
-      } else {
-        $target.addClass('has-attention');
-      }
+    updateAttention ($(this), 'hover-has-attention')
+  });
+  
+  // When an overlay is clicked, toggle the corresponding expandable and scroll
+  // the page until it is in view.
+  $WRAPPER.on( 'click', '.image-map_overlay', function( event ) {
+    event.preventDefault();
+    var $this = $(this),
+        itemID = $this.attr('href'),
+        $targetExpandable = $(itemID);
+    updateAttention($this, 'has-attention')
+    openAndScrollToExpandable($targetExpandable)
+    updateImagePositionAfterAnimation();
+  });
+  
+  $('.expandable__form-explainer .expandable_target').on('keypress click', function (event) {
+    if (event.which === 13 || event.type === 'click') {
+      updateAttention($(this).closest('.expandable__form-explainer'), 'has-attention');
+      updateImagePositionAfterAnimation();
     }
   });
 

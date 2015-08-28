@@ -15,7 +15,7 @@ HOME = 'index.html'
 LC = 'loan-comparison'
 LO = 'loan-options'
 CONV = 'loan-options/conventional-loans'
-RC = 'check-rates'
+ER = 'explore-rates'
 FHA = 'loan-options/FHA-loans'
 SPECIAL = 'loan-options/special-loan-programs'
 # Journey links
@@ -24,6 +24,7 @@ PP = 'process/prepare'
 PE = 'process/explore'
 PC = 'process/compare'
 PF = 'process/close'
+PS = 'process/sources'
 # FE
 CD = 'closing-disclosure'
 LE = 'loan-estimate'
@@ -39,7 +40,7 @@ def step(context, page_name):
     elif (page_name == 'Loan Options'):
         context.base.go(LO)
     elif (page_name == 'Rate Checker'):
-        context.base.go(RC)
+        context.base.go(ER)
         # Wait for the chart to load
         context.base.sleep(2)
         assert_that(context.rate_checker.is_chart_loaded(), equal_to("Chart is loaded"))
@@ -59,6 +60,8 @@ def step(context, page_name):
         context.base.go(PC)
     elif (page_name == 'Get Ready to Close'):
         context.base.go(PF)
+    elif (page_name == 'Sources'):
+        context.base.go(PS)
     elif (page_name == 'Closing Disclosure'):
         context.base.go(CD)
     elif (page_name == 'Loan Estimate'):
