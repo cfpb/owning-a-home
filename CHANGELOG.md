@@ -4,7 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 ### Changed
-- ?
+- 
+
 
 ## [1.0.1] - 2015-08-25
 ### Removed
@@ -16,7 +17,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.3.1] - 2016-08-11
 ### Fixed
-- ?
+- CSS fix to hide link bullets on form resources pages as part of form explainer release
 
 ## [0.3.0] - 2015-08-06
 ### Fixed
