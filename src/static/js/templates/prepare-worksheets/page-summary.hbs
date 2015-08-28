@@ -9,49 +9,50 @@
         <!-- goals -->
 
         {{#if goalsError }}
-        <div class="box1 first">
-          {{#each this.goals.[2].[items]}}
-            <!-- low priority goal -->
-            <div class="box-goals goals-low"></div>
-          {{/each}} <!-- light green -->
+          <div class="box1 first">
+            {{#each this.goals.[2].[items]}}
+              <!-- low priority goal -->
+              <div class="box-goals goals-low"></div>
+            {{/each}} <!-- light green -->
 
-          {{#each this.goals.[1].[items]}}
-            <!-- medium priority goal -->
-            <div class="box-goals goals-medium"></div>
-          {{/each}} <!-- medium green -->
+            {{#each this.goals.[1].[items]}}
+              <!-- medium priority goal -->
+              <div class="box-goals goals-medium"></div>
+            {{/each}} <!-- medium green -->
 
-          {{#each this.goals.[0].[items]}}
-            <!-- high priority goal -->
-            <div class="box-goals goals-high"></div>
-          {{/each}} <!-- dark green -->
-        </div>
+            {{#each this.goals.[0].[items]}}
+              <!-- high priority goal -->
+              <div class="box-goals goals-high"></div>
+            {{/each}} <!-- dark green -->
+          </div>
 
-        <!-- red flags -->
-        <div class="box1">
-          {{#each this.flags.[1].[items]}}
-            <!-- somewhat likely flag -->
-            <div class="box-goals flags-medium"></div>
-          {{/each}} <!-- light red -->
+          <!-- red flags -->
+          <div class="box1">
+            {{#each this.flags.[1].[items]}}
+              <!-- somewhat likely flag -->
+              <div class="box-goals flags-medium"></div>
+            {{/each}} <!-- light red -->
 
 
-          {{#each this.flags.[0].[items]}}
-            <!-- likely flag -->
-            <div class="box-goals flags-high"></div>
-          {{/each}} <!-- dark red -->
-        </div>
+            {{#each this.flags.[0].[items]}}
+              <!-- likely flag -->
+              <div class="box-goals flags-high"></div>
+            {{/each}} <!-- dark red -->
+          </div>
 
-        <!-- risks -->
-        <div class="box1">
-          {{#each this.risks.[1].[items]}}
-            <!-- maybe ready risk -->
-            <div class="box-goals risks-medium"></div>
-          {{/each}} <!-- light yellow -->
+          <!-- risks -->
+          <div class="box1">
+            {{#each this.risks.[1].[items]}}
+              <!-- maybe ready risk -->
+              <div class="box-goals risks-medium"></div>
+            {{/each}} <!-- light yellow -->
 
-          {{#each this.risks.[2].[items]}}
-            <!-- not ready risk -->
-            <div class="box-goals risks-high"></div>
-          {{/each}} <!-- dark yellow -->
-        </div>
+            {{#each this.risks.[2].[items]}}
+              <!-- not ready risk -->
+              <div class="box-goals risks-high"></div>
+            {{/each}} <!-- dark yellow -->
+          </div>
+        {{/if}}
 
           <br>
           <div class="box2">
@@ -66,8 +67,11 @@
 
       </section>
     </div>
+
     <hr>
+    
     <br>
+    
     <div class="content-l content-l__main">
         <div class="content-l_col content-l_col-1-2">
             
@@ -84,7 +88,8 @@
                   {{/if}}
             </section>
             
-        </div>
+        </div><!-- .content-l_col -->
+
         <div class="content-l_col content-l_col-1-2 worksheet worksheet-summary worksheet-flags-summary">
             
             <section class="worksheet worksheet-summary worksheet-flags-summary">
@@ -111,11 +116,11 @@
                   {{/if}}
             </section>
             
-        </div>
-    </div>
-</div>
+        </div><!-- .content-l_col -->
+    </div><!-- .content-l_main -->
+</div><!-- .summary -->
 
-<div class="block__border-top block__padded-top">
+<div class="block block__border-top block__padded-top">
     <div class="summary content-l content-l__main">
         <div class="content-l_col content-l_col-1-2">
             <section class="summary-callout">
@@ -124,7 +129,7 @@
               The next step is to explore how much it will cost to buy a home that meets your goals, and whether buying makes sense financially.  For most people, owning a home will end up being more expensive than their current rental.  Before you start house shopping in earnest, it’s a good idea to get a clear sense for how much buying will cost, so you can decide for yourself if the benefits are worth the cost.
               </p>
             </section>
-        </div>
+        </div><!-- .content-l_col -->
         <div class="content-l_col content-l_col-1-2 content-l_col__before-divider">
             <section class="summary-callout">
               <h4>Not ready to buy?</h4>
@@ -132,7 +137,6 @@
               Are there red flags in your situation, or risks you’re not ready to accept?   That’s ok.  Sometimes, the smartest home buying decision is deciding not to buy – at least not right now.  Consider pursuing the alternatives you identified, so that you can meet some of your goals right away.  Or, consider working to build a larger financial cushion so you will be better able to accept the risks of homeownership when the time is right for you.
               </p>
             </section>
-        </div>
-    </div>
-
-</div>
+        </div><!-- .content-l_col -->
+    </div><!-- .summary -->
+</div><!-- .block -->
