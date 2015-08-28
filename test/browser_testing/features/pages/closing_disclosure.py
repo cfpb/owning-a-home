@@ -115,6 +115,27 @@ class ClosingDisclosure(Base):
                 else:
                     classes = filter(lambda x: x,
                                      explainer_element.get_attribute('class').split(' '))
+                    if 'hover-has-attention' not in classes:
+                        bad_elements += 1
+
+        return bad_elements
+
+    def click_an_overlay(self):
+        bad_elements = 0
+        elements = self._element_found('a.image-map_overlay')
+        time.sleep(1)
+        for element in elements:
+            if element.is_displayed():
+                element.click()
+                time.sleep(1)
+                anchor = element.get_attribute('href')
+                anchor = re.sub('^[^#]*', '', anchor)
+                explainer_element = self._element_found(anchor)
+                if not explainer_element:
+                    bad_elements += 1
+                else:
+                    classes = filter(lambda x: x,
+                                     explainer_element.get_attribute('class').split(' '))
                     if 'has-attention' not in classes:
                         bad_elements += 1
 
