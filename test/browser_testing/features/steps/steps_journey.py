@@ -13,9 +13,3 @@ from pages.journey import Journey
 @then(u'I see page loaded')
 def navbar_is_loaded(context):
     assert_that( context.journey.is_navbar_found(), equal_to(True), 'Navbar found')
-
-@then(u'All links are working')
-def all_links_working(context):
-    assert_that( context.journey.check_all_links_on_page(context.base_url + '/process'),
-                equal_to([]),
-                'Broken links on <%s>' % context.base.get_current_url() )
