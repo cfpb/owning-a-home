@@ -144,13 +144,17 @@
     <h2 class="header-slug">
       <span class="header-slug_inner">{{data.title}}</span>
     </h2>
-    {% for link in data.links %}
-      <p class="short-desc">
-        {{link.desc}}
-      </p>
-      <a class="jump-link jump-link__block {{'jump-link__' + link.type if link.type}}" href="{{link.url}}">
-        <span class="jump-link_text">{{link.label}}</span>
-      </a>
-    {% endfor %}
+    <ul class="related-links_list">
+      {% for link in data.links %}
+        <li>
+          <p class="short-desc">
+            {{link.desc|safe}}
+          </p>
+          <a class="jump-link jump-link__block {{'jump-link__' + link.type if link.type}}" href="{{link.url}}">
+            <span class="jump-link_text">{{link.label|safe}}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 {% endmacro %}
