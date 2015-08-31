@@ -4,6 +4,7 @@ var debounce = require('debounce');
 var LoanStore = require('../stores/loan-store');
 var ScenarioStore = require('../stores/scenario-store');
 var LoanInputTable = require('./loan-input-table');
+var InterestRateTable = require('./interest-rate-table');
 var ScenarioSection = require('./scenario-section');
 var LoanOutputTableGroup = require('./loan-output-table');
 var LoanOutputTableMobileGroup = require('./loan-output-table-mobile');
@@ -23,41 +24,41 @@ var App = React.createClass({
         this.init();
         return this.getAppState();
     },
-  
+
     getAppState: function () {
         return {
             loans: LoanStore.getAll(),
             scenario: ScenarioStore.getScenario()
         }
     },
-    
+
     componentDidMount: function() {
         var scenario = this.state.scenario;
-        var animating; 
-        
+        var animating;
+
         LoanStore.addChangeListener(this._onChange);
         // tooltips
         $(this.getDOMNode()).tooltip({
             selector: '[data-toggle="tooltip"]',
-            'placement': 'bottom', 
+            'placement': 'bottom',
             container: 'body',
             title: function getTooltipTitle(){
                 return $(this).attr('title') || $(this).next('.help-text').html() || 'Tooltip information.';
             }
         });
-        $('.expandable').expandable();        
+        $('.expandable').expandable();
 
         // initial positioning of educational notes
         if (scenario) {
             positionNotes();
         }
-        
+
         $(window).resize(debounce(function () {
             if (scenario) {
                 positionNotes(animating);
             }
         }, 100));
-        
+
         // reposition notes on start of expand event
         // and (approximate) completion of expandable animation
         // (could also update cf-expandable to allow callbacks)
@@ -74,11 +75,11 @@ var App = React.createClass({
             }
         });
     },
-  
+
     componentWillUnmount: function() {
         LoanStore.removeChangeListener(this._onChange);
     },
-    
+
     componentDidUpdate: function () {
         if (this.state.scenario) {
             positionNotes();
@@ -105,30 +106,53 @@ var App = React.createClass({
     render: function() {
         return (
           <div>
-            
             <div>
                 <ScenarioSection scenario={this.state.scenario}/>
                 <div className="block block__border-top block__padded-top" id="loans-container">
                     <ScenarioHeader scenario={this.state.scenario}/>
                     <div className="content-l">
-                        <div className="content-l_col content-l_col-3-4">
+                        <div className="content-l_col content-l_col-3-4">                            
+                            
+                            <h3><span className="round-step">1</span>Enter details for each scenario</h3>
                             <LoanOutputTableMobileGroup loans={this.state.loans} editing={this.state.editing} scenario={this.state.scenario} startEditing={this.startMobileEditing}/>
+                            
                             <LoanInputTable loans={this.state.loans} scenario={this.state.scenario} editing={this.state.editing} stopEditing={this.stopMobileEditing}/>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <div className="content-l content-l__large-gutters">
-                    <h3 className="content-l_col content-l_col-1-2 outputs-heading">Based on the information above, here are the projected costs.</h3>
+            <div className="block">
+                <div className="content-l">
+                    <div className="content-l_col content-l_col-3-4 with-link">
+                        <h3><span className="round-step">2</span>
+                            Choose <a class="jump-link" href="/explore-rates"><span class="jump-link_text">interest rates</span></a> to use in your scenarios</h3>
+                        <div className="lc-inputs" id="loan-interest-rate-container">
+                            <InterestRateTable loans={this.state.loans} scenario={this.state.scenario}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="block">
+                <div className="content-l">
+                    <div className="content-l_col content-l_col-3-4">
+                        <h3><span className="round-step">3</span>See how different factors affect your projected costs</h3>
+                    </div>
                 </div>
                 <LoanOutputTableGroup loans={this.state.loans} scenario={this.state.scenario} />
             </div>
-            <NextSteps scenario={this.state.scenario}/>
+            <div className="block">
+                <div className="content-l">
+                    <div className="content-l_col content-l_col-3-4">
+                        <h3><span className="round-step">4</span>Next steps</h3>
+                    </div>
+                </div>
+                <NextSteps scenario={this.state.scenario}/>
+            </div>
           </div>
         );
     },
- 
+
   /**
    * Event handler for 'change' events coming from the Stores
    */

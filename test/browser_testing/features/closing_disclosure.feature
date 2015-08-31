@@ -53,9 +53,70 @@ Examples:
 @closing_disclosure
 Scenario Outline: Test overlays/highlights
   When I click the tab "<tab_name>"
-    When I hover over an overlay the corresponding explainer has class has-attention
+    When I hover over an overlay the corresponding explainer has class hover-has-attention
 
 Examples:
   | tab_name    |
   | Checklist   |
   | Definitions |
+
+@closing_disclosure
+Scenario Outline: Test overlays/highlights
+  When I click the tab "<tab_name>"
+    When I click an overlay the corresponding explainer has class has-attention
+
+Examples:
+  | tab_name    |
+  | Checklist   |
+  | Definitions |
+
+@closing_disclosure
+Scenario Outline: Test pagination
+  When I click on page "<page_num>"
+  Then page "<page_num>" is displayed
+
+Examples:
+  | page_num |
+  | 1        |
+  | 2        |
+  | 3        |
+  | 4        |
+  | 5        |
+  | 1        |
+
+
+@closing_disclosure
+Scenario Outline: Test Next Page
+  When I click page "<current_num>" in Form Explainer
+    And I click the next button in page "<current_num>"
+  Then page "<page_num>" is displayed
+
+  Examples:
+  | current_num | page_num |
+  | 1           | 2        |
+  | 2           | 3        |
+  | 3           | 4        |
+  | 4           | 5        |
+
+@closing_disclosure
+Scenario Outline: Test Prev Page
+  When I click page "<current_num>" in Form Explainer
+   And I click the previous button in page "<current_num>"
+  Then page "<page_num>" is displayed
+
+  Examples:
+  | current_num | page_num |
+  | 5           | 4        |
+  | 4           | 3        |
+  | 3           | 2        |
+  | 2           | 1        |
+
+@check_urls @closing_disclosure
+Scenario Outline: Testing availability of pages on Closing Disclosure
+  Given I navigate to the "<page_name>" page
+  Then All links are working
+
+Examples:
+  | page_name             |
+  | Closing Disclosure    |
+ 

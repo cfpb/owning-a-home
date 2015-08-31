@@ -92,7 +92,6 @@ def process_journey(item):
 
     del item['custom_fields']
 
-    return {'_index': 'content',
-            '_type': 'journey',
+    return {'_type': 'journey',
             '_id': item['slug'],
             '_source': item}

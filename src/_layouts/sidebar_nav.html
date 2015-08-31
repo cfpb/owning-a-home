@@ -1,7 +1,7 @@
 <!-- NAVIGATION -->
 {% set navigation_bar = [
     ('../', 'index', 'Owning a Home'),
-    ('../check-rates/', 'check-rates', 'Explore interest rates'),
+    ('../explore-rates/', 'explore-rates', 'Explore interest rates'),
     ('../loan-options/', 'loan-options', 'Understand loan options'),
     ('../process/', 'process', 'Know the process'),
     ('../prepare-worksheets/', 'prepare-worksheets', 'Preparation worksheets'),
@@ -39,7 +39,7 @@
         <ul class="nav-secondary_list">
         {%- for href, id, caption in navigation_bar %}
             <li class="nav-secondary_item">
-                {% if id == 'check-rates' %}
+                {% if id == 'explore-rates' %}
                     <a class="nav-secondary_link{{ ' nav-secondary_link__current' if id == active_page }}"
                        href="{{ href|e }}">
                        {{ caption|e }}<sup>BETA</sup>

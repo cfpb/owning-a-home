@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set active_page = "form-explainer" %}
+{% set active_page = "loan-estimate" %}
 
 {% block title %}Owning a Home: Loan Estimate Explainer{% endblock title %}
 {% block content %}
@@ -29,6 +29,35 @@
       {# Render form explainer with the data for this form #}
       <div class="col-12">
         {{ form_explainer.render([ page_1, page_2, page_3 ]) }}
+      </div>
+      
+      <div class="col-12">
+        {% import "related-links.html" as related_links %}
+        {% set process_links = [
+            { 
+              'desc': 'Find the best deal by comparing multiple offers.',
+              'label': 'Compare loan offers', 
+              'url': '/owning-a-home/process/compare/'
+            },
+            { 
+              'desc': 'Once you\'ve chosen a loan offer, there\'s still a lot to do.',
+              'label': 'Get ready to close', 
+              'url': '/owning-a-home/process/close/'
+            }
+         ] %}
+         {% set tools_links = [
+             { 
+               'desc': 'Wondering what kind of loan is right for you?',
+               'label': 'Understand loan options', 
+               'url': '/owning-a-home/loan-options/'
+             },
+             { 
+                'desc': 'Interest rates can differ based on the kind of loan you choose.',
+                'label': 'Explore interest rates', 
+                'url': '/owning-a-home/check-rates/'
+              }
+          ] %}
+        {{ related_links.render(process_links, tools_links) }}
       </div>
 
     </div><!-- /.wrapper -->

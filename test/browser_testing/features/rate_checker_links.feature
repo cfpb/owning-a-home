@@ -22,10 +22,10 @@ Examples:
   | get them corrected                      | askcfpb/314/how-do-i-dispute-an-error-on-my-credit-report.html  | How do I dispute an error on my credit report? |
   | www.informars.com                       | informars.com                                                   | Informa Research Services                      |
   | kind of loan                            | owning-a-home/loan-options/                                     | Consumer Financial Protection Bureau           |
-  | points | http://www.consumerfinance.gov/askcfpb/136/what-are-discount-points-or-points.html | Consumer Financial Protection Bureau |
-  | mortgage insurance | http://www.consumerfinance.gov/askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html | Consumer Financial Protection Bureau |
-  | closing costs | http://www.consumerfinance.gov/askcfpb/139/what-are-closing-costs.html | Consumer Financial Protection Bureau |
-  | Loan Estimates | http://consumerfinance.gov/askcfpb/1995/what-is-a-loan-estimate.html | Consumer Financial Protection Bureau |
+  | points | askcfpb/136/what-are-discount-points-or-points.html | Consumer Financial Protection Bureau |
+  | mortgage insurance | askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html | Consumer Financial Protection Bureau |
+  | closing costs  | askcfpb/1845/what-fees-or-charges-are-paid-closing-and-who-pays-them.html | Consumer Financial Protection Bureau |
+  | Loan Estimates | askcfpb/1995/what-is-a-loan-estimate.html | Consumer Financial Protection Bureau |
 
 @rate_checker
 Scenario Outline: Click Non-Navigational links inside tab page

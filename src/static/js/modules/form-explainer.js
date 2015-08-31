@@ -7,7 +7,11 @@ require('./nemo');
 require('./nemo-shim');
 var debounce = require('debounce');
 
-var formExplainer = {};
+var formExplainer = {
+    pageCount: 0,
+    currentPage: 1,
+    pageName: 'form'
+};
 
 // Constants. These variables should not change.
 var $WRAPPER, $TABS, $PAGINATION, $WINDOW, TOTAL;
@@ -25,21 +29,12 @@ var resized;
 
 var stickBottom = 'js-sticky-bottom';
 
-/**
- * Get the currently displayed form page as a number.
- * Grabs the number from the currently displayed .explain_page element ID.
- * @return {number}
- */
-formExplainer.getCurrentPageNum = function() {
-  return parseInt( $WRAPPER.find('.explain_page:visible').attr('id').replace( 'explain_page-', '' ), 10 );
-};
-
-function getPageEl (pageNum) {
-  return $WRAPPER.find('#explain_page-' + pageNum);
+formExplainer.getPageEl = function(pageNum) {
+  return $('#explain_page-' + pageNum);
 }
 
-function getPageElements (pageNum) {
-  var $page = getPageEl(pageNum);
+formExplainer.getPageElements = function(pageNum) {
+  var $page = formExplainer.getPageEl(pageNum);
   return {
     $page:             $page,
     $imageMap:         $page.find('.image-map'),
@@ -49,19 +44,20 @@ function getPageElements (pageNum) {
   }
 }
 
-function calculateNewImageWidth (imageWidth, imageHeight) {
+formExplainer.calculateNewImageWidth = function(imageWidth, imageHeight, windowHeight) {
   var imageMapImageRatio = (imageWidth + 2) / (imageHeight + 2);
-  return ($WINDOW.height() - 60) * imageMapImageRatio + 30;
+  return (windowHeight - 60) * imageMapImageRatio + 30;
 }
 
-function resizeImage (els, windowResize) {
+formExplainer.resizeImage = function(els, $window, windowResize) {
+
   var pageWidth = els.$page.width();
   var $image = els.$imageMapImage;
   var currentHeight = $image.height();
   var currentWidth = $image.width();
   var actualWidth = $image.data("actual-width");
   var actualHeight = $image.data("actual-height");
-  var windowHeight = $WINDOW.innerHeight() - 60;
+  var windowHeight = $window.innerHeight() - 60;
   var newWidth;
   var newWidthPercentage;
 
@@ -71,7 +67,7 @@ function resizeImage (els, windowResize) {
   // but only if we've stored the actual image dimensions for comparison.
   if ( currentHeight > windowHeight || (windowResize && actualWidth && actualHeight)) {
     // determine new width
-    newWidth = calculateNewImageWidth(currentWidth, currentHeight);
+    newWidth = formExplainer.calculateNewImageWidth(currentWidth, currentHeight, $window.height());
     if (newWidth > actualWidth) {
       newWidth = actualWidth;
     }
@@ -79,7 +75,7 @@ function resizeImage (els, windowResize) {
     newWidthPercentage = newWidth / pageWidth * 100;
     // on screen less than 800px wide, the terms need a minimum 33%
     // width or they become too narrow to read
-    if ($WINDOW.width() <= 800 && newWidthPercentage > 67) {
+    if ($window.width() <= 800 && newWidthPercentage > 67) {
       newWidthPercentage = 67;
     }
     els.$imageMap.css( 'width', newWidthPercentage + '%' );
@@ -88,7 +84,11 @@ function resizeImage (els, windowResize) {
   }
 }
 
-function setImageElementWidths (els) {
+formExplainer.test = function (el) {
+  el.width(200)
+}
+
+formExplainer.setImageElementWidths = function(els) {
   // When the sticky plugin is applied to the image, it adds position fixed,
   // and the image's width is no longer constrained to its parent.
   // To fix this we will give it its own width that is equal to the parent.
@@ -98,12 +98,12 @@ function setImageElementWidths (els) {
   els.$imageMapImage.width(containerWidth);
 }
 
-function storeImageDimensions ($image) {
+formExplainer.storeImageDimensions = function($image) {
   $image.data('actual-width', $image.width());
   $image.data('actual-height', $image.height());
 }
 
-function stickImage($el) {
+formExplainer.stickImage = function($el) {
   $el.sticky({ topSpacing: 30 });
 }
 
@@ -112,26 +112,26 @@ function stickImage($el) {
  * columns to match.
  * @return {null}
  */
-function fitAndStickToWindow(els, pageNum) {
+formExplainer.fitAndStickToWindow = function(els, pageNum) {
   // http://stackoverflow.com/questions/318630/get-real-image-width-and-height-with-javascript-in-safari-chrome
   $('<img/>')
     .load( function() {
       // store image width for use in calculations on window resize
       if (pageNum) {
-        storeImageDimensions(els.$imageMapImage);
+        formExplainer.storeImageDimensions(els.$imageMapImage);
       }
 
       // if image is too tall/small, fit it to window dimensions
-      resizeImage(els, !pageNum);
+      formExplainer.resizeImage(els, $WINDOW, !pageNum);
 
       // set width values on image elements
-      setImageElementWidths(els);
+      formExplainer.setImageElementWidths(els);
 
       if (pageNum || els.$imageMapImage.closest('.sticky-wrapper').length == 0) {
         // stick image to window
-        stickImage(els.$imageMapWrapper);
+        formExplainer.stickImage(els.$imageMapWrapper);
       } else {
-        updateStickiness()
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
       }
       // hide pages except for first
       if (pageNum > 1) {
@@ -149,13 +149,12 @@ function fitAndStickToWindow(els, pageNum) {
  * the sticky element does not overlap content that comes after $currentPage.
  * @return {null}
  */
-function updateStickiness() {
-  var els =  getPageElements(formExplainer.getCurrentPageNum());
+formExplainer.updateStickiness = function(els, windowScrollTop) {
   var max = els.$page.offset().top + els.$page.height() - els.$imageMapWrapper.height();
-  if ($WINDOW.scrollTop() >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
+  if (windowScrollTop >= max && !els.$imageMapWrapper.hasClass(stickBottom)) {
     els.$imageMapWrapper.addClass(stickBottom);
-  } else if ($WINDOW.scrollTop() < max && els.$imageMapWrapper.hasClass(stickBottom)) {
-    els.$imageMapWrapper.removeClass(stickBottom);
+  } else if (windowScrollTop < max && els.$imageMapWrapper.hasClass(stickBottom)) {
+    els.$imageMapWrapper.removeClass(stickBottom);    
   }
 }
 
@@ -164,54 +163,62 @@ function updateStickiness() {
  * @return {null}
  */
 function paginate( direction ) {
-  var currentPage = formExplainer.getCurrentPageNum(), newCurrentPage;
-  if ( direction === 'next' ) {
-    newCurrentPage = currentPage + 1;
-  } else if ( direction === 'prev' ) {
-    newCurrentPage = currentPage - 1;
-  }
+  var currentPage = formExplainer.currentPage,
+      increment = direction === 'next' ? 1 : -1,
+      newPage = currentPage + increment;
+
   // Move to the next or previous page if it's not the first or last page.
-  if ( direction === 'next' && newCurrentPage <= TOTAL ||
-       direction === 'prev' && newCurrentPage >= 1 ) {
-    // Scroll the window up to the tabs.
-    $.scrollTo( $TABS, {
-      duration: 600,
-      offset: -30
-    });
-    // After scrolling the window, fade out the current page.
-    var fadeOutTimeout = window.setTimeout(function () {
-      getPageEl(formExplainer.getCurrentPageNum()).fadeOut( 450 );
-      window.clearTimeout( fadeOutTimeout );
-    }, 600);
-    // After fading out the current page, fade in the new page.
-    var fadeInTimeout = window.setTimeout(function () {
-      getPageEl(newCurrentPage).fadeIn( 700 );
-      stickyHack();
-      window.clearTimeout( fadeInTimeout );
-      if (resized ) {
-        setupImage(newCurrentPage);
-      }
-    }, 1050);
-  }
-  // Update the pagination numbers.
-  $WRAPPER.find('.explain_pagination .pagination_current').text( newCurrentPage );
-  // Update the previous/next buttons if the new page is the first or last.
-  $('.explain_pagination .pagination_prev, .explain_pagination .pagination_next').removeClass('btn__disabled');
-  if ( newCurrentPage === 1 ) {
-    $WRAPPER.find('.explain_pagination .pagination_prev').addClass('btn__disabled');
-  } else if ( newCurrentPage === TOTAL ) {
-    $WRAPPER.find('.explain_pagination .pagination_next').addClass('btn__disabled');
+  if ( direction === 'next' && newPage <= formExplainer.pageCount ||
+       direction === 'prev' && newPage >= 1 ) {
+    loadPage(currentPage, newPage);
   }
 }
 
-function setupImage (pageNum, pageLoad) {
-  var pageEls = getPageElements(pageNum);
+function loadPage (lastPage, pageNum) {
+    formExplainer.currentPage = pageNum;
+    $('.form-explainer_page-link').removeClass('current-page');
+    $('.form-explainer_page-link[data-page=' + pageNum + ']').addClass('current-page');
+
+    // Scroll the window up to the tabs.
+    $.scrollTo( $('.explain_pagination'), {
+      duration: 600,
+      offset: -30
+    });
+
+    // After scrolling the window, fade out the current page.
+    var fadeOutTimeout = window.setTimeout(function () {
+      formExplainer.getPageEl(lastPage).fadeOut( 450 );
+      window.clearTimeout( fadeOutTimeout );
+    }, 600);
+
+    // After fading out the current page, fade in the new page.
+    var fadeInTimeout = window.setTimeout(function () {
+      formExplainer.getPageEl(pageNum).fadeIn( 700 );
+      stickyHack();
+      window.clearTimeout( fadeInTimeout );
+      if (resized ) {
+        formExplainer.setupImage(pageNum);
+      }
+      // update paging buttons
+      if (formExplainer.pageCount > 1) {
+            $('.form-explainer_page-buttons button').removeClass('btn__disabled');
+            if (pageNum === 1) {
+              $('.form-explainer_page-buttons .prev').addClass('btn__disabled');
+            } else if (pageNum === formExplainer.pageCount) {
+              $('.form-explainer_page-buttons .next').addClass('btn__disabled');
+            }
+        }
+    }, 1050);
+}
+
+formExplainer.setupImage = function(pageNum, pageLoad) {
+  var pageEls = formExplainer.getPageElements(pageNum);
   if ($WINDOW.width() >= 600) {
     // update widths & stickiness on larger screens
     // we only pass in the pageNum on pageLoad, when
     // pages after the first will be hidden once they're
     // fully loaded & we've calculated their widths
-    fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
+    formExplainer.fitAndStickToWindow(pageEls, pageLoad ? pageNum : null);
   } else if (!pageLoad) {
     // if this is called on screen resize instead of page load,
     // remove width values & call unstick on the imageWrapper
@@ -226,12 +233,18 @@ function setupImage (pageNum, pageLoad) {
   }
 }
 
-formExplainer.initForm = function () {
+formExplainer.initForm = function ($wrapper) {
   // Loop through each page, setting its dimensions properly and activating the
   // sticky() plugin.
-  $WRAPPER.find('.explain_page').each(function( index ) {
-    formExplainer.initPage(index + 1);
-  });
+
+  var $pages = $wrapper.find('.explain_page');
+    formExplainer.pageCount = $pages.length;
+    if (formExplainer.pageCount <= 1) {
+        $('.form-explainer_page-buttons').hide();
+    }
+    $pages.each(function( index ) {
+      formExplainer.initPage(index + 1);
+    });
 }
 
 /**
@@ -239,8 +252,8 @@ formExplainer.initForm = function () {
  * @return {null}
  */
 formExplainer.initPage = function (id) {
-  setupImage(id, true);
-  setCategoryPlaceholders(id);
+  formExplainer.setupImage(id, true);
+  formExplainer.setCategoryPlaceholders(id);
 }
 
 /**
@@ -258,26 +271,23 @@ function stickyHack() {
  * Set category placeholders
  * @return {null}
  */
-function setCategoryPlaceholders( id ) {
-  var $page = getPageEl(id), placeholder;
+formExplainer.setCategoryPlaceholders = function( id ) {
+  var $page = formExplainer.getPageEl(id), placeholder;
   for (var i = 0; i < CATEGORIES.length; i++) {
     var category = CATEGORIES[i];
     if (!categoryHasContent($page, category)) {
-      placeholder = generatePlaceholderHtml(category);
+      placeholder = formExplainer.generatePlaceholderHtml(category);
       $page.find('.explain_terms').append(placeholder);
     }
   }
 }
 
-function generatePlaceholderHtml (category) {
-  return '' +
-  '<div class="expandable expandable__padded expandable__form-explainer ' +
+formExplainer.generatePlaceholderHtml = function (category) {
+  return '<div class="expandable expandable__padded expandable__form-explainer ' +
               'expandable__form-explainer-' + category + ' ' +
               'expandable__form-explainer-placeholder">' +
     '<span class="expandable_header">' +
-      'No ' + category + ' on this page. ' +
-      'Filter by another category above or page ahead to continue exploring ' +
-      category + '.' +
+      'Click on "Get Definitions" above or page ahead to continue checking your ' + this.pageName + '.' +
     '</span>' +
   '</div>';
 }
@@ -301,7 +311,11 @@ function filterExplainers ($currentTab, type) {
 function toggleScrollWatch() {
   $WINDOW.off('scroll.stickiness');
   if ($WINDOW.width() >= 600) {
-    $WINDOW.on('scroll.stickiness', debounce(updateStickiness, 20));
+    $WINDOW.on('scroll.stickiness', debounce(
+      function() {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop())
+      }, 20));
   }
 }
 
@@ -321,7 +335,7 @@ $(document).ready(function(){
   $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
 
   // set up the form pages for display
-  formExplainer.initForm();
+  formExplainer.initForm($WRAPPER);
 
   // filter initial state
   filterExplainers($INITIAL_TAB, DEFAULT_TYPE);
@@ -353,21 +367,28 @@ $(document).ready(function(){
       }
     }
     resized = true;
-    setupImage(formExplainer.getCurrentPageNum());
+    formExplainer.setupImage(formExplainer.currentPage);
     toggleScrollWatch();
   }));
 
   // Pagination events
-  $WRAPPER.find( '.explain_pagination .pagination_next' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('next');
-    }
-  });
-  $WRAPPER.find( '.explain_pagination .pagination_prev' ).on( 'click', function( event ) {
-    if ( !$( event.currentTarget ).hasClass('btn__disabled') ) {
-      paginate('prev');
-    }
-  });
+   $WRAPPER.find( '.form-explainer_page-buttons button' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget );
+     if ( !$target.hasClass('btn__disabled') ) {
+         var direction = $target.hasClass('prev') ? 'prev' : 'next';
+         paginate(direction);
+     }
+   });
+
+   $WRAPPER.find( '.form-explainer_page-link' ).on( 'click', function( event ) {
+       var $target = $( event.currentTarget ),
+           pageNum = +$target.data('page'),
+           currentPage = formExplainer.currentPage;
+
+       if (!$target.hasClass('disabled') && pageNum !== currentPage) {
+           loadPage(currentPage, pageNum);
+       }
+     });
 
   // Filter the expandables via the tabs
   $WRAPPER.on( 'click', '.explain_tabs .tab-list', function( event ) {
@@ -381,46 +402,92 @@ $(document).ready(function(){
       offset: -30
     });
   });
+  
+  var expandableTimeout;
+  var delay = isIE ? 1000 : 700;
+  
+  function updateImagePositionAfterAnimation () {
+    // Check image position after expandable animation to make sure it is not
+    // overlapping the footer.
+    window.clearTimeout( expandableTimeout );
+    setTimeout(function () {
+      if ($WINDOW.width() > 600) {
+        var els =  formExplainer.getPageElements(formExplainer.currentPage);
+        formExplainer.updateStickiness(els, $WINDOW.scrollTop());
+      }
+    }, delay)
+  }
+  
+  function openAndScrollToExpandable ($targetExpandable) {
+    // If there's an expandable open above the targeted expandable,
+    // it will be closed when this expandable opens, so we need
+    // to subtract its height from this expandable's offset in order
+    // to get a position to use in scrolling this expandable into view
+    var prevExpanded = $targetExpandable.prevAll('.expandable__expanded');
+    var offset = 0;
+    if (prevExpanded.length) {
+      offset = $(prevExpanded[0]).find('.expandable_content').height();
+    }
+    var pos = $targetExpandable.offset().top - offset;
+    $.scrollTo( pos, {
+      duration: 200,
+      offset: -30
+    });
+    $targetExpandable.find('.expandable_target').click();
+  }
+  
+  // Update attention classes based on the expandable or image overlay 
+  // that was targeted. 
+  // Remove the attention class from all the expandables/overlays,
+  // and then apply it to the target & its associated overlay
+  // or expandable.
+  function updateAttention ($target, className) {
+     var $associated;
+     
+     $('.expandable__form-explainer, .image-map_overlay').removeClass(className);
+     
+     if (typeof $target.attr('href') !== 'undefined') {
+       $associated = $( $target.attr('href') );
+     } else  if ( typeof $target.attr('id') !== 'undefined' ) {
+       $associated = $('[href=#'+$target.attr('id')+']');
+     }
+     
+     if (typeof $associated !== 'undefined') {
+       if (className === 'has-attention') {
+          $target.removeClass('hover-has-attention');
+          $associated.removeClass('hover-has-attention');
+       }
+       $target.addClass(className);
+       $associated.addClass(className);
+     }
+   }
+   
+  $WRAPPER.on( 'focus', '.expandable_target', function () {
+    var $expandable = $(this).closest('.expandable__form-explainer');
+    updateAttention($expandable, 'hover-has-attention')
+  });
 
+  $WRAPPER.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
+    event.preventDefault();
+    updateAttention ($(this), 'hover-has-attention')
+  });
+  
   // When an overlay is clicked, toggle the corresponding expandable and scroll
   // the page until it is in view.
   $WRAPPER.on( 'click', '.image-map_overlay', function( event ) {
     event.preventDefault();
-    var itemID = $( this ).attr('href');
-    $.scrollTo( $(itemID), {
-      duration: 200,
-      offset: -30
-    });
-  });
-
-  $WRAPPER.on( 'focus', '.expandable__form-explainer, .expandable__form-explainer .expandable_target', function( ) {
     var $this = $(this),
-     itemID = $this.hasClass('expandable__form-explainer') ? $this.attr('id') : $this.parent('.expandable__form-explainer').attr('id'),
-      $overlay = $('.image-map_overlay'),
-      $target = $('a[href=#' + itemID + ']');
-    $overlay.removeClass('has-attention');
-    $target.addClass('has-attention');
+        itemID = $this.attr('href'),
+        $targetExpandable = $(itemID);
+    updateAttention($this, 'has-attention')
+    openAndScrollToExpandable($targetExpandable)
+    updateImagePositionAfterAnimation();
   });
-
-  // When mousing over a term or highlighted area of the image map,
-  // call attention to the associated map area or term, respectively.
-  $WRAPPER.on( 'mouseenter mouseleave', '.image-map_overlay, .expandable__form-explainer', function( event ) {
-    event.preventDefault();
-    var $target,
-        $this = $(this);
-    if ( typeof $this.attr('href') !== 'undefined' ) {
-      $target = $( $this.attr('href') );
-    } else  if ( typeof $this.attr('id') !== 'undefined' ) {
-      $target = $('[href=#'+$this.attr('id')+']');
-    }
-    if ( typeof $target !== 'undefined' ) {
-      // remove class from all
-      $('.expandable__form-explainer, .image-map_overlay').removeClass('has-attention');
-      if ( $target.hasClass('has-attention') ) {
-        $target.removeClass('has-attention');
-      } else {
-        $target.addClass('has-attention');
-      }
+  
+  $('.expandable__form-explainer .expandable_target').on('keypress click', function (event) {
+    if (event.which === 13 || event.type === 'click') {
+      updateAttention($(this).closest('.expandable__form-explainer'), 'has-attention');
+      updateImagePositionAfterAnimation();
     }
   });
 

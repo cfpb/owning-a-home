@@ -48,14 +48,12 @@ var LoanInputTable = React.createClass({
                     <tr className="save-button-row"><td colSpan='5'>{saveButton}</td></tr>
 
                     <tr className="header-row"><th colSpan="5"><h3>3. About the loan</h3></th></tr>
-                    {this.inputRows(['rate-structure', 'arm-type', 'loan-term', 'loan-type', 'loan-summary', 'points'])}     
-
-                    {this.inputRows(['interest-rate'])}
-                    
+                    {this.inputRows(['rate-structure', 'arm-type', 'loan-term', 'loan-type', 'loan-summary', 'points'])}                         
                 </table>
                 </div>
                 {saveButton}
             </div>
+
         );
     }
 });

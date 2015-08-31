@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     concat: {
       'cf-less': {
         src: [
-        'src/static/vendor/fj-*/*.less', 
+        'src/static/vendor/fj-*/*.less',
         'src/static/vendor/cf-*/*.less',
         '!src/static/vendor/cf-core/*.less',
         'src/static/vendor/cf-core/cf-core.less',
@@ -114,13 +114,16 @@ module.exports = function(grunt) {
         src: [
           './src/static/js/modules/loan-options.js',
           './src/static/js/modules/rates.js',
-          './src/static/js/modules/check-rates.js',
+          './src/static/js/modules/explore-rates.js',
           './src/static/js/modules/loan-comparison.js',
-          './src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
-          './src/static/js/modules/form-explainer.js',
+          //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
+          './src/static/js/modules/loan-estimate.js',
+          './src/static/js/modules/closing-disclosure.js',
           './src/static/js/modules/process.js',
-          './src/static/js/modules/home.js'
-          
+          './src/static/js/modules/home.js',
+          './src/static/js/modules/loan-options-subpage.js',
+          './src/static/js/modules/mortgage-closing.js',
+          './src/static/js/modules/mortgage-estimate.js'
         ],
         dest: 'dist/static/js/main.js',
         options: {
@@ -130,26 +133,31 @@ module.exports = function(grunt) {
               entries: [
                 './src/static/js/modules/loan-options.js',
                 './src/static/js/modules/rates.js',
-                './src/static/js/modules/check-rates.js',
+                './src/static/js/modules/explore-rates.js',
                 './src/static/js/modules/loan-comparison.js',
-                './src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
-                './src/static/js/modules/form-explainer.js',
+                //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js',
+                './src/static/js/modules/loan-estimate.js',
+                './src/static/js/modules/closing-disclosure.js',
                 './src/static/js/modules/process.js',
                 './src/static/js/modules/home.js',
-                './src/static/js/modules/loan-options-subpage.js'
-                
+                './src/static/js/modules/loan-options-subpage.js',
+                './src/static/js/modules/mortgage-closing.js',
+                './src/static/js/modules/mortgage-estimate.js'
               ],
               o: [
                 'dist/static/js/loan-options.js',
                 'dist/static/js/rates.js',
-                'dist/static/js/check-rates.js',
+                'dist/static/js/explore-rates.js',
                 'dist/static/js/loan-comparison.js',
-                'dist/static/js/prepare-worksheets.js',
-                'dist/static/js/form-explainer.js',
+                //'dist/static/js/prepare-worksheets.js',
+                'dist/static/js/loan-estimate.js',
+                'dist/static/js/closing-disclosure.js',
                 'dist/static/js/process.js',
                 'dist/static/js/home.js',
-                'dist/static/js/loan-options-subpage.js'
-                
+                'dist/static/js/loan-options-subpage.js',
+                'dist/static/js/mortgage-closing.js',
+                'dist/static/js/mortgage-estimate.js'
+
               ]
             }]
           ]
@@ -235,13 +243,15 @@ module.exports = function(grunt) {
           src: [
             'rates.js',
             'loan-options.js',
-            'check-rates.js',
-            'loan-comparison.js',
-            'prepare-worksheets.js',
+            'explore-rates.js',
+            //'loan-comparison.js',
+            //'prepare-worksheets.js',
             'process.js',
             'home.js',
-            'loan-options-subpage.js'
-            
+            'loan-options-subpage.js',
+            'mortgage-closing.js',
+            'mortgage-estimate.js'
+
           ],
           dest: './dist/static/js'
         }]
@@ -300,7 +310,12 @@ module.exports = function(grunt) {
               // Move html & template files new template folders need to be added here.
               'index.html',
               'loan-options/**',
-              'check-rates/**',
+              'explore-rates/**',
+              'closing-disclosure/**',
+              'loan-estimate/**',
+              'mortgage-closing/**',
+              'mortgage-estimate/**',
+              'process/**',
               '_*/*',
               'resources/*'
             ],
@@ -396,7 +411,8 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
-          excludes: ['src/static/vendor/**/*'],
+          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],
+          reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,
             statements: 50
