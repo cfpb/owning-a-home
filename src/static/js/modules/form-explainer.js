@@ -3,8 +3,6 @@ var sticky = require('../../vendor/sticky/jquery.sticky.js');
 require('../../vendor/jquery.easing/jquery.easing.js');
 require('jquery.scrollto');
 require('../../vendor/cf-expandables/cf-expandables.js');
-require('./nemo');
-require('./nemo-shim');
 var debounce = require('debounce');
 
 var formExplainer = {

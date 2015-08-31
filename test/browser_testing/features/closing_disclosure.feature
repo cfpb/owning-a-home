@@ -111,10 +111,10 @@ Scenario Outline: Test Prev Page
   | 3           | 2        |
   | 2           | 1        |
 
-@check_urls @closing_disclosure
+@404 @closing_disclosure
 Scenario Outline: Testing availability of pages on Closing Disclosure
   Given I navigate to the "<page_name>" page
-  Then All links are working
+  Then Links are working without 404 errors
 
 Examples:
   | page_name             |

@@ -11,8 +11,6 @@ import requests
 
 # Navigation header CSS selector
 NAVBAR = ".process-nav_header"
-LINK_TAG = 'a'
-
 
 class Journey(Base):
 
@@ -27,23 +25,3 @@ class Journey(Base):
             return True
         except NoSuchElementException:
             return False
-
-    def check_link_status_code(self, link):
-        try:
-            r = requests.head(link)
-            return r.status_code > 199 and r.status_code < 400
-        except requests.ConnectionError:
-            return False
-
-    def check_all_links_on_page(self, base_url):
-        results = []
-        link_elements = self.driver.find_elements_by_tag_name( LINK_TAG )
-        for elem in link_elements:
-            link = elem.get_attribute('href')
-            is_local = base_url.startswith('http://localhost') or base_url.startswith('http://127.0.0.1')
-            if link and not link.startswith('tel') and not self.check_link_status_code(link):
-                # because when running tests locally links like localhost/es will return 404
-                # and there are too many of them
-                if is_local and link.startswith(base_url):
-                    results.append(link)
-        return results

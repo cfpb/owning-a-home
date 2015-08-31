@@ -21,6 +21,7 @@ EMAIL = "email"
 
 # ELEMENT ID'S FOR BUTTONS
 
+
 # XPATH LOCATORS
 EMAIL_LBL = "//form[@id='signup']/p"
 SIGNUP = "//button[text()='Sign up']"

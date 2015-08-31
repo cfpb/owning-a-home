@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "loan-options" %}
+{% set page_js = "loan-options" %}
 
 {% block title %}Owning a Home: Loan Options{% endblock title %}
 
@@ -397,7 +398,7 @@
            {
              'desc': 'Interest rates can differ based on the kind of loan you choose.',
              'label': 'Explore interest rates',
-             'url': '/owning-a-home/check-rates/'
+             'url': '/owning-a-home/explore-rates/'
            }
         ] %}
       {{ related_links.render(process_links, tools_links) }}
