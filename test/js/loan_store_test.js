@@ -100,6 +100,7 @@ describe('Loan store tests', function() {
             var scenario = {'scenario': 'value'}
 
             sandbox.stub(loanStore, 'setupLoanData', function () {return loan});
+            sandbox.stub(loanStore, 'setLoanName');
             sandbox.stub(loanStore, 'updateCalculatedValues');
             sandbox.stub(loanStore, 'validateLoan');
             sandbox.stub(loanStore, 'fetchLoanData');
@@ -109,6 +110,8 @@ describe('Loan store tests', function() {
 
             sinon.assert.calledOnce(loanStore['setupLoanData']);
             sinon.assert.calledWith(loanStore['setupLoanData'], id, loan, scenario);
+            sinon.assert.calledOnce(loanStore['setLoanName']);
+            sinon.assert.calledWith(loanStore['setLoanName'], loan);
             sinon.assert.calledTwice(loanStore['updateCalculatedValues']);
             sinon.assert.calledWith(loanStore['updateCalculatedValues'], loan, 'downpayment-percent');
             sinon.assert.calledWith(loanStore['updateCalculatedValues'], loan, ['loan-amount', 'loan-summary']);
@@ -152,6 +155,7 @@ describe('Loan store tests', function() {
             var scenario = {'scenario': 'value'}
 
             sandbox.stub(loanStore, 'setupLoanData', function () {return loan});
+            sandbox.stub(loanStore, 'setLoanName');
             sandbox.stub(loanStore, 'updateCalculatedValues');
             sandbox.stub(loanStore, 'validateLoan');
             sandbox.stub(loanStore, 'fetchLoanData');
@@ -161,6 +165,8 @@ describe('Loan store tests', function() {
 
             sinon.assert.calledOnce(loanStore['setupLoanData']);
             sinon.assert.calledWith(loanStore['setupLoanData'], id, loan, scenario);
+            sinon.assert.calledOnce(loanStore['setLoanName']);
+            sinon.assert.calledWith(loanStore['setLoanName'], loan);
             sinon.assert.calledOnce(loanStore['updateCalculatedValues']);
             sinon.assert.calledWith(loanStore['updateCalculatedValues'], loan, ['loan-amount', 'loan-summary']);
             sinon.assert.calledOnce(loanStore['validateLoan']);
@@ -172,7 +178,19 @@ describe('Loan store tests', function() {
         });
 
     });
-
+    describe('set loan name', function() {
+        it('should set alphabetical names for loans', function () {
+            var loanA = {id: 0};
+            var loanB = {id: 1};
+            
+            loanStore.setLoanName(loanA);
+            expect(loanA.name).to.equal('a');
+            
+            loanStore.setLoanName(loanB);
+            expect(loanB.name).to.equal('b');
+        });
+    });
+    
     // This suite is only needed if pre-pop scenarios are being used
     describe('setup loan data', function() {
         it('should setup loan data, including existing data with id = 0', function() {

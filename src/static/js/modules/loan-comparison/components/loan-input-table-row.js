@@ -17,7 +17,7 @@ var LoanInputRow = React.createClass({
     
     generateClassName: function (rowType, outputRow) {
         // shows 'linked' or 'independent' state of row's prop in UI
-        var className = rowType;
+        var className = rowType + ' ' +  this.props.prop + '-row';
         
         // adds extra top padding to labels on rows with inputs
         if ($.inArray(this.props.prop, outputs.concat(['points'])) < 0) {

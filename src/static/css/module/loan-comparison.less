@@ -151,12 +151,12 @@
   }
 });
 
+
 /*
   Loan Comparison Inputs
   --------------------------- */
 
 .lc-inputs {
-  background: @gray-5;
   width: 100%;
   .webfont-regular();
   position: relative;
@@ -198,7 +198,6 @@
     display: block;
     animation: fadein .5s;
   }
-  
 
   .updating .interest-rate-loading {
     display: block;
@@ -216,7 +215,6 @@
       display: none;
     }
   }
-  
 }
 
 .label-float h4 {
@@ -317,18 +315,28 @@
 
   .cf-icon {
     font-size: 1.125em;
+    padding-right: 5px;
   }
 }
 
 .lc-edit-link {
   border-top: 1px dotted @pacific;
   border-bottom: 1px dotted @pacific;
+  &:visited {
+    color: @pacific;
+    border-color: @pacific;
+  }
 }
 
 .lc-save-link {
   display: none; // hide on desktop
   margin-right: -(@grid_gutter-width / 2);
   margin-left: -(@grid_gutter-width / 2);
+  
+  &:visited {
+    color: @pacific;
+    border-color: @pacific;
+  }
 
   &.first-save {
     border-top: 1px dotted @pacific;
@@ -872,7 +880,132 @@ table.unstyled {
 }
 
 
-.loan-input-table {
+.lc-inputs {  
+  .respond-to-min(@tablet-min, {
+    .points-row .label-cell .wrap-content {
+      display: block;
+    }
+  });
+    
+  .respond-to-max(@mobile-max, {
+    display: none;
+    
+    .downpayment-loan-amount {
+      padding-top: 3px;
+      .webfont-medium();
+      .loan-amount-equals {
+        font-size: unit(18px / @base-font-size-px, em);
+      }
+    }
+    
+    .loan-amount-row,
+    .loan-summary-row {
+      td.input-0,
+      td.input-1 {
+        padding-top: .25em;
+        .webfont-medium();
+        font-size: unit(17px / @base-font-size-px, em);
+      } 
+    }
+    
+    &_header {
+       margin-left: -@grid_gutter-width/2;
+      margin-right: -@grid_gutter-width/2;
+      padding: @grid_gutter-width/2;
+      border-top: 1px solid @gray-20;
+      border-bottom: 1px solid @gray-20;
+      .webfont-medium();
+    }
+    
+    &_container {
+      margin-left: -@grid_gutter-width/2;
+      margin-right: -@grid_gutter-width/2;
+    }
+    
+    .loan-input-table {
+      th,
+      td {
+        display: none;
+      }
+      margin-bottom: 0;
+    }
+    
+    &.mobile-editing {
+      display: block;
+      
+      .loan-input-table {
+        &,
+        tbody,
+        tr {
+          display: block;
+          width: 100%;
+        }
+        tr {
+          background-color: @gray-5;
+        }
+      }
+      
+      & td.label-cell,
+      & .save-button-row td,
+      &.mobile-editing-a th.input-0,
+      &.mobile-editing-a td.input-0,
+      &.mobile-editing-b th.input-1,
+      &.mobile-editing-b td.input-1 {
+          display: block;
+          width: 100%;
+      }
+
+      .loan-input-table tr.subhead-row th {
+        display: none;
+      }
+        
+      td.label-cell {
+        text-align: left;
+        padding-bottom: 0;
+        padding-left:  @grid_gutter-width/2;
+      }
+      
+      .downpayment-input-container {
+        .percent-input {
+          width: 100%;
+          padding-right: 0;
+          input {
+            padding-left: .5em;
+          }
+          .unit {
+            left: 2.25em;
+          }
+        }
+        .dollar-input {
+          display: none;
+        }        
+      }
+      
+      .credit-score-row {
+        padding-bottom: @grid_gutter-width/2;
+        border-bottom: 1px solid @gray-20;
+      }
+      
+      .price-row {
+        padding-top: @grid_gutter-width/2;
+      }
+      
+    }
+    
+    &#loan-interest-rate-container {
+      display: block;
+      
+      td.input-0,
+      td.input-1 {
+        display: table-cell;
+        width: 50%;
+      }
+    }
+    
+  });
+}
+
+table.loan-input-table {
   width: 100%;
   position: relative;
   
@@ -886,12 +1019,18 @@ table.unstyled {
       padding: unit(12px / @base-font-size-px, em) unit(15px / @base-font-size-px, em);
       background-color: @gray-5;
       
+      
+      
       &.input-0 {
-        padding-right: unit(8px / @base-font-size-px, em);
+        .respond-to-min(@tablet-min, { 
+          padding-right: unit(8px / @base-font-size-px, em);
+        })
       }
       
       &.input-1 {
-        padding-left: unit(8px / @base-font-size-px, em);
+        .respond-to-min(@tablet-min, { 
+          padding-left: unit(8px / @base-font-size-px, em);
+        })
       }      
       
       &.link {
@@ -901,6 +1040,11 @@ table.unstyled {
         font-size: unit(20px / @base-font-size-px, em);
         color: @gray;
       }
+  }
+  
+  tbody > tr:nth-child(odd) > th,
+  tbody > tr:nth-child(odd) > td {
+    background-color: @gray-5;
   }
 
   td {

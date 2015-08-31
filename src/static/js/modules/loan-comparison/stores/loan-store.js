@@ -54,6 +54,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
      */
      resetLoan: function (id, loan, scenario) {
          loan = LoanStore.setupLoanData(id, loan || {}, scenario);
+         LoanStore.setLoanName(loan);
          
          // ensure downpayment percent because default data only has downpayment
          if (!loan['downpayment-percent']) {
@@ -67,6 +68,16 @@ var LoanStore = assign({}, EventEmitter.prototype, {
          
          return loan;
      },
+     
+     
+     /**
+      * Gets letter of alphabet that corresponds with loan index
+      * and sets it as name of loan.
+      * @param  {object} loan 
+      */
+      setLoanName: function (loan) {
+          loan.name = String.fromCharCode(97 + loan.id);
+      },
     
     /**
      * Sets up a loan object using a combination of default loan data,
@@ -84,7 +95,7 @@ var LoanStore = assign({}, EventEmitter.prototype, {
         var defaultData = common.defaultLoanData;
         var scenarioData = scenario ? scenario.loanProps[id] : {};        
         var existingData = scenario && id > 0 
-                           ? common.omit(this._loans[0], 'id', 'rate-request', 'mtg-ins-request', 'county-request')
+                           ? common.omit(this._loans[0], 'id', 'name', 'rate-request', 'mtg-ins-request', 'county-request')
                            : loan;
         
         return assign({id: id}, defaultData, existingData, scenarioData);
