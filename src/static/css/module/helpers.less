@@ -360,3 +360,17 @@ object {
 .u-pb0 {
   padding-bottom: 0 !important;
 }
+
+.block__bg {
+    background-color: @block__bg;
+}
+
+.content-l_col {
+    .respond-to-min(@tablet-min, {
+        &.content-l_col-1-3 + &.content-l_col-2-3,
+        &.content-l_col-2-3 + &.content-l_col-1-3 {
+            margin-top: 0;
+        }
+    });
+}
+
