@@ -95,7 +95,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/cfpb/owning-a-home/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cfpb/owning-a-home/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cfpb/owning-a-home/compare/v0.3.1...v1.0.0
 [0.3.1]: https://github.com/cfpb/owning-a-home/compare/v0.3.0...v0.3.1
