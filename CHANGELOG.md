@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Add Changelog
 
+## [1.0.2] - 2015-09-01
+### Fixed
+- Content updates to form explainers, journey, and pdfs
 
 ## [1.0.1] - 2015-08-25
 ### Removed
