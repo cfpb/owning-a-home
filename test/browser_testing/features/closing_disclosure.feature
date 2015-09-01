@@ -111,7 +111,7 @@ Scenario Outline: Test Prev Page
   | 3           | 2        |
   | 2           | 1        |
 
-@404 @closing_disclosure
+@smoke_testing @404 @closing_disclosure
 Scenario Outline: Testing availability of pages on Closing Disclosure
   Given I navigate to the "<page_name>" page
   Then Links are working without 404 errors

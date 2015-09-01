@@ -3,7 +3,7 @@ As a first time visitor to the Owning a Home page
 I want to navigate the process page
 So that I can find the information I'm looking for
 
-@journey @404
+@journey @404 @smoke_testing
 Scenario Outline: Testing availability of all pages
   Given I navigate to the "<page_name>" page
   Then I see page loaded
@@ -17,7 +17,7 @@ Examples:
   | Compare Loan Options  |
   | Get Ready to Close    |
 
-@journey @404
+@journey @404 @smoke_testing
 Scenario Outline: Testing availability of all pages
   Given I navigate to the "<page_name>" page
   Then Links are working without 404 errors

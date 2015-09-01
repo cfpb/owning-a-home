@@ -104,7 +104,7 @@ Examples:
   | 3           | 2        |
   | 2           | 1        |
 
-@404 @loan_estimate
+@smoke_testing @404 @loan_estimate
 Scenario Outline: Testing availability of pages on Loan Estimate
   Given I navigate to the "<page_name>" page
   Then Links are working without 404 errors
