@@ -6,7 +6,7 @@ Feature: Test the default values in the Loan Estimate page
 Background:
    Given I navigate to the "Loan Estimate" page
 
-@loan_estimate
+@loan_estimate @smoke_testing
 Scenario Outline: Test that tabs are on the page
    Then I should see "<tab_name>" tab
 
@@ -104,7 +104,7 @@ Examples:
   | 3           | 2        |
   | 2           | 1        |
 
-@smoke_testing @404 @loan_estimate
+@404 @loan_estimate
 Scenario Outline: Testing availability of pages on Loan Estimate
   Given I navigate to the "<page_name>" page
   Then Links are working without 404 errors

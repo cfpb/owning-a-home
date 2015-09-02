@@ -10,4 +10,4 @@ Scenario Outline: Testing availability of pages on Mortgage Closing
 
 Examples:
   | page_name             |
-  | Mortgage Closing     |
+  | Mortgage Closing      |
