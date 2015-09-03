@@ -6,7 +6,7 @@ Feature: Test the default values in the Loan Estimate page
 Background:
    Given I navigate to the "Loan Estimate" page
 
-@loan_estimate
+@loan_estimate @smoke_testing
 Scenario Outline: Test that tabs are on the page
    Then I should see "<tab_name>" tab
 

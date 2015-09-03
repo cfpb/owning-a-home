@@ -1,4 +1,4 @@
-Feature: Test the default values in the Clsoing Disclosure page
+Feature: Test the default values in the Closing Disclosure page
   As a first time visitor to the Owning a Home page
   I want to have content loaded
   So that I can get clever and conquer the world
@@ -6,7 +6,7 @@ Feature: Test the default values in the Clsoing Disclosure page
 Background:
    Given I navigate to the "Closing Disclosure" page
 
-@closing_disclosure
+@closing_disclosure @smoke_testing
 Scenario Outline: Test that tabs are on the page
    Then I should see "<tab_name>" tab
 
