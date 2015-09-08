@@ -463,13 +463,20 @@ a.list_link {
     p {
       .short-desc;
     }
-    p + .h4 {
+    p + h2,
+    ul + h2 {
       .respond-to-min(@tablet-min, {
-        .u-mt20;
+        margin-top: unit(20px / @base-font-size-px, em)
       });
       .respond-to-min(800px, {
-        .u-mt45;
+        margin-top: unit(45px / @base-font-size-px, em)
       });
+    }
+    h2 a {
+      border-bottom-width: 1px;
+    }
+    .icon-link:after {
+      margin-left: 3px;
     }
   }
   
