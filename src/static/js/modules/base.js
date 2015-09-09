@@ -8,8 +8,7 @@ var monthlyPaymentMsg = 'Make sure to download this PDF and open it in Adobe Acr
 
 $(document).ready( function() {
   
-  $(document).tooltip({
-      selector: 'a[href$="monthly_payment_worksheet.pdf"]',
+  $('a[href$="monthly_payment_worksheet.pdf"]').tooltip({
       'placement': 'bottom',
       container: 'body',
       title: function getTooltipTitle(){
