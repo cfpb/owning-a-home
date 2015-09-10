@@ -185,13 +185,17 @@ $ grunt
 
 ### Elastic Search workflow
 Elastic Search needs to be running to display wordpress content:
+
 1. Use the sheer virtualenv:
+
     ```bash
     $ workon OAH
     ```
 
 2. Stay in the base directory
+
 3. Start Elastic Search:
+
     ```bash
     $ elasticsearch
     ```
