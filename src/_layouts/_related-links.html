@@ -86,7 +86,10 @@
       'title': 'Tools and Resources',
       'links': tools_links
   }%}
-
+  <aside class="block block__bg block__border block__flush-bottom block__flush-top related-links">
+    {{render_row([process, tools, more_information])}}
+    {{render_row([need_help, about_us])}}
+  </aside>
 {% endmacro %}
 
 
@@ -108,7 +111,11 @@
    ========================================================================== #}
 
 {% macro render_row(sections) %}
-
+    <div class="content-l">
+      {% for section in sections %}
+        {{render_section(section)}}
+      {% endfor %}
+    </div>
 {% endmacro %}
 
 
@@ -133,5 +140,21 @@
    ========================================================================== #}
 
 {% macro render_section(data) %}
-
+  <div class="content-l_col content-l_col-{{data.col|default('1-3')}}">
+    <h2 class="header-slug">
+      <span class="header-slug_inner">{{data.title}}</span>
+    </h2>
+    <ul class="related-links_list">
+      {% for link in data.links %}
+        <li>
+          <p class="short-desc">
+            {{link.desc|safe}}
+          </p>
+          <a class="jump-link jump-link__block {{'jump-link__' + link.type if link.type}}" href="{{link.url}}">
+            <span class="jump-link_text">{{link.label|safe}}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endmacro %}

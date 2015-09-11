@@ -82,12 +82,12 @@
 {% include "nemo_footer.html" %}
 
 <!-- Common js -->
-<script src="{{ url_for('static', filename='js/main.js') }}?v1"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}?v3"></script>
 <!-- Adds nemo js -->
-<script src="{{ url_for('static', filename='js/base.js') }}?v1"></script>
+<script src="{{ url_for('static', filename='js/base.js') }}?v3"></script>
 <!-- Page-specific js -->
 {% if page_js %}
-<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v1"></script>
+<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v3"></script>
 {% endif %}
 </body>
 
