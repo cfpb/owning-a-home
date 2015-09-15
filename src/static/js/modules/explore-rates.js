@@ -1014,9 +1014,17 @@ function renderChart( data, cb ) {
           }
         },
         positioner: function(boxWidth, boxHeight, point) {
+          var x, y;
+          if (point.plotY < 0) {
+            x = point.plotX - 74
+            y = this.chart.plotTop - 74;
+          } else {
+            x = point.plotX - 54;
+            y = point.plotY - 66;
+          }
           return {
-            x: point.plotX - 54,
-            y: point.plotY - 66
+            x: x,
+            y: y
           };
         }
       },
