@@ -2,26 +2,150 @@
    "Home Page" custom styles
    ========================================================================== */
 
+/*
+  WRAPPERS & CONTAINERS
+  ---------------------------- */
+
 .index {
   .webfont-regular();
-
-  .page-intro {
-    border-bottom: 1px solid @gray-20;
+  .content_main {
+    .respond-to-min(@tablet-min, {
+      padding-top: @grid_gutter-width;
+      padding-bottom: @grid_gutter-width;
+    });
   }
-
 }
 
-#primary-content.index{
-  background: url('../img/gray-bg.png');
-  /*background: url('/static/img/gray-bg.png');*/
-  background-position: center top;
-  background-repeat: repeat-y;
+.content__bleedbar.content__2-1 .content_no-sidebar {
+  &:after {
+    display: none;
+  }
 }
 
-@media (max-width: 720px) {
-  #primary-content.index{
-    background: transparent;
+
+
+/*
+  HERO
+  ---------------------------- */
+
+.content_hero {
+  padding: 30px 15px 0px;
+  .respond-to-min(600px, {
+    padding: 30px 30px 0px;
+  });
+  .respond-to-min(800px, {
+    padding: 30px 0px 0px;
+  });
+
+  background-color: @teal-20;
+  background-image: none;
+}
+
+.hero-illu-inner {
+  padding: 0em 1.75em 0em 1.75em;
+  .content-l_col + & {
+    margin-top: 0em;
   }
+}
+
+.hero-illu {
+    margin-bottom: 30px;
+}
+
+/*
+  MAIN COLUMN CONTENT
+  ---------------------------- */
+
+.section__intro {
+  padding-bottom: @grid_gutter-width/3; // 10px
+  .respond-to-min(800px, {
+    padding-top: @grid_gutter-width/3; // 10px
+    padding-bottom: @grid_gutter-width;
+  });
+}
+
+.heading_link {
+  color: @black;
+  &:hover,
+  &:active,
+  &:focus {
+    color: @pacific;
+  }
+}
+
+.oah-illu {
+  text-align: center;
+}
+
+// Phases for Journey 
+.section__phase {
+  .content-l_col {
+    margin-top: 0;
+  }
+}
+  
+  .content-l_col {
+    &.content-l_col-1-4  {
+      .respond-to-min(@tablet-min, {
+        .grid_column(1, 4);    
+      });
+    }
+    &.content-l_col-3-4  {
+      .respond-to-min(@tablet-min, {
+        .grid_column(3, 4);    
+      });
+    }
+  }
+
+  .content-l__main {
+    .content-l_col-1-4 + .content-l_col-3-4  {
+      .respond-to-min(@tablet-min, {
+        margin-top: 0;  
+      });
+    }
+  }
+
+  .phase_intro {
+    .respond-to-min(@tablet-min, {
+      border-right: 0;
+    });
+  }
+
+  .phase_tools {
+    position: relative;
+  }
+  
+  .respond-to-max(@mobile-max, {
+    .phase_illu {
+      text-align: center;
+    }
+  });
+
+/*
+  SIDEBAR CONTENT
+  ---------------------------- */
+
+.list__links .list_link.jump-link__bg {
+  border-color: @gray-20;
+}
+
+.list__links.list__spaced {
+  .jump-link_intro + .list_link {
+    margin-top: @grid_gutter-width/3;
+    margin-bottom: @grid_gutter-width;
+    .respond-to-min(@mobile-max, {
+      margin-bottom: @grid_gutter-width/3;
+    });
+  }
+    .list_item {
+    .respond-to-min(@tablet-min, {
+      margin-bottom: unit(24px / @base-font-size-px, em)
+    });
+  }
+}
+
+#email{
+  width: 200px;
 }
 
 fieldset.submit_btn,
@@ -31,145 +155,6 @@ fieldset.submit_btn > p {
   padding:0px;
 }
 
-
-/*
-    Hero
-    --------------------------- */
-
-#hero-bg-image{
-  background: #e4e2e0 url('../img/oah-hero-image.png');
-  /*background: #e4e2e0 url('/static/img/oah-hero-image.png');*/
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: auto 240px;
-  height:240px;
-  width: 100%;
-  position: absolute;
-}
-
-@media (max-width: 720px) {
-  #hero-bg-image{
-    background-position: 0 0;
-  }
-}
-
-
-.hero-wrapper{
-  margin: -24px 0 0 -15px;
-  padding: 46px 0 0 0;
-  /*background: url('/static/img/oah-hero-image.png');*/
-  background-size: auto 241px;
-  min-height:240px;
-
-  h1{
-    font-weight: bold;
-  }
-
-  h2{
-    /*max-width: 500px;*/
-    font-size: 1.3125em;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-wrapper{
-    padding-top:25px;
-  }
-}
-
-@media (max-width: 400px) {
-
-  .hero-wrapper{
-    padding-top:5px;
-
-    h2{
-      font-size:1.2em;
-    }
-
-    h1{
-      font-size: 1.425em;
-    }
-
-  }
-}
-
-@media (max-width: 340px) {
-  #hero-bg-image {
-    background-size: auto 260px;
-    height:260px;
-  }
-
-  .hero-wrapper{
-    padding-top:5px;
-    background-size: auto 261px;
-    min-height:260px;
-
-    h2{ font-size:1.2em; }
-  }
-}
-
-.tabbed-pad-top{
-  margin-top: 60px;
-}
-
-
-/*
-  CONTENT
-  ---------------------------- */
-.gray-box{
-  background: #EFEFEF;
-  padding: 0px 15px 300px 30px;
-  border-left: 1px solid #cdcdcb;
-}
-
-.index-content{
-
-  .webfont-regular();
-
-  h3 + p {
-    margin-top: -20px;
-  }
-
-  p + p a.go-link{
-    margin-top: -20px;
-    margin-bottom: 20px;
-  }
-
-}
-
-  @media (min-width: 800px) {
-    .index-content {
-      margin: 0 -30px;
-      padding: 0;  
-    }
-  }
-
-.index-left-content{
-  margin-top: 64px;
-}
-
-.links-ul{
-  list-style: none;
-  padding: 0px;
-  margin: 0px;
-
-  li{
-    list-style: none;
-    margin: 0px;
-    padding: 0 0 10px 0;
-  }
-}
-
-.border-sep:before{
-  content: " ";
-  display: block;
-  margin: 30px 30px 30px 15px;
-  border-top: 1px solid #cdcdcb;
-}
-
-#email{
-  width: 200px;
-}
 .input-with-btn > div{display: inline-block;}
 
 @media (max-width: 720px) {
@@ -177,3 +162,6 @@ fieldset.submit_btn > p {
     display: none;
   }
 }
+
+.tabbed-pad-top {
+  margin-top: @grid_gutter-width;}
