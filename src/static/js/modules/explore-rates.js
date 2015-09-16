@@ -1038,11 +1038,7 @@ function renderChart( data, cb ) {
           };
         }
       },
-    },    function(chartObj) {
-          $.each(chartObj.series[0].data, function(i, point) {
-              console.log(point)
-          });
-      });
+    });
 
   chart.isInitialized = true;
 
