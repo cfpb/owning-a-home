@@ -3,6 +3,25 @@ Feature: verify the navigation tabs/links works according to requirements
   I want to click on invidual tabs and links
   So that I can easily navigate the site
 
+@smoke_testing @landing_page
+Scenario Outline: Test Journey links in the landing page
+  Given I navigate to the OAH Landing page
+  When I click on the link with id "<link_id>"
+  Then I should be directed to the internal "<relative_url>" URL
+  And I should see "<page_title>" displayed in the page title
+
+Examples:
+  | link_id   		                    | page_title                      | relative_url                             |
+  | prepare-header-link         | Know the Process                    | process/prepare/                            |
+  | prepare-learn-link         | Know the Process                    | process/prepare/                            |
+  | explore-header-link         | Know the Process                    | process/explore/                            |
+  | explore-learn-link         | Know the Process                    | process/explore/                            |
+  | compare-header-link         | Know the Process                    | process/compare/                            |
+  | compare-learn-link         | Know the Process                    | process/compare/                            |
+  | close-header-link         | Know the Process                    | process/close/                            |
+  | close-learn-link         | Know the Process                    | process/close/                            |
+
+
 
 @smoke_testing @landing_page
 Scenario Outline: Test outbound links in the landing page
