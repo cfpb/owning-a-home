@@ -929,6 +929,8 @@ function renderChart( data, cb ) {
     chart.$wrapper.removeClass('geolocating');
     hc.xAxis[0].setCategories( data.labels );
     hc.series[0].setData( data.vals );
+    
+    
 
   } else {
 
@@ -996,7 +998,15 @@ function renderChart( data, cb ) {
           overflow: 'none',
           defer: true,
           color: '#919395',
+          x: 2,
+          y: 2,
           formatter: function(){
+            var point = this.point;
+            window.setTimeout(function () {
+                if(point.y > 9) {
+                    point.dataLabel.attr({y:-32, x: point.plotX - 24 });
+                }
+            });
             return '<div class="data-label">'+ this.x + '<br>|</div>';
           }
         }
@@ -1028,7 +1038,11 @@ function renderChart( data, cb ) {
           };
         }
       },
-    });
+    },    function(chartObj) {
+          $.each(chartObj.series[0].data, function(i, point) {
+              console.log(point)
+          });
+      });
 
   chart.isInitialized = true;
 
