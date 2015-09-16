@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.1.0] - 2015-09-16
+### Fixed
+- Bug fixes, PDF update, and journey release
+
 ## [1.0.5] - 2015-09-15
 ### Fixed
 - Bug fixes: CSS for 3-4 and 1-4 column classes, tweaks for 10+ column explore rates chart tooltips, and fix for IE loan options expandable width bug
@@ -109,7 +113,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.0.5...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/cfpb/owning-a-home/compare/v1.0.5...v1.1.0
 [1.0.5]: https://github.com/cfpb/owning-a-home/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/cfpb/owning-a-home/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/cfpb/owning-a-home/compare/v1.0.2...v1.0.3
