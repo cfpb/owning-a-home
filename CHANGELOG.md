@@ -114,7 +114,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 [unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.1.0...HEAD
-[1.0.6]: https://github.com/cfpb/owning-a-home/compare/v1.0.5...v1.1.0
+[1.1.0]: https://github.com/cfpb/owning-a-home/compare/v1.0.5...v1.1.0
 [1.0.5]: https://github.com/cfpb/owning-a-home/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/cfpb/owning-a-home/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/cfpb/owning-a-home/compare/v1.0.2...v1.0.3
