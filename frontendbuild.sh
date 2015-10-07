@@ -9,7 +9,9 @@ fi
 npm install
 
 if [ $DEPLOY_ENV = "PROD" ]; then
+  echo "Running grunt production-deploy"
   grunt production-deploy
 else
+  echo "Running grunt dev-deploy"
   grunt dev-deploy
 fi
