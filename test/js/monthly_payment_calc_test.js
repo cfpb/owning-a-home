@@ -92,7 +92,7 @@ describe('Monthly payment calculations', function() {
   describe('Calculates taxes and insurance', function() {
 
     it('Positive test - should calculate taxes and insurance', function() {
-      expect(monthly.taxesAndInsurance(data)).to.equal(338);
+      expect(monthly.taxesAndInsurance(data)).to.equal(337.5);
     });
 
   });
@@ -100,7 +100,7 @@ describe('Monthly payment calculations', function() {
   describe('Calculates principal and interest', function() {
 
     it('Positive test - should calculate principal and interest', function() {
-      expect(monthly.principalAndInterest(data)).to.equal(1062);
+      expect(monthly.principalAndInterest(data)).to.equal(1062.5);
     });
 
   });
