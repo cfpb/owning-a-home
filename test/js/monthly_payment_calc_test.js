@@ -28,7 +28,7 @@ describe('Monthly payment calculations', function() {
   describe('Calculates pre-tax income', function() {
 
     it('Positive test - should add positive values for income and co borrower income', function() {
-      expect(monthly.preTaxIncome(data)).to.equal(9000);
+      expect(monthly.preTaxIncomeTotal(data)).to.equal(9000);
     });
 
   });
@@ -36,7 +36,7 @@ describe('Monthly payment calculations', function() {
   describe('Calculates take home income', function() {
 
     it('Positive test - should add positive values for income and co borrower take home income', function() {
-      expect(monthly.takeHomeIncome(data)).to.equal(6500);
+      expect(monthly.takeHomeIncomeTotal(data)).to.equal(6500);
     });
 
   });

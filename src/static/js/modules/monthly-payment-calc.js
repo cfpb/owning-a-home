@@ -1,10 +1,10 @@
 var monthly = {};
 
-monthly.preTaxIncome = function (data) {
+monthly.preTaxIncomeTotal = function (data) {
   return parseFloat(data.preTaxIncome) + parseFloat(data.preTaxIncomeCB);
 }
 
-monthly.takeHomeIncome = function (data) {
+monthly.takeHomeIncomeTotal = function (data) {
   return parseFloat(data.takeHomeIncome) + parseFloat(data.takeHomeIncomeCB);
 }
 
@@ -31,7 +31,7 @@ monthly.futureSavings = function (data) {
 }
 
 monthly.availableHousingFunds = function (data) {
-  var income = monthly.takeHomeIncome(data);
+  var income = monthly.takeHomeIncomeTotal(data);
   var expenses = parseFloat(data.debtPayments)
                + parseFloat(data.livingExpenses)
                + parseFloat(data.futureUtilities)
@@ -57,7 +57,7 @@ monthly.principalAndInterest = function (data) {
 }
 
 monthly.percentageIncomeAvailable = function (data) {
-  var percentage = monthly.availableHousingFunds(data) / monthly.preTaxIncome(data);
+  var percentage = monthly.availableHousingFunds(data) / monthly.preTaxIncomeTotal(data);
   return Math.round(percentage * 100);
 }
 

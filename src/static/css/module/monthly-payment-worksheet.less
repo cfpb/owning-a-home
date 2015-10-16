@@ -63,6 +63,10 @@
       position: relative;
       margin-bottom: @grid_gutter-width;
       
+      & + .input-row {
+        margin-top: 0;
+      }
+      
       .heading-number {
         .icon-round();  
         position: absolute;
@@ -78,6 +82,8 @@
     &.h5 {
       margin-bottom: 0;
     }
+    
+    
   }
   
   .form-cols {
@@ -132,7 +138,8 @@
   }
   
   
-  .label-col label {
+  .label-col label,
+  form .label {
     .webfont-medium();
   }
   
@@ -157,13 +164,34 @@
   }
   
   form .total-row {
-    strong {
+    .input-col {
+      .webfont-demi();
       font-size: unit(22px / @base-font-size-px, em);
     }
   }
   
-  .monthly-payment_summary .total-row {
+  .monthly-payment_summary {
+    .output-row + .output-row {
+      margin-top: @grid_gutter-width;
+    }
+    
+    .total-row {
+      margin-top: @grid_gutter-width / 2;
+      padding-top: @grid_gutter-width / 2;
+     }
+     
+     .summary-row {
+       .label-col {
+         .webfont-medium();
+       }
+       .input-col {
+         .webfont-demi();
+         font-size: unit(18px / @base-font-size-px, em);
+       }
+     }
+  }
+  
+  .note-row {
     margin-top: @grid_gutter-width / 2;
-    padding-top: @grid_gutter-width / 2;
   }
 }

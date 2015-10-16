@@ -124,7 +124,7 @@ module.exports = function(grunt) {
         ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy', 'reactify'],
+          transform: ['browserify-shim', 'hbsfy', ['reactify', {harmony: true}]],
           plugin: [
             ['factor-bundle', {
               entries: [
@@ -457,6 +457,13 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
+        tasks: ['dev-deploy']
+      },
+      jsx: {
+        options: {
+          interrupt: true,
+        },
+        files: ['src/static/js/modules/**/*.js'],
         tasks: ['dev-deploy']
       },
       css: {
