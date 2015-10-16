@@ -92,7 +92,7 @@ describe('Monthly payment calculations', function() {
   describe('Calculates taxes and insurance', function() {
 
     it('Positive test - should calculate taxes and insurance', function() {
-      expect(monthly.taxesAndInsurance(data)).to.equal(337.5);
+      expect(monthly.taxesAndInsurance(data)).to.equal(337.50000000000006);
     });
 
   });

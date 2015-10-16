@@ -48,8 +48,7 @@ monthly.estimatedTotalPayment = function (data) {
 monthly.taxesAndInsurance = function (data) {
   var annualTaxesAndInsurance = (parseFloat(data.homePrice) * parseFloat(data.propertyTax / 100))
                               + parseFloat(data.homeownersInsurance);
-  var total = annualTaxesAndInsurance / 12;
-  return Math.floor(total) == total ? total : parseFloat(total.toFixed(2));
+  return annualTaxesAndInsurance / 12;
 }
 
 monthly.principalAndInterest = function (data) {
