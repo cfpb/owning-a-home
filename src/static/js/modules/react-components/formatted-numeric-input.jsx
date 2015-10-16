@@ -33,7 +33,9 @@ var FormattedNumericInput = React.createClass({
   },
 
   format: function (val) {
-    return this.props.formatter ? this.props.formatter(val) : val;
+    return typeof this.props.formatter === 'function'
+           ? this.props.formatter(val) 
+           : val;
   },
 
   strip: function (val) {
