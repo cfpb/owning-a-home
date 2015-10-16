@@ -40,7 +40,18 @@
       <div class="u-mt30">
         {% import "related-links.html" as related_links %}
         {% set process_links = [] %}
-        {% set tools_links = [] %}
+        {% set tools_links = [
+             { 
+                'desc': 'Wondering what kind of loan is right for you?',
+                'label': 'Understand loan options', 
+                'url': '/owning-a-home/loan-options/'
+              },
+              { 
+                'desc': 'Interest rates can differ based on the kind of loan you choose.',
+                'label': 'Explore interest rates', 
+                'url': '/owning-a-home/explore-rates/'
+              }
+          ] %}
         {{ related_links.render(process_links, tools_links) }}
       </div>
     </div> <!-- /.content-main -->

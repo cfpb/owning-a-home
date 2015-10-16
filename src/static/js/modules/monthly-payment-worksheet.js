@@ -1,5 +1,7 @@
 var React = require('react');
 var $ = jQuery = require('jquery');
+var InputUSD = require('./react-components/input-usd.jsx');
+var InputPercentage = require('./react-components/input-percent.jsx');
 var WorksheetOutput = require('./monthly-payment-worksheet/worksheet-output.jsx');
 
 var MonthlyPaymentWorksheet = React.createClass({
@@ -26,6 +28,12 @@ var MonthlyPaymentWorksheet = React.createClass({
           propertyTax: 1.1,
           homeownersInsurance: 750
         };
+    },
+    
+    update: function (prop, val) {
+        var obj = {};
+        obj[prop] = val || 0;
+        this.setState(obj);
     },
     
     print: function () {
@@ -58,6 +66,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
+                            <InputUSD id="preTaxIncome" value={this.state.preTaxIncome} onChange={this.update.bind(null, 'preTaxIncome')}/>
                           </div>
                         </div>
                         <div className="content-l input-row">
@@ -67,6 +76,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
+                            <InputUSD id="preTaxIncome" value={this.state.preTaxIncomeCB} onChange={this.update.bind(null, 'preTaxIncomeCB')}/>
                           </div>
                         </div>
                         <div className="total-row output-row">
@@ -95,6 +105,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
+                            <InputUSD id="takeHomeIncome" value={this.state.takeHomeIncome} onChange={this.update.bind(null, 'takeHomeIncome')}/>
                             
                           </div>
                         </div>
@@ -105,6 +116,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
+                            <InputUSD id="takeHomeIncomeCB" value={this.state.takeHomeIncomeCB} onChange={this.update.bind(null, 'takeHomeIncomeCB')}/>
                           </div>
                         </div>
                         <div className="total-row output-row">
@@ -135,6 +147,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="rent" value={this.state.rent} onChange={this.update.bind(null, 'rent')}/>
                           
                         </div>
                       </div>
@@ -145,6 +158,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="utilities" value={this.state.utilities} onChange={this.update.bind(null, 'utilities')}/>
                         </div>
                         <div className="content-l_col content-l_col-1  note-row">
                           <em>Electricity, gas, water, phone, internet, etc.</em>
@@ -157,6 +171,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="debtPayments" value={this.state.debtPayments} onChange={this.update.bind(null, 'debtPayments')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Student loans, car loans, credit card debt, etc.</em>
@@ -169,6 +184,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="livingExpenses" value={this.state.livingExpenses} onChange={this.update.bind(null, 'livingExpenses')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Groceries, transportation, child care, child support, eating out, health, entertainment, etc.</em>
@@ -181,6 +197,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="savings" value={this.state.savings} onChange={this.update.bind(null, 'savings')}/>             
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Amount you put away each month from your take-home income.</em>
@@ -226,6 +243,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="emergencySavings" value={this.state.emergencySavings} onChange={this.update.bind(null, 'emergencySavings')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>A good rule of thumb is to have at least 3-6 months of expenses saved.</em>
@@ -238,6 +256,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="longTermSavings" value={this.state.longTermSavings} onChange={this.update.bind(null, 'longTermSavings')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Savings for retirement, kids' college, vacations, or other goals.</em>
@@ -269,6 +288,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="homeMaintenance" value={this.state.homeMaintenance} onChange={this.update.bind(null, 'homeMaintenance')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>A common rule of thumb is 1% of your target home price (divide by 12 to get a monthly amount).</em>
@@ -281,6 +301,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="homeImprovement" value={this.state.homeImprovement} onChange={this.update.bind(null, 'homeImprovement')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>This is up to you. What kinds of improvements do you plan to make? How much do you want to set aside monthly?</em>
@@ -293,6 +314,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="condoHOA" value={this.state.condoHOA} onChange={this.update.bind(null, 'condoHOA')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>These fees can vary widely depending on the specific building or HOA. Explore listings in your target neighborhoods to make an estimate.</em>
@@ -326,6 +348,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="futureUtilities" value={this.state.futureUtilities} onChange={this.update.bind(null, 'futureUtilities')}/>
                         </div>
                       </div>
                     </fieldset>
@@ -341,6 +364,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="homePrice" value={this.state.homePrice} onChange={this.update.bind(null, 'homePrice')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Property taxes are based on the assessed value of a home, which may be different from the home price. But, the typical home price in your target neighborhood is a good rough estimate.</em>
@@ -353,6 +377,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputPercentage id="propertyTax" value={this.state.propertyTax} onChange={this.update.bind(null, 'propertyTax')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>The national median is 1.1%, but rates vary widely by location. Check with your local tax authority for a more precise estimate.</em>
@@ -365,6 +390,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
+                          <InputUSD id="homeownersInsurance" value={this.state.homeownersInsurance} onChange={this.update.bind(null, 'homeownersInsurance')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>The national media is $750, but rates vary by location, the value and features of your home, and the coverage that you select.</em>
