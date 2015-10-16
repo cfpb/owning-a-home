@@ -118,6 +118,7 @@ module.exports = function(grunt) {
           './src/static/js/modules/loan-estimate.js',
           './src/static/js/modules/closing-disclosure.js',
           './src/static/js/modules/process.js',
+          './src/static/js/modules/monthly-payment-worksheet.js',
           //'./src/static/js/modules/loan-comparison.js',
           //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
         ],
@@ -133,6 +134,7 @@ module.exports = function(grunt) {
                 './src/static/js/modules/loan-estimate.js',
                 './src/static/js/modules/closing-disclosure.js',
                 './src/static/js/modules/process.js',
+                './src/static/js/modules/monthly-payment-worksheet.js',
                 //'./src/static/js/modules/loan-comparison.js',
                 //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
               ],
@@ -143,6 +145,7 @@ module.exports = function(grunt) {
                 'dist/static/js/loan-estimate.js',
                 'dist/static/js/closing-disclosure.js',
                 'dist/static/js/process.js',
+                'dist/static/js/monthly-payment-worksheet.js',
                 //'dist/static/js/loan-comparison.js',
                 //'dist/static/js/prepare-worksheets.js'
               ]
@@ -237,8 +240,8 @@ module.exports = function(grunt) {
             'home.js',
             'loan-options-subpage.js',
             'mortgage-closing.js',
-            'mortgage-estimate.js'
-
+            'mortgage-estimate.js',
+            'monthly-payment-worksheet.js'
           ],
           dest: './dist/static/js'
         }]
@@ -454,7 +457,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs'],
-        tasks: ['build']
+        tasks: ['dev-deploy']
       },
       css: {
         options: {
@@ -468,7 +471,7 @@ module.exports = function(grunt) {
           interrupt: true,
         },
         files: ['Gruntfile.js', 'src/static/css/*.less', 'src/static/css/module/*.less', 'src/static/js/app.js', 'src/static/js/modules/**/*.js', 'src/static/js/templates/**/*.hbs', 'src/**/*.html', '_layouts/*'],
-        tasks: ['build']
+        tasks: ['dev-deploy']
       }
     }
 
@@ -494,11 +497,11 @@ module.exports = function(grunt) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('build', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
+  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('deploy', ['release', 'ship']);
-  grunt.registerTask('default', ['build', 'ship']);
+  grunt.registerTask('production-deploy', ['release', 'ship']);
+  grunt.registerTask('default', ['dev-deploy', 'ship']);
 
 };
