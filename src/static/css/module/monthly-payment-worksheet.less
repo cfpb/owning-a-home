@@ -51,6 +51,13 @@
     .content-l_col-1-2 + .content-l_col-1 {
       margin-top: 0;
     }
+    
+    .respond-to-max(599px, {
+        .input-row,
+        .output-row {
+          max-width: 300px;
+        }
+    });
   }
   
   fieldset + fieldset {
