@@ -7,27 +7,27 @@ var WorksheetOutput = require('./monthly-payment-worksheet/worksheet-output.jsx'
 var MonthlyPaymentWorksheet = React.createClass({
   
     getInitialState: function() {
-        return  {
-          preTaxIncome: 5000,
-          preTaxIncomeCB: 4000,
-          takeHomeIncome: 3500,
-          takeHomeIncomeCB: 3000,
-          housePrice: 300000,
-          rent: 2000,
-          utilities: 200,
-          debtPayments: 1000,
-          livingExpenses: 2500,
-          savings: 600,
-          homeMaintenance: 200,
-          homeImprovement: 100,
-          condoHOA: 500,
-          futureUtilities: 300,
-          emergencySavings: 100,
-          longTermSavings: 400,
-          homePrice: 300000,
-          propertyTax: 1.1,
-          homeownersInsurance: 750
-        };
+        return {
+            preTaxIncome: 5000,
+            preTaxIncomeCB: 4000,
+            takeHomeIncome: 3500,
+            takeHomeIncomeCB: 3000,
+            housePrice: 300000,
+            rent: 2000,
+            utilities: 200,
+            debtPayments: 1000,
+            livingExpenses: 2500,
+            savings: 600,
+            homeMaintenance: 200,
+            homeImprovement: 100,
+            condoHOA: 500,
+            futureUtilities: 300,
+            emergencySavings: 100,
+            longTermSavings: 400,
+            homePrice: 300000,
+            propertyTax: 1.1,
+            homeownersInsurance: 750
+        }
     },
     
     update: function (prop, val) {
@@ -45,7 +45,7 @@ var MonthlyPaymentWorksheet = React.createClass({
         return (
           <div className="monthly-payment_worksheet">
             <section>
-              <h2 className="indented-content">Assess your current income, spending, and savings.</h2>
+              <h2 className="indented-content" tabIndex="0">Assess your current income, spending, and savings.</h2>
               <form className="block block__bg block__flush-top block__unpadded">
                 <div className="content-l form-cols">
                   <div className="content-l_col content-l_col-1-2 col-left">
@@ -227,7 +227,7 @@ var MonthlyPaymentWorksheet = React.createClass({
               </form>
             </section>
             <section>
-              <h2 className="indented-content">Estimate your financial responsibilities after buying a home.</h2>
+              <h2 className="indented-content" tabIndex="0">Estimate your financial responsibilities after buying a home.</h2>
               <form className="block block__bg block__flush-top block__unpadded">
                 <div className="content-l form-cols">
                   <div className="content-l_col content-l_col-1-2 col-left">
@@ -409,11 +409,11 @@ var MonthlyPaymentWorksheet = React.createClass({
               </form>
             </section>
             <section>
-              <h2 className="indented-content">How much can you afford?</h2>
+              <h2 className="indented-content" tabIndex="0">How much can you afford?</h2>
               <div className="block block__bg block__flush-top block__bg-highlight block__flush-bottom">
                 <div className="content-l">
                   <div className="content-l_col content-l_col-2-3">
-                    <h3>Based on your income and estimated expenses, you have <strong><WorksheetOutput prop="availableHousingFunds" data={this.state}/></strong> available for monthly housing obligations. This is <strong><WorksheetOutput prop="percentageIncomeAvailable" data={this.state}/></strong> of your pre-tax income.</h3>
+                    <h3>Based on your monthly income and estimated expenses, you have <strong><WorksheetOutput prop="availableHousingFunds" data={this.state}/></strong> available for monthly housing obligations. This is <strong><WorksheetOutput prop="percentageIncomeAvailable" data={this.state}/></strong> of your pre-tax income.</h3>
                     <p className="u-mb0">A mortgage lending rule of thumb is that your total monthly housing obligations should be no more than 28% of your pre-tax income. Lenders may approve you for more or less depending on your overall financial picture. To change this percentage, <a>scroll back up</a> and consider whether you have budgeted enough for new homeownership expenses and savings.</p>
                   </div>
                 </div>
@@ -557,7 +557,7 @@ var MonthlyPaymentWorksheet = React.createClass({
               </div>
             </section>
             <section>
-              <h2 className="indented-content">Print your information.</h2>
+              <h2 className="indented-content" tabIndex="0">Print your information.</h2>
               <div className="block block__bg block__bg-highlight block__flush-top">
                 <div className="content-l">
                   <div className="content-l_col content-l_col-1-2">

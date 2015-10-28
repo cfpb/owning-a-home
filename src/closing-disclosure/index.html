@@ -41,22 +41,36 @@
         {% set process_links = [
             { 
               'desc': 'Already chosen a loan?',
-              'label': 'Get ready to close', 
-              'url': '/owning-a-home/process/close/'
+              'urls': [
+                {
+                  'label': 'Get ready to close', 
+                  'url': '/owning-a-home/process/close/'
+                }
+              ]
+              
             }
          ] %}
          {% set tools_links = [
              { 
                'desc': 'Know what to expect at closing and what questions to ask.',
-               'label': 'Closing checklist', 
-               'type': 'download',
-               'url': '/owning-a-home/resources/checklist_mortgage_closing.pdf'
+               'urls': [
+                {
+                  'label': 'Closing checklist', 
+                  'type': 'download',
+                  'url': '/owning-a-home/resources/checklist_mortgage_closing.pdf'
+                }
+               ]
+               
              },
              { 
                 'desc': 'Review other important documents you will need to sign at closing.',
-                'label': 'Guide to closing forms', 
-                'type': 'download',
-                'url': '/owning-a-home/resources/mortgage_closing_forms.pdf '
+                'urls': [
+                  {
+                    'label': 'Guide to closing forms', 
+                    'type': 'download',
+                    'url': '/owning-a-home/resources/mortgage_closing_forms.pdf '
+                  }
+                ]
               }
           ] %}
         {{ related_links.render(process_links, tools_links) }}

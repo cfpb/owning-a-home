@@ -39,17 +39,39 @@
       </div>
       <div class="u-mt30">
         {% import "related-links.html" as related_links %}
-        {% set process_links = [] %}
+        {% set process_links = [
+            { 
+                'desc': 'Once you\'ve determined your affordable monthly payment, decide what your down payment should be and how much you can afford to spend on a home.',
+                'urls': [
+                  {
+                    'label': 'Determine your down payment', 
+                    'url': '/owning-a-home/process/prepare/#down-payment'
+                  },
+                  {
+                    'label': 'Estimate your affordable home price', 
+                    'url': '/owning-a-home/process/prepare/#price'
+                  }
+                ]
+              }
+        ] %}
         {% set tools_links = [
              { 
                 'desc': 'Wondering what kind of loan is right for you?',
-                'label': 'Understand loan options', 
-                'url': '/owning-a-home/loan-options/'
+                'urls': [
+                  {
+                    'label': 'Understand loan options', 
+                    'url': '/owning-a-home/loan-options/'
+                  }
+                ]
               },
               { 
                 'desc': 'Interest rates can differ based on the kind of loan you choose.',
-                'label': 'Explore interest rates', 
-                'url': '/owning-a-home/explore-rates/'
+                'urls': [
+                  {
+                    'label': 'Explore interest rates', 
+                    'url': '/owning-a-home/explore-rates/'
+                  }
+                ]
               }
           ] %}
         {{ related_links.render(process_links, tools_links) }}
