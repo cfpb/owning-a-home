@@ -1,5 +1,7 @@
 var React = require('react');
 var $ = jQuery = require('jquery');
+require('jquery.scrollto');
+
 var InputUSD = require('./react-components/input-usd.jsx');
 var InputPercentage = require('./react-components/input-percent.jsx');
 var WorksheetOutput = require('./monthly-payment-worksheet/worksheet-output.jsx');
@@ -8,40 +10,31 @@ var MonthlyPaymentWorksheet = React.createClass({
   
     getInitialState: function() {
         return {
-            preTaxIncome: 5000,
-            preTaxIncomeCB: 4000,
-            takeHomeIncome: 3500,
-            takeHomeIncomeCB: 3000,
-            housePrice: 300000,
-            rent: 2000,
-            utilities: 200,
-            debtPayments: 1000,
-            livingExpenses: 2500,
-            savings: 600,
-            homeMaintenance: 200,
-            homeImprovement: 100,
-            condoHOA: 500,
-            futureUtilities: 300,
-            emergencySavings: 100,
-            longTermSavings: 400,
-            homePrice: 300000,
-            propertyTax: 1.1,
-            homeownersInsurance: 750
+            worksheet: this.props.worksheet
         }
     },
     
     update: function (prop, val) {
-        var obj = {};
-        obj[prop] = val || 0;
-        this.setState(obj);
+        var worksheet = this.state.worksheet;
+        worksheet[prop] = val || 0;
+        this.setState({worksheet: worksheet});
     },
     
     print: function () {
         window.focus();
         window.print();
     },
+    
+    scrollUp: function (e) {
+        e.preventDefault();
+        $.scrollTo( $('#estimate-section'), {
+          duration: 600,
+          offset: -30
+        });
+    },
 
     render: function() {
+        var worksheet = this.state.worksheet || {};
         return (
           <div className="monthly-payment_worksheet">
             <section>
@@ -66,7 +59,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
-                            <InputUSD id="preTaxIncome" value={this.state.preTaxIncome} onChange={this.update.bind(null, 'preTaxIncome')}/>
+                            <InputUSD id="preTaxIncome" value={worksheet.preTaxIncome} onChange={this.update.bind(null, 'preTaxIncome')}/>
                           </div>
                         </div>
                         <div className="content-l input-row">
@@ -76,7 +69,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
-                            <InputUSD id="preTaxIncome" value={this.state.preTaxIncomeCB} onChange={this.update.bind(null, 'preTaxIncomeCB')}/>
+                            <InputUSD id="preTaxIncome" value={worksheet.preTaxIncomeCB} onChange={this.update.bind(null, 'preTaxIncomeCB')}/>
                           </div>
                         </div>
                         <div className="total-row output-row">
@@ -87,7 +80,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                               </label>
                             </div>
                             <div className="input-col">
-                              <WorksheetOutput prop="preTaxIncomeTotal" data={this.state}/>
+                              <WorksheetOutput prop="preTaxIncomeTotal" data={worksheet}/>
                             </div>
                           </div>
                         </div>
@@ -105,7 +98,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
-                            <InputUSD id="takeHomeIncome" value={this.state.takeHomeIncome} onChange={this.update.bind(null, 'takeHomeIncome')}/>
+                            <InputUSD id="takeHomeIncome" value={worksheet.takeHomeIncome} onChange={this.update.bind(null, 'takeHomeIncome')}/>
                             
                           </div>
                         </div>
@@ -116,7 +109,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </label>
                           </div>
                           <div className="input-col">
-                            <InputUSD id="takeHomeIncomeCB" value={this.state.takeHomeIncomeCB} onChange={this.update.bind(null, 'takeHomeIncomeCB')}/>
+                            <InputUSD id="takeHomeIncomeCB" value={worksheet.takeHomeIncomeCB} onChange={this.update.bind(null, 'takeHomeIncomeCB')}/>
                           </div>
                         </div>
                         <div className="total-row output-row">
@@ -127,7 +120,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                               </div>
                             </div>
                             <div className="input-col">
-                              <WorksheetOutput prop="takeHomeIncomeTotal" data={this.state}/>
+                              <WorksheetOutput prop="takeHomeIncomeTotal" data={worksheet}/>
                             </div>
                           </div>
                         </div>
@@ -147,7 +140,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="rent" value={this.state.rent} onChange={this.update.bind(null, 'rent')}/>
+                          <InputUSD id="rent" value={worksheet.rent} onChange={this.update.bind(null, 'rent')}/>
                           
                         </div>
                       </div>
@@ -158,7 +151,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="utilities" value={this.state.utilities} onChange={this.update.bind(null, 'utilities')}/>
+                          <InputUSD id="utilities" value={worksheet.utilities} onChange={this.update.bind(null, 'utilities')}/>
                         </div>
                         <div className="content-l_col content-l_col-1  note-row">
                           <em>Electricity, gas, water, phone, internet, etc.</em>
@@ -171,7 +164,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="debtPayments" value={this.state.debtPayments} onChange={this.update.bind(null, 'debtPayments')}/>
+                          <InputUSD id="debtPayments" value={worksheet.debtPayments} onChange={this.update.bind(null, 'debtPayments')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Student loans, car loans, credit card debt, etc.</em>
@@ -184,7 +177,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="livingExpenses" value={this.state.livingExpenses} onChange={this.update.bind(null, 'livingExpenses')}/>
+                          <InputUSD id="livingExpenses" value={worksheet.livingExpenses} onChange={this.update.bind(null, 'livingExpenses')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Groceries, transportation, child care, child support, eating out, health, entertainment, etc.</em>
@@ -197,7 +190,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="savings" value={this.state.savings} onChange={this.update.bind(null, 'savings')}/>             
+                          <InputUSD id="savings" value={worksheet.savings} onChange={this.update.bind(null, 'savings')}/>             
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Amount you put away each month from your take-home income.</em>
@@ -212,7 +205,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </div>
                           </div>
                           <div className="input-col">
-                            <WorksheetOutput prop="spendingAndSavings" data={this.state}/>
+                            <WorksheetOutput prop="spendingAndSavings" data={worksheet}/>
                             
                           </div>
                           <div className="content-l_col content-l_col-1  note-row">
@@ -226,12 +219,12 @@ var MonthlyPaymentWorksheet = React.createClass({
                 </div>
               </form>
             </section>
-            <section>
+            <section className="estimate-section" id="estimate-section">
               <h2 className="indented-content" tabIndex="0">Estimate your financial responsibilities after buying a home.</h2>
               <form className="block block__bg block__flush-top block__unpadded">
                 <div className="content-l form-cols">
                   <div className="content-l_col content-l_col-1-2 col-left">
-                    <fieldset>
+                    <fieldset className="form-section-3">
                       <legend className="h3">
                         <span className="heading-number">3</span>Future monthly savings goals
                       </legend>
@@ -243,7 +236,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="emergencySavings" value={this.state.emergencySavings} onChange={this.update.bind(null, 'emergencySavings')}/>
+                          <InputUSD id="emergencySavings" value={worksheet.emergencySavings} onChange={this.update.bind(null, 'emergencySavings')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>A good rule of thumb is to have at least 3-6 months of expenses saved.</em>
@@ -256,7 +249,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="longTermSavings" value={this.state.longTermSavings} onChange={this.update.bind(null, 'longTermSavings')}/>
+                          <InputUSD id="longTermSavings" value={worksheet.longTermSavings} onChange={this.update.bind(null, 'longTermSavings')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Savings for retirement, kids' college, vacations, or other goals.</em>
@@ -270,7 +263,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </div>
                           </div>
                           <div className="input-col">
-                            <WorksheetOutput prop="futureSavings" data={this.state}/>
+                            <WorksheetOutput prop="futureSavings" data={worksheet}/>
                           </div>
                         </div>
                       </div>
@@ -288,7 +281,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="homeMaintenance" value={this.state.homeMaintenance} onChange={this.update.bind(null, 'homeMaintenance')}/>
+                          <InputUSD id="homeMaintenance" value={worksheet.homeMaintenance} onChange={this.update.bind(null, 'homeMaintenance')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>A common rule of thumb is 1% of your target home price (divide by 12 to get a monthly amount).</em>
@@ -301,7 +294,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="homeImprovement" value={this.state.homeImprovement} onChange={this.update.bind(null, 'homeImprovement')}/>
+                          <InputUSD id="homeImprovement" value={worksheet.homeImprovement} onChange={this.update.bind(null, 'homeImprovement')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>This is up to you. What kinds of improvements do you plan to make? How much do you want to set aside monthly?</em>
@@ -314,7 +307,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="condoHOA" value={this.state.condoHOA} onChange={this.update.bind(null, 'condoHOA')}/>
+                          <InputUSD id="condoHOA" value={worksheet.condoHOA} onChange={this.update.bind(null, 'condoHOA')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>These fees can vary widely depending on the specific building or HOA. Explore listings in your target neighborhoods to make an estimate.</em>
@@ -328,7 +321,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                             </div>
                           </div>
                           <div className="input-col">
-                            <WorksheetOutput prop="newHomeownershipExpenses" data={this.state}/>
+                            <WorksheetOutput prop="newHomeownershipExpenses" data={worksheet}/>
                           </div>
                         </div>
                       </div>
@@ -348,7 +341,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="futureUtilities" value={this.state.futureUtilities} onChange={this.update.bind(null, 'futureUtilities')}/>
+                          <InputUSD id="futureUtilities" value={worksheet.futureUtilities} onChange={this.update.bind(null, 'futureUtilities')}/>
                         </div>
                       </div>
                     </fieldset>
@@ -364,7 +357,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="homePrice" value={this.state.homePrice} onChange={this.update.bind(null, 'homePrice')}/>
+                          <InputUSD id="homePrice" value={worksheet.homePrice} onChange={this.update.bind(null, 'homePrice')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>Property taxes are based on the assessed value of a home, which may be different from the home price. But, the typical home price in your target neighborhood is a good rough estimate.</em>
@@ -377,7 +370,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputPercentage id="propertyTax" value={this.state.propertyTax} onChange={this.update.bind(null, 'propertyTax')}/>
+                          <InputPercentage id="propertyTax" value={worksheet.propertyTax} onChange={this.update.bind(null, 'propertyTax')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>The national median is 1.1%, but rates vary widely by location. Check with your local tax authority for a more precise estimate.</em>
@@ -390,16 +383,16 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </label>
                         </div>
                         <div className="input-col">
-                          <InputUSD id="homeownersInsurance" value={this.state.homeownersInsurance} onChange={this.update.bind(null, 'homeownersInsurance')}/>
+                          <InputUSD id="homeownersInsurance" value={worksheet.homeownersInsurance} onChange={this.update.bind(null, 'homeownersInsurance')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>The national media is $750, but rates vary by location, the value and features of your home, and the coverage that you select.</em>
                         </div>
                       </div>
-                      <div className="content-l input-row">
+                      <div className="content-l input-row sources-note">
                         <div className="content-l_col content-l_col-1">
                           <div className="label">Wondering where we got our data?</div>
-                          <p><a>Check out our sources</a></p>
+                          <p><a href="/owning-a-home/process/sources/">Check out our sources</a></p>
                         </div>
                       </div>
                       
@@ -408,13 +401,13 @@ var MonthlyPaymentWorksheet = React.createClass({
                 </div>
               </form>
             </section>
-            <section>
+            <section className="summary-section">
               <h2 className="indented-content" tabIndex="0">How much can you afford?</h2>
               <div className="block block__bg block__flush-top block__bg-highlight block__flush-bottom">
                 <div className="content-l">
                   <div className="content-l_col content-l_col-2-3">
-                    <h3>Based on your monthly income and estimated expenses, you have <strong><WorksheetOutput prop="availableHousingFunds" data={this.state}/></strong> available for monthly housing obligations. This is <strong><WorksheetOutput prop="percentageIncomeAvailable" data={this.state}/></strong> of your pre-tax income.</h3>
-                    <p className="u-mb0">A mortgage lending rule of thumb is that your total monthly housing obligations should be no more than 28% of your pre-tax income. Lenders may approve you for more or less depending on your overall financial picture. To change this percentage, <a>scroll back up</a> and consider whether you have budgeted enough for new homeownership expenses and savings.</p>
+                    <h3>Based on your monthly income and estimated expenses, you have <strong><WorksheetOutput prop="availableHousingFunds" data={worksheet}/></strong> available for monthly housing obligations. This is <strong><WorksheetOutput prop="percentageIncomeAvailable" data={worksheet}/></strong> of your pre-tax income.</h3>
+                    <p className="u-mb0">A mortgage lending rule of thumb is that your total monthly housing obligations should be no more than 28% of your pre-tax income. Lenders may approve you for more or less depending on your overall financial picture. To change this percentage, <a href="#estimate-section" onClick={this.scrollUp}>scroll back up</a> and consider whether you have budgeted enough for new homeownership expenses and savings.</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +421,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         <div className="label">Take-home income</div>
                       </div>
                       <div className="input-col">
-                        <strong><WorksheetOutput prop="takeHomeIncomeTotal" data={this.state}/></strong>
+                        <strong><WorksheetOutput prop="takeHomeIncomeTotal" data={worksheet}/></strong>
                       </div>
                     </div>
                     <div className="content-l output-row">
@@ -437,7 +430,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       </div>
                       <div className="input-col">
                         <span id="summaryDebts">
-                          - <WorksheetOutput prop="debtPayments" data={this.state}/>
+                          - <WorksheetOutput prop="debtPayments" data={worksheet}/>
                         </span>
                       </div>
                     </div>
@@ -447,7 +440,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       </div>
                       <div className="input-col">
                         <span id="summaryLivingExpenses">
-                          - <WorksheetOutput prop="livingExpenses" data={this.state}/>
+                          - <WorksheetOutput prop="livingExpenses" data={worksheet}/>
                         </span>
                       </div>
                     </div>
@@ -456,7 +449,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         <div className="label">Future savings</div>
                       </div>
                       <div className="input-col">
-                        - <WorksheetOutput prop="futureSavings" data={this.state}/>
+                        - <WorksheetOutput prop="futureSavings" data={worksheet}/>
                       </div>
                     </div>
                     <div className="content-l output-row">
@@ -464,7 +457,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         <div className="label">Home maintenance and improvement</div>
                       </div>
                       <div className="input-col">
-                        - <WorksheetOutput prop="homeMaintenanceAndImprovement" data={this.state}/>
+                        - <WorksheetOutput prop="homeMaintenanceAndImprovement" data={worksheet}/>
                       </div>
                     </div>
                     <div className="content-l output-row">
@@ -472,7 +465,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         <div className="label">Future utilities</div>
                       </div>
                       <div className="input-col">
-                        - <WorksheetOutput prop="futureUtilities" data={this.state}/>
+                        - <WorksheetOutput prop="futureUtilities" data={worksheet}/>
                       </div>
                     </div>
                     <div className="total-row output-row summary-row">
@@ -483,20 +476,20 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                         <div className="input-col">
-                          <WorksheetOutput prop="availableHousingFunds" data={this.state}/>
+                          <WorksheetOutput prop="availableHousingFunds" data={worksheet}/>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="content-l_col content-l_col__before-divider content-l_col-1-2 col-right breakdown-col">
                     <h3>What's included in your total monthly housing obligations?</h3>
-                    <p>The <strong><WorksheetOutput prop="availableHousingFunds" data={this.state}/></strong> you have available for monthly housing obligations needs to cover your principal & interest payment, taxes and insurance, and condo/HOA fees.</p>
+                    <p>The <strong><WorksheetOutput prop="availableHousingFunds" data={worksheet}/></strong> you have available for monthly housing obligations needs to cover your principal & interest payment, taxes and insurance, and condo/HOA fees.</p>
                     <div className="content-l output-row">
                       <div className="label-col">
                         <div className="label">Total available for monthly housing obligations</div>
                       </div>
                       <div className="input-col">
-                        <strong><WorksheetOutput prop="availableHousingFunds" data={this.state}/></strong>
+                        <strong><WorksheetOutput prop="availableHousingFunds" data={worksheet}/></strong>
                       </div>
                     </div>
                     <div className="content-l output-row">
@@ -506,7 +499,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         </div>
                       </div>
                       <div className="input-col">
-                        - <WorksheetOutput prop="condoHOA" data={this.state}/>
+                        - <WorksheetOutput prop="condoHOA" data={worksheet}/>
                       </div>
                       <div className="content-l_col content-l_col-1 note-row">
                         <em>Usually not included in your mortgage payment.</em>
@@ -520,7 +513,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                         <div className="input-col">
-                          <strong><WorksheetOutput prop="estimatedTotalPayment" data={this.state}/></strong>
+                          <strong><WorksheetOutput prop="estimatedTotalPayment" data={worksheet}/></strong>
                         </div>
                       </div>
                     </div>
@@ -530,7 +523,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         <div className="label">Monthly taxes and insurance</div>
                       </div>
                       <div className="input-col">
-                        - <WorksheetOutput prop="taxesAndInsurance" data={this.state}/>
+                        - <WorksheetOutput prop="taxesAndInsurance" data={worksheet}/>
                       </div>
                     </div>
                     
@@ -542,21 +535,21 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                         <div className="input-col">
-                          <WorksheetOutput prop="principalAndInterest" data={this.state}/>
+                          <WorksheetOutput prop="principalAndInterest" data={worksheet}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
                           <em>You'll need this number to calculate how much you want to spend on a home.</em>
                         </div>
                       </div>
                     </div>
-                    <div className="content-l content-l_col-1 note-row">
-                      <p>* This worksheet assumes you are able to put down 20% of your home's purchase price. If you put down less than 20%, you will likely have to pay for mortgage insurance, which will increase your monthly payment. <a>Learn more</a>.</p>
+                    <div className="content-l content-l_col-1 note-row footnote-row">
+                      <p>* This worksheet assumes you are able to put down 20% of your home's purchase price. If you put down less than 20%, you will likely have to pay for mortgage insurance, which will increase your monthly payment. <a href="http://www.consumerfinance.gov/askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html">Learn more</a>.</p>
                     </div>
                   </div>
                 </div>
               </div>
             </section>
-            <section>
+            <section className="print-section">
               <h2 className="indented-content" tabIndex="0">Print your information.</h2>
               <div className="block block__bg block__bg-highlight block__flush-top">
                 <div className="content-l">
@@ -575,6 +568,28 @@ var MonthlyPaymentWorksheet = React.createClass({
 
 });
 
+var worksheet = {
+  preTaxIncome: 5000,
+  preTaxIncomeCB: 4000,
+  takeHomeIncome: 3500,
+  takeHomeIncomeCB: 3000,
+  housePrice: 300000,
+  rent: 2000,
+  utilities: 200,
+  debtPayments: 1000,
+  livingExpenses: 2500,
+  savings: 600,
+  homeMaintenance: 200,
+  homeImprovement: 100,
+  condoHOA: 500,
+  futureUtilities: 300,
+  emergencySavings: 100,
+  longTermSavings: 400,
+  homePrice: 300000,
+  propertyTax: 1.1,
+  homeownersInsurance: 750
+}
+
 React.render(
-  <MonthlyPaymentWorksheet/>, document.getElementById('app-container')
+  <MonthlyPaymentWorksheet worksheet={worksheet}/>, document.getElementById('app-container')
 );

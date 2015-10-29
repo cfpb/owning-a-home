@@ -177,3 +177,74 @@
     border-top-color: @gray-50;
   });
 }
+
+
+
+@media print {
+.monthly-payment {
+  .go-back-link,
+  .monthly-payment_pdf-link,
+  .related-links,
+  .print-section,
+  .sources-note {
+    display: none;
+  }
+
+  .label-col,
+  .input-col {
+    .grid_column(6);
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+
+  legend {
+    &.h3 {
+      padding-left: 0;
+    }
+  }
+  
+  .heading-number {
+      font-size: 1em !important; 
+      .webfont-demi();   
+      position: static !important; 
+      padding-right: 3px;
+      &:after {
+        content: '.'
+      }
+  }
+
+  .input-row,
+  .output-row {
+    max-width: 100% !important;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    border: none;
+    padding: 0;
+    text-align: right;
+    width: 100%;
+  }
+
+  .block__bg {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .input-row .note-row {
+    margin-top: 0;
+  }
+
+  fieldset + fieldset {
+    margin-top: 30px;
+  }
+
+  .form-section-3,
+  .summary-section,
+  .breakdown-col {
+    display: block; 
+    page-break-before: always; 
+  }
+}
+}
