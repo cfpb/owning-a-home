@@ -198,3 +198,103 @@
   }
 }
   
+  
+
+
+@media print {
+.monthly-payment {
+  &_intro {
+    margin-bottom: @grid_gutter-width / 2 !important;
+  }
+
+  .label-col,
+  .input-col {
+    .grid_column(6);
+    border-left-width: 0;
+    border-right-width: 0;
+  }
+
+  legend {
+    &.h3 {
+      padding-left: 0;
+    }
+  }
+  
+  .heading-number {
+    font-size: 1em !important; 
+    .webfont-demi();   
+    position: static !important; 
+    padding-right: 3px;
+    &:after {
+      content: '.'
+    }
+  }
+
+  .content-l_col-1-2,
+  .input-row,
+  .output-row,
+  .content-l_col-2-3,
+  .content-l_col-1-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    border: none;
+    padding: 0;
+    text-align: right;
+    width: 100%;
+  }
+
+  .block__bg {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .form-cols {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    .col-left {
+      border-left-width: 0 !important;
+      border-right-width: 0 !important;
+    }
+
+    .col-right {
+      border-left-width: 0 !important;
+      border-right-width: 0 !important;
+
+      &:before {
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .input-row .note-row {
+    margin-top: 0 !important;
+  }
+
+  fieldset + fieldset {
+    margin-top: @grid_gutter-width;
+  }
+
+  .form-section-3,
+  .summary-section,
+  .breakdown-col {
+    display: block; 
+    page-break-before: always; 
+  }
+  
+  .go-back-link,
+  .monthly-payment_pdf-link,
+  .related-links,
+  .print-section,
+  .sources-note,
+  .buyers-note {
+    display: none !important;
+  }
+  
+}
+}
