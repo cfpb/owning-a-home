@@ -26,7 +26,7 @@ var OutputUSD = React.createClass({
 
   format: function (val) {
     // $0 doesn't need decimals
-    var decimalPlaces = val === 0 ? 0 : this.props.decimalPlaces;
+    var decimalPlaces = (val == 0 || isNaN(val)) ? 0 : this.props.decimalPlaces;
     val = formatUSD(val || 0, {decimalPlaces: decimalPlaces});
     return val;
   },
