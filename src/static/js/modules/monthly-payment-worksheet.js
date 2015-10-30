@@ -127,7 +127,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       </fieldset>
                     </fieldset>
                   </div>
-                  <div className="content-l_col content-l_col__before-divider content-l_col-1-2 col-right">
+                  <div className="content-l_col content-l_col__before-divider content-l_col-1-2 col-right savings-section">
                     <fieldset>
                       <legend className="h3">
                         <span className="heading-number">2</span>Monthly spending and savings
