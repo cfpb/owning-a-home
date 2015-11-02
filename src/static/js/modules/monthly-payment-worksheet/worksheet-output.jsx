@@ -8,6 +8,9 @@ var OutputUSD = require('./../react-components/output-usd.jsx');
 * OR runs a calculation (TODO: move calculations out),
 * then displays the value with appropriate format.
 *
+* Props other than 'prop' and 'data' that are passed in 
+* will be passed through to element rendered by component.
+*
 */
 var WorksheetOutput = React.createClass({
   propTypes: {
