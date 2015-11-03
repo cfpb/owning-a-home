@@ -59,7 +59,6 @@
     "grunt-string-replace": "latest",
     "grunt-usemin": "~2.4.0",
     "istanbul": "^0.3.5",
-    "jsdom": "http://registry.npmjs.org/jsdom/-/jsdom-4.2.0.tgz",
     "load-grunt-config": "^0.13.1",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.18.2",
@@ -117,18 +116,5 @@
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
     "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
     "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx"
-  },
-  "browserify-shim": "./config/shim.js",
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "hbsfy",
-      [
-        "reactify",
-        {
-          "harmony": true
-        }
-      ]
-    ]
   }
 }
