@@ -116,5 +116,6 @@
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
     "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
     "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx"
-  }
+  },
+  "browserify-shim": "./config/shim.js"
 }
