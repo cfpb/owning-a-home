@@ -48,16 +48,15 @@ var FormattedNumericInput = React.createClass({
   },
 
   blur: function () {
-    this.setState({
-      focused: false,
-      value: this.getDisplayValue(this.props.value)
-    });
+    this.setState({value: this.getDisplayValue(this.props.value)});
     typeof this.props.onBlur == 'function' && this.props.onBlur(val);
   },
 
   change: function (e) {
     var val = e.target.value;
-    this.setState({value: val});
+    var state = this.state;
+    state.value = val;
+    this.setState(state);
     typeof this.props.onChange == 'function' && this.props.onChange(this.strip(val));
   },
 
@@ -76,8 +75,11 @@ var FormattedNumericInput = React.createClass({
 
   componentWillReceiveProps: function (props) {
     // don't update the value while it is being edited
+    // TODO:  may need to reconsider this if validation is taking place
+    // outside the component on change events
+    // could update here under those circumanstances if the value has changed
     if (!this.state.focused && props.hasOwnProperty('value')) {
-      this.setState({value: this.getDisplayValue(this.props.value)});
+      this.setState({value: this.getDisplayValue(props.value)});
     }
   },
 
