@@ -156,7 +156,7 @@ describe('Formatted Numeric Input react component tests', function () {
       sinon.assert.calledOnce(preventDefault);
     });
     
-    it('should update input value on change, without calling format or strip methods', function() {
+    it('should update state with new value on change, without calling format or strip methods', function() {
       var stripHandler = sandbox.spy(FormattedNumericInput.prototype.__reactAutoBindMap, 'strip');   
       var formatHandler = sandbox.spy(FormattedNumericInput.prototype.__reactAutoBindMap, 'format');  
       var formatter = sandbox.spy(function (val) {return '^' + val + '^'});
@@ -190,7 +190,7 @@ describe('Formatted Numeric Input react component tests', function () {
   
   describe('additional props tests', function() {
     
-    it('should pass to input element any additional props that are passed in', function() {
+    it('should pass any extra props on to input element', function() {
       setupComponent({value: '123'})
       expect(input.getDOMNode().className).to.equal('');
       
@@ -198,7 +198,7 @@ describe('Formatted Numeric Input react component tests', function () {
       expect(input.getDOMNode().className).to.equal('test-class');
     });
     
-    it('should pass through event callbacks for events that are not handled by component', function() {
+    it('should pass through any event callbacks for events that are not handled by component', function() {
       var customKeyUpHandler = sandbox.spy();
       
       setupComponent({value: '123', onKeyUp:customKeyUpHandler});

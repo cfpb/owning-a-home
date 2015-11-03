@@ -50,7 +50,7 @@ describe('Input Percent react component tests', function () {
   });
     
   // TODO
-  describe('render tests', function() {
+  describe('rendering tests', function() {
     
   });  
   
