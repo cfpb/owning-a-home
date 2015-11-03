@@ -5,13 +5,21 @@
       'links': [
           { 
             'desc': 'Want an advisor in the home-buying process?',
-            'label': 'Find a HUD-certified housing counselor', 
-            'url': '/find-a-housing-counselor/'
+            'urls': [
+              {
+                'label': 'Find a HUD-certified housing counselor', 
+                'url': '/find-a-housing-counselor/'
+              }
+            ]
           },
           { 
             'desc': 'Have a mortgage question?',
-            'label': 'Get answers from AskCFPB', 
-            'url': '/askcfpb/search/?selected_facets=category_exact:mortgages'
+            'urls': [
+              {
+                'label': 'Get answers from AskCFPB', 
+                'url': '/askcfpb/search/?selected_facets=category_exact:mortgages'
+              }
+            ]
           }
        ]
 } -%}
@@ -21,13 +29,22 @@
       'links': [
           { 
             'desc': 'Have a complaint?',
-            'label': 'Submit it to the CFPB', 
-            'url': '/complaint/'
+            'urls': [
+              {
+                'label': 'Submit it to the CFPB', 
+                'url': '/complaint/'
+              }
+            ]
           },
           { 
             'desc': 'Trouble paying your mortgage?',
-            'label': 'We can help', 
-            'url': '/mortgagehelp/'
+            'urls': [
+              {
+                'label': 'We can help', 
+                'url': '/mortgagehelp/'
+              }
+            ]
+            
           }
         ]
 } -%}
@@ -37,8 +54,12 @@
       'links': [
         {
           'desc': 'The Consumer Financial Protection Bureau (CFPB) is a government agency created to ensure that prices are clear upfront, risks are visible, and nothing is buried in fine print.',
-          'label': 'Learn more about us', 
-          'url': '/the-bureau/'
+          'urls': [
+            {
+              'label': 'Learn more about us', 
+              'url': '/the-bureau/'
+            }
+          ]
         }
       ], 
       'col': '2-3'
@@ -70,8 +91,12 @@
                        [
                          { 
                            'desc': 'description for link'
-                            'link': 'link label',
-                            'url': 'link url'
+                           'urls': [
+                            {
+                              'link': 'link label',
+                              'url': 'link url'
+                            }
+                           ]
                           }  
                         ]  
 
@@ -150,9 +175,15 @@
           <p class="short-desc">
             {{link.desc|safe}}
           </p>
-          <a class="jump-link jump-link__block {{'jump-link__' + link.type if link.type}}" href="{{link.url}}">
-            <span class="jump-link_text">{{link.label|safe}}</span>
-          </a>
+          <ul class="list list__links list__unstyled">
+          {% for url in link.urls %}
+          <li class="list_item u-mb15">
+            <a class="jump-link jump-link__block {{'jump-link__' + url.type if url.type}}" href="{{url.url}}">
+              <span class="jump-link_text">{{url.label|safe}}</span>
+            </a>
+          </li>
+          {% endfor %}
+          </ul>
         </li>
       {% endfor %}
     </ul>

@@ -385,20 +385,32 @@
       {% set process_links = [
           {
             'desc': 'Still shopping for a home?',
-            'label': 'Explore loan choices',
-            'url': '/owning-a-home/process/explore/'
+            'urls': [
+              {
+                'label': 'Explore loan choices',
+                'url': '/owning-a-home/process/explore/'
+              }
+            ]
           },
           {
             'desc': 'Already have a home in mind?',
-            'label': 'Compare loan offers',
-            'url': '/owning-a-home/process/compare/'
+            'urls': [
+              {
+                'label': 'Compare loan offers',
+                'url': '/owning-a-home/process/compare/'
+              }
+            ]
           }
        ] %}
        {% set tools_links = [
            {
              'desc': 'Interest rates can differ based on the kind of loan you choose.',
-             'label': 'Explore interest rates',
-             'url': '/owning-a-home/explore-rates/'
+             'urls': [
+              {
+                'label': 'Explore interest rates',
+                'url': '/owning-a-home/explore-rates/'
+              }
+             ]
            }
         ] %}
       {{ related_links.render(process_links, tools_links) }}
