@@ -1,3 +1,5 @@
+// from https://github.com/mochajs/mocha/issues/1458
+
 var fs = require('fs');
 var ReactTools = require("react-tools");
 
