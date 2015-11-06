@@ -401,12 +401,21 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
-          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],
+          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],          
           reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,
             statements: 50
           }
+        }
+      },
+      coverageSpecial: {
+        src: ['test/js/*.jsx'], // specifying file patterns works as well
+        options: {
+          coverageFolder: 'test/coverage',
+          mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
+          istanbulOptions: ['--harmony','--handle-sigint'],
+          reportFormats: ['cobertura','lcov']
         }
       }
     },
