@@ -4,6 +4,28 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.2.3] - 2015-10-07
+### Fixed
+- Removes monthly-payment-worksheet.js from uglification
+
+## [1.2.2] - 2015-10-07
+### Fixed
+- Sets version for jquery sticky plugin to fix conflict with form explainers
+
+## [1.2.1] - 2015-10-07
+### Fixed
+- Adds monthly payment worksheet page
+- Adds Planning for Retirement to main nav
+
+## [1.2.0] - 2015-10-07
+### Fixed
+- Adds environment variable to .env for local setup
+- frontendbuild.sh checks for your environment and runs the proper grunt task for dev or production builds.
+
+## [1.1.5] - 2015-10-06
+### Fixed
+- Adds link to homepage to toolkit PDF en espanol
+
 ## [1.1.4] - 2015-09-16
 ### Fixed
 - Updated monthly payment worksheet
@@ -129,7 +151,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.1.4...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/cfpb/owning-a-home/compare/v1.2.2...v1.2.3
+[1.2.2]: https://github.com/cfpb/owning-a-home/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/cfpb/owning-a-home/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/cfpb/owning-a-home/compare/v1.1.5...v1.2.0
+[1.1.5]: https://github.com/cfpb/owning-a-home/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/cfpb/owning-a-home/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/cfpb/owning-a-home/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/cfpb/owning-a-home/compare/v1.1.1...v1.1.2
