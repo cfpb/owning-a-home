@@ -240,8 +240,8 @@ module.exports = function(grunt) {
             'home.js',
             'loan-options-subpage.js',
             'mortgage-closing.js',
-            'mortgage-estimate.js',
-            'monthly-payment-worksheet.js'
+            'mortgage-estimate.js'
+            //'monthly-payment-worksheet.js'
           ],
           dest: './dist/static/js'
         }]
