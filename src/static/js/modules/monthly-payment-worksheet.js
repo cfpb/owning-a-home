@@ -568,27 +568,7 @@ var MonthlyPaymentWorksheet = React.createClass({
 
 });
 
-var worksheet = {
-  preTaxIncome: 5000,
-  preTaxIncomeCB: 4000,
-  takeHomeIncome: 3500,
-  takeHomeIncomeCB: 3000,
-  housePrice: 300000,
-  rent: 2000,
-  utilities: 200,
-  debtPayments: 1000,
-  livingExpenses: 2500,
-  savings: 600,
-  homeMaintenance: 200,
-  homeImprovement: 100,
-  condoHOA: 500,
-  futureUtilities: 300,
-  emergencySavings: 100,
-  longTermSavings: 400,
-  homePrice: 300000,
-  propertyTax: 1.1,
-  homeownersInsurance: 750
-}
+var worksheet = {};
 
 React.render(
   <MonthlyPaymentWorksheet worksheet={worksheet}/>, document.getElementById('app-container')
