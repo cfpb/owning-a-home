@@ -240,8 +240,8 @@ module.exports = function(grunt) {
             'home.js',
             'loan-options-subpage.js',
             'mortgage-closing.js',
-            'mortgage-estimate.js'
-            //'monthly-payment-worksheet.js'
+            'mortgage-estimate.js',
+            'monthly-payment-worksheet.js'
           ],
           dest: './dist/static/js'
         }]
@@ -306,6 +306,7 @@ module.exports = function(grunt) {
               'mortgage-closing/**',
               'mortgage-estimate/**',
               'process/**',
+              'monthly-payment-worksheet/**',
               '_*/*',
               'resources/*'
             ],
@@ -516,7 +517,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
-  grunt.registerTask('release', ['clean:dist', 'js', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('release', ['clean:dist', 'js', 'browserify:tests', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('production-deploy', ['release', 'ship']);
   grunt.registerTask('default', ['dev-deploy', 'ship']);
 
