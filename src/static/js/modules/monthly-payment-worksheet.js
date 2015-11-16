@@ -386,7 +386,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           <InputUSD id="homeownersInsurance" value={worksheet.homeownersInsurance} onChange={this.update.bind(null, 'homeownersInsurance')}/>
                         </div>
                         <div className="content-l_col content-l_col-1 note-row">
-                          <em>The national media is $750, but rates vary by location, the value and features of your home, and the coverage that you select.</em>
+                          <em>The national median is $750, but rates vary by location, the value and features of your home, and the coverage that you select.</em>
                         </div>
                       </div>
                       <div className="content-l input-row sources-note">
