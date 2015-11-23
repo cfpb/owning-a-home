@@ -4,42 +4,57 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
-## [1.2.3] - 2015-10-07
+## [1.3.0] - 2015-11-23
+### Fixed
+- Monthly payment worksheet release
+- Update asset version numbers
+- Update changelog
+
+## [1.2.5] - 2015-11-16
+### Fixed
+- Change monthly payment worksheet links to point to new page instead of pdf
+- Fix monthly payment worksheet typo
+
+## [1.2.4] - 2015-11-13
+### Added
+- Adds monthly payment worksheet
+
+## [1.2.3] - 2015-11-12
 ### Fixed
 - Removes monthly-payment-worksheet.js from uglification
 
-## [1.2.2] - 2015-10-07
+## [1.2.2] - 2015-11-10
 ### Fixed
 - Sets version for jquery sticky plugin to fix conflict with form explainers
 
-## [1.2.1] - 2015-10-07
-### Fixed
+## [1.2.1] - 2015-11-09
+### Added
 - Adds monthly payment worksheet page
 - Adds Planning for Retirement to main nav
 
 ## [1.2.0] - 2015-10-07
-### Fixed
+### Added
 - Adds environment variable to .env for local setup
 - frontendbuild.sh checks for your environment and runs the proper grunt task for dev or production builds.
 
 ## [1.1.5] - 2015-10-06
-### Fixed
+### Added
 - Adds link to homepage to toolkit PDF en espanol
 
 ## [1.1.4] - 2015-09-16
-### Fixed
+### Changed
 - Updated monthly payment worksheet
 
 ## [1.1.3] - 2015-09-16
-### Fixed
+### Changed
 - Updated monthly payment worksheet file links
 
 ## [1.1.2] - 2015-09-16
-### Fixed
+### Changed
 - Updated monthly payment worksheet file
 
 ## [1.1.1] - 2015-09-16
-### Fixed
+### Added
 - Links to journey, right arrows on journey tools links
 
 ## [1.1.0] - 2015-09-16
@@ -151,7 +166,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.2.3...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/cfpb/owning-a-home/compare/v1.2.5...v1.3.0
+[1.2.5]: https://github.com/cfpb/owning-a-home/compare/v1.2.4...v1.2.5
+[1.2.4]: https://github.com/cfpb/owning-a-home/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/cfpb/owning-a-home/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/cfpb/owning-a-home/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/cfpb/owning-a-home/compare/v1.2.0...v1.2.1
