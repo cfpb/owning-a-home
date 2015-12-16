@@ -48,7 +48,7 @@ Examples:
 	| Oregon 		| Hood River County | $371,450 				|
 	| Pennsylvania 	| Lehigh County 	| $372,600 				|
 	| Virginia 		| Amelia County 	| $535,900 				|
-	| Wisconsin 	| St. Croix County 	| $322,000              |
+	| Wisconsin 	| St. Croix County 	| $326,600              |
 
 @fha_high_balance @lt_first
 Scenario Outline: Trigger the County warning
@@ -93,4 +93,4 @@ Examples:
 	| Oregon 		| Hood River County | $371,450 				|
 	| Pennsylvania 	| Lehigh County 	| $372,600 				|
 	| Virginia 		| Amelia County 	| $535,900 				|
-	| Wisconsin 	| St. Croix County 	| $322,000              |
+	| Wisconsin 	| St. Croix County 	| $326,600              |

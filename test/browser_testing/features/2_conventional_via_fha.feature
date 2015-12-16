@@ -46,9 +46,9 @@ Scenario Outline: Triggering a Conventional loan when FHA high balance is not av
 | Colorado   | Morgan County 	    | $271,050 		           |
 | Florida    | Okeechobee County  | $271,050               |
 | Indiana 	 | Monroe County 	    | $271,050               |
-| Utah 		   | Salt Lake County   | $304,750               |
+| Utah 		   | Salt Lake County   | $312,800               |
 | Kansas 	   | Johnson County     | $278,300 		           |
-| Montana 	 | Missoula County    | $282,900               |
+| Montana 	 | Missoula County    | $289,800               |
 
 @high_balance @lt_first
 Scenario Outline: Triggering a Conventional loan when FHA high balance is not available
@@ -85,11 +85,11 @@ Scenario Outline: Triggering a Conventional loan when FHA high balance is not av
 
  Examples:
 | state_name  | county_name 		   | FHA_max_loan_amount |
-| Alabama 	  | Bibb County 		   | $271,050 		       |
-| Arizona     | Apache County 	   | $271,050            |
-| Colorado    | Morgan County 	   | $271,050 		       |
+| Alabama     | Bibb County        | $271,050            |
+| Arizona     | Apache County      | $271,050            |
+| Colorado    | Morgan County      | $271,050            |
 | Florida     | Okeechobee County  | $271,050            |
-| Indiana 	  | Monroe County 	   | $271,050 		       |
-| Utah        | Salt Lake County   | $304,750            |
-| Kansas      | Johnson County     | $278,300 		       |
-| Montana 	  | Missoula County    | $282,900            |
+| Indiana     | Monroe County      | $271,050            |
+| Utah        | Salt Lake County   | $312,800            |
+| Kansas      | Johnson County     | $278,300            |
+| Montana     | Missoula County    | $289,800            |
