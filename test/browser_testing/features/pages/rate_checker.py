@@ -148,7 +148,7 @@ class RateChecker(Base):
     def is_chart_loaded(self):
         l_wait = 10
         
-        self.sleep(1)
+        self.sleep(2)
 
         try:
             WebDriverWait(self.driver, l_wait)\
