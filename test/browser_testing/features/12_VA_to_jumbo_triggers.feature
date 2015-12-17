@@ -51,7 +51,7 @@ Examples:
 | Maryland 			| Anne Arundel County 	| $517,500 				|
 | North Carolina 	| Gates County 			| $458,850 				|
 | Virginia 			| Norfolk city 			| $458,850 				|
-| Washington 		| Snohomish County 		| $517,500              |
+| Washington 		| Snohomish County 		| $540,500              |
 
 @high_balance
 Scenario Outline:
@@ -75,4 +75,4 @@ Examples:
 | Maryland 			| Anne Arundel County 	| $517,500 				|
 | North Carolina 	| Gates County 			| $458,850 				|
 | Virginia 			| Norfolk city 			| $458,850 				|
-| Washington 		| Snohomish County 		| $517,500              |
+| Washington 		| Snohomish County 		| $540,500              |
