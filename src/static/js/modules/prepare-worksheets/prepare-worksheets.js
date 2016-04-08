@@ -6,7 +6,6 @@ var _worksheet = require( './worksheet-controller' );
 var config = require( './worksheet-config' );
 var Handlebars = require('hbsfy/runtime');
 require('../secondary-nav');
-require('../nemo-shim');
 
 // DOM references.
 var _worksheetsDOM = document.querySelector('.page-contents');
@@ -106,8 +105,8 @@ document.querySelector('.official-website').addEventListener('mousedown', functi
 } );
 */
 
-function _loadWorksheets() {  
-  // Generate page html 
+function _loadWorksheets() {
+  // Generate page html
   var pageTemplate = require( '../../templates/prepare-worksheets/page-worksheets.hbs' );
   var pageHtml = pageTemplate();
   _worksheetsDOM.innerHTML = pageHtml;
@@ -129,8 +128,8 @@ function _loadWorksheets() {
 
     $.extend(options, config.worksheetModules[worksheetTypes[i]]());
 
-    _worksheet.create(options); 
-  };    
+    _worksheet.create(options);
+  };
 }
 
 function _loadNotes() {
@@ -153,8 +152,8 @@ function _loadNotes() {
 
 function _loadSummary() {
     var pageTemplate = require( '../../templates/prepare-worksheets/page-summary.hbs' );
-    var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );  
-    var summaryError = require( '../../templates/prepare-worksheets/page-summary-error.hbs' );  
+    var summarySection = require( '../../templates/prepare-worksheets/page-summary-section.hbs' );
+    var summaryError = require( '../../templates/prepare-worksheets/page-summary-error.hbs' );
     Handlebars.registerPartial({
       'summarySection': summarySection,
       'summaryError': summaryError
@@ -172,7 +171,7 @@ function _loadSummary() {
     } else if (!filteredGoals.length) {
       templateData.goalsError = goalErrors.noGrade;
     }
-    
+
     var filteredRisks = _model.filterEmptyRows(_model.getWorksheet('risks'), filterOpts);
     var risks = templateData.risks = _model.sortWorksheetByGrade(filteredRisks, 'risks');
     // check for errors
@@ -180,7 +179,7 @@ function _loadSummary() {
       var riskErrors = config.errorMessages.risks;
       templateData.risksError = riskErrors.noGrade;
     }
-    
+
     var filteredFlags = _model.filterEmptyRows(_model.getWorksheet('flags'), filterOpts);
     var flags = templateData.flags = _model.sortWorksheetByGrade(filteredFlags, 'flags');
     // check for errors

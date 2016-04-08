@@ -15,12 +15,9 @@
 // Override the Capital Framework theme variables with colors from the brand color palette.
 @import (less) "cf-theme-overrides.less";
 
-// import CFPB nemo theme header and footer styles
-.nemo {
-  @import "module/nemo.less";
-  // and a shim to override some things
-  @import "module/nemo-shim.less";
-}
+// import cfgov-refresh header and footer styles
+@import (inline) "../../../node_modules/cfgov-sheer-templates/static/css/header.css";
+@import (inline) "../../../node_modules/cfgov-sheer-templates/static/css/footer.css";
 
 @import "module/bootstrap-tooltips.less";
 @import "../../vendor/bootstrap/tooltip.less";

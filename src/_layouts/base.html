@@ -42,17 +42,19 @@
     <script src="{{ url_for('static', filename='js/lte-ie8.js') }}"></script>
 <![endif]-->
 
-    <script>
-        // Confirm availability of JS and remove no-js class from html
-        var docElement = document.documentElement;
-        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+{# Customized Modernizr build that includes html5shiv.
+   Built via gulp-modernizer in the cfgov-refresh `scripts.js` task. #}
+<script src="{{ static('js/modernizr.min.js') }}"></script>
 
-        // H5BP's Asynchronous Google Analytics snippet.
-        var _gaq=[['_setAccount','UA-20466645-3'],['_setDomainName', '.consumerfinance.gov'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+<!--[if lt IE 9]>
+<script>
+    // If in IE8 reverse no-js/js class change made by modernizr.
+    var docElement = document.documentElement;
+    docElement.className = docElement.className.replace( /(^|\s)js(\s|$)/, '$1no-js$2' );
+</script>
+<![endif]-->
+
+<!--[if IE 9]><script src="{{ static('js/ie/common.ie.js') }}"></script><![endif]-->
 
 </head>
 
@@ -67,7 +69,7 @@
       })(window,document,'script','dataLayer','GTM-KMMLRS');</script>
     <!-- End Google Tag Manager -->
 
-{% include "nemo_header.html" %}
+{% include "header.html" %}
 
   <!-- PRIMARY CONTENT -->
   <div id="primary-content" tabindex="0">
@@ -78,8 +80,7 @@
   <!-- /PRIMARY CONTENT -->
 
 
-{% include "nemo_subnav.html" %}
-{% include "nemo_footer.html" %}
+{% include "footer.html" %}
 
 <!-- Common js -->
 <script src="{{ url_for('static', filename='js/main.js') }}?v5"></script>
