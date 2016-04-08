@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.4.0] - 2016-04-08
+### Changed
+- Change to cfgov-refresh header and footer
+
 ## [1.3.1] - 2015-12-21
 ### Changed
 - Update Browser Tests for 2016 county limits data
