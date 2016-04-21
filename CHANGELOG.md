@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.4.1] - 2016-04-21
+### Changed
+- Update cfgov-sheer-templates to get skip link styles and mega menu fix,
+  among other things
+
 ## [1.4.0] - 2016-04-08
 ### Changed
 - Change to cfgov-refresh header and footer
@@ -174,7 +179,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/cfpb/owning-a-home/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/cfpb/owning-a-home/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/cfpb/owning-a-home/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/cfpb/owning-a-home/compare/v1.2.5...v1.3.0
