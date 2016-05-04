@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+### Changed
+- Updated the email signup to use the same Gov Delivery processor as cfgov-refresh
 
 ## [1.4.1] - 2016-04-21
 ### Changed
