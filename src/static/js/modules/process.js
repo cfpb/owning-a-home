@@ -1,5 +1,6 @@
 var $ = require('jquery');
-require('./secondary-nav');
+require('../../vendor/jquery.easing/jquery.easing.js');
+require('../../vendor/cf-expandables/cf-expandables.js');
 
 function jumpToAnchorLink() {
   // check for hash value - hash is first priority

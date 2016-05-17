@@ -4,7 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 ### Changed
-- Updated the email signup to use the same Gov Delivery processor as cfgov-refresh
+
+## [1.5.0] - 2016-05-17
+### Fixed
+- Fix owning a home project version in package.json.
+
+### Changed
+- Updated the email signup to use the same Gov Delivery processor as cfgov-refresh.
+- Update cfgov-sheer-templates to get print styles.
 
 ## [1.4.1] - 2016-04-21
 ### Changed
