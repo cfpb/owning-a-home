@@ -1,12 +1,12 @@
 /* ==========================================================================
-   Capital Framework
+   Owning a Home
    Master LESS File
    ========================================================================== */
 
-// import Normalize before all other LESS/CSS
+// Import Normalize before all other LESS/CSS.
 @import (less) "../../vendor/normalize-css/normalize.css";
 
-// import combined CF component LESS
+// Import combined CF component LESS.
 @import "../../vendor/cf-concat/cf.less";
 
 // Import the brand color palette.
@@ -15,14 +15,14 @@
 // Override the Capital Framework theme variables with colors from the brand color palette.
 @import (less) "cf-theme-overrides.less";
 
-// import cfgov-refresh header and footer styles
+// Import cfgov-refresh on-demand atomic component styles.
 @import (inline) "../../../node_modules/cfgov-sheer-templates/static/css/header.css";
 @import (inline) "../../../node_modules/cfgov-sheer-templates/static/css/footer.css";
 
+// Import other modules.
 @import "module/bootstrap-tooltips.less";
 @import "../../vendor/bootstrap/tooltip.less";
 
-// import other modules
 @import "module/mixins.less";
 @import "module/typography.less";
 @import "module/layout.less";
@@ -33,7 +33,6 @@
 @import "module/explore-rates.less";
 @import "module/prepare-worksheets.less";
 @import "module/hero.less";
-@import "module/nav.less";
 @import "module/forms.less";
 @import "module/tab.less";
 @import "module/form-explainer.less";

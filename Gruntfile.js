@@ -282,7 +282,7 @@ module.exports = function(grunt) {
             cwd: 'node_modules/cfgov-sheer-templates',
             src: [
               // Template files
-              "_*/*",
+              "_*/**/*",
               // Head scripts
               "static/js/*"
             ],

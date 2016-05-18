@@ -5,7 +5,8 @@ var _model = require( './worksheet-model' );
 var _worksheet = require( './worksheet-controller' );
 var config = require( './worksheet-config' );
 var Handlebars = require('hbsfy/runtime');
-require('../secondary-nav');
+require('../../../vendor/jquery.easing/jquery.easing.js');
+require('../../../vendor/cf-expandables/cf-expandables.js');
 
 // DOM references.
 var _worksheetsDOM = document.querySelector('.page-contents');
