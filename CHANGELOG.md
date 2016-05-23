@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 ### Changed
 
+## [1.5.1] - 2016-05-23
+### Changed
+- Updated cfgov-sheer-templates dependency to get updated header JavaScript.
+
 ## [1.5.0] - 2016-05-17
 ### Fixed
 - Fix owning a home project version in package.json.
