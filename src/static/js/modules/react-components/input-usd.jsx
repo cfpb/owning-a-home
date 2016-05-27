@@ -1,12 +1,12 @@
 var React = require('react');
 var formatUSD = require('format-usd');
 var positive = require('stay-positive');
-var FormattedNumericInput = require('./formatted-numeric-input.jsx');
+var NumericInput = require('./numeric-input.jsx');
 
 
 /**
 * InputUSD.
-* Returns FormattedNumericInput, passing it a usd formatter.
+* Returns NumericInput, passing it a usd formatter.
 *
 */
 var InputUSD = React.createClass({
@@ -20,19 +20,19 @@ var InputUSD = React.createClass({
 
   getDefaultProps: function() {
     return {
-      decimalPlaces: 0
+      decimalPlaces: 2
     };
   },
 
   format: function (val) {
-    // $0 doesn't need decimals
-    var decimalPlaces = (val == 0 || isNaN(val)) ? 0 : this.props.decimalPlaces;
-    return formatUSD(positive(val), {decimalPlaces: decimalPlaces});
+    // $0 doesn't need decimals; don't force decimals where there are none
+    var decimalPlaces = val && val.toString().indexOf(".") !== -1 ? this.props.decimalPlaces : 0;
+    return formatUSD(positive(val) || 0, {decimalPlaces: decimalPlaces});
   },
 
   render: function () {
     return (
-      <FormattedNumericInput {...this.props} formatter={this.format} />
+      <NumericInput {...this.props} blurFormat={this.format} />
     );
   }
 });

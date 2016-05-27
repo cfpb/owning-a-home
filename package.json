@@ -28,6 +28,11 @@
     "postinstall": "grunt vendor"
   },
   "devDependencies": {
+    "babel-cli": "^6.7.7",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
     "browserify": "3.44.2",
     "browserify-shim": "3.4.1",
     "chai": "^1.9.1",
@@ -37,7 +42,7 @@
     "es6-promise": "^2.1.1",
     "factor-bundle": "~2.2.1",
     "flux": "^2.0.1",
-    "grunt": "latest",
+    "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
     "grunt-bower-task": "~0.4.0",
@@ -59,16 +64,21 @@
     "grunt-string-replace": "latest",
     "grunt-usemin": "~2.4.0",
     "istanbul": "^0.3.5",
+    "jsdom": "^6.5.1",
     "load-grunt-config": "^0.13.1",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.18.2",
-    "mocha-jsdom": "^0.2.0",
+    "mocha-jsdom": "^1.0.0",
     "mochify-istanbul": "^2.1.1",
     "object-assign": "^2.0.0",
-    "react": "^0.13.2",
-    "react-templates": "^0.1.14",
-    "react-tools": "~0.13.1",
-    "reactify": "^1.1.0",
+    "react": "^15.0.1",
+    "react-addons": "^0.9.0",
+    "react-addons-test-utils": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-sticky": "^5.0.0",
+    "react-templates": "^0.4.3",
+    "react-tools": "^0.13.3",
+    "reactify": "^1.1.1",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
     "time-grunt": "^1.0.0"
@@ -76,8 +86,8 @@
   "keywords": [],
   "dependencies": {
     "amortize": "0.2.2",
-    "debounce": "0.0.3",
     "date-format": "0.0.2",
+    "debounce": "0.0.3",
     "foreach": "2.0.4",
     "format-usd": "^0.2.0",
     "fuzzy-state-search": "0.1.0",
@@ -91,6 +101,9 @@
     "median": "0.0.2",
     "objectified": "0.4.5",
     "overall-loan-cost": "0.3.4",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-templates": "^0.4.3",
     "stay-positive": "0.3.0",
     "unformat-usd": "0.1.1"
   },
@@ -114,8 +127,7 @@
     "highcharts": "./src/static/vendor/highcharts-release/highcharts.js",
     "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
-    "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
-    "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx"
+    "tooltips": "./src/static/vendor/bootstrap/tooltip.js"
   },
   "browserify-shim": "./config/shim.js"
 }

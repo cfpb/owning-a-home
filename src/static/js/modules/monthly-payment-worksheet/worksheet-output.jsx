@@ -1,39 +1,41 @@
 var React = require('react');
-var calc = require('./../monthly-payment-calc');
 var OutputUSD = require('./../react-components/output-usd.jsx');
 
 /**
 * WorksheetOutput.
-* Using prop name as key, gets a value from worksheet data 
-* OR runs a calculation (TODO: move calculations out),
-* then displays the value with appropriate format.
+* Displays the value with appropriate format,
+* or a placeholder ('--').
 *
-* Props other than 'prop' and 'data' that are passed in 
+* Props other than 'val' that are passed in 
 * will be passed through to element rendered by component.
 *
 */
 var WorksheetOutput = React.createClass({
   propTypes: {
-    prop: React.PropTypes.string,
-    data: React.PropTypes.object
+    value: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
+    type: React.PropTypes.string
+  },
+  
+  getDefaultProps: function () {
+    return {
+      type: 'usd'
+    }
+  },
+  
+  shouldComponentUpdate: function (nextProps, nextState) {
+    return this.props.value !== nextProps.value;
   },
 
   render: function() {
-    var {data, prop, ...other} = this.props;
-    var val, element;
-    if (data.hasOwnProperty(prop)) {
-      val = data[prop];
-    } else if (typeof calc[prop] === 'function') {
-      val = calc[prop](data);
-    }
-
-    if (prop === 'percentageIncomeAvailable') {
-      element = (<span {...other}>{val || 0}%</span>)
-    } else {
-      element = (<OutputUSD value={val} {...other}/>)
-    }
-
-    return element;
+    var {value, placeholder, ...other} = this.props;
+    if (!value && this.props.hasOwnProperty('placeholder')) {
+      return (<span {...other}>{placeholder}</span>);
+    } else if (this.props.type === 'usd') {
+      return (<OutputUSD value={value} {...other}/>);
+    } else if (this.props.type === 'percent') {
+      return (<span {...other}>{this.props.value + '%'}</span>);
+    }  
   }
 });
 

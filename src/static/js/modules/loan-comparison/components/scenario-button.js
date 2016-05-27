@@ -1,5 +1,5 @@
 var React = require('react');
-var CFButton = require('cf-button');
+//var CFButton = require('cf-button');
 
 var ScenarioButton = React.createClass({
     render: function () {
@@ -8,7 +8,8 @@ var ScenarioButton = React.createClass({
             className += ' u-hide-on-mobile';
         }
         return (
-            <CFButton config="primary" onClick={this.props.handleChange} className={className} disabled={!this.props.scenario}>{this.props.title}</CFButton>
+            
+            <button config="primary" onClick={this.props.handleChange} className={className} disabled={!this.props.scenario}>{this.props.title}</button>
         )
     }
 })

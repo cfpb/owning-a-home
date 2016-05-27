@@ -119,12 +119,12 @@ module.exports = function(grunt) {
           './src/static/js/modules/closing-disclosure.js',
           './src/static/js/modules/process.js',
           './src/static/js/modules/monthly-payment-worksheet.js',
-          //'./src/static/js/modules/loan-comparison.js',
+          './src/static/js/modules/loan-comparison.js',
           //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
         ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy', ['reactify', {harmony: true}]],
+          transform: ['browserify-shim', 'hbsfy', ['babelify', { compact: false, presets: ["react", "es2015"] }]],
           plugin: [
             ['factor-bundle', {
               entries: [
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
                 './src/static/js/modules/closing-disclosure.js',
                 './src/static/js/modules/process.js',
                 './src/static/js/modules/monthly-payment-worksheet.js',
-                //'./src/static/js/modules/loan-comparison.js',
+                './src/static/js/modules/loan-comparison.js',
                 //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
               ],
               o: [
@@ -146,7 +146,7 @@ module.exports = function(grunt) {
                 'dist/static/js/closing-disclosure.js',
                 'dist/static/js/process.js',
                 'dist/static/js/monthly-payment-worksheet.js',
-                //'dist/static/js/loan-comparison.js',
+                'dist/static/js/loan-comparison.js',
                 //'dist/static/js/prepare-worksheets.js'
               ]
             }]
@@ -234,7 +234,7 @@ module.exports = function(grunt) {
             'rates.js',
             'loan-options.js',
             'explore-rates.js',
-            //'loan-comparison.js',
+            'loan-comparison.js',
             //'prepare-worksheets.js',
             'process.js',
             'home.js',
@@ -414,7 +414,7 @@ module.exports = function(grunt) {
         src: ['test/js/*.jsx'], // specifying file patterns works as well
         options: {
           coverageFolder: 'test/coverage',
-          mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
+          mochaOptions: ['--compilers', 'jsx:babel-register'], // any extra options
           istanbulOptions: ['--harmony','--handle-sigint'],
           reportFormats: ['cobertura','lcov']
         }

@@ -6,7 +6,9 @@
 {% block title %}Owning a Home: Monthly Payment Worksheet{% endblock title %}
 
 {% block content %}
-
+<script>
+ window.staticURL = {{url_for('static', filename='')}};
+</script>
 <div id="monthly-payment" class="monthly-payment" role="main">
   <section class="content_wrapper content_wrapper__medium">
     <div class="content_main u-pb0">
@@ -17,7 +19,7 @@
         </a>
       </div>
       <div class="block block__flush-top monthly-payment_intro">
-        <div class="content-l content-l__large-gutters">
+        <div class="content-l">
           <div class="content-l_col content-l_col-2-3">
             <div class="indented-content">
               <h1>Define what is affordable for you.</h1>

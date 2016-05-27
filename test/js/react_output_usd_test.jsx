@@ -4,10 +4,10 @@ describe('OutputUSD component tests', function () {
   require('mocha-jsdom')();
   
   var React = require('react');
-  var ReactAddons = require('react/addons');
-  var TestUtils = React.addons.TestUtils;
+  var ReactDOM = require('react-dom');
+  var TestUtils = require('react-addons-test-utils');
   var OutputUSD = require('../../src/static/js/modules/react-components/output-usd.jsx');
-  var componentEl;
+  var sandbox, componentEl;
 
   function setupComponent (props) {
     var renderedComponent = TestUtils.renderIntoDocument(
@@ -23,46 +23,50 @@ describe('OutputUSD component tests', function () {
     
     it('should display $0 when no value is passed in', function() {
       setupComponent();
-      expect(componentEl.getDOMNode().textContent).to.equal('$0');
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$0');
     });
 
     it('should format and display value passed in', function() {
       setupComponent({value: '2'})
-      expect(componentEl.getDOMNode().textContent).to.equal('$2');
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$2');
     });
-
-    it('should default to showing zero decimal places, rounding down to the next integer when the decimal value is less than .5', function() {
+    
+    it('should default to showing 2 decimal places', function() {
       setupComponent({value: '2.23'})
-      expect(componentEl.getDOMNode().textContent).to.equal('$2');
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$2.23');
     });
-
-    it('should default to showing zero decimal places, rounding up to the next integer when the decimal value is greater than .5', function() {
-      setupComponent({value: '2.73'})
-      expect(componentEl.getDOMNode().textContent).to.equal('$3');
+    
+    it('should default to showing 2 decimal places, rounded, when more than 2 decimal places are represented in value passed in', function() {
+      setupComponent({value: '2.2378'})
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$2.24');
     });
 
     it('should convert non-numeric values to 0', function() {
       setupComponent({value: 'asdf'})
-      expect(componentEl.getDOMNode().textContent).to.equal('$0');
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$0');
+    });
+    
+    it('should show no decimal places when value is 0', function() {
+      setupComponent({value: '0'})
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$0');
+    });
+    
+    it('should show no decimal places when value is converted to 0', function() {
+      setupComponent({value: 'asdf'})
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$0');
     });
 
   });
 
   describe('decimalPlaces prop test', function() {
-
-    it('should show decimal places accordingly if decimalPlaces optional prop is passed in', function() {
-      setupComponent({value: '2.23', decimalPlaces: 2})
-      expect(componentEl.getDOMNode().textContent).to.equal('$2.23');
+    it('should show zero decimal places when zero is passed in, rounding down to the next integer when the decimal value is less than .5', function() {
+      setupComponent({value: '2.23', decimalPlaces: 0})
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$2');
     });
 
-    it('should show no decimal places when value is 0', function() {
-      setupComponent({value: '0', decimalPlaces: 2})
-      expect(componentEl.getDOMNode().textContent).to.equal('$0');
-    });
-
-    it('should show no decimal places when value is converted to 0', function() {
-      setupComponent({value: 'asdf', decimalPlaces: 2})
-      expect(componentEl.getDOMNode().textContent).to.equal('$0');
+    it('should show zero decimal places when zero is passed in, rounding up to the next integer when the decimal value is greater than .5', function() {
+      setupComponent({value: '2.73', decimalPlaces: 0})
+      expect(ReactDOM.findDOMNode(componentEl).textContent).to.equal('$3');
     });
 
   });
@@ -71,7 +75,7 @@ describe('OutputUSD component tests', function () {
 
     it('should pass through additional props that are passed in', function() {
       setupComponent({value: '2.23', className: 'test-class'})
-      expect(componentEl.getDOMNode().className).to.equal('test-class');
+      expect(ReactDOM.findDOMNode(componentEl).className).to.equal('test-class');
     });
 
   });

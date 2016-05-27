@@ -20,13 +20,13 @@ var OutputUSD = React.createClass({
 
   getDefaultProps: function() {
     return {
-      decimalPlaces: 0
+      decimalPlaces: 2
     };
   },
 
   format: function (val) {
     // $0 doesn't need decimals
-    var decimalPlaces = (val == 0 || isNaN(val)) ? 0 : this.props.decimalPlaces;
+    var decimalPlaces = val && val.toString().indexOf(".") !== -1 ? this.props.decimalPlaces : 0;
     val = formatUSD(val || 0, {decimalPlaces: decimalPlaces});
     return val;
   },
