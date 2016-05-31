@@ -279,6 +279,17 @@ module.exports = function(grunt) {
         [
           {
             expand: true,
+            cwd: 'node_modules/cfgov-sheer-templates',
+            src: [
+              // Template files
+              "_*/**/*",
+              // Head scripts
+              "static/js/*"
+            ],
+            dest: 'dist/'
+          },
+          {
+            expand: true,
             cwd: 'src',
             src: [
               // move html & template files new template folders need to be added here
@@ -293,6 +304,17 @@ module.exports = function(grunt) {
       release: {
         files:
         [
+          {
+            expand: true,
+            cwd: 'node_modules/cfgov-sheer-templates',
+            src: [
+              // Template files
+              "_*/*",
+              // Head scripts
+              "static/js/*"
+            ],
+            dest: 'dist/'
+          },
           {
             expand: true,
             cwd: 'src',
@@ -402,7 +424,7 @@ module.exports = function(grunt) {
           harmony: true,
           coverageFolder: 'test/coverage',
           coverage: true,
-          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],          
+          excludes: ['src/static/vendor/**/*', 'src/static/js/modules/prepare-worksheets/**/*'],
           reportFormats: ['cobertura','lcov'],
           check: {
             lines: 50,

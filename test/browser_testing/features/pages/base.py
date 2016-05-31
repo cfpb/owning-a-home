@@ -31,7 +31,7 @@ class Base(object):
     def __init__(self, logger, results_folder, base_url=r'http://localhost/',
                  driver=None, driver_wait=default_driver_wait, delay_secs=0):
         if driver is None:
-            assert 'Driver is invalid or was not provided.'
+            raise RuntimeError('Driver is invalid or was not provided.')
 
         self.driver_wait = driver_wait
         self.base_url = base_url

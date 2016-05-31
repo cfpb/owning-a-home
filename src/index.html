@@ -3,7 +3,7 @@
 
 {% block title %}Owning a Home{% endblock title %}
 
-{% block content %}    
+{% block content %}
 <main class="index content content__2-1 content__bleedbar" id="main" role="main">
 
     <section class="content_hero">
@@ -163,19 +163,41 @@
 
         <aside class="content_sidebar">
             <!-- STAY TUNED -->
-          <section class="block u-mt0">
-          <header class="tabbed-header tabbed-pad-top">
-            <h3 class="subhead tabbed-heading">Stay tuned</h3>
-          </header>
-          <p>Sign up for our email list, and we’ll let you know when we add more tools and resources.</p>
+          <section class="block">
+            <div class="o-email-signup">
+              <h2 class="header-slug">
+                <span class="header-slug_inner">
+                  Stay tuned
+                </span>
+              </h2>
 
-          <form class="signup2 inline-signup" id="signup" action="https://public.govdelivery.com/service/process_ss.xml" method="GET" data-thanks="Thanks, we’ll be in touch!">
-            <input type="hidden" name="code" value="USCFPB_46">
-            <label for="email" class="u-visually-hidden">Email address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address">
-            <fieldset class="submit_btn"><p><button id="beta-btn" class="btn">Sign up</button></p></fieldset>
-          </form>
-        </section>
+              <form id="{{ ('o-email-signup_' ~ range(1, 100) | random) }}"
+                    action="/subscriptions/new/"
+                    method="POST"
+                    enctype="application/x-www-form-urlencoded">
+                <p>
+                  Sign up for our email list, and we’ll let you know when we add more tools and resources.
+                </p>
+
+                <div class="m-form-field-with-button">
+
+                  <div class="form-group">
+                    <label for="o-email-signup_address">
+                        <b>Email address</b>
+                        (required)
+                    </label>
+
+                    <input id="o-email-signup_address" type="email" placeholder="example@mail.com" name="email" class="m-form-field-with-button_field" required>
+                  </div>
+                  <input class="u-mt10 btn btn__full" type="submit" value="Sign up">
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="code" value="USCFPB_46">
+                </div>
+              </form>
+            </div>
+          </section>
 
           <!-- RELATED LINKS -->
           <section class="block">

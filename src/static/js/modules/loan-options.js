@@ -5,7 +5,8 @@ var interest = require('./total-interest-calc');
 var formatUSD = require('format-usd');
 var unformatUSD = require('unformat-usd')
 require('./local-storage-polyfill');
-require('./secondary-nav');
+require('../../vendor/jquery.easing/jquery.easing.js');
+require('../../vendor/cf-expandables/cf-expandables.js');
 require('jquery.scrollto');
 
 var $timelineLinks = $('.term-timeline a');
