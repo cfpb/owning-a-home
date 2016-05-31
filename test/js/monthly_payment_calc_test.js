@@ -1,4 +1,5 @@
 var monthly = require('../../src/static/js/modules/monthly-payment-worksheet/monthly-payment-calc.js');
+var assign = require('object-assign');
 
 var chai = require('chai');
 var expect = chai.expect;
@@ -58,7 +59,11 @@ describe('Monthly payment calculations', function() {
   describe('Calculates available housing funds', function() {
 
     it('Positive test - should calculate available housing funds', function() {
-      expect(monthly.availableHousingFunds(data)).to.equal(2100);
+      var obj = {
+        takeHomeIncomeTotal: 6500,
+        nonHousingExpenses: 4400
+      };
+      expect(monthly.availableHousingFunds(obj)).to.equal(2100);
     });
 
   });
@@ -66,7 +71,11 @@ describe('Monthly payment calculations', function() {
   describe('Calculates percentage of income available for housing expenses', function() {
 
     it('Positive test - should calculate percentage income available', function() {
-      expect(monthly.percentageIncomeAvailable(data)).to.equal(23);
+      var obj = {
+        preTaxIncomeTotal: 9000,
+        availableHousingFunds: 2100
+      }
+      expect(monthly.percentageIncomeAvailable(obj)).to.equal(23);
     });
 
   });

@@ -28,42 +28,42 @@ describe('House price calculations', function() {
     var validScenarios = [
       {
         opts: defaults,
-        result: {loanAmount: 299916, housePrice: 374894, insurance: 83, taxes: 625, downpayment: 74979},
+        result: {loanAmount: 299916, housePrice: 374894, monthlyInsurance: 83, monthlyTaxes: 625, downpayment: 74979},
         description: 'valid scenario: expect accurate results when valid number values are passed in, including downpayment as percent'
       },
       {
         opts: {monthlyPayment: 2140, term: 30, rate: 4, tax: 2, downpayment: 74979, insurance: 1000},
-        result: {loanAmount: 299916, housePrice: 374895, insurance: 83, taxes: 625, downpayment: 74979},
+        result: {loanAmount: 299916, housePrice: 374895, monthlyInsurance: 83, monthlyTaxes: 625, downpayment: 74979},
         description: 'valid scenario: expect accurate results when valid number values are passed in, including downpayment as value'
       },
       {
         opts: {monthlyPayment: '2140', term: '30', rate: '4', tax: '2', downpayment: '20', insurance: '1000'},
-        result: {loanAmount: 299916, housePrice: 374894, insurance: 83, taxes: 625, downpayment: 74979},
+        result: {loanAmount: 299916, housePrice: 374894, monthlyInsurance: 83, monthlyTaxes: 625, downpayment: 74979},
         description: 'valid scenario: expect accurate results when valid numeric strings are passed in'
       },
       {
         opts: {monthlyPayment: 2140, term: 30},
-        result: {loanAmount: 770400, housePrice: 770400, insurance: 0, taxes: 0, downpayment: 0},
+        result: {loanAmount: 770400, housePrice: 770400, monthlyInsurance: 0, monthlyTaxes: 0, downpayment: 0},
         description: 'valid scenario: expect accurate results when only monthly payment & term are passed in'
       },
       {
         opts: {monthlyPayment: 2140, term: 30, rate: 4, downpayment: 20, insurance: 1000},
-        result: {loanAmount: 430792, housePrice: 538490, insurance: 83, taxes: 0, downpayment: 107698},
+        result: {loanAmount: 430792, housePrice: 538490, monthlyInsurance: 83, monthlyTaxes: 0, downpayment: 107698},
         description: 'valid scenario: expect accurate results when tax rate is missing from inputs'
       },
       {
         opts: {monthlyPayment: 2140, term: 30, rate: 4, tax: 2, downpayment: 0, insurance: 1000},
-        result: {loanAmount: 319318, housePrice: 319318, insurance: 83, taxes: 532, downpayment: 0},
+        result: {loanAmount: 319318, housePrice: 319318, monthlyInsurance: 83, monthlyTaxes: 532, downpayment: 0},
         description: 'valid scenario: expect accurate results when downpayment is missing from inputs'
       },
       {
         opts: {monthlyPayment: 2140, term: 30, rate: 4, tax: 2, downpayment: 20, insurance: 0},
-        result: {loanAmount: 312068, housePrice: 390085, insurance: 0, taxes: 650, downpayment: 78017},
+        result: {loanAmount: 312068, housePrice: 390085, monthlyInsurance: 0, monthlyTaxes: 650, downpayment: 78017},
         description: 'valid scenario: expect accurate results when insurance is missing from inputs'
       },
       {
         opts: {monthlyPayment: 2140, term: 30, tax: 2, downpayment: 20, insurance: 1000},
-        result: {loanAmount: 423086, housePrice: 528857, insurance: 83, taxes: 881, downpayment: 105771},
+        result: {loanAmount: 423086, housePrice: 528857, monthlyInsurance: 83, monthlyTaxes: 881, downpayment: 105771},
         description: 'valid scenario: expect accurate results when interest rate is missing from inputs'
       }
     ];
