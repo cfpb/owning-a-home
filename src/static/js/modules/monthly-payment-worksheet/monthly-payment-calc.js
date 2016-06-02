@@ -7,27 +7,27 @@ var loanDataDefaults = {loanAmount: 0, housePrice: 0, downpayment: 0, monthlyTax
 var monthly = {};
 
 monthly.preTaxIncomeTotal = function (data) {
-  return utils.sum([data.preTaxIncome, data.preTaxIncomeCB]);
+  return utils.sum(data.preTaxIncome, data.preTaxIncomeCB);
 }
 
 monthly.preTaxIncomeMonthly = function (data) {
-  return utils.divide(data.preTaxIncomeTotal, 12);
+  return Math.round(utils.divide(data.preTaxIncomeTotal, 12));
 }
 
 monthly.takeHomeIncomeTotal = function (data) {
-  return utils.sum([data.takeHomeIncome, data.takeHomeIncomeCB]);
+  return utils.sum(data.takeHomeIncome, data.takeHomeIncomeCB);
 }
 
 monthly.spendingAndSavings = function (data) {
-  return utils.sum([data.rent, data.utilities, data.debtPayments, data.livingExpenses, data.savings]);
+  return utils.sum(data.rent, data.utilities, data.debtPayments, data.livingExpenses, data.savings);
 }
 
 monthly.newHomeownershipExpenses = function (data) {
-  return utils.sum([data.condoHOA, data.homeMaintenance]);
+  return utils.sum(data.condoHOA, data.homeMaintenance);
 }
 
 monthly.nonHousingExpenses = function (data) {
-  return utils.sum([data.debtPayments, data.livingExpenses, data.futureUtilities, data.homeMaintenance, data.futureSavings]);
+  return utils.sum(data.debtPayments, data.livingExpenses, data.futureUtilities, data.homeMaintenance, data.futureSavings);
 }
 
 monthly.availableHousingFunds = function (data) {
@@ -41,7 +41,7 @@ monthly.percentageIncomeAvailable = function (data) {
 }
 
 monthly.defaultPreferredPayment = function (data) {
-  return utils.multiply(.8, data.availableHousingFunds);
+  return Math.round(utils.multiply(.8, data.availableHousingFunds));
 }
 
 monthly.preferredPayment = function (data) {
@@ -79,13 +79,12 @@ monthly.loanCalculations = function (data) {
       });
     } catch(e) {
     }  
-    return results; 
   } 
-  return assign({}, loanDataDefaults);
+  return results ? results : assign({}, loanDataDefaults);
 }
 
 monthly.taxesAndInsurance = function (data) {
-  return utils.sum([data.monthlyInsurance, data.monthlyTaxes]);
+  return utils.sum(data.monthlyInsurance, data.monthlyTaxes);
 }
 
 monthly.principalAndInterest = function (data) {
