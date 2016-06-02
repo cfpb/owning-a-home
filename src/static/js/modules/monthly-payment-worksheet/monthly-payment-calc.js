@@ -11,10 +11,7 @@ monthly.preTaxIncomeTotal = function (data) {
 }
 
 monthly.preTaxIncomeMonthly = function (data) {
-  var totalIncome = monthly.preTaxIncomeTotal(data);
-  if (totalIncome) {
-    return totalIncome / 12;
-  }
+  return utils.divide(data.preTaxIncomeTotal, 12);
 }
 
 monthly.takeHomeIncomeTotal = function (data) {
@@ -34,50 +31,38 @@ monthly.nonHousingExpenses = function (data) {
 }
 
 monthly.availableHousingFunds = function (data) {
-  var funds = data.takeHomeIncomeTotal - data.nonHousingExpenses;
-  return funds > 0 ? funds : 0;
+  return utils.subtract(data.takeHomeIncomeTotal, data.nonHousingExpenses);
 }
 
 monthly.percentageIncomeAvailable = function (data) {
   if (data.preTaxIncomeTotal  && data.preTaxIncomeTotal > data.availableHousingFunds) {
-    return Math.round((data.availableHousingFunds/data.preTaxIncomeTotal) * 100);
+    return Math.round(utils.divide(data.availableHousingFunds, data.preTaxIncomeTotal) * 100);
   }
 }
 
 monthly.defaultPreferredPayment = function (data) {
-  if (data.availableHousingFunds) {
-    return .8 * data.availableHousingFunds;
-  }
+  return utils.multiply(.8, data.availableHousingFunds);
 }
 
 monthly.preferredPayment = function (data) {
   if (data.availableHousingFunds && data.availableHousingFunds > data.otherExpenses) {
-    return data.availableHousingFunds - data.otherExpenses;
+    return utils.subtract(data.availableHousingFunds, data.otherExpenses);
   }
 }
 
 monthly.otherExpenses = function (data) {
   if (data.availableHousingFunds && data.availableHousingFunds > data.preferredPayment) {
-    return data.availableHousingFunds - data.preferredPayment;
+    return utils.subtract(data.availableHousingFunds, data.preferredPayment);
   }
 }
 
 monthly.preferredPaymentPercentage = function (data) {
-  var preferredPayment = monthly.preferredPayment(data);
-  var preTaxIncomeMonthly = monthly.preTaxIncomeMonthly(data);
-  if (preTaxIncomeMonthly) {
-    if (preferredPayment) {
-      return Math.round((preferredPayment / preTaxIncomeMonthly) * 100);
-    } else {
-      return 0;
-    }
-  }
+  return Math.round(utils.divide(data.preferredPayment, data.preTaxIncomeMonthly) * 100);
 }
 
 monthly.estimatedMonthlyPayment = function (data) {
-  if (data.preferredPayment && data.preferredPayment > data.condoHOA) {
-    return data.preferredPayment - data.condoHOA;
-  }
+  var payment = utils.subtract(data.preferredPayment, data.condoHOA);
+  return payment > 0 ? payment : 0;
 }
 
 monthly.loanCalculations = function (data) {
@@ -85,14 +70,15 @@ monthly.loanCalculations = function (data) {
    var results;
     try { 
       results = housePriceCalculations({
-        monthlyPayment: data.estimatedMonthlyPayment, 
+        monthlyPayment: utils.cleanNumber(data.estimatedMonthlyPayment), 
         term: 30, 
-        rate: data.interestRate, 
-        tax: data.propertyTax, 
+        rate: utils.cleanNumber(data.interestRate), 
+        tax: utils.cleanNumber(data.propertyTax), 
         downpayment: 20, 
-        insurance: data.homeownersInsurance
+        insurance: utils.cleanNumber(data.homeownersInsurance)
       });
-    } catch(e) {}  
+    } catch(e) {
+    }  
     return results; 
   } 
   return assign({}, loanDataDefaults);
@@ -104,7 +90,7 @@ monthly.taxesAndInsurance = function (data) {
 
 monthly.principalAndInterest = function (data) {
   if (data.estimatedMonthlyPayment && data.estimatedMonthlyPayment > data.taxesAndInsurance ) {
-    return data.estimatedMonthlyPayment - data.taxesAndInsurance;
+    return utils.subtract(data.estimatedMonthlyPayment, data.taxesAndInsurance);
   }
 }
 

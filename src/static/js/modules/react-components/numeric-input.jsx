@@ -4,6 +4,12 @@ var Input = require('./input.jsx');
 var numRegex = /[^0-9.,]+/g; // allow commas
 var numRegexStrict = /[^0-9.]+/g; // no commas
 
+function numberWithCommas (x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
 /**
 * NumericInput.
 * Enforces numeric values, screening out non-numeric characters.
@@ -29,8 +35,7 @@ var NumericInput = React.createClass({
   
   getDefaultProps: function() {
     return {
-      numeric: false, 
-      localeString: 'en'
+      numeric: false
     };
   },
 
@@ -51,12 +56,13 @@ var NumericInput = React.createClass({
   },
   
   focus: function (val) {
+    
     if (!this.props.numeric) {
       // enforce numeric
       val = this.strip(val, true);
       
       // remove zeroes for easier editing
-      if (!val) {
+      if (!Number(val)) {
         return '';
       }
       
@@ -69,10 +75,12 @@ var NumericInput = React.createClass({
         }
       }
 
-      // format according to localeString param
+      // format with commas
+      // TODO: make this optional
       if (!this.props.numeric) {
-        val = Number(val).toLocaleString(this.props.localeString);
+        val = numberWithCommas(val);
       }
+      
     }
    
     return val;

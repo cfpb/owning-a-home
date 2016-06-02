@@ -57,7 +57,6 @@ var MonthlyPaymentWorksheet = React.createClass({
     },
 
     render: function() {
-      var worksheet = this.state.worksheet || {};
       return (
         <div className="monthly-payment_worksheet block">
           <section className="monthly-payment_worksheet">
