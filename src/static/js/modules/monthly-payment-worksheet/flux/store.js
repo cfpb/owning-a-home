@@ -11,11 +11,10 @@ var MPWStore = assign({}, EventEmitter.prototype, {
     
     
     init: function() {
+      this.worksheet = {};
       var data = localStorage.getItem('monthlyPaymentWorksheet');
       if (typeof data !== "undefined" && data !== "undefined") {
-        this.worksheet = JSON.parse(data);
-      } else {
-        this.worksheet = {};
+        this.worksheet = JSON.parse(data) || {};
       }
       setInterval(function () {
         localStorage.setItem('monthlyPaymentWorksheet', JSON.stringify(MPWStore.worksheet));
@@ -24,6 +23,7 @@ var MPWStore = assign({}, EventEmitter.prototype, {
       window.onbeforeunload = function() {
         localStorage.setItem('monthlyPaymentWorksheet', JSON.stringify(MPWStore.worksheet));
       };
+      
       
     },
     
