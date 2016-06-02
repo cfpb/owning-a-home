@@ -9,12 +9,13 @@ var CHANGE_EVENT = 'change';
 
 var MPWStore = assign({}, EventEmitter.prototype, {
     
-    worksheet: {},
     
     init: function() {
       var data = localStorage.getItem('monthlyPaymentWorksheet');
       if (typeof data !== "undefined" && data !== "undefined") {
-        MPWStore.worksheet = JSON.parse(data);
+        this.worksheet = JSON.parse(data);
+      } else {
+        this.worksheet = {};
       }
       setInterval(function () {
         localStorage.setItem('monthlyPaymentWorksheet', JSON.stringify(MPWStore.worksheet));
@@ -23,16 +24,17 @@ var MPWStore = assign({}, EventEmitter.prototype, {
       window.onbeforeunload = function() {
         localStorage.setItem('monthlyPaymentWorksheet', JSON.stringify(MPWStore.worksheet));
       };
+      
     },
     
     getWorksheet: function () {
-        return MPWStore.worksheet;
+        return this.worksheet;
     },
     
     update: function (prop, val) {
         val = utils.cleanNumber(val);
-        MPWStore.worksheet[prop] = val;
-        MPWStore.calculations(prop);
+        this.worksheet[prop] = val;
+        this.calculations(prop);
         // TODO: debounce
         // update local storage
         
@@ -41,7 +43,7 @@ var MPWStore = assign({}, EventEmitter.prototype, {
     runCalcs: function (arr) {
       for (var i = 0; i < arr.length; i++) {
         var prop = arr[i]; 
-        MPWStore.worksheet[prop] = calc[prop](MPWStore.worksheet);
+        this.worksheet[prop] = calc[prop](this.worksheet);
       }
     },
     
@@ -49,31 +51,28 @@ var MPWStore = assign({}, EventEmitter.prototype, {
       // NOTE: order of calculations is important
       
       // initial calcs
-      MPWStore.runCalcs(['preTaxIncomeTotal', 'preTaxIncomeMonthly', 'takeHomeIncomeTotal', 'spendingAndSavings', 'newHomeownershipExpenses', 'nonHousingExpenses', 'availableHousingFunds', 'percentageIncomeAvailable']);
+      this.runCalcs(['preTaxIncomeTotal', 'preTaxIncomeMonthly', 'takeHomeIncomeTotal', 'spendingAndSavings', 'newHomeownershipExpenses', 'nonHousingExpenses', 'availableHousingFunds', 'percentageIncomeAvailable']);
       
       // preferredPayment & otherExpenses
-      if (prop === 'takeHomeIncome' || prop === 'takeHomeIncomeCB') {
-        MPWStore.worksheet.preferredPayment = calc.defaultPreferredPayment(MPWStore.worksheet);
-        MPWStore.worksheet.otherExpenses = calc.otherExpenses(MPWStore.worksheet);
+      if (prop === 'takeHomeIncome' || prop === 'takeHomeIncomeCB' || prop ===  'debtPayments' || prop === 'livingExpenses' || prop === 'futureUtilities' || prop === 'homeMaintenance' || prop ===  'futureSavings') {
+        this.worksheet.preferredPayment = calc.defaultPreferredPayment(this.worksheet);
+        this.worksheet.otherExpenses = calc.otherExpenses(this.worksheet);
       } else if (prop === 'preferredPayment') {
-        MPWStore.worksheet.otherExpenses = calc.otherExpenses(MPWStore.worksheet);
+        this.worksheet.otherExpenses = calc.otherExpenses(this.worksheet);
       } else if (prop === 'otherExpenses') {
-        MPWStore.worksheet.preferredPayment = calc.preferredPayment(MPWStore.worksheet);
+        this.worksheet.preferredPayment = calc.preferredPayment(this.worksheet);
       }      
       
       // preferredPayment derived calcs
-      MPWStore.runCalcs(['preferredPaymentPercentage', 'estimatedMonthlyPayment']);
+      this.runCalcs(['preferredPaymentPercentage', 'estimatedMonthlyPayment']);
       
       // loan amount calcs
-      MPWStore.worksheet = assign(MPWStore.worksheet, calc.loanCalculations(MPWStore.worksheet));
-      MPWStore.worksheet.housePrice = utils.roundBy(MPWStore.worksheet.housePrice, 1000);  
-      MPWStore.worksheet.downpayment = utils.roundBy(MPWStore.worksheet.downpayment, 1000);  
-      MPWStore.worksheet.loanAmount = utils.roundBy(MPWStore.worksheet.loanAmount, 1000);
+      this.worksheet = assign(this.worksheet, calc.loanCalculations(this.worksheet));
+      this.worksheet.housePrice = utils.roundBy(this.worksheet.housePrice, 1000);  
+      this.worksheet.downpayment = utils.roundBy(this.worksheet.downpayment, 1000);  
+      this.worksheet.loanAmount = utils.roundBy(this.worksheet.loanAmount, 1000);
       
-      // loan amount derived calcs
-      MPWStore.runCalcs(['taxesAndInsurance', 'principalAndInterest']);
-      
-      // TODO: round stuff
+      this.runCalcs(['taxesAndInsurance', 'principalAndInterest']);
     },
     
     emitChange: function() {

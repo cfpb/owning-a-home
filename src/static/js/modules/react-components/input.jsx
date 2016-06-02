@@ -59,7 +59,7 @@ var Input = React.createClass({
     });
   },
 
-  focus: function () {    
+  focus: function () {  
     this.setState({
       focused: true,
       displayValue: this.format(this.state.value, this.props.focusFormat)
