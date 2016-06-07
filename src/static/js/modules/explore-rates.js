@@ -247,7 +247,6 @@ function renderLoanAmount() {
  * @return {null}
  */
 function updateView() {
-
   chart.startLoading();
 
   // reset view
@@ -255,6 +254,7 @@ function updateView() {
 
   // Check ARM
   checkARM();
+  
 
   var data = {
     labels: [],
@@ -276,6 +276,8 @@ function updateView() {
   // And start a new one.
   if ( +params['loan-amount'] !== 0 ) {
     options['request'] = getData();
+    
+    
 
     // If it succeeds, update the DOM.
     options['request'].done(function( results ) {
@@ -312,6 +314,10 @@ function updateView() {
           data.totalVals.push(+key);
         }
       });
+      
+      
+      
+      
 
       // fade out chart and highlight county if no county is selected
       if ( $('#county').is(':visible') && $('#county').val() === null ) {
@@ -341,6 +347,7 @@ function updateView() {
       updateLanguage( data );
       renderAccessibleData( data );
       renderChart( data );
+      
 
       // Update timestamp
       var _timestamp = results.timestamp;
@@ -358,7 +365,7 @@ function updateView() {
       
       updateComparisons( data );
       renderInterestAmounts();
-
+      
     });
   }
 
@@ -814,7 +821,9 @@ function checkARM() {
  */
 function scoreWarning() {
   $('.rangeslider__handle').addClass('warning');
-  $('#slider-range').after( template.creditAlert );
+  if (!$('.credit-alert').length  > 0) {
+    $('#slider-range').after( template.creditAlert );
+  }
   resultWarning();
   // analytics code for when this event fires
   if (window._gaq) {
@@ -850,9 +859,17 @@ function downPaymentWarning() {
  */
 function removeAlerts() {
   if ($('.result-alert')) {
-    $('#chart, .rangeslider__handle').removeClass('warning');
-    $('.result-alert').remove();
+    $('#chart').removeClass('warning');
+    $('.result-alert').not('.credit-alert').remove();
     $('#dp-alert').remove();
+  }
+}
+
+
+function removeCreditScoreAlert() {
+  if ($('.credit-alert') || $('.rangeslider__handle').hasClass('warning')) {
+    $('.rangeslider__handle').removeClass('warning');
+    $('.credit-alert').remove();
   }
 }
 
@@ -881,6 +898,7 @@ function renderSlider( cb ) {
         scoreWarning();
       } else {
         updateView();
+        removeCreditScoreAlert();
       }
     }
   });
@@ -1085,6 +1103,7 @@ $('.defaults-link').click(function(ev){
   ev.preventDefault();
   setSelections({ usePlaceholder: true });
   updateView();
+  removeCreditScoreAlert();
 });
 
 // ARM highlighting handler
