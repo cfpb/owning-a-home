@@ -1,5 +1,6 @@
 var $ = require('jquery');
 require('./secondary-nav');
+require('jquery.scrollto');
 
 function jumpToAnchorLink() {
   // check for hash value - hash is first priority
@@ -21,7 +22,18 @@ function jumpToAnchorLink() {
   }
 }
 
+
 $(document).ready( function() {
   jumpToAnchorLink();
   $(window).on('hashchange', function () {jumpToAnchorLink();});
+  
+  // scroll to the top of the parent expandable when a close
+  // link is clicked at the bottom of a step
+  $('.bottom-close-link').on('click', function (e) {    
+    $.scrollTo( $(e.target).closest('.expandable'), {
+      duration: 250,
+      offset: -30
+    });
+    
+  })
 });
