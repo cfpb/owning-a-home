@@ -1,7 +1,7 @@
 {
   "name": "owning-a-home",
   "description": "Owning A Home",
-  "version": "0.0.1",
+  "version": "1.5.1",
   "homepage": "http://github.com/cfpb/owning-a-home",
   "author": {
     "name": "Consumer Financial Protection Bureau",
@@ -59,6 +59,7 @@
     "grunt-string-replace": "latest",
     "grunt-usemin": "~2.4.0",
     "istanbul": "^0.3.5",
+    "jsdom": "4.2.0",
     "load-grunt-config": "^0.13.1",
     "load-grunt-tasks": "^0.6.0",
     "mocha": "^1.18.2",
@@ -76,8 +77,9 @@
   "keywords": [],
   "dependencies": {
     "amortize": "0.2.2",
-    "debounce": "0.0.3",
+    "cfgov-sheer-templates": "^2.1.1",
     "date-format": "0.0.2",
+    "debounce": "0.0.3",
     "foreach": "2.0.4",
     "format-usd": "^0.2.0",
     "fuzzy-state-search": "0.1.0",

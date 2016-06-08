@@ -56,7 +56,7 @@ Scenario Outline: Triggering conventional via FHA high-balance
 | Oregon        | Hood River County     | $371,450              | VA            |
 | Pennsylvania  | Lehigh County         | $372,600              | VA            |
 | Virginia      | Amelia County         | $535,900              | VA            |
-| Wisconsin     | St. Croix County      | $322,000              | VA            |
+| Wisconsin     | St. Croix County      | $326,600              | VA            |
 | Georgia       | Cobb County           | $342,700              | Conventional  |
 | Illinois      | Kane County           | $365,700              | Conventional  |
 | Maryland      | Baltimore city        | $517,500              | Conventional  |
@@ -64,7 +64,7 @@ Scenario Outline: Triggering conventional via FHA high-balance
 | Oregon        | Hood River County     | $371,450              | Conventional  |
 | Pennsylvania  | Lehigh County         | $372,600              | Conventional  |
 | Virginia      | Amelia County         | $535,900              | Conventional  |
-| Wisconsin     | St. Croix County      | $322,000              | Conventional  |
+| Wisconsin     | St. Croix County      | $326,600              | Conventional  |
 
 @high_balance
 Scenario Outline: Triggering conventional via FHA high-balance

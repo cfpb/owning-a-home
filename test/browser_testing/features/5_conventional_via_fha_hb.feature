@@ -43,9 +43,9 @@ Scenario Outline: Triggering conventional via FHA high-balance
 | Illinois      | Kane County       | $365,700            |
 | Oregon        | Hood River County | $371,450            |
 | Pennsylvania  | Lehigh County     | $372,600            |
-| Wisconsin     | St. Croix County  | $322,000            |
+| Wisconsin     | St. Croix County  | $326,600            |
 | New Mexico    | Los Alamos County | $380,650            |
-| North Dakota  | Billings County   | $304,750            |
+| North Dakota  | Billings County   | $339,250            |
 | Connecticut   | Middlesex County  | $353,050            |
 
 @high_balance
@@ -67,7 +67,7 @@ Examples:
 | Illinois      | Kane County       | $365,700            |
 | Oregon        | Hood River County | $371,450            |
 | Pennsylvania  | Lehigh County     | $372,600            |
-| Wisconsin     | St. Croix County  | $322,000            |
+| Wisconsin     | St. Croix County  | $326,600            |
 | New Mexico    | Los Alamos County | $380,650            |
-| North Dakota  | Billings County   | $304,750            |
+| North Dakota  | Billings County   | $339,250            |
 | Connecticut   | Middlesex County  | $353,050            |

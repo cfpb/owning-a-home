@@ -3,6 +3,32 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
+### Changed
+
+## [1.5.1] - 2016-05-23
+### Changed
+- Updated cfgov-sheer-templates dependency to get updated header JavaScript.
+
+## [1.5.0] - 2016-05-17
+### Fixed
+- Fix owning a home project version in package.json.
+
+### Changed
+- Updated the email signup to use the same Gov Delivery processor as cfgov-refresh.
+- Update cfgov-sheer-templates to get print styles.
+
+## [1.4.1] - 2016-04-21
+### Changed
+- Update cfgov-sheer-templates to get skip link styles and mega menu fix,
+  among other things
+
+## [1.4.0] - 2016-04-08
+### Changed
+- Change to cfgov-refresh header and footer
+
+## [1.3.1] - 2015-12-21
+### Changed
+- Update Browser Tests for 2016 county limits data
 
 ## [1.3.0] - 2015-11-23
 ### Fixed
@@ -166,7 +192,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.4.1...HEAD
+[1.5.1]: https://github.com/cfpb/owning-a-home/compare/v1.5.0...v1.5.1
+[1.5.0]: https://github.com/cfpb/owning-a-home/compare/v1.4.1...v1.5.0
+[1.4.1]: https://github.com/cfpb/owning-a-home/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/cfpb/owning-a-home/compare/v1.3.1...v1.4.0
+[1.3.1]: https://github.com/cfpb/owning-a-home/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/cfpb/owning-a-home/compare/v1.2.5...v1.3.0
 [1.2.5]: https://github.com/cfpb/owning-a-home/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/cfpb/owning-a-home/compare/v1.2.3...v1.2.4

@@ -41,8 +41,9 @@ Scenario Outline: Trigger non-conforming jumbo loan
 
 Examples:
 | state_name    | county_name       | FHA_max_loan_amount |
+| Kansas        | Sherman County    | $271,050            |
 | Louisiana     | Iberville Parish  | $271,050            |
 | Michigan      | Kalamazoo County  | $271,050            |
 | New Mexico    | Los Alamos County | $380,650            |
-| North Dakota  | Billings County   | $304,750            |
+| North Dakota  | Billings County   | $339,250            |
 | Oklahoma      | Cotton County     | $271,050            |
