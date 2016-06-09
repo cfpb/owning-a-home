@@ -429,7 +429,8 @@ module.exports = function(grunt) {
           check: {
             lines: 50,
             statements: 50
-          }
+          },
+          mochaOptions: ['--timeout 15000']
         }
       },
       coverageSpecial: {
