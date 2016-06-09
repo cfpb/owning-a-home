@@ -4,7 +4,9 @@ var assign = require('object-assign');
 
 var StickyContainer = require('react-sticky').StickyContainer;
 
-var $ = jQuery = require('jquery');
+var $ = require('jquery');
+var jQuery = $;
+
 require('jquery.scrollto');
 
 var ResponsiveSticky = require('./react-components/responsive-sticky.jsx');
