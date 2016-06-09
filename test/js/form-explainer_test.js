@@ -10,7 +10,7 @@ var jsdom = require('mocha-jsdom');
 var sandbox;
 
 
-describe('Form explainer tests', function() {
+xdescribe('Form explainer tests', function() {
 
   jsdom({
     file: 'test/js/fixtures/form-explainer.html',
