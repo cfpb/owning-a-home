@@ -206,6 +206,25 @@
       
       .respond-to-min(600px, {
         display: block;
+        
+        .content-l {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        
+        .content-l_col-1,
+        .label-col {
+          border-left-width: 0;
+        }
+        
+        .content-l_col-1,
+        .input-col {
+          border-right-width: 0;
+        }
+        
+        .input-col {
+          text-align: right;
+        }
       });
       
       margin-top: unit(@grid_gutter-width / @base-font-size-px, em) !important;

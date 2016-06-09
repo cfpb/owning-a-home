@@ -7,7 +7,7 @@
 
 {% block content %}
 <script>
- window.staticURL = {{url_for('static', filename='')}};
+  window.baseURL = {{base_url}};
 </script>
 <div id="monthly-payment" class="monthly-payment" role="main">
   <section class="content_wrapper content_wrapper__medium">

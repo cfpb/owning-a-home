@@ -51,6 +51,14 @@ var MonthlyPaymentWorksheet = React.createClass({
       });
     },
     
+    scrollToSummary: function (e) {
+      e.preventDefault();
+      $.scrollTo( $('.summary-section'), {
+        duration: 600,
+        offset: -30
+      });
+    },
+    
     /**
      * Event handler for 'change' events coming from the Stores
      */
@@ -69,7 +77,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                 <div className="content-l_col inputs-col">
                   <div className="form-section">
                   <div className="mpw-section_header">
-                    <img src="/static/img/wallet.png"/>
+                    <img src="../static/img/wallet.png"/>
                     <h2 tabIndex="0">Assess your current income, spending, and savings.</h2>
                   </div>
                     <fieldset>
@@ -123,7 +131,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                 </div>
                 <div className="form-section">
                   <div className="mpw-section_header">
-                    <img src="/static/img/calculator.png"/>
+                    <img src="../static/img/calculator.png"/>
                     <h2 tabIndex="0">Estimate your financial responsibilities after buying a home.</h2>
                   </div>
                   
@@ -186,7 +194,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       </div>
                     </legend>
                     
-                    <MPWInputRow title="Expected interest rate (%)" value={this.state.interestRate} id="interestRate" cb={this.update} note="<a href=''>Explore the range of interest rates you can expect</a>" type="percent"/>
+                    <MPWInputRow title="Expected interest rate (%)" value={this.state.interestRate} id="interestRate" cb={this.update} note="<a href={baseURL + 'explore-rates'}>Explore the range of interest rates you can expect</a>" type="percent"/>
                   </fieldset>
                   </div>
                 </div>
@@ -194,16 +202,26 @@ var MonthlyPaymentWorksheet = React.createClass({
                 <div className="content-l_col outputs-col">
                   <ResponsiveSticky>
                     <div className="block sticky-outputs">
-                      <h3>Estimated totals</h3>
+                      <div className="content-l">
+                        <div className="content-l_col content-l_col-1">
+                          <h3>Estimated totals</h3>
+                        </div>
+                      </div>
                       <MPWOutputRow title="Estimated funds available for monthly housing expenses" value={this.state.availableHousingFunds} placeholder="--"/>
                       <div className="content-l output-row">
-                        <div className="content-l_col-1">
+                        <div className="content-l_col content-l_col-1">
                           <p><label htmlFor="preferredPayment">How much of your available funds do you want to use for monthly housing expenses?</label></p>
                           <WorksheetRange max={this.state.availableHousingFunds} val={this.state.preferredPayment} onChange={this.update.bind(null, 'preferredPayment')}/>
                         </div>
                       </div>
                       <MPWOutputRow title="Estimated monthly principal and interest" value={this.state.principalAndInterest} placeholder="--"/>
                       <MPWOutputRow title="Estimated home price" value={this.state.housePrice} placeholder="--"/>
+                      <div className="content-l output-row">
+                        <div className="content-l_col content-l_col-1">
+                        <a href="#" className="summary-link" onClick={this.scrollToSummary}>See how we calculated these numbers <span className="cf-icon cf-icon-arrow-down-round"></span></a>
+                        
+                      </div>
+                      </div>
                     </div>
                   </ResponsiveSticky>
                 </div>
@@ -296,7 +314,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                 <div className="block block__sub-section">
                   <MPWOutputRow title="Estimated loan amount" value={this.state.loanAmount} placeholder="--" outputClass="h3"/>
                   <p>To keep things simple at this stage, this tool calculates an estimated home price assuming that you will make a 20% down payment and that you will choose a standard, 30-year fixed mortgage.</p>
-                  <p>If you put down less than 20% of your home's purchase price, you will likely have to pay for <a href="#">mortgage insurance</a>, which will increase your monthly payment. If you choose a different <a>kind of loan</a>, your monthly payment may be higher or lower.</p>
+                  <p>If you put down less than 20% of your home's purchase price, you will likely have to pay for <a href="/askcfpb/1953/what-is-mortgage-insurance-and-how-does-it-work.html">mortgage insurance</a>, which will increase your monthly payment. If you choose a different <a href={window.baseURL + "loan-options"}>kind of loan</a>, your monthly payment may be higher or lower.</p>
                 </div>
               </div>
             </div>
