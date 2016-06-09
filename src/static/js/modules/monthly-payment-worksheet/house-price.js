@@ -57,7 +57,7 @@ function housePriceCalc (opts) {
     if (dpAsPercent) {
       loanAmount = m / ((h * t) + ( i / ( 1 - Math.pow(1 + i, -n) )));
     } else {
-      loanAmount = p = (m - (t * params.downpayment)) / (t + ( i / ( 1 - Math.pow(1 + i, -n) )));
+      loanAmount = (m - (t * params.downpayment)) / (t + ( i / ( 1 - Math.pow(1 + i, -n) )));
     }
   } else {
     if (dpAsPercent) {

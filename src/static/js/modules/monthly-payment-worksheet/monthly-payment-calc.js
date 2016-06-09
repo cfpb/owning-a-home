@@ -41,7 +41,7 @@ monthly.percentageIncomeAvailable = function (data) {
 }
 
 monthly.defaultPreferredPayment = function (data) {
-  return Math.round(utils.multiply(.8, data.availableHousingFunds));
+  return Math.round(utils.multiply(0.8, data.availableHousingFunds));
 }
 
 monthly.preferredPayment = function (data) {
@@ -66,8 +66,8 @@ monthly.estimatedMonthlyPayment = function (data) {
 }
 
 monthly.loanCalculations = function (data) {
+  var results;
   if (data.estimatedMonthlyPayment > 0 && data.takeHomeIncomeTotal && data.availableHousingFunds && data.preferredPayment && data.interestRate) {
-   var results;
     try { 
       results = housePriceCalculations({
         monthlyPayment: utils.cleanNumber(data.estimatedMonthlyPayment), 
