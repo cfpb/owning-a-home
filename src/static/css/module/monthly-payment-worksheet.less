@@ -9,6 +9,178 @@
 .monthly-payment_worksheet {
   .webfont-regular();
   
+  
+  .slider-track {
+    width: 100%;
+    height: 11px;
+    background: @input-range-bg;
+    border: 1px solid @input-range-border;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .slider-handle {
+    width: 45px;
+    height: 45px;
+    background: @input-range-handle;
+    border: 1px solid @input-range-border;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+
+  /**
+   * Rangeslider
+   */
+  .rangeslider {
+  	margin: 20px 0;
+  	position: relative;
+    background:  @input-range-bg;
+    .rangeslider__fill, .rangeslider__handle {
+    	position: absolute;
+    }
+    &, .rangeslider__fill {
+    	display: block;
+    	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    .rangeslider__handle {
+      background: @input-range-handle;
+      border: 1px solid @input-range-border;
+      cursor: pointer;
+      display: inline-block;
+      position: absolute;
+      &:active {
+        background: @input-inset-selected;
+        border: 2px solid @input-border-focus;
+      }
+    }
+  }
+
+  /**
+   * Rangeslider - Horizontal slider
+   */
+  .rangeslider-horizontal {
+  	height: 11px;
+  	border-radius: 10px;
+  	.rangeslider__fill {
+  		height: 100%;
+  		background:  @input-range-bg;
+  		border-radius: 10px;
+  		top: 0;
+  	}
+  	.rangeslider__handle {
+  		width: 45px;
+  		height: 45px;
+  		border-radius: 45px;
+  		top: -17px;
+  	}
+  }
+  
+
+  /* ==========================================================================
+     Range slider
+     https://github.com/cfarm/cf-forms/blob/range/src/cf-forms.less
+     ========================================================================== */
+     @gray:         #5a5d61;
+     @gray-80:      #75787b; // Formerly known as regular ol' "Gray"
+     @gray-60:      #919395; // Formerly known as "Gray 80"
+     @gray-40:      #b4b5b6; // Close to what was known as "Gray 50"
+     @gray-20:      #d2d3d5;
+     @gray-10:      #e7e8e9; // Close to what was known as "Gray 20"
+     @gray-5:       #f7f8f9;
+  @input-range-bg:                @gray-80;
+  @input-range-border:            @gray-40;
+  @input-range-handle:            @gray-10;
+
+  @input-inset-selected:          @pacific-20;
+
+  input[type=range] {
+    width: 100%;
+    padding-left: 0;
+    margin: 15px 0;
+    -webkit-appearance: none;
+    border: none;
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 11px;
+      background: @input-range-bg;
+      border: 1px solid @input-range-border;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    &::-moz-range-track {
+      width: 100%;
+      height: 11px;
+      background: @input-range-bg;
+      border: 1px solid @input-range-border;
+      cursor: pointer;
+    }
+    &::-ms-track {
+      width: 100%;
+      border-width: 19px 0;
+      height: 11px;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+      cursor: pointer;
+    }
+    &::-webkit-slider-thumb {
+      width: 45px;
+      height: 45px;
+      margin-top: -18px;
+      -webkit-appearance: none;
+      border: 1px solid @input-range-border;
+      border-radius: 50%;
+      background: @input-range-handle;
+      cursor: pointer;
+    }
+    &::-moz-range-thumb {
+      width: 45px;
+      height: 45px;
+      background: @input-range-handle;
+      border: 1px solid @input-range-border;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &::-ms-thumb {
+      width: 45px;
+      height: 45px;
+      background: @input-range-handle;
+      border: 1px solid @input-range-border;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &::-ms-fill-lower {
+      background: @input-range-bg;
+      border: 1px solid @input-range-border;
+      border-radius: 2rem;
+    }
+    &::-ms-fill-upper {
+      background: @input-range-bg;
+      border: 1px solid @input-range-border;
+      border-radius: 2rem;
+    }
+    &:focus,
+    &.focus {
+      box-shadow: none;
+      outline: none;
+      &::-webkit-slider-thumb {
+        background: @input-inset-selected;
+        border: 2px solid @input-border-focus;
+      }
+
+      &::-moz-range-thumb {
+        background: @input-inset-selected;
+        border: 2px solid @input-border-focus;
+      }
+
+      &::-ms-thumb {
+        background: @input-inset-selected;
+        border: 2px solid @input-border-focus;
+      }
+    }
+  }
+  
+  
   .mpw-section_header {
     margin-bottom: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
     .u-clearfix;
@@ -395,178 +567,6 @@
       display: none;
     }
   });
-  
-  
-  .slider-track {
-    width: 100%;
-    height: 11px;
-    background: @input-range-bg;
-    border: 1px solid @input-range-border;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  .slider-handle {
-    width: 45px;
-    height: 45px;
-    background: @input-range-handle;
-    border: 1px solid @input-range-border;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-
-  /**
-   * Rangeslider
-   */
-  .rangeslider {
-  	margin: 20px 0;
-  	position: relative;
-    background:  @input-range-bg;
-    .rangeslider__fill, .rangeslider__handle {
-    	position: absolute;
-    }
-    &, .rangeslider__fill {
-    	display: block;
-    	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
-    }
-    .rangeslider__handle {
-      background: @input-range-handle;
-      border: 1px solid @input-range-border;
-      cursor: pointer;
-      display: inline-block;
-      position: absolute;
-      &:active {
-        background: @input-inset-selected;
-        border: 2px solid @input-border-focus;
-      }
-    }
-  }
-
-  /**
-   * Rangeslider - Horizontal slider
-   */
-  .rangeslider-horizontal {
-  	height: 11px;
-  	border-radius: 10px;
-  	.rangeslider__fill {
-  		height: 100%;
-  		background:  @input-range-bg;
-  		border-radius: 10px;
-  		top: 0;
-  	}
-  	.rangeslider__handle {
-  		width: 45px;
-  		height: 45px;
-  		border-radius: 45px;
-  		top: -17px;
-  	}
-  }
-  
-
-  /* ==========================================================================
-     Range slider
-     https://github.com/cfarm/cf-forms/blob/range/src/cf-forms.less
-     ========================================================================== */
-     @gray:         #5a5d61;
-     @gray-80:      #75787b; // Formerly known as regular ol' "Gray"
-     @gray-60:      #919395; // Formerly known as "Gray 80"
-     @gray-40:      #b4b5b6; // Close to what was known as "Gray 50"
-     @gray-20:      #d2d3d5;
-     @gray-10:      #e7e8e9; // Close to what was known as "Gray 20"
-     @gray-5:       #f7f8f9;
-  @input-range-bg:                @gray-80;
-  @input-range-border:            @gray-40;
-  @input-range-handle:            @gray-10;
-
-  @input-inset-selected:          @pacific-20;
-
-  input[type=range] {
-    width: 100%;
-    padding-left: 0;
-    margin: 15px 0;
-    -webkit-appearance: none;
-    border: none;
-    &::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 11px;
-      background: @input-range-bg;
-      border: 1px solid @input-range-border;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    &::-moz-range-track {
-      width: 100%;
-      height: 11px;
-      background: @input-range-bg;
-      border: 1px solid @input-range-border;
-      cursor: pointer;
-    }
-    &::-ms-track {
-      width: 100%;
-      border-width: 19px 0;
-      height: 11px;
-      background: transparent;
-      border-color: transparent;
-      color: transparent;
-      cursor: pointer;
-    }
-    &::-webkit-slider-thumb {
-      width: 45px;
-      height: 45px;
-      margin-top: -18px;
-      -webkit-appearance: none;
-      border: 1px solid @input-range-border;
-      border-radius: 50%;
-      background: @input-range-handle;
-      cursor: pointer;
-    }
-    &::-moz-range-thumb {
-      width: 45px;
-      height: 45px;
-      background: @input-range-handle;
-      border: 1px solid @input-range-border;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    &::-ms-thumb {
-      width: 45px;
-      height: 45px;
-      background: @input-range-handle;
-      border: 1px solid @input-range-border;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    &::-ms-fill-lower {
-      background: @input-range-bg;
-      border: 1px solid @input-range-border;
-      border-radius: 2rem;
-    }
-    &::-ms-fill-upper {
-      background: @input-range-bg;
-      border: 1px solid @input-range-border;
-      border-radius: 2rem;
-    }
-    &:focus,
-    &.focus {
-      box-shadow: none;
-      outline: none;
-      &::-webkit-slider-thumb {
-        background: @input-inset-selected;
-        border: 2px solid @input-border-focus;
-      }
-
-      &::-moz-range-thumb {
-        background: @input-inset-selected;
-        border: 2px solid @input-border-focus;
-      }
-
-      &::-ms-thumb {
-        background: @input-inset-selected;
-        border: 2px solid @input-border-focus;
-      }
-    }
-  }
-  
 
 
   @media print {
