@@ -35,7 +35,6 @@ var RangeInput = React.createClass({
   
   componentDidMount: function () {
     if (this.props.showValueLabel) {
-      console.log('yes!')
       this.repositionValueLabel();
 
       if (window.attachEvent) {

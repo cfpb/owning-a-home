@@ -194,7 +194,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       </div>
                     </legend>
                     
-                    <MPWInputRow title="Expected interest rate (%)" value={this.state.interestRate} id="interestRate" cb={this.update} note="<a href={baseURL + 'explore-rates'}>Explore the range of interest rates you can expect</a>" type="percent"/>
+                    <MPWInputRow title="Expected interest rate (%)" value={this.state.interestRate} id="interestRate" cb={this.update} note="<a href={'../explore-rates'}>Explore the range of interest rates you can expect</a>" type="percent"/>
                   </fieldset>
                   </div>
                 </div>
