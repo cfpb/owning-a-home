@@ -124,7 +124,7 @@ module.exports = function(grunt) {
         ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy', ['babelify', { compact: false, presets: ["react", "es2015"] }]],
+          transform: [['babelify', { compact: false, presets: ["react", "es2015"] }], 'browserify-shim', 'hbsfy'],
           plugin: [
             ['factor-bundle', {
               entries: [
