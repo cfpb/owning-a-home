@@ -429,7 +429,7 @@ function getCounties() {
 function loadCounties() {
 
   // And request 'em.
-  request = getCounties();
+  var request = getCounties();
   request.done(function( resp ) {
 
     // If they haven't yet selected a state highlight the field.
@@ -495,7 +495,13 @@ function checkForJumbo() {
   dropdown('loan-type').enable( norms );
   dropdown('loan-type').hideHighlight();
   $('#county-warning').addClass('hidden');
-
+  
+  // if loan is not a jumbo, hide the loan type warning
+  if (jQuery.inArray(params['loan-type'], jumbos) < 0) {
+    $('#hb-warning').addClass('hidden');
+    dropdown('loan-type').hideHighlight();
+  }
+  
   // If county is not needed and loan-type is a HB loan, bounce it to a regular loan
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) >= 0 ) {
     // Change loan-type according to the bounces object
@@ -511,7 +517,7 @@ function checkForJumbo() {
     dropdown('loan-type').enable( norms );
     dropdown('loan-type').showHighlight();
   }
-
+  
   // If we don't need to request a county, hide the county dropdown and jumbo options.
   if ( !loan.needCounty && jQuery.inArray(params['loan-type'], jumbos) < 0 ) {
     dropdown('county').hide();
@@ -519,6 +525,7 @@ function checkForJumbo() {
     dropdown('loan-type').removeOption( jumbos );
     return;
   }
+  
   // Otherwise, make sure the county dropdown is shown.
   dropdown('county').show();
 
@@ -602,11 +609,11 @@ function processCounty() {
 
     $('#hb-warning').addClass('hidden');
     // Select appropriate loan type if loan was kicked out of jumbo
-    if ( prevLoanType === 'fha-hb' ) {
+    if ( params.prevLoanType === 'fha-hb' ) {
       $('#loan-type').val( 'fha' );
 
     }
-    else if ( prevLoanType === 'va-hb' ) {
+    else if ( params.prevLoanType === 'va-hb' ) {
       $('#loan-type').val( 'va' );
     }
     if ( $('#loan-type').val === null ) {
