@@ -43,17 +43,10 @@ var MonthlyPaymentWorksheet = React.createClass({
       window.print();
     },
     
-    scrollUp: function (e) {
+    scrollTo: function (e) {
       e.preventDefault();
-      $.scrollTo( $('#estimate-section'), {
-        duration: 600,
-        offset: -30
-      });
-    },
-    
-    scrollToSummary: function (e) {
-      e.preventDefault();
-      $.scrollTo( $('.summary-section'), {
+      var id = $(e.target).attr('href');
+      $.scrollTo( $('#' + id), {
         duration: 600,
         offset: -30
       });
@@ -201,27 +194,54 @@ var MonthlyPaymentWorksheet = React.createClass({
                 
                 <div className="content-l_col outputs-col">
                   <ResponsiveSticky>
-                    <div className="block sticky-outputs">
+                    <div className="sticky-outputs">
                       <div className="content-l">
                         <div className="content-l_col content-l_col-1">
-                          <h3>Estimated totals</h3>
+                          <h3><strong>Preview:</strong> Your estimated homeownership budget</h3>
                         </div>
                       </div>
-                      <MPWOutputRow title="Estimated funds available for monthly housing expenses" value={this.state.availableHousingFunds} placeholder="--"/>
+                      <div className="content-l output-row">
+                        <div className="label-col">
+                          <div className="label">
+                            <h4>Total monthly payment:</h4>
+                            <em>This amount will cover your mortgage principal and interest, taxes, and Condo/HOA fees.</em>
+                          </div>
+                        </div>
+                        <div className="input-col">
+                          <span>
+                            <WorksheetOutput value={this.state.preferredPayment} placeholder="--" className="block-emphasis"/>
+                          </span>
+                        </div>
+                      </div>
+                                            
                       <div className="content-l output-row">
                         <div className="content-l_col content-l_col-1">
-                          <p><label htmlFor="preferredPayment">How much of your available funds do you want to use for monthly housing expenses?</label></p>
+                          <p><label htmlFor="preferredPayment">You have <strong><WorksheetOutput value={this.state.availableHousingFunds} placeholder="$--"/></strong> available in your budget to spend on housing but may choose to spend less. Adjust the slider to find the amount you're comfortable with.</label></p>
                           <WorksheetRange max={this.state.availableHousingFunds} val={this.state.preferredPayment} onChange={this.update.bind(null, 'preferredPayment')}/>
                         </div>
                       </div>
-                      <MPWOutputRow title="Estimated monthly principal and interest" value={this.state.principalAndInterest} placeholder="--"/>
-                      <MPWOutputRow title="Estimated home price" value={this.state.housePrice} placeholder="--"/>
+                      
+                      <MPWInputRow title="Preferred monthly payment:" value={this.state.preferredPayment} id="preferredPayment" cb={this.update} />
+                      
+                      <div className="content-l output-row">
+                        <div className="label-col">
+                          <div className="label">
+                            <h4>Estimated home price:</h4>
+                          </div>
+                        </div>
+                        <div className="input-col">
+                          <span>
+                            <WorksheetOutput value={this.state.housePrice} placeholder="--" className="block-emphasis"/>
+                          </span>
+                        </div>
+                      </div>
+                      
                       <div className="content-l output-row">
                         <div className="content-l_col content-l_col-1">
-                        <a href="#" className="summary-link" onClick={this.scrollToSummary}>See how we calculated these numbers <span className="cf-icon cf-icon-arrow-down-round"></span></a>
-                        
+                          <p>Your estimated downpayment is <strong><WorksheetOutput value={this.state.downpayment} placeholder="$--"/></strong> and estimated loan amount is <strong><WorksheetOutput value={this.state.loanAmount} placeholder="$--"/></strong>.</p>
+                        </div>
                       </div>
-                      </div>
+                      
                     </div>
                   </ResponsiveSticky>
                 </div>
@@ -233,7 +253,7 @@ var MonthlyPaymentWorksheet = React.createClass({
             
           </section>
           
-          <section className="summary-section">
+          <section className="summary-section" id="summary-section">
             <h2 tabIndex="0">How much can you afford?</h2>
             
             <div className="content-l  mpw-section">
