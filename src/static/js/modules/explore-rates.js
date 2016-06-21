@@ -340,7 +340,7 @@ function updateView() {
         return;
       }
 
-      data.uniqueLabels = $.unique( data.labels.slice(0) );
+      data.uniqueLabels = unique( data.labels.slice(0) );
 
       chart.stopLoading();
       removeAlerts();
@@ -374,6 +374,18 @@ function updateView() {
     downPaymentWarning();
   }
 };
+
+function unique (arr) {
+    var m = {}, newarr = []
+    for (var i=0; i<arr.length; i++) {
+      var v = arr[i];
+      if (!m[v]) {
+        newarr.push(v);
+        m[v]=true;
+      }
+    }
+    return newarr;
+}
 
 /**
  * Updates the sentence above the chart
@@ -712,9 +724,7 @@ function renderDownPayment() {
  */
 function updateComparisons( data ) {
   // Update the options in the dropdowns.
-  var uniqueLabels = $( data.uniqueLabels ).sort(function( a, b ) {
-    return a - b;
-  });
+  var uniqueLabels = data.uniqueLabels;
   $('.compare select').html('');
   $.each( uniqueLabels, function( i, rate ) {
     var option = '<option value="' + rate + '">' + rate + '</option>';
