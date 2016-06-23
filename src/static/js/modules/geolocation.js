@@ -1,19 +1,20 @@
-var guessState = require('fuzzy-state-search');
+'use strict';
 
-module.exports.getState = function ( options, callback ) {
+var guessState = require( 'fuzzy-state-search' );
 
-  if (!window.navigator.geolocation) {
-    return closestState = {
-      name: 'AL'
-    };
+module.exports.getState = function( options, callback ) {
+
+  if ( !window.navigator.geolocation ) {
+    var closestState = { name: 'AL' };
+    return closestState;
   }
 
-  var opts = options || {},
-      timeout = opts.timeout || 10000,
-      cb = typeof options === 'function' ? options : callback,
-      reallyIndecisive = true;
+  var opts = options || {};
+  var timeout = opts.timeout || 10000;
+  var cb = typeof options === 'function' ? options : callback;
+  var reallyIndecisive = true;
 
-  function success( pos ){
+  function success( pos ) {
     var state = guessState( pos );
     reallyIndecisive = false;
     if ( cb ) {
@@ -30,10 +31,9 @@ module.exports.getState = function ( options, callback ) {
 
   // For users who don't see the geolocate permission bar in their
   // browser, fail after X milliseconds.
-  setTimeout(function(){
+  setTimeout( function() {
     if ( reallyIndecisive ) {
       fail();
     }
-  }, timeout);
-
+  }, timeout );
 };

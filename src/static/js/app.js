@@ -1,10 +1,8 @@
-var $ = require('jquery');
+'use strict';
 
-$(function() {
+var $ = require( 'jquery' );
 
-  'use strict';
-
-  require('./modules/loan-options');
-  require('./modules/rate-checker');
-
-});
+$( function() {
+  require( './modules/loan-options' );
+  require( './modules/rate-checker' );
+} );

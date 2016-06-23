@@ -1,7 +1,11 @@
+'use strict';
+
 var _UUID = 0;
 
-this.generateIdentifier = function () {
-  // @return [Number] A UUID
+/**
+ * @returns {number} A Universal Unique Identifier.
+ */
+this.generateIdentifier = function() {
   var UUID = _UUID++;
 
   // Perhaps this is overkill.
@@ -10,6 +14,4 @@ this.generateIdentifier = function () {
   }
 
   return UUID;
-}
-
-
+};
