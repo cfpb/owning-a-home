@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 ### Changed
 
+## [1.5.2] - 2016-06-23
+### Changed
+- Explore rates bug fixes.
+- Scroll to top of expandable when process step is closed via bottom link.
+- Updates to checklist_mortgage_closing.pdf.
+
 ## [1.5.1] - 2016-05-23
 ### Changed
 - Updated cfgov-sheer-templates dependency to get updated header JavaScript.
@@ -192,7 +198,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Initial release of the home page and loan options portion of the tool.
 
 
-[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.4.1...HEAD
+[unreleased]: https://github.com/cfpb/owning-a-home/compare/v1.5.2...HEAD
+[1.5.2]: https://github.com/cfpb/owning-a-home/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/cfpb/owning-a-home/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/cfpb/owning-a-home/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/cfpb/owning-a-home/compare/v1.4.0...v1.4.1
