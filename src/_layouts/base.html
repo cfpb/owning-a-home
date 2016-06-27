@@ -32,7 +32,7 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v6">
 
 <!--[if IE 9]>
     <script src="{{ url_for('static', filename='js/ie9.js') }}"></script>
@@ -83,12 +83,12 @@
 {% include "footer.html" %}
 
 <!-- Common js -->
-<script src="{{ url_for('static', filename='js/main.js') }}?v5"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}?v6"></script>
 <!-- Adds nemo js -->
-<script src="{{ url_for('static', filename='js/base.js') }}?v5"></script>
+<script src="{{ url_for('static', filename='js/base.js') }}?v6"></script>
 <!-- Page-specific js -->
 {% if page_js %}
-<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v5"></script>
+<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v6"></script>
 {% endif %}
 </body>
 
