@@ -1,5 +1,7 @@
-var keyMirror = require('react/lib/keyMirror');
+'use strict';
 
-module.exports = keyMirror({
+var keyMirror = require( 'react/lib/keyMirror' );
+
+module.exports = keyMirror( {
   UPDATE_SCENARIO: null
-});
+} );

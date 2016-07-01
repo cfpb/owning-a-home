@@ -1,7 +1,9 @@
-var keyMirror = require('react/lib/keyMirror');
+'use strict';
 
-module.exports = keyMirror({
-  UPDATE_LOAN: null,
-  UPDATE_ALL: null,
+var keyMirror = require( 'react/lib/keyMirror' );
+
+module.exports = keyMirror( {
+  UPDATE_LOAN:  null,
+  UPDATE_ALL:   null,
   UPDATE_RATES: null
-});
+} );

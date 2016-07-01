@@ -67,12 +67,12 @@ If you already have [Autoenv](https://github.com/kennethreitz/autoenv) installed
 	```
 	(OAH)username$
 	```
-	
+
 	If the virtualenv did not activate right away, run this command from the directory above where the OAH directory lives:
 	```
 	$ source OAH/bin/activate
 	```
-	
+
 	To deactivate, use the command `deactivate`.
 
 4. Install sheer into the virtualenv with the `-e` flag (which allows you to make changes to sheer itself). The path to sheer is the root directory of the GitHub repository you checked out (cloned) earlier, which likely will be `./sheer`:
@@ -159,7 +159,7 @@ The Rate Checker and Mortgage Insurance are JavaScript applications for checking
 
 #### Private API Users
 
-To configure the Rate Checker and Loan Comparison you will need to point to the required API URLs in `config/config.json`. 
+To configure the Rate Checker and Loan Comparison you will need to point to the required API URLs in `config/config.json`.
 
 1. In `config/config.json`, change lines to point to the API URLs, respectively:
 	```json
@@ -200,9 +200,9 @@ Elastic Search needs to be running to display wordpress content:
     ```bash
     $ elasticsearch
     ```
-    
+
 ### Sheer workflow
-Sheer needs to be running to compile the templates in `_layouts`. 
+Sheer needs to be running to compile the templates in `_layouts`.
 
 1. Use the sheer virtualenv:
 	```bash
@@ -230,7 +230,11 @@ Grunt watch will recompile Less and JS everytime you save changes to those proje
 
 To view the site browse to: <http://localhost:7000>
 
-## Browser tests
+## How to test the software
+
+### Linting JavaScript
+
+JavaScript errors and warnings can be detected and corrected by running `grunt lint`.
 
 ### Browser test setup
 

@@ -1,11 +1,13 @@
+'use strict';
+
 // From https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Storage
-if (!window.localStorage) {
+if ( !window.localStorage ) {
   window.localStorage = {
-    getItem: function (sKey) {
-      if (!sKey || !this.hasOwnProperty(sKey)) { return null; }
-      return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
+    getItem: function( sKey ) {
+      if ( !sKey || !this.hasOwnProperty( sKey ) ) { return null; }
+      return unescape( document.cookie.replace( new RegExp("(?:^|.*;\\s*)" + escape( sKey ).replace( /[\-\.\+\*]/g, "\\$&" ) + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1" ) );
     },
-    key: function (nKeyId) {
+    key: function ( nKeyId ) {
       return unescape(document.cookie.replace(/\s*\=(?:.(?!;))*$/, "").split(/\s*\=(?:[^;](?!;))*[^;]?;\s*/)[nKeyId]);
     },
     setItem: function (sKey, sValue) {
