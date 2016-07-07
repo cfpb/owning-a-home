@@ -45,7 +45,7 @@ def before_all(context):
             'record-screenshots': os.getenv('SELENIUM_SCREENSHOTS', False),
             'command-timeout': int(os.getenv('SELENIUM_CMD_TIMEOUT', 30)),
             'idle-timeout': int(os.getenv('SELENIUM_IDLE_TIMEOUT', 10)),
-            'tunnel-identifier': os.getenv('SELENIUM_TUNNEL'),
+            'tunnel-identifier': os.getenv('TUNNEL_IDENTIFIER'),
             'screen-resolution': os.getenv('SELENIUM_RESOLUTION')
         }
 
