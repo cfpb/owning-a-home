@@ -1,10 +1,12 @@
+'use strict';
+
 // Import modules.
 var _eventObserver = require( '../util/event-observer' );
 var _domHelper = require( '../util/dom-helper' );
-var $ = require('jquery');
+// var $ = require( 'jquery' );
 
 function create( options ) {
-  return new InputNotes(options);
+  return new InputNotes( options );
 }
 
 // InputNotes UI element constructor.
@@ -16,40 +18,40 @@ function InputNotes( options ) {
 
   // Load our handlebar templates.
   var _template = require( '../../../templates/prepare-worksheets/input-notes.hbs' );
-  var data = {text: _row.text, altText: _row.altText, placeholder: options.data.placeholder};
+  var data = { text: _row.text, altText: _row.altText, placeholder: options.data.placeholder };
 
   var snippet = _template( data );
 
   // This appendChild could be replaced by jquery or similar if desired/needed.
-  //var node = $(options.container).append($(snippet) );
+  // var node = $(options.container).append($(snippet) );
   var node = _domHelper.appendChild( options.container, snippet, 'tbody' );
 
 
   // DOM references.
-  var _textDOM = node.querySelector('.text-col');
-  var _altTextInputDOM = node.querySelector('textarea');
+  var _textDOM = node.querySelector( '.text-col' );
+  var _altTextInputDOM = node.querySelector( 'textarea' );
 
 
   // Listen for updates to the text or grading buttons.
   _altTextInputDOM.addEventListener( 'keyup', _changedHandler );
 
   function _changedHandler() {
-    _self.dispatchEvent( 'change', {row: _row, data: getState()} );
+    _self.dispatchEvent( 'change', { row: _row, data: getState() } );
   }
 
 
   // @return [Object] The contents of the text input and the button grade.
   function getState() {
     return {
-      text: _row.text,
+      text:    _row.text,
       altText: _altTextInputDOM.value
     };
   }
 
   // @param state [Object] `text` and `altText` values.
-  function setState(state) {
-    var text = state.text === undefined ? '' : state.text;
-    var altText = state.altText === undefined ? null : state.altText;
+  function setState( state ) {
+    var text = typeof state.text === 'undefined' ? '' : state.text;
+    var altText = typeof state.altText === 'undefined' ? null : state.altText;
     _textDOM.innertext = text;
     _altTextInputDOM.value = altText;
   }
@@ -59,7 +61,7 @@ function InputNotes( options ) {
   this.setState = setState;
 
   // Attach additional methods.
-  _eventObserver.attach(this);
+  _eventObserver.attach( this );
 }
 
 // Expose public methods.

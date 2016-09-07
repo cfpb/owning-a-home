@@ -1,10 +1,18 @@
-module.exports = function(grunt) {
+module.exports = function( grunt ) {
 
   'use strict';
 
-  var path = require('path');
+  var path = require( 'path' );
 
-  require('time-grunt')(grunt);
+  require( 'time-grunt' )( grunt );
+
+  // Allows a `--quiet` flag to be passed to Grunt from the command-line.
+  // If the flag is present the value is true, otherwise it is false.
+  // This flag can be used to, for example, suppress warning output
+  // from linters.
+  var env = {
+    quiet: grunt.option('quiet') ? true : false
+  };
 
   grunt.initConfig({
 
@@ -357,56 +365,34 @@ module.exports = function(grunt) {
     },
 
     /**
-     * JSHint: https://github.com/gruntjs/grunt-contrib-jshint
-     *
-     * Validate files with JSHint.
-     * Below are options that conform to idiomatic.js standards.
-     * Feel free to add/remove your favorites: http://www.jshint.com/docs/#options
+     * Lint the JavaScript.
      */
-    jshint: {
-      options: {
-        asi: false,
-        bitwise: true,
-        boss: true,
-        camelcase: true,
-        eqeqeq: true,
-        eqnull: true,
-        evil: true,
-        expr: true,
-        forin: true,
-        immed: true,
-        indent: 2,
-        latedef: false,
-        maxdepth: 4,
-        maxparams: 4,
-        maxstatements: 300,
-        newcap: true,
-        noarg: true,
-        noempty: true,
-        nonew: true,
-        quotmark: true,
-        strict: false,
-        trailing: true,
-        undef: true,
-        node: true,
-        browser: true,
-        jquery: true,
-        globals: {
-          jQuery: true,
-          $: true,
-          module: true,
-          require: true,
-          define: true,
-          console: true,
-          EventEmitter: true
-        }
-      },
-      files: [
-        'src/static/js/**/*',
-        '!node_modules/**/*',
-        '!src/static/js/main.js'
-      ]
+    lint: {
+      /**
+       * Validate files with ESLint.
+       * https://www.npmjs.com/package/grunt-contrib-eslint
+       */
+      eslint: {
+        options: {
+          quiet: env.quiet
+        },
+        src: [
+          // 'Gruntfile.js', // Uncomment to lint the Gruntfile.
+          'src/static/js/**/*.js',
+          // Ignore polyfills.
+          '!src/static/js/modules/local-storage-polyfill.js',
+          '!src/static/js/modules/placeholder-polyfill.js',
+          '!src/static/js/modules/object.observe-polyfill.js',
+          '!src/static/js/modules/placeholder-polyfill.js',
+          '!src/static/js/legacy/**/*.js',
+          // Ignore React components.
+          '!src/static/js/modules/loan-comparison.js',
+          '!src/static/js/modules/monthly-payment-worksheet.js',
+          '!src/static/js/modules/loan-comparison/components/**/*.js'
+        ]
+      }
     },
+
     mocha_istanbul: {
       coverage: {
         src: ['test/js/*.js'], // multiple folders also works
@@ -529,6 +515,11 @@ module.exports = function(grunt) {
   grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
   grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
+  grunt.registerMultiTask('lint', 'Lint the JavaScript', function(){
+    grunt.config.set(this.target, this.data);
+    grunt.task.run(this.target);
+  });
+
   grunt.registerTask('release', ['clean:dist', 'js', 'browserify:tests', 'css', 'copy:release', 'copy:img', 'copy:fonts', 'concat:ie9', 'concat:ie8']);
   grunt.registerTask('production-deploy', ['release', 'ship']);
   grunt.registerTask('default', ['dev-deploy', 'ship']);

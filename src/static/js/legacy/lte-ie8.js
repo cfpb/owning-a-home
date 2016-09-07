@@ -1,11 +1,13 @@
-var cfHead = document.getElementsByTagName('head')[0],
-cfStyle = document.createElement('style');
+'use strict';
+
+var cfHead = document.getElementsByTagName( 'head' )[0],
+cfStyle = document.createElement( 'style' );
 cfStyle.type = 'text/css';
 cfStyle.styleSheet.cssText = ':before,:after{content:none !important}';
-cfHead.appendChild(cfStyle);
-setTimeout(function(){
-cfHead.removeChild(cfStyle);
-}, 300);
+cfHead.appendChild( cfStyle );
+setTimeout( function() {
+  cfHead.removeChild(cfStyle);
+}, 300 );
 
 // Some polyfills
 

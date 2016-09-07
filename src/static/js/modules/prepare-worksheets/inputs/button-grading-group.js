@@ -1,56 +1,61 @@
-// Import modules.
-var _eventObserver = require( '../util/event-observer' );
+'use strict';
 
-function create(options) {
-  return new ButtonGradingGroup(options);
+// Import modules.
+var eventObserver = require( '../util/event-observer' );
+
+function create( options ) {
+  return new ButtonGradingGroup( options );
 }
 
 // ButtonGradingGroup UI element constructor.
-function ButtonGradingGroup(options) {
+function ButtonGradingGroup( options ) {
   // TODO see if bind() can be used in place of _self = this.
   // Note bind()'s lack of IE8 support.
   var _self = this;
 
   var _row = options.row;
-  
+
   var _activeBtn = _row.grade;
-  
-  var _grades = options.grades;
-  
-  var btnsGradeDOM = options.container.querySelectorAll(options.selector);
-  
+
+  var btnsGradeDOM = options.container.querySelectorAll( options.selector );
+
   var input;
-  for (var b = 0, len = btnsGradeDOM.length; b < len; b++) {
+  for ( var b = 0, len = btnsGradeDOM.length; b < len; b++ ) {
     input = btnsGradeDOM[b];
-    input.addEventListener('mousedown', gradeSelected(b));
+    input.addEventListener( 'mousedown', gradeSelected( b ) );
   }
 
   // @param node [Object] The DOM element for the grade selection button.
   // @param btnIndex [Number] The index position of the button.
-  function gradeSelected(btnIndex) {
-    return function () {
+  function gradeSelected( btnIndex ) {
+    return function() {
       // Remove active class from currently selected button.
-      if (_activeBtn !== null && typeof _activeBtn !== undefined) {
-        btnsGradeDOM[_activeBtn].className = btnsGradeDOM[_activeBtn].className.replace('active', '');
+      if ( _activeBtn !== null && typeof _activeBtn !== 'undefined' ) {
+        btnsGradeDOM[_activeBtn].className = btnsGradeDOM[_activeBtn].className.replace( 'active', '' );
       }
       // Set new grade.
-      if (btnIndex === null || typeof btnIndex === undefined || (btnIndex === _activeBtn)) {
+      if ( btnIndex === null ||
+           typeof btnIndex === 'undefined' ||
+           btnIndex === _activeBtn ) {
         // Grade was unset.
         _activeBtn = null;
       } else {
         _activeBtn = btnIndex;
-        btnsGradeDOM[btnIndex].className = btnsGradeDOM[btnIndex].className + ' active';
+        btnsGradeDOM[btnIndex].className += ' active';
       }
-      _self.dispatchEvent( 'change', {row: _row, data: {grade: _activeBtn}} );
-    }
-    
+      _self.dispatchEvent( 'change', {
+        row:  _row,
+        data: { grade: _activeBtn }
+      } );
+    };
   }
 
-  function unsetGrades(node) {
-    if (node) {
-      node.className = node.className.replace('active', '');
+  // TODO: Check if unsetGrades is used somewhere, and if not, remove it.
+  function unsetGrades( node ) {
+    if ( node ) {
+      node.className = node.className.replace( 'active', '' );
     }
-    options.container.className = options.container.className.replace('active', '');
+    options.container.className = options.container.className.replace( 'active', '' );
     _row.grade = null;
   }
 
@@ -58,17 +63,16 @@ function ButtonGradingGroup(options) {
     return _activeBtn;
   }
 
-  function setGrade(toGrade) {
-    gradeSelected(toGrade);
+  function setGrade( toGrade ) {
+    gradeSelected( toGrade );
   }
-  
 
   // Expose public methods
   this.getGrade = getGrade;
   this.setGrade = setGrade;
 
   // Attach additional methods.
-  _eventObserver.attach(this);
+  eventObserver.attach( this );
 }
 
 // Expose public methods.

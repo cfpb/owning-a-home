@@ -1,35 +1,35 @@
-var React = require('react');
-var $ = jQuery = require('jquery');
-require('jquery.scrollto');
+var React = require( 'react' );
+var $ = jQuery = require( 'jquery' );
+require( 'jquery.scrollto' );
 
-var InputUSD = require('./react-components/input-usd.jsx');
-var InputPercentage = require('./react-components/input-percent.jsx');
-var WorksheetOutput = require('./monthly-payment-worksheet/worksheet-output.jsx');
+var InputUSD = require( './react-components/input-usd.jsx' );
+var InputPercentage = require( './react-components/input-percent.jsx' );
+var WorksheetOutput = require( './monthly-payment-worksheet/worksheet-output.jsx' );
 
-var MonthlyPaymentWorksheet = React.createClass({
-  
+var MonthlyPaymentWorksheet = React.createClass( {
+
     getInitialState: function() {
-        return {
-            worksheet: this.props.worksheet
-        }
+      return {
+        worksheet: this.props.worksheet
+      }
     },
-    
-    update: function (prop, val) {
+
+    update: function( prop, val ) {
         var worksheet = this.state.worksheet;
         worksheet[prop] = val || 0;
         this.setState({worksheet: worksheet});
     },
-    
+
     print: function () {
         window.focus();
         window.print();
     },
-    
-    scrollUp: function (e) {
-        e.preventDefault();
-        $.scrollTo( $('#estimate-section'), {
+
+    scrollUp: function( evt ) {
+        evt.preventDefault();
+        $.scrollTo( $( '#estimate-section' ), {
           duration: 600,
-          offset: -30
+          offset:   -30
         });
     },
 
@@ -46,9 +46,9 @@ var MonthlyPaymentWorksheet = React.createClass({
                       <legend className="h3">
                         <span className="heading-number">1</span>Monthly income
                       </legend>
-                      
-                      
-                      <fieldset >
+
+
+                      <fieldset>
                         <legend className="h5">
                           Pre-tax income
                         </legend>
@@ -85,8 +85,8 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                       </fieldset>
-                      
-                      
+
+
                       <fieldset>
                         <legend className="h5">
                           Take-home income
@@ -99,7 +99,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                           <div className="input-col">
                             <InputUSD id="takeHomeIncome" value={worksheet.takeHomeIncome} onChange={this.update.bind(null, 'takeHomeIncome')}/>
-                            
+
                           </div>
                         </div>
                         <div className="content-l input-row">
@@ -132,7 +132,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                       <legend className="h3">
                         <span className="heading-number">2</span>Monthly spending and savings
                       </legend>
-                      
+
                       <div className="content-l input-row">
                         <div className="label-col">
                           <label htmlFor="rent">
@@ -141,7 +141,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         </div>
                         <div className="input-col">
                           <InputUSD id="rent" value={worksheet.rent} onChange={this.update.bind(null, 'rent')}/>
-                          
+
                         </div>
                       </div>
                       <div className="content-l input-row">
@@ -196,7 +196,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           <em>Amount you put away each month from your take-home income.</em>
                         </div>
                       </div>
-                      
+
                       <div className="total-row output-row">
                         <div className="content-l">
                           <div className="label-col">
@@ -206,14 +206,14 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                           <div className="input-col">
                             <WorksheetOutput prop="spendingAndSavings" data={worksheet}/>
-                            
+
                           </div>
                           <div className="content-l_col content-l_col-1  note-row">
                             <em>Your total monthly spending and savings should be no more than your total monthly take-home income.</em>
                           </div>
                         </div>
                       </div>
-                      
+
                     </fieldset>
                   </div>
                 </div>
@@ -267,7 +267,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                       </div>
-                      
+
                     </fieldset>
                     <fieldset>
                       <legend className="h3">
@@ -325,7 +325,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           </div>
                         </div>
                       </div>
-                      
+
                     </fieldset>
                   </div>
                   <div className="content-l_col content-l_col__before-divider content-l_col-1-2 col-right">
@@ -395,7 +395,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                           <p><a href="/owning-a-home/process/sources/">Check out our sources</a></p>
                         </div>
                       </div>
-                      
+
                     </fieldset>
                   </div>
                 </div>
@@ -517,7 +517,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="content-l output-row">
                       <div className="label-col">
                         <div className="label">Monthly taxes and insurance</div>
@@ -526,7 +526,7 @@ var MonthlyPaymentWorksheet = React.createClass({
                         - <WorksheetOutput prop="taxesAndInsurance" data={worksheet}/>
                       </div>
                     </div>
-                    
+
                     <div className="total-row output-row summary-row">
                       <div className="content-l">
                         <div className="label-col">
@@ -566,10 +566,10 @@ var MonthlyPaymentWorksheet = React.createClass({
         );
     }
 
-});
+} );
 
 var worksheet = {};
 
 React.render(
-  <MonthlyPaymentWorksheet worksheet={worksheet}/>, document.getElementById('app-container')
+  <MonthlyPaymentWorksheet worksheet={worksheet}/>, document.getElementById( 'app-container' )
 );

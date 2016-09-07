@@ -1,4 +1,6 @@
-var supportsAccessors = (function supportsAccessors() {
+'use strict';
+
+var supportsAccessors = ( function supportsAccessors() {
   var obj = {};
   if ( !Object.defineProperty ) {
     return false;
@@ -7,8 +9,10 @@ var supportsAccessors = (function supportsAccessors() {
     // IE8 incorrectly let's you define properties only on DOM objects.
     Object.defineProperty( obj, 'foo', {} );
     return 'foo' in obj;
-  } catch ( e ) {}
-})();
+  } catch ( err ) {
+    // defineProperty threw an error.
+  }
+} )();
 
 // Force it to boolean, we don't want no `undefined` tomfoolery.
 module.exports = supportsAccessors ? true : false;

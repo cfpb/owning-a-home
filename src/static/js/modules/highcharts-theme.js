@@ -1,38 +1,40 @@
+'use strict';
+
 Highcharts.theme = {
-  colors: ['#ADDC91'],
+  colors: [ '#ADDC91' ],
   style: {
     fontFamily: '"Avenir Next", Arial, Helvetica, sans-serif',
-    fontSize: '13px'
+    fontSize:   '13px'
   },
   chart: {
     backgroundColor: '#FFFFFF',
-    marginLeft: 30,
-    marginRight: 25,
+    marginLeft:      30,
+    marginRight:     25
   },
   yAxis: {
     labels: {
       style: {
-        color: '#BABBBD',
+        color: '#BABBBD'
       }
     },
     minorTickInterval: null,
-    gridLineColor: '#E3E4E5',
-    tickWidth: 0,
+    gridLineColor:     '#E3E4E5',
+    tickWidth:         0,
     title: {
       style: {
-        color: '#101820',
-        fontSize: '16px',
+        color:      '#101820',
+        fontSize:   '16px',
         fontWeight: 'normal',
         fontFamily: '"Avenir Next", Arial, sans-serif'
       },
       rotation: 450
     },
-    plotLines: [{
-      color: '#919395',
-      width: 1,
-      value: 0,
+    plotLines: [ {
+      color:  '#919395',
+      width:  1,
+      value:  0,
       zIndex: 100
-    }]
+    } ]
   },
   xAxis: {
     labels: {
@@ -42,8 +44,8 @@ Highcharts.theme = {
     tickWidth: 0,
     title: {
       style: {
-        color: '#BABBBD',
-        fontSize: '12px',
+        color:      '#BABBBD',
+        fontSize:   '12px',
         fontWeight: 'normal',
         fontFamily: '"Avenir Next", Arial, sans-serif'
       }
@@ -51,10 +53,10 @@ Highcharts.theme = {
   },
   tooltip: {
     backgroundColor: 'transparent',
-    borderColor: 'none',
-    shadow: false
-  },
+    borderColor:     'none',
+    shadow:          false
+  }
 };
 
 // Apply the theme
-Highcharts.setOptions(Highcharts.theme);
+Highcharts.setOptions( Highcharts.theme );

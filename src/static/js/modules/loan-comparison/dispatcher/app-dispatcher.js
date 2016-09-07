@@ -1,32 +1,34 @@
-var Dispatcher = require('flux').Dispatcher;
-var assign = require('object-assign');
+'use strict';
 
-var AppDispatcher = assign(new Dispatcher(), {
+var Dispatcher = require( 'flux' ).Dispatcher;
+var assign = require( 'object-assign' );
+
+var AppDispatcher = assign( new Dispatcher(), {
 
   /**
-   * @param {object} action The details of the action, including the action's
-   * type and additional data coming from the server.
+   * @param {Object} action - The details of the action, including the action's
+   *   type and additional data coming from the server.
    */
-  handleServerAction: function(action) {
+  handleServerAction: function( action ) {
     var payload = {
       source: 'SERVER_ACTION',
       action: action
     };
-    this.dispatch(payload);
+    this.dispatch( payload );
   },
 
   /**
-   * @param {object} action The details of the action, including the action's
-   * type and additional data coming from the view.
+   * @param {Object} action - The details of the action, including the action's
+   *   type and additional data coming from the view.
    */
-  handleViewAction: function(action) {
+  handleViewAction: function( action ) {
     var payload = {
       source: 'VIEW_ACTION',
       action: action
     };
-    this.dispatch(payload);
+    this.dispatch( payload );
   }
 
-});
+} );
 
 module.exports = AppDispatcher;
