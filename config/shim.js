@@ -22,5 +22,10 @@ module.exports = {
     depends: {
       jquery: 'jQuery',
     }
+  },
+  "jquery-scrollto": {
+    depends: {
+      jquery: 'jQuery',
+    }
   }
 };

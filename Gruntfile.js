@@ -118,26 +118,16 @@ module.exports = function(grunt) {
           './src/static/js/modules/loan-estimate.js',
           './src/static/js/modules/closing-disclosure.js',
           './src/static/js/modules/process.js',
-          './src/static/js/modules/monthly-payment-worksheet.js',
+          //'./src/static/js/modules/monthly-payment-worksheet.js',
           //'./src/static/js/modules/loan-comparison.js',
           //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
         ],
         dest: 'dist/static/js/main.js',
         options: {
-          transform: ['browserify-shim', 'hbsfy', ['reactify', {harmony: true}]],
+          transform: [['browserify-shim', {global: true}], 'hbsfy', ['reactify', {harmony: true}]],
           plugin: [
             ['factor-bundle', {
-              entries: [
-                './src/static/js/modules/base.js',
-                './src/static/js/modules/loan-options.js',
-                './src/static/js/modules/explore-rates.js',
-                './src/static/js/modules/loan-estimate.js',
-                './src/static/js/modules/closing-disclosure.js',
-                './src/static/js/modules/process.js',
-                './src/static/js/modules/monthly-payment-worksheet.js',
-                //'./src/static/js/modules/loan-comparison.js',
-                //'./src/static/js/modules/prepare-worksheets/prepare-worksheets.js'
-              ],
+              
               o: [
                 'dist/static/js/base.js',
                 'dist/static/js/loan-options.js',
@@ -145,7 +135,7 @@ module.exports = function(grunt) {
                 'dist/static/js/loan-estimate.js',
                 'dist/static/js/closing-disclosure.js',
                 'dist/static/js/process.js',
-                'dist/static/js/monthly-payment-worksheet.js',
+                //'dist/static/js/monthly-payment-worksheet.js',
                 //'dist/static/js/loan-comparison.js',
                 //'dist/static/js/prepare-worksheets.js'
               ]
@@ -160,7 +150,7 @@ module.exports = function(grunt) {
         options: {
           watch: true,
           debug: true,
-          transform: ['browserify-shim', 'hbsfy', 'reactify']
+          transform: [['browserify-shim', {global: true}], 'hbsfy', 'reactify']
         }
       }
     },
