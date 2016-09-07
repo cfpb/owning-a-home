@@ -116,16 +116,9 @@
     "sticky": "./src/static/vendor/sticky/jquery.sticky.js",
     "cf-expandables": "./src/static/vendor/cf-expandables/cf-expandables.js",
     "tooltips": "./src/static/vendor/bootstrap/tooltip.js",
-    "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx",
-    "jquery-scrollto": "./node_modules/jquery.scrollto/jquery.scrollTo.js"
+    "cf-button": "./src/static/vendor/cf-buttons/CFButton.jsx"
   },
  
-"browserify-shim": {
-  "jQuery": "global:jQuery",
-    "jquery": "global:jQuery",
-        "$": "global:jQuery"
-
-
-}
+  "browserify-shim": "./config/shim.js"
 
 }
