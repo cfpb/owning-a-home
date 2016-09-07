@@ -3,7 +3,7 @@
 var $ = jQuery = require('jquery');
 var sticky = require('../../vendor/sticky/jquery.sticky.js');
 require('../../vendor/jquery.easing/jquery.easing.js');
-require("jquery.scrollTo");
+require("jquery.scrollto");
 require('../../vendor/cf-expandables/cf-expandables.js');
 var debounce = require('debounce');
 
