@@ -1,11 +1,12 @@
 'use strict';
 
-var $ = require( 'jquery' );
-require( '../../vendor/sticky/jquery.sticky.js' );
-require( '../../vendor/jquery.easing/jquery.easing.js' );
-require( 'jquery.scrollto' );
-require( '../../vendor/cf-expandables/cf-expandables.js' );
-var debounce = require( 'debounce' );
+var $ = jQuery = require('jquery');
+var sticky = require('../../vendor/sticky/jquery.sticky.js');
+require('../../vendor/jquery.easing/jquery.easing.js');
+require("jquery.scrollto");
+require('../../vendor/cf-expandables/cf-expandables.js');
+var debounce = require('debounce');
+
 
 var formExplainer = {
   pageCount:   0,

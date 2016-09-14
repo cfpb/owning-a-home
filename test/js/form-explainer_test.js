@@ -8,26 +8,28 @@ var formExplainer;
 var sticky;
 var jsdom = require('mocha-jsdom');
 var sandbox;
-
+var $WRAPPER;
 
 describe('Form explainer tests', function() {
 
   jsdom({
     file: 'test/js/fixtures/form-explainer.html',
     console: false
-  });
+  })
+
 
   before(function () {
-    $ = require('../../src/static/vendor/jquery/jquery.js');
-    jQuery = require('../../src/static/vendor/jquery/jquery.js');
+    $ = jQuery = require('jquery');
     sticky = require('../../src/static/vendor/sticky/jquery.sticky.js');
     formExplainer = require('../../src/static/js/modules/form-explainer.js');
+    $WRAPPER = $(document.body).find('.explain')
   });
 
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
+    
     formExplainer.getPageEl = function() {
-      return $('#explain_page-1');
+      return $WRAPPER.find('#explain_page-1');
     }
   });
 
@@ -37,28 +39,27 @@ describe('Form explainer tests', function() {
 
   describe('form elements and constants exist on page', function() {
       it('has a wrapper element', function () {
-        expect($('.explain')).to.have.length.above(0);
+        expect($WRAPPER).to.have.length.above(0);
       })
 
       it('has tabs', function () {
-        $TABS = $('.explain').find('.explain_tabs'),
+        $TABS = $WRAPPER.find('.explain_tabs'),
         expect($TABS).to.have.length.above(0);
       })
 
       it('has pagination', function () {
-        var $WRAPPER = $('.explain');
         $PAGINATION = $WRAPPER.find('.explain_pagination'),
         expect($PAGINATION).to.have.length.above(0);
       })
 
       it('has an initial tab', function () {
         var DEFAULT_TYPE = 'checklist';
-        $INITIAL_TAB = $('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
+        $INITIAL_TAB = $WRAPPER.find('.tab-link[data-target="' + DEFAULT_TYPE + '"]').closest('.tab-list');
         expect($INITIAL_TAB).to.have.length.above(0);
       })
 
       it('shows the first explainer page', function () {
-        expect($('.explain_page:visible')).to.have.length.above(0);
+        expect($WRAPPER.find('.explain_page:visible')).to.have.length.above(0);
       })
   });
 
@@ -89,7 +90,7 @@ describe('Form explainer tests', function() {
     it('should find the DOM element for the specified form page number', function() {
       var result = formExplainer.getPageEl(1);
       expect(result).to.be.ok();
-      expect(result.selector).to.equal('#explain_page-1');
+      expect(result.selector).to.contain('#explain_page-1');
     });
   });
 
@@ -98,11 +99,11 @@ describe('Form explainer tests', function() {
       var result = formExplainer.getPageElements(1);
 
       expect(result).to.be.ok();
-      expect(result.$page.selector).to.equal('#explain_page-1');
-      expect(result.$imageMap.selector).to.equal('#explain_page-1 .image-map');
-      expect(result.$imageMapImage.selector).to.equal('#explain_page-1 .image-map_image');
-      expect(result.$imageMapWrapper.selector).to.equal('#explain_page-1 .image-map_wrapper');
-      expect(result.$terms.selector).to.equal('#explain_page-1 .terms');
+      expect(result.$page.selector).to.contain('#explain_page-1');
+      expect(result.$imageMap.selector).to.contain('#explain_page-1 .image-map');
+      expect(result.$imageMapImage.selector).to.contain('#explain_page-1 .image-map_image');
+      expect(result.$imageMapWrapper.selector).to.contain('#explain_page-1 .image-map_wrapper');
+      expect(result.$terms.selector).to.contain('#explain_page-1 .terms');
     });
   });
 
