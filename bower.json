@@ -16,7 +16,7 @@
     "cf-typography": "git://github.com/cfpb/cf-typography.git#0.7.0",
     "highcharts-release": "~3.0.10",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip",
-    "rangeslider.js": "~0.2.9",
+    "rangeslider.js": "0.3.2",
     "respond": "1.4.2",
     "polyfill": "inexorabletash/polyfill",
     "Placeholders.js": "jamesallardice/Placeholders.js#~3.0.2",
