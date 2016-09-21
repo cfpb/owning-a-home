@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 ### Changed
+- Update cf-icons to make use of mixins
 
 ## [1.5.4] - 2016-06-30
 ### Changed
