@@ -6,15 +6,15 @@
 {% block content %}
 
 <main class="content content__2-1 content__bleedbar" id="main" role="main">
-  <div class="content_wrapper content_wrapper__narrow">
-    <section class="content_main" id="fha">
-      {% include "loan_types_subpage_heading.html" %}
+  {% include "loan_types_subpage_heading.html" %}
 
+  <div class="content_wrapper content_wrapper__medium">
+    <section class="content_main" id="fha">
       <h2>FHA loans</h2>
 
       <div class="content-l">
         <section id="conventional-overview" class="col-9">
-          <p>FHA loans are loans from private lenders that are regulated and insured by the 
+          <p>FHA loans are loans from private lenders that are regulated and insured by the
           <a class="icon-link icon-link__external-link" href="http://portal.hud.gov/hudportal/HUD?src=/federal_housing_administration" target="_blank">
               <span class="icon-link_text">Federal Housing Administration</span>
             </a> (FHA), a government agency. The FHA doesn’t lend the money directly–private lenders do. FHA loans:</p>
@@ -51,7 +51,7 @@
       </header>
 
       <div class="aside-chunk">
-        <ul class="list list__links list__spaced">  
+        <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link jump-link__right jump-link__bg" href="../conventional-loans/">
               <span class="jump-link_text">Conventional loans</span>
@@ -70,7 +70,7 @@
       </header>
 
       <div class="aside-chunk">
-        <ul class="list list__links list__spaced">  
+        <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link icon-link__external-link jump-link__bg" href="http://portal.hud.gov/hudportal/HUD?src=/federal_housing_administration" target="_blank">
               <span class="jump-link_text">Federal Housing Administration</span>
@@ -84,7 +84,7 @@
       </header>
 
       <div class="aside-chunk">
-        <ul class="list list__links list__spaced">  
+        <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link jump-link__bg" href="/askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html" target="_blank">
               <span class="jump-link_text">How can I find the loan limit for an FHA loan in my county?</span>
@@ -96,4 +96,3 @@
   </div>
 </main>
 {% endblock %}
-
