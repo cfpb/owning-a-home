@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 ### Changed
+- Update cf-icons to make use of mixins
+- Update grids and breadcrumbs on pages to standardize with the rest of the site.
 
 ## [1.5.4] - 2016-06-30
 ### Changed
