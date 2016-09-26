@@ -6,10 +6,10 @@
 {% block content %}
 
 <main class="content content__2-1 content__bleedbar" id="main" role="main">
-  <div class="content_wrapper content_wrapper__narrow">
-    <section class="content_main">
-      {% include "loan_types_subpage_heading.html" %}
+  {% include "loan_types_subpage_heading.html" %}
 
+  <div class="content_wrapper content_wrapper__medium">
+    <section class="content_main">
       <h2>Conventional loan</h2>
 
       <div class="content-l">
@@ -96,7 +96,7 @@
       </header>
 
       <div class="aside-chunk">
-        <ul class="list list__links list__spaced">  
+        <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link jump-link__right jump-link__bg" href="../FHA-loans/">
               <span class="jump-link_text">FHA loans</span>
@@ -139,4 +139,3 @@
 </main>
 
 {% endblock %}
-

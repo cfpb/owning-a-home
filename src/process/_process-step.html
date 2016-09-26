@@ -18,14 +18,14 @@
 {% set steps = query.search(size=100,q=filter) %}
 
 <main class="know-the-process wrapper" id="main" role="main">
+  <div class="content_wrapper content_wrapper__medium">
+      <nav class="breadcrumbs" aria-label="Breadcrumbs">
+        <a href="/owning-a-home/" class="breadcrumbs_link">Owning a Home</a>
+      </nav>
+  </div>
   <div>
 
     <section class="phase">
-      <div class="u-mb15">
-        <a class="list_link jump-link jump-link__left jump-link__before" href="/owning-a-home/">
-          Owning a Home
-        </a>
-      </div>
 
       {{ nav_macro.render("top", active_phase.slug) }}
 
