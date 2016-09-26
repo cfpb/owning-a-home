@@ -712,6 +712,7 @@ function renderDownPayment() {
   }
 
   checkIfZero( $price, $percent, $down );
+  addCommas( $el );
 
   if ( $price.val() !== 0 ) {
     if ( $el.attr( 'id' ) === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
@@ -720,6 +721,7 @@ function renderDownPayment() {
     } else {
       val = getSelection( 'house-price' ) * ( getSelection( 'percent-down' ) / 100 );
       $down.val( val >= 0 ? Math.round( val ) : '' );
+      addCommas( $down );
     }
   }
 }
@@ -896,6 +898,17 @@ function removeCreditScoreAlert() {
     $( '.rangeslider__handle' ).removeClass( 'warning' );
     $( '.credit-alert' ).remove();
   }
+}
+
+/**
+ * Add commas to numbers where appropriate.
+ */
+
+function addCommas( $field ) {
+  var numberValue = $field.val();
+  numberValue = numberValue.toString().replace( ',', '' );
+  numberValue = formatUSD( numberValue, { decimalPlaces: 0 } ).replace( '$', '');
+  $field.val( numberValue );
 }
 
 /**
