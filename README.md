@@ -5,6 +5,19 @@
 
 "Owning a Home" is an interactive, online toolkit designed to help consumers as they shop for a mortgage. The suite of tools gives consumers the information and confidence they need to get the best deal. It takes the consumer from the very start of the home-buying process, with a guide to loan options, terminology, and costs, through to the closing table with a closing checklist.
 
+Contents
+* [Dependencies](#dependencies)
+ * [Virtualenv & Virtualenvwrapper Python modules](#virtualenv--virtualenvwrapper-python-modules)
+ * [Autoenv module](#autoenv-module)
+ * [Sheer & Elasticsearch](#sheer--elasticsearch)
+ * [Node, Grunt, Bower, Browserify](#node-grunt-bower-browserify)
+* [Configuration](#configuration)
+* [Workflow](#workflow)
+* [Browser tests](#browser-tests)
+* [API tests](#api-tests)
+* [Load tests](#load-tests)
+* [Contributions](#contributions)
+
 ## This project is a work in progress
 Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on www.consumerfinance.gov/owning-a-home. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate.
 
@@ -139,7 +152,7 @@ To index your content from WordPress:
 
 1. In the repo directory, copy the `.env_SAMPLE` file and name it `.env`. This can be done from the command line with the following command:
 	```
-	$ cp .evn_SAMPLE .env
+	$ cp .env_SAMPLE .env
 	```
 
 2. Add your WordPress URL in place of wordpress.domain on line 1 of `.env`.
@@ -150,7 +163,9 @@ To index your content from WordPress:
 	$ workon OAH
 	$ sheer index [--reindex]
   ```
-
+4. In the `test` directory, copy the `.env_SAMPLE` file and name it `.env`. This can be done from the command line with the following command:
+	```
+	$ cp test/.env_SAMPLE test/.env
 
 ### Rate Checker and Mortgage Insurance
 The Rate Checker and Mortgage Insurance are JavaScript applications for checking mortgage interest rates and mortgage insurance premiums. Currently owning-a-home's Rate Checker and Loan Comparison are powered by private APIs that returns mortgage rate, county data, and mortgage insurance premiums. **Without these APIs configured, the website will still load but the Rate Checker and Loan Comparison applications will NOT be available.**
