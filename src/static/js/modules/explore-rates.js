@@ -712,7 +712,6 @@ function renderDownPayment() {
   }
 
   checkIfZero( $price, $percent, $down );
-  addCommas( $el );
 
   if ( $price.val() !== 0 ) {
     if ( $el.attr( 'id' ) === 'down-payment' || options['dp-constant'] === 'down-payment' ) {
@@ -1198,7 +1197,6 @@ $( '.calc-loan-amt .recalc' ).on( 'keyup', function( evt ) {
 $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
   var verbotenKeys = [ 9, 37, 38, 39, 40 ];
   var element = this;
-
   // Don't recalculate on TAB or arrow keys.
   if ( verbotenKeys.indexOf( evt.which ) === -1 ||
        $( this ).hasClass( 'range' ) ) {
@@ -1206,6 +1204,8 @@ $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
       processLoanAmount( element );
     }, 500 );
   }
+
+  addCommas( $(evt.target) );
 } );
 
 // Once the user has edited fields, put the kibosh on the placeholders
