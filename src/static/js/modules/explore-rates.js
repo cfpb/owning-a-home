@@ -901,12 +901,13 @@ function removeCreditScoreAlert() {
 
 /**
  * Add commas to numbers where appropriate.
+ * @param {jQuery DOM Object} $field - jQuery field where commas will be added.
  */
-
 function addCommas( $field ) {
   var numberValue = $field.val();
   numberValue = numberValue.toString().replace( ',', '' );
-  numberValue = formatUSD( numberValue, { decimalPlaces: 0 } ).replace( '$', '');
+  numberValue = formatUSD( numberValue, { decimalPlaces: 0 } )
+    .replace( '$', '' );
   $field.val( numberValue );
 }
 
@@ -1204,9 +1205,12 @@ $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
       processLoanAmount( element );
     }, 500 );
   }
-
-  addCommas( $(evt.target) );
 } );
+
+$( '.calc-loan-amt, .credit-score' ).on( 'blur', '.recalc', function( evt ) {
+  addCommas( $( evt.target ) );
+} );
+
 
 // Once the user has edited fields, put the kibosh on the placeholders
 $( '#house-price, #percent-down, #down-payment' ).on( 'keyup', function() {
