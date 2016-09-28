@@ -5,17 +5,16 @@
 {% block title %}Owning a Home: Loan Options{% endblock title %}
 
 {% block content %}
-<main class="content">
-  <div class="content_wrapper content_wrapper__medium">
+<main class="content" id="main">
+  <div class="content_wrapper">
       <nav class="breadcrumbs" aria-label="Breadcrumbs">
         <a href="/owning-a-home/" class="breadcrumbs_link">Owning a Home</a>
       </nav>
   </div>
 
-  <div class="content_main content__1-3" id="main" role="main">
-    <div class="wrapper content_wrapper u-pb0">
-
-      <section class="content__loan-options content_main">
+  <div class="content_wrapper content__2-1">
+    <div class="content_main">
+      <section class="content__loan-options">
           <h1>Understand loan options</h1>
 
           <p class="lead">The kind of mortgage you choose has a big impact on how much you end up paying&mdash;how much you’ll have to pay upfront, your monthly payment amount, and the total cost of your loan over time. It also affects the level of risk you take on. Knowing what kind of loan is most appropriate for your situation prepares you for talking to lenders and getting the best deal.</p>
@@ -380,45 +379,46 @@
             </section> <!-- /.type-details -->
 
       </section>
-      <aside class="content_sidebar content__flush-all-on-small">
-      </aside>
-      {% import "related-links.html" as related_links %}
-      <div class="content_intro related-links_container">
-        {% set process_links = [
-            {
-              'desc': 'Still shopping for a home?',
-              'urls': [
-                {
-                  'label': 'Explore loan choices',
-                  'url': '/owning-a-home/process/explore/'
-                }
-              ]
-            },
-            {
-              'desc': 'Already have a home in mind?',
-              'urls': [
-                {
-                  'label': 'Compare loan offers',
-                  'url': '/owning-a-home/process/compare/'
-                }
-              ]
-            }
-         ] %}
-         {% set tools_links = [
-             {
-               'desc': 'Interest rates can differ based on the kind of loan you choose.',
-               'urls': [
-                {
-                  'label': 'Explore interest rates',
-                  'url': '/owning-a-home/explore-rates/'
-                }
-               ]
-             }
-          ] %}
-        {{ related_links.render(process_links, tools_links) }}
-      </div>
     </div>
   </div>
+
+  <aside class="content_wrapper content__flush-all-on-small">
+    {% import "related-links.html" as related_links %}
+    <div class="content_intro related-links_container">
+    {% set process_links = [
+        {
+          'desc': 'Still shopping for a home?',
+          'urls': [
+            {
+              'label': 'Explore loan choices',
+              'url': '/owning-a-home/process/explore/'
+            }
+          ]
+        },
+        {
+          'desc': 'Already have a home in mind?',
+          'urls': [
+            {
+              'label': 'Compare loan offers',
+              'url': '/owning-a-home/process/compare/'
+            }
+          ]
+        }
+     ] %}
+     {% set tools_links = [
+         {
+           'desc': 'Interest rates can differ based on the kind of loan you choose.',
+           'urls': [
+            {
+              'label': 'Explore interest rates',
+              'url': '/owning-a-home/explore-rates/'
+            }
+           ]
+         }
+      ] %}
+    {{ related_links.render(process_links, tools_links) }}
+  </div>
+  </aside>
 </main>
 
 {% endblock %}

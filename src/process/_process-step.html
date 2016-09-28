@@ -17,12 +17,14 @@
 {% set filter = 'parent:' + id_str  %}
 {% set steps = query.search(size=100,q=filter) %}
 
-<main class="know-the-process wrapper" id="main" role="main">
-  <div class="content_wrapper content_wrapper__medium">
-      <nav class="breadcrumbs" aria-label="Breadcrumbs">
-        <a href="/owning-a-home/" class="breadcrumbs_link">Owning a Home</a>
-      </nav>
-  </div>
+<div class="content_wrapper">
+    <nav class="breadcrumbs" aria-label="Breadcrumbs">
+      <a href="/owning-a-home/" class="breadcrumbs_link">Owning a Home</a>
+    </nav>
+</div>
+
+<main class="know-the-process content_wrapper" id="main" role="main">
+
   <div>
 
     <section class="phase">
