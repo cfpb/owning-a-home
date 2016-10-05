@@ -1021,7 +1021,6 @@ function renderChart( data, cb ) {
         max: 10,
         min: 0
       }, {
-        opposite: true,
         title: {
           text: 'Number of lenders offering rate'
         }
@@ -1049,7 +1048,7 @@ function renderChart( data, cb ) {
                 } );
               }
             } );
-            return '<div class="data-label">' + this.x + '<br>|</div>';
+            return '<div class="data-label"><span class="data-label_number">' + this.x + '</span><br>|</div>';
           }
         }
       } ],

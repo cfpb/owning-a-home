@@ -8,7 +8,6 @@ Highcharts.theme = {
   },
   chart: {
     backgroundColor: '#FFFFFF',
-    marginLeft:      30,
     marginRight:     25
   },
   yAxis: {
@@ -26,8 +25,7 @@ Highcharts.theme = {
         fontSize:   '16px',
         fontWeight: 'normal',
         fontFamily: '"Avenir Next", Arial, sans-serif'
-      },
-      rotation: 450
+      }
     },
     plotLines: [ {
       color:  '#919395',
@@ -55,6 +53,11 @@ Highcharts.theme = {
     backgroundColor: 'transparent',
     borderColor:     'none',
     shadow:          false
+  },
+  plotOptions: {
+    series: {
+      groupPadding: 0.08
+    }
   }
 };
 
