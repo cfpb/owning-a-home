@@ -719,8 +719,9 @@ function renderDownPayment() {
       $percent.val( Math.round( val ) );
     } else {
       val = getSelection( 'house-price' ) * ( getSelection( 'percent-down' ) / 100 );
-      $down.val( val >= 0 ? Math.round( val ) : '' );
-      addCommas( $down );
+      val = val >= 0 ? Math.round( val ) : '';
+      val = addCommas( val );
+      $down.val( val );
     }
   }
 }
@@ -901,14 +902,14 @@ function removeCreditScoreAlert() {
 
 /**
  * Add commas to numbers where appropriate.
- * @param {jQuery DOM Object} $field - jQuery field where commas will be added.
+ * @param {string} value - Old value where commas will be added.
+ * return {string} value - Value with commas and no dollar sign.
  */
-function addCommas( $field ) {
-  var numberValue = $field.val();
-  numberValue = numberValue.toString().replace( ',', '' );
-  numberValue = formatUSD( numberValue, { decimalPlaces: 0 } )
+function addCommas( value ) {
+  value = unFormatUSD( value );
+  value = formatUSD( value, { decimalPlaces: 0 } )
     .replace( '$', '' );
-  $field.val( numberValue );
+  return value;
 }
 
 /**
@@ -1207,8 +1208,11 @@ $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
   }
 } );
 
-$( '.calc-loan-amt, .credit-score' ).on( 'blur', '.recalc', function( evt ) {
-  addCommas( $( evt.target ) );
+$( '#house-price, #down-payment' ).on( 'focusout', function( evt ) {
+  var value;
+  value = $( evt.target ).val();
+  value = addCommas( value );
+  $( evt.target ).val( value );
 } );
 
 
