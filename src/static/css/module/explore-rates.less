@@ -121,10 +121,10 @@
   }
 }
 
-.loan-amt-total, 
+.loan-amt-total,
 .state-col {
   border-width: 0;
-  
+
   .wrapper {
     padding: 0;
   }
@@ -289,12 +289,22 @@
 
 .data-label {
   text-align: center;
+}
+
+.data-label_number {
   background-color: #fff;
+  .respond-to-max(@mobile-max, {
+    display: block;
+    transform: rotate(-90deg);
+  });
 }
 
 .chart-caption {
   font-size: 1em;
-  padding: 0 1em 1em 1em;
+  padding-bottom: 1em;
+  padding-right: 1em;
+  // Magic number to line up caption with chart
+  margin-left: 60px;
 }
 
 .caption-title {
@@ -334,7 +344,7 @@
     font-size: 3em;
     max-width: 30%;
     text-align: right;
-    
+
   }
   .text {
     display: inline-block;
