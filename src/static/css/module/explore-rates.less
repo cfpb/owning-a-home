@@ -10,6 +10,21 @@
     }
 }
 
+@media (max-width: 720px) {
+  .rc-home-illu {
+    display: none;
+  }
+  .rc-illu-inner {
+    padding: 0;
+  }
+}
+
+@media print {
+  .rc-illu-inner {
+    display: none;
+  }
+}
+
 .rc-illu-inner {
   padding: 1em 4.5em 0 4.5em;
 }
@@ -36,6 +51,13 @@
   }
 }
 
+@media print {
+  .calculator,
+  .rc-results {
+    .grid_column( 12 );
+    .grid_push( 0 );
+  }
+}
 /*
     Sidebar with all the user input
     --------------------------- */
@@ -121,10 +143,10 @@
   }
 }
 
-.loan-amt-total, 
+.loan-amt-total,
 .state-col {
   border-width: 0;
-  
+
   .wrapper {
     padding: 0;
   }
@@ -145,6 +167,13 @@
   font-size: 0.875em;
   text-align: right;
   margin-right: 1.25em; //align it nicely with the chart
+}
+
+@media print {
+  .calculator section {
+    width: 100%;
+    display: inline-block;
+  }
 }
 
 /*
@@ -241,6 +270,13 @@
   text-align: center;
 }
 
+@media print {
+  .rangeslider,
+  .credit-score .labels {
+    display: none;
+  }
+}
+
 /*
     Main section with output
     --------------------------- */
@@ -334,7 +370,7 @@
     font-size: 3em;
     max-width: 30%;
     text-align: right;
-    
+
   }
   .text {
     display: inline-block;
