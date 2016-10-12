@@ -719,7 +719,9 @@ function renderDownPayment() {
       $percent.val( Math.round( val ) );
     } else {
       val = getSelection( 'house-price' ) * ( getSelection( 'percent-down' ) / 100 );
-      $down.val( val >= 0 ? Math.round( val ) : '' );
+      val = val >= 0 ? Math.round( val ) : '';
+      val = addCommas( val );
+      $down.val( val );
     }
   }
 }
@@ -896,6 +898,18 @@ function removeCreditScoreAlert() {
     $( '.rangeslider__handle' ).removeClass( 'warning' );
     $( '.credit-alert' ).remove();
   }
+}
+
+/**
+ * Add commas to numbers where appropriate.
+ * @param {string} value - Old value where commas will be added.
+ * return {string} value - Value with commas and no dollar sign.
+ */
+function addCommas( value ) {
+  value = unFormatUSD( value );
+  value = formatUSD( value, { decimalPlaces: 0 } )
+    .replace( '$', '' );
+  return value;
 }
 
 /**
@@ -1185,7 +1199,6 @@ $( '.calc-loan-amt .recalc' ).on( 'keyup', function( evt ) {
 $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
   var verbotenKeys = [ 9, 37, 38, 39, 40 ];
   var element = this;
-
   // Don't recalculate on TAB or arrow keys.
   if ( verbotenKeys.indexOf( evt.which ) === -1 ||
        $( this ).hasClass( 'range' ) ) {
@@ -1194,6 +1207,14 @@ $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
     }, 500 );
   }
 } );
+
+$( '#house-price, #down-payment' ).on( 'focusout', function( evt ) {
+  var value;
+  value = $( evt.target ).val();
+  value = addCommas( value );
+  $( evt.target ).val( value );
+} );
+
 
 // Once the user has edited fields, put the kibosh on the placeholders
 $( '#house-price, #percent-down, #down-payment' ).on( 'keyup', function() {
