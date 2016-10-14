@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "social-media.html" as social_media with context %}
 {% set active_page = "loan-options-subpage" %}
 
 {% block title %}Owning a Home: Loan Options{% endblock title %}
@@ -114,7 +115,13 @@
 
 
     <aside class="content_sidebar sans">
-        <header class="tabbed-header">
+      <div class="block
+                  block__flush-top">
+        {{ social_media.render( {
+              'title':  'Check out this page from the @CFPB'
+        } ) }}
+      </div>
+      <header class="tabbed-header">
         <h3 class="subhead tabbed-heading">Other loan types</h3>
       </header>
 

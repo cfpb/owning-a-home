@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "social-media.html" as social_media with context %}
 {% set active_page = "mortgage-closing" %}
 {% block title %}Mortgage Closing{% endblock title %}
 {% block content %}
@@ -60,7 +61,12 @@
     </section>
     <!-- .content_main -->
     <aside class="content_sidebar">
-      <!-- STAY TUNED -->
+      <div class="block
+                  block__flush-top block__padded-top">
+        {{ social_media.render( {
+              'title':  'Check out this page from the @CFPB'
+        } ) }}
+      </div>
       <section class="block u-mt0">
         <header class="tabbed-header tabbed-pad-top">
           <h3 class="subhead tabbed-heading">Resources</h3>

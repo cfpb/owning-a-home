@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "social-media.html" as social_media with context %}
 {% set active_page = "closing-disclosure" %}
 {% set page_js = "closing-disclosure" %}
 
@@ -16,6 +17,15 @@
         <div class="content-l_col-2-3">
           <h1 class="page-title">Closing Disclosure Explainer</h1>
           <p class="lead">Lenders are required to provide your Closing Disclosure three business days before your scheduled closing. Use these days wisely. This tool will help you double-check that all the details are correct. If something looks different from what you expected, ask why. Now is the time to resolve problems&mdash;if the explanation you get isn’t satisfactory, keep asking questions.</p>
+          <div class="block
+                      block__flush-top
+                      block__padded-top
+                      block__flush-bottom
+                      u-right">
+            {{ social_media.render( {
+                  'title':  'Check out this page from the @CFPB'
+            } ) }}
+          </div>
         </div>
 
         <div class="content-l_col-1-3">

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "social-media.html" as social_media with context %}
 {% set active_page = "loan-estimate" %}
 {% set page_js = "loan-estimate" %}
 
@@ -20,6 +21,15 @@
         <div class="content-l_col-2-3">
           <h1 class="page-title">Loan Estimate Explainer</h1>
           <p class="lead">When you receive a Loan Estimate, it should reflect a particular loan you discussed with a lender. Check to see that everything matches your expectations. If something looks different from what you expected, ask why. This tool will help you review your Loan Estimate and get definitions for unfamiliar terms.</p>
+          <div class="block
+                      block__flush-top
+                      block__padded-top
+                      block__flush-bottom
+                      u-right">
+            {{ social_media.render( {
+                  'title':  'Check out this page from the @CFPB'
+            } ) }}
+          </div>
         </div>
         <div class="content-l_col-1-3">
             <img src="{{ static('owning-a-home/static/img/ill-form-explainer-loan-est.png') }}" alt="" class="illustration">
