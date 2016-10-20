@@ -36,7 +36,7 @@
         - |
           // Example Less
           .example {
-              color: @gray;
+              color: @gray-80;
 
               .respond-to-print({
                   color: @black;
@@ -100,8 +100,8 @@
                          @bc, @bv, @bh, @bf, @ba);
 }
 
-.u-link__colors-base(@c:@pacific, @v:@teal, @h:@pacific-50, @f:@pacific, @a:@navy,
-                     @bc:@pacific, @bv:@teal, @bh:@pacific-50, @bf:@pacific, @ba:@navy) {
+.u-link__colors-base(@c:@pacific, @v:@dark-teal, @h:@pacific-60, @f:@pacific, @a:@dark-navy,
+                     @bc:@pacific, @bv:@dark-teal, @bh:@pacific-60, @bf:@pacific, @ba:@dark-navy) {
     color: @c;
     border-color: @bc;
 
@@ -130,7 +130,7 @@
     }
 }
 
-.u-link-child__hover(@c: @pacific-50) {
+.u-link-child__hover(@c: @pacific-60) {
     a:hover &,
     a.hover &,
     a:focus &,
