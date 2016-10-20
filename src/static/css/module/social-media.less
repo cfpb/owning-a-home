@@ -1,0 +1,56 @@
+.m-social-media {
+    display: inline-block;
+
+    // This could be wrapped in the `m-social-media__share` modifier,
+    // but it's ok on its own too.
+    &_heading {
+        display: inline-block;
+        // 0.25em subtracted to compensate for inline spacing
+        padding-right: unit( @grid_gutter-width / 14px - 0.25em, em );
+        margin-bottom: 0;
+        vertical-align: middle;
+
+        &__es {
+            display: none;
+        }
+
+        [lang="es"] & {
+            display: none;
+        }
+
+        [lang="es"] &__es {
+            display: inline-block;
+        }
+    }
+
+    .list {
+        display: inline-block;
+        vertical-align: middle;
+        margin-bottom: 0;
+
+        .list_item {
+            // 0.25em subtracted to compensate for inline spacing
+            margin-right: unit( (@grid_gutter-width / 2) / @base-font-size-px - 0.25em, em );
+            margin-bottom: 0;
+        }
+
+        .list_item:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &_icon {
+        color: @darkgray;
+        font-size: unit( @grid_gutter-width / @base-font-size-px, em );
+        line-height: 1;
+        .u-link__colors( @darkgray, @pacific-80 );
+        .u-link__no-border();
+    }
+
+    // Hide on print.
+    .respond-to-print( {
+        & {
+            display: none;
+        }
+    } );
+}
