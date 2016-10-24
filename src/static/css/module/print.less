@@ -37,6 +37,7 @@
    ========================================================================== */
 
 @media print {
+
   *,
   *:before,
   *:after {
@@ -53,9 +54,8 @@
     border-bottom: 0;
   }
 
-  a[href]:after {
+  #main a[href]:after {
     content: " (" attr(href) ")";
-    display: block;
     position: relative;
     top: 0;
     left: 0;
@@ -65,6 +65,7 @@
     width: auto;
     word-wrap: break-word;
     white-space: normal;
+    text-align: inherit;
   }
 
   abbr[title]:after {
@@ -76,8 +77,8 @@
    * or use the `javascript:` pseudo protocol
    */
 
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
+  #main a[href^="#"]:after,
+  #main a[href^="javascript:"]:after {
     content: "";
   }
 
@@ -116,64 +117,88 @@
   h3 {
     page-break-after: avoid;
   }
-}
 
-/* topdoc
-  name: Hero image print styles
-  family: cfgov-cf-enhancements
-  patterns:
-    - name: #hero-bg-image
-      markup: |
-        <div class="wrapper hero-wrapper">
-          <div class="col-7">
-            <h1>Owning a Home</h1>
-            <h2>We’re here to help you with your home buying process. Just starting out? Learn what to expect and how to get a great deal. About to close? A checklist makes it less stressful.</h2>
+  #skip-nav {
+    display: none;
+  }
+
+  .content-l_col {
+    width: 100%
+  }
+
+  .process-nav .jump-link,
+  .jump-link.jump-link__block {
+    border: 0;
+    padding: 0;
+  }
+
+  /* topdoc
+    name: Hero image print styles
+    family: cfgov-cf-enhancements
+    patterns:
+      - name: #hero-bg-image
+        markup: |
+          <div class="wrapper hero-wrapper">
+            <div class="col-7">
+              <h1>Owning a Home</h1>
+              <h2>We’re here to help you with your home buying process. Just starting out? Learn what to expect and how to get a great deal. About to close? A checklist makes it less stressful.</h2>
+            </div>
           </div>
-        </div>
-  tags:
-    - cfgov-cf-enhancements
-*/
+    tags:
+      - cfgov-cf-enhancements
+  */
 
-#hero-bg-image {
-  .respond-to-print({
-    background-image: none; 
+  #hero-bg-image {
+    background-image: none;
     background-color: transparent;
     border-bottom: 1px solid @gray-50;
-  });
-}
+  }
 
-/* topdoc
-  name: PDF Link print styles
-  family: cfgov-cf-enhancements
-  patterns:
-    - name: .superheader
-      markup: |
-        <a class="pdf-link pdf" href="/owning-a-home/resources/checklist_mortgage_closing.pdf">Get the closing checklist</a>
-  tags:
-    - cfgov-cf-enhancements
-*/
+  /* topdoc
+    name: PDF Link print styles
+    family: cfgov-cf-enhancements
+    patterns:
+      - name: .superheader
+        markup: |
+          <a class="pdf-link pdf" href="/owning-a-home/resources/checklist_mortgage_closing.pdf">Get the closing checklist</a>
+    tags:
+      - cfgov-cf-enhancements
+  */
 
-.pdf-link {
-  .respond-to-print({
+  .pdf-link {
     display: inline;
-  });
-}
+  }
 
-/* topdoc
-  name: Header slug print styles
-  family: cfgov-cf-enhancements
-  patterns:
-    - name: .tabbed-heading
-      markup: |
-        <header class="tabbed-header tabbed-pad-top">
-        <h3 class="subhead tabbed-heading">Stay tuned</h3>
-      </header>
-  tags:
-    - cfgov-cf-enhancements
-*/
+  /* topdoc
+    name: Header slug print styles
+    family: cfgov-cf-enhancements
+    patterns:
+      - name: .tabbed-heading
+        markup: |
+          <header class="tabbed-header tabbed-pad-top">
+          <h3 class="subhead tabbed-heading">Stay tuned</h3>
+        </header>
+    tags:
+      - cfgov-cf-enhancements
+  */
 
-.tabbed-heading {
-  .respond-to-print({
+  .tabbed-heading {
     border-top-color: @gray-50;
-  });
+  }
+
+  .o-footer {
+    .list_link {
+      border: 0;
+      padding: 0;
+    }
+
+    .o-footer_pre {
+      margin-bottom: 0;
+    }
+
+    .o-footer_official-website {
+      background: none;
+      padding-left: 0;
+    }
+  }
 }
