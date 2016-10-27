@@ -17,7 +17,6 @@ var formatTime = require( './format-timestamp' );
 require( './highcharts-theme' );
 require( '../../vendor/rangeslider.js/rangeslider.js' );
 require( './tab' );
-require( './analytics/rc-analytics' );
 require( './placeholder-polyfill' );
 
 // Load our handlebar templates.
@@ -854,14 +853,6 @@ function scoreWarning() {
     $( '#slider-range' ).after( template.creditAlert );
   }
   resultWarning();
-  // Analytics code for when this event fires.
-  if ( window._gaq ) {
-    try {
-      window._gaq.push( [ '_trackEvent', 'OAH rate tool', 'Pop up', 'Fired' ] );
-    } catch( error ) {
-      // Google Analytics global code was not found.
-    }
-  }
 }
 
 /**
@@ -996,20 +987,6 @@ function renderChart( data, cb ) {
         animation: false
       },
       plotOptions: {
-        series: {
-          events: {
-            // Google Analytics tracking for chart mouseovers.
-            mouseOver: function() {
-              if ( window._gaq ) {
-                try {
-                  window._gaq.push( [ '_trackEvent', 'OAH rate tool', 'Roll over', 'fired ' ] );
-                } catch( error ) {
-                  // Google Analytics global code was not found.
-                }
-              }
-            }
-          }
-        },
         column: {
           states: {
             hover: {
