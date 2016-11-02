@@ -2,10 +2,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## Unreleased
+
+
+## [1.6.0] - 2016-10-27
+### Changed
+- Remove Google Analytics handling
+- Add commas to the rate-explorer tool
+- Add social media icons to pages
+- Fix print styles
+
+
+## [1.5.5] - 2016-09-28
 ### Changed
 - Update cf-icons to make use of mixins
 - Update grids and breadcrumbs on pages to standardize with the rest of the site.
+- Use static() function for static assets
 
 ## [1.5.4] - 2016-06-30
 ### Changed
