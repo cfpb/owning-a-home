@@ -1,0 +1,32 @@
+.brand-header {
+  background-color: @gray-10;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid @gray-50;
+
+  &__icon {
+    color: @green;
+    font-size: 2.5em;
+    text-align: center;
+    .grid_column(2);
+
+    + .brand-header__headline {
+      .grid_column(10);
+      .webfont-medium();
+      font-size: 18px;
+    }
+  }
+
+
+  &__1-2-container {
+    padding: 15px;
+
+    .respond-to-min( 799px, {
+        .grid_column(6);
+
+        &:last-child {
+          border-left: 1px solid @gray-50;
+        }
+    });
+  }
+}
