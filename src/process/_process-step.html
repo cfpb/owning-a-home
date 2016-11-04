@@ -84,6 +84,24 @@
                     </a>
                   </div>
                 {% endfor %}
+                {% if phase_index == 1 or phase_index == 2 %}
+                  <div class="tool">
+                    <a href="../../what-are-all-costs-buying-home/">
+                      <img src="{{url_for('static', filename='img/video_costs_of_buying_home_video_thumbnail.jpg')}}">
+                    </a>
+                    <p>
+                      Buying a home costs more than the price on the for-sale listing.
+                    </p>
+                    <p>
+                      <a class="list_link jump-link"
+                         href="../../what-are-all-costs-buying-home/">
+                        <span class="jump-link_text">
+                          Watch the video: What are all the costs of buying a home?
+                        </span>
+                      </a>
+                    </p>
+                  </div>
+                {% endif %}
               </section>
               <div class="block block__bg u-no-bg">
                 {{ social_media.render( {
@@ -136,7 +154,6 @@
                             </a>
                           </section>
                           {% endif %}
-
                         </div><!-- .content-l__main -->
 
                         {% if step.what_to_do_now %}
