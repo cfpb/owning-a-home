@@ -2,8 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
 
+## Unreleased
+### Changed
+- Update HTTP image references to HTTPS.
 
 ## [1.6.0] - 2016-10-27
 ### Changed
@@ -11,7 +13,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add commas to the rate-explorer tool
 - Add social media icons to pages
 - Fix print styles
-
 
 ## [1.5.5] - 2016-09-28
 ### Changed
