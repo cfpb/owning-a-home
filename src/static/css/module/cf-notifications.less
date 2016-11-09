@@ -1,0 +1,70 @@
+// .cf-notification
+@notification-bg:               #ccc888;
+@notification-error:            @redorange-20;
+@notification-success:          @green-tint;
+@notification-warning:          @gold-20;
+
+
+@notification-padding__px: 11px;
+
+.cf-notification {
+    display: none;
+    position: relative;
+
+    padding: @notification-padding__px;
+    padding-left: 40px;
+    margin-bottom: @notification-padding__px + 4px;
+
+    background: @notification-bg;
+    border: 1px solid @input-border;
+
+    &__visible {
+      display: block;
+    }
+
+    &__error {
+        background: @notification-error;
+        border-color: @input-error;
+    }
+
+    &__success {
+        background: @notification-success;
+        border-color: @input-success;
+    }
+
+    &__warning {
+        background: @notification-warning;
+        border-color: @input-warning;
+    }
+
+    &_icon {
+        position: absolute;
+        top: @notification-padding__px + 2px;
+        left: @notification-padding__px + 4px;
+
+        color: @notification-bg;
+        font-size: unit( 18px / @base-font-size-px, em );
+
+        &__error {
+            color: @input-error;
+        }
+
+        &__success {
+            color: @input-success;
+        }
+
+        &__warning {
+            color: @input-warning;
+        }
+    }
+
+    &_text {
+        .h4();
+        margin: 0;
+
+        .short-desc {
+            display: block;
+            font-size: @base-font-size-px;
+        }
+    }
+}
