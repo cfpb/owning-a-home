@@ -4,20 +4,6 @@
   padding-bottom: 30px;
   border-bottom: 1px solid @gray-50;
 
-  &__icon {
-    color: @green;
-    font-size: 2.5em;
-    text-align: center;
-    .grid_column(2);
-
-    + .brand-header__headline {
-      .grid_column(10);
-      .webfont-medium();
-      font-size: 18px;
-    }
-  }
-
-
   &__1-2-container {
     padding: 15px;
 
@@ -28,5 +14,22 @@
           border-left: 1px solid @gray-50;
         }
     });
+  }
+
+  &__1-2-container-with-icon {
+    .brand-header__icon {
+      color: @green;
+      font-size: 2.5em;
+      text-align: center;
+      position: absolute;
+      left: 0;
+    }
+
+    .brand-header__headline {
+      .webfont-medium();
+      font-size: 18px;
+      padding-left: 3em;
+      position: relative;
+    }
   }
 }
