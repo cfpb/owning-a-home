@@ -558,3 +558,51 @@ input {
 .form-l_col__flush-bottom {
   margin-bottom: 0;
 }
+
+.rating-inputs {
+    .form-l-inset {
+      border-left-width: 15px !important;
+      border-right-width: 15px !important;
+    }
+    .cf-input_label {
+        padding-bottom: unit( ( @grid_gutter-width / 2 ) / @base-font-size-px, em );
+    }
+
+    .respond-to-range(@bp-med-min, @bp-med-max, {
+      .form-l_col {
+        width: 50%;
+      }
+      .message-column {
+        width: 100%;
+      }
+    });
+
+    .respond-to-max(@bp-xs-max, {
+      .message-column {
+        margin-top: unit( -( @grid_gutter-width / 2 ) / @base-font-size-px, em );
+      }
+    });
+  }
+
+  .rating-message {
+      position: relative;
+      padding-top:5px;
+      display: none;
+
+      &_text {
+        display: block;
+        padding-left: 1.25em;
+        .webfont-regular();
+      }
+
+      &_icon {
+        position:absolute;
+        top:8px;
+        color: @green;
+
+      }
+  }
+  
+.rateq legend {
+  margin-bottom: 15px;
+}

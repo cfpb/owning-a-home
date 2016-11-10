@@ -11,8 +11,20 @@
 @base-font-size-px:             16px;
 @base-line-height-px:           22px;
 @base-line-height:              unit(@base-line-height-px / @base-font-size-px);
-@mobile-max:                    599px;
-@tablet-min:                    600px;
+
+
+@bp-xs-max:                     600px;
+@bp-sm-min:                     @bp-xs-max + 1px;
+@bp-sm-max:                     900px;
+@bp-med-min:                    @bp-sm-max + 1px;
+@bp-med-max:                    1020px;
+@bp-lg-min:                     @bp-med-max + 1px;
+@bp-lg-max:                     1230px;
+@bp-xl-min:                     @bp-lg-max + 1px;
+
+// To be deprecated
+@mobile-max:                    @bp-xs-max;
+@tablet-min:                    @bp-sm-min;
 
 // Color variables
 
