@@ -392,9 +392,11 @@
             </section> <!-- /.type-details -->
 
       </section>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
+  
   <aside class="content_wrapper content__flush-all-on-small">
     {% import "related-links.html" as related_links %}
     <div class="content_intro related-links_container">
@@ -432,6 +434,11 @@
     {{ related_links.render(process_links, tools_links) }}
   </div>
   </aside>
+  <div class="content_wrapper content__2-1">
+    <div class="content_intro">
+      {% include "ratings-form.html" %}
+    </div>
+  </div>
 </main>
 
 {% endblock %}
