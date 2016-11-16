@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## Unreleased
+
+
+## [1.7.0] - 2016-11-15
+### Added
+- Add a brand header.
+- Add video to the sidebar of the process pages.
+
 ### Changed
 - Update HTTP image references to HTTPS.
 
