@@ -83,15 +83,15 @@
     
     &:hover,
     &.hover-has-attention {
-        border-color: @teal-80;
+        border-color: @teal;
     }
     &:focus,
     &.has-attention  {
-        border-color: @teal-80;
+        border-color: @teal;
         background: rgba(0,94,93,0.5);
     }
     &:focus {
-        outline: 1px dotted @teal;
+        outline: 1px dotted @dark-teal;
         outline-offset: 1px;
     }
 }
@@ -141,7 +141,7 @@
     }
     
     .expandable_link {
-        color: @gray;
+        color: @gray-80;
     }
     .expandable_content {
         margin: 0 unit(@grid_gutter-width / @base-font-size-px, em) 0;
@@ -190,7 +190,7 @@
         color: @gold-80;
     }
     .expandable_content:before {
-        background: @gold-50;
+        background: @gold-60;
     }
 }
 
@@ -199,14 +199,14 @@
     &:hover,
     &.expandable__expanded,
     &.has-attention {
-        background: @redorange-20;
+        background: @red-20;
     }
     .expandable_category:before {
         content: "\e103"; // .cf-icon-error-round
-        color: @redorange-80;
+        color: @red-80;
     }
     .expandable_content:before {
-        background: @redorange-50;
+        background: @red-60;
     }
 }
 
@@ -219,7 +219,7 @@
     }
     &:hover,
     &.hover-has-attention {
-        border-color: @teal-50;
+        border-color: @teal-60;
 
     }
 
@@ -227,11 +227,11 @@
     &.has-attention {
 
         & {
-            border-color: @teal-50;
+            border-color: @teal-60;
         }
 
         .expandable_header {
-            background: @teal-50;
+            background: @teal-60;
         }
 
         .expandable_category:before {
@@ -245,10 +245,10 @@
     }
     .expandable_category:before {
         content: "\e105"; // .cf-icon-help-round
-        color: @teal-80;
+        color: @teal;
     }
     .expandable_content:before {
-        background: @teal-50;
+        background: @teal-60;
     }
 }
 
@@ -279,13 +279,13 @@
       &.tab-link__checklist {
         border-top-color: @gold-20;
         .cf-icon {
-          color: @gold-50;
+          color: @gold-60;
         }
       }
       &.tab-link__definitions {
         border-top-color: @teal-20;
         .cf-icon {
-          color: @teal-50;
+          color: @teal-60;
         }
       }
       
@@ -304,9 +304,9 @@
         }
       }
       &.tab-link__definitions {
-        border-top-color: @teal-80;
+        border-top-color: @teal;
         .cf-icon {
-          color: @teal-80;
+          color: @teal;
         }
       }
     }
