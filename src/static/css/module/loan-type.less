@@ -117,7 +117,7 @@
   .timeline{
     li {
       font-size: 1.125em;
-      border-right: 1px solid @gray-20;
+      border-right: 1px solid @gray-10;
       width: 25%;
       text-align: center;
       margin-right: -4px; // remove space between inline block elements
@@ -130,7 +130,7 @@
       a,
       a:link,
       a:visited {
-        border-bottom: 4px solid @green-midtone;
+        border-bottom: 4px solid @green-60;
       }
 
       a:hover,
@@ -138,7 +138,7 @@
       .current:link,
       .current:visited {
         color: @black;
-        background-color: @green-tint;
+        background-color: @green-20;
         border-bottom: 4px solid @green;
       }
     }
@@ -163,7 +163,7 @@
       a:link,
       a:visited {
         background: #F7F7F7;
-        border: 1px solid @gray;
+        border: 1px solid @gray-80;
         border-radius: 2px;
       }
 
@@ -172,8 +172,8 @@
       .current:link,
       .current:visited {
         color: @black;
-        border: 1px solid @gray;
-        background: @green-tint;
+        border: 1px solid @gray-80;
+        background: @green-20;
       }
 
       .year {
@@ -187,7 +187,7 @@
 .loan-calc {
   margin-top: 2em;
   background: @gray-10;
-  border-top: 1px solid @gray-20;
+  border-top: 1px solid @gray-10;
 
 
   .loan-details {
@@ -199,7 +199,7 @@
   .value {
     display: inline-block;
     max-width: 92px;
-    border: solid 1px @gray-50;
+    border: solid 1px @gray-40;
     font-size: 14px;
     padding: .4em .1em;
     margin: 0 .5em;
@@ -233,7 +233,7 @@
 
 @media (min-width: 620px) {
   .loan-details {
-    border-bottom: 1px solid @gray-20;
+    border-bottom: 1px solid @gray-10;
   }
 }
 
@@ -302,7 +302,7 @@
   }
 
   .cf-icon-arrow-up {
-    color: @redorange;
+    color: @red;
   }
 
   .cf-icon-arrow-down {
@@ -318,16 +318,16 @@
   }
 
   .sub-comparison-header {
-    color: @gray;
-    border-top: 2px solid @gray-20;
-    border-bottom: 1px solid @gray-20;
+    color: @gray-80;
+    border-top: 2px solid @gray-10;
+    border-bottom: 1px solid @gray-10;
     padding: 10px 12px;
     height: 38px; // provide an explicit height for when right column headers are hidden
   }
 
   .sub-comparison-heading {
     .reset;
-    color: @darkgray;
+    color: @dark-gray;
     font-size: 0.75em;
   }
 
