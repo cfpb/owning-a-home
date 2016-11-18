@@ -459,71 +459,32 @@
       </div><!-- END .rate-checker -->
 
       {% include "no_js.html" %}
-      <div class="u-mt30 rate-checker_links">
-        {% import "related-links.html" as related_links %}
-        {% set process_links = [
-            {
-              'desc': 'Just getting started?',
-              'urls': [
-                {
-                  'label': 'Prepare to shop',
-                  'url': '/owning-a-home/process/prepare/'
-                }
-              ]
-            },
-            {
-              'desc': 'Shopping for a home?',
-              'urls': [
-                {
-                  'label': 'Explore loan choices',
-                  'url': '/owning-a-home/process/explore/'
-                }
-              ]
-            },
-            {
-              'desc': 'Already have a home in mind?',
-              'urls': [
-                {
-                  'label': 'Compare loan offers',
-                  'url': '/owning-a-home/process/compare/'
-                }
-              ]
-            }
-         ] %}
-         {% set tools_links = [
-             {
-               'desc': 'Wondering how much you can afford to spend?',
-               'type': 'download',
-               'urls': [
-                {
-                  'label': 'Get the monthly payment <br/> worksheet',
-                   'url': '/owning-a-home/monthly-payment-worksheet'
-                }
-               ]
-             },
-             {
-                'desc': 'Wondering what kind of loan is right for you?',
-                'urls': [
-                  {
-                    'label': 'Understand loan options',
-                    'url': '/owning-a-home/loan-options/'
-                  }
-                ]
-              },
-              {
-                 'desc': 'Have a Loan Estimate?',
-                 'urls': [
-                  {
-                    'label': 'Loan Estimate explainer',
-                     'url': '/owning-a-home/loan-estimate/'
-                  }
-                 ]
-
-               }
-          ] %}
-        {{ related_links.render(process_links, tools_links) }}
-      </div>
+      
     </div> <!-- /.content_main -->
   </div> <!-- /.content_wrapper -->
+  <div class="u-mt30 rate-checker_links">
+        {% import "brand-footer.html" as brand_footer %}
+        {% set footer_links = [
+          {
+            'img': static("owning-a-home/static/img/footer_calculator.png"),
+            'text': 'Ready to begin the homebuying process?',
+            'label': 'Get started now',
+            'url': '/owning-a-home/process/prepare/'
+          },
+          {
+            'img': static("owning-a-home/static/img/footer_house.png"),
+            'text': 'Ready to look for a mortgage?',
+            'label': 'Explore loan choices',
+            'url': '/owning-a-home/process/explore/'
+          },
+          {
+            'img': static("owning-a-home/static/img/footer_loan-estimate.png"),
+            'text': 'Have a Loan Estimate?',
+            'label': 'Review it with our tool',
+            'url': '/owning-a-home/loan-estimate/'
+          }
+        ]%}
+        {{ brand_footer.render(footer_links) }}
+      </div>
 </main>
 {% endblock %}

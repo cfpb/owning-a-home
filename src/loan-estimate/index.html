@@ -45,52 +45,30 @@
       <div class="col-12">
         {{ form_explainer.render([ page_1, page_2, page_3 ]) }}
       </div>
-
-      <div class="col-12">
-        {% import "related-links.html" as related_links %}
-        {% set process_links = [
-            {
-              'desc': 'Find the best deal by comparing multiple offers.',
-              'urls': [
-                {
-                  'label': 'Compare loan offers',
-                  'url': '/owning-a-home/process/compare/'
-                }
-              ]
-            },
-            {
-              'desc': 'Once you\'ve chosen a loan offer, there\'s still a lot to do.',
-              'urls': [
-                {
-                  'label': 'Get ready to close',
-                  'url': '/owning-a-home/process/close/'
-                }
-              ]
-            }
-         ] %}
-         {% set tools_links = [
-             {
-               'desc': 'Wondering what kind of loan is right for you?',
-               'urls': [
-                {
-                  'label': 'Understand loan options',
-                   'url': '/owning-a-home/loan-options/'
-                }
-               ]
-             },
-             {
-                'desc': 'Interest rates can differ based on the kind of loan you choose.',
-                'urls': [
-                  {
-                    'label': 'Explore interest rates',
-                    'url': '/owning-a-home/explore-rates/'
-                  }
-                ]
-              }
-          ] %}
-        {{ related_links.render(process_links, tools_links) }}
-      </div>
     </div><!-- /.form-explainer -->
   </div>
+  {% import "brand-footer.html" as brand_footer %}
+  {% set footer_links = [
+    {
+      'img': static("owning-a-home/static/img/footer_offers.png"),
+      'text': 'Ready to request Loan Estimates? ',
+      'label': 'Learn what comes next',
+      'url': '/owning-a-home/process/compare/'
+    },
+    {
+      'img': static("owning-a-home/static/img/footer_chart.png"),
+      'text': 'Is your interest rate competitive?',
+      'label': 'Explore interest rates',
+      'url': '/owning-a-home/explore-rates/'
+    },
+    {
+      'img': static("owning-a-home/static/img/footer_options.png"),
+      'text': 'Your loan choices affect your costs.',
+      'label': 'Learn how',
+      'url': '/owning-a-home/loan-options/'
+    }
+  ]%}
+  {{ brand_footer.render(footer_links) }}
+
 </main>
 {% endblock %}
