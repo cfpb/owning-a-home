@@ -292,6 +292,13 @@ input {
         padding-bottom: unit( ( @grid_gutter-width / 2 ) / @base-font-size-px, em );
     }
 
+    .cf-input {
+    &[type="radio"]:checked:disabled + label::before {
+      background: @input-active;
+      box-shadow: 0 0 0 1px @input-bg, 0 0 0 2px @input-active;
+    }
+  }
+
     .respond-to-range(@bp-med-min, @bp-med-max, {
       .form-l_col {
         width: 50%;
