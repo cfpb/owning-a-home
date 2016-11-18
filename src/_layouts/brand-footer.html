@@ -11,8 +11,14 @@
 
    Renders all the brand footer content: 3 link sections and email section.
 
-   
+   links:              An array of three link objects, each containing:
+                      - text (req): text of link section
+                      - img: img for link section
+                      - label: link label
+                      - url: link url
 
+                      If there are more than three link objects, only the first
+                      three will be displayed.
    ========================================================================== #}
 
 {% macro render(links) %}
