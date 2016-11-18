@@ -8,21 +8,21 @@
 @right-col-width: 202px;
 
 // Colors
-@btn-grade-disabled-color: @gray-20;
-@btn-grade-unselected-color: @gray-20;
-@btn-grade-selected-color: @green-midtone;
-@btn-grade-hover-color: @green-tint;
+@btn-grade-disabled-color: @gray-10;
+@btn-grade-unselected-color: @gray-10;
+@btn-grade-selected-color: @green-60;
+@btn-grade-hover-color: @green-20;
 
-@btn-grade-disabled-text-color: @darkgray;
-@btn-grade-unselected-text-color: @darkgray;
+@btn-grade-disabled-text-color: @dark-gray;
+@btn-grade-unselected-text-color: @dark-gray;
 @btn-grade-selected-text-color: @black;
 @btn-grade-hover-text-color: @black;
 
 @btn-delete-color: @pacific;
 @btn-delete-hover-color: @pacific-80;
 
-@btn-secondary-color: @gray;
-@btn-secondary-hover-color: @gray-80;
+@btn-secondary-color: @gray-80;
+@btn-secondary-hover-color: @gray-60;
 
 @super-btn-font-size:           18px;
 
@@ -39,23 +39,23 @@
 }
 
 .goals-medium {
-  background-color: @green-midtone;
+  background-color: @green-60;
 }
 
 .goals-low {
-  background-color: @green-tint;
+  background-color: @green-20;
 }
 
 .flags-high {
-  background-color: @redorange;
+  background-color: @red;
 }
 
 .flags-medium {
-  background-color: @redorange-80;
+  background-color: @red-80;
 }
 
 .flags-low {
-  background-color: @redorange-50;
+  background-color: @red-60;
 }
 
 .risks-high {
@@ -67,7 +67,7 @@
 }
 
 .risks-low {
-  background-color: @gold-50;
+  background-color: @gold-60;
 }
 
 .btn__super {
@@ -159,7 +159,7 @@
 }
 
 .prepare-worksheet .cf-icon-complaint-round {
-  color: @redorange;
+  color: @red;
 }
 
 .prepare-worksheet .cf-icon-error-round {
@@ -204,13 +204,13 @@
 // Individual graded input settings.
 
 .input-graded .content_bar {
-  border-top: 1px solid @gray-50;
+  border-top: 1px solid @gray-40;
   background: @gray-5;
 }
 
 .input-graded.active .content_bar {
-  border-top: 1px solid @gray-50;
-  background: @gray-20;
+  border-top: 1px solid @gray-40;
+  background: @gray-10;
 }
 
 .input-graded .btn {
@@ -245,7 +245,7 @@
 
 // Color override for content dividers on worksheet pages.
 .worksheet .subheading {
-  border-bottom-color: @gray-80;
+  border-bottom-color: @gray-60;
 }
 
 .worksheet-notes {
@@ -253,7 +253,7 @@
     width: 100%;
     
     thead {
-      border-bottom: 4px solid @gray-80;
+      border-bottom: 4px solid @gray-60;
     }
     
     thead th {
@@ -271,7 +271,7 @@
     
     tbody {
       tr {
-          border-bottom: 1px solid @gray-20;
+          border-bottom: 1px solid @gray-10;
       }
     }
     
@@ -316,7 +316,7 @@
       }
 
       tr {
-        border-bottom: 1px solid @gray-20;
+        border-bottom: 1px solid @gray-10;
         padding-bottom: (@grid_gutter-width / 2);
         margin-bottom: (@grid_gutter-width / 2);
       }
@@ -326,24 +326,24 @@
     textarea {
       width: 100%;
       resize: none;
-      border-color: @gray-50;
+      border-color: @gray-40;
       .webfont-medium();
     }
     
     ::-webkit-input-placeholder {
-       color: @gray-50;
+       color: @gray-40;
     }
 
     :-moz-placeholder { /* Firefox 18- */
-       color: @gray-50;  
+       color: @gray-40;  
     }
 
     ::-moz-placeholder {  /* Firefox 19+ */
-       color: @gray-50;  
+       color: @gray-40;  
     }
 
     :-ms-input-placeholder {  
-       color: @gray-50;  
+       color: @gray-40;  
     }
     
   }    
