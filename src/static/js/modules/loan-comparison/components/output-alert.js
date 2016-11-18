@@ -6,7 +6,7 @@ var OutputAlert = React.createClass({
         return (
             <div className="output-alert" role="alert">
               <p>We are loading your costs.</p>
-              <img src="http://www.consumerfinance.gov/hmda/static/img/icon_spinner.gif"/>
+              <img src="/static/owning-a-home/static/img/icon_spinner.gif" />
             </div>
         );
     }

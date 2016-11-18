@@ -77,22 +77,22 @@
   text-align: center;
 }
 
-// Phases for Journey 
+// Phases for Journey
 .section__phase {
   .content-l_col {
     margin-top: 0;
   }
 }
-  
+
   .content-l_col {
     &.content-l_col-1-4  {
       .respond-to-min(@tablet-min, {
-        .grid_column(1, 4);    
+        .grid_column(1, 4);
       });
     }
     &.content-l_col-3-4  {
       .respond-to-min(@tablet-min, {
-        .grid_column(3, 4);    
+        .grid_column(3, 4);
       });
     }
   }
@@ -100,7 +100,7 @@
   .content-l__main {
     .content-l_col-1-4 + .content-l_col-3-4  {
       .respond-to-min(@tablet-min, {
-        margin-top: 0;  
+        margin-top: 0;
       });
     }
   }
@@ -114,7 +114,7 @@
   .phase_tools {
     position: relative;
   }
-  
+
   .respond-to-max(@mobile-max, {
     .phase_illu {
       text-align: center;
@@ -144,7 +144,7 @@
   }
 }
 
-#email{
+#email {
   width: 200px;
 }
 
@@ -155,13 +155,11 @@ fieldset.submit_btn > p {
   padding:0px;
 }
 
-.input-with-btn > div{display: inline-block;}
-
-@media (max-width: 720px) {
-  .rc-home-illu {
-    display: none;
-  }
+.input-with-btn > div {
+  display: inline-block;
 }
 
+
 .tabbed-pad-top {
-  margin-top: @grid_gutter-width;}
+  margin-top: @grid_gutter-width;
+}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "social-media.html" as social_media with context %}
 {% set active_page = "loan-options-subpage" %}
 
 {% block title %}Owning a Home: Loan Options{% endblock title %}
@@ -46,11 +47,18 @@
     </section> <!-- /.content_main -->
 
     <aside class="content_sidebar sans">
-      <header class="tabbed-header">
-        <h3 class="subhead tabbed-heading">Other loan types</h3>
-      </header>
-
-      <div class="aside-chunk">
+      <div class="block
+                  block__flush-top">
+        {{ social_media.render( {
+              'title':  'Check out this page from the @CFPB'
+        } ) }}
+      </div>
+      <div class="block">
+        <h2 class="header-slug">
+          <span class="header-slug_inner">
+            Other loan types
+          </span>
+        </h2>
         <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link jump-link__right jump-link__bg" href="../conventional-loans/">
@@ -65,11 +73,12 @@
         </ul>
       </div>
 
-        <header class="tabbed-header">
-        <h3 class="subhead tabbed-heading">Related links</h3>
-      </header>
-
-      <div class="aside-chunk">
+      <div class="block">
+        <h2 class="header-slug">
+          <span class="header-slug_inner">
+            Related links
+          </span>
+        </h2>
         <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link icon-link__external-link jump-link__bg" href="http://portal.hud.gov/hudportal/HUD?src=/federal_housing_administration" target="_blank">
@@ -79,11 +88,10 @@
         </ul>
       </div>
 
-      <header class="tabbed-header">
-        <h3 class="subhead tabbed-heading">Ask CFPB</h3>
-      </header>
-
-      <div class="aside-chunk">
+      <div class="block">
+        <h2 class="header-slug">
+          <span class="header-slug_inner">Ask CFPB</span>
+        </h2>
         <ul class="list list__links list__spaced">
           <li class="list_item">
             <a class="list_link jump-link jump-link__bg" href="/askcfpb/1963/how-can-i-find-the-loan-limit-for-an-fha-loan-in-my-county.html" target="_blank">
@@ -92,6 +100,7 @@
           </li>
         </ul>
       </div>
+
     </aside>
   </div>
 </main>

@@ -3,6 +3,7 @@
 {% set page_js = "process" %}
 
 {% import "nav-macro.html" as nav_macro with context %}
+{% import "social-media.html" as social_media %}
 {% import "_vars-process.html" as vars with context %}
 
 {% block title %}Owning a Home: Know the Process{% endblock title %}
@@ -69,9 +70,8 @@
 
       <div class="phase_data">
         <div class=" {% if active_phase.tools %} content-l {% endif %}">
-
-          {% if active_phase.tools %}
-            <div class="tools-col">
+          <div class="tools-col">
+            {% if active_phase.tools %}
               <section class="tools block block__bg block__padded-top">
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
@@ -84,9 +84,32 @@
                     </a>
                   </div>
                 {% endfor %}
+                {% if phase_index == 1 or phase_index == 2 %}
+                  <div class="tool">
+                    <a href="/owning-a-home/what-are-all-costs-buying-home/">
+                      <img src="{{url_for('static', filename='img/video_costs_of_buying_home_video_thumbnail.jpg')}}">
+                    </a>
+                    <p>
+                      Buying a home costs more than the price on the for-sale listing.
+                    </p>
+                    <p>
+                      <a class="list_link jump-link"
+                         href="/owning-a-home/what-are-all-costs-buying-home/">
+                        <span class="jump-link_text">
+                          Watch the video: What are all the costs of buying a home?
+                        </span>
+                      </a>
+                    </p>
+                  </div>
+                {% endif %}
               </section>
+              <div class="block block__bg u-no-bg">
+                {{ social_media.render( {
+                      'title':  'Check out this page from the @CFPB'
+                } ) }}
+              </div>
+              {% endif %}
             </div>
-          {% endif %}
 
           {% if steps|list|length %}
             <div class="{% if active_phase.tools %}steps-col{% endif %}">
@@ -131,7 +154,6 @@
                             </a>
                           </section>
                           {% endif %}
-
                         </div><!-- .content-l__main -->
 
                         {% if step.what_to_do_now %}
@@ -192,8 +214,8 @@
               </section>
             </div>
           {% endif %}
+
         </div>
-      </div>
 
       <h4>Ready for more? Explore another phase in the mortgage process.</h4>
 

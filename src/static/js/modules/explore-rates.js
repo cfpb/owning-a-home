@@ -17,7 +17,6 @@ var formatTime = require( './format-timestamp' );
 require( './highcharts-theme' );
 require( '../../vendor/rangeslider.js/rangeslider.js' );
 require( './tab' );
-require( './analytics/rc-analytics' );
 require( './placeholder-polyfill' );
 
 // Load our handlebar templates.
@@ -67,6 +66,7 @@ var params = {
   'isJumbo':        false,
   'prevLoanType':   '',
   'prevLocation':   '',
+  'verbotenKeys':   [ 9, 37, 38, 39, 40, 13, 16 ], // tab, arrow keys, enter, shift
   'update':         function() {
     this.prevLoanType = this['loan-type'];
     this.prevLocation = this.location;
@@ -853,14 +853,6 @@ function scoreWarning() {
     $( '#slider-range' ).after( template.creditAlert );
   }
   resultWarning();
-  // Analytics code for when this event fires.
-  if ( window._gaq ) {
-    try {
-      window._gaq.push( [ '_trackEvent', 'OAH rate tool', 'Pop up', 'Fired' ] );
-    } catch( error ) {
-      // Google Analytics global code was not found.
-    }
-  }
 }
 
 /**
@@ -995,20 +987,6 @@ function renderChart( data, cb ) {
         animation: false
       },
       plotOptions: {
-        series: {
-          events: {
-            // Google Analytics tracking for chart mouseovers.
-            mouseOver: function() {
-              if ( window._gaq ) {
-                try {
-                  window._gaq.push( [ '_trackEvent', 'OAH rate tool', 'Roll over', 'fired ' ] );
-                } catch( error ) {
-                  // Google Analytics global code was not found.
-                }
-              }
-            }
-          }
-        },
         column: {
           states: {
             hover: {
@@ -1184,22 +1162,17 @@ $( '.calc-loan-amt .recalc' ).on( 'keydown', function( event ) {
 // If not, replace the character with an empty string.
 $( '.calc-loan-amt .recalc' ).on( 'keyup', function( evt ) {
   // on keyup (not tab or arrows), immediately gray chart
-  if ( evt.which !== 9 && ( evt.which < 37 || evt.which > 40 ) ) {
+  if ( params.verbotenKeys.indexOf( evt.which ) === -1 ) {
     chart.startLoading();
   }
-  var inputVal = $( this ).val();
-  if ( !isNum( inputVal ) ) {
-    var updatedVal = inputVal.toString().replace( /[^0-9\\.,]+/g, '' );
-    $( this ).val( updatedVal );
-  }
+
 } );
 
 // delayed function for processing and updating
 $( '.calc-loan-amt, .credit-score' ).on( 'keyup', '.recalc', function( evt ) {
-  var verbotenKeys = [ 9, 37, 38, 39, 40 ];
   var element = this;
   // Don't recalculate on TAB or arrow keys.
-  if ( verbotenKeys.indexOf( evt.which ) === -1 ||
+  if ( params.verbotenKeys.indexOf( evt.which ) === -1 ||
        $( this ).hasClass( 'range' ) ) {
     delay( function() {
       processLoanAmount( element );
