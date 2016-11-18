@@ -72,7 +72,7 @@
         <div class=" {% if active_phase.tools %} content-l {% endif %}">
           <div class="tools-col">
             {% if active_phase.tools %}
-              <section class="email-block block block__bg">
+              <section class="email-block block block__bg u-mt30 u-mb0">
                 {% import "email-signup.html" as email_signup %}
                  {% set data = {
                     'heading': 'Buying a home?',
@@ -80,7 +80,7 @@
                  }%}
                 {{ email_signup.render(data) }}
               </section>
-              <section class="tools block block__bg block__padded-top">
+              <section class="tools block block__bg block__padded-top u-mt0">
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
                   <div class="tool">
