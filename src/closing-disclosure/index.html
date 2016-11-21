@@ -45,50 +45,29 @@
         <div class="col-12">
           {{ form_explainer.render([ page_1, page_2, page_3, page_4, page_5 ]) }}
         </div>
-
-
-
-        <div class="col-12">
-          {% import "related-links.html" as related_links %}
-          {% set process_links = [
-              {
-                'desc': 'Already chosen a loan?',
-                'urls': [
-                  {
-                    'label': 'Get ready to close',
-                    'url': '/owning-a-home/process/close/'
-                  }
-                ]
-
-              }
-           ] %}
-           {% set tools_links = [
-               {
-                 'desc': 'Know what to expect at closing and what questions to ask.',
-                 'urls': [
-                  {
-                    'label': 'Closing checklist',
-                    'type': 'download',
-                    'url': '/owning-a-home/resources/checklist_mortgage_closing.pdf'
-                  }
-                 ]
-
-               },
-               {
-                  'desc': 'Review other important documents you will need to sign at closing.',
-                  'urls': [
-                    {
-                      'label': 'Guide to closing forms',
-                      'type': 'download',
-                      'url': '/owning-a-home/resources/mortgage_closing_forms.pdf '
-                    }
-                  ]
-                }
-            ] %}
-          {{ related_links.render(process_links, tools_links) }}
-          {% include "ratings-form.html" %}
-      </div>
     </div>
   </div>
+    {% import "brand-footer.html" as brand_footer %}
+    {% set footer_links = [
+      {
+        'img': static("owning-a-home/static/img/footer_keys.png"),
+        'text': 'Found a home, chosen a lender?',
+        'label': 'Get ready to close',
+        'url': '/owning-a-home/process/close/'
+      },
+      {
+        'img': static("owning-a-home/static/img/footer_checklist.png"),
+        'text': 'Know what to expect during closing?',
+        'label': 'Get our closing checklist',
+        'url': '/owning-a-home/resources/checklist_mortgage_closing.pdf'
+      },
+      {
+        'img': static("owning-a-home/static/img/footer_closing-forms.png"),
+        'text': 'Ready to review your closing documents?',
+        'label': 'Learn what to look for',
+        'url': '/owning-a-home/resources/mortgage_closing_forms.pdf'
+      }
+    ]%}
+    {{ brand_footer.render(footer_links) }}
 </main>
 {% endblock %}

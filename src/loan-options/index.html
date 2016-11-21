@@ -395,44 +395,29 @@
 
     </div>
 
-  </div>
-  
-  <aside class="content_wrapper content__flush-all-on-small">
-    {% import "related-links.html" as related_links %}
-    <div class="content_intro related-links_container">
-    {% set process_links = [
-        {
-          'desc': 'Still shopping for a home?',
-          'urls': [
-            {
-              'label': 'Explore loan choices',
-              'url': '/owning-a-home/process/explore/'
-            }
-          ]
-        },
-        {
-          'desc': 'Already have a home in mind?',
-          'urls': [
-            {
-              'label': 'Compare loan offers',
-              'url': '/owning-a-home/process/compare/'
-            }
-          ]
-        }
-     ] %}
-     {% set tools_links = [
-         {
-           'desc': 'Interest rates can differ based on the kind of loan you choose.',
-           'urls': [
-            {
-              'label': 'Explore interest rates',
-              'url': '/owning-a-home/explore-rates/'
-            }
-           ]
-         }
-      ] %}
-    {{ related_links.render(process_links, tools_links) }}
-  </div>
+  <aside>
+    {% import "brand-footer.html" as brand_footer %}
+    {% set footer_links = [
+      {
+        'img': static("owning-a-home/static/img/footer_house.png"),
+        'text': 'Ready to look for a mortgage?',
+        'label': 'Explore loan choices',
+        'url': '/owning-a-home/process/explore/'
+      },
+      {
+        'img': static("owning-a-home/static/img/footer_chart.png"),
+        'text': 'What interest rate can you expect?',
+        'label': 'Explore interest rates',
+        'url': '/owning-a-home/explore-rates/'
+      },
+      {
+        'img': static("owning-a-home/static/img/footer_offers.png"),
+        'text': 'Ready to request Loan Estimates? ',
+        'label': 'Learn what comes next',
+        'url': '/owning-a-home/process/compare/'
+      }
+    ]%}
+    {{ brand_footer.render(footer_links) }}
   </aside>
   <div class="content_wrapper content__2-1">
     <div class="content_intro">
