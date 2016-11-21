@@ -392,8 +392,8 @@
             </section> <!-- /.type-details -->
 
       </section>
+
     </div>
-  </div>
 
   <aside>
     {% import "brand-footer.html" as brand_footer %}
@@ -419,6 +419,11 @@
     ]%}
     {{ brand_footer.render(footer_links) }}
   </aside>
+  <div class="content_wrapper content__2-1">
+    <div class="content_intro">
+      {% include "ratings-form.html" %}
+    </div>
+  </div>
 </main>
 
 {% endblock %}

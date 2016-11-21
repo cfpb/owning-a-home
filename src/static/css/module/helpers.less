@@ -42,7 +42,7 @@ object {
 .up-lead {
   .webfont-regular();
   text-transform: uppercase;
-  color: @darkgray;
+  color: @dark-gray;
   font-size: 0.875em;
 }
 
@@ -52,7 +52,7 @@ object {
 }
 
 .light {
-  color: @gray-80;
+  color: @gray-60;
 
     h4,
     h5,
@@ -74,11 +74,11 @@ object {
 
 .sub-light {
     .webfont-regular();
-    color: @gray-80;
+    color: @gray-60;
 
     strong {
         .webfont-demi();
-        color: @gray;
+        color: @gray-80;
     }
 
     p {
@@ -105,8 +105,8 @@ object {
   color: @black;
   padding: 20px 10px;
   margin: 1em 0;
-  border-top: 1px solid @gray-20;
-  border-bottom: 1px solid @gray-20;
+  border-top: 1px solid @gray-10;
+  border-bottom: 1px solid @gray-10;
 
   p:last-child {
     .reset;
@@ -127,7 +127,7 @@ object {
 
 /* highlight the text */
 .highlight {
-  background-color: @green-tint;
+  background-color: @green-20;
 }
 
 .highlight-container {
@@ -194,11 +194,11 @@ object {
 }
 
 .alert-warning{
-  color: @redorange;
+  color: @red;
 }
 
 .alert-neutral {
-  color:  @gray-50;
+  color:  @gray-40;
 }
 
 // tag styles
@@ -215,7 +215,7 @@ object {
 .tag-link:link,
 .tag-link:visited {
   display: block;
-  background: @gray-20;
+  background: @gray-10;
   color: @black;
   border-bottom: none;
   padding: 6px 10px;
@@ -232,8 +232,8 @@ object {
 .callout,
 .mega-callout {
   .webfont-regular();
-  border-top: 1px solid @gray-20;
-  border-bottom: 1px solid @gray-20;
+  border-top: 1px solid @gray-10;
+  border-bottom: 1px solid @gray-10;
   background-color: @gray-5;
   padding: 20px;
 
@@ -280,7 +280,7 @@ object {
   li&:before {
     .cf-icon;
     content: "\e103";
-    color:  @redorange;
+    color:  @red;
     font-size: 17px;
     left: -21px;
   }
@@ -327,7 +327,7 @@ object {
 }
 
 .placeholder {
-    background: @gray-20;
+    background: @gray-10;
     min-height: 200px;
     line-height: 200px;
     text-align: center;
