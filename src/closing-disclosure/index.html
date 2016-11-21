@@ -46,6 +46,8 @@
           {{ form_explainer.render([ page_1, page_2, page_3, page_4, page_5 ]) }}
         </div>
 
+
+
         <div class="col-12">
           {% import "related-links.html" as related_links %}
           {% set process_links = [
@@ -84,6 +86,7 @@
                 }
             ] %}
           {{ related_links.render(process_links, tools_links) }}
+          {% include "ratings-form.html" %}
       </div>
     </div>
   </div>
