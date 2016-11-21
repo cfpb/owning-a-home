@@ -1,0 +1,71 @@
+
+
+
+{# ==========================================================================
+
+   render(links)
+
+   ==========================================================================
+
+   Description:
+
+   Renders all the brand footer content: 3 link sections and email section.
+
+   links:              An array of three link objects, each containing:
+                      - text (req): text of link section
+                      - img: img for link section
+                      - label: link label
+                      - url: link url
+
+                      If there are more than three link objects, only the first
+                      three will be displayed.
+   ========================================================================== #}
+
+{% macro render(links) %}
+  <footer aria-label="Owning a Home footer" class="brand-footer content">
+    <div class="content_wrapper">
+      <h3 class="brand-footer_headline">
+        <span class="cf-icon cf-icon-owning-home" aria-hidden></span>
+        Check out other tools and resources from <a href="/owning-a-home">Owning a Home</a>
+      </h3>
+      {% for link in links %}
+        {% if loop.index < 4 %}
+          {{render_link(link)}}
+        {% endif %}
+      {% endfor %}
+      <div class="brand-footer__1-4-container">
+        Email form goes here
+      </div>
+    </div>
+  </footer>
+{% endmacro %}
+
+
+{# ==========================================================================
+
+   render_link(data)
+
+   ==========================================================================
+
+   Description:
+
+   Render a link.
+   
+   data:              An object, containing:
+                      - text (req): text of link section
+                      - img: img for link section
+                      - label: link label
+                      - url: link url
+    
+
+   ========================================================================== #}
+
+{% macro render_link(data) %}
+  <div class="brand-footer__1-4-container">
+    <a href="{{data.url}}" class="brand-footer_img-link"><img src="{{data.img}}"/></a>
+    <p>{{data.text|safe}}</p>
+    <a class="jump-link jump-link__block" href="{{data.url}}">
+      <span class="jump-link_text">{{data.label|safe}}</span>
+    </a>
+  </div>
+{% endmacro %}

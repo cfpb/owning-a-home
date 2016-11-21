@@ -1,0 +1,38 @@
+.brand-footer {
+	background-color: @gray-5;
+	padding-top: @grid_gutter-width;
+  	padding-bottom: 60px;
+	border-top: 1px solid @gray-50;
+
+	&_img-link {
+		&:after {
+			content: '' !important;
+		}
+
+		img {
+			width: 150px;
+			padding-bottom: unit((@grid_gutter-width - 5) / @base-font-size-px, em);
+		}
+	}
+
+	&_headline {
+		.grid_column(12);
+
+		.cf-icon {
+			color: @green;
+			position: relative;
+			top: 2px;
+			font-size: 1.25em;
+			padding-right: 2px;
+		}
+	}
+
+	&__1-4-container {
+		padding-top: unit((@grid_gutter-width / 2) / @base-font-size-px, em);
+		.grid_column(12);
+
+        .respond-to-min( 600px, {
+        	.grid_column(3);
+        });
+	}
+}
