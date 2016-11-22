@@ -365,7 +365,7 @@
                             <section class="col-4 sans">
                               <h4>Special programs</h4>
                               <ul class="list__unstyled list__spaced">
-                                <li class="list_item"><strong>VA:</strong> For veterans, servicemembers, or surviving spouses
+                                <li class="list_item"><strong>VA:</strong> For veterans, servicemembers, or surviving spouses</li>
                                 <li class="list_item"><strong>USDA:</strong> For low- to middle-income borrowers in rural areas</li>
                                 <li class="list_item"><strong>Local:</strong> For low- to middle-income borrowers, first-time homebuyers, or public service employees</li>
                               </ul>
@@ -378,7 +378,6 @@
 
                             <p><strong>Ask lenders if the loan they are offering you meets the government’s</strong> <a href="/askcfpb/1789/what-qualified-mortgage.html" target="_blank">Qualified Mortgage</a> standard. Qualified Mortgages are those that are safest for you, the borrower.</p>
 
-                            <p>
                           </div> <!-- /.note -->
 
                           <span class="expand-close">
@@ -390,12 +389,12 @@
 
 
             </section> <!-- /.type-details -->
+        </section>
+        {% include "ratings-form.html" %}
 
-      </section>
-
+      </div>
     </div>
-
-  <aside>
+    <aside>
     {% import "brand-footer.html" as brand_footer %}
     {% set footer_links = [
       {
@@ -419,11 +418,10 @@
     ]%}
     {{ brand_footer.render(footer_links) }}
   </aside>
-  <div class="content_wrapper content__2-1">
-    <div class="content_intro">
-      {% include "ratings-form.html" %}
-    </div>
-  </div>
+  
+  
 </main>
+
+
 
 {% endblock %}
