@@ -40,7 +40,7 @@
 
    value.email_text         (Optional) body for email
 
-   value.email_signoff      (Optional) signoff for email
+   value.email_signature    (Optional) signature for email
 
    ========================================================================== #}
 
@@ -54,7 +54,7 @@
 {% set linkedin_text = value.linkedin_text | urlencode or blurb %}
 {% set email_title = value.email_title | urlencode or blurb %}
 {% set email_text = value.email_text | urlencode or blurb  %}
-{% set email_signoff = '%0A%0A' + value.email_signoff | urlencode if value.email_signoff else '' %}
+{% set email_signature = '%0A%0A' + value.email_signature | urlencode if value.email_signature else '' %}
 
 
 {% set parsed_url = request.url | urlencode %}
@@ -95,7 +95,7 @@
 
         {% set email_info = {
             'name': 'email',
-            'share_url': 'mailto:?subject=' ~ email_title ~ '&body=' ~ email_text ~ ' ' ~ parsed_url ~ email_signoff,
+            'share_url': 'mailto:?subject=' ~ email_title ~ '&body=' ~ email_text ~ ' ' ~ parsed_url ~ email_signature,
             'class': 'cf-icon-email-social-square'
         } %}
 
