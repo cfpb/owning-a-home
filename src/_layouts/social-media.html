@@ -51,7 +51,7 @@
 {% set linkedin_title = value.linkedin_title | urlencode or blurb %}
 {% set linkedin_text = value.linkedin_text | urlencode or blurb %}
 {% set email_title = value.email_title | urlencode or blurb %}
-{% set email_text = value.email_text or blurb  %}
+{% set email_text = value.email_text | urlencode or blurb  %}
 
 {% set parsed_url = request.url | urlencode %}
 {% set external_redirect_url = '/external-site/?ext_url=' %}
