@@ -7,7 +7,7 @@
 	&_img {
 		text-align: center;
 
-		.respond-to-min( @bp-med-min, {
+		.respond-to-min( @bp-sm-min, {
 			text-align: left;
 		});
 
@@ -50,7 +50,7 @@
 			}
         });
 
-        .respond-to-min( @bp-med-min, {
+        .respond-to-min( 1000px, {
         	padding-top: unit(@grid_gutter-width / @base-font-size-px, em);
         	.grid_column(3);
         });
