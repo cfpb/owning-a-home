@@ -72,7 +72,10 @@
         <div class=" {% if active_phase.tools %} content-l {% endif %}">
           <div class="tools-col">
             {% if active_phase.tools %}
-              <section class="tools block block__bg block__padded-top">
+              <section class="email-block block block__bg u-mt30 u-mb15">
+                  {% include "oah-email-signup.html" %}
+              </section>
+              <section class="tools block block__bg block__padded-top u-mt0">
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
                   <div class="tool">
