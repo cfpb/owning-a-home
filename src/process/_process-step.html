@@ -103,10 +103,10 @@
                   </div>
                 {% endif %}
               </section>
-              <div class="block block__bg u-no-bg">
-                {{ social_media.render( {
-                      'title':  'Check out this page from the @CFPB'
-                } ) }}
+              <div class="block block__bg u-no-bg u-mt0">
+                {% set step_data = vars.process_steps[phase_index - 1] %}
+                {% set social_options = step_data.social or {} %}
+                {{ social_media.render( social_options  ) }}
               </div>
               {% endif %}
             </div>
