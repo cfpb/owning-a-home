@@ -43,7 +43,6 @@ var validateEmail = function ( field, currentStatus ) {
     status.msg += ERROR_MESSAGES.EMAIL.INVALID;
     status.email = false;
   }
-  console.log(status);
   return status;
 }
 
@@ -88,7 +87,6 @@ function EmailSignup( element ) {
   function _onSubmit( event ) {
     var isValid;
     event.preventDefault();
-    console.log(_emailElement.val())
     if ( !_emailElement.val() ) {
       _notification.setTypeAndContent( _notification.ERROR,
                                        ERROR_MESSAGES.EMAIL.REQUIRED );
@@ -96,7 +94,6 @@ function EmailSignup( element ) {
       return UNDEFINED;
     }
     isValid = validateEmail( _emailElement );
-    console.log(isValid);
     if ( isValid.email === false ) {
       _notification.setTypeAndContent( _notification.ERROR,
                                        ERROR_MESSAGES.EMAIL.INVALID );
@@ -116,7 +113,7 @@ function EmailSignup( element ) {
     var notificationMsg = FORM_MESSAGES.ERROR;
     $.post(_formElement.attr('action'), _formElement.serialize())
       .done(function onSuccess (data) {
-        if (data.result == "success") {
+        if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
         }
