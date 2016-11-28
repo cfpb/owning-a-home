@@ -1,0 +1,69 @@
+{# ==========================================================================
+
+   email_signup.render()
+
+   ==========================================================================
+
+   Description:
+
+   Creates an email sign up form when given:
+
+   value:         An object used to customize the markup.
+
+   value.heading: A string with the title for the header slug.
+
+   value.text:    The text used within the description markup.
+
+   value.gd_code: A GovDelivery code for a specified mailing list.
+
+   ========================================================================== #}
+
+{% macro render(value) %}
+	<div class="o-email-signup">
+	{% if value.heading %}
+	    <h2 class="header-slug">
+	        <span class="header-slug_inner">
+	            {{ value.heading }}
+	        </span>
+	    </h2>
+	{% endif %}
+
+	<form id="{{ value.id or ('o-email-signup_' ~ range(1, 100) | random) }}"
+	      class="o-form o-form__email-signup"
+	      action="/subscriptions/new/"
+	      method="POST"
+	      enctype="application/x-www-form-urlencoded">
+
+	    {% import 'notification.html' as notification with context %}
+	    {{ notification.render('success', false, '') }}
+	    {% if value.text %}
+	        <p>
+	            {{ value.text }}
+	        </p>
+	    {% endif %}
+		<div class="m-form-field-with-button" data-qa-hook="formfield-with-button">
+		    
+		    <div class="form-group">
+		        <label for="form_18">
+		           	<b>Email address</b> (required)
+		        </label>
+
+		        <input id="form_18"
+		               type="email"
+		               placeholder="example@mail.com"
+		               name="email"
+		               class="m-form-field-with-button_field"
+		               required>
+		    </div>
+
+		    <p><a class="" href="/owning-a-home/privacy-act-statement/">Privacy Act statement</a> <br/></p>
+
+		    <input class="btn btn__full" type="submit" value="Sign up">
+		</div>
+
+	    <div class="form-group">
+	        <input type="hidden" name="code" value="{{ value.gd_code }}">
+	    </div>
+	</form>
+	</div>
+{% endmacro %}

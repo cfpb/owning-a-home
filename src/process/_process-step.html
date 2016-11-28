@@ -75,7 +75,10 @@
         <div class=" {% if active_phase.tools %} content-l {% endif %}">
           <div class="tools-col">
             {% if active_phase.tools %}
-              <section class="tools block block__bg block__padded-top">
+              <section class="email-block block block__bg u-mt30 u-mb15">
+                  {% include "oah-email-signup.html" %}
+              </section>
+              <section class="tools block block__bg block__padded-top u-mt0">
                 <h3 class="h6 u-mb15">Tools for this Phase</h3>
                 {% for tool in active_phase.tools %}
                   <div class="tool">
@@ -106,10 +109,10 @@
                   </div>
                 {% endif %}
               </section>
-              <div class="block block__bg u-no-bg">
-                {{ social_media.render( {
-                      'title':  'Check out this page from the @CFPB'
-                } ) }}
+              <div class="block block__bg u-no-bg u-mt0">
+                {% set step_data = vars.process_steps[phase_index - 1] %}
+                {% set social_options = step_data.social or {} %}
+                {{ social_media.render( social_options  ) }}
               </div>
               {% endif %}
             </div>
@@ -211,7 +214,7 @@
                  <p> Visit our <a href="/owning-a-home/process/sources/">sources page</a> to learn more about the facts and numbers we reference.
                  </p>
                 <p class="u-mb0">
-                 <i>Note: The process and forms described on this page reflect <a href="/know-before-you-owe/" target="_blank">new mortgage regulations</a> that take effect for <a href="/askcfpb/2009/do-the-know-before-you-owe-disclosures-apply-to-my-mortgage.html" target="_blank">most mortgages</a> on October 3, 2015.</i>
+                 <i>Note: The process and forms described on this page reflect <a href="/know-before-you-owe/" target="_blank">mortgage regulations</a> that apply to <a href="/askcfpb/2009/Will-I-receive-the-new-Know-Before-You-Owe-disclosures-when-I-shop-for-a-mortgage.html" target="_blank">most mortgages</a>.</i>
                  </p>
                 </aside>
 
