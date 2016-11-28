@@ -6,7 +6,10 @@
 {% import "social-media.html" as social_media %}
 {% import "_vars-process.html" as vars with context %}
 
-{% block title %}Owning a Home: Know the Process{% endblock title %}
+{% set step_data = vars.process_steps[phase_index - 1] %}
+
+{% block title %}{{step_data.page_title | safe}}{% endblock title %}
+{% block metadescription %}{{step_data.metadescription | safe}}{% endblock metadescription %}
 
 {% block content %}
 
