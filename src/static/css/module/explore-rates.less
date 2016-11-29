@@ -8,6 +8,25 @@
     .page-intro {
       border-bottom: 1px solid @gray-10;
     }
+
+    .respond-to-min( 900px, {
+
+      .page-intro_cols {
+        display: table;
+
+        .page-intro_col-left,
+        .page-intro_col-right {
+          display: table-cell;
+
+        }
+
+        .page-intro_col-right {
+          padding-left: unit( ( @grid_gutter-width / 2 ) / @base-font-size-px, em );
+          white-space: nowrap;
+        }
+        
+      }
+    });
 }
 
 @media (max-width: 720px) {
@@ -673,3 +692,7 @@
 .related-links {
   margin-top: @grid_gutter-width;
 }
+
+
+
+
