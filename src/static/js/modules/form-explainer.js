@@ -92,10 +92,6 @@ formExplainer.resizeImage = function( els, $window, windowResize ) {
   }
 };
 
-formExplainer.test = function( el ) {
-  el.width( 200 );
-};
-
 formExplainer.setImageElementWidths = function( els ) {
   // When the sticky plugin is applied to the image, it adds position fixed,
   // and the image's width is no longer constrained to its parent.
@@ -138,10 +134,11 @@ formExplainer.fitAndStickToWindow = function( els, pageNum ) {
 
       if ( pageNum || els.$imageMapImage.closest( '.sticky-wrapper' ).length === 0 ) {
         // stick image to window
-        formExplainer.stickImage( els.$imageMapWrapper );
-      } else {
-        formExplainer.updateStickiness( els, $WINDOW.scrollTop() );
-      }
+        formExplainer.stickImage( els.$imageMapWrapper );        
+      } 
+
+      formExplainer.updateStickiness( els, $WINDOW.scrollTop() );
+      
       // hide pages except for first
       if ( pageNum > 1 ) {
         els.$page.hide();
@@ -504,6 +501,8 @@ $( document ).ready( function() {
       updateImagePositionAfterAnimation();
     }
   } );
+
+
 } );
 
 module.exports = formExplainer;
