@@ -32,7 +32,7 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v6">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v7">
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>if (!window.jQuery) { document.write('<script src="{{ static('js/jquery.min.js') }}"><\/script>'); }
     </script>
@@ -86,12 +86,12 @@
 {% include "footer.html" %}
 
 <!-- Common js -->
-<script src="{{ url_for('static', filename='js/main.js') }}?v6"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}?v7"></script>
 <!-- Adds nemo js -->
-<script src="{{ url_for('static', filename='js/base.js') }}?v6"></script>
+<script src="{{ url_for('static', filename='js/base.js') }}?v7"></script>
 <!-- Page-specific js -->
 {% if page_js %}
-<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v6"></script>
+<script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v7"></script>
 {% endif %}
 </body>
 
