@@ -49,12 +49,12 @@
 {% set blurb = (value.blurb or (page.seo_title if page) or value.title or
                 'Look what I found on the CFPB’s site!') | urlencode %}
 
-{% set twitter_text = value.twitter_text | urlencode or blurb %}
-{% set linkedin_title = value.linkedin_title | urlencode or blurb %}
-{% set linkedin_text = value.linkedin_text | urlencode or blurb %}
 {% set email_title = value.email_title | urlencode or blurb %}
-{% set email_text = value.email_text | urlencode or blurb  %}
+{% set email_text = value.email_text | urlencode or 'Check out this page from the CFPB - ' %}
 {% set email_signature = '%0A%0A' + value.email_signature | urlencode if value.email_signature else '' %}
+{% set linkedin_title = value.linkedin_title | urlencode or blurb %}
+{% set linkedin_text = value.linkedin_text | urlencode %}
+{% set twitter_text = value.twitter_text | urlencode or blurb %}
 
 
 {% set parsed_url = request.url | urlencode %}
