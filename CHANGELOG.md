@@ -5,6 +5,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [1.8.0] - 2016-11-30
+### Added
+- Add a brand footer.
+- Add email signup form.
+- Add feedback form.
+
+### Changed
+- Use custom meta descriptions and titles on pages.
+- Various content updates.
 
 ## [1.7.0] - 2016-11-15
 ### Added
