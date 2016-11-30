@@ -47,8 +47,13 @@
       <div class="col-12">
         {{ form_explainer.render([ page_1, page_2, page_3 ]) }}
       </div>
+
+      <div class="col-12">
+          {% include "ratings-form.html" %}
+        </div>
     </div><!-- /.form-explainer -->
   </div>
+
   {% import "brand-footer.html" as brand_footer %}
   {% set footer_links = [
     {
