@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [1.8.1] - 2016-12-01
+### Added
+- Feedback form on form explainer pages
+
 ## [1.8.0] - 2016-11-30
 ### Added
 - Add a brand footer.
