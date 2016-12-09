@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [1.8.2] - 2016-12-09
+### Changed
+- Update Google Tag Manager snippets
+
 ## [1.8.1] - 2016-12-01
 ### Added
 - Feedback form on form explainer pages
