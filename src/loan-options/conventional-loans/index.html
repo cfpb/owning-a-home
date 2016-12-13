@@ -2,7 +2,9 @@
 {% import "social-media.html" as social_media with context %}
 {% set active_page = "loan-options-subpage" %}
 
-{% block title %}Owning a Home: Loan Options{% endblock title %}
+{% block title %}Conventional loans{% endblock title %}
+
+{% block metadescription %}Mortgage shopping? Conventional loans are a common choice. Learn more about what they are and how they work from the Consumer Financial Protection Bureau.{% endblock metadescription %}
 
 {% block content %}
 
@@ -94,7 +96,12 @@
       <div class="block
                   block__flush-top">
         {{ social_media.render( {
-              'title':  'Check out this page from the @CFPB'
+              "twitter_text": "Is a conventional mortgage loan right for you? The @CFPB helps you decide.",
+              "email_title": "Is a conventional mortgage loan right for you?",
+              "email_text": "The CFPB helps you understand what a conventional loan is – and what it’s not – so you can decide what’s right for you.",
+              "email_signature": "-- From the CFPB",
+              "linkedin_title": "Is a conventional mortgage loan right for you?",
+              "linkedin_text": "The @CFPB helps you understand all the details and decide what’s right for you. Via @CFPB"
         } ) }}
       </div>
 
