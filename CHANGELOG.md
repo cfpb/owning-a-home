@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [1.8.3] - 2016-12-13
+### Changed
+- Copy and social share link updates
+
 ## [1.8.2] - 2016-12-09
 ### Changed
 - Update Google Tag Manager snippets

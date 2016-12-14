@@ -3,7 +3,9 @@
 {% set active_page = "loan-options" %}
 {% set page_js = "loan-options" %}
 
-{% block title %}Owning a Home: Loan Options{% endblock title %}
+{% block title %}Understand loan options{% endblock title %}
+
+{% block metadescription %}Not all home loans are the same. Use the CFPB's guide to understand how different variables affect your monthly payment, your overall costs, and your level of risk.{% endblock metadescription %}
 
 {% block content %}
 <main class="content" id="main">
@@ -18,7 +20,7 @@
       <section class="content__loan-options">
         <h1>Understand loan options</h1>
 
-        <p class="lead">The kind of mortgage you choose has a big impact on how much you end up paying&mdash;how much you’ll have to pay upfront, your monthly payment amount, and the total cost of your loan over time. It also affects the level of risk you take on. Knowing what kind of loan is most appropriate for your situation prepares you for talking to lenders and getting the best deal.</p>
+        <p class="lead">Not all home loans are the same. Three key choices are the loan term, or length of the loan, the interest rate type, and the loan type. Use our guide to understand how these choices affect your monthly payment, your overall costs both upfront and over time, and your level of risk. Knowing what kind of loan is most appropriate for your situation prepares you for talking to lenders and getting the best deal.</p>
 
         <div class="block
                     block__flush-top
@@ -26,7 +28,12 @@
                     block__padded-bottom
                     u-right-on-desktop">
           {{ social_media.render( {
-                'title':  'Check out this page from the @CFPB'
+                "twitter_text": "@CFPB’s guide helps you understand the different kinds of mortgage loans & choose what’s right for you.",
+                "email_title": "Know your mortgage loan options with the CFPB.",
+                "email_text": "The CFPB’s guide helps you understand your options and choose the kind of loan that’s right for you.",
+                "email_signature": "-- From the CFPB",
+                "linkedin_title": "Know your mortgage loan options with the @CFPB.",
+                "linkedin_text": "The @CFPB’s guide helps you understand your options and choose the kind of loan that’s right for you. Via @CFPB"
           } ) }}
         </div>
 
