@@ -46,6 +46,34 @@ var validateEmail = function ( field, currentStatus ) {
   return status;
 }
 
+var utils = {
+  getFutureDateString: function( days ) {
+  var date = new Date();
+  date.setTime( date.getTime() + ( days*24*60*60*1000 ) );
+  return date.toUTCString();
+}, 
+
+setCookie: function( name, value, days ) {
+  var expires = days ? "; expires=" + utils.getFutureDateString( days ) : '';
+  document.cookie = name + "=" + value + expires + ";path=/";
+},
+
+getCookie: function( name ) {
+  name += "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
+}
+
 var BASE_CLASS = 'o-email-signup';
 
 /**
@@ -60,7 +88,7 @@ var BASE_CLASS = 'o-email-signup';
  */
 function EmailSignup( element ) {
   var UNDEFINED;
-  var _baseElement = $('body').find( '.' + BASE_CLASS );  
+  var _baseElement = $(element);  
   var _formElement = _baseElement.find( 'form' );
   var _emailElement = _formElement.find( 'input[type="email"]' );
   var _codeElement = _formElement.find( 'input[name="code"]' );
@@ -116,6 +144,9 @@ function EmailSignup( element ) {
         if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
+          var days = 10000;
+          var value = utils.getFutureDateString( days );
+          utils.setCookie( 'oahModalDisplayed', value, days );
         }
       })
       .always(function showNotification () {
