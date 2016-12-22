@@ -47,31 +47,16 @@ var validateEmail = function ( field, currentStatus ) {
 }
 
 var utils = {
-  getFutureDateString: function( days ) {
-  var date = new Date();
-  date.setTime( date.getTime() + ( days*24*60*60*1000 ) );
-  return date.toUTCString();
-}, 
+  getFutureDate: function ( days ) {
+    var date = new Date();
+    return date.setTime( date.getTime() + ( days*24*60*60*1000 ) );
+  },
 
-setCookie: function( name, value, days ) {
-  var expires = days ? "; expires=" + utils.getFutureDateString( days ) : '';
-  document.cookie = name + "=" + value + expires + ";path=/";
-},
-
-getCookie: function( name ) {
-  name += "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-      }
+  storeData: function (key, val) {
+    try {
+      localStorage.setItem(key, val);
+    } catch (e) {}
   }
-  return "";
-}
 }
 
 var BASE_CLASS = 'o-email-signup';
@@ -144,9 +129,7 @@ function EmailSignup( element ) {
         if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
-          var days = 10000;
-          var value = utils.getFutureDateString( days );
-          utils.setCookie( 'oahModalDisplayed', value, days );
+          utils.storeData( 'oahPopupShowNext', utils.getFutureDate( 10000 ) );
         }
       })
       .always(function showNotification () {
