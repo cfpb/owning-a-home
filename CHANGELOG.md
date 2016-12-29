@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## Unreleased
+### Changed
+- Increase loan limits to new 2017 figures
 
 ## [1.8.3] - 2016-12-13
 ### Changed
