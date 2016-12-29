@@ -1,4 +1,4 @@
-Feature: Test 6: Changing loan types - Purpose: check for correct behavior when you change the loan type in the $271,050 - $417k range in counties with FHA-HB available.
+Feature: Test 6: Changing loan types - Purpose: check for correct behavior when you change the loan type in the $275,665 - $424,100 range in counties with FHA-HB available.
   As a first time visitor to the Rate Checker page
   I want to see FHA High Balance alerts
   So that I can make informed choices when shopping for an FHA loan
@@ -17,21 +17,21 @@ Scenario Outline: Triggering conventional via FHA high-balance
 
 Examples:
 | state_name     |
-| Georgia 		   | 
-| Illinois 		   | 
-| Maryland 		   | 
-| New Jersey 	   | 
-| Oregon 		     | 
-| Pennsylvania 	 | 
-| Virginia 		   | 
-| Wisconsin 	   | 
-| Georgia 		   | 
+| Georgia 		   |
 | Illinois 		   |
-| Maryland 		   | 
-| New Jersey 	   | 
-| Oregon 		     | 
-| Pennsylvania   | 
-| Virginia 		   | 
+| Maryland 		   |
+| New Jersey 	   |
+| Oregon 		     |
+| Pennsylvania 	 |
+| Virginia 		   |
+| Wisconsin 	   |
+| Georgia 		   |
+| Illinois 		   |
+| Maryland 		   |
+| New Jersey 	   |
+| Oregon 		     |
+| Pennsylvania   |
+| Virginia 		   |
 | Wisconsin 	   |
 
 @high_balance
@@ -43,7 +43,7 @@ Scenario Outline: Triggering conventional via FHA high-balance
   Then I should see the chart active with new data
     And I should see "FHA high-balance" as the selected Loan Type
     And I should see the Loan Type field highlighted
-    And I should see an HB alert "When you borrow between $271,050 and <FHA_max_loan_amount> in your county, you are eligible for a high-balance FHA loan."
+    And I should see an HB alert "When you borrow between $275,665 and <FHA_max_loan_amount> in your county, you are eligible for a high-balance FHA loan."
     But I should NOT see a County alert "Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates."
     But I should NOT see the County field highlighted
 

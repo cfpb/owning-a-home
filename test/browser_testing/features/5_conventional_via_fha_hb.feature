@@ -13,10 +13,10 @@ Scenario Outline: Triggering conventional via FHA high-balance
     And I select "FHA" Loan Type
   Then I should see the chart faded out to indicate the data is out of date
     And I should see a County alert "Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates."
-    And I should see the County field highlighted 
+    And I should see the County field highlighted
 
 Examples:
-| state_name    | 
+| state_name    |
 | Georgia       |
 | Illinois      |
 | Oregon        |
@@ -35,7 +35,7 @@ Scenario Outline: Triggering conventional via FHA high-balance
   Then I should see the chart active with new data
     And I should NOT see a County alert "Based on your loan amount, you may not be eligible for a regular FHA loan. Please enter your county so we can find the right loan type for you and get you the most accurate rates."
     And I should see "FHA high-balance" as the selected Loan Type
-    And I should see an HB alert "When you borrow between $271,050 and <FHA_max_loan_amount> in your county, you are eligible for a high-balance FHA loan."
+    And I should see an HB alert "When you borrow between $275,665 and <FHA_max_loan_amount> in your county, you are eligible for a high-balance FHA loan."
 
  Examples:
 | state_name    | county_name 		  | FHA_max_loan_amount |
