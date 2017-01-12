@@ -211,7 +211,7 @@ module.exports = function( grunt ) {
           './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
         }
       },
-      bless: {
+      blessed: {
         files: [{
           expand: true,
           cwd: './dist/static/css',
@@ -536,8 +536,8 @@ module.exports = function( grunt ) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
-  grunt.registerTask('ship', ['cssmin:build', 'bless', 'cssmin:bless', 'usebanner']);
+  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
+  grunt.registerTask('ship', ['uglify', 'cssmin:build', 'bless', 'cssmin:blessed', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerMultiTask('lint', 'Lint the JavaScript', function(){
     grunt.config.set(this.target, this.data);
