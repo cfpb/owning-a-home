@@ -210,7 +210,31 @@ module.exports = function( grunt ) {
         files: {
           './dist/static/css/main.min.css': ['./dist/static/css/main.css'],
         }
+      },
+      bless: {
+        files: [{
+          expand: true,
+          cwd: './dist/static/css',
+          src: ['main-split*.css'],
+          dest: './dist/static/css',
+          ext: '.css',
+          extDot: 'last'
+    }]
+
+
       }
+    },
+
+    bless: {
+        css: {
+            options: {
+                compress: true,
+                imports: false
+            },
+            files: {
+                './dist/static/css/main-split.min.css': './dist/static/css/main.min.css'
+            }
+        }
     },
 
     /**
@@ -408,15 +432,15 @@ module.exports = function( grunt ) {
           }
         }
       },
-      coverageSpecial: {
-        src: ['test/js/*.jsx'], // specifying file patterns works as well
-        options: {
-          coverageFolder: 'test/coverage',
-          mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
-          istanbulOptions: ['--harmony','--handle-sigint'],
-          reportFormats: ['cobertura','lcov']
-        }
-      }
+      //coverageSpecial: {
+      //  src: ['test/js/*.jsx'], // specifying file patterns works as well
+      //  options: {
+      //    coverageFolder: 'test/coverage',
+      //    mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
+      //    istanbulOptions: ['--harmony','--handle-sigint'],
+      //    reportFormats: ['cobertura','lcov']
+      //  }
+      //}
     },
     /**
      * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
@@ -512,8 +536,8 @@ module.exports = function( grunt ) {
   grunt.registerTask('css', ['newer:less:watch', 'newer:autoprefixer']);
 
   grunt.registerTask('vendor', ['clean:bowerDir', 'bower:install', 'concat:cf-less']);
-  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8', 'test']);
-  grunt.registerTask('ship', ['uglify', 'cssmin', 'usebanner']);
+  grunt.registerTask('dev-deploy', ['reset', 'js', 'css', 'copy', 'concat:ie9', 'concat:ie8']);
+  grunt.registerTask('ship', ['cssmin:build', 'bless', 'cssmin:bless', 'usebanner']);
   grunt.registerTask('test', ['browserify:tests', 'mocha_istanbul']);
   grunt.registerMultiTask('lint', 'Lint the JavaScript', function(){
     grunt.config.set(this.target, this.data);

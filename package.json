@@ -40,6 +40,7 @@
     "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.6.5",
     "grunt-banner": "latest",
+    "grunt-bless": "^1.0.2",
     "grunt-bower-task": "~0.4.0",
     "grunt-browserify": "~4.0.1",
     "grunt-combine-media-queries": "~1.0.2",

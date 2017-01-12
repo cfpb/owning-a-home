@@ -32,7 +32,14 @@
 <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v7">
+<!--[if !IE]> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.min.css') }}?v7">
+<!-- <![endif]-->
+<!--[if lte IE 9]>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main-split.min.css') }}?v7">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main-split.min.1.css') }}?v7">
+<![endif]-->
+
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>if (!window.jQuery) { document.write('<script src="{{ static('js/jquery.min.js') }}"><\/script>'); }
     </script>
@@ -95,6 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {% if page_js %}
 <script src="{{ url_for('static', filename='js') }}/{{page_js}}.js?v7"></script>
 {% endif %}
+
 </body>
 
 </html>
