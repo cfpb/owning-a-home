@@ -44,12 +44,9 @@ pip install autoenv
 
 ### Node, Grunt, Bower, Browserify
 
-1. Install [node.js](http://nodejs.org/), either v0.12 or io.js. If you're using the default version that comes with Mac OSX, you'll need to upgrade - first [install NVM](https://github.com/creationix/nvm).
-1. If you installed with NVM, then you can install and set io.js as your default node version:
-```sh
-nvm install iojs
-nvm alias default iojs
-```
+1. Install [node.js](http://nodejs.org/) LTS or latest version will work.
+
+
 2. Install [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [Browserify](http://browserify.org/):
 ```sh
 npm install -g grunt-cli bower browserify
