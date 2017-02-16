@@ -4,6 +4,8 @@ var $ = require( 'jquery' );
 require( 'jquery.scrollto' );
 require( '../../vendor/jquery.easing/jquery.easing.js' );
 require( '../../vendor/cf-expandables/cf-expandables.js' );
+var EmailPopup = require( './email-popup.js' );
+
 
 /**
  * @returns {boolean} False if URL hash isn't valid, true otherwise.
@@ -33,6 +35,7 @@ function jumpToAnchorLink() {
 }
 
 $( document ).ready( function() {
+
   jumpToAnchorLink();
   $( window ).on( 'hashchange', function() {
     jumpToAnchorLink();
@@ -46,4 +49,9 @@ $( document ).ready( function() {
       offset:   -30
     } );
   } );
+
+  if ( $( '.email-popup' ).length ) {
+    new EmailPopup('.email-popup', '.tools-col .header-slug').init();
+  }
+
 } );

@@ -1,8 +1,9 @@
 'use strict';
 
 // Required modules.
-
 var Notification = require( './notification.js' );
+var helpers = require( './email-signup-helpers.js' );
+
 
 var JS_HOOK = 'data-js-hook';
 var STATE_PREFIX = 'state_';
@@ -45,21 +46,6 @@ var validateEmail = function ( field, currentStatus ) {
   }
   return status;
 }
-
-var utils = {
-  getFutureDate: function ( days ) {
-    var date = new Date();
-    return date.setTime( date.getTime() + ( days*24*60*60*1000 ) );
-  },
-
-  storeData: function (key, val) {
-    try {
-      localStorage.setItem(key, val);
-    } catch (e) {}
-  }
-}
-
-var BASE_CLASS = 'o-email-signup';
 
 /**
  * EmailSignup
@@ -129,7 +115,7 @@ function EmailSignup( element ) {
         if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
-          utils.storeData( 'oahPopupShowNext', utils.getFutureDate( 10000 ) );
+          helpers.recordEmailRegistration( _codeElement.val() );
         }
       })
       .always(function showNotification () {
@@ -142,7 +128,5 @@ function EmailSignup( element ) {
 
   return this;
 }
-
-EmailSignup.BASE_CLASS = '.' + BASE_CLASS;
 
 module.exports = EmailSignup;

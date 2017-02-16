@@ -1,0 +1,120 @@
+.popup {
+  width:300px;
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  display: none;
+  z-index: 2000; 
+  background-color: white;
+  -webkit-box-shadow:  0 0px 10px rgba(0,0,0,.6);
+  -moz-box-shadow:  0 0px 10px rgba(0,0,0,.6);
+  box-shadow:  0 0px 10px rgba(0,0,0,.6);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  
+  .respond-to-min( @bp-sm-min, {
+    width: 500px;
+  });
+  
+  &__visible {
+    display: block;
+  }
+  
+  &_header {
+    margin: 1em 1em .75em 1em;
+    
+    .close {
+      float: right;
+      cursor: pointer;
+    }
+  }
+  
+  &_body {
+    margin: 0 1em;
+    background: url("../img/modal-house.png") no-repeat;
+    
+    input[type="email"] {
+      width: 100%;
+      margin-bottom: 1em;
+    }
+    
+    .respond-to-max( @bp-xs-max, {
+      background-size: 90px;
+      
+      h2, 
+      form p:first-child {
+        padding-left: 105px;
+      }
+      
+      .m-form-field-with-button .btn {
+        width: 100%;
+      }
+    });
+    
+    .respond-to-min( @bp-sm-min, {
+      padding-left:150px;
+      
+      .m-form-field-with-button {
+        display: table; 
+        width: 100%;
+        
+        .form-group,
+        .btn {
+          display: table-cell;
+          vertical-align: middle;
+        }
+        
+        .btn {
+          margin-left: .625em;
+        }
+        
+        input[type="email"] { 
+          margin-top: 1px;
+        }
+        
+        p { 
+          display:none;
+        }
+      } 
+    });
+  }
+  
+  &_footer {
+    min-height: 2.5em;
+    display: table;
+    width: 100%;
+    margin-top: 1em;
+
+    .respond-to-min( @bp-sm-min, {
+      margin-top: 5px;
+    });
+
+    .m-notification {
+      width: 100%; 
+      text-align: center; 
+      vertical-align: middle;
+      padding: .25em 1em;
+      border-width: 0;
+
+      &__visible {
+        display: table-cell;
+      }
+      
+      &_icon {
+        position: static;
+      }
+      
+      p {
+        display: inline;
+      }
+      
+      &_content {
+        display: inline;
+        padding-left: 5px;
+      }
+    }
+  }
+}
+
+
