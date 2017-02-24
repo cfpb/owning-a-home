@@ -1,20 +1,20 @@
 .popup {
-  width:300px;
+  width: 270px;
   position: fixed;
   bottom: 1em;
   right: 1em;
   display: none;
   z-index: 2000; 
   background-color: white;
-  -webkit-box-shadow:  0 0px 10px rgba(0,0,0,.6);
-  -moz-box-shadow:  0 0px 10px rgba(0,0,0,.6);
-  box-shadow:  0 0px 10px rgba(0,0,0,.6);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
+  border: 1px solid @gray-20;
+
+  .respond-to-max( @bp-xs-max, {
+    margin-left:-135px; 
+    left: 50%;
+  });
   
   .respond-to-min( @bp-sm-min, {
-    width: 500px;
+    width: 555px;
   });
   
   &__visible {
@@ -22,17 +22,32 @@
   }
   
   &_header {
-    margin: 1em 1em .75em 1em;
+    margin: 0 15px;
+    height: 40px;
+
+    .respond-to-min( @bp-sm-min, {
+      margin: 0 15px 0 30px;
+      height:26px;
+    });
     
     .close {
-      float: right;
+      position: absolute;
+      top: 10px;
+      right: 15px;
       cursor: pointer;
     }
   }
   
   &_body {
-    margin: 0 1em;
-    background: url("../img/modal-house.png") no-repeat;
+    margin: 0 15px;
+
+    h2 {
+      .h4();
+    }
+
+    .o-email-signup {
+      width: 100% !important;
+    }
     
     input[type="email"] {
       width: 100%;
@@ -40,78 +55,68 @@
     }
     
     .respond-to-max( @bp-xs-max, {
-      background-size: 90px;
-      
-      h2, 
-      form p:first-child {
-        padding-left: 105px;
-      }
-      
+      background: none;
       .m-form-field-with-button .btn {
         width: 100%;
       }
     });
     
     .respond-to-min( @bp-sm-min, {
-      padding-left:150px;
-      
+
+      margin: 0 30px;
+      padding-right:155px;
+      background: url("../img/modal-house.png") no-repeat right 20px;
+      background-size: 130px;
+
+      h2 {
+        .h3();
+      }
+
       .m-form-field-with-button {
-        display: table; 
-        width: 100%;
-        
-        .form-group,
+        p {
+          float: right;
+          position: relative; 
+          top: .7em;
+        }
         .btn {
-          display: table-cell;
-          vertical-align: middle;
+          float: left;
         }
-        
-        .btn {
-          margin-left: .625em;
-        }
-        
-        input[type="email"] { 
-          margin-top: 1px;
-        }
-        
-        p { 
-          display:none;
-        }
-      } 
+      }
     });
   }
   
   &_footer {
-    min-height: 2.5em;
     display: table;
     width: 100%;
-    margin-top: 1em;
+    margin-top: 30px;
 
     .respond-to-min( @bp-sm-min, {
-      margin-top: 5px;
+      margin-top: 15px;
+      min-height: 15px;
     });
 
     .m-notification {
       width: 100%; 
-      text-align: center; 
+      text-align: left; 
       vertical-align: middle;
       padding: .25em 1em;
       border-width: 0;
 
+
       &__visible {
         display: table-cell;
+        padding: 0 10px;
       }
       
       &_icon {
-        position: static;
-      }
-      
-      p {
-        display: inline;
+        top: 11px;
       }
       
       &_content {
-        display: inline;
-        padding-left: 5px;
+        font-family: "AvenirNextLTW01-Medium",Arial,sans-serif;
+        font-weight:500;
+        text-align: left;
+        padding-left: 1.5em;
       }
     }
   }
