@@ -35,7 +35,6 @@ function recordEmailRegistration() {
 }
 
 function showEmailPopup() {
-	console.log('show')
 	var today = new Date().getTime();
 	var nextDisplayDate = Number( localStorage.getItem( DISPLAY_DATE_KEY ) ) || 0;
 	return today > nextDisplayDate;
@@ -85,9 +84,7 @@ function showOnScroll(elToShow, opts) {
 		var elHeight = elToShow.height();
 		if ( opts.targetElement && opts.targetElement.length ) {
 			var top = opts.targetElement.offset().top;
-			console.log(top);
-			console.log(elHeight)
-			return top + elHeight;
+			return top;
 		} else {
 			var percentageTarget = $( document ).height() * ( opts.scrollPercent / 100 );
 			return percentageTarget + elHeight;
@@ -97,9 +94,7 @@ function showOnScroll(elToShow, opts) {
 		var windowHeight = window.innerHeight;
 		var windowTop = window.pageYOffset;
 		var windowBottom = windowTop + windowHeight;
-		var scrollTargetPosition = _getScrollTargetPosition();
-		console.log('wb', windowBottom)
-		console.log('stp', scrollTargetPosition)
+		var scrollTargetPosition = _getScrollTargetPosition();		
 		return windowBottom > scrollTargetPosition
 	}
 	var handler = _throttle(function(event) {
