@@ -41,9 +41,80 @@ function showEmailPopup() {
 	return today > nextDisplayDate;
 }
 
+function _throttle(func, wait, options) {
+	var context, args, result;
+	var timeout = null;
+	var previous = 0;
+	if (!options) options = {};
+	var later = function() {
+		previous = options.leading === !1 ? 0 : Date.now();
+		timeout = null;
+		result = func.apply(context, args);
+		if (!timeout) context = args = null
+	};
+	return function() {
+		var now = Date.now();
+		if (!previous && options.leading === !1) previous = now;
+		var remaining = wait - (now - previous);
+		context = this;
+		args = arguments;
+		if (remaining <= 0 || remaining > wait) {
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null
+			}
+			previous = now;
+			result = func.apply(context, args);
+			if (!timeout) context = args = null
+		} else if (!timeout && options.trailing !== !1) {
+			timeout = setTimeout(later, remaining)
+		}
+		return result
+	}
+}
+
+function showOnScroll(elToShow, opts) {
+	var defaults = {
+		scrollPercent: 50,
+		throttleDelay: 10,
+		targetElement: null,
+		cb: function () {}
+	}
+	opts = $.extend(defaults, opts || {});
+	function _getScrollTargetPosition() {
+		var elHeight = elToShow.height();
+		if ( opts.targetElement && opts.targetElement.length ) {
+			var top = opts.targetElement.offset().top;
+			console.log(top);
+			console.log(elHeight)
+			return top + elHeight;
+		} else {
+			var percentageTarget = $( document ).height() * ( opts.scrollPercent / 100 );
+			return percentageTarget + elHeight;
+		}
+	}
+	function _scrollTargetPositionReached() {
+		var windowHeight = window.innerHeight;
+		var windowTop = window.pageYOffset;
+		var windowBottom = windowTop + windowHeight;
+		var scrollTargetPosition = _getScrollTargetPosition();
+		console.log('wb', windowBottom)
+		console.log('stp', scrollTargetPosition)
+		return windowBottom > scrollTargetPosition
+	}
+	var handler = _throttle(function(event) {
+		if (_scrollTargetPositionReached()) {
+			window.removeEventListener('scroll', handler)
+			typeof opts.cb === 'function' && opts.cb();
+		}
+	}, opts.throttleDelay);
+	window.addEventListener('scroll', handler);
+}
+
 module.exports = {
 	showEmailPopup: 			    showEmailPopup,
 	recordEmailPopupView:   	recordEmailPopupView,
 	recordEmailRegistration:  recordEmailRegistration,
-	recordEmailPopupClosure:  recordEmailPopupClosure
+	recordEmailPopupClosure:  recordEmailPopupClosure,
+	showOnScroll: 						showOnScroll
 };

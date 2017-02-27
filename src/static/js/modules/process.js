@@ -5,6 +5,7 @@ require( 'jquery.scrollto' );
 require( '../../vendor/jquery.easing/jquery.easing.js' );
 require( '../../vendor/cf-expandables/cf-expandables.js' );
 var EmailPopup = require( './email-popup.js' );
+var EmailHelpers = require( './email-signup-helpers.js' );
 
 
 /**
@@ -51,7 +52,12 @@ $( document ).ready( function() {
   } );
 
   if ( $( '.email-popup' ).length ) {
-    new EmailPopup('.email-popup', '.tools-col .header-slug').init();
+    var popup = new EmailPopup('.email-popup')
+    popup.init();
+    EmailHelpers.showOnScroll(popup.el, {
+      cb: popup.showPopup, 
+      targetElement: $('.tools-col .header-slug')
+    });
   }
 
 } );
