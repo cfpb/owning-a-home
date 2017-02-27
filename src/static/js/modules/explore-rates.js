@@ -33,6 +33,8 @@ var dpWarning = require( '../templates/down-payment-warning.hbs' );
 var chartTooltipSingle = require( '../templates/chart-tooltip-single.hbs' );
 var chartTooltipMultiple = require( '../templates/chart-tooltip-multiple.hbs' );
 
+
+
 var template = {
   county: county,
   countyConfWarning: countyConfWarning,
@@ -905,6 +907,22 @@ function addCommas( value ) {
 }
 
 /**
+ * GTM event tracking.
+ * @param {string} event - Event type
+ * @param {string} action - Event action
+ * @param {string} label - Event value
+ */
+var track = function (event, action, label) {
+  if (window.dataLayer && $.isArray(window.dataLayer)) {
+    window.dataLayer.push({
+      "event": event,
+      "action": action,
+      "label": label
+    });
+  }
+};    
+
+/**
  * Initialize the range slider. http://andreruffert.github.io/rangeslider.js/
  * @param {Function} cb - Optional callback.
  */
@@ -922,6 +940,8 @@ function renderSlider( cb ) {
       slider.update();
     },
     onSlideEnd:  function( position, value ) {
+      var score = $('#slider-range').text();
+      track('OAH Rate Tool Interactions', 'Score range', score);
       params.update();
       if( params['credit-score'] < 620 ) {
         removeAlerts();
