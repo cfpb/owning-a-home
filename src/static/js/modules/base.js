@@ -5,6 +5,9 @@ require( '../../../../node_modules/cfgov-sheer-templates/static/js/header.js' );
 require( '../../../../node_modules/cfgov-sheer-templates/static/js/footer.js' );
 require( './feedback.js' );
 var EmailSignup = require( './email-signup.js' );
+window.EmailPopup = require( './email-popup.js' );
+window.emailPopupHelpers = require( './email-signup-helpers.js' );
+
 var EMAIL_SIGNUP_BASE_CLASS = '.o-email-signup';
 
 $( EMAIL_SIGNUP_BASE_CLASS ).each( function( ind, item ) {

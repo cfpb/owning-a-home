@@ -25,9 +25,12 @@ function recordEmailPopupView() {
 
 function recordEmailPopupClosure() {
 	var count = POPUP_WAIT_PERIOD.length - 1;
-	var days = POPUP_WAIT_PERIOD[ count ];
-	localStorage.setItem( DISPLAY_COUNT_KEY, count );
-	localStorage.setItem( DISPLAY_DATE_KEY, getFutureDate( days ) );
+  var days = POPUP_WAIT_PERIOD[ count ];
+ 	localStorage.setItem( DISPLAY_COUNT_KEY, count );
+ 	var futureDate = getFutureDate( days );
+ 	if ( Number( localStorage.getItem(DISPLAY_DATE_KEY) ) < futureDate ) {
+   	localStorage.setItem( DISPLAY_DATE_KEY, getFutureDate( days ) );
+ 	}
 }
 
 function recordEmailRegistration() {
