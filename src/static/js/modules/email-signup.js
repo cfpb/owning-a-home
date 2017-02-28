@@ -115,7 +115,7 @@ function EmailSignup( element ) {
         if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
-          helpers.recordEmailRegistration( _codeElement.val() );
+          helpers.recordEmailRegistration( );
         }
       })
       .always(function showNotification () {
