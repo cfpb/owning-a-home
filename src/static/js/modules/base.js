@@ -5,10 +5,14 @@ require( '../../../../node_modules/cfgov-sheer-templates/static/js/header.js' );
 require( '../../../../node_modules/cfgov-sheer-templates/static/js/footer.js' );
 require( './feedback.js' );
 var EmailSignup = require( './email-signup.js' );
+var EMAIL_SIGNUP_BASE_CLASS = '.o-email-signup';
 
-var emailElement = $( '.brand-footer ' +  EmailSignup.BASE_CLASS )[0] || 
-                   $( '.content_sidebar ' +  EmailSignup.BASE_CLASS )[0] ||
-                   $( '.tools-col ' +  EmailSignup.BASE_CLASS )[0];
+$( EMAIL_SIGNUP_BASE_CLASS ).each( function( ind, item ) {
+	if ( $( item ).data( 'type' ) != 'popup' ) {
+		var emailSignup = new EmailSignup( item );
+		emailSignup.init();
+	}
+} );
 
-var emailSignup = new EmailSignup( emailElement ).init();
+
 
