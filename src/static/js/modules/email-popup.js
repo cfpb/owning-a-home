@@ -14,6 +14,7 @@ var helpers = require( './email-signup-helpers.js' );
  * @returns {EmailSignup} An instance.
  */
 function EmailPopup( el ) {
+  el = el || '.email-popup';
   var _baseElement = $(el);
   var _closeElement = $(el).find('.close');
 
@@ -25,6 +26,7 @@ function EmailPopup( el ) {
   function showPopup() {
     _baseElement.fadeIn();
     helpers.recordEmailPopupView();
+    return this;
   }
 
   function init() {  

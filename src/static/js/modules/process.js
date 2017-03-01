@@ -51,7 +51,7 @@ $( document ).ready( function() {
     } );
   } );
 
-  if ( $( '.email-popup' ).length && emailHelpers.showEmailPopup() ) {
+  if ( !(/close/.test(window.location.href)) && emailHelpers.showEmailPopup() ) {
     var popup = new EmailPopup('.email-popup')
     popup.init();
     emailHelpers.showOnScroll(popup.el, {
