@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 -
 
+## [2.0.1] - 2017-03-01
+### Added
+- Email signup popup
+- Expose popup code for A/B tests
+
+### Changed
+- Updated README.md to remove io.js
+
 ## [2.0.0] - 2017-01-03
 ### Changed
 - Increase loan limits to new 2017 figures
