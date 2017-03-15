@@ -118,7 +118,12 @@ var slider = {
 };
 
 // options object
-// dp-constant: track the down payment interactions
+//
+// dp-constant: tracks the down payment interactions. There are two downpayment fields,
+// down-payment and percent-down. When one is changed by the user, it becomes the constant
+// and the other field is updated dynamically when house price changes.
+// Defaults to percent-down.
+//
 // request: Keep the latest AJAX request accessible so we can terminate it if need be.
 var options = {
   'dp-constant': 'percent-down',
@@ -487,7 +492,24 @@ function loadCounties() {
 }
 
 /**
- * Check the loan amount and initiate the jumbo loan interactions if need be.
+ * checkForJumbo and processCounty functions 
+ * use the 'askcfpb/jumbo-check' module to check the loan amount
+ * against loan limits for desired loan type and geography.
+ *
+ * If desired loan type is not available at desired loan amount 
+ * in desired location, they update the loan type to an available
+ * option and display alerts.
+ *
+ * More background here: 
+ * https://github.com/cfpb/owning-a-home/wiki/Explore-rates-logic#checking-for-jumbo-conditions
+ * 
+ */
+
+/**
+ * Call jumbo module with loan type & loan amount. 
+ * If jumbo check determines that county data is needed, 
+ * show county dropdown and load counties as necessary.
+ * 
  */
 function checkForJumbo() {
   var loan;
@@ -561,7 +583,16 @@ function checkForJumbo() {
 }
 
 /**
- * Get data for the chosen county
+ * If a county is selected, call jumbo module
+ * with loan amount, type, and county data. 
+ *
+ * If an appropriate jumbo loan is found, update loan type,
+ * inputs and messaging accordingly.
+ * 
+ * If the selected loan type is jumbo but the check determines
+ * it is not available with the given parameters, 
+ * reset the loan type to a regular option and update inputs.
+ * 
  */
 function processCounty() {
   var $counties = $( '#county' );
@@ -655,12 +686,15 @@ function renderTime( time ) {
 
 
 /**
- * Store the loan amount and down payment, process the county data, check if it's a jumbo loan.
- * @param {HTMLNode} element - TODO: Add description.
+ * When a user input changes,
+ * update the downpayment & its constant if necessary,
+ * store the loan amount, process the county data, and
+ * check if it's a jumbo loan.
+ * @param {HTMLNode} element - field that was just changed
  */
 function processLoanAmount( element ) {
   var name = $( element ).attr( 'name' );
-  // Save the dp-constant value when the user interacts with
+  // Updated the dp-constant value when the user interacts with
   // down payment or down payment percentages.
   if ( name === 'down-payment' || name === 'percent-down' ) {
     options['dp-constant'] = name;
@@ -677,11 +711,13 @@ function processLoanAmount( element ) {
 }
 
 /**
- * Check if the house price entered is 0
- * @param {Object} $price - TODO: Add description.
- * @param {Object} $percent - TODO: Add description.
- * @param {Object} $down - TODO: Add description.
- * @returns {boolean} TODO: Add description.
+ * Check if the house price is zero. If it is, rates
+ * can't be found; show chart and down payment 
+ * warnings instead.
+ * @param {Object} $price - house price
+ * @param {Object} $percent - downpayment percentage
+ * @param {Object} $down - downpayment value
+ * @returns {boolean} true if house price is zero
  */
 function checkIfZero( $price, $percent, $down ) {
   if ( params['house-price'] === '0' ||
@@ -804,8 +840,18 @@ function renderInterestSummary( intVals, term ) {
 }
 
 /**
- * The dropdowns in the control panel need to change if they have
- * an adjustable rate mortgage.
+ * The tool defaults to fixed rate in the 'loan-type' dropdown. 
+ * When a user changes the 'loan-type' to adjustable, 
+ * some updates need to be made to the dropdowns:
+ *
+ * 1. An additional dropdown is displayed to allow user to 
+ * select the type of ARM (10/1, 7/1, 5/1, 3/1).
+ *
+ * 2. Because our database does not have data for 15 year ARM loans, 
+ * the '15' option is disabled in the 'loan-term' dropdown.
+ *
+ * More information here:
+ * https://github.com/cfpb/owning-a-home/wiki/Explore-rates-logic#additional-inputs-needed-for-arms
  */
 function checkARM() {
   // reset warning and info
