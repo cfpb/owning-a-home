@@ -24,7 +24,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "grunt test && node test/visual-regression-test.js",
     "postinstall": "grunt vendor"
   },
   "devDependencies": {
@@ -71,7 +71,9 @@
     "reactify": "^1.1.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "webdrivercss": "^1.1.10",
+    "webdriverio": "^2.0.0"
   },
   "keywords": [],
   "dependencies": {

@@ -47,6 +47,7 @@ src/static/fonts
 dist/
 test/compiled_tests.js
 test/coverage/
+test/screenshots/
 environment.cfg
 
 # IP #
