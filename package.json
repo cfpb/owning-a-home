@@ -24,7 +24,7 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "test": "grunt test && node test/visual-regression-test.js",
+    "test": "grunt test",
     "postinstall": "grunt vendor"
   },
   "devDependencies": {
