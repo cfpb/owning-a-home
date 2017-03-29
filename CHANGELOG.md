@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Changed
--
+- Modify `@grid_wrapper-width` to match Capital Framework
 
 ## [2.0.1] - 2017-03-01
 ### Added
