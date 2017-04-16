@@ -75,6 +75,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "acorn-globals": "1.0.1",
     "amortize": "0.2.2",
     "cfgov-sheer-templates": "^2.1.1",
     "date-format": "0.0.2",
