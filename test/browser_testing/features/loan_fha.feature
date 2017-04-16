@@ -17,7 +17,7 @@ Scenario Outline: Test Navigational links in the FHA Loan page
 Examples:
   | link_name       	  	     | relative_url											            | page_title 	  |
   | Owning a Home              | /                                            | Owning a Home |
-  | Understand loan options    | /loan-options/  	    								        | Loan Options  |
+  | Understand loan options    | /loan-options  	    								        | Loan Options  |
   | More on mortgage insurance | /loan-options/FHA-loans/#mortgage-insurance  | Loan Options  |
 
 @smoke_testing @loan_options
