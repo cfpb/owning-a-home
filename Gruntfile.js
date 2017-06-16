@@ -135,7 +135,7 @@ module.exports = function( grunt ) {
           transform: [['browserify-shim', {global: true}], 'hbsfy', ['reactify', {harmony: true}]],
           plugin: [
             ['factor-bundle', {
-              
+
               o: [
                 'dist/static/js/base.js',
                 'dist/static/js/loan-options.js',
@@ -288,6 +288,12 @@ module.exports = function( grunt ) {
           },
           {
             expand: true,
+            cwd: 'node_modules/jquery/dist',
+            src: [ 'jquery.min.js' ],
+            dest: 'dist/static/js'
+          },
+          {
+            expand: true,
             cwd: 'src',
             src: [
               // move html & template files new template folders need to be added here
@@ -312,6 +318,12 @@ module.exports = function( grunt ) {
               "static/js/*"
             ],
             dest: 'dist/'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/jquery/dist',
+            src: [ 'jquery.min.js' ],
+            dest: 'dist/static/js'
           },
           {
             expand: true,

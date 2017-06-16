@@ -33,9 +33,11 @@
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v7">
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>if (!window.jQuery) { document.write('<script src="{{ static('js/jquery.min.js') }}"><\/script>'); }
-    </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>if (!window.jQuery) {
+  document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>');
+}
+</script>
 <!--[if IE 9]>
     <script src="{{ url_for('static', filename='js/ie9.js') }}"></script>
 <![endif]-->
