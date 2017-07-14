@@ -187,9 +187,17 @@ a.list_link {
     }
   }
 
+  &__top + .overview {
+      margin-top: unit(45px / @base-font-size-px, em);
+  }
+
   .respond-to-max(@mobile-max, {
     &__top {
       display: none;
+
+      + .overview {
+          margin-top: unit(30px / @base-font-size-px, em);
+      }
     }
 
     .jump-link {
