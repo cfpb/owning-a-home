@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Update cfgov-sheer-templates dependency to 2.1.5 to support cfgov-refresh's
   update to Capital Framework 4.
+- Hiding journey links and adjusting process steps margin top.
 
 ## [2.0.2] - 2017-06-19
 ### Changed
