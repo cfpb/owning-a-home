@@ -4,7 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Changed
+- Update cfgov-sheer-templates dependency to 2.1.5 to support cfgov-refresh's
+  update to Capital Framework 4.
+
+## [2.0.2] - 2017-06-19
+### Changed
 - Modify `@grid_wrapper-width` to match Capital Framework
+- Update the About Us section to the updated text and call to action
+
+### Fixed
+- jQuery global reference
 
 ## [2.0.1] - 2017-03-01
 ### Added
