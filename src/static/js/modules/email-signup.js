@@ -2,7 +2,6 @@
 
 // Required modules.
 var Notification = require( './notification.js' );
-var helpers = require( './email-signup-helpers.js' );
 
 
 var JS_HOOK = 'data-js-hook';
@@ -59,7 +58,7 @@ var validateEmail = function ( field, currentStatus ) {
  */
 function EmailSignup( element ) {
   var UNDEFINED;
-  var _baseElement = $(element);  
+  var _baseElement = $(element);
   var _formElement = _baseElement.find( 'form' );
   var _emailElement = _formElement.find( 'input[type="email"]' );
   var _codeElement = _formElement.find( 'input[name="code"]' );
@@ -115,7 +114,6 @@ function EmailSignup( element ) {
         if ( (data || {}).result != "fail" ) {
           notificationType = _notification.SUCCESS;
           notificationMsg = FORM_MESSAGES.SUCCESS;
-          helpers.recordEmailRegistration( );
         }
       })
       .always(function showNotification () {
