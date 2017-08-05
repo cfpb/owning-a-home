@@ -1,6 +1,6 @@
 {
   "name": "owning-a-home",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
@@ -862,9 +862,9 @@
       "optional": true
     },
     "cfgov-sheer-templates": {
-      "version": "2.1.5",
-      "from": "cfgov-sheer-templates@>=2.1.5 <3.0.0",
-      "resolved": "https://registry.npmjs.org/cfgov-sheer-templates/-/cfgov-sheer-templates-2.1.5.tgz"
+      "version": "2.1.6",
+      "from": "cfgov-sheer-templates@2.1.6",
+      "resolved": "https://registry.npmjs.org/cfgov-sheer-templates/-/cfgov-sheer-templates-2.1.6.tgz"
     },
     "chai": {
       "version": "1.10.0",
