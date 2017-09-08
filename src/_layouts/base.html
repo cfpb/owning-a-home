@@ -33,6 +33,22 @@
 <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}?v7">
+<!-- Open Graph properties -->
+<!-- Required  -->
+<meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+<meta property="og:url" content="{{ request.url }}">
+<meta property="og:image"
+      content="{{ request.scheme }}://{{ request.get_host() }}{{ static('img/logo_open-graph_facebook.png') }}">
+<meta property="twitter:image"
+      content="{{ request.scheme }}://{{ request.get_host() }}{{ static('img/logo_open-graph_twitter.png') }}">
+
+<!--  Optional -->
+<meta property="og:description" content="{{ self.metadescription() }}">
+<meta property="og:site_name" content="Consumer Financial Protection Bureau">
+<!-- Facebook -->
+<meta property="fb:app_id" content="210516218981921">
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>if (!window.jQuery) {
   document.write('<script src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>');
