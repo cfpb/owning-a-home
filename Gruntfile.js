@@ -420,15 +420,15 @@ module.exports = function( grunt ) {
           }
         }
       },
-      coverageSpecial: {
-        src: ['test/js/*.jsx'], // specifying file patterns works as well
-        options: {
-          coverageFolder: 'test/coverage',
-          mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
-          istanbulOptions: ['--harmony','--handle-sigint'],
-          reportFormats: ['cobertura','lcov']
-        }
-      }
+      //coverageSpecial: {
+      //  src: ['test/js/*.jsx'], // specifying file patterns works as well
+      //  options: {
+      //    coverageFolder: 'test/coverage',
+      //    mochaOptions: ['--compilers', 'jsx:./test/react_compiler.js'], // any extra options
+      //    istanbulOptions: ['--harmony','--handle-sigint'],
+      //    reportFormats: ['cobertura','lcov']
+      //  }
+      //}
     },
     /**
      * grunt-cfpb-internal: https://github.com/cfpb/grunt-cfpb-internal
