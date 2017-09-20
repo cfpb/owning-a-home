@@ -862,9 +862,9 @@
       "optional": true
     },
     "cfgov-sheer-templates": {
-      "version": "2.1.6",
-      "from": "cfgov-sheer-templates@2.1.6",
-      "resolved": "https://registry.npmjs.org/cfgov-sheer-templates/-/cfgov-sheer-templates-2.1.6.tgz"
+      "version": "2.1.8",
+      "from": "cfgov-sheer-templates@>=2.1.7 <3.0.0",
+      "resolved": "https://registry.npmjs.org/cfgov-sheer-templates/-/cfgov-sheer-templates-2.1.8.tgz"
     },
     "chai": {
       "version": "1.10.0",

@@ -76,7 +76,7 @@
   "keywords": [],
   "dependencies": {
     "amortize": "0.2.2",
-    "cfgov-sheer-templates": "^2.1.6",
+    "cfgov-sheer-templates": "^2.1.8",
     "date-format": "0.0.2",
     "debounce": "0.0.3",
     "foreach": "2.0.4",
