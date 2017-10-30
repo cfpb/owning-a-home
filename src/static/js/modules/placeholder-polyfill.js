@@ -252,7 +252,7 @@
 
 // -------------------------------------------------------------
 
-  // Internet Explorer 10 in IE7 mode was giving me the wierest error
+  // Internet Explorer 10 in IE7 mode was giving me the weirdest error
   // where e.getAttribute('placeholder') !== e.attributes.placeholder.nodeValue
   function getPlaceholderFor(elem) {
     return elem.getAttribute('placeholder') || (elem.attributes.placeholder && elem.attributes.placeholder.nodeValue);

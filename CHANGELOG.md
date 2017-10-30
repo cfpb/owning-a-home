@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## UNRELEASED
+### Removed
+- IE7 CSS.
+
 ## [2.0.3] – 2017-07-14
 ### Changed
 - Update cfgov-sheer-templates dependency to 2.1.5 to support cfgov-refresh's
