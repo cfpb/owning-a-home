@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## UNRELEASED
 ### Removed
+- Set header and footer on-demand CSS font paths to be absolute
+- Update header/footer to latest from cfgov-refresh.
+
+### Removed
 - IE7 CSS.
 
 ## [2.0.3] – 2017-07-14
