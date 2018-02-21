@@ -2,11 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## UNRELEASED
+## [2.0.12] – 2018-02-21
 ### Removed
 - Set header and footer on-demand CSS font paths to be absolute
 - Update header/footer to latest from cfgov-refresh.
 
+## [2.0.11] – 2017-11-02
 ### Removed
 - IE7 CSS.
 
