@@ -1,3 +1,6 @@
+# :warning: THIS REPO IS DEPRECATED (7/9/2018) :warning:
+The Owning a Home project has been integrated into [cfgov-refresh](https://github.com/cfpb/cfgov-refresh) as Buying a Home.
+
 # Owning a Home
 
 [![Build Status](https://travis-ci.org/cfpb/owning-a-home.svg?branch=master)](https://travis-ci.org/cfpb/owning-a-home) [![Coverage Status](https://coveralls.io/repos/cfpb/owning-a-home/badge.svg)](https://coveralls.io/r/cfpb/owning-a-home)
